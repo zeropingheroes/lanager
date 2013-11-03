@@ -1,0 +1,7 @@
+We would like to acknowledge all of the following people
+for contributing to the LANager project.
+
+Main Authors:
+Oliver Baker <ilumos@gmail.com>
+
+Contributors:

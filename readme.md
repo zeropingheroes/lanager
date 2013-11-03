@@ -1,21 +1,57 @@
-## Laravel PHP Framework
+LANager
+=======
 
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/version.png)](https://packagist.org/packages/laravel/framework) [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.png)](https://packagist.org/packages/laravel/framework) [![Build Status](https://travis-ci.org/laravel/framework.png)](https://travis-ci.org/laravel/framework)
+LANager is a web application designed to make [LAN Parties](https://en.wikipedia.org/wiki/Lan_party)
+more enjoyable for attendees and organisers alike.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+## Goals
+*Currently these appear to be the most valuable goals, but this list is likely to evolve*
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+### For Attendees
+* Make it easy to find out what's going on and join in
+	* [Games in progress](http://zeropingheroes.co.uk/wp-content/gallery/lanager/xbn2r.png) with direct join links
+	* [Events](http://zeropingheroes.co.uk/wp-content/gallery/lanager/timetable.png) & tournaments
+	* [Shouts](http://zeropingheroes.co.uk/wp-content/gallery/lanager/tixua.png)
+	* [Files](http://zeropingheroes.co.uk/wp-content/gallery/lanager/files.png) e.g. game mods and patches
+* Enhance the social aspect of LAN parties
+	* [Attendee profiles](http://zeropingheroes.co.uk/wp-content/gallery/lanager/p5gat.png) with Steam add/message links
+	* [List of attendees](http://zeropingheroes.co.uk/wp-content/gallery/lanager/iblhk.png) with people's seating location etc
+* Let attendees find out important venue/event information
+	* [Info pages](http://zeropingheroes.co.uk/wp-content/gallery/lanager/info.png) easily editable for displaying things like where to sleep etc
+* Give attendees a voice during the event
+	* [Request music & videos](http://zeropingheroes.co.uk/wp-content/gallery/lanager/playlist.png) for playout on a big screen
+	* [Watch & listen](http://zeropingheroes.co.uk/wp-content/gallery/lanager/playlist_screen.png) to requested music & videos
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+### For Organisers
+* Make it easy to get information out to attendees via [Info pages](http://zeropingheroes.co.uk/wp-content/gallery/lanager/info.png) and [Shouts](http://zeropingheroes.co.uk/wp-content/gallery/lanager/tixua.png)
+* Encourage socialising and participation
+* Get instant feedback from attendees
 
-## Official Documentation
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+## Requirements
+* Windows / Linux / OSX
+* Web server (Apache, ngix and others)
+* PHP 5.3.7+
+* MySQL
 
-### Contributing To Laravel
+WAMP, LAMP and MAMP are a quick way to satisfy the above, just check that the version you download includes PHP 5.3.7+
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+## Installation
 
-### License
+LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.org/) which makes installing and updating a breeze. You do not need to download the source directly from GitHub - it is sufficient to follow the below instructions:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+1. [Download and install Composer](http://getcomposer.org/download/)
+2. From a terminal in the directory you wish to install LANager, run `composer create-project zeropingheroes/lanager`
+3. Configure your web server to use `lanager/public/` as the root web directory
+
+
+## Feedback & Contributions
+
+* Found a bug? Got a great feature idea? Post it to the [core issue tracker](https://github.com/zeropingheroes/lanager-core/issues)!
+* Want to contribute?
+	* [Fork the core project](https://github.com/zeropingheroes/lanager-core/fork) and add the features you want to see
+	* Work on new features / bug fixes in the [core issue tracker](https://github.com/zeropingheroes/lanager-core/issues)
+	* Or if you're really hardcore, request commit access
+
+
+This repository (`zeropingheroes/lanager`) is the bootstrapped install version, and doesn't include or track the core project code. All forks, issues and pull requests should be submitted to [`zeropingheroes/lanager-core`](https://github.com/zeropingheroes/lanager-core).
