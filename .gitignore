@@ -1,6 +1,8 @@
 /bootstrap/compiled.php
 /vendor
 /workbench
+.vagrant
+.vagrantcache
 composer.phar
 composer.lock
 .DS_Store
