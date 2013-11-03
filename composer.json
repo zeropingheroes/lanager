@@ -1,11 +1,19 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
+	"name": "zeropingheroes/lanager",
+	"description": "A LAN party management web application",
 	"keywords": ["framework", "laravel"],
-	"license": "MIT",
+    "license": "AGPL-3.0",
 	"require": {
-		"laravel/framework": "4.0.*"
+		"laravel/framework": "4.0.*",
+		"zeropingheroes/lanager-core": "~0.1"
 	},
+  "authors": [
+	    {
+	      "name": "Olly Baker",
+	      "email": "ilumos@gmail.com",
+	      "role": "Developer"
+	    }
+    ],
 	"autoload": {
 		"classmap": [
 			"app/commands",
