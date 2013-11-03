@@ -54,4 +54,4 @@ LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.
 	* Or if you're really hardcore, request commit access
 
 
-This repository (`zeropingheroes/lanager`) is the bootstrapped install version, and doesn't include or track the core project code. All forks, issues and pull requests should be submitted to [`zeropingheroes/lanager-core`](https://github.com/zeropingheroes/lanager-core).
+**Please note:** This repository (`zeropingheroes/lanager`) is the bootstrapped install version, and doesn't include or track the core project code. All forks, issues and pull requests relevant to the core functionality and not this install version should be submitted to [`zeropingheroes/lanager-core`](https://github.com/zeropingheroes/lanager-core).
