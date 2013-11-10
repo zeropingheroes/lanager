@@ -11,7 +11,4 @@
 |
 */
 
-Route::get('/', function()
-{
-	echo LanagerCore::hello();
-});
+// Routes are stored in /vendor/zeropingheroes/lanager-core/src/routes.php
