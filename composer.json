@@ -5,7 +5,7 @@
     "license": "AGPL-3.0",
 	"require": {
 		"laravel/framework": "4.0.*",
-		"zeropingheroes/lanager-core": "~0.1"
+		"zeropingheroes/lanager-core": "0.*"
 	},
   "authors": [
 	    {
