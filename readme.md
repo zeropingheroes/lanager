@@ -29,21 +29,32 @@ more enjoyable for attendees and organisers alike.
 
 
 ## Requirements
-* Windows / Linux / OSX
-* Web server (Apache, ngix and others)
+* Windows / Linux / OS X
+* Web server (Apache, nginx and others)
 * PHP 5.3.7+
 * MySQL
+* Composer
 
 WAMP, LAMP and MAMP are a quick way to satisfy the above, just check that the version you download includes PHP 5.3.7+
 
 ## Installation
 
-LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.org/) which makes installing and updating a breeze. You do not need to download the source directly from GitHub - it is sufficient to follow the below instructions:
+LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.org/) which makes installing and updating a breeze. You should not download the source directly from GitHub - it is sufficient to follow the below instructions:
 
 1. [Download and install Composer](http://getcomposer.org/download/)
 2. From a terminal in the directory you wish to install LANager, run `composer create-project zeropingheroes/lanager`
 3. Configure your web server to use `lanager/public/` as the root web directory
 
+## Vagrant
+
+If you want to try out the project quickly and easily, you can use [Vagrant](http://www.vagrantup.com/about.html) to create a virtual machine with everything the project needs to run. Here's how:
+
+1. Follow steps 1 and 2 from the *Installation* section above
+2. [Download and install Vagrant](http://downloads.vagrantup.com/)
+3. From a terminal in the `lanager/` directory, run `vagrant up`
+4. While the virtual machine is being created, add `lanager.dev` to your system's `hosts` file, pointing to `127.0.0.1`
+
+When you're finished either run `vagrant destroy` to remove the virtual machine entirely, or `vagrant suspend` to save it for use later. 
 
 ## Feedback & Contributions
 
