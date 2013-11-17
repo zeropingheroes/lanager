@@ -53,8 +53,24 @@ sudo a2ensite lanager.dev
 sudo a2dissite default
 sudo service apache2 restart
 
-# Add shared dir to Vagrant user's home directory in 'lanager'
+echo ">>>> Installing composer"
+curl -s https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+
+echo ">>>> Creating Vagrant Symlink"
 ln -s /vagrant /home/vagrant/lanager
+
+echo ">>>> Creating autoloader"
+cd /vagrant/
+composer dump-autoload
+php artisan dump-autoload
+
+echo ">>>> Creating and filling database schema"
+php artisan migrate --package=zeropingheroes/lanager-core
+php artisan db:seed --class=LanagerSeeder
+
+echo ">>>> Publishing package assets to public directory"
+php artisan asset:publish zeropingheroes/lanager-core
 
 # Mark box as provisioned
 touch $HOME/.provisioned
@@ -67,11 +83,11 @@ echo "######################"
 echo "# START READING HERE #"
 echo "######################"
 echo
-echo "The DSN is mysql://lanager:lanager@localhost:3307/lanager".
-echo
 echo "Ensure that you have configured lanager.dev to point to 127.0.0.1"
 echo "in your hosts file, and you should be able to access the VM from"
 echo "http://lanager.dev:8080"
+echo
+echo "The DSN is mysql://lanager:lanager@lanager.dev:3307/lanager".
 echo
 SCRIPT
 
