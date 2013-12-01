@@ -31,7 +31,7 @@ more enjoyable for attendees and organisers alike.
 ## Requirements
 * Windows / Linux / OS X
 * Web server (Apache, nginx and others)
-* PHP 5.3.7+
+* PHP 5.3.7+ (with Curl & MCrypt)
 * MySQL
 * Composer
 

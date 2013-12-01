@@ -11,7 +11,7 @@ if [ ! -f "$HOME/.provisioned" ]; then
 sudo DEBIAN_FRONTEND=noninteractive apt-get -q -y update
 sudo DEBIAN_FRONTEND=noninteractive apt-get -q -y upgrade
 sudo DEBIAN_FRONTEND=noninteractive apt-get -o dir::cache::archives="/vagrantcache/apt" -o Dpkg::Options::='--force-confnew' -f -q -y install \
-  libapache2-mod-php5 php-pear php5-cli php5-mysql php5-mcrypt mysql-server curl git vim
+  libapache2-mod-php5 php-pear php5-cli php5-mysql php5-mcrypt php5-curl mysql-server curl git vim
 
 ## Configure MySQL
 echo "CREATE DATABASE lanager;" | mysql
