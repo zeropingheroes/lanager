@@ -44,6 +44,12 @@ LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.
 1. [Download and install Composer](http://getcomposer.org/download/)
 2. From a terminal in the directory you wish to install LANager, run `composer create-project zeropingheroes/lanager`
 3. Configure your web server to use `lanager/public/` as the root web directory
+4. Run the following commands in a terminal in the `lanager/` directory:
+	1. `php artisan dump-autoload`
+	2. `php artisan migrate --package=zeropingheroes/lanager-core`
+	3. `php artisan db:seed --class=LanagerSeeder`
+	4. `php artisan asset:publish zeropingheroes/lanager-core`
+	5. `php artisan config:publish zeropingheroes/lanager-core`
 
 ## Vagrant
 
