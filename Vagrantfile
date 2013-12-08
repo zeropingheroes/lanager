@@ -69,8 +69,9 @@ echo ">>>> Creating and filling database schema"
 php artisan migrate --package=zeropingheroes/lanager-core
 php artisan db:seed --class=LanagerSeeder
 
-echo ">>>> Publishing package assets to public directory"
+echo ">>>> Publishing package assets & configs to public directory"
 php artisan asset:publish zeropingheroes/lanager-core
+php artisan config:publish zeropingheroes/lanager-core
 
 # Mark box as provisioned
 touch $HOME/.provisioned
@@ -98,8 +99,8 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   
   # Forward ports for web (8080) and MySQL (3307)
-  config.vm.network :forwarded_port, guest: 80, host: 80
-  config.vm.network :forwarded_port, guest: 3306, host: 3306
+  config.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.network :forwarded_port, guest: 3306, host: 3307
   
   # Run script defined at top of this file
   config.vm.provision :shell, :inline => $script
