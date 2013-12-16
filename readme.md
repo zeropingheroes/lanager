@@ -44,12 +44,16 @@ LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.
 1. [Download and install Composer](http://getcomposer.org/download/)
 2. From a terminal in the directory you wish to install LANager, run `composer create-project zeropingheroes/lanager`
 3. Configure your web server to use `lanager/public/` as the root web directory
-4. Run the following commands in a terminal in the `lanager/` directory:
-	1. `php artisan dump-autoload`
-	2. `php artisan migrate --package=zeropingheroes/lanager-core`
-	3. `php artisan db:seed --class=LanagerSeeder`
-	4. `php artisan asset:publish zeropingheroes/lanager-core`
-	5. `php artisan config:publish zeropingheroes/lanager-core`
+4. Browse to your web server's address and follow the installation page instructions 
+
+## Installation Troubleshooting
+If you are unable to access the install page, run the following commands in a terminal in the `lanager/` directory:
+
+1. `php artisan dump-autoload`
+2. `php artisan migrate --package=zeropingheroes/lanager-core`
+3. `php artisan db:seed --class=LanagerSeeder`
+4. `php artisan asset:publish zeropingheroes/lanager-core`
+5. `php artisan config:publish zeropingheroes/lanager-core`
 
 ## Vagrant
 
@@ -58,7 +62,8 @@ If you want to try out the project quickly and easily, you can use [Vagrant](htt
 1. Follow steps 1 and 2 from the *Installation* section above
 2. [Download and install Vagrant](http://downloads.vagrantup.com/)
 3. From a terminal in the `lanager/` directory, run `vagrant up`
-4. While the virtual machine is being created, add `lanager.dev` to your system's `hosts` file, pointing to `127.0.0.1`
+4. Add `lanager.dev` to your system's `hosts` file, pointing it to `127.0.0.1`
+5. Browse to http://lanager.dev/ and follow the installation page instructions
 
 When you're finished either run `vagrant destroy` to remove the virtual machine entirely, or `vagrant suspend` to save it for use later. 
 
