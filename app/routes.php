@@ -11,4 +11,11 @@
 |
 */
 
-// Routes are stored in /vendor/zeropingheroes/lanager-core/src/routes.php
+Route::get('/install', array(
+	'uses' => 'InstallationController@checkRequirements',
+	'as' => 'installation.requirements'
+	));
+Route::get('/install/run', array(
+	'uses' => 'InstallationController@run',
+	'as' => 'installation.run'
+	));

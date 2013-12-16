@@ -1,0 +1,58 @@
+/* -------------------------------------------------------------------
+   GENERAL
+   -------------------------------------------------------------------
+*/
+
+/* dark theme */
+body {
+	background-color: #000000;
+	color: #fff;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* green links */
+a {
+	color: #19A601;
+}
+
+/* green links */
+a:hover {
+	color: #2AE208;
+}
+
+/* dark hr with small margin */
+hr {
+	border-color: #333;
+	border-top: none;
+	margin-top: 25px;
+	margin-bottom: 5px;
+}
+
+/* -------------------------------------------------------------------
+   INSTALLER
+   -------------------------------------------------------------------
+*/
+
+table#requirements {
+	width: 100%;
+}
+
+table#requirements th {
+	text-decoration: underline;
+	font-weight: bold;
+	text-align: left;
+	width: 50%;
+}
+
+.requirementPass {
+	color: #19A601;
+}
+
+.requirementFail {
+	color: #CA0724;
+}
+
+#requirementResults {
+	font-weight: bold;
+	font-size: 120%;
+}
