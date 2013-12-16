@@ -65,14 +65,6 @@ cd /vagrant/
 composer dump-autoload
 php artisan dump-autoload
 
-echo ">>>> Creating and filling database schema"
-php artisan migrate --package=zeropingheroes/lanager-core
-php artisan db:seed --class=LanagerSeeder
-
-echo ">>>> Publishing package assets & configs to public directory"
-php artisan asset:publish zeropingheroes/lanager-core
-php artisan config:publish zeropingheroes/lanager-core
-
 # Mark box as provisioned
 touch $HOME/.provisioned
 else
