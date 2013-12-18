@@ -16,12 +16,7 @@ return array(
 	|
 	*/
 
-	// Only use database sessions if installer has been run
-	'driver' => value(function()
-	{
-		$driver = ( Config::get('lanager-core::installed') ? 'database' : 'array' );
-		return $driver;
-	}),
+	'driver' => 'array',
 
 	/*
 	|--------------------------------------------------------------------------
