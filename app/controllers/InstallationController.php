@@ -138,7 +138,7 @@ class InstallationController extends BaseController {
 		// Run seed class to fill the database with default data
 		$seed = Artisan::call(
 			'db:seed',
-			array('--class' => 'LanagerSeeder')
+			array('--class' => 'Zeropingheroes\LanagerCore\Seeds\DatabaseSeeder')
 		);
 		if($seed != 0) return App::abort(500, 'Database seeding error');
 
