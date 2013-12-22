@@ -21,7 +21,7 @@
 	<li>
 		<p>Schedule <em>getUserSteamStates</em> to run every minute</p>
 		<?php
-			if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
+			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 				echo 'Add a task for <pre>getUserSteamStates.bat</pre> in ';
 				echo link_to('http://support.microsoft.com/kb/226795', 'Task Scheduler', array('target' => '_blank'));
 			} else {
