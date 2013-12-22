@@ -27,7 +27,6 @@ more enjoyable for attendees and organisers alike.
 * Encourage socialising and participation
 * Get instant feedback from attendees
 
-
 ## Requirements
 * Windows / Linux / OS X
 * Web server (Apache, nginx and others)
@@ -44,7 +43,14 @@ LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.
 1. [Download and install Composer](http://getcomposer.org/download/)
 2. From a terminal in the directory you wish to install LANager, run `composer create-project zeropingheroes/lanager`
 3. Configure your web server to use `lanager/public/` as the root web directory
-4. Browse to your web server's address and follow the installation page instructions 
+4. Browse to your web server's address and follow the installation page instructions
+5. Schedule the `getUserSteamStates` command to run at 1 minute intervals
+	* On Windows
+		1. Add a task for `getUserSteamStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
+	* On *nix
+		1. From a terminal run `crontab -e`
+		2. Add the following to the end of the file:
+		`*/1 * * * * /path/to/lanager/getUserSteamStates.sh >> /dev/null 2>&1`     
 
 ## Installation Troubleshooting
 If you are unable to access the install page, run the following commands in a terminal in the `lanager/` directory:
@@ -64,6 +70,7 @@ If you want to try out the project quickly and easily, you can use [Vagrant](htt
 3. From a terminal in the `lanager/` directory, run `vagrant up`
 4. Add `lanager.dev` to your system's `hosts` file, pointing it to `127.0.0.1`
 5. Browse to http://lanager.dev/ and follow the installation page instructions
+6. Follow step 5 from the *Installation* section above
 
 When you're finished either run `vagrant destroy` to remove the virtual machine entirely, or `vagrant suspend` to save it for use later. 
 
