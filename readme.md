@@ -59,6 +59,7 @@ If you are unable to access the install page, run the following commands in a te
 2. `php artisan migrate --package="zeropingheroes/lanager-core"`
 3. `php artisan db:seed --class="Zeropingheroes\LanagerCore\Seeds\DatabaseSeeder"`
 4. `php artisan asset:publish zeropingheroes/lanager-core`
+5. `php artisan asset:publish patricktalmadge/bootstrapper`
 5. `php artisan config:publish zeropingheroes/lanager-core`
 
 ## Vagrant

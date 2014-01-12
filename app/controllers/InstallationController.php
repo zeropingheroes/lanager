@@ -145,7 +145,8 @@ class InstallationController extends BaseController {
 		// Publish assets to the main app's public directory
 		$publish = Artisan::call(
 			'asset:publish',
-			array('zeropingheroes/lanager-core')
+			array('zeropingheroes/lanager-core',
+				'patricktalmadge/bootstrapper')
 		);
 		if($publish != 0) return App::abort(500, 'Asset publishing error');
 
