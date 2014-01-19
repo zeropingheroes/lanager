@@ -44,13 +44,13 @@ LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.
 2. From a terminal in the directory you wish to install LANager, run `composer create-project zeropingheroes/lanager`
 3. Configure your web server to use `lanager/public/` as the root web directory
 4. Browse to your web server's address and follow the installation page instructions
-5. Schedule the `getUserSteamStates` command to run at 1 minute intervals
+5. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
 	* On Windows
-		1. Add a task for `getUserSteamStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
+		1. Add a task for `SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
 	* On *nix
 		1. From a terminal run `crontab -e`
 		2. Add the following to the end of the file:
-		`*/1 * * * * /path/to/lanager/getUserSteamStates.sh >> /dev/null 2>&1`     
+		`*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1`     
 
 ## Installation Troubleshooting
 If you are unable to access the install page, run the following commands in a terminal in the `lanager/` directory:

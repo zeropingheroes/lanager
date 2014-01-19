@@ -5,4 +5,4 @@
 ##
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
-php artisan steam:get-user-states
+php artisan steam:import-user-states
