@@ -1,5 +1,5 @@
 #!/bin/bash
-## Usage: getSteamUserStates
+## Usage: steam:import-user-states
 ##
 ## Designed to be run at regular intervals (cron or equivalent)
 ##
