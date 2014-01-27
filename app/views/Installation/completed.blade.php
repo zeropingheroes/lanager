@@ -22,11 +22,11 @@
 		<p>Schedule <em>getUserSteamStates</em> to run every minute</p>
 		<?php
 			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-				echo 'Add a task for <pre>getUserSteamStates.bat</pre> in ';
+				echo 'Add a task for <pre>SteamImportUserStates.bat</pre> in ';
 				echo link_to('http://support.microsoft.com/kb/226795', 'Task Scheduler', array('target' => '_blank'));
 			} else {
 				echo 'From a terminal run <pre>crontab -e</pre> and add the following to the end of the file:';
-				echo '<pre>*/1 * * * * /path/to/lanager/getUserSteamStates.sh >> /dev/null 2>&1</pre>';
+				echo '<pre>*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1</pre>';
 			}
 		?>
 	</li>
