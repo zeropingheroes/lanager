@@ -32,9 +32,11 @@ more enjoyable for attendees and organisers alike.
 * Web server (Apache, nginx and others)
 * PHP 5.3.7+ (with Curl & MCrypt)
 * MySQL
-* Composer
+* [Composer](https://getcomposer.org/)
+* [Steam API Key](http://steamcommunity.com/dev/apikey)
+* An internet connection
 
-WAMP, LAMP and MAMP are a quick way to satisfy the above, just check that the version you download includes PHP 5.3.7+
+WAMP, LAMP and MAMP are a quick way to satisfy most of the above, just check that the version you download includes PHP 5.3.7+
 
 ## Installation
 
