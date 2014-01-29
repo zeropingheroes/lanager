@@ -19,7 +19,13 @@
 		</pre>
 	</li>
 	<li>
-		<p>Schedule <em>getUserSteamStates</em> to run every minute</p>
+		<p>Run <em>artisan steam:import-apps</em> in the lanager directory</p>
+		<pre>
+		$ php artisan steam:import-apps
+		</pre>
+	</li>
+	<li>
+		<p>Schedule <em>SteamImportUserStates</em> to run every minute</p>
 		<?php
 			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 				echo 'Add a task for <pre>SteamImportUserStates.bat</pre> in ';
