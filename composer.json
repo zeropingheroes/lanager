@@ -4,7 +4,7 @@
 	"keywords": ["framework", "laravel"],
     "license": "AGPL-3.0",
 	"require": {
-		"laravel/framework": "4.1.*",
+		"laravel/framework": "4.1.18",
 		"zeropingheroes/lanager-core": "0.*"
 	},
   "authors": [
