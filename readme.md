@@ -4,28 +4,29 @@ LANager
 LANager is a web application designed to make [LAN Parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
 
-## Goals
-*Currently these appear to be the most valuable goals, but this list is likely to evolve*
+## Goals & Features
 
-### For Attendees
-* Make it easy to find out what's going on and join in
-	* [Games in progress](http://zeropingheroes.co.uk/wp-content/gallery/lanager/xbn2r.png) with direct join links
-	* [Events](http://zeropingheroes.co.uk/wp-content/gallery/lanager/timetable.png) & tournaments
-	* [Shouts](http://zeropingheroes.co.uk/wp-content/gallery/lanager/tixua.png)
-	* [Files](http://zeropingheroes.co.uk/wp-content/gallery/lanager/files.png) e.g. game mods and patches
-* Enhance the social aspect of LAN parties
-	* [Attendee profiles](http://zeropingheroes.co.uk/wp-content/gallery/lanager/p5gat.png) with Steam add/message links
-	* [List of attendees](http://zeropingheroes.co.uk/wp-content/gallery/lanager/iblhk.png) with people's seating location etc
-* Let attendees find out important venue/event information
-	* [Info pages](http://zeropingheroes.co.uk/wp-content/gallery/lanager/info.png) easily editable for displaying things like where to sleep etc
-* Give attendees a voice during the event
-	* [Request music & videos](http://zeropingheroes.co.uk/wp-content/gallery/lanager/playlist.png) for playout on a big screen
-	* [Watch & listen](http://zeropingheroes.co.uk/wp-content/gallery/lanager/playlist_screen.png) to requested music & videos
+* Enhance participation
+	* [Games in progress](http://zeropingheroes.co.uk/wp-content/gallery/lanager/games.png) updated every minute from Steam
+	* [Servers being played on](http://zeropingheroes.co.uk/wp-content/gallery/lanager/servers.png) with join links, again from Steam
+	* [Events](http://zeropingheroes.co.uk/wp-content/gallery/lanager/lanager-timetable.png) timetable
+	* [Shouts](http://zeropingheroes.co.uk/wp-content/gallery/lanager/shouts.png) allowing advertising of games
+	* [Files](http://zeropingheroes.co.uk/wp-content/gallery/lanager-old/files.png) that may be required to join in *
+* Boost social interaction
+	* [Attendee profiles](http://zeropingheroes.co.uk/wp-content/gallery/lanager/profile.png) with links to add or message on Steam
+	* [List of attendees](http://zeropingheroes.co.uk/wp-content/gallery/lanager/people.png) with their current status
+* Broadcast information
+	* [Info pages](http://zeropingheroes.co.uk/wp-content/gallery/lanager/info_0.png) so that everyone can find out about the venue, food or tournament rules  
+	* [Links](http://zeropingheroes.co.uk/wp-content/gallery/lanager/links.png) to other sites e.g. game stats, organiser's website 
+* Allow attendee feedback
+	* [Request music & videos](http://zeropingheroes.co.uk/wp-content/gallery/lanager-old/playlist.png) for play-out on a big screen *
+	* [Watch & listen](http://zeropingheroes.co.uk/wp-content/gallery/lanager-old/playlist_screen.png) to requested music & videos *
+* API access
+	* Allow user status, game and server information for non-steam applications to be used *
+	* Make data available for events, users, info pages, shouts, videos etc *
+	* Generally avoid tying the project to the Steam platform *
 
-### For Organisers
-* Make it easy to get information out to attendees via [Info pages](http://zeropingheroes.co.uk/wp-content/gallery/lanager/info.png) and [Shouts](http://zeropingheroes.co.uk/wp-content/gallery/lanager/tixua.png)
-* Encourage socialising and participation
-* Get instant feedback from attendees
+\* *Planned but not yet implemented*
 
 ## Requirements
 * Windows / Linux / OS X
@@ -40,7 +41,7 @@ WAMP, LAMP and MAMP are a quick way to satisfy most of the above, just check tha
 
 ## Installation
 
-LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.org/) which makes installing and updating a breeze. You should not download the source directly from GitHub - it is sufficient to follow the below instructions:
+LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.org/) which makes installing and updating a breeze. **You should not download the source directly from GitHub** - it is sufficient to follow the below instructions:
 
 1. [Download and install Composer](http://getcomposer.org/download/)
 2. From a terminal in the directory you wish to install LANager, run `composer create-project zeropingheroes/lanager`
@@ -72,7 +73,7 @@ If you want to try out the project quickly and easily, you can use [Vagrant](htt
 2. [Download and install Vagrant](http://downloads.vagrantup.com/)
 3. From a terminal in the `lanager/` directory, run `vagrant up`
 4. Add `lanager.dev` to your system's `hosts` file, pointing it to `127.0.0.1`
-5. Browse to http://lanager.dev/ and follow the installation page instructions
+5. Browse to [`http://lanager.dev:8080/`](http://lanager.dev:8080/) and follow the installation page instructions
 6. Follow step 5 from the *Installation* section above
 
 When you're finished either run `vagrant destroy` to remove the virtual machine entirely, or `vagrant suspend` to save it for use later. 
