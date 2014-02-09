@@ -25,6 +25,8 @@ more enjoyable for attendees and organisers alike.
 	* Allow user status, game and server information for non-steam applications to be used *
 	* Make data available for events, users, info pages, shouts, videos etc *
 	* Generally avoid tying the project to the Steam platform *
+* Much more
+	* Check the [core issue tracker](https://github.com/zeropingheroes/lanager-core/issues?labels=enhancement&milestone=&page=1&state=open) for more planned enhancements
 
 \* *Planned but not yet implemented*
 
