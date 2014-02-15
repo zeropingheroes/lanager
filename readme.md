@@ -88,5 +88,9 @@ When you're finished either run `vagrant destroy` to remove the virtual machine 
 	* Work on new features / bug fixes in the [core issue tracker](https://github.com/zeropingheroes/lanager-core/issues)
 	* Or if you're really hardcore, request commit access
 
+If you want to support the project in a non-technical way, we'd love it if you donated to us:
+
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=zeropingheroes&url=https%3A%2F%2Fgithub.com%2Fzeropingheroes%2Flanager)
+
 
 **Please note:** This repository (`zeropingheroes/lanager`) is the bootstrapped install version, and doesn't include or track the core project code. All forks, issues and pull requests relevant to the core functionality and not this install version should be submitted to [`zeropingheroes/lanager-core`](https://github.com/zeropingheroes/lanager-core).
