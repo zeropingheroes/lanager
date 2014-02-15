@@ -223,7 +223,7 @@ class InstallationController extends BaseController {
 	{
 		if( ! $this->requirements['curlEnabled']['result'] ) return false;
 
-		$steamApi = new Locomotive(Config::get('lanager-core::steamWebApiKey'));
+		$steamApi = new Tsukanov\SteamLocomotive\Locomotive(Config::get('lanager-core::steamWebApiKey'));
 		try
 		{
 			$steamApi->ISteamUser->GetPlayerSummaries(array('1234'));
