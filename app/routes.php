@@ -10,12 +10,3 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
-Route::get('/install', array(
-	'uses' => 'InstallationController@checkRequirements',
-	'as' => 'installation.requirements'
-	));
-Route::get('/install/run', array(
-	'uses' => 'InstallationController@run',
-	'as' => 'installation.run'
-	));

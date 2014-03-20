@@ -9,7 +9,7 @@ more enjoyable for attendees and organisers alike.
 * Enhance participation
 	* [Games in progress](http://zeropingheroes.co.uk/wp-content/gallery/lanager/games.png) updated every minute from Steam
 	* [Servers being played on](http://zeropingheroes.co.uk/wp-content/gallery/lanager/servers.png) with join links, again from Steam
-	* [Events](http://zeropingheroes.co.uk/wp-content/gallery/lanager/lanager-timetable.png) timetable
+	* [Events](http://zeropingheroes.co.uk/wp-content/gallery/lanager/lanager-timetable.png) system optionally allowing users to [join events](http://zeropingheroes.co.uk/wp-content/gallery/lanager/event-signups.png)
 	* [Shouts](http://zeropingheroes.co.uk/wp-content/gallery/lanager/shouts.png) allowing advertising of games
 	* [Files](http://zeropingheroes.co.uk/wp-content/gallery/lanager-old/files.png) that may be required to join in *
 * Boost social interaction
@@ -48,7 +48,7 @@ LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.
 1. [Download and install Composer](http://getcomposer.org/download/)
 2. From a terminal in the directory you wish to install LANager, run `composer create-project zeropingheroes/lanager`
 3. Configure your web server to use `lanager/public/` as the root web directory
-4. Browse to your web server's address and follow the installation page instructions
+4. In the `lanager/` directory, run `php artisan lanager:install` from the terminal
 5. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
 	* On Windows
 		1. Add a task for `SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
@@ -58,7 +58,7 @@ LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.
 		`*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1`     
 
 ## Installation Troubleshooting
-If you are unable to access the install page, run the following commands in a terminal in the `lanager/` directory:
+If the installation steps above are causing issues, run the following commands in a terminal in the `lanager/` directory:
 
 1. `php artisan dump-autoload`
 2. `php artisan migrate --package="zeropingheroes/lanager-core"`
@@ -75,8 +75,7 @@ If you want to try out the project quickly and easily, you can use [Vagrant](htt
 2. [Download and install Vagrant](http://downloads.vagrantup.com/)
 3. From a terminal in the `lanager/` directory, run `vagrant up`
 4. Add `lanager.dev` to your system's `hosts` file, pointing it to `127.0.0.1`
-5. Browse to [`http://lanager.dev:8080/`](http://lanager.dev:8080/) and follow the installation page instructions
-6. Follow step 5 from the *Installation* section above
+6. Follow steps 4 and 5 from the *Installation* section above
 
 When you're finished either run `vagrant destroy` to remove the virtual machine entirely, or `vagrant suspend` to save it for use later. 
 

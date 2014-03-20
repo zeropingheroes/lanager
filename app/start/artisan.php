@@ -11,3 +11,4 @@
 |
 */
 
+Artisan::add(new Zeropingheroes\Lanager\Commands\Install);
