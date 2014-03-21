@@ -81,3 +81,17 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+
+/*
+|--------------------------------------------------------------------------
+| Require Other files
+|--------------------------------------------------------------------------
+|
+| As with the filters file above, these are neat places to store similar
+| code used for various registrations and calls.
+| 
+|
+*/
+
+require app_path().'/bindings.php';
