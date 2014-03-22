@@ -2,26 +2,41 @@
 	"name": "zeropingheroes/lanager",
 	"description": "A LAN party management web application",
 	"keywords": ["framework", "laravel"],
-    "license": "AGPL-3.0",
+	"license": "AGPL-3.0",
 	"require": {
 		"laravel/framework": "4.1.18",
-		"zeropingheroes/lanager-core": "0.*"
+		"vtalbot/markdown": "1.*",
+		"laravelbook/ardent": "dev-master",
+		"patricktalmadge/bootstrapper": "dev-develop",
+		"tsukanov/steam-locomotive": "dev-master",
+		"lightopenid/lightopenid": "dev-master",
+		"zeropingheroes/steam-browser-protocol": "dev-dev",
+		"machuga/authority-l4" : "dev-master",
+		"loic-sharma/profiler": "1.1.*",
+		"jasonlewis/expressive-date": "1.0.*"
 	},
-  "authors": [
-	    {
-	      "name": "Olly Baker",
-	      "email": "ilumos@gmail.com",
-	      "role": "Developer"
-	    }
-    ],
+	"authors": [
+	{
+		"name": "Olly Baker",
+		"email": "ilumos@gmail.com",
+		"role": "Developer"
+	}
+	],
 	"autoload": {
 		"classmap": [
 			"app/commands",
 			"app/controllers",
 			"app/models",
-			"app/database/migrations",
-			"app/database/seeds",
-			"app/tests/TestCase.php"
+			"app/entities",
+			"app/repositories",
+			"app/interfaces",
+			"app/tests/TestCase.php",
+			"app/migrations",
+			"app/seeds",
+			"app/controllers",
+			"app/commands",
+			"app/validators",
+			"app/helpers"
 		]
 	},
 	"scripts": {

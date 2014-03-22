@@ -1,0 +1,338 @@
+/* -------------------------------------------------------------------
+   GENERAL
+   -------------------------------------------------------------------
+*/
+
+/* dark theme */
+body {
+	background-color: #000000;
+	color: #fff;
+	background-image: url('../img/bg-html.jpg');
+}
+
+/* green links */
+a {
+	color: #19A601;
+}
+
+/* green links */
+a:hover {
+	color: #2AE208;
+}
+
+/* dark hr with no margin */
+hr {
+	border-color: #333;
+	border-top: 1px solid #333;
+	margin: 0;
+}
+
+/* dark table borders */
+table.table tbody tr td {
+	border-color: #333;
+	vertical-align: middle;
+}
+
+/* make delete form button inline */
+.resource-destroy {
+	display: inline;
+}
+
+/* user avatars mimic steam */
+img.avatar {
+	border: 1px solid;
+}
+img.avatar-small {
+	border-width: 1px;
+}
+img.avatar-medium {
+	border-width: 2px;
+}
+img.avatar-large {
+	border-width: 3px;
+}
+img.avatar.in-game {
+	border-color: #19A601;
+}
+img.avatar.online {
+	border-color: #01ABFE;
+}
+img.avatar.offline {
+	border-color: #333;
+}
+
+div.content {
+	margin-bottom: 10px;
+}
+
+/* footer separated from content */
+footer {
+	border-top: 1px solid #333;
+	padding-top: 5px;
+	padding-bottom: 40px;
+}
+
+div.fullscreen {
+	margin-left: 0px;
+	margin-right: 0px;
+	max-width: none;
+}
+
+/* -------------------------------------------------------------------
+   NAVBAR
+   -------------------------------------------------------------------
+*/
+
+div.navbar-collapse{
+	height: 46px;
+}
+
+ /* snug logo in navbar */
+a.navbar-brand {
+	margin: 0;
+	padding-top: 7px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 0px;
+}
+
+/* dropdown 2nd triangle hidden */
+.navbar .nav > li > .dropdown-menu:after { 
+	display: none;
+}
+
+/* dark dropdown */
+ul.dropdown-menu {
+	background-color: #111;
+	margin-top: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+/* brighter (un-hovered) dropdown links */
+.dropdown-menu li > a {
+	color: #999; 
+}
+
+/* green gradient dropdown links */
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a {
+	color: #fff !important;
+	text-decoration: none;
+	background-color: #21C404;
+	background-image: -moz-linear-gradient(top, #2AE208, #19A601);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2AE208), to(#19A601));
+	background-image: -webkit-linear-gradient(top, #2AE208, #19A601);
+	background-image: -o-linear-gradient(top, #2AE208, #19A601);
+	background-image: linear-gradient(to bottom, #2AE208, #19A601);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2AE208', endColorstr='#ff19A601', GradientType=0);
+}
+
+/* snug logged in user menu in navbar */
+li.dropdown a.user-menu {
+	padding: 7px 10px;
+	height: 46px;
+	width: 160px;
+}
+
+/* correct steam sign in link position */
+div.navbar-right ul.navbar-nav li a.steam-signin {
+	padding-top: 12px;
+	padding-bottom: 11px;
+}
+
+/* -------------------------------------------------------------------
+   USER - PROFILE
+   -------------------------------------------------------------------
+*/
+
+/* separate header from content */
+div.user-profile-header {
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #222;
+	position: relative;
+}
+
+/* username float to bottom of image */
+div.user-profile-header img {
+	vertical-align: bottom;
+}
+
+/* username float to bottom of image */
+div.user-profile-header h1 {
+	display: inline;
+}
+
+/* buttons right bottom aligned in header */
+div.user-profile-header ul.user-profile-actions {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	text-align: right;
+	list-style: none;
+}
+
+/* status top right aligned */
+div.user-profile-content div.user-status {
+	text-align: right;
+}
+
+/* neat lists in content */
+div.user-profile-content ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+/* -------------------------------------------------------------------
+   SHOUT - INDEX
+   -------------------------------------------------------------------
+*/
+
+/* wide form separated from posts */
+form.shout-create {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+/* full width text input */
+form.shout-create input {
+	width: 1080px;
+}
+
+/* right aligned moderation buttons */
+div.shout-moderation {
+	display: inline;
+	margin-left: 15px;
+}
+
+/* de-emphasise timestamps */
+span.shout-timestamp {
+	font-size: 85%;
+}
+
+/* -------------------------------------------------------------------
+   STATES - CURRENT USAGE
+   -------------------------------------------------------------------
+*/
+
+/* snug logo size */
+table.states-current-usage td.column-application {
+	width: 184px;
+}
+/* easy to read user count */
+table.states-current-usage td.column-user-count {
+	font-size: 200%;
+	font-weight: bold;
+	padding: 0px 30px;
+}
+
+/* -------------------------------------------------------------------
+   EVENTS - TIMETABLE
+   -------------------------------------------------------------------
+*/
+
+/* move timetable up */
+div#timetable {
+	margin-top: -42px;
+}
+/* remove timetable background */ 
+.fc-state-highlight {
+	background-color: transparent;
+}
+/* subtle borders*/ 
+.fc-widget-header,
+.fc-widget-content {
+	border: 1px solid #444;
+}
+/* hide event overlay */ 
+.fc-event-bg {
+	display: none;
+}
+
+/* render timeline */
+.timeline {
+	position: absolute;
+	left: 50px;
+	border: none;
+	border-top: 2px solid #2919FF;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	z-index: 999;
+}
+
+/* -------------------------------------------------------------------
+   EVENTS - LIST
+   -------------------------------------------------------------------
+*/
+table.events-list td.column-signup-status
+{
+	text-align: right;
+}
+
+/* -------------------------------------------------------------------
+   EVENTS - CREATE
+   -------------------------------------------------------------------
+*/
+
+/* dark green hover */ 
+.bootstrap-datetimepicker-widget td.day:hover,
+.bootstrap-datetimepicker-widget td.hour:hover,
+.bootstrap-datetimepicker-widget td.minute:hover,
+.bootstrap-datetimepicker-widget td span:hover,
+.bootstrap-datetimepicker-widget thead tr:first-child th:hover {
+	background: #19A601;
+}
+/* light green selected */ 
+.bootstrap-datetimepicker-widget td.active,
+.bootstrap-datetimepicker-widget td span.active {
+	background: #2AE208;
+}
+
+/* -------------------------------------------------------------------
+   EVENTS - VIEW
+   -------------------------------------------------------------------
+*/
+
+/* borderless and left aligned */
+table.signups thead tr th,
+table.signups tr td {
+	padding-left: 0;
+	border-bottom: none;
+	border-top: none;
+}
+
+/* right aligned signup time column */
+table.signups th+th,
+table.signups td.column-signup-time
+ {
+	text-align: right;
+}
+
+/* -------------------------------------------------------------------
+   PLAYLIST ITEMS - INDEX
+   -------------------------------------------------------------------
+*/
+form.playlist-item-create {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+form.playlist-item-create input {
+	width: 1065px;
+}
+
+/* -------------------------------------------------------------------
+   PLAYLIST ITEMS - INDEX
+   -------------------------------------------------------------------
+*/
+div#now-playing, div#submitter {
+	font-size: 150%;
+}
+div#submitter img {
+	padding-left: 5px;
+}

@@ -13,7 +13,10 @@
 
 App::before(function($request)
 {
-	//
+	if ( Config::get('lanager/config.installed') !== true )
+	{
+		return 'Run <pre>php artisan lanager:install</pre> from the lanager/ directory before continuing';
+	}
 });
 
 
@@ -22,43 +25,6 @@ App::after(function($request, $response)
 	//
 });
 
-/*
-|--------------------------------------------------------------------------
-| Authentication Filters
-|--------------------------------------------------------------------------
-|
-| The following filters are used to verify that the user of the current
-| session is logged into this application. The "basic" filter easily
-| integrates HTTP Basic authentication for quick, simple checking.
-|
-*/
-
-Route::filter('auth', function()
-{
-	if (Auth::guest()) return Redirect::guest('login');
-});
-
-
-Route::filter('auth.basic', function()
-{
-	return Auth::basic();
-});
-
-/*
-|--------------------------------------------------------------------------
-| Guest Filter
-|--------------------------------------------------------------------------
-|
-| The "guest" filter is the counterpart of the authentication filters as
-| it simply checks that the current user is not logged in. A redirect
-| response will be issued if they are, which you may freely change.
-|
-*/
-
-Route::filter('guest', function()
-{
-	if (Auth::check()) return Redirect::to('/');
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -76,5 +42,54 @@ Route::filter('csrf', function()
 	if (Session::token() != Input::get('_token'))
 	{
 		throw new Illuminate\Session\TokenMismatchException;
+	}
+});
+
+/*
+|--------------------------------------------------------------------------
+| Resource-based Permissions
+|--------------------------------------------------------------------------
+|
+| Checks if the logged in user can perform the requested action on the
+| requested resource item.
+| Gets resource type (e.g. User) action (e.g. delete) and item id from request.
+|
+*/
+Route::filter('checkResourcePermission', function($route, $request)
+{
+	// Get request details
+	$routeName = explode('.', Route::currentRouteName());
+	$resource = $routeName[0];
+	$action = $routeName[1];
+	$item = $route->parameter($resource);
+
+	// Replace laravel-style route action names with their CRUD equivalents
+	$actionsToReplace = array('store', 'show', 'index', 'edit', 'destroy');
+	$replaceWithAction = array('create', 'read', 'read', 'update', 'delete');
+	$action = str_replace($actionsToReplace, $replaceWithAction, $action);
+
+	// Check if user is forbidden from performing $action on $resource $item
+	if( Authority::cannot($action, $resource, $item) )
+	{
+		return App::abort(403, 'You do not have permission to '.$action.' '.$resource.' '.$item);
+	}
+});
+
+/*
+|--------------------------------------------------------------------------
+| Role-based Permissions
+|--------------------------------------------------------------------------
+|
+| Checks if the logged in user has been assigned the specified role
+|
+*/
+Route::filter('hasRole', function($route, $request, $value)
+{
+	$user = Authority::getCurrentUser();
+
+	// If not logged in or user does not have role
+	if( ! Auth::check() OR ! $user->hasRole($value) )
+	{
+		return App::abort(403, 'You must be assigned the role "'.$value.'" for this request');
 	}
 });
