@@ -26,7 +26,7 @@ class UsersController extends BaseController {
 	public function index()
 	{
 		$users = User::orderBy('username', 'asc')->paginate(10);
-		return View::make('user.list')
+		return View::make('users.list')
 					->with('title','People')
 					->with('users',$users);
 	}
@@ -62,7 +62,7 @@ class UsersController extends BaseController {
 	{
 		if( $user = User::find($id) )
 		{
-			return View::make('user.show')
+			return View::make('users.show')
 						->with('title',$user->username)
 						->with('user',$user);
 		}
@@ -103,7 +103,7 @@ class UsersController extends BaseController {
 	public function destroy($id)
 	{
 		User::destroy($id);
-		return Redirect::route('user.index');
+		return Redirect::route('users.index');
 	}
 
 	/**
@@ -168,7 +168,7 @@ class UsersController extends BaseController {
 		if( $user = User::find($id) )
 		{
 			$roles = Role::all();
-			return View::make('user.roles')
+			return View::make('users.roles')
 							->with('title', $user->username.' - Roles')
 							->with('user', $user)
 							->with('roles', $roles);
@@ -190,7 +190,7 @@ class UsersController extends BaseController {
 		{
 			$userRoles = (is_array(Input::get('userRoles')) ? Input::get('userRoles') : array() );
 			$user->roles()->sync($userRoles);
-			return Redirect::route('user.roles.edit',array('user' => $user->id));
+			return Redirect::route('users.roles.edit',array('user' => $user->id));
 		}
 		else
 		{
