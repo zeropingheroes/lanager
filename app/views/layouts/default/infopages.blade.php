@@ -1,4 +1,4 @@
-w<li class="dropdown {{ Request::is('infopages*') ? 'active' : '' }}">
+<li class="dropdown {{ Request::is('infopages*') ? 'active' : '' }}">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Info
 		<b class="caret"></b>
 	</a> 
