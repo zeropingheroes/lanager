@@ -1,4 +1,4 @@
-@extends('lanager-core::layouts.default')
+@extends('layouts.default')
 @section('content')
 
 <?php $eventTimespan = new Zeropingheroes\LanagerCore\Helpers\Timespan($event->start, $event->end); ?>

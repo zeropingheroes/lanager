@@ -1,4 +1,4 @@
-@include('lanager-core::layouts.default.header')
-@include('lanager-core::layouts.fullscreen.content')
+@include('layouts.default.header')
+@include('layouts.fullscreen.content')
 	</body>
 </html>

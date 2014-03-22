@@ -3,7 +3,7 @@
 		<b class="caret"></b>
 	</a> 
 	<ul class="dropdown-menu">
-		@include('lanager-core::infopage.list')
+		@include('infopage.list')
 		@if( Authority::can( 'manage', 'infoPage' ) )
 			<li>{{ link_to_route('infoPage.create', 'Create...') }}</li>
 		@endif

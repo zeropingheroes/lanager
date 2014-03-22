@@ -1,6 +1,6 @@
-@include('lanager-core::layouts.default.header')
-@include('lanager-core::layouts.default.nav')
-@include('lanager-core::layouts.default.content')
-@include('lanager-core::layouts.default.footer')
+@include('layouts.default.header')
+@include('layouts.default.nav')
+@include('layouts.default.content')
+@include('layouts.default.footer')
 	</body>
 </html>

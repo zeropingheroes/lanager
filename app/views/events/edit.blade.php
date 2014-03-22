@@ -1,4 +1,4 @@
-@extends('lanager-core::layouts.default')
+@extends('layouts.default')
 @section('content')
 
 <?php
@@ -15,7 +15,7 @@
 
 {{ Form::model($event, array('route' => array('event.update', $event->id), 'method' => 'PUT')) }}
 
-@include('lanager-core::event.form')
+@include('event.form')
 
 {{ Form::close() }}
 @endsection

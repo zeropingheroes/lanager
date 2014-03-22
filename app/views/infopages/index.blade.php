@@ -1,10 +1,10 @@
-@extends('lanager-core::layouts.default')
+@extends('layouts.default')
 @section('content')
 
 <h2>Info</h2>
 
 <ul>
-	@include('lanager-core::infoPage.list')
+	@include('infoPage.list')
 </ul>
 <br>
 

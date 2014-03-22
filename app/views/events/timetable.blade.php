@@ -1,4 +1,4 @@
-@extends('lanager-core::layouts.default')
+@extends('layouts.default')
 @section('content')
 
 <h2>{{ $title }}</h2>
@@ -23,7 +23,7 @@
 			firstDay: 1,
 			theme: false,
 			height: 1500,
-			eventColor: "{{ Config::get('lanager-core::defaultEventColour') }}",
+			eventColor: "{{ Config::get('defaultEventColour') }}",
 			events: "{{ URL::route('event.timetable') }}",
 		});
 	});

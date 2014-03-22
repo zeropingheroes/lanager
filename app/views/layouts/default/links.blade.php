@@ -1,4 +1,4 @@
-<?php $links = Config::get('lanager-core::links'); ?>
+<?php $links = Config::get('links'); ?>
 
 @if (count($links) > 1 )
 	<li class="dropdown">

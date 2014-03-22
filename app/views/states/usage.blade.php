@@ -1,4 +1,4 @@
-@extends('lanager-core::layouts.default')
+@extends('layouts.default')
 @section('content')
 	<h2>{{{ $title }}}</h2>
 @if(count($itemsInUse))

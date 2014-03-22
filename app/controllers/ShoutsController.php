@@ -22,7 +22,7 @@ class ShoutsController extends BaseController {
 						->orderBy('pinned', 'desc')
 						->orderBy('created_at', 'desc')
 						->paginate(10);
-		return View::make('shout.index')
+		return View::make('shouts.index')
 					->with('title', 'Shouts')
 					->with('shouts', $shouts);
 	}
@@ -50,11 +50,11 @@ class ShoutsController extends BaseController {
 
 		if( ! $shout->save() )
 		{
-			return Redirect::route('shout.index')->withErrors($shout->validationErrors);
+			return Redirect::route('shouts.index')->withErrors($shout->validationErrors);
 		}
 		else
 		{
-			return Redirect::route('shout.index');
+			return Redirect::route('shouts.index');
 		}
 	}
 
@@ -100,11 +100,11 @@ class ShoutsController extends BaseController {
 	public function destroy($id)
 	{
 		Shout::destroy($id);
-		return Redirect::route('shout.index');
+		return Redirect::route('shouts.index');
 	}
 
 	/**
-	 * Toggle the "pinned" flag on the shout.
+	 * Toggle the "pinned" flag on the shouts.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -116,7 +116,7 @@ class ShoutsController extends BaseController {
 			$shout->pinned = !$shout->pinned;
 			$shout->save();
 		}
-		return Redirect::route('shout.index');
+		return Redirect::route('shouts.index');
 	}
 
 }

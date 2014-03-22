@@ -1,4 +1,4 @@
-@extends('lanager-core::layouts.default')
+@extends('layouts.default')
 @section('content')
 
 <h2>{{{ $infoPage->title }}}</h2>
@@ -8,7 +8,7 @@
 @if(!empty($infoPages))
 	<br>
 	<ul>
-		@include('lanager-core::infoPage.list')
+		@include('infoPage.list')
 	</ul>
 @endif
 

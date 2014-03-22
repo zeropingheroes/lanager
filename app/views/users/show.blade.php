@@ -1,4 +1,4 @@
-@extends('lanager-core::layouts.default')
+@extends('layouts.default')
 @section('content')
 
 <?php $state = $user->states()->latest()->first(); ?>
@@ -36,9 +36,9 @@
 	</div>
 
 	@if( count($user->shouts) )
-		<?php $shouts = $user->shouts()->orderBy('created_at','desc')->take(Config::get('lanager-core::userProfile.shoutQuantity'))->get(); ?>
+		<?php $shouts = $user->shouts()->orderBy('created_at','desc')->take(Config::get('userProfile.shoutQuantity'))->get(); ?>
 		<h2>Shouts</h2>
-		@include('lanager-core::shout.list')
+		@include('shout.list')
 	@endif
 
 	@if( count($user->roles) )

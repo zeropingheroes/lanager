@@ -1,11 +1,11 @@
-@extends('lanager-core::layouts.default')
+@extends('layouts.default')
 @section('content')
 
 <h3>Edit Info Page</h3>
 
 {{ Form::model($infoPage, array('route' => array('infoPage.update', $infoPage->id), 'method' => 'PUT')) }}
 
-@include('lanager-core::infoPage.form')
+@include('infoPage.form')
 
 {{ Form::close() }}
 @endsection
