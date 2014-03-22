@@ -1,10 +1,10 @@
 <?php namespace Zeropingheroes\Lanager\Commands;
 
-
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use File, Config, DB, Request, Artisan;
+use Tsukanov\SteamLocomotive\Locomotive;
 
 class Install extends BaseCommand {
 
@@ -22,6 +22,11 @@ class Install extends BaseCommand {
 	 */
 	protected $description = 'Install the LANager application.';
 
+	/**
+	 * The message returned after a critical error.
+	 *
+	 * @var string
+	 */
 	protected $criticalMessage = 'Raise an issue on GitHub';
 
 	/**
@@ -41,8 +46,7 @@ class Install extends BaseCommand {
 	 */
 	public function fire()
 	{
-
-		if( Config::get('lanager-core::installationCompleted') )
+		if( Config::get('lanager/config.installed') )
 		{
 			$this->customInfo('Installation already marked as completed');
 			if (!$this->confirm('Are you sure you want to continue? [yes|no]'))
@@ -52,68 +56,16 @@ class Install extends BaseCommand {
 		}
 
 		$this->checkRequirements();
-
-		$this->customInfo('Creating database structure...');
-		$migrate = Artisan::call(
-			'migrate',
-			array('--package' => 'zeropingheroes/lanager-core')
-		);
-		if($migrate != 0) $this->abort('Database structure creation failure', $this->criticalMessage);
-
-		
-		$this->customInfo('Seeding database with example data...');
-		$seed = Artisan::call(
-			'db:seed',
-			array('--class' => 'Zeropingheroes\LanagerCore\Seeds\DatabaseSeeder')
-		);
-		if($seed != 0) $this->abort('Database seeding failure', $this->criticalMessage);
-
-		
-		$this->customInfo('Publishing assets to public directory...');
-		$publish = Artisan::call(
-			'asset:publish',
-			array('zeropingheroes/lanager-core',
-				'patricktalmadge/bootstrapper')
-		);
-		if($publish != 0) $this->abort('Asset publishing failure', $this->criticalMessage);
-
-		$this->customInfo('Importing Steam applications...');
-		$import = Artisan::call(
-			'steam:import-apps'
-		);
-		if($import != 0) $this->abort('Steam app import error', $this->criticalMessage);
-
-
-		$this->customInfo('Changing session driver to database in config file...');
-		$sessionConfig = $this->editConfigFile('app/config/session.php', "'driver' => 'array'", "'driver' => 'database'");
-		if( ! $sessionConfig ) $this->abort('Unable to change session driver', $this->criticalMessage);
-
-		$this->customInfo('Marking LANager as installed in config file...');
-		$lanagerConfig = $this->editConfigFile('app/config/packages/zeropingheroes/lanager-core/config.php', "'installationCompleted'	=> false","'installationCompleted'	=> true");
-		if( ! $sessionConfig ) $this->abort('Unable to mark installation as completed', $this->criticalMessage);
-
-		$this->customInfo('');
-		$this->customInfo('Installation completed!');
-		$this->customInfo('');
-		$this->customInfo('IMPORTANT: Please schedule "SteamImportUserStates" to run every minute before continuing.');
-		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
-		{
-			$this->customInfo('Add a task for "SteamImportUserStates.bat" in Windows task scheduler');
-			$this->customInfo('More info: http://support.microsoft.com/kb/226795');
-		}
-		else
-		{
-			$this->customInfo('From a terminal run "crontab -e" and add the following to the end of the file:');
-			$this->customInfo('');
-			$this->customInfo('*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1');
-			$this->customInfo('');
-		}
-		$this->customInfo('Once you added the schedule, navigate to http://localhost and have a great LAN!');
+		$this->runInstaller();
 	}
 
+	/**
+	 * Check installation prerequisites are met before running installer.
+	 *
+	 * @return void
+	 */
 	private function checkRequirements()
 	{
-
 		$this->customInfo('Testing requirements before installation...');
 		
 		$this->displayCheck('PHP version greater than 5.3.7');
@@ -147,12 +99,6 @@ class Install extends BaseCommand {
 			$this->checkIfPhpInPath(),
 			'Add PHP to the system\'s path variable and restart your OS');
 		
-		$this->displayCheck('Example config files ready for editing in /app/config/packages/');
-		$this->checkRequirement(
-			File::exists('app/config/packages/zeropingheroes/lanager-core/config.php') &&
-			File::exists('app/config/packages/zeropingheroes/lanager-core/authority.php'),
-			'Run "php artisan config:publish zeropingheroes/lanager-core"');
-		
 		$this->displayCheck('MySQL database accessible using the configured details');
 		$this->checkRequirement(
 			$this->checkDatabaseConnection(),
@@ -160,8 +106,8 @@ class Install extends BaseCommand {
 
 		$this->displayCheck('Steam Web API key set');
 		$this->checkRequirement(
-			strlen(Config::get('lanager-core::steamWebApiKey')) == 32,
-			'Enter a valid Steam Web API key in /app/config/packages/zeropingheroes/lanager-core/config.php');
+			strlen(Config::get('lanager/steam.apikey')) == 32,
+			'Enter a valid Steam Web API key in /app/config/lanager/steam.php');
 
 		$this->displayCheck('Server able to access internet');
 		$this->checkRequirement(
@@ -171,19 +117,77 @@ class Install extends BaseCommand {
 		$this->displayCheck('Steam Web API accessible with provided API key');
 		$this->checkRequirement(
 			$this->checkSteamWebApiKey(),
-			'Check that Steam is up on http://steamstat.us and that the API key set in /app/config/packages/zeropingheroes/lanager-core/config.php is correct');
+			'Check that Steam is up on http://steamstat.us and that the API key set in /app/config/lanager/steam.php is correct');
 		
 		$this->customInfo('');
 		$this->customInfo('All requirements passed - continuing with installation');
 		$this->customInfo('');
 	}
 
+	/**
+	 * Run installation steps.
+	 *
+	 * @return void
+	 */
+	private function runInstaller()
+	{
+		$this->customInfo('Creating database structure...');
+		$migrate = Artisan::call('migrate', array('--path' => 'app/migrations'));
+		if( $migrate != 0 ) $this->abort('Database structure creation failure', $this->criticalMessage);
+		
+		$this->customInfo('Seeding database with example data...');
+		$seed = Artisan::call('db:seed', array('--class' => 'Zeropingheroes\Lanager\Seeds\DatabaseSeeder'));
+		if( $seed != 0 ) $this->abort('Database seeding failure', $this->criticalMessage);
 
+		$this->customInfo('Importing Steam applications...');
+		$import = Artisan::call('steam:import-apps');
+		if( $import != 0 ) $this->abort('Steam app import error', $this->criticalMessage);
+
+		$this->customInfo('Changing session driver to database in config file...');
+		$sessionConfig = $this->editConfigFile('app/config/session.php', "'driver' => 'array'", "'driver' => 'database'");
+		if( ! $sessionConfig ) $this->abort('Unable to change session driver', $this->criticalMessage);
+
+		$this->customInfo('Marking LANager as installed in config file...');
+		$lanagerConfig = $this->editConfigFile('app/config/lanager/config.php', "'installed'	=> false","'installed'	=> true");
+		if( ! $lanagerConfig ) $this->abort('Unable to mark installation as completed', $this->criticalMessage);
+
+		$this->customInfo('');
+		$this->customInfo('Installation completed!');
+		$this->customInfo('');
+		$this->customInfo('IMPORTANT: Please schedule "SteamImportUserStates" to run every minute before continuing.');
+		if( strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' )
+		{
+			$this->customInfo('Add a task for "SteamImportUserStates.bat" in Windows task scheduler');
+			$this->customInfo('More info: http://support.microsoft.com/kb/226795');
+		}
+		else
+		{
+			$this->customInfo('From a terminal run "crontab -e" and add the following to the end of the file:');
+			$this->customInfo('');
+			$this->customInfo('*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1');
+			$this->customInfo('');
+		}
+		$this->customInfo('Once you added the schedule, navigate to http://localhost and have a great LAN!');
+	}
+
+	/**
+	 * Display the requirement about to be checked.
+	 *
+	 * @param string 	$checkDescription	The check description to show the user
+	 * @return void
+	 */
 	private function displayCheck($checkDescription)
 	{
 		$this->customInfo('Checking ' . $checkDescription );
 	}
 
+	/**
+	 * Check a given requirement and continue or abort.
+	 *
+	 * @param bool 		$check 				The item being checked
+	 * @param string 	$messageOnFailure 	The message to show the user
+	 * @return void
+	 */
 	private function checkRequirement($check, $messageOnFailure)
 	{
 		if( $check )
@@ -196,22 +200,25 @@ class Install extends BaseCommand {
 		}
 	}
 
+	/**
+	 * Abort the installation command and display an informational message.
+	 *
+	 * @param string $message 			The failure message to display
+	 * @param string $actionRequired	The recommended action to recover
+	 * @return void
+	 */
 	private function abort($message, $actionRequired)
 	{
 		$this->customError('ERROR: ' . $message);
 		$this->customError('INSTALLATION ABORTED');
 		$this->customError($actionRequired);
 		exit();
-
-
-			$this->customError($failureMessage);
-			exit();
 	}
 
 	/**
 	 * Check if PHP is in the system's path.
 	 *
-	 * @return Bool
+	 * @return bool
 	 */
 	private function checkIfPhpInPath()
 	{
@@ -222,13 +229,13 @@ class Install extends BaseCommand {
 	/**
 	 * Check the MySQL database connection.
 	 *
-	 * @return Bool
+	 * @return bool
 	 */
 	private function checkDatabaseConnection()
 	{
 		try
 		{
-			$pdo = DB::connection('mysql')->getPdo();
+			DB::connection('mysql')->getPdo();
 		}
 		catch(\PDOException $exception)
 		{
@@ -240,7 +247,7 @@ class Install extends BaseCommand {
 	/**
 	 * Check that the server has internet access.
 	 *
-	 * @return Bool
+	 * @return bool
 	 */
 	private function checkInternetConnection()
 	{
@@ -256,11 +263,11 @@ class Install extends BaseCommand {
 	/**
 	 * Check that the configured Steam web API key is valid.
 	 *
-	 * @return Bool
+	 * @return bool
 	 */
 	private function checkSteamWebApiKey()
 	{
-		$steamApi = new \Tsukanov\SteamLocomotive\Locomotive(Config::get('lanager-core::steamWebApiKey'));
+		$steamApi = new Locomotive(Config::get('lanager/steam.apikey'));
 		try
 		{
 			$steamApi->ISteamUser->GetPlayerSummaries(array('1234'));
@@ -276,9 +283,16 @@ class Install extends BaseCommand {
 		return true;
 	}
 
+	/**
+	 * Edit a config file using find and replace
+	 *
+	 * @param	string 	$path 		Full path to the config file
+	 * @param	string 	$find 		Text to find
+	 * @param	string 	$replace 	Text to replace
+	 * @return	bool
+	 */
 	private function editConfigFile($path, $find, $replace)
 	{
-
 		$fileContents = file_get_contents($path);
 		$fileContents = str_replace($find, $replace, $fileContents, $replacementsMade);
 		
@@ -291,9 +305,7 @@ class Install extends BaseCommand {
 				$this->abort('Could not find text "' . $find . '" in "' . $path . '"', $this->criticalMessage);
 			}
 		}
-	
 		return file_put_contents($path, $fileContents);
-
 	}
 
 }
