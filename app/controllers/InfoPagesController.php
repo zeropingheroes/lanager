@@ -21,7 +21,7 @@ class InfoPagesController extends BaseController {
 	{
 		$infoPages = InfoPage::all();
 		
-		return View::make('infopage.index')
+		return View::make('infopages.index')
 					->with('title','Info')
 					->with('infoPages',$infoPages);
 	}
@@ -35,7 +35,7 @@ class InfoPagesController extends BaseController {
 	{
 		$infoPagesDropdown = array('' => ' ') + InfoPage::lists('title','id');
 		$infoPage = new InfoPage;
-		return View::make('infopage.create')
+		return View::make('infopages.create')
 					->with('title','Create Info Page')
 					->with('infoPagesDropdown',$infoPagesDropdown)
 					->with('infoPage',$infoPage);
@@ -56,10 +56,10 @@ class InfoPagesController extends BaseController {
 		
 		if(!$infoPage->save())
 		{
-			return Redirect::route('infopage.create')->withErrors($infoPage->errors());
+			return Redirect::route('infopages.create')->withErrors($infoPage->errors());
 		}
 
-		return Redirect::route('infopage.show',array('infoPage' => $infoPage->id));
+		return Redirect::route('infopages.show',array('infopage' => $infoPage->id));
 	}
 
 	/**
@@ -73,7 +73,7 @@ class InfoPagesController extends BaseController {
 		$infoPage = InfoPage::find($id);
 		$infoPageChildren = InfoPage::where('parent_id',$id)->get();
 
-		return View::make('infopage.show')
+		return View::make('infopages.show')
 					->with('title',$infoPage->title)
 					->with('infoPages',$infoPageChildren)
 					->with('infoPage',$infoPage);
@@ -89,7 +89,7 @@ class InfoPagesController extends BaseController {
 	{
 		$infoPage = InfoPage::find($id);
 		$infoPagesDropdown = array('' => ' ') + InfoPage::lists('title','id');
-		return View::make('infopage.edit')
+		return View::make('infopages.edit')
 					->with('title','Edit Info Page')
 					->with('infoPagesDropdown',$infoPagesDropdown)
 					->with('infoPage',$infoPage);
@@ -111,10 +111,10 @@ class InfoPagesController extends BaseController {
 		
 		if(!$infoPage->save())
 		{
-			return Redirect::route('infopage.edit',array('infoPage' => $infoPage->id))->withErrors($infoPage->errors());
+			return Redirect::route('infopages.edit',array('infopage' => $infoPage->id))->withErrors($infoPage->errors());
 		}
 
-		return Redirect::route('infopage.show',array('infoPage' => $infoPage->id));
+		return Redirect::route('infopages.show',array('infopage' => $infoPage->id));
 
 	}
 
@@ -127,7 +127,7 @@ class InfoPagesController extends BaseController {
 	public function destroy($id)
 	{
 		InfoPage::destroy($id);
-		return Redirect::route('infopage.index');
+		return Redirect::route('infopages.index');
 
 	}
 

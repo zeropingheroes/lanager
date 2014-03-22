@@ -5,17 +5,15 @@
 |--------------------------------------------------------------------------
 */
 
-View::composer('layouts.default.info', function($view)
+View::composer('layouts.default.infopages', function($view)
 {
 	$infoPagesMenuItems = Zeropingheroes\Lanager\Models\InfoPage::whereNull('parent_id')->get();
 
 	$view->with('infoPages', $infoPagesMenuItems);
-
 });
 
 View::composer('layouts.default.nav', function($view)
 {
-
 	// Steam OpenID Login URL - cached for 1 day due to request time
 	$authUrl = Cache::remember('authUrl', 60*24, function()
 	{
@@ -27,5 +25,4 @@ View::composer('layouts.default.nav', function($view)
 	});
 
 	$view->with('authUrl', $authUrl);
-
 });

@@ -52,7 +52,7 @@ Route::resource('users', 'Zeropingheroes\Lanager\UsersController');
 | Info Pages
 |--------------------------------------------------------------------------
 */
-Route::resource('infopages', 'Zeropingheroes\Lanager\InfoPageController');
+Route::resource('infopages', 'Zeropingheroes\Lanager\InfoPagesController');
 
 /*
 |--------------------------------------------------------------------------
