@@ -3,9 +3,9 @@
 
 <h3>{{ $title }}</h3>
 
-{{ Form::model($event, array('route' => 'event.store', 'event' => $event->id)) }}
+{{ Form::model($event, array('route' => 'events.store', 'event' => $event->id)) }}
 
-@include('event.form')
+@include('events.form')
 
 {{ Form::close() }}
 @endsection

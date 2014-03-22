@@ -13,9 +13,9 @@
 
 <h3>{{ $title }}</h3>
 
-{{ Form::model($event, array('route' => array('event.update', $event->id), 'method' => 'PUT')) }}
+{{ Form::model($event, array('route' => array('events.update', $event->id), 'method' => 'PUT')) }}
 
-@include('event.form')
+@include('events.form')
 
 {{ Form::close() }}
 @endsection

@@ -31,13 +31,13 @@ class EventsController extends BaseController {
 					'end'		=> strtotime($event->end),
 					'title'		=> $event->name,
 					'allDay'	=> false,
-					'url'		=> URL::route('event.show', $event->id),
+					'url'		=> URL::route('events.show', $event->id),
 					'color'		=> (isset($event->event_type->colour) ? $event->event_type->colour : ''),
 					);
 			}
 			return Response::json($fullCalendarJson);
 		}
-		return View::make('event.timetable')
+		return View::make('events.timetable')
 					->with('title','Events Timetable');
 	}
 
@@ -50,7 +50,7 @@ class EventsController extends BaseController {
 	{
 		$events = Event::orderBy('start')->get();
 		
-		return View::make('event.index')
+		return View::make('events.index')
 					->with('title','Events List')
 					->with('events',$events);
 	}
@@ -64,7 +64,7 @@ class EventsController extends BaseController {
 	{
 		$eventTypes = array('' => ' ') + EventType::lists('name','id');
 		$event = new Event;
-		return View::make('event.create')
+		return View::make('events.create')
 					->with('title','Create Event')
 					->with('eventTypes',$eventTypes)
 					->with('event',$event);
@@ -88,10 +88,10 @@ class EventsController extends BaseController {
 
 		if(!$event->save())
 		{
-			return Redirect::route('event.create')->withErrors($event->errors());
+			return Redirect::route('events.create')->withErrors($event->errors());
 		}
 
-		return Redirect::route('event.show',array('event' => $event->id));
+		return Redirect::route('events.show',array('event' => $event->id));
 	}
 
 	/**
@@ -104,7 +104,7 @@ class EventsController extends BaseController {
 	{
 		$event = Event::find($id);
 
-		return View::make('event.show')
+		return View::make('events.show')
 					->with('title',$event->name)
 					->with('event',$event);
 	}
@@ -120,7 +120,7 @@ class EventsController extends BaseController {
 		$event = Event::find($id);
 		$eventTypes = array('' => ' ') + EventType::lists('name','id');
 
-		return View::make('event.edit')
+		return View::make('events.edit')
 					->with('title','Edit Event')
 					->with('eventTypes',$eventTypes)
 					->with('event',$event);
@@ -145,10 +145,10 @@ class EventsController extends BaseController {
 		
 		if(!$event->save())
 		{
-			return Redirect::route('event.edit',array('event' => $event->id))->withErrors($event->errors());
+			return Redirect::route('events.edit',array('event' => $event->id))->withErrors($event->errors());
 		}
 
-		return Redirect::route('event.show',array('event' => $event->id));
+		return Redirect::route('events.show',array('event' => $event->id));
 	}
 
 	/**
@@ -160,7 +160,7 @@ class EventsController extends BaseController {
 	public function destroy($id)
 	{
 		Event::destroy($id);
-		return Redirect::route('event.index');
+		return Redirect::route('events.index');
 	}
 
 	public function join($id)
@@ -170,7 +170,7 @@ class EventsController extends BaseController {
 		{
 			$event->users()->attach(Auth::user());
 		}
-		return Redirect::route('event.show',array('event' => $event->id));
+		return Redirect::route('events.show',array('event' => $event->id));
 	}
 
 	public function leave($id)
@@ -180,7 +180,7 @@ class EventsController extends BaseController {
 		{
 			$event->users()->detach(Auth::user());
 		}
-		return Redirect::route('event.show',array('event' => $event->id));
+		return Redirect::route('events.show',array('event' => $event->id));
 	}
 
 

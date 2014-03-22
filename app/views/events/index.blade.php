@@ -7,10 +7,10 @@
 		<?php
 		foreach( $events as $event )
 		{
-			$eventTimespan = new Zeropingheroes\LanagerCore\Helpers\Timespan($event->start, $event->end);
+			$eventTimespan = new Zeropingheroes\Lanager\Helpers\Timespan($event->start, $event->end);
 			if(isset($event->signup_opens))
 			{
-				$signupTimespan = new Zeropingheroes\LanagerCore\Helpers\Timespan($event->signup_opens, $event->signup_closes);
+				$signupTimespan = new Zeropingheroes\Lanager\Helpers\Timespan($event->signup_opens, $event->signup_closes);
 				switch($signupTimespan->status)
 				{
 					case 0:
@@ -32,7 +32,7 @@
 				$signupCount = '';
 			}
 			$tableBody[] = array(
-				'name'			=> link_to_route('event.show', $event->name, $event->id),
+				'name'			=> link_to_route('events.show', $event->name, $event->id),
 				'time'			=> $eventTimespan->naturalFormat(),
 				'status'		=> ($eventTimespan->status == 1 ? Label::success('In Progress') : ''),
 				'type'			=> (isset($event->event_type->name) ? $event->event_type->name : ''),

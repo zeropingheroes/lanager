@@ -24,7 +24,7 @@
 			theme: false,
 			height: 1500,
 			eventColor: "{{ Config::get('defaultEventColour') }}",
-			events: "{{ URL::route('event.timetable') }}",
+			events: "{{ URL::route('events.timetable') }}",
 		});
 	});
 </script>
@@ -32,5 +32,5 @@
 <div id="timetable"></div>
 <br>
 <br>
-Having trouble viewing the timetable? Try the {{ link_to_route('event.index', 'Events List') }}
+Having trouble viewing the timetable? Try the {{ link_to_route('events.index', 'Events List') }}
 @endsection
