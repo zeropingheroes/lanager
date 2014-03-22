@@ -3,9 +3,9 @@
 
 <h3>Create Info Page</h3>
 
-{{ Form::model($infoPage, array('route' => 'infoPage.store', 'info' => $infoPage->id)) }}
+{{ Form::model($infoPage, array('route' => 'infopages.store', 'info' => $infoPage->id)) }}
 
-@include('infoPage.form')
+@include('infopages.form')
 
 {{ Form::close() }}
 @endsection

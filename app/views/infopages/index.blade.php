@@ -4,10 +4,10 @@
 <h2>Info</h2>
 
 <ul>
-	@include('infoPage.list')
+	@include('infopages.list')
 </ul>
 <br>
 
-{{ HTML::resourceCreate('infoPage', 'Create') }}
+{{ HTML::resourceCreate('infopages', 'Create') }}
 
 @endsection

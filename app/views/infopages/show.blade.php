@@ -8,14 +8,14 @@
 @if(!empty($infoPages))
 	<br>
 	<ul>
-		@include('infoPage.list')
+		@include('infopages.list')
 	</ul>
 @endif
 
 <br>
 
-{{ HTML::resourceUpdate('infoPage',$infoPage->id, 'Edit') }}
+{{ HTML::resourceUpdate('infopages', $infoPage->id, 'Edit') }}
 
-{{ HTML::resourceDelete('infoPage',$infoPage->id, 'Delete') }}
+{{ HTML::resourceDelete('infopages', $infoPage->id, 'Delete') }}
 
 @endsection

@@ -3,9 +3,9 @@
 
 <h3>Edit Info Page</h3>
 
-{{ Form::model($infoPage, array('route' => array('infoPage.update', $infoPage->id), 'method' => 'PUT')) }}
+{{ Form::model($infoPage, array('route' => array('infopages.update', $infoPage->id), 'method' => 'PUT')) }}
 
-@include('infoPage.form')
+@include('infopages.form')
 
 {{ Form::close() }}
 @endsection
