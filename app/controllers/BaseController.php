@@ -1,7 +1,6 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use \Illuminate\Routing\Controller;
-
+use Illuminate\Routing\Controller;
 
 class BaseController extends Controller {
 
