@@ -11,7 +11,7 @@ class LocomotiveSteamUserRepository implements SteamUserRepositoryInterface {
 
 	public function __construct()
 	{
-		$this->steamApi = new Locomotive(Config::get('steamWebApiKey'));
+		$this->steamApi = new Locomotive(Config::get('lanager/steam.apikey'));
 	}
 
 	/**

@@ -3,7 +3,7 @@
 use Zeropingheroes\Lanager\Models\User,
 	Zeropingheroes\Lanager\Models\SteamState,
 	Zeropingheroes\Lanager\Models\Role,
-	Zeropingheroes\Lanager\Repositories\SteamUserRepositoryInterface;
+	Zeropingheroes\Lanager\Interfaces\SteamUserRepositoryInterface;
 use App, Auth, Input, Request, Redirect, View;
 use LightOpenID;
 
