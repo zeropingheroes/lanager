@@ -56,7 +56,7 @@ class State extends BaseModel {
 	public function scopeLatest($query)
 	{
 		return $query->orderBy('created_at', 'desc')
-					->where('created_at', '>=', date('Y-m-d H:i:s',time()-Config::get('lanager-core::states.maximumAge')));
+					->where('created_at', '>=', date('Y-m-d H:i:s',time()-Config::get('lanager/states.maxage')));
 	}
 
 }
