@@ -19,25 +19,25 @@ more enjoyable for attendees and organisers alike.
 	* [Info pages](http://zeropingheroes.co.uk/wp-content/gallery/lanager/info_0.png) so that everyone can find out about the venue, food or tournament rules  
 	* [Links](http://zeropingheroes.co.uk/wp-content/gallery/lanager/links.png) to other sites e.g. game stats, organiser's website 
 * Allow attendee feedback
-	* [Request music & videos](http://zeropingheroes.co.uk/wp-content/gallery/lanager-old/playlist.png) for play-out on a big screen *
-	* [Watch & listen](http://zeropingheroes.co.uk/wp-content/gallery/lanager-old/playlist_screen.png) to requested music & videos *
+	* [Request music & videos](http://zeropingheroes.co.uk/wp-content/gallery/lanager/playlist.png) for play-out on a big screen
+	* [Watch & listen](http://zeropingheroes.co.uk/wp-content/gallery/lanager-old/playlist_screen.png) to requested music & videos
 * API access
 	* Allow user status, game and server information for non-steam applications to be used *
 	* Make data available for events, users, info pages, shouts, videos etc *
 	* Generally avoid tying the project to the Steam platform *
 * Much more
-	* Check the [core issue tracker](https://github.com/zeropingheroes/lanager-core/issues?labels=enhancement&milestone=&page=1&state=open) for more planned enhancements
+	* Check the [issue tracker](https://github.com/zeropingheroes/lanager-core/issues?labels=enhancement&milestone=&page=1&state=open) for more planned enhancements
 
 \* *Planned but not yet implemented*
 
 ## Requirements
 * Windows / Linux / OS X
-* Web server (Apache, nginx and others)
-* PHP 5.3.7+ (with Curl & MCrypt)
+* Apache Web server
+* PHP 5.3.7+ (with cURL & MCrypt)
 * MySQL
 * [Composer](https://getcomposer.org/)
 * [Steam API Key](http://steamcommunity.com/dev/apikey)
-* An internet connection
+* An Internet connection
 
 WAMP, LAMP and MAMP are a quick way to satisfy most of the above, just check that the version you download includes PHP 5.3.7+
 
@@ -57,16 +57,6 @@ LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.
 		2. Add the following to the end of the file:
 		`*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1`     
 
-## Installation Troubleshooting
-If the installation steps above are causing issues, run the following commands in a terminal in the `lanager/` directory:
-
-1. `php artisan dump-autoload`
-2. `php artisan migrate --package="zeropingheroes/lanager-core"`
-3. `php artisan db:seed --class="Zeropingheroes\LanagerCore\Seeds\DatabaseSeeder"`
-4. `php artisan asset:publish zeropingheroes/lanager-core`
-5. `php artisan asset:publish patricktalmadge/bootstrapper`
-5. `php artisan config:publish zeropingheroes/lanager-core`
-
 ## Vagrant
 
 If you want to try out the project quickly and easily, you can use [Vagrant](http://www.vagrantup.com/about.html) to create a virtual machine with everything the project needs to run. Here's how:
@@ -81,15 +71,12 @@ When you're finished either run `vagrant destroy` to remove the virtual machine 
 
 ## Feedback & Contributions
 
-* Found a bug? Got a great feature idea? Post it to the [core issue tracker](https://github.com/zeropingheroes/lanager-core/issues)!
+* Found a bug? Got a great feature idea? Post it to the [issue tracker](https://github.com/zeropingheroes/lanager/issues)!
 * Want to contribute?
-	* [Fork the core project](https://github.com/zeropingheroes/lanager-core/fork) and add the features you want to see
-	* Work on new features / bug fixes in the [core issue tracker](https://github.com/zeropingheroes/lanager-core/issues)
+	* [Fork the core project](https://github.com/zeropingheroes/lanager/fork) and add the features you want to see
+	* Work on new features / bug fixes in the [issue tracker](https://github.com/zeropingheroes/lanager/issues)
 	* Or if you're really hardcore, request commit access
 
 If you want to support the project in a non-technical way, we'd love it if you donated to us:
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=zeropingheroes&url=https%3A%2F%2Fgithub.com%2Fzeropingheroes%2Flanager)
-
-
-**Please note:** This repository (`zeropingheroes/lanager`) is the bootstrapped install version, and doesn't include or track the core project code. All forks, issues and pull requests relevant to the core functionality and not this install version should be submitted to [`zeropingheroes/lanager-core`](https://github.com/zeropingheroes/lanager-core).
