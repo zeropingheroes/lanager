@@ -1,5 +1,5 @@
 <?php
-namespace Zeropingheroes\LanagerCore\Interfaces;
+namespace Zeropingheroes\Lanager\Interfaces;
 
 interface StateRepositoryInterface {
 

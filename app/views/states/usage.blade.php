@@ -14,7 +14,7 @@
 
 			foreach ( $itemInUse['users'] as $user )
 			{
-				$users[] = link_to_route('user.show', $user->username, $user->id);
+				$users[] = link_to_route('users.show', $user->username, $user->id);
 			}
 
 			$rows[$i]['application'] = '<a href="'.SteamBrowserProtocol::viewAppInStore($itemInUse['application']->steam_app_id).'"><img src="'.$itemInUse['application']->getLogo().'" alt="Game Logo" title="'.e($itemInUse['application']->name).'"></a>';
@@ -33,12 +33,13 @@
 				}
 			}
 
-			$rows[$i]['users'] = e(implode(', ', $users));
+			$rows[$i]['users'] = implode(', ', $users);
 
 			$i++;
 		}
 
 	?>
+
 	{{ Table::body($rows) }}
 
 	{{ Table::close() }}

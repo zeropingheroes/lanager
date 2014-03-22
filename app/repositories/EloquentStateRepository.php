@@ -1,15 +1,17 @@
 <?php namespace Zeropingheroes\Lanager\Repositories;
 
-use Zeropingheroes\Lanager\Models\State;
+use Zeropingheroes\Lanager\Models\State,
+	Zeropingheroes\Lanager\Interfaces\StateRepositoryInterface;
+;
 use Config;
 
 class EloquentStateRepository implements StateRepositoryInterface {
 
-	protected $maximumAge;
+	protected $maxage;
 
 	public function __construct()
 	{
-		$this->maximumAge = Config::get('lanager-core::states.maximumAge');
+		$this->maxage = Config::get('lanager/states.maxage');
 	}
 
 	/**
@@ -25,7 +27,7 @@ class EloquentStateRepository implements StateRepositoryInterface {
 								$join->on('states.user_id', '=', 't2.user_id')
 									 ->on('states.created_at', '<', 't2.created_at');
 							})->whereNull('t2.user_id')
-							->where('states.created_at', '>=', date('Y-m-d H:i:s',time()-$this->maximumAge))
+							->where('states.created_at', '>=', date('Y-m-d H:i:s',time()-$this->maxage))
 							->with('application', 'user', 'server');
 	}
 

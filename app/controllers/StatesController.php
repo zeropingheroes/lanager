@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Models\State,
-	Zeropingheroes\Lanager\Repositories\StateRepositoryInterface;
+	Zeropingheroes\Lanager\Interfaces\StateRepositoryInterface;
 use View;
 
 class StatesController extends BaseController {
@@ -21,7 +21,7 @@ class StatesController extends BaseController {
 	public function currentApplicationUsage()
 	{
 		$applications = $this->states->getCurrentApplicationUsage();
-		return View::make('state.usage')
+		return View::make('states.usage')
 					->with('title','Games Currently Being Played')
 					->with('itemsInUse',$applications);
 	}
@@ -34,7 +34,7 @@ class StatesController extends BaseController {
 	public function currentServerUsage()
 	{
 		$servers = $this->states->getCurrentServerUsage();
-		return View::make('state.usage')
+		return View::make('states.usage')
 					->with('title','Game Servers Currently Being Used')
 					->with('itemsInUse',$servers);
 	}
