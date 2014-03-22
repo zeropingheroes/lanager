@@ -113,6 +113,16 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+
+		// 'Profiler\ProfilerServiceProvider',
+
+		'Authority\AuthorityL4\AuthorityL4ServiceProvider',
+		'VTalbot\Markdown\MarkdownServiceProvider',
+		'Bootstrapper\BootstrapperServiceProvider',
+		'Zeropingheroes\SteamBrowserProtocol\SteamBrowserProtocolServiceProvider',
+		'ExpressiveDateServiceProvider',
+
+
 	),
 
 	/*
@@ -177,6 +187,35 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+
+		//'Profiler'				=> 'Profiler\Facades\Profiler',
+
+		'SteamBrowserProtocol'	=> 'Zeropingheroes\SteamBrowserProtocol\Facades\SteamBrowserProtocol',
+		'Markdown'				=> 'VTalbot\Markdown\Facades\Markdown',
+		'Alert'					=> 'Bootstrapper\Alert',
+		'Badge'					=> 'Bootstrapper\Badge',
+		'Breadcrumb'			=> 'Bootstrapper\Breadcrumb',
+		'Button'				=> 'Bootstrapper\Button',
+		'ButtonGroup'			=> 'Bootstrapper\ButtonGroup',
+		'ButtonToolbar'			=> 'Bootstrapper\ButtonToolbar',
+		'Carousel'				=> 'Bootstrapper\Carousel',
+		'DropdownButton'		=> 'Bootstrapper\DropdownButton',
+		'Form'					=> 'Bootstrapper\Form',
+		'Helpers'				=> 'Bootstrapper\Helpers',
+		'Icon'					=> 'Bootstrapper\Icon',
+		'Image'					=> 'Bootstrapper\Image',
+		'Label'					=> 'Bootstrapper\Label',
+		'MediaObject'			=> 'Bootstrapper\MediaObject',
+		'Navbar'				=> 'Bootstrapper\Navbar',
+		'Navigation'			=> 'Bootstrapper\Navigation',
+		'Paginator'				=> 'Bootstrapper\Paginator',
+		'Progress'				=> 'Bootstrapper\Progress',
+		'Tabbable'				=> 'Bootstrapper\Tabbable',
+		'Table'					=> 'Bootstrapper\Table',
+		'Thumbnail'				=> 'Bootstrapper\Thumbnail',
+		'Typeahead'				=> 'Bootstrapper\Typeahead',
+		'Typography'			=> 'Bootstrapper\Typography',
+		'Authority'				=> 'Authority\AuthorityL4\Facades\Authority',
 
 	),
 

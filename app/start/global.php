@@ -95,3 +95,5 @@ require app_path().'/filters.php';
 */
 
 require app_path().'/bindings.php';
+require app_path().'/composers.php';
+require app_path().'/validators.php';
