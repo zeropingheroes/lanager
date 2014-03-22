@@ -1,7 +1,9 @@
 @extends('layouts.fullscreen')
 @section('content')
-	<div id="now-playing" class="pull-left">&nbsp;</div>
-	<div id="submitter" class="pull-right">&nbsp;</div>
+	<div style="width: {{ Config::get('lanager/playlist.videoplayer.width') }}px">
+		<div id="now-playing" class="pull-left">&nbsp;</div>
+		<div id="submitter" class="pull-right">&nbsp;</div>
+	</div>
 	<div id="youtube-player">
 		You need Flash player 8+ and JavaScript enabled to view this video player.
 	</div>
@@ -10,7 +12,7 @@
 		var atts = { id: "youtube-player" };
 		swfobject.embedSWF(
 			"http://www.youtube.com/apiplayer?version=3&enablejsapi=1&playerapiid=youtubePlayer&iv_load_policy=3",
-			"youtube-player", {{ Config::get('playlistVideoPlayer.width') }}, {{ Config::get('playlistVideoPlayer.height') }}, "8", null, null, params, atts);
+			"youtube-player", {{ Config::get('lanager/playlist.videoplayer.width') }}, {{ Config::get('lanager/playlist.videoplayer.height') }}, "8", null, null, params, atts);
 
 		var playerLoadedVideoId;
 		var playerLoadedVideoUniqueId;
@@ -22,7 +24,7 @@
 			youtubePlayer = document.getElementById('youtube-player');
 			console.log('Playlist: Embedded video player ready');
 			pollPlaylist();
-			youtubePlayer.setPlaybackQuality('{{ Config::get('playlistVideoPlayer.quality') }}');
+			youtubePlayer.setPlaybackQuality('{{ Config::get('lanager/playlist.videoplayer.quality') }}');
 			youtubePlayer.addEventListener('onStateChange', 'onStateChangeHandler');
 			youtubePlayer.addEventListener('onError', 'onErrorHandler');
 		}
@@ -30,7 +32,7 @@
 		// Poll database for next item or pausing
 		function pollPlaylist()
 		{
-			var url = '{{ route('playlist.item.current', $playlist->id) }}';
+			var url = '{{ route('playlists.items.current', $playlist->id) }}';
 			
 			$.getJSON(url,function(retrievedPlaylistItem)
 			{
@@ -100,7 +102,7 @@
 		{
 			console.log('Playlist: Loading '+videoId+' into player (uid:'+playerLoadedVideoUniqueId+')');
 			youtubePlayer.loadVideoById(videoId);
-			youtubePlayer.setPlaybackQuality('{{ Config::get('playlistVideoPlayer.quality') }}'); // request best available quality
+			youtubePlayer.setPlaybackQuality('{{ Config::get('lanager/playlist.videoplayer.quality') }}'); // request best available quality
 		}
 
 		// Perform actions based on player's state changing, e.g. when last video stopped, load the next one
@@ -171,7 +173,7 @@
 			{
 				console.log('Playlist: Updating playback state'); 
 				$.ajax({
-					url: '{{ route('playlist.item.update', $playlist->id) }}'+'/'+uniqueVideoId,
+					url: '{{ route('playlists.items.update', $playlist->id) }}'+'/'+uniqueVideoId,
 					type: 'PUT',
 					data: {
 						playback_state: playbackState,

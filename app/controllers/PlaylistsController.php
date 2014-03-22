@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\Models\Playlist,
 	Zeropingheroes\Lanager\Models\PlaylistItem;
 use View, Response;
 
-class PlaylistController extends BaseController {
+class PlaylistsController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -45,7 +45,7 @@ class PlaylistController extends BaseController {
 	public function show($playlistId)
 	{
 		$playlist = Playlist::find($playlistId);
-		return View::make('playlist.show')
+		return View::make('playlists.show')
 					->with('title', 'Playlist')
 					->with('playlist', $playlist);
 	}

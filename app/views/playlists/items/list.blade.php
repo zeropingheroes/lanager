@@ -7,7 +7,7 @@
 		$playbackStateLabel = '';
 
 		$user = $playlistItem->user;
-		$duration = new Zeropingheroes\LanagerCore\Helpers\Duration($playlistItem->duration);
+		$duration = new Zeropingheroes\Lanager\Helpers\Duration($playlistItem->duration);
 		$submitted = new ExpressiveDate($playlistItem->created_at);
 
 		// Change labels and controls for different playback states
@@ -24,7 +24,7 @@
 				if( Authority::can( 'manage', 'playlist', $playlist->id ) )
 				{
 					$controls = Button::link_xs_normal(
-						route('playlist.item.pause', array('playlist' => $playlist->id, 'playlistItem' => $playlistItem->id)),
+						route('playlists.items.pause', array('playlist' => $playlist->id, 'playlistItem' => $playlistItem->id)),
 						'', array('title' => 'Pause this item')
 						)->with_icon('pause');
 
@@ -40,7 +40,7 @@
 				if( Authority::can( 'manage', 'playlist', $playlist->id ) )
 				{
 					$controls = Button::link_xs_normal(
-						route('playlist.item.pause', array('playlist' => $playlist->id, 'playlistItem' => $playlistItem->id)),
+						route('playlists.items.pause', array('playlist' => $playlist->id, 'playlistItem' => $playlistItem->id)),
 						'', array('title' => 'Unpause this item')
 						)->with_icon('play');
 				}
@@ -52,7 +52,7 @@
 		}
 
 		$tableBody[] = array(
-			'user'			=> '<a class="pull-left" href="'.URL::route('user.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
+			'user'			=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
 			'title'			=> e($playlistItem->title),
 			'state'			=> $playbackStateLabel,
 			'controls'		=> $controls,

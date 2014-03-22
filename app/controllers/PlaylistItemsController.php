@@ -3,6 +3,7 @@
 use Zeropingheroes\Lanager\Models\Playlist,
 	Zeropingheroes\Lanager\Models\PlaylistItem;
 use View, Response, Auth, Input, Redirect, Request, DB;
+
 class PlaylistItemsController extends BaseController {
 
 	/**
@@ -18,7 +19,7 @@ class PlaylistItemsController extends BaseController {
 			->whereIn('playback_state', array(0,1,2))
 			->orderBy('created_at', 'asc')
 			->paginate(10);
-		return View::make('playlist.item.index')
+		return View::make('playlists.items.index')
 					->with('title', 'Playlist')
 					->with('playlist', $playlist)
 					->with('playlistItems', $playlistItems);
@@ -38,11 +39,11 @@ class PlaylistItemsController extends BaseController {
 
 		if( ! $playlistItem->save() )
 		{
-			return Redirect::route('playlist.item.index', array('playlist' => $playlistId))->withErrors($playlistItem->validationErrors);
+			return Redirect::route('playlists.items.index', array('playlist' => $playlistId))->withErrors($playlistItem->validationErrors);
 		}
 		else
 		{
-			return Redirect::route('playlist.item.index', array('playlist' => $playlistId));
+			return Redirect::route('playlists.items.index', array('playlist' => $playlistId));
 		}
 	}
 
