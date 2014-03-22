@@ -4,7 +4,7 @@
 	@foreach ($shouts as $shout)
 		<?php $date = new ExpressiveDate($shout->created_at); ?>
 		<div class="media">
-			<a class="pull-left" href="{{ URL::route('user.show', $shout->user->id) }}">
+			<a class="pull-left" href="{{ URL::route('users.show', $shout->user->id) }}">
 				{{ HTML::userAvatar($shout->user, 'small', 'media-object') }}
 			</a>
 			@if( Authority::can('manage', 'shouts'))
