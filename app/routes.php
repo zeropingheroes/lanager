@@ -45,14 +45,14 @@ Route::group(array('before' => 'hasRole:SuperAdmin'), function()
 			'uses' => 'Zeropingheroes\Lanager\UsersController@updateRoles')
 	);
 });
-Route::resource('user', 'Zeropingheroes\Lanager\UsersController');
+Route::resource('users', 'Zeropingheroes\Lanager\UsersController');
 
 /*
 |--------------------------------------------------------------------------
 | Info Pages
 |--------------------------------------------------------------------------
 */
-Route::resource('infoPage', 'Zeropingheroes\Lanager\InfoPageController');
+Route::resource('infopages', 'Zeropingheroes\Lanager\InfoPageController');
 
 /*
 |--------------------------------------------------------------------------

@@ -22,7 +22,7 @@ View::composer('layouts.default.nav', function($view)
 		$openId = new LightOpenID(Request::server('HTTP_HOST'));
 		
 		$openId->identity = 'http://steamcommunity.com/openid';
-		$openId->returnUrl = URL::route('user.openIdLogin');
+		$openId->returnUrl = URL::route('users.openIdLogin');
 		return $openId->authUrl();
 	});
 
