@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="/">
-				<img src="{{ asset('packages/zeropingheroes/lanager-core/img/logo.png') }}" alt="LANager Logo">
+				<img src="{{ asset('img/logo.png') }}" alt="LANager Logo">
 			</a>
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
 				<span class="icon-bar"></span>
@@ -24,7 +24,7 @@
 					</li>
 				@else
 					<li>
-						<a href="{{ $authUrl }}" class="pull-right steam-signin"><img src="{{ asset('/packages/zeropingheroes/lanager-core/img/sits_small.png') }}"></a>
+						<a href="{{ $authUrl }}" class="pull-right steam-signin"><img src="{{ asset('/img/sits_small.png') }}"></a>
 					</li>
 				@endif
 			</ul>
@@ -37,7 +37,7 @@
 				<li class="dropdown {{ Request::is('event*') ? 'active' : '' }}">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Events
 						<b class="caret"></b>
-					</a> 
+					</a>
 					<ul class="dropdown-menu">
 						<li>
 							{{ link_to_route('events.timetable', 'Timetable') }}
