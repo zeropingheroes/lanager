@@ -1,10 +1,11 @@
 <?php namespace Zeropingheroes\Lanager\Validators;
 
 use Config, Auth;
+use Illuminate\Validation\Validator;
 use ExpressiveDate;
 use Carbon\Carbon;
 
-class CustomValidator extends \Illuminate\Validation\Validator {
+class CustomValidator extends Validator {
 
 	/**
 	 * Check to see if user has submitted an item more recently than the flood protect time
@@ -17,7 +18,7 @@ class CustomValidator extends \Illuminate\Validation\Validator {
 	public function validateFloodProtect($attribute, $value, $parameters)
 	{
 		$date = new ExpressiveDate;
-		$date->minusSeconds(Config::get('lanager/floodprotect'.$parameters[0]));
+		$date->minusSeconds(Config::get('lanager/floodprotect.'.$parameters[0]));
 		return ! Auth::user()->{$parameters[0]}()->where('created_at','>',$date)->count();
 	}
 
