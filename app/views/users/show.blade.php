@@ -8,7 +8,7 @@
 	<ul class="user-profile-actions pull-right">
 		@if( Auth::check() && $user->id == Auth::user()->id )
 			<li>{{ Button::link( SteamBrowserProtocol::openSteamPage('SteamIDEditPage'), 'Edit Profile' ) }}</li>
-			<li>{{ HTML::resourceDelete( 'user', $user, 'Delete Account' ) }}</li>
+			<li>{{ HTML::resourceDelete( 'users', $user, 'Delete Account' ) }}</li>
 		@else
 			<li>{{ Button::link( SteamBrowserProtocol::addFriend($user->steam_id_64), 'Add' ) }}</li>
 			<li>{{ Button::link( SteamBrowserProtocol::messageFriend($user->steam_id_64), 'Message' ) }}</li>
@@ -36,9 +36,9 @@
 	</div>
 
 	@if( count($user->shouts) )
-		<?php $shouts = $user->shouts()->orderBy('created_at','desc')->take(Config::get('userProfile.shoutQuantity'))->get(); ?>
+		<?php $shouts = $user->shouts()->orderBy('created_at','desc')->take(Config::get('lanager/user.profile.shouts'))->get(); ?>
 		<h2>Shouts</h2>
-		@include('shout.list')
+		@include('shouts.list')
 	@endif
 
 	@if( count($user->roles) )
@@ -50,11 +50,11 @@
 		</ul>
 	@endif
 
-	@if( Authority::can( 'manage', 'user', $user ) )
+	@if( Authority::can( 'manage', 'users', $user ) )
 		<h2>Administration</h2>
 		<ul>
-			<li>{{ Button::link(URL::route('user.roles.edit', $user->id), 'Manage Roles' ) }}</li>
-			<li>{{ HTML::resourceDelete('user',$user,'Delete User') }}</li>
+			<li>{{ Button::link(URL::route('users.roles.edit', $user->id), 'Manage Roles' ) }}</li>
+			<li>{{ HTML::resourceDelete('users',$user,'Delete User') }}</li>
 		</ul>
 	@endif
 

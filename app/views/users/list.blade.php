@@ -33,7 +33,7 @@
 			}
 
 			$tableBody[] = array(
-				'user'			=> '<a class="pull-left" href="'.URL::route('user.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
+				'user'			=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
 				'status'		=> $status,
 				'application'	=> $application,
 				'server'		=> $server,
