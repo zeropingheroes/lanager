@@ -7,11 +7,11 @@ return array(
 	| Flood Protection
 	|--------------------------------------------------------------------------
 	|
-	| You may limit how quickly a logged in user can post new shouts
+	| You may limit how quickly a logged in user can post new items
 	| to prevent spamming. Measured in seconds
 	|
 	*/
 
-	'floodprotect' => 30,
+	'shouts'	=> 30,
 
 );
