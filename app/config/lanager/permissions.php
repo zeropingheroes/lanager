@@ -2,7 +2,7 @@
 
 return array(
 
-	'initialize' => function($authority)
+	'initialise' => function($authority)
 	{
 		$authority->addAlias('manage', array('create', 'read', 'update', 'delete'));
 		$self = $authority->getCurrentUser();
