@@ -1,4 +1,4 @@
-<?php $links = Config::get('links'); ?>
+<?php $links = Config::get('lanager/links'); ?>
 
 @if (count($links) > 1 )
 	<li class="dropdown">
@@ -10,7 +10,7 @@
 
 	@foreach( $links as $linkName => $url )
 		<li>
-			<a href="{{ $url }}">{{{ $linkName }}}</a>
+			<a href="{{ $url }}" target="_blank">{{{ $linkName }}}</a>
 		</li>
 	@endforeach
 
