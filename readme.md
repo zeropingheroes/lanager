@@ -73,7 +73,7 @@ When you're finished either run `vagrant destroy` to remove the virtual machine 
 
 * Found a bug? Got a great feature idea? Post it to the [issue tracker](https://github.com/zeropingheroes/lanager/issues)!
 * Want to contribute?
-	* [Fork the core project](https://github.com/zeropingheroes/lanager/fork) and add the features you want to see
+	* [Fork the project](https://github.com/zeropingheroes/lanager/fork) and add the features you want to see
 	* Work on new features / bug fixes in the [issue tracker](https://github.com/zeropingheroes/lanager/issues)
 	* Or if you're really hardcore, request commit access
 
