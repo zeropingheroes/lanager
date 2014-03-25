@@ -326,8 +326,12 @@ form.playlist-item-create input {
 	width: 1065px;
 }
 
+div.playlist-controls {
+	margin-top: 30px;
+}
+
 /* -------------------------------------------------------------------
-   PLAYLIST ITEMS - INDEX
+   PLAYLIST - SHOW
    -------------------------------------------------------------------
 */
 div#now-playing, div#submitter {

@@ -12,6 +12,7 @@ return array(
 		{
 			// Allow any user to...
 			$authority->allow('create', 'shouts');
+			$authority->allow('create', 'playlistitems');
 
 			// Allow any user to delete themselves
 			$authority->allow('delete', 'users', function($self, $user)
@@ -27,19 +28,25 @@ return array(
 			});
 			
 			// Assign extra permissions based on user's roles
-			if ( $self->hasRole('InfoPageAdmin') ) 
+			if ( $self->hasRole('InfoPagesAdmin') ) 
 			{
-				$authority->allow('manage', 'infoPages');
+				$authority->allow('manage', 'infopages');
 			}
 
-			if ( $self->hasRole('ShoutAdmin') ) 
+			if ( $self->hasRole('ShoutsAdmin') ) 
 			{
 				$authority->allow('manage', 'shouts');
 			}
 
-			if ( $self->hasRole('EventAdmin') ) 
+			if ( $self->hasRole('EventsAdmin') ) 
 			{
 				$authority->allow('manage', 'events');
+			}
+
+			if ( $self->hasRole('PlaylistsAdmin') ) 
+			{
+				$authority->allow('manage', 'playlists');
+				$authority->allow('manage', 'playlistitems');
 			}
 
 			// Must be at bottom

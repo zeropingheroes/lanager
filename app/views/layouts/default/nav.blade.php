@@ -62,7 +62,7 @@
 					{{ link_to_route('statistics.servers.current-usage', 'Servers') }}
 				</li>
 				<li class="{{ Request::is('playlist*') ? 'active' : '' }}">
-					{{ link_to_route('playlists.items.index', 'Playlist', 1) }}
+					{{ link_to_route('playlists.playlistitems.index', 'Playlist', 1) }}
 				</li>
 				@include('layouts.default.infopages')
 				@include('layouts.default.links')
