@@ -68,7 +68,7 @@ class UsersController extends BaseController {
 		}
 		else
 		{
-			App::abort(404, 'Page not found');
+			App::abort(404, 'User not found');
 		}
 	}
 
