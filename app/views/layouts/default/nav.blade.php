@@ -62,9 +62,6 @@
 					{{ link_to_route('statistics.servers.current-usage', 'Servers') }}
 				</li>
 
-
-
-
 				@if( Authority::can( 'manage', 'playlists' ) )
 					<li class="dropdown {{ Request::is('playlists*') ? 'active' : '' }}">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Playlist
@@ -84,7 +81,6 @@
 						{{ link_to_route('playlists.playlistitems.index', 'Playlist', 1) }}
 					</li>				
 				@endif
-
 
 				@include('layouts.default.infopages')
 				@include('layouts.default.links')
