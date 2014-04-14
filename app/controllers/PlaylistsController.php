@@ -2,9 +2,15 @@
 
 use Zeropingheroes\Lanager\Models\Playlist,
 	Zeropingheroes\Lanager\Models\PlaylistItem;
-use View, Response;
+use View, Response, Input, Redirect, Request;
 
 class PlaylistsController extends BaseController {
+
+	public function __construct()
+	{
+		// Check if user can access requested method
+		$this->beforeFilter( 'checkResourcePermission', array('only' => array('create', 'store', 'show', 'edit', 'update', 'destroy')) );
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -13,7 +19,9 @@ class PlaylistsController extends BaseController {
 	 */
 	public function index()
 	{
-		// LIST OF PLAYLISTS
+		// List of playlists
+		// Show "add new items to this playlist" to logged in users
+		// Show "play this playlist on this computer" link to admins
 	}
 
 	/**
@@ -23,7 +31,7 @@ class PlaylistsController extends BaseController {
 	 */
 	public function create()
 	{
-		// CREATE NEW PLAYLIST FORM
+		//
 	}
 
 	/**
@@ -33,7 +41,7 @@ class PlaylistsController extends BaseController {
 	 */
 	public function store()
 	{
-		// SAVE NEW PLAYLIST
+		//
 	}
 
 	/**
@@ -44,10 +52,38 @@ class PlaylistsController extends BaseController {
 	 */
 	public function show($playlistId)
 	{
-		$playlist = Playlist::find($playlistId);
-		return View::make('playlists.show')
-					->with('title', 'Playlist')
-					->with('playlist', $playlist);
+		// Play through items in the playlist
+		if( $playlist = Playlist::find($playlistId) )
+		{
+			if ( Request::ajax() )
+			{
+				// Output the current playlist item, playlist item submitter and playlist 
+				$playlist = $playlist->playlistItems()
+					->where('playback_state', '=', '0')
+					->orderBy('created_at', 'asc')
+					->with('user')
+					->with('playlist')
+					->first();
+				if ( ! empty($playlist) ) 
+				{
+					return Response::json($playlist); // return playlist entry as JSON
+				}
+				else
+				{
+					return Response::json(false); // TODO: return "no items to play"
+				}
+			}
+			else
+			{
+				return View::make('playlists.show')
+							->with('title', 'Now Playing - ' . $playlist->name . ' Playlist')
+							->with('playlist', $playlist);				
+			}
+		}
+		else
+		{
+			App::abort(404, 'Playlist not found');
+		}
 	}
 
 	/**
@@ -58,7 +94,7 @@ class PlaylistsController extends BaseController {
 	 */
 	public function edit($playlistId)
 	{
-		// EDIT SINGLE PLAYLIST DETAILS (BUT NOT ITEMS)
+		// Edit playlist details (excluding the items)
 	}
 
 	/**
@@ -69,7 +105,22 @@ class PlaylistsController extends BaseController {
 	 */
 	public function update($playlistId)
 	{
-		// SAVE EDITS TO SINGLE PLAYLIST
+		// Update playlist details, including pausing/playing
+		if ( $playlist = Playlist::find($playlistId) )
+		{
+			$playlist->name = Input::get('name');
+			$playlist->playback_state = Input::get('playback_state');
+			
+			if ( ! $playlist->save() )
+			{
+				return Redirect::route('playlists.edit', array('playlist' => $playlist->id))->withErrors($playlist->errors());
+			}
+			return Redirect::route('playlists.playlistitems.index',array('playlist' => $playlist->id));
+		}
+		else
+		{
+			App::abort(404, 'Playlist not found');
+		}
 	}
 
 	/**
@@ -80,7 +131,7 @@ class PlaylistsController extends BaseController {
 	 */
 	public function destroy($playlistId)
 	{
-		// DELETE SINGLE PLAYLIST
+		//
 	}
 
 }

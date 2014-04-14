@@ -114,21 +114,8 @@ Route::resource('events', 'Zeropingheroes\Lanager\EventsController');
 | Playlists
 |--------------------------------------------------------------------------
 */
-Route::get(
-	'playlists/{playlist}/items/current',
-	array(
-		'as' => 'playlists.items.current',
-		'uses' => 'Zeropingheroes\Lanager\PlaylistItemsController@current')
-);
-Route::get(
-	'playlists/{playlist}/items/{playlistItem}/pause',
-	array(
-		'as' => 'playlists.items.pause',
-		'uses' => 'Zeropingheroes\Lanager\PlaylistItemsController@pause')
-);
 Route::resource('playlists', 'Zeropingheroes\Lanager\PlaylistsController');
-Route::resource('playlists.items', 'Zeropingheroes\Lanager\PlaylistItemsController');
-
+Route::resource('playlists.playlistitems', 'Zeropingheroes\Lanager\PlaylistItemsController');
 
 /*
 |--------------------------------------------------------------------------

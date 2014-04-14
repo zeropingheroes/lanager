@@ -83,6 +83,7 @@ class SteamImportUserStates extends BaseCommand {
 				// Update user details with steam details if they have changed
 				if( $user->username != $steamUser->username ) $user->username = $steamUser->username;
 				if( $user->avatar != $steamUser->avatar_url ) $user->avatar = $steamUser->avatar_url;
+				if( $user->steam_visibility != $steamUser->visibility ) $user->steam_visibility = $steamUser->visibility;
 				$user->save();
 
 				// If the user is currently running an app

@@ -32,114 +32,98 @@
 		// Poll database for next item or pausing
 		function pollPlaylist()
 		{
-			var url = '{{ route('playlists.items.current', $playlist->id) }}';
+			var playlistUrl = '{{ route('playlists.show', $playlist->id) }}';
 			
-			$.getJSON(url,function(retrievedPlaylistItem)
+			$.getJSON(playlistUrl,function(playlistItem)
 			{
-				if(retrievedPlaylistItem)
+				if(playlistItem)
 				{
-					console.log('Playlist: Polling: Response OK');
+					console.log('Playlist: Polling response OK');
 
-					// Convert playback state to int
-					retrievedPlaylistItem.playback_state = parseInt(retrievedPlaylistItem.playback_state);
+					// Convert playlist item playback state to int
+					playlistItem.playlist.playback_state = parseInt(playlistItem.playlist.playback_state);
 					
 					// check for item type
-					if (retrievedPlaylistItem.url.toLowerCase().indexOf("youtube.com") >= 0)
+					if (playlistItem.url.toLowerCase().indexOf("youtube.com") >= 0)
 					{
-						retrievedPlaylistItem.videoId = extractYouTubeVideoId(retrievedPlaylistItem.url);
+						playlistItem.videoId = extractYouTubeVideoId(playlistItem.url);
 					}
 
-					// new retrievedPlaylistItem, or retrievedPlaylistItem skipped/deleted
-					if(retrievedPlaylistItem.videoId != playerLoadedVideoId)
+					// new playlistItem, or playlistItem skipped/deleted
+					if(playlistItem.videoId != playerLoadedVideoId)
 					{
-						console.log('Playlist: Polling: Item retrieved: '+retrievedPlaylistItem.videoId+' (uid:'+playerLoadedVideoUniqueId+')');
+						console.log('Playlist: '+playlistItem.videoId+' ['+playlistItem.id+'] - Item retrieved');
 						
 						// Update variables
-						playerLoadedVideoId = retrievedPlaylistItem.videoId;		
-						playerLoadedVideoUniqueId = retrievedPlaylistItem.id;				
+						playerLoadedVideoId = playlistItem.videoId;		
+						playerLoadedVideoUniqueId = playlistItem.id;				
 						
 						// Load the video into the player
-						loadRetrievedPlaylistItem(retrievedPlaylistItem.videoId);
+						console.log('Playlist: '+playlistItem.videoId+' ['+playlistItem.id+'] - Loading into player');
+						youtubePlayer.loadVideoById(playlistItem.videoId);
+						youtubePlayer.setPlaybackQuality('{{ Config::get('lanager/playlist.videoplayer.quality') }}'); // request best available quality
 
 						// Update the "now playing" display
-						updateNowPlayingDisplay(retrievedPlaylistItem);
+						updateNowPlayingDisplay(playlistItem);
 					}
-					if(retrievedPlaylistItem.playback_state != playerPlaybackState)
+					if(playlistItem.playlist.playback_state != playerPlaybackState)
 					{
-						console.log('Playlist: Polling: Playback state change detected: Player:'+playerPlaybackState+' Retrieved item:'+retrievedPlaylistItem.playback_state+' (uid:'+playerLoadedVideoUniqueId+')');				
-						switch(retrievedPlaylistItem.playback_state)
+						switch(playlistItem.playlist.playback_state)
 						{
-							case 0: // unplayed
-								console.log('Playlist: Polling: Starting playback of unplayed item '+retrievedPlaylistItem.videoId+' (uid:'+playerLoadedVideoUniqueId+')');
-								youtubePlayer.playVideo();
-								playerPlaybackState = 1;
-								break;				
-							case 1: // playing
-								console.log('Playlist: Polling: Resuming playback of '+retrievedPlaylistItem.videoId+' (uid:'+playerLoadedVideoUniqueId+')');
-								youtubePlayer.playVideo();
-								playerPlaybackState = 1;
-								break;
-							case 2: // paused
-								console.log('Playlist: Polling: Pausing playback of '+retrievedPlaylistItem.videoId+' (uid:'+playerLoadedVideoUniqueId+')');
+							case 0: // paused
+								console.log('Playlist: '+playlistItem.videoId+' ['+playlistItem.id+'] - Pausing playback');
 								youtubePlayer.pauseVideo();
-								playerPlaybackState = 2;
+								playerPlaybackState = 0;
+								break;
+							case 1: // playing
+								console.log('Playlist: '+playlistItem.videoId+' ['+playlistItem.id+'] - Starting/resuming playback');
+								youtubePlayer.playVideo();
+								playerPlaybackState = 1;
 								break;
 							default:
-								console.error('Playlist: Polling: ERROR - Retrieved item playback state invalid');
+								console.error('Playlist: '+playlistItem.videoId+' ['+playlistItem.id+'] - Invalid playlist playback state received');
 						}
 					}
 				}
 				else
 				{
-					console.error('Playlist: Polling: ERROR - No response');
+					console.error('Playlist: Polling error - no response');
 				}
 			});
-			setTimeout(pollPlaylist,2000);
-		}
-
-		// Load a video into the player by ID
-		function loadRetrievedPlaylistItem(videoId)
-		{
-			console.log('Playlist: Loading '+videoId+' into player (uid:'+playerLoadedVideoUniqueId+')');
-			youtubePlayer.loadVideoById(videoId);
-			youtubePlayer.setPlaybackQuality('{{ Config::get('lanager/playlist.videoplayer.quality') }}'); // request best available quality
+			setTimeout(pollPlaylist,1000);
 		}
 
 		// Perform actions based on player's state changing, e.g. when last video stopped, load the next one
 		function onStateChangeHandler(newState) {
-			if(!playerLoadedVideoId)
+			if(playerLoadedVideoId)
 			{
-				playerLoadedVideoId = '(empty)';
-			}
-			switch(newState)
-			{
-				case -1: // unstarted
-					console.log('Playlist: Item '+playerLoadedVideoId+' (uid:'+playerLoadedVideoUniqueId+') is unstarted ('+newState+')');
-					break;
-				
-				case 0: // ended
-					console.log('Playlist: Item '+playerLoadedVideoId+' (uid:'+playerLoadedVideoUniqueId+') has ended (4 / '+newState+')');
-					updatePlaybackState(playerLoadedVideoUniqueId, 4); // mark the last video as played
-					break;
-				
-				case 1: // playing
-					console.log('Playlist: Item '+playerLoadedVideoId+' (uid:'+playerLoadedVideoUniqueId+') is now playing ('+newState+')');
-					updatePlaybackState(playerLoadedVideoUniqueId, 1); // mark the last video as playing
-					playerPlaybackState = 1;
-					break;
-				
-				case 2: // paused
-					console.log('Playlist: Item '+playerLoadedVideoId+' (uid:'+playerLoadedVideoUniqueId+') is now paused ('+newState+')');
-					// playerPlaybackState = 2; // removed due to YT player pausing just before video end and messing up script flow
-					break;
-				
-				case 3: // buffering
-					console.log('Playlist: Item '+playerLoadedVideoId+' (uid:'+playerLoadedVideoUniqueId+') is now buffering ('+newState+')');
-					break;
-				
-				case 5: // video cued
-					console.log('Playlist: Item '+playerLoadedVideoId+' (uid:'+playerLoadedVideoUniqueId+') has been cued ('+newState+')');
-					break;
+				switch(newState)
+				{
+					case -1:
+						console.log('Playlist: '+playerLoadedVideoId+' ['+playerLoadedVideoUniqueId+'] - Player state changed to unstarted');
+						break;
+					
+					case 0:
+						console.log('Playlist: '+playerLoadedVideoId+' ['+playerLoadedVideoUniqueId+'] - Player state changed to ended');
+						updatePlaybackState(playerLoadedVideoUniqueId, 1); // mark the last video as played
+						break;
+					
+					case 1:
+						console.log('Playlist: '+playerLoadedVideoId+' ['+playerLoadedVideoUniqueId+'] - Player state changed to playing');
+						break;
+					
+					case 2:
+						console.log('Playlist: '+playerLoadedVideoId+' ['+playerLoadedVideoUniqueId+'] - Player state changed to paused');
+						break;
+					
+					case 3:
+						console.log('Playlist: '+playerLoadedVideoId+' ['+playerLoadedVideoUniqueId+'] - Player state changed to buffering');
+						break;
+					
+					case 5:
+						console.log('Playlist: '+playerLoadedVideoId+' ['+playerLoadedVideoUniqueId+'] - Player state changed to queued');
+						break;
+				}
 			}
 		}
 
@@ -150,15 +134,15 @@
 			{
 				case 100: // video not found
 					console.error('Playlist: Error '+errorNum+': video not found - skipping');
-					updatePlaybackState(playerLoadedVideoUniqueId, 5);
+					updatePlaybackState(playerLoadedVideoUniqueId, 2);
 					break;
 				case 101:
 					console.error('Playlist: Error '+errorNum+': video owner does not allow embedding - skipping');
-					updatePlaybackState(playerLoadedVideoUniqueId, 5);
+					updatePlaybackState(playerLoadedVideoUniqueId, 2);
 					break;
 				case 150:
 					console.error('Playlist: Error '+errorNum+': video owner does not allow embedding - skipping');
-					updatePlaybackState(playerLoadedVideoUniqueId, 5);
+					updatePlaybackState(playerLoadedVideoUniqueId, 2);
 					break;
 				default:
 					console.error('Playlist: Error '+errorNum+': unknown error');
@@ -171,9 +155,8 @@
 		{
 			if(uniqueVideoId)
 			{
-				console.log('Playlist: Updating playback state'); 
 				$.ajax({
-					url: '{{ route('playlists.items.update', $playlist->id) }}'+'/'+uniqueVideoId,
+					url: '{{ route('playlists.playlistitems.update', $playlist->id) }}'+'/'+uniqueVideoId,
 					type: 'PUT',
 					data: {
 						playback_state: playbackState,
@@ -181,22 +164,25 @@
 					success: function(result) {
 						if(result == 1)
 						{
-							console.log('Playlist: Updated item playback state as '+playbackState+' (uid:'+uniqueVideoId+')');
+							console.log('Playlist: '+playerLoadedVideoId+' ['+uniqueVideoId+'] - Updated item playback state as '+playbackState+'');
 						}
 						else
 						{
-							console.warn('Playlist: Warning: (uid:'+uniqueVideoId+') already marked as '+playbackState);	
+							console.warn('Playlist: '+playerLoadedVideoId+' ['+uniqueVideoId+'] - Warning: item already marked as '+playbackState);	
 						}
+					},
+					error: function (request, status, error) {
+						console.error('Playlist: '+playerLoadedVideoId+' ['+uniqueVideoId+'] - Error updating playback state: '+error);
 					}
 				});
 			}
 		}
 
-		function updateNowPlayingDisplay(retrievedPlaylistItem)
+		function updateNowPlayingDisplay(playlistItem)
 		{
-			console.log('Playlist: Updating now playing display');
-			nowPlayingDisplay = retrievedPlaylistItem.title;
-			submitterDisplay = retrievedPlaylistItem.user.username+'<img src="'+retrievedPlaylistItem.user.avatar+'" alt="Avatr">';
+			console.log('Playlist: '+playlistItem.videoId+' ['+playlistItem.id+'] - Updating now playing display');
+			nowPlayingDisplay = playlistItem.title;
+			submitterDisplay = playlistItem.user.username+'<img src="'+playlistItem.user.avatar+'" alt="Avatr">';
 			$('div#now-playing').html(nowPlayingDisplay);
 			$('div#submitter').html(submitterDisplay);
 		}

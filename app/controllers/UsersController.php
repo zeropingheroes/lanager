@@ -9,11 +9,11 @@ use LightOpenID;
 
 class UsersController extends BaseController {
 
-	protected $steamUsers;
+	protected $steamInterface;
 	
-	public function __construct(SteamUserRepositoryInterface $steamUsers)
+	public function __construct(SteamUserRepositoryInterface $steamInterface)
 	{
-		$this->steamUsers = $steamUsers;
+		$this->steamInterface = $steamInterface;
 		$this->beforeFilter('checkResourcePermission',array('only' => array('create', 'store', 'edit', 'update', 'destroy') ));
 	}
 
@@ -68,7 +68,7 @@ class UsersController extends BaseController {
 		}
 		else
 		{
-			App::abort(404, 'Page not found');
+			App::abort(404, 'User not found');
 		}
 	}
 
@@ -128,6 +128,11 @@ class UsersController extends BaseController {
 
 					// Make the first user SuperAdmin
 					if( count(User::all()) == 1 && ! $user->hasRole('SuperAdmin') )	$user->roles()->attach(Role::where('name', '=', 'SuperAdmin')->firstOrFail());
+
+					if( $user->steam_visibility != 3 )
+					{
+						return Redirect::route('users.show', $user->id);
+					}
 
 					return Redirect::to('/');
 				}
@@ -205,7 +210,7 @@ class UsersController extends BaseController {
 	 */
 	private function importSteamUser($steamId)
 	{		
-		$steamUser = $this->steamUsers->getUser($steamId);		
+		$steamUser = $this->steamInterface->getUser($steamId);		
 		
 		if($steamUser != NULL)
 		{
@@ -214,10 +219,11 @@ class UsersController extends BaseController {
 			// Create new user if they are not found in the database
 			if($user == NULL) $user = new User;
 
-			$user->username 	= $steamUser->username;
-			$user->steam_id_64	= $steamUser->id;
-			$user->avatar		= $steamUser->avatar_url;
-			$user->ip 			= Request::server('REMOTE_ADDR');
+			$user->username 		= $steamUser->username;
+			$user->steam_id_64		= $steamUser->id;
+			$user->steam_visibility	= $steamUser->visibility;
+			$user->avatar			= $steamUser->avatar_url;
+			$user->ip 				= Request::server('REMOTE_ADDR');
 
 			return $user->save();
 		}
