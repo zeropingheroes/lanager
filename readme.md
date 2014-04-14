@@ -38,18 +38,22 @@ more enjoyable for attendees and organisers alike.
 * [Composer](https://getcomposer.org/)
 * [Steam API Key](http://steamcommunity.com/dev/apikey)
 * An Internet connection
+* Shell access to the server - **web hosting alone will not work!** *
 
 WAMP, LAMP and MAMP are a quick way to satisfy most of the above, just check that the version you download includes PHP 5.3.7+
+
+\* *Steam user states are updated using a batch script so you must be able to run commands and schedule tasks / cron jobs* 
 
 ## Installation
 
 LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.org/) which makes installing and updating a breeze. **You should not download the source directly from GitHub** - it is sufficient to follow the below instructions:
 
 1. [Download and install Composer](http://getcomposer.org/download/)
-2. From a terminal in the directory you wish to install LANager, run `composer create-project zeropingheroes/lanager`
+2. From a terminal in the folder you wish to install LANager, run `composer create-project zeropingheroes/lanager`
 3. Configure your web server to use `lanager/public/` as the root web directory
-4. In the `lanager/` directory, run `php artisan lanager:install` from the terminal
-5. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
+4. Edit `app/config/app.php` setting your installation's URL and application key 
+5. In the `lanager/` directory, run `php artisan lanager:install` from the terminal
+6. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
 	* On Windows
 		1. Add a task for `SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
 	* On *nix
