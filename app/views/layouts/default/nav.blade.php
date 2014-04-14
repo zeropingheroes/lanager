@@ -31,10 +31,10 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class="{{ Request::is('shout*') ? 'active' : '' }}">
+				<li class="{{ Request::is('shouts*') ? 'active' : '' }}">
 					{{ link_to_route('shouts.index', 'Shouts') }}
 				</li>
-				<li class="dropdown {{ Request::is('event*') ? 'active' : '' }}">
+				<li class="dropdown {{ Request::is('events*') ? 'active' : '' }}">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Events
 						<b class="caret"></b>
 					</a>
@@ -52,7 +52,7 @@
 						@endif
 					</ul>
 				</li>
-				<li class="{{ Request::is('user*') ? 'active' : '' }}">
+				<li class="{{ Request::is('userss*') ? 'active' : '' }}">
 					{{ link_to_route('users.index', 'People') }}
 				</li>
 				<li class="{{ Request::is('statistics/applications/current-usage*') ? 'active' : '' }}">
@@ -61,9 +61,31 @@
 				<li class="{{ Request::is('statistics/servers/current-usage*') ? 'active' : '' }}">
 					{{ link_to_route('statistics.servers.current-usage', 'Servers') }}
 				</li>
-				<li class="{{ Request::is('playlist*') ? 'active' : '' }}">
-					{{ link_to_route('playlists.playlistitems.index', 'Playlist', 1) }}
-				</li>
+
+
+
+
+				@if( Authority::can( 'manage', 'playlists' ) )
+					<li class="dropdown {{ Request::is('playlists*') ? 'active' : '' }}">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Playlist
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								{{ link_to_route('playlists.playlistitems.index', 'Playlist', 1) }}
+							</li>
+							<li>
+								{{ link_to_route('playlists.show', 'Screen', 1) }}
+							</li>						
+						</ul>
+					</li>
+				@else
+					<li class="{{ Request::is('playlists*') ? 'active' : '' }}">
+						{{ link_to_route('playlists.playlistitems.index', 'Playlist', 1) }}
+					</li>				
+				@endif
+
+
 				@include('layouts.default.infopages')
 				@include('layouts.default.links')
 			</ul>

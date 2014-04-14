@@ -1,4 +1,4 @@
-@if( Authority::can('manage', 'playlist') )
+@if( Authority::can('manage', 'playlists') )
 	{{ Form::open(array('route' => array('playlists.update', $playlist->id), 'method' => 'PUT', 'class' => 'form-inline')) }}
 	@if( $playlist->playback_state == 1 )
 		{{ Button::xs_submit('', array('title' => 'Pause playback', 'name' => 'playback_state', 'value' => 0))->with_icon('pause') }}
