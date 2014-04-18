@@ -39,7 +39,7 @@ class Duration {
 	 */
 	public function __construct($duration)
 	{
-		$this->duration = $duration;
+		$this->duration = (int) $duration;
 		$this->hoursSection = (int) floor($this->duration / 3600);
 		$this->minutesSection = (int) $this->duration / 60 % 60;
 		$this->secondsSection = (int) $this->duration % 60;
@@ -57,9 +57,14 @@ class Duration {
 		{
 			return sprintf('%sh %sm %ss', $this->hoursSection, $this->minutesSection, $this->secondsSection);
 		}
-		if( $this->minutesSection >= 1 )
+		if( $this->minutesSection >= 1 && $this->secondsSection )
 		{
 			return sprintf('%sm %ss', $this->minutesSection, $this->secondsSection);
+		}
+
+		if( $this->minutesSection >= 1 )
+		{
+			return sprintf('%sm', $this->minutesSection);
 		}
 		
 		return sprintf('%ss', $this->secondsSection);
