@@ -8,7 +8,7 @@
 		<meta name="description" content>
 		<meta name="author" content>
 		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset('apple-touch-icon-152x152-precomposed.png') }}">
-		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="shortcut icon" href="{{ asset('favicon.ico')}}" />
 		
 		{{ HTML::style('vendor/twitter/bootstrap/css/bootstrap-dark.min.css') }}
 		{{ HTML::style('vendor/fullcalendar/fullcalendar.css') }}
