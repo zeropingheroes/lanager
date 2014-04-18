@@ -50,12 +50,13 @@
 					}
 
 					// new playlistItem, or playlistItem skipped/deleted
-					if(playlistItem.videoId != playerLoadedVideoId)
+					if( (playlistItem.videoId != playerLoadedVideoId) || (playlistItem.id != playerLoadedId))
 					{
 						console.log('Playlist: '+playlistItem.videoId+' ['+playlistItem.id+'] - Item retrieved');
 						
 						// Update variables
-						playerLoadedVideoId = playlistItem.videoId;		
+						playerLoadedVideoId = playlistItem.videoId;	
+						playerLoadedId = playlistItem.id;	
 						playerLoadedVideoUniqueId = playlistItem.id;				
 						
 						// Load the video into the player
