@@ -4,7 +4,7 @@
 			<a class="navbar-brand" href="/">
 				<img src="{{ asset('img/logo.png') }}" alt="LANager Logo">
 			</a>
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
