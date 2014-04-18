@@ -61,27 +61,25 @@
 				<li class="{{ Request::is('statistics/servers/current-usage*') ? 'active' : '' }}">
 					{{ link_to_route('statistics.servers.current-usage', 'Servers') }}
 				</li>
-
-				@if( Authority::can( 'manage', 'playlists' ) )
 					<li class="dropdown {{ Request::is('playlists*') ? 'active' : '' }}">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Playlist
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								{{ link_to_route('playlists.playlistitems.index', 'Playlist', 1) }}
+								{{ link_to_route('playlists.playlistitems.index', 'Upcoming', 1) }}
 							</li>
 							<li>
-								{{ link_to_route('playlists.show', 'Screen', 1) }}
-							</li>						
-						</ul>
-					</li>
-				@else
-					<li class="{{ Request::is('playlists*') ? 'active' : '' }}">
-						{{ link_to_route('playlists.playlistitems.index', 'Playlist', 1) }}
-					</li>				
-				@endif
+								{{ link_to_route('playlists.playlistitems.history', 'History', 1 ) }}
+							</li>
+							@if( Authority::can( 'manage', 'playlists' ) )
+								<li>
+									{{ link_to_route('playlists.show', 'Screen', 1) }}
+								</li>
+							@endif
 
+						</ul>
+					</li>	
 				@include('layouts.default.infopages')
 				@include('layouts.default.links')
 			</ul>

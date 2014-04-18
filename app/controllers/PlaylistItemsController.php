@@ -26,6 +26,7 @@ class PlaylistItemsController extends BaseController {
 				->where('playback_state', 0)
 				->orderBy('created_at', 'asc')
 				->paginate(10);
+
 			return View::make('playlists.playlistitems.index')
 						->with('title', 'Playlist')
 						->with('playlist', $playlist)
@@ -72,8 +73,9 @@ class PlaylistItemsController extends BaseController {
 	{
 		if ( Request::ajax() )
 		{
-			if( PlaylistItem::find($playlistItemId) )
+			if( $playlistItem = PlaylistItem::find($playlistItemId) )
 			{
+				$playlistItem->touch();
 				// Return affected rows
 				return DB::table('playlist_items')
 							->where('id', '=', $playlistItemId)
@@ -96,6 +98,28 @@ class PlaylistItemsController extends BaseController {
 	public function destroy($playlistItemId)
 	{
 		// DELETE SINGLE PLAYLIST ITEM
+	}
+
+	/**
+	 * Display a listing of playlist items that have been played.
+	 *
+	 * @return Response
+	 */
+	public function history($playlistId)
+	{
+		if ( $playlist = Playlist::find($playlistId) )
+		{
+			$playlistItems = PlaylistItem::where('playlist_id', $playlistId)
+				->where('playback_state', '!=', 0)
+				->orderBy('updated_at', 'desc')
+				->paginate(10);
+			
+			return View::make('playlists.playlistitems.index')
+						->with('title', 'Playlist History')
+						->with('playlist', $playlist)
+						->with('playlistItems', $playlistItems)
+						->with('history', true);
+		}
 	}
 
 }

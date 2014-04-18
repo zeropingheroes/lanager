@@ -55,6 +55,7 @@ class PlaylistsController extends BaseController {
 		// Play through items in the playlist
 		if( $playlist = Playlist::find($playlistId) )
 		{
+			// Javascript call for latest playlist item
 			if ( Request::ajax() )
 			{
 				// Output the current playlist item, playlist item submitter and playlist 
@@ -73,7 +74,7 @@ class PlaylistsController extends BaseController {
 					return Response::json(false); // TODO: return "no items to play"
 				}
 			}
-			else
+			else // View of the screen
 			{
 				return View::make('playlists.show')
 							->with('title', 'Now Playing - ' . $playlist->name . ' Playlist')

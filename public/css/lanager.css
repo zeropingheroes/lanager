@@ -330,6 +330,11 @@ div.playlist-controls {
 	margin-top: 30px;
 }
 
+h2 span.playlist-playback-state {
+	font-size: 50%;
+	vertical-align: middle;
+}
+
 /* -------------------------------------------------------------------
    PLAYLIST - SHOW
    -------------------------------------------------------------------

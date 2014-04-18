@@ -3,32 +3,38 @@
 	<?php
 	foreach( $playlistItems as $playlistItem )
 	{
-		$controls = '';
-		$playbackStateLabel = '';
-
-		$user = $playlistItem->user;
 		$duration = new Zeropingheroes\Lanager\Helpers\Duration($playlistItem->duration);
 		$submitted = new ExpressiveDate($playlistItem->created_at);
+		$played = new ExpressiveDate($playlistItem->updated_at);
 
-		// Add playing/paused label to top item in playlist
-		if( !isset($tableBody) )
+		$user = $playlistItem->user;
+
+		switch($playlistItem->playback_state)
 		{
-			if ($playlist->playback_state == 1)
-			{
-				$playbackStateLabel = Label::success('Playing');
-			}
-			elseif( $playlist->playback_state == 0 )
-			{
-				$playbackStateLabel = Label::info('Paused');
-			}
+			case 2:
+				$itemStateLabel = Label::warning('Skipped');
+				break;
+			default:
+				$itemStateLabel = '';
+		}
+
+		if( isset($history) )
+		{
+			$title = link_to($playlistItem->url, $playlistItem->title, array('target'=>'_blank'));
+			$timestamp = $played->getRelativeDate();
+		}
+		else
+		{
+			$title = e($playlistItem->title);
+			$timestamp = $submitted->getRelativeDate();
 		}
 
 		$tableBody[] = array(
 			'user'			=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
-			'title'			=> e($playlistItem->title),
-			'state'			=> $playbackStateLabel,
+			'title'			=> $title,
+			'state'			=> $itemStateLabel,
 			'duration'		=> $duration->shortFormat(),
-			'submitted'		=> $submitted->getRelativeDate(),
+			'timestamp'		=> $timestamp,
 		);
 	}
 

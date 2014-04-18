@@ -114,8 +114,15 @@ Route::resource('events', 'Zeropingheroes\Lanager\EventsController');
 | Playlists
 |--------------------------------------------------------------------------
 */
+Route::get(
+	'playlists/{playlist}/playlistitems/history',
+	array(
+		'as' => 'playlists.playlistitems.history',
+		'uses' => 'Zeropingheroes\Lanager\PlaylistItemsController@history')
+);
 Route::resource('playlists', 'Zeropingheroes\Lanager\PlaylistsController');
 Route::resource('playlists.playlistitems', 'Zeropingheroes\Lanager\PlaylistItemsController');
+
 
 /*
 |--------------------------------------------------------------------------
