@@ -335,6 +335,14 @@ h2 span.playlist-playback-state {
 	vertical-align: middle;
 }
 
+td.column-timestamp {
+	text-align: right;
+}
+
+span.playlist-total-time {
+	margin: 20px 8px 20px 8px;
+}
+
 /* -------------------------------------------------------------------
    PLAYLIST - SHOW
    -------------------------------------------------------------------

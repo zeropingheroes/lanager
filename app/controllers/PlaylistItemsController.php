@@ -24,12 +24,16 @@ class PlaylistItemsController extends BaseController {
 		{
 			$playlistItems = PlaylistItem::where('playlist_id', $playlistId)
 				->where('playback_state', 0)
-				->orderBy('created_at', 'asc')
-				->paginate(10);
+				->orderBy('created_at', 'asc');
+			
+			$playlistDuration = $playlistItems->sum('duration');
+			
+			$playlistItems = $playlistItems->paginate(10);
 
 			return View::make('playlists.playlistitems.index')
 						->with('title', 'Playlist')
 						->with('playlist', $playlist)
+						->with('playlistDuration', $playlistDuration)
 						->with('playlistItems', $playlistItems);
 		}
 	}
@@ -111,12 +115,15 @@ class PlaylistItemsController extends BaseController {
 		{
 			$playlistItems = PlaylistItem::where('playlist_id', $playlistId)
 				->where('playback_state', '!=', 0)
-				->orderBy('updated_at', 'desc')
-				->paginate(10);
+				->orderBy('updated_at', 'desc');
+			$playlistDuration = $playlistItems->sum('duration');
+			
+			$playlistItems = $playlistItems->paginate(10);
 			
 			return View::make('playlists.playlistitems.index')
 						->with('title', 'Playlist History')
 						->with('playlist', $playlist)
+						->with('playlistDuration', $playlistDuration)
 						->with('playlistItems', $playlistItems)
 						->with('history', true);
 		}

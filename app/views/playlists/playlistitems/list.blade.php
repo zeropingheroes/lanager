@@ -3,7 +3,8 @@
 	<?php
 	foreach( $playlistItems as $playlistItem )
 	{
-		$duration = new Zeropingheroes\Lanager\Helpers\Duration($playlistItem->duration);
+		$itemDuration = new Zeropingheroes\Lanager\Helpers\Duration($playlistItem->duration);
+		$playlistDurationLabel = new Zeropingheroes\Lanager\Helpers\Duration($playlistDuration);
 		$submitted = new ExpressiveDate($playlistItem->created_at);
 		$played = new ExpressiveDate($playlistItem->updated_at);
 
@@ -33,7 +34,7 @@
 			'user'			=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
 			'title'			=> $title,
 			'state'			=> $itemStateLabel,
-			'duration'		=> $duration->shortFormat(),
+			'duration'		=> $itemDuration->shortFormat(),
 			'timestamp'		=> $timestamp,
 		);
 	}
@@ -42,6 +43,7 @@
 	{{ Table::body($tableBody) }}
 	{{ Table::close() }}
 	{{ $playlistItems->links() }}
+	<span class="pull-right playlist-total-time">Total: {{ $playlistDurationLabel->shortFormat() }}</span>
 @else
 	No playlist entries to show!
 @endif
