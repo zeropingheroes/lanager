@@ -65,6 +65,11 @@ div.content {
 	margin-bottom: 10px;
 }
 
+div.alert a {
+	color: white;
+	font-weight: bold;
+}
+
 /* footer separated from content */
 footer {
 	border-top: 1px solid #333;
