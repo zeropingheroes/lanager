@@ -3,7 +3,7 @@
 class PlaylistItem extends BaseModel {
 
 	public static $rules = array(
-		'url'			=> 'required|url|playlist_compatible_url',
+		'url'			=> 'required|url|compatible_url',
 		'playlist_id'	=> 'numeric|exists:playlists,id'
 	);
 
