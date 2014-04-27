@@ -36,6 +36,6 @@ return array(
 	| this value
 	|
 	*/
-	'maxItemDuration' => 100, // Time in seconds
+	'maxItemDuration' => 600, // Time in seconds
 
 );
