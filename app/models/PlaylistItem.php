@@ -30,7 +30,7 @@ class PlaylistItem extends BaseModel {
 			$errors->add('error', 'Playlist currently full. Please try again later.');
 		}
 
-		if( $this->duration > Config::get('playlist.maxItemDuration') )
+		if( $this->duration > Config::get('lanager/playlist.maxItemDuration') )
 		{
 			$maxDuration = new Duration( Config::get('lanager/playlist.maxItemDuration') );
 			$errors->add('error', 'Playlist item is too long. Please submit items ' . $maxDuration->shortFormat() . ' in length or less.' );
