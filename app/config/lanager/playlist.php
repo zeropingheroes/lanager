@@ -52,4 +52,17 @@ return array(
 	*/
 	'maxDuplicates' => 0, // Item count
 
+	/*
+	|--------------------------------------------------------------------------
+	| Max Consecutive Items from One User
+	|--------------------------------------------------------------------------
+	|
+	| Prevent users from submitting a playlist item if it will be their Nth
+	| consecutive item submission
+	| 
+	| Set to 0 to prevent more than one consecutive submission from one user
+	|
+	*/
+	'maxConsecutiveItemsFromSingleUser' => 0, // Item count
+
 );

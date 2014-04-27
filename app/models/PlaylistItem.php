@@ -1,6 +1,6 @@
 <?php namespace Zeropingheroes\Lanager\Models;
 
-use Config;
+use Config, Auth;
 use Illuminate\Support\MessageBag;
 use Zeropingheroes\Lanager\Helpers\Duration;
 
@@ -46,6 +46,35 @@ class PlaylistItem extends BaseModel {
 			else
 			{
 				$errors->add('error', 'Item already has ' . $duplicates . ' occurences in the playlist.' );
+			}
+		}
+		
+		if( Config::get('lanager/playlist.maxConsecutiveItemsFromSingleUser') == 0)
+		{
+			$recentItemsToTake = 1;
+		}
+		else
+		{
+			$recentItemsToTake = Config::get('lanager/playlist.maxConsecutiveItemsFromSingleUser');
+		}
+
+		$recentSubmitters = PlaylistItem::where('playlist_id', $this->playlist_id)
+			->orderby( 'created_at', 'desc' )
+			->take( $recentItemsToTake )
+			->lists('user_id');
+
+		$distinctSubmitters = count(array_unique($recentSubmitters));
+
+		// If only one person has submitted the last X videos AND that person is the logged in user
+		if( $distinctSubmitters == 1 && $recentSubmitters[0] == Auth::user()->id )
+		{
+			if( Config::get('lanager/playlist.maxConsecutiveItemsFromSingleUser') == 0)
+			{
+				$errors->add('error', 'Consecutive video submissions from a single user have been disabled.' );
+			}
+			else
+			{
+				$errors->add('error', 'You have submitted the maximum number of consecutive items (' . Config::get('lanager/playlist.maxConsecutiveItemsFromSingleUser').')' );
 			}
 		}
 
