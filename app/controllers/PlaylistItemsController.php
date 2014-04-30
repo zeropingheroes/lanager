@@ -2,7 +2,7 @@
 
 use Zeropingheroes\Lanager\Models\Playlist,
 	Zeropingheroes\Lanager\Models\PlaylistItem;
-use View, Response, Auth, Input, Redirect, Request, DB;
+use View, Response, Auth, Input, Redirect, Request;
 
 class PlaylistItemsController extends BaseController {
 
@@ -19,23 +19,52 @@ class PlaylistItemsController extends BaseController {
 	 */
 	public function index($playlistId)
 	{
-		// Show all unplayed playlist items for this playlist
-		if ( $playlist = Playlist::find($playlistId) )
-		{
-			$playlistItems = PlaylistItem::where('playlist_id', $playlistId)
-				->where('playback_state', 0)
-				->orderBy('created_at', 'asc');
-			
-			$playlistDuration = $playlistItems->sum('duration');
-			
-			$playlistItems = $playlistItems->paginate(10);
+		$playlist = Playlist::findOrFail($playlistId);
+		$playlistItems = $playlist->playlistItems();
 
-			return View::make('playlists.playlistitems.index')
-						->with('title', 'Playlist')
-						->with('playlist', $playlist)
-						->with('playlistDuration', $playlistDuration)
-						->with('playlistItems', $playlistItems);
+		if ( Request::ajax() )
+		{
+			$playlistItems = $playlist->playlistItems();
+
+			// Filter based on query string
+			if ( Input::has('playback_state') ) $playlistItems->where('playback_state', Input::get('playback_state') );
+			if ( Input::has('order_by') ) $playlistItems->orderBy( Input::get('order_by'), Input::get('sort', 'asc') );
+			if ( Input::has('skip') ) $playlistItems->skip( Input::get('skip') );
+			if ( Input::has('take') ) $playlistItems->take( Input::get('take') );
+			
+			// Allow related models to be returned
+			if ( Input::has('with') ) $playlistItems->with( explode(',', Input::get('with')) );
+
+			return Response::json( $playlistItems->get() );
 		}
+
+		if( Input::get('history') )
+		{
+			$playlistItems = $playlistItems
+				->where('playback_state', '!=', 0)
+				->orderBy('created_at', 'desc');
+
+			$title = 'Playlist History';
+			$history = true;
+		}
+		else
+		{
+			$playlistItems = $playlistItems
+				->where('playback_state', 0)
+				->orderBy('created_at', 'asc');			
+			
+			$title = 'Playlist';
+			$history = false;
+		}
+		$playlistDuration = $playlistItems->sum('duration');
+		$playlistItems = $playlistItems->paginate(10);
+
+		return View::make('playlists.playlistitems.index')
+					->with('title', $title)
+					->with('playlist', $playlist)
+					->with('playlistDuration', $playlistDuration)
+					->with('playlistItems', $playlistItems)
+					->with('history', $history);
 	}
 
 	/**
@@ -45,26 +74,36 @@ class PlaylistItemsController extends BaseController {
 	 */
 	public function store($playlistId)
 	{
-		if( Playlist::find($playlistId) )
-		{
-			$playlistItem = new PlaylistItem;
-			$playlistItem->playlist_id = $playlistId;
-			$playlistItem->user_id = Auth::user()->id;
-			$playlistItem->url = Input::get('url');
+		$playlist = Playlist::findOrFail($playlistId);
 
-			if( ! $playlistItem->save() )
-			{
-				return Redirect::route('playlists.playlistitems.index', array('playlist' => $playlistId))->withErrors($playlistItem->validationErrors);
-			}
-			else
-			{
-				return Redirect::route('playlists.playlistitems.index', array('playlist' => $playlistId));
-			}
-		}
-		else
+		$playlistItem = new PlaylistItem;
+		$playlistItem->playlist_id = $playlistId;
+		$playlistItem->user_id = Auth::user()->id;
+		$playlistItem->url = Input::get('url');
+
+		if( ! $playlistItem->save() )
 		{
-			App::abort(404, 'Playlist not found');
+			if ( Request::ajax() ) return Response::json($playlistItem->errors(), 400);
+			return Redirect::route('playlists.playlistitems.index', array('playlist' => $playlistId))->withErrors($playlistItem->validationErrors);
 		}
+
+		if ( Request::ajax() ) return Response::json($playlistItem, 201);
+		return Redirect::route('playlists.playlistitems.index', array('playlist' => $playlistId));
+
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $playlistId
+	 * @param  int  $playlistItemId
+	 * @return Response
+	 */
+	public function show($playlistId, $playlistItemId)
+	{
+		$playlistItem = Playlist::findOrFail($playlistId)->playlistitems()->findOrFail($playlistItemId);
+		
+		if ( Request::ajax() ) return Response::json($playlistItem);
 	}
 
 	/**
@@ -77,19 +116,16 @@ class PlaylistItemsController extends BaseController {
 	{
 		if ( Request::ajax() )
 		{
-			if( $playlistItem = PlaylistItem::find($playlistItemId) )
+			$playlistItem = Playlist::findOrFail($playlistId)->playlistitems()->findOrFail($playlistItemId);
+				
+			if( Input::has('playback_state') ) $playlistItem->playback_state = Input::get('playback_state');
+			if( Input::has('skip_reason') && $playlistItem->playback_state == 2 ) $playlistItem->skip_reason = Input::get('skip_reason');
+
+			if ( ! $playlistItem->save() )
 			{
-				$playlistItem->touch();
-				// Return affected rows
-				return DB::table('playlist_items')
-							->where('id', '=', $playlistItemId)
-							->limit(1)
-							->update(array('playback_state' => Input::get('playback_state')));
+				return Response::json($playlistItem->errors(), 400);
 			}
-			else
-			{
-				return 0;
-			}
+			return Response::json($playlistItem);
 		}
 	}
 
@@ -99,34 +135,11 @@ class PlaylistItemsController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($playlistItemId)
+	public function destroy($playlistId, $playlistItemId)
 	{
-		// DELETE SINGLE PLAYLIST ITEM
-	}
+		$playlistItem = Playlist::findOrFail($playlistId)->playlistitems()->findOrFail($playlistItemId);
 
-	/**
-	 * Display a listing of playlist items that have been played.
-	 *
-	 * @return Response
-	 */
-	public function history($playlistId)
-	{
-		if ( $playlist = Playlist::find($playlistId) )
-		{
-			$playlistItems = PlaylistItem::where('playlist_id', $playlistId)
-				->where('playback_state', '!=', 0)
-				->orderBy('updated_at', 'desc');
-			$playlistDuration = $playlistItems->sum('duration');
-			
-			$playlistItems = $playlistItems->paginate(10);
-			
-			return View::make('playlists.playlistitems.index')
-						->with('title', 'Playlist History')
-						->with('playlist', $playlist)
-						->with('playlistDuration', $playlistDuration)
-						->with('playlistItems', $playlistItems)
-						->with('history', true);
-		}
+		if ( Request::ajax() ) return Response::json( $playlistItem->destroy($playlistItemId), 204);
 	}
 
 }

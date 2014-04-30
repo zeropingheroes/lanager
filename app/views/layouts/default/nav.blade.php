@@ -70,7 +70,7 @@
 								{{ link_to_route('playlists.playlistitems.index', 'Upcoming', 1) }}
 							</li>
 							<li>
-								{{ link_to_route('playlists.playlistitems.history', 'History', 1 ) }}
+								{{ link_to_route('playlists.playlistitems.index', 'History', array('playlist' => 1, 'history' => 1 ) ) }}
 							</li>
 							@if( Authority::can( 'manage', 'playlists' ) )
 								<li>

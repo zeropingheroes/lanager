@@ -9,7 +9,7 @@ class PlaylistsController extends BaseController {
 	public function __construct()
 	{
 		// Check if user can access requested method
-		$this->beforeFilter( 'checkResourcePermission', array('only' => array('create', 'store', 'show', 'edit', 'update', 'destroy')) );
+		$this->beforeFilter( 'checkResourcePermission' );
 	}
 
 	/**
@@ -19,9 +19,10 @@ class PlaylistsController extends BaseController {
 	 */
 	public function index()
 	{
-		// List of playlists
-		// Show "add new items to this playlist" to logged in users
-		// Show "play this playlist on this computer" link to admins
+		$playlists = Playlist::all();
+		
+		if ( Request::ajax() ) return Response::json($playlists);
+
 	}
 
 	/**
@@ -41,7 +42,21 @@ class PlaylistsController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		$playlist = new Playlist;
+
+		$playlist->name = Input::get('name');
+		$playlist->playback_state = Input::get('playback_state');
+
+		if ( ! $playlist->save() )
+		{
+			if ( Request::ajax() ) return Response::json($playlist->errors(), 400);
+			
+			return Redirect::route('playlists.create', array('playlist' => $playlist->id))->withErrors($playlist->errors());
+		}
+
+		if ( Request::ajax() ) return Response::json($playlist, 201);
+
+		return Redirect::route('playlists.playlistitems.index',array('playlist' => $playlist->id));
 	}
 
 	/**
@@ -52,39 +67,13 @@ class PlaylistsController extends BaseController {
 	 */
 	public function show($playlistId)
 	{
-		// Play through items in the playlist
-		if( $playlist = Playlist::find($playlistId) )
-		{
-			// Javascript call for latest playlist item
-			if ( Request::ajax() )
-			{
-				// Output the current playlist item, playlist item submitter and playlist 
-				$playlist = $playlist->playlistItems()
-					->where('playback_state', '=', '0')
-					->orderBy('created_at', 'asc')
-					->with('user')
-					->with('playlist')
-					->first();
-				if ( ! empty($playlist) ) 
-				{
-					return Response::json($playlist); // return playlist entry as JSON
-				}
-				else
-				{
-					return Response::json(false); // TODO: return "no items to play"
-				}
-			}
-			else // View of the screen
-			{
-				return View::make('playlists.show')
-							->with('title', 'Now Playing - ' . $playlist->name . ' Playlist')
-							->with('playlist', $playlist);				
-			}
-		}
-		else
-		{
-			App::abort(404, 'Playlist not found');
-		}
+		$playlist = Playlist::findOrFail($playlistId);
+		
+		if ( Request::ajax() ) return Response::json($playlist);
+
+		return View::make('playlists.show')
+					->with('title', $playlist->name . ' Playlist Screen')
+					->with('playlist', $playlist);				
 	}
 
 	/**
@@ -95,7 +84,7 @@ class PlaylistsController extends BaseController {
 	 */
 	public function edit($playlistId)
 	{
-		// Edit playlist details (excluding the items)
+		//
 	}
 
 	/**
@@ -106,22 +95,21 @@ class PlaylistsController extends BaseController {
 	 */
 	public function update($playlistId)
 	{
-		// Update playlist details, including pausing/playing
-		if ( $playlist = Playlist::find($playlistId) )
+		$playlist = Playlist::findOrFail($playlistId);
+
+		if( Input::has('name') ) $playlist->name = Input::get('name');
+		if( Input::has('playback_state') ) $playlist->playback_state = Input::get('playback_state');
+		
+		if ( ! $playlist->save() )
 		{
-			$playlist->name = Input::get('name');
-			$playlist->playback_state = Input::get('playback_state');
+			if ( Request::ajax() ) return Response::json($playlist->errors(), 400);
 			
-			if ( ! $playlist->save() )
-			{
-				return Redirect::route('playlists.edit', array('playlist' => $playlist->id))->withErrors($playlist->errors());
-			}
-			return Redirect::route('playlists.playlistitems.index',array('playlist' => $playlist->id));
+			return Redirect::route('playlists.edit', array('playlist' => $playlist->id))->withErrors($playlist->errors());
 		}
-		else
-		{
-			App::abort(404, 'Playlist not found');
-		}
+
+		if ( Request::ajax() ) return Response::json($playlist);
+
+		return Redirect::route('playlists.playlistitems.index',array('playlist' => $playlist->id));
 	}
 
 	/**
@@ -132,7 +120,9 @@ class PlaylistsController extends BaseController {
 	 */
 	public function destroy($playlistId)
 	{
-		//
+		$playlist = Playlist::findOrFail($playlistId);
+
+		if ( Request::ajax() ) return Response::json( $playlist->destroy($playlistId), 204);
 	}
 
 }

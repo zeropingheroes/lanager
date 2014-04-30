@@ -106,7 +106,7 @@
 					
 					case 0:
 						console.log('Playlist: '+playerLoadedVideoId+' ['+playerLoadedVideoUniqueId+'] - Player state changed to ended');
-						updatePlaybackState(playerLoadedVideoUniqueId, 1); // mark the last video as played
+						updatePlaybackState(playerLoadedVideoUniqueId, 1, ''); // mark the last video as played
 						break;
 					
 					case 1:
@@ -135,15 +135,15 @@
 			{
 				case 100: // video not found
 					console.error('Playlist: Error '+errorNum+': video not found - skipping');
-					updatePlaybackState(playerLoadedVideoUniqueId, 2);
+					updatePlaybackState(playerLoadedVideoUniqueId, 2, 'Video not found');
 					break;
 				case 101:
 					console.error('Playlist: Error '+errorNum+': video owner does not allow embedding - skipping');
-					updatePlaybackState(playerLoadedVideoUniqueId, 2);
+					updatePlaybackState(playerLoadedVideoUniqueId, 2, 'Video owner does not allow embedding');
 					break;
 				case 150:
 					console.error('Playlist: Error '+errorNum+': video owner does not allow embedding - skipping');
-					updatePlaybackState(playerLoadedVideoUniqueId, 2);
+					updatePlaybackState(playerLoadedVideoUniqueId, 2, 'Video owner does not allow embedding');
 					break;
 				default:
 					console.error('Playlist: Error '+errorNum+': unknown error');
@@ -152,15 +152,18 @@
 		}
 
 		// Feed back a video's playback state to the database
-		function updatePlaybackState(uniqueVideoId, playbackState)
+		function updatePlaybackState(uniqueVideoId, playbackState, skipReason)
 		{
 			if(uniqueVideoId)
 			{
+				
+				skipReason = typeof skipReason !== 'undefined' ? skipReason : NULL;
 				$.ajax({
 					url: '{{ route('playlists.playlistitems.update', $playlist->id) }}'+'/'+uniqueVideoId,
 					type: 'PUT',
 					data: {
 						playback_state: playbackState,
+						skip_reason: skipReason
 					},
 					success: function(result) {
 						if(result == 1)
@@ -169,7 +172,7 @@
 						}
 						else
 						{
-							console.warn('Playlist: '+playerLoadedVideoId+' ['+uniqueVideoId+'] - Warning: item already marked as '+playbackState);	
+							console.error('Playlist: '+playerLoadedVideoId+' ['+uniqueVideoId+'] - Error updating playback state: '+result);
 						}
 					},
 					error: function (request, status, error) {

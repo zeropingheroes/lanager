@@ -11,6 +11,7 @@
 			{
 				$playlistState = ' <span class="playlist-playback-state">' . Label::info('Paused') . '</span>';
 			}
+			$playlistState = '';
 		}
 		else
 		{

@@ -13,7 +13,7 @@
 		switch($playlistItem->playback_state)
 		{
 			case 2:
-				$itemStateLabel = Label::warning('Skipped');
+				$itemStateLabel = Label::warning('Skipped - '.$playlistItem->skip_reason);
 				break;
 			default:
 				$itemStateLabel = '';
@@ -21,22 +21,24 @@
 
 		if( isset($history) )
 		{
-			$title = link_to($playlistItem->url, $playlistItem->title, array('target'=>'_blank'));
-			$timestamp = $played->getRelativeDate();
+			$tableBody[] = array(
+				'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
+				'title'			=> link_to($playlistItem->url, $playlistItem->title, array('target'=>'_blank')),
+				'state'			=> $itemStateLabel,
+				'duration'		=> $itemDuration->shortFormat(),
+				'played'		=> $played->getRelativeDate(),
+			);
 		}
 		else
 		{
-			$title = e($playlistItem->title);
-			$timestamp = $submitted->getRelativeDate();
+			$tableBody[] = array(
+				'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
+				'title'			=> e($playlistItem->title),
+				//'controls'		=> Button::xs_link(URL::route('playlists.playlistitems.skip', array('playlist' => $playlist->id, 'playlistItem' => $playlistItem->id), '', array('title' => 'Vote to skip this item')))->with_icon('step-forward'),
+				'duration'		=> $itemDuration->shortFormat(),
+				'submitted'		=> $submitted->getRelativeDate(),
+			);
 		}
-
-		$tableBody[] = array(
-			'user'			=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
-			'title'			=> $title,
-			'state'			=> $itemStateLabel,
-			'duration'		=> $itemDuration->shortFormat(),
-			'timestamp'		=> $timestamp,
-		);
 	}
 
 	?>
