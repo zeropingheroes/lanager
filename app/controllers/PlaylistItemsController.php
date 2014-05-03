@@ -9,7 +9,7 @@ class PlaylistItemsController extends BaseController {
 	public function __construct()
 	{
 		// Check if user can access requested method
-		$this->beforeFilter( 'checkResourcePermission', array('only' => array('store', 'update', 'destroy', 'current')) );
+		$this->beforeFilter( 'checkResourcePermission', array('only' => array('store', 'update', 'destroy')) );
 	}
 
 	/**
