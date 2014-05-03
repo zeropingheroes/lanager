@@ -1,4 +1,4 @@
-@if( Authority::can('create', 'shout') )
+@if( Authority::can('create', 'shouts') )
 	{{ Form::open(array('route' => 'shouts.store', 'class' => 'form-inline shout-create')) }}
 	{{ HTML::validationErrors() }}
 
