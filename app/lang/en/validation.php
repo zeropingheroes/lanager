@@ -85,10 +85,6 @@ return array(
 		'date_not_before_this_input'	=> 'The :attribute time must be after the :other time.',
 	),
 
-	'playlist' => array(
-		'compatible_url'		=> 'The given URL cannot be played by the playlist.',
-	),
-
 	/*
 	|--------------------------------------------------------------------------
 	| Custom Validation Attributes
