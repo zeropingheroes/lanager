@@ -117,52 +117,62 @@
 				setTimeout(playlist.poll,1000);
 				$.getJSON( '{{ $pollUrl }}', function( item )
 				{
-					playlist.item = item[0]; // move into parent object
-
-					playlist.item.playback_state = parseInt(playlist.item.playback_state);
-					playlist.item.playlist.playback_state = parseInt(playlist.item.playlist.playback_state);
-
-					playlist.item.youtube_id = playlist.extract_youtube_id(playlist.item.url);
-
-					console.log('Playlist: Polling response OK');
-
-					// Check for change of video
-					if( (playlist.item.youtube_id != playlist.player.loaded_video.youtube_id) || (playlist.item.id != playlist.player.loaded_video.id))
+					if( item.length == 0)
 					{
-						playlist.console.log('New item retrieved');
-						playlist.update_title();
-						playlist.player.loaded_video.youtube_id = playlist.item.youtube_id;	
-						playlist.player.loaded_video.id = playlist.item.id;	
-						
-						playlist.console.log('Loading into player');
-						playlist.player.object.loadVideoById(playlist.item.youtube_id);
-						playlist.player.object.setPlaybackQuality('{{ Config::get('lanager/playlist.videoplayer.quality') }}');
-						
-						if(playlist.item.playlist.playback_state == 0) // if the playlist is paused
-						{
-							playlist.player.object.pauseVideo(); // pause the video after loading
-							playlist.player.playback_state = 0;
-						}
+						console.log('Playlist: Polling: No item received - nothing to play');
 					}
-
-					// Check for playlist pause / resume
-					if(playlist.item.playlist.playback_state != playlist.player.playback_state)
+					else
 					{
-						switch(playlist.item.playlist.playback_state)
+						playlist.item = item[0]; // move into parent object
+
+						playlist.item.playback_state = parseInt(playlist.item.playback_state);
+						playlist.item.playlist.playback_state = parseInt(playlist.item.playlist.playback_state);
+
+						playlist.item.youtube_id = playlist.extract_youtube_id(playlist.item.url);
+
+
+						// Check for change of video
+						if( (playlist.item.youtube_id != playlist.player.loaded_video.youtube_id) || (playlist.item.id != playlist.player.loaded_video.id))
 						{
-							case 0: // paused
-								playlist.console.log('Pausing playback');
-								playlist.player.object.pauseVideo();
+							playlist.console.log('New item retrieved');
+							playlist.update_title();
+							playlist.player.loaded_video.youtube_id = playlist.item.youtube_id;	
+							playlist.player.loaded_video.id = playlist.item.id;	
+							
+							playlist.console.log('Loading into player');
+							playlist.player.object.loadVideoById(playlist.item.youtube_id);
+							playlist.player.object.setPlaybackQuality('{{ Config::get('lanager/playlist.videoplayer.quality') }}');
+							
+							if(playlist.item.playlist.playback_state == 0) // if the playlist is paused
+							{
+								playlist.player.object.pauseVideo(); // pause the video after loading
 								playlist.player.playback_state = 0;
-								break;
-							case 1: // playing
-								playlist.console.log('Starting/resuming playback');
-								playlist.player.object.playVideo();
-								playlist.player.playback_state = 1;
-								break;
-							default:
-								playlist.console.error('Invalid playlist playback state received');
-								playlist.player.playback_state = -1;
+							}
+						}
+						else
+						{
+							console.log('Playlist: Polling: Received item already loaded into player');
+						}
+
+						// Check for playlist pause / resume
+						if(playlist.item.playlist.playback_state != playlist.player.playback_state)
+						{
+							switch(playlist.item.playlist.playback_state)
+							{
+								case 0: // paused
+									playlist.console.log('Playlist state has changed to paused');
+									playlist.player.object.pauseVideo();
+									playlist.player.playback_state = 0;
+									break;
+								case 1: // playing
+									playlist.console.log('Playlist state has changed to playing');
+									playlist.player.object.playVideo();
+									playlist.player.playback_state = 1;
+									break;
+								default:
+									playlist.console.error('Playlist state invalid');
+									playlist.player.playback_state = -1;
+							}
 						}
 					}
 				}).error(
