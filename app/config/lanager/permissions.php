@@ -2,6 +2,31 @@
 
 return array(
 
+	/*
+	|--------------------------------------------------------------------------
+	| Bans
+	|--------------------------------------------------------------------------
+	|
+	| List the database IDs of users who should not be allowed to perform an
+	| action on a resource
+	|
+	*/
+	'banned' => array(
+		'create' => array(
+			'playlistitems' => array(0),
+			'shouts' => array(0),
+		),
+	),
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Initialisation
+	|--------------------------------------------------------------------------
+	|
+	| Be careful editing here - you could open up the system to serious abuse!
+	| The order in which the permissions are set is important
+	|
+	*/
 	'initialise' => function($authority)
 	{
 		$authority->addAlias('manage', array('create', 'read', 'update', 'delete'));
@@ -10,12 +35,11 @@ return array(
 		// If there is a user currently logged in, assign them permissions
 		if ( is_object($self) )
 		{
-			// Allow any user to...
+			// Allow any logged in user to...
 			$authority->allow('create', 'shouts');
 			$authority->allow('create', 'playlistitems');
-
-			// Allow any user to delete themselves
-			$authority->allow('delete', 'users', function($self, $user)
+			
+			$authority->allow('delete', 'users', function($self, $user) 
 			{
 				if ( is_object($user) )
 				{
@@ -26,6 +50,16 @@ return array(
 					return $self->getCurrentUser()->id === $user; // just passed user id
 				}
 			});
+
+			// Deny based on bans
+			if( in_array($self->id, Config::get('lanager/permissions.banned.create.shouts')) )
+			{
+				$authority->deny('create', 'shouts');
+			}
+			if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlistitems')) )
+			{
+				$authority->deny('create', 'playlistitems');
+			}
 			
 			// Assign extra permissions based on user's roles
 			if ( $self->hasRole('InfoPagesAdmin') ) 
