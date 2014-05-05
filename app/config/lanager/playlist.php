@@ -65,4 +65,26 @@ return array(
 	*/
 	'maxConsecutiveItemsFromSingleUser' => 0, // Item count
 
+	/*
+	|--------------------------------------------------------------------------
+	| Downvote Skip Threshold
+	|--------------------------------------------------------------------------
+	|
+	| Videos that receive this number of downvotes from users will be skipped
+	|
+	*/
+	'itemDownvoteSkipThreshold' => 4, // Downvote count
+
+
+	/*
+	|--------------------------------------------------------------------------
+	| Allow Downvoting of Future Entries
+	|--------------------------------------------------------------------------
+	|
+	| False - Users can only downvote the currently playing item
+	| True  - Users can downvote any item
+	|
+	*/
+	'downvoteFutureItems' => false, // Downvote count
+
 );

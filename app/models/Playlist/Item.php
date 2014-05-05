@@ -140,4 +140,14 @@ class Item extends BaseModel {
 		return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
 	}
 
+	public function votes()
+	{
+		return $this->hasMany('Zeropingheroes\Lanager\Models\Playlist\Item\Vote', 'playlist_item_id');
+	}
+
+	public function scopeUnplayed($query)
+	{
+		return $query->where('playback_state', 0)->orderBy('created_at');
+	}
+
 }

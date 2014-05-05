@@ -1,4 +1,4 @@
-<?php namespace Zeropingheroes\Lanager\Playlist;
+<?php namespace Zeropingheroes\Lanager\Playlists;
 
 use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Models\Playlist,
