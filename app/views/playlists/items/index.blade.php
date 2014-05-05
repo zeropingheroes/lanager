@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 	<?php
-		if( ! isset($history) )
+		if( ! $history )
 		{
 			if( $playlist->playback_state == 1)	
 			{
@@ -11,7 +11,6 @@
 			{
 				$playlistState = ' <span class="playlist-playback-state">' . Label::info('Paused') . '</span>';
 			}
-			$playlistState = '';
 		}
 		else
 		{
@@ -23,7 +22,7 @@
 		<div class="col-md-6">
 			<h2>{{{ $title }}}{{ $playlistState }}</h2>
 		</div>
-		@if( Authority::can('manage', 'playlists') AND !isset($history) )
+		@if( Authority::can('manage', 'playlists') AND ! $history )
 			<div class="col-md-6">
 				<div class="pull-right playlist-controls">@include('playlists.controls')</div>
 			</div>
