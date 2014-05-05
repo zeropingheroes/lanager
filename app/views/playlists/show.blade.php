@@ -8,7 +8,7 @@
 				'take'	=> 1,
 				'with' => 'user,playlist',
 			);
-		$pollUrl = route('playlists.playlistitems.index', $pollQuery );
+		$pollUrl = route('playlists.items.index', $pollQuery );
 	?>
 	<div style="width: {{ Config::get('lanager/playlist.videoplayer.width') }}px">
 		<div id="now-playing" class="pull-left">&nbsp;</div>
@@ -191,7 +191,7 @@
 			{
 				skip_reason = typeof skip_reason !== 'undefined' ? skip_reason : NULL;
 				$.ajax({
-					url: '{{ route('playlists.playlistitems.update', $playlist->id) }}'+'/'+playlist.item.id+'/',
+					url: '{{ route('playlists.items.update', $playlist->id) }}'+'/'+playlist.item.id+'/',
 					type: 'PUT',
 					data: {
 						playback_state: playback_state,

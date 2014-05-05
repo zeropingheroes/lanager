@@ -116,7 +116,7 @@ Route::resource('events', 'Zeropingheroes\Lanager\EventsController');
 |--------------------------------------------------------------------------
 */
 Route::resource('playlists', 'Zeropingheroes\Lanager\PlaylistsController');
-Route::resource('playlists.playlistitems', 'Zeropingheroes\Lanager\PlaylistItemsController');
+Route::resource('playlists.items', 'Zeropingheroes\Lanager\Playlist\ItemsController');
 
 
 /*

@@ -7,9 +7,9 @@ class Playlist extends BaseModel {
 		'playback_state'	=> 'required'
 	);
 	
-	public function playlistItems()
+	public function items()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\Models\PlaylistItem');
+		return $this->hasMany('Zeropingheroes\Lanager\Models\Playlist\Item');
 	}
 
 }

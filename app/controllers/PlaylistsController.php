@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Models\Playlist,
-	Zeropingheroes\Lanager\Models\PlaylistItem;
+	Zeropingheroes\Lanager\Models\Playlist\Item;
 use View, Response, Input, Redirect, Request;
 
 class PlaylistsController extends BaseController {
@@ -56,7 +56,7 @@ class PlaylistsController extends BaseController {
 
 		if ( Request::ajax() ) return Response::json($playlist, 201);
 
-		return Redirect::route('playlists.playlistitems.index',array('playlist' => $playlist->id));
+		return Redirect::route('playlists.items.index',array('playlist' => $playlist->id));
 	}
 
 	/**
@@ -109,7 +109,7 @@ class PlaylistsController extends BaseController {
 
 		if ( Request::ajax() ) return Response::json($playlist);
 
-		return Redirect::route('playlists.playlistitems.index',array('playlist' => $playlist->id));
+		return Redirect::route('playlists.items.index',array('playlist' => $playlist->id));
 	}
 
 	/**

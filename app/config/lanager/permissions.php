@@ -11,12 +11,12 @@ return array(
 	| action on a resource
 	|
 	*/
-	'banned' => array(
-		'create' => array(
-			'playlistitems' => array(0),
-			'shouts' => array(0),
-		),
-	),
+	// 'banned' => array(
+	// 	'create' => array(
+	// 		'playlist.items' => array(0),
+	// 		'shouts' => array(0),
+	// 	),
+	// ),
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -37,7 +37,8 @@ return array(
 		{
 			// Allow any logged in user to...
 			$authority->allow('create', 'shouts');
-			$authority->allow('create', 'playlistitems');
+			$authority->allow('create', 'items');
+			$authority->allow('create', 'skipvotes');
 			
 			$authority->allow('delete', 'users', function($self, $user) 
 			{
@@ -52,14 +53,14 @@ return array(
 			});
 
 			// Deny based on bans
-			if( in_array($self->id, Config::get('lanager/permissions.banned.create.shouts')) )
-			{
-				$authority->deny('create', 'shouts');
-			}
-			if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlistitems')) )
-			{
-				$authority->deny('create', 'playlistitems');
-			}
+			// if( in_array($self->id, Config::get('lanager/permissions.banned.create.shouts')) )
+			// {
+			// 	$authority->deny('create', 'shouts');
+			// }
+			// if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlist.items')) )
+			// {
+			// 	$authority->deny('create', 'playlist.items');
+			// }
 			
 			// Assign extra permissions based on user's roles
 			if ( $self->hasRole('InfoPagesAdmin') ) 
@@ -80,7 +81,7 @@ return array(
 			if ( $self->hasRole('PlaylistsAdmin') ) 
 			{
 				$authority->allow('manage', 'playlists');
-				$authority->allow('manage', 'playlistitems');
+				$authority->allow('manage', 'items');
 			}
 
 			// Must be at bottom

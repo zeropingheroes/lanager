@@ -29,7 +29,7 @@
 			</div>
 		@endif
 	</div>
-	@include('playlists.playlistitems.form')
-	@include('playlists.playlistitems.list')
+	@include('playlists.items.form')
+	@include('playlists.items.list')
 
 @endsection

@@ -1,11 +1,14 @@
-<?php namespace Zeropingheroes\Lanager\Models;
+<?php namespace Zeropingheroes\Lanager\Models\Playlist;
 
+use Zeropingheroes\Lanager\Models\BaseModel;
 use Config, Auth;
 use Illuminate\Support\MessageBag;
 use Zeropingheroes\Lanager\Helpers\Duration;
 
-class PlaylistItem extends BaseModel {
+class Item extends BaseModel {
 
+	protected $table = 'playlist_items';
+	
 	public static $rules = array(
 		'url'			=> 'required|url',
 		'playlist_id'	=> 'numeric|exists:playlists,id'
@@ -71,13 +74,13 @@ class PlaylistItem extends BaseModel {
 			}
 
 			// Check if playlist full
-			if( $duration = PlaylistItem::where('playback_state',0)->sum('duration') > Config::get('lanager/playlist.maxQueueLength') )
+			if( $duration = Item::where('playback_state',0)->sum('duration') > Config::get('lanager/playlist.maxQueueLength') )
 			{
 				$errors->add('error', 'Playlist is currently full. Please try again later.');
 			}
 			
 			// Check if video is duplicated
-			if( $duplicates = PlaylistItem::where('url',$this->url)->count() > Config::get('lanager/playlist.maxDuplicates') )
+			if( $duplicates = Item::where('url',$this->url)->count() > Config::get('lanager/playlist.maxDuplicates') )
 			{
 				if( Config::get('lanager/playlist.maxDuplicates') == 0)
 				{
@@ -99,7 +102,7 @@ class PlaylistItem extends BaseModel {
 				$recentItemsToTake = Config::get('lanager/playlist.maxConsecutiveItemsFromSingleUser');
 			}
 
-			$recentSubmitters = PlaylistItem::where('playlist_id', $this->playlist_id)
+			$recentSubmitters = Item::where('playlist_id', $this->playlist_id)
 				->orderby( 'created_at', 'desc' )
 				->take( $recentItemsToTake )
 				->lists('user_id');
