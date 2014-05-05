@@ -90,9 +90,14 @@ class User extends BaseModel implements UserInterface {
 		return $this->hasMany('Zeropingheroes\Lanager\Models\Shout');
 	}
 
-	public function playlistItems()
+	public function items()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\Models\PlaylistItem');
+		return $this->hasMany('Zeropingheroes\Lanager\Models\Playlist\Item');
+	}
+
+	public function votes()
+	{
+		return $this->hasMany('Zeropingheroes\Lanager\Models\Playlist\Item\Vote');
 	}
 
 	public function events()

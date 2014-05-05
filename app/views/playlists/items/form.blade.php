@@ -1,4 +1,4 @@
-@if( Authority::can('create', 'items') )
+@if( Authority::can('create', 'playlist.items') )
 	{{ Form::open(array('route' => array('playlists.items.store', $playlist->id), 'class' => 'form-inline playlist-item-create')) }}
 	{{ HTML::validationErrors() }}
 

@@ -57,21 +57,47 @@ Route::filter('csrf', function()
 */
 Route::filter('checkResourcePermission', function($route, $request)
 {
-	// Get request details
-	$routeName = explode('.', Route::currentRouteName());
-	$resource = $routeName[count($routeName)-2];
-	$action = end($routeName);
-	$item = $route->parameter($resource);
+	$resources = explode('.', Route::currentRouteName());
+	$action = array_pop($resources);
 
+	$resource = '';
+	$i = 0;
+
+	foreach($resources as $resourceName)
+	{
+		$i++;
+
+		// Collect resourceName item IDs
+		$ids[$resourceName] = $route->parameter($resourceName);
+
+		// Build expressive resource string
+		if( (count($resources)) != $i )
+		{
+			$resource .= str_singular($resourceName).'.';
+		}
+		else
+		{
+			$resource .= $resourceName;
+			$id = $route->parameter($resourceName);
+		}
+	}
+
+	// print_r(array(
+	// 	'action'	=> $action,
+	// 	'resource'	=> $resource,
+	// 	'id'		=> $id,
+	// 	'resources'	=> $resources,
+	// 	'ids'		=> $ids,
+	// )); die();
+	
 	// Replace laravel-style route action names with their CRUD equivalents
 	$actionsToReplace = array('store', 'show', 'index', 'edit', 'destroy');
 	$replaceWithAction = array('create', 'read', 'read', 'update', 'delete');
 	$action = str_replace($actionsToReplace, $replaceWithAction, $action);
 
-	// Check if user is forbidden from performing $action on $resource $item
-	if( Authority::cannot($action, $resource, $item) )
+	if( Authority::cannot($action, $resource, $id) )
 	{
-		return App::abort(403, 'You do not have permission to perform this request. Action: '.$action.' Resource: '.$resource.' Item: '.$item);
+		return App::abort(403, 'You do not have permission to perform this request.');
 	}
 });
 

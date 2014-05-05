@@ -11,12 +11,14 @@ return array(
 	| action on a resource
 	|
 	*/
-	// 'banned' => array(
-	// 	'create' => array(
-	// 		'playlist.items' => array(0),
-	// 		'shouts' => array(0),
-	// 	),
-	// ),
+	'banned' => array(
+		'create' => array(
+			'playlist' => array(
+				'items' => array(0),
+				),
+			'shouts' => array(0),
+		),
+	),
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -32,14 +34,40 @@ return array(
 		$authority->addAlias('manage', array('create', 'read', 'update', 'delete'));
 		$self = $authority->getCurrentUser();
 
-		// If there is a user currently logged in, assign them permissions
 		if ( is_object($self) )
 		{
-			// Allow any logged in user to...
+			/*
+			|--------------------------------------------------------------------------
+			| Permissions for all logged-in users
+			|--------------------------------------------------------------------------
+			*/
+
+			// Shouts
 			$authority->allow('create', 'shouts');
-			$authority->allow('create', 'items');
-			$authority->allow('create', 'skipvotes');
-			
+			if( in_array($self->id, Config::get('lanager/permissions.banned.create.shouts')) )
+			{
+				$authority->deny('create', 'shouts');
+			}
+
+			// Playlist Items			
+			$authority->allow('create', 'playlist.items');
+			$authority->allow('delete', 'playlist.items', function($self, $itemId)
+			{
+				return $self->getCurrentUser()->items()->find($itemId);
+			});
+			if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlist.items')) )
+			{
+				$authority->deny('create', 'playlist.items');
+			}
+
+			// Playlist Item Votes
+			$authority->allow('create', 'playlist.item.votes');
+			$authority->allow('delete', 'playlist.item.votes', function($self, $voteId)
+			{
+				return $self->getCurrentUser()->votes()->find($voteId);
+			});
+
+			// Users
 			$authority->allow('delete', 'users', function($self, $user) 
 			{
 				if ( is_object($user) )
@@ -51,18 +79,12 @@ return array(
 					return $self->getCurrentUser()->id === $user; // just passed user id
 				}
 			});
-
-			// Deny based on bans
-			// if( in_array($self->id, Config::get('lanager/permissions.banned.create.shouts')) )
-			// {
-			// 	$authority->deny('create', 'shouts');
-			// }
-			// if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlist.items')) )
-			// {
-			// 	$authority->deny('create', 'playlist.items');
-			// }
 			
-			// Assign extra permissions based on user's roles
+			/*
+			|--------------------------------------------------------------------------
+			| Role-based Permissions
+			|--------------------------------------------------------------------------
+			*/
 			if ( $self->hasRole('InfoPagesAdmin') ) 
 			{
 				$authority->allow('manage', 'infopages');
@@ -81,10 +103,14 @@ return array(
 			if ( $self->hasRole('PlaylistsAdmin') ) 
 			{
 				$authority->allow('manage', 'playlists');
-				$authority->allow('manage', 'items');
+				$authority->allow('manage', 'playlist.items');
 			}
 
-			// Must be at bottom
+			/*
+			|--------------------------------------------------------------------------
+			| SuperAdmin Permissions - Keep at Bottom
+			|--------------------------------------------------------------------------
+			*/
 			if ( $self->hasRole('SuperAdmin') ) 
 			{
 				$authority->allow('manage', 'all');
