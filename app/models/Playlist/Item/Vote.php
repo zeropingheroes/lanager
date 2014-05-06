@@ -46,7 +46,7 @@ class Vote extends BaseModel {
 		$item = Playlist\Item::find($this->playlist_item_id);
 
 		// Skip the item if we have met or exceeded the downvote threshold
-		if( abs($item->votes()->sum('vote')) >= (Config::get('lanager/playlist.itemDownvoteSkipThreshold')+1) )
+		if( (abs($item->votes()->sum('vote'))+1) >= Config::get('lanager/playlist.itemDownvoteSkipThreshold') )
 		{
 			$item->playback_state = 2;
 			$item->skip_reason = 'Downvoted by users';

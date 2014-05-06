@@ -62,10 +62,7 @@ return array(
 
 			// Playlist Item Votes
 			$authority->allow('create', 'playlist.item.votes');
-			$authority->allow('delete', 'playlist.item.votes', function($self, $voteId)
-			{
-				return $self->getCurrentUser()->votes()->find($voteId);
-			});
+			$authority->allow('delete', 'playlist.item.votes');
 
 			// Users
 			$authority->allow('delete', 'users', function($self, $user) 

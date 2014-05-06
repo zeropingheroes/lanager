@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Models\Playlist,
 	Zeropingheroes\Lanager\Models\Playlist\Item,
 	Zeropingheroes\Lanager\Models\Playlist\Item\Vote;
-use Response, Auth, Request;
+use Response, Auth, Request, Redirect;
 
 class VotesController extends BaseController {
 
@@ -32,9 +32,11 @@ class VotesController extends BaseController {
 		if( ! $vote->save() )
 		{
 			if ( Request::ajax() ) return Response::json($vote->errors(), 400);
+			return Redirect::back()->withErrors($vote->errors());
 		}
 
 		if ( Request::ajax() ) return Response::json($vote, 201);
+		return Redirect::back();
 
 	}
 
@@ -47,8 +49,10 @@ class VotesController extends BaseController {
 	public function destroy($playlistId, $itemId, $voteId)
 	{
 		$vote = Playlist::findOrFail($playlistId)->items()->findOrFail($itemId)->votes()->findOrFail($voteId);
+		$destroy = Vote::destroy($vote->id);
 
-		if ( Request::ajax() ) return Response::json( $vote->destroy($voteId), 204);
+		if ( Request::ajax() ) return Response::json( $destroy, 204);
+		return Redirect::back();
 	}
 
 }

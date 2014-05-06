@@ -9,6 +9,7 @@
 		$played = new ExpressiveDate($item->updated_at);
 
 		$user = $item->user;
+		$controls = '';
 
 		switch($item->playback_state)
 		{
@@ -31,12 +32,49 @@
 		}
 		else
 		{
+			if( Authority::can('create', 'playlist.item.votes') )
+			{
+				if( Config::get('lanager/playlist.downvoteFutureItems') OR $item->id == $nowPlaying->id )
+				{
+					if( Auth::user()->votes()->where('playlist_item_id', $item->id)->count() == 0 )
+					{
+						$controls = Form::open(
+							array(
+								'route' => array(
+									'playlists.items.votes.store',
+										'playlist' => $playlist->id,
+										'item' => $item->id
+									),
+								'method' => 'POST',
+								'class' => 'form-inline')
+							);
+						$controls .= Button::xs_submit('', array('title' => 'Vote to skip this item', 'name' => 'vote'))->with_icon('step-forward');
+						$controls .= Form::close();
+					}
+					else
+					{
+						$controls = Form::open(
+							array(
+								'route' => array(
+									'playlists.items.votes.destroy',
+										'playlist' => $playlist->id,
+										'item' => $item->id,
+										'vote' => Auth::user()->votes()->where('playlist_item_id', $item->id)->first()->id,
+									),
+								'method' => 'DELETE',
+								'class' => 'form-inline')
+							);
+						$controls .= Button::xs_danger_submit('', array('title' => 'Remove your vote to skip this item', 'name' => 'vote'))->with_icon('step-forward');
+						$controls .= Form::close();
+					}
+				}
+			}
 			$tableBody[] = array(
 				'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
 				'title'			=> e($item->title),
-				//'controls'		=> Button::xs_link(URL::route('playlists.items.skip', array('playlist' => $playlist->id, 'item' => $item->id), '', array('title' => 'Vote to skip this item')))->with_icon('step-forward'),
 				'duration'		=> $itemDuration->shortFormat(),
 				'submitted'		=> $submitted->getRelativeDate(),
+				'controls'		=> $controls,
 			);
 		}
 	}
