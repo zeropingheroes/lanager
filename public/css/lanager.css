@@ -34,7 +34,7 @@ table.table tbody tr td {
 }
 
 /* make delete form button inline */
-.resource-destroy {
+.form-inline, .resource-destroy {
 	display: inline;
 }
 

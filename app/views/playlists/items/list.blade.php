@@ -14,7 +14,7 @@
 		switch($item->playback_state)
 		{
 			case 2:
-				$itemStateLabel = Label::warning('Skipped - '.$item->skip_reason);
+				$itemStateLabel = Label::warning('Skipped - '.e($item->skip_reason));
 				break;
 			default:
 				$itemStateLabel = '';
@@ -69,12 +69,43 @@
 					}
 				}
 			}
+
+			if( Authority::can('manage', 'playlist.items') )
+			{
+				$adminControls = Form::open(
+							array(
+								'route' => array(
+									'playlists.items.update',
+										'playlist' => $playlist->id,
+										'item' => $item->id
+								),
+								'method' => 'PUT',
+								'class' => 'form-inline',
+								'id' => 'skip'.$item->id)
+							);
+				$adminControls .= Form::hidden('playback_state', 2);
+				$adminControls .= Button::xs_danger_submit('', array('title' => 'Immediately skip this item', 'name' => 'Submit' ))->with_icon('fast-forward');
+				$adminControls .= Form::close();
+				$adminControls .= '<script type="text/javascript">
+									$( "#'.'skip'.$item->id.'" ).submit(function( event ) {
+										var reason = prompt("Please enter a brief reason for skipping this item");
+										var input = $("<input>")
+										.attr("type", "hidden")
+										.attr("name", "skip_reason").val(reason);
+										$( "#'.'skip'.$item->id.'").append($(input));
+								});</script>';
+			}
+			else
+			{
+				$adminControls = '';
+			}
+
 			$tableBody[] = array(
 				'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
 				'title'			=> e($item->title),
 				'duration'		=> $itemDuration->shortFormat(),
 				'submitted'		=> $submitted->getRelativeDate(),
-				'controls'		=> $controls,
+				'controls'		=> $adminControls.$controls,
 			);
 		}
 	}

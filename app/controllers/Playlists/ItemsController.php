@@ -118,19 +118,18 @@ class ItemsController extends BaseController {
 	 */
 	public function update($playlistId, $itemId)
 	{
-		if ( Request::ajax() )
-		{
-			$item = Playlist::findOrFail($playlistId)->items()->findOrFail($itemId);
-				
-			if( Input::has('playback_state') ) $item->playback_state = Input::get('playback_state');
-			if( Input::has('skip_reason') && $item->playback_state == 2 ) $item->skip_reason = Input::get('skip_reason');
+		$item = Playlist::findOrFail($playlistId)->items()->findOrFail($itemId);
+			
+		if( Input::has('playback_state') ) $item->playback_state = Input::get('playback_state');
+		if( Input::has('skip_reason') && $item->playback_state == 2 ) $item->skip_reason = Input::get('skip_reason');
 
-			if ( ! $item->save() )
-			{
-				return Response::json($item->errors(), 400);
-			}
-			return Response::json($item);
+		if ( ! $item->save() )
+		{
+			if ( Request::ajax() ) return Response::json($item->errors(), 400);
 		}
+		if ( Request::ajax() ) return Response::json($item);
+		return Redirect::back();
+		
 	}
 
 	/**
