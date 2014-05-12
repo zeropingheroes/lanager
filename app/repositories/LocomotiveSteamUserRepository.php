@@ -50,9 +50,9 @@ class LocomotiveSteamUserRepository implements SteamUserRepositoryInterface {
 			$steamUser->id				= $profile->steamid;
 			$steamUser->username		= $profile->personaname;
 			$steamUser->visibility		= $profile->communityvisibilitystate;
-			$steamUser->profile_created = $profile->profilestate;
 
 			// Optional
+			if (isset($profile->profilestate))		$steamUser->profile_created 		= $profile->profilestate;
 			if (isset($profile->realname))			$steamUser->real_name				= $profile->realname;
 			if (isset($profile->timecreated))		$steamUser->creation_time			= $profile->timecreated;
 			if (isset($profile->avatar))			$steamUser->avatar_url				= $profile->avatar;

@@ -89,10 +89,10 @@ class Install extends BaseCommand {
 			function_exists( 'json_encode' ),
 			'Install and/or enable the JSON PHP module');
 		
-		$this->displayCheck('/lanager/app/storage/ directory writeable by Apache / PHP');
+		$this->displayCheck('lanager/app/storage/ directory writeable by Apache / PHP');
 		$this->checkRequirement(
 			is_writable( 'app/storage/' ),
-			'Change the directory permissions of /lanager/app/storage/ to allow Apache & PHP write access');
+			'Change the directory permissions of lanager/app/storage/ to allow Apache & PHP write access');
 		
 		$this->displayCheck('PHP accessible in the system\'s path variable');
 		$this->checkRequirement(
@@ -138,6 +138,10 @@ class Install extends BaseCommand {
 		$this->customInfo('Seeding database with example data...');
 		$seed = Artisan::call('db:seed', array('--class' => 'Zeropingheroes\Lanager\Seeds\DatabaseSeeder'));
 		if( $seed != 0 ) $this->abort('Database seeding failure', $this->criticalMessage);
+
+		$this->customInfo('Publishing package assets...');
+		$publish = Artisan::call('asset:publish');
+		if( $publish != 0 ) $this->abort('Asset publishing failure', $this->criticalMessage);
 
 		$this->customInfo('Importing Steam applications...');
 		$import = Artisan::call('steam:import-apps');

@@ -11,7 +11,10 @@ class PlaylistsTableSeeder extends Seeder {
 		DB::table('playlists')->delete(); // Empty before we seed
 
 		$playlists = array(
-			array('name' => 'Default'),
+			array(
+				'name' 				=> '',
+				'playback_state'	=> 0
+			),
 		);
 
 		foreach($playlists as $playlist)

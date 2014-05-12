@@ -48,14 +48,15 @@ WAMP, LAMP and MAMP are a quick way to satisfy most of the above, just check tha
 
 LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.org/) which makes installing and updating a breeze. **You should not download the source directly from GitHub** - it is sufficient to follow the below instructions:
 
-1. [Download and install Composer](http://getcomposer.org/download/)
+1. Download and install [Composer](http://getcomposer.org/download/) and [Git](http://git-scm.com/downloads)
 2. From a terminal in the folder you wish to install LANager, run `composer create-project zeropingheroes/lanager`
 3. Configure your web server to use `lanager/public/` as the root web directory
-4. Edit `app/config/app.php` setting your installation's URL and application key 
-5. In the `lanager/` directory, run `php artisan lanager:install` from the terminal
-6. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
+4. Change the permissions for the `lanager/storage/` directory to be read & write for your web server
+5. Edit `lanager/app/config/app.php` setting your installation's URL and application key 
+6. In the `lanager/` directory, run `php artisan lanager:install` from the terminal
+7. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
 	* On Windows
-		1. Add a task for `SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
+		1. Add a task for `lanager/SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
 	* On *nix
 		1. From a terminal run `crontab -e`
 		2. Add the following to the end of the file:
@@ -69,9 +70,30 @@ If you want to try out the project quickly and easily, you can use [Vagrant](htt
 2. [Download and install Vagrant](http://downloads.vagrantup.com/)
 3. From a terminal in the `lanager/` directory, run `vagrant up`
 4. Add `lanager.dev` to your system's `hosts` file, pointing it to `127.0.0.1`
-6. Follow steps 4 and 5 from the *Installation* section above
+5. From a terminal in the `lanager/` directory, run `vagrant ssh`
+6. Follow steps 5, 6 and 7 from the *Installation* section above
+7. Navigate to [http://lanager.dev:8080/](http://lanager.dev:8080/) 
 
 When you're finished either run `vagrant destroy` to remove the virtual machine entirely, or `vagrant suspend` to save it for use later. 
+
+## Usage
+
+Once you have completed the installation, you can sign in via Steam. The first user to sign in will be granted the SuperAdmin role, allowing you to assign roles to other users.
+
+Look through the configuration files inside `lanager/app/config/lanager/` which will allow you to tailor your installation to your event.  
+
+*This section will be expanded upon as features are solidified.*
+
+## Updating
+
+To update to the latest version, from the `lanager/` directory simply run the following commands:
+
+1. `composer update`
+2. `php artisan migrate --path="app/migrations"`
+3. `php artisan db:seed --class="Zeropingheroes\Lanager\Seeds\DatabaseSeeder"`
+4. `php artisan asset:publish`
+
+If you encounter any problems, delete the entire `lanager/` directory except the `lanager/app/config` directory, and re-install as above, keeping your database intact.
 
 ## Feedback & Contributions
 

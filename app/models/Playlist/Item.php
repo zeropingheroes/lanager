@@ -103,6 +103,7 @@ class Item extends BaseModel {
 			}
 
 			$recentSubmitters = Item::where('playlist_id', $this->playlist_id)
+				->where('playback_state', 0)
 				->orderby( 'created_at', 'desc' )
 				->take( $recentItemsToTake )
 				->lists('user_id');

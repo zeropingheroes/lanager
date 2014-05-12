@@ -113,7 +113,11 @@
 	?>
 	{{ Table::body($tableBody) }}
 	{{ Table::close() }}
-	{{ $items->links() }}
+	@if( $history )
+		{{ $items->appends(array('history' => '1'))->links() }}
+	@else
+		{{ $items->links() }}
+	@endif
 	<span class="pull-right playlist-total-time">Total: {{ $playlistDurationLabel->shortFormat() }}</span>
 @else
 	No playlist entries to show!

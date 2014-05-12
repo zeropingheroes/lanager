@@ -3,7 +3,7 @@
 class Playlist extends BaseModel {
 
 	public static $rules = array(
-		'name'				=> 'required|max:255',
+		'name'				=> 'max:255',
 		'playback_state'	=> 'required'
 	);
 	
