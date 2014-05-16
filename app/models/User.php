@@ -105,4 +105,14 @@ class User extends BaseModel implements UserInterface {
 		return $this->belongsToMany('Zeropingheroes\Lanager\Models\Event', 'event_signups')->withTimestamps();
 	}
 
+	public function awards()
+	{
+		return $this->hasMany('Zeropingheroes\Lanager\Models\Award');
+	}
+
+	public function achievements()
+	{
+		return $this->belongsToMany('Zeropingheroes\Lanager\Models\Achievement', 'awards');
+	}
+
 }

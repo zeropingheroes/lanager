@@ -119,6 +119,13 @@ Route::resource('playlists', 'Zeropingheroes\Lanager\PlaylistsController');
 Route::resource('playlists.items', 'Zeropingheroes\Lanager\Playlists\ItemsController');
 Route::resource('playlists.items.votes', 'Zeropingheroes\Lanager\Playlists\Items\VotesController');
 
+/*
+|--------------------------------------------------------------------------
+| Achievements
+|--------------------------------------------------------------------------
+*/
+Route::resource('achievements', 'Zeropingheroes\Lanager\AchievementsController');
+Route::resource('awards', 'Zeropingheroes\Lanager\AwardsController');
 
 /*
 |--------------------------------------------------------------------------

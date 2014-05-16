@@ -39,6 +39,10 @@
 		@endif
 	</div>
 
+	<?php $awards = $user->awards()->orderBy('created_at','desc')->get(); ?>
+	<h2>Achievements</h2>
+	@include('awards.list')
+
 	@if( count($user->shouts) )
 		<?php $shouts = $user->shouts()->orderBy('created_at','desc')->take(Config::get('lanager/user.profile.shouts'))->get(); ?>
 		<h2>Shouts</h2>
