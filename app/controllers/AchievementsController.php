@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Models\Achievement;
-use View, Input, Redirect, Request, Response, URL, Auth;
+use View, Input, Redirect, Request, Response, URL, Auth, Authority;
 
 class AchievementsController extends BaseController {
 
@@ -21,7 +21,22 @@ class AchievementsController extends BaseController {
 	{
 		if ( Request::ajax() ) return Response::json(Achievement::all());
 
-		$achievements = Achievement::orderBy('name', 'asc')->paginate(10);
+		if ( Authority::can('manage', 'achievements') && Input::get('hidden') == true )
+		{
+			$achievements = Achievement::where('visible', 0);
+		}
+		else
+		{
+			$achievements = Achievement::orWhere(function($q)
+											{
+												$q->orWhere('visible',1);
+												$q->orHas('awards');
+											});
+		}
+		$achievements = $achievements->orderBy('name', 'asc')
+									->paginate(10);
+
+
 		return View::make('achievements.list')
 					->with('title','Achievements')
 					->with('achievements',$achievements);

@@ -51,6 +51,16 @@
 		{{ Table::body($tableBody) }}
 		{{ Table::close() }}
 		{{ $achievements->links() }}
+		<br>
+		@if( Authority::can('manage', 'achievements') )
+			@if( ! Input::get('hidden') )
+				{{ link_to_route('achievements.index', 'Show hidden achievements', array('hidden' => 1)) }}
+			@else
+				{{ link_to_route('achievements.index', 'Show all achievements', array('hidden' => 0)) }}
+				@endif
+		@endif
+
+
 	@else
 		No achievements found!
 	@endif

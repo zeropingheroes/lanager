@@ -90,7 +90,7 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								{{ link_to_route('achievements.index', 'List', 1) }}
+								{{ link_to_route('achievements.index', 'Achievement List' ) }}
 							</li>
 							<li>
 								{{ link_to_route('awards.create', 'Award Achievement' ) }}
