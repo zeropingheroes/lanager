@@ -17,7 +17,9 @@
 					'name'			=> e($achievement->name),
 					'descrption'	=> e($achievement->description),
 					'awards'		=> $achievement->awards->count(),
-					'controls'		=> HTML::resourceUpdate('achievements',$achievement->id,'Edit') . ' ' . HTML::resourceDelete('achievements',$achievement->id,'Delete')
+					'controls'		=> 	Button::link(URL::route('awards.create', array('achievement_id' => $achievement->id)), '' )->with_icon('user')  . ' ' .
+										HTML::resourceUpdate('achievements',$achievement->id,'')->with_icon('pencil') . ' ' . 
+										HTML::resourceDelete('achievements',$achievement->id, '', 'trash')
 ,
 				);
 			}

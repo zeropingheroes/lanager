@@ -53,13 +53,20 @@ HTML::macro('resourceUpdate', function($resourceName, $resourceItem, $buttonValu
 | returns a button to do so
 |
 */
-HTML::macro('resourceDelete', function($resourceName, $resourceItem, $buttonValue)
+HTML::macro('resourceDelete', function($resourceName, $resourceItem, $buttonValue, $icon = '')
 {
 	$resourceItemId = (is_object($resourceItem) ? $resourceItem->id : $resourceItem);
 	if( Authority::can('delete', $resourceName, $resourceItem) )
 	{
 		$output = Form::open(array('route' => array($resourceName.'.destroy', $resourceItemId), 'method' => 'DELETE', 'data-confirm' => 'Are you sure?', 'class' => 'resource-destroy'));
-		$output .= Button::submit($buttonValue, array('title' => 'Delete '.$resourceName));
+		if( !empty($icon) )
+		{
+			$output .= Button::submit($buttonValue, array('title' => 'Delete '.$resourceName))->with_icon($icon);
+		}
+		else
+		{
+			$output .= Button::submit($buttonValue, array('title' => 'Delete '.$resourceName));
+		}
 		$output .= Form::close();
 
 		return $output;
