@@ -95,6 +95,9 @@
 							<li>
 								{{ link_to_route('awards.create', 'Award Achievement' ) }}
 							</li>
+							<li>
+								{{ link_to_route('achievements.create', 'Create Achievement' ) }}
+							</li>
 						</ul>
 					</li>	
 				@else

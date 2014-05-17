@@ -2,16 +2,33 @@
 @section('content')
 	<h2>{{{ $title }}}</h2>
 	@if(count($achievements))
-		{{ Table::open() }}
-		{{ Table::headers('Name', 'Description', 'Users') }}
+		{{ Table::open(array('class' => 'achievements')) }}
+		@if( Authority::can('manage', 'achievements') )
+			{{ Table::headers('Name', 'Description', 'Users', 'Controls') }}
+		@else
+			{{ Table::headers('Name', 'Description', 'Users') }}
+		@endif	
 		<?php
 		foreach( $achievements as $achievement )
 		{
-			$tableBody[] = array(
-				'name'			=> e($achievement->name),
-				'descrption'	=> e($achievement->description),
-				'awards'		=> $achievement->awards->count(),
-			);
+			if( Authority::can('manage', 'achievements') )
+			{
+				$tableBody[] = array(
+					'name'			=> e($achievement->name),
+					'descrption'	=> e($achievement->description),
+					'awards'		=> $achievement->awards->count(),
+					'controls'		=> HTML::resourceUpdate('achievements',$achievement->id,'Edit') . ' ' . HTML::resourceDelete('achievements',$achievement->id,'Delete')
+,
+				);
+			}
+			else
+			{
+				$tableBody[] = array(
+					'name'			=> e($achievement->name),
+					'descrption'	=> e($achievement->description),
+					'awards'		=> $achievement->awards->count(),
+				);	
+			}
 		}
 		?>
 		{{ Table::body($tableBody) }}

@@ -363,3 +363,12 @@ div#now-playing, div#submitter {
 div#submitter img {
 	padding-left: 5px;
 }
+
+
+/* -------------------------------------------------------------------
+   ACHIEVEMENTS - INDEX
+   -------------------------------------------------------------------
+*/
+th:last-child {
+	text-align: right;
+}

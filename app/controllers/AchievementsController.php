@@ -133,9 +133,11 @@ class AchievementsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$achievement = Achievement::findOrFail($id);
+		$achievement = Achievement::findOrFail($id)->destroy($id);
 
-		if ( Request::ajax() ) return Response::json( $achievement->destroy($id), 204);
+		if ( Request::ajax() ) return Response::json( $achievement, 204);
+
+		return Redirect::back();
 	}
 
 }

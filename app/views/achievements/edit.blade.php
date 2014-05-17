@@ -8,4 +8,5 @@
 @include('achievements.form')
 
 {{ Form::close() }}
+
 @endsection
