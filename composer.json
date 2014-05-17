@@ -4,7 +4,7 @@
 	"keywords": ["framework", "laravel"],
 	"license": "AGPL-3.0",
 	"require": {
-		"laravel/framework": "4.1.18",
+		"laravel/framework": "4.1.28",
 		"vtalbot/markdown": "1.*",
 		"laravelbook/ardent": "dev-master",
 		"patricktalmadge/bootstrapper": "dev-develop",
