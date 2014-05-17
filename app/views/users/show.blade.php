@@ -39,9 +39,16 @@
 		@endif
 	</div>
 
-	<?php $awards = $user->awards()->orderBy('created_at','desc')->get(); ?>
+	<?php $awards = $user->awards()->orderBy('created_at','asc')->get(); ?>
 	<h2>Achievements</h2>
 	@include('awards.list')
+
+	@if( Authority::can( 'manage', 'awards' ) )
+		<ul>
+			<li>{{ Button::link(URL::route('awards.create', array('user_id' => $user->id)), 'Award Achievements' ) }}</li>
+		</ul>
+	@endif
+
 
 	@if( count($user->shouts) )
 		<?php $shouts = $user->shouts()->orderBy('created_at','desc')->take(Config::get('lanager/user.profile.shouts'))->get(); ?>

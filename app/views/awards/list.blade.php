@@ -1,5 +1,5 @@
 @if(count($awards))
-	{{ Table::open() }}
+	{{ Table::open(array('class' => 'achievements')) }}
 
 	<?php
 	foreach( $awards as $award )
@@ -8,10 +8,28 @@
 
 		$lan = ( $award->lan ) ? $award->lan->name : '';
 
-		$tableBody[] = array(
-			'name'	=> $name,
-			'lan'	=> $lan,
-		);
+		$lanDate = ( $award->lan ) ? date('M Y', strtotime($award->lan->start)) : '';
+
+		if( Authority::can( 'manage', 'awards' ) )
+		{
+			$controls = HTML::resourceDelete('awards', $award->id, 'Delete');
+
+			$tableBody[] = array(
+					'name'		=> $name,
+					'lan'		=> $lan,
+					'lan_date'	=> $lanDate,
+					'controls'	=> $controls
+				);
+		}
+		else
+		{
+			$tableBody[] = array(
+				'name'		=> $name,
+				'lan'		=> $lan,
+				'lan_date'	=> $lanDate,
+			);			
+		}
+		
 	}
 	?>
 

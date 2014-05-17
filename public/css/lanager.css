@@ -192,6 +192,11 @@ div.user-profile-content ul {
 	padding: 0px;
 }
 
+/* right aligned delete button */
+table.achievements tr td.column-controls {
+	text-align: right;
+}
+
 /* -------------------------------------------------------------------
    SHOUT - INDEX
    -------------------------------------------------------------------

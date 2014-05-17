@@ -33,7 +33,22 @@ class AwardsController extends BaseController {
 	 */
 	public function create()
 	{
-		//
+		$award = new Award;
+		$users = User::orderBy('username')
+						->lists('username','id');
+
+		$achievements = Achievement::orderBy('name')
+						->lists('name','id');
+
+		$lans = Lan::orderBy('start')
+						->lists('name','id');
+
+		return View::make('awards.create')
+					->with('title','Award Achievement')
+					->with('users',$users)
+					->with('achievements',$achievements)
+					->with('lans',$lans)
+					->with('award',$award);
 	}
 
 	/**
@@ -62,7 +77,7 @@ class AwardsController extends BaseController {
 
 		if ( Request::ajax() ) return Response::json($award, 201);
 
-		return Redirect::route('awards.items.index',array('award' => $award->id));
+		return Redirect::route('users.show',array('user' => $award->user_id));
 
 	}
 
@@ -124,9 +139,11 @@ class AwardsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$award = Award::findOrFail($id);
+		$award = Award::findOrFail($id)->destroy($id);
 
-		if ( Request::ajax() ) return Response::json( $award->destroy($id), 204);
+		if ( Request::ajax() ) return Response::json( $award, 204);
+
+		return Redirect::back();
 	}
 
 }
