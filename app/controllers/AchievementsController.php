@@ -30,7 +30,10 @@ class AchievementsController extends BaseController {
 	 */
 	public function create()
 	{
-		//
+		$achievement = new Achievement;
+		return View::make('achievements.create')
+					->with('title','Create Achievement')
+					->with('achievement',$achievement);
 	}
 
 	/**
@@ -44,7 +47,9 @@ class AchievementsController extends BaseController {
 
 		$achievement->name = Input::get('name');
 		$achievement->image = Input::get('image');
-		$achievement->visible = Input::get('visible');
+		$achievement->description = Input::get('description');
+		if( Input::has('visible') && Input::get('visible') == 1) $achievement->visible = 1;
+		if( ! Input::has('visible') OR Input::get('visible') == 0) $achievement->visible = 0;
 
 		if ( ! $achievement->save() )
 		{
@@ -55,7 +60,7 @@ class AchievementsController extends BaseController {
 
 		if ( Request::ajax() ) return Response::json($achievement, 201);
 
-		return Redirect::route('achievements.items.index',array('achievement' => $achievement->id));
+		return Redirect::route('achievements.index');
 	}
 
 	/**
@@ -79,7 +84,11 @@ class AchievementsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$achievement = Achievement::find($id);
+
+		return View::make('achievements.edit')
+					->with('title','Edit Achievement')
+					->with('achievement',$achievement);
 	}
 
 	/**
@@ -94,8 +103,11 @@ class AchievementsController extends BaseController {
 
 		if( Input::has('name') ) $achievement->name = Input::get('name');
 		if( Input::has('image') ) $achievement->image = Input::get('image');
-		if( Input::has('visible') ) $achievement->visible = Input::get('visible');
-		
+		if( Input::has('description') ) $achievement->description = Input::get('description');
+
+		if( Input::has('visible') && Input::get('visible') == 1) $achievement->visible = 1;
+		if( ! Input::has('visible') OR Input::get('visible') == 0) $achievement->visible = 0;
+
 		if ( ! $achievement->save() )
 		{
 			if ( Request::ajax() ) return Response::json($achievement->errors(), 400);
@@ -105,7 +117,7 @@ class AchievementsController extends BaseController {
 
 		if ( Request::ajax() ) return Response::json($achievement);
 
-		return Redirect::route('achievements.items.index',array('achievement' => $achievement->id));
+		return Redirect::route('achievements.index');
 	}
 
 	/**

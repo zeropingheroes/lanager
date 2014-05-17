@@ -10,7 +10,10 @@ Route::pattern('user', '[0-9]+');
 Route::pattern('shout', '[0-9]+');
 Route::pattern('event', '[0-9]+');
 Route::pattern('playlist', '[0-9]+');
-Route::pattern('playlistItem', '[0-9]+');
+Route::pattern('item', '[0-9]+');
+Route::pattern('achievements', '[0-9]+');
+Route::pattern('award', '[0-9]+');
+Route::pattern('lan', '[0-9]+');
 
 /*
 |--------------------------------------------------------------------------
