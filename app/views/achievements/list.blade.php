@@ -4,9 +4,9 @@
 	@if(count($achievements))
 		{{ Table::open(array('class' => 'achievements')) }}
 		@if( Authority::can('manage', 'achievements') )
-			{{ Table::headers('Name', 'Description', 'Users', 'Controls') }}
+			{{ Table::headers('Name', 'Description', 'Achieved By', 'Controls') }}
 		@else
-			{{ Table::headers('Name', 'Description', 'Users') }}
+			{{ Table::headers('Name', 'Description', 'Achieved By') }}
 		@endif	
 		<?php
 		foreach( $achievements as $achievement )
