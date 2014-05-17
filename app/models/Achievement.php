@@ -13,7 +13,7 @@ class Achievement extends BaseModel {
 
 	public function users()
 	{
-		return $this->belongsToMany('Zeropingheroes\Lanager\Models\User');
+		return $this->belongsToMany('Zeropingheroes\Lanager\Models\User', 'awards');
 	}
 
 }

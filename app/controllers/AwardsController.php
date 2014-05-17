@@ -40,7 +40,7 @@ class AwardsController extends BaseController {
 		$achievements = Achievement::orderBy('name')
 						->lists('name','id');
 
-		$lans = Lan::orderBy('start')
+		$lans = Lan::orderBy('start','desc')
 						->lists('name','id');
 
 		return View::make('awards.create')
