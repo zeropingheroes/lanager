@@ -19,9 +19,14 @@ class AchievementsController extends BaseController {
 	 */
 	public function index()
 	{
-		$achievement = Achievement::all();
-		
-		if ( Request::ajax() ) return Response::json($achievement);	}
+		if ( Request::ajax() ) return Response::json(Achievement::all());
+
+		$achievements = Achievement::orderBy('name', 'asc')->paginate(10);
+		return View::make('achievements.list')
+					->with('title','Achievements')
+					->with('achievements',$achievements);
+	}
+
 
 	/**
 	 * Show the form for creating a new resource.

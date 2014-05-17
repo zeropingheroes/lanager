@@ -8,7 +8,7 @@ class Achievement extends BaseModel {
 
 	public function awards()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\Models\Playlist\Award');
+		return $this->hasMany('Zeropingheroes\Lanager\Models\Award');
 	}
 
 	public function users()
