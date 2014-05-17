@@ -43,7 +43,7 @@
 	<h2>Achievements</h2>
 	@include('awards.list')
 
-	@if( Authority::can( 'manage', 'awards' ) )
+	@if( Authority::can( 'manage', 'achievements' ) )
 		<ul>
 			<li>{{ Button::link(URL::route('awards.create', array('user_id' => $user->id)), 'Award Achievements' ) }}</li>
 		</ul>

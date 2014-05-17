@@ -24,7 +24,7 @@
 					</li>
 				@else
 					<li>
-						<a href="{{ $authUrl }}" class="pull-right steam-signin"><img src="{{ asset('/img/sits_small.png') }}"></a>
+						<a href="{{ $authUrl }}" class=" steam-signin"><img src="{{ asset('/img/sits_large_noborder.png') }}"></a>
 					</li>
 				@endif
 			</ul>
@@ -52,7 +52,7 @@
 						@endif
 					</ul>
 				</li>
-				<li class="{{ Request::is('userss*') ? 'active' : '' }}">
+				<li class="{{ Request::is('users*') ? 'active' : '' }}">
 					{{ link_to_route('users.index', 'People') }}
 				</li>
 				<li class="{{ Request::is('statistics/applications/current-usage*') ? 'active' : '' }}">
@@ -61,27 +61,48 @@
 				<li class="{{ Request::is('statistics/servers/current-usage*') ? 'active' : '' }}">
 					{{ link_to_route('statistics.servers.current-usage', 'Servers') }}
 				</li>
-					<li class="dropdown {{ Request::is('playlists*') ? 'active' : '' }}">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Playlist
+				<li class="dropdown {{ Request::is('playlists*') ? 'active' : '' }}">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Playlist
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							{{ link_to_route('playlists.items.index', 'Upcoming', 1) }}
+						</li>
+						<li>
+							{{ link_to_route('playlists.items.index', 'History', array('playlist' => 1, 'history' => 1 ) ) }}
+						</li>
+						@if( Authority::can( 'manage', 'playlists' ) )
+							<li>
+								{{ link_to_route('playlists.show', 'Screen', 1) }}
+							</li>
+						@endif
+
+					</ul>
+				</li>	
+				@include('layouts.default.infopages')
+				@include('layouts.default.links')
+
+				@if( Authority::can( 'manage', 'achievements' ) )
+					<li class="dropdown {{ Request::is('achievements*') ? 'active' : '' }}">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Achievements
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								{{ link_to_route('playlists.items.index', 'Upcoming', 1) }}
+								{{ link_to_route('achievements.index', 'List', 1) }}
 							</li>
 							<li>
-								{{ link_to_route('playlists.items.index', 'History', array('playlist' => 1, 'history' => 1 ) ) }}
+								{{ link_to_route('awards.create', 'Award Achievement' ) }}
 							</li>
-							@if( Authority::can( 'manage', 'playlists' ) )
-								<li>
-									{{ link_to_route('playlists.show', 'Screen', 1) }}
-								</li>
-							@endif
-
 						</ul>
 					</li>	
-				@include('layouts.default.infopages')
-				@include('layouts.default.links')
+				@else
+					<li class="{{ Request::is('achievements*') ? 'active' : '' }}">
+						{{ link_to_route('achievements.index', 'Achievements') }}
+					</li>
+				@endif
+
 			</ul>
 		</div>
 	</div>

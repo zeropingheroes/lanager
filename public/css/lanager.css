@@ -144,8 +144,8 @@ li.dropdown a.user-menu {
 
 /* correct steam sign in link position */
 div.navbar-right ul.navbar-nav li a.steam-signin {
-	padding-top: 12px;
-	padding-bottom: 11px;
+	padding-top: 1px;
+	padding-bottom: 0px;
 }
 
 /* -------------------------------------------------------------------
