@@ -51,7 +51,7 @@ class SteamImportUserStates extends BaseCommand {
 	public function fire()
 	{
 
-		$users = User::all()->lists('steam_id_64');
+		$users = User::visible()->get()->lists('steam_id_64');
 
 		if(count($users) == 0)
 		{

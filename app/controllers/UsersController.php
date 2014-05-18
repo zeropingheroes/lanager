@@ -25,7 +25,7 @@ class UsersController extends BaseController {
 	 */
 	public function index()
 	{
-		$users = User::orderBy('username', 'asc')->paginate(10);
+		$users = User::visible()->orderBy('username', 'asc')->paginate(10);
 		return View::make('users.list')
 					->with('title','People')
 					->with('users',$users);
@@ -60,7 +60,7 @@ class UsersController extends BaseController {
 	 */
 	public function show($id)
 	{
-		if( $user = User::find($id) )
+		if( $user = User::visible()->find($id) )
 		{
 			return View::make('users.show')
 						->with('title',$user->username)
@@ -102,7 +102,7 @@ class UsersController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		User::destroy($id);
+		User::visible()->destroy($id);
 		return Redirect::route('users.index');
 	}
 
@@ -123,7 +123,7 @@ class UsersController extends BaseController {
 				
 				if($this->importSteamUser($steamId))
 				{
-					$user = User::where('steam_id_64', '=', $steamId)->first();
+					$user = User::visible()->where('steam_id_64', '=', $steamId)->first();
 					Auth::login($user);
 
 					// Make the first user SuperAdmin
@@ -170,7 +170,7 @@ class UsersController extends BaseController {
 	 */
 	public function editRoles($id)
 	{
-		if( $user = User::find($id) )
+		if( $user = User::visible()->find($id) )
 		{
 			$roles = Role::all();
 			return View::make('users.roles')
@@ -191,7 +191,7 @@ class UsersController extends BaseController {
 	 */
 	public function updateRoles($id)
 	{
-		if( $user = User::find($id) )
+		if( $user = User::visible()->find($id) )
 		{
 			$userRoles = (is_array(Input::get('userRoles')) ? Input::get('userRoles') : array() );
 			$user->roles()->sync($userRoles);
@@ -214,7 +214,7 @@ class UsersController extends BaseController {
 		
 		if($steamUser != NULL)
 		{
-			$user = User::where('steam_id_64', '=', $steamId)->first();
+			$user = User::where('steam_id_64', '=', $steamId)->first(); // do not constrain to visible users
 
 			// Create new user if they are not found in the database
 			if($user == NULL) $user = new User;
@@ -222,6 +222,7 @@ class UsersController extends BaseController {
 			$user->username 		= $steamUser->username;
 			$user->steam_id_64		= $steamUser->id;
 			$user->steam_visibility	= $steamUser->visibility;
+			$user->visible			= true;	// make an invisible user visible again if they are returning to the lan
 			$user->avatar			= $steamUser->avatar_url;
 			$user->ip 				= Request::server('REMOTE_ADDR');
 

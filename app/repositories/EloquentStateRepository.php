@@ -1,8 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Repositories;
 
 use Zeropingheroes\Lanager\Models\State,
-	Zeropingheroes\Lanager\Interfaces\StateRepositoryInterface;
-;
+	Zeropingheroes\Lanager\Models\User;
+use Zeropingheroes\Lanager\Interfaces\StateRepositoryInterface;
 use Config;
 
 class EloquentStateRepository implements StateRepositoryInterface {
@@ -28,7 +28,13 @@ class EloquentStateRepository implements StateRepositoryInterface {
 									 ->on('states.created_at', '<', 't2.created_at');
 							})->whereNull('t2.user_id')
 							->where('states.created_at', '>=', date('Y-m-d H:i:s',time()-$this->maxage))
-							->with('application', 'user', 'server');
+							->whereIn('states.user_id', function($query)
+							{
+								$query->select('id')
+										->from(with(new User)->getTable())
+										->where('visible', 1);
+							})
+							->with('application', 'server', 'user');
 	}
 
 	/**

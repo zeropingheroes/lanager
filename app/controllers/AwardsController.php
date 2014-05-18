@@ -22,9 +22,11 @@ class AwardsController extends BaseController {
 	 */
 	public function index()
 	{
-		$award = Award::all();
+		$award = Award::onlyVisibleUsers()
+						->get();
 		
-		if ( Request::ajax() ) return Response::json($award);	}
+		if ( Request::ajax() ) return Response::json($award);
+	}
 
 	/**
 	 * Show the form for creating a new resource.
@@ -34,7 +36,8 @@ class AwardsController extends BaseController {
 	public function create()
 	{
 		$award = new Award;
-		$users = User::orderBy('username')
+		$users = User::visible()
+						->orderBy('username')
 						->lists('username','id');
 
 		$achievements = Achievement::orderBy('name')
@@ -89,7 +92,7 @@ class AwardsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$award = Award::with(array('user','achievement'))->findOrFail($id);
+		$award = Award::onlyVisibleUsers()->with(array('user','achievement'))->findOrFail($id);
 		
 		if ( Request::ajax() ) return Response::json($award);		
 	}

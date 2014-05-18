@@ -23,11 +23,19 @@ class AchievementsController extends BaseController {
 
 		if ( Authority::can('manage', 'achievements') && Input::get('hidden') == true )
 		{
-			$achievements = Achievement::where('visible', 0);
+			$achievements = Achievement::with(array('users' => function($query)
+											{
+												$query->where('visible', true);
+											}))
+											->where('visible', false);
 		}
 		else
 		{
-			$achievements = Achievement::orWhere(function($q)
+			$achievements = Achievement::with(array('users' => function($query)
+											{
+												$query->where('visible', true);
+											}))
+										->orWhere(function($q)
 											{
 												$q->orWhere('visible',1);
 												$q->orHas('awards');

@@ -79,6 +79,11 @@ class User extends BaseModel implements UserInterface {
 		return $this->email;
 	}
 
+	public function scopeVisible($query)
+	{
+		return $query->whereVisible(true);
+	}
+
 	public function roles()
 	{
 		return $this->belongsToMany('Zeropingheroes\Lanager\Models\Role');
