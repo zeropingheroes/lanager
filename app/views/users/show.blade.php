@@ -39,7 +39,7 @@
 		@endif
 	</div>
 
-	<?php $awards = $user->awards()->orderBy('created_at','asc')->get(); ?>
+	<?php $awards = $user->awards()->orderBy('lan_id','desc')->get(); ?>
 	<h2>Achievements</h2>
 	@include('awards.list')
 
