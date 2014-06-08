@@ -3,8 +3,6 @@
 	<?php
 	foreach( $items as $item )
 	{
-		$itemDuration = new Zeropingheroes\Lanager\Helpers\Duration($item->duration);
-		$playlistDurationLabel = new Zeropingheroes\Lanager\Helpers\Duration($duration);
 		$submitted = new ExpressiveDate($item->created_at);
 		$played = new ExpressiveDate($item->updated_at);
 
@@ -26,7 +24,7 @@
 				'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
 				'title'			=> link_to($item->url, $item->title, array('target'=>'_blank')),
 				'state'			=> $itemStateLabel,
-				'duration'		=> $itemDuration->shortFormat(),
+				'duration'		=> Duration::shortFormat($item->duration),
 				'played'		=> $played->getRelativeDate(),
 			);
 		}
@@ -103,7 +101,7 @@
 			$tableBody[] = array(
 				'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
 				'title'			=> e($item->title),
-				'duration'		=> $itemDuration->shortFormat(),
+				'duration'		=> Duration::shortFormat($item->duration),
 				'submitted'		=> $submitted->getRelativeDate(),
 				'controls'		=> $adminControls.$controls,
 			);
@@ -118,7 +116,7 @@
 	@else
 		{{ $items->links() }}
 	@endif
-	<span class="pull-right playlist-total-time">Total: {{ $playlistDurationLabel->shortFormat() }}</span>
+	<span class="pull-right playlist-total-time">Total: {{ Duration::shortFormat($duration) }}</span>
 @else
 	No playlist entries to show!
 @endif

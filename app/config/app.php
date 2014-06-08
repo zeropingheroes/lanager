@@ -121,6 +121,7 @@ return array(
 		'Bootstrapper\BootstrapperServiceProvider',
 		'Zeropingheroes\SteamBrowserProtocol\SteamBrowserProtocolServiceProvider',
 		'ExpressiveDateServiceProvider',
+		'Zeropingheroes\Duration\DurationServiceProvider',
 
 
 	),
@@ -191,6 +192,7 @@ return array(
 		//'Profiler'				=> 'Profiler\Facades\Profiler',
 
 		'SteamBrowserProtocol'	=> 'Zeropingheroes\SteamBrowserProtocol\Facades\SteamBrowserProtocol',
+		'Duration'				=> 'Zeropingheroes\Duration\Facades\Duration',
 		'Markdown'				=> 'VTalbot\Markdown\Facades\Markdown',
 		'Alert'					=> 'Bootstrapper\Alert',
 		'Badge'					=> 'Bootstrapper\Badge',
