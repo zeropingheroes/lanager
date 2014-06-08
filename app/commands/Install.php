@@ -88,12 +88,7 @@ class Install extends BaseCommand {
 		$this->checkRequirement(
 			function_exists( 'json_encode' ),
 			'Install and/or enable the JSON PHP module');
-		
-		$this->displayCheck('lanager/app/storage/ directory writeable by Apache / PHP');
-		$this->checkRequirement(
-			is_writable( 'app/storage/' ),
-			'Change the directory permissions of lanager/app/storage/ to allow Apache & PHP write access');
-		
+	
 		$this->displayCheck('PHP accessible in the system\'s path variable');
 		$this->checkRequirement(
 			$this->checkIfPhpInPath(),
