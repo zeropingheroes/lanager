@@ -27,8 +27,8 @@ class EventsController extends BaseController {
 			foreach($events as $event)
 			{
 				$fullCalendarJson[] = array(
-					'start'		=> strtotime($event->start),
-					'end'		=> strtotime($event->end),
+					'start'		=> date('c',strtotime($event->start)),
+					'end'		=> date('c',strtotime($event->end)),
 					'title'		=> $event->name,
 					'allDay'	=> false,
 					'url'		=> URL::route('events.show', $event->id),
