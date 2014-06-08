@@ -6,6 +6,9 @@
 {{ Form::label('description', 'Description') }}
 {{ Form::textarea('description',NULL,array('placeholder' => 'The event description, markdown formatting enabled', 'rows' => 10)) }}
 
+{{ Form::block_help('<a href="https://daringfireball.net/projects/markdown/basics" target="_blank">Markdown cheatsheet</a>') }}
+
+
 <div class="row">
 	<div class="col-md-6">
 		{{ Form::label('start', 'Start') }}
