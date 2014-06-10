@@ -16,14 +16,4 @@ return array(
 		'quality' => 'highres', // small, medium, large, hd720, hd1080, highres or default (see http://bit.ly/1isMjD9 )
 	),
 
-	/*
-	|--------------------------------------------------------------------------
-	| Downvote Skip Threshold
-	|--------------------------------------------------------------------------
-	|
-	| Videos that receive this number of downvotes from users will be skipped
-	|
-	*/
-	'itemDownvoteSkipThreshold' => 4, // Downvote count
-
 );
