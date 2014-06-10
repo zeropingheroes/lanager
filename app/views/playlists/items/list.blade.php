@@ -32,7 +32,7 @@
 		{
 			if( Authority::can('create', 'playlist.item.votes') )
 			{
-				if( Config::get('lanager/playlist.downvoteFutureItems') OR $item->id == $nowPlaying->id )
+				if( $item->id == $nowPlaying->id )
 				{
 					if( Auth::user()->votes()->where('playlist_item_id', $item->id)->count() == 0 )
 					{
