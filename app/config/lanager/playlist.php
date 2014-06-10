@@ -18,31 +18,6 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Max Item Duration
-	|--------------------------------------------------------------------------
-	|
-	| Prevent users from submitting a playlist item if it is longer than
-	| this value
-	|
-	*/
-	'maxItemDuration' => 600, // Time in seconds
-
-	/*
-	|--------------------------------------------------------------------------
-	| Max Duplicate Items
-	|--------------------------------------------------------------------------
-	|
-	| Prevent users from submitting a playlist item if this many duplicates
-	| have already been submitted
-	| 
-	| Set to 0 to disallow all duplicates
-	| Set to 1 to allow a single duplicate item (2 items of the same id total)
-	|
-	*/
-	'maxDuplicates' => 0, // Item count
-
-	/*
-	|--------------------------------------------------------------------------
 	| Downvote Skip Threshold
 	|--------------------------------------------------------------------------
 	|

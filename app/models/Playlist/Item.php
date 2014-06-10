@@ -3,7 +3,7 @@
 use Zeropingheroes\Lanager\Models\BaseModel;
 use Config, Auth;
 use Illuminate\Support\MessageBag;
-use Zeropingheroes\Lanager\Helpers\Duration;
+use Duration;
 
 class Item extends BaseModel {
 
@@ -66,24 +66,16 @@ class Item extends BaseModel {
 			$this->duration = $response['entry']['media$group']['yt$duration']['seconds'];
 			$this->url = 'http://www.youtube.com/watch?v='.$youtubeUrl['v'];
 
-			// Perform extra validation (to be performed every create / update)
-			if( $this->duration > Config::get('lanager/playlist.maxItemDuration') )
+			// Check item length
+			if( $this->duration > $this->playlist->max_item_duration )
 			{
-				$maxDuration = new Duration( Config::get('lanager/playlist.maxItemDuration') );
-				$errors->add('error', 'Item is too long. Please submit items ' . $maxDuration->shortFormat() . ' in length or less.' );
+				$errors->add('error', 'Item is too long. Please submit items under ' . Duration::longFormat($this->playlist->max_item_duration) . ' in duration.' );
 			}
-			
-			// Check if video is duplicated
-			if( $duplicates = Item::where('url',$this->url)->count() > Config::get('lanager/playlist.maxDuplicates') )
+
+			// Check item duplication
+			if( $occurrences = Item::where('url',$this->url)->where('playlist_id', $this->playlist_id)->count() > $this->playlist->max_duplicates )
 			{
-				if( Config::get('lanager/playlist.maxDuplicates') == 0)
-				{
-					$errors->add('error', 'Item has already been submitted to the playlist.' );
-				}
-				else
-				{
-					$errors->add('error', 'Item already has ' . $duplicates . ' occurences in the playlist.' );
-				}
+				$errors->add('error', 'Item already has ' . $occurrences . ' ' . str_plural('occurrence',$occurrences) . ' in the playlist - no more are permitted.' );
 			}
 
 			if( $errors->count() )
