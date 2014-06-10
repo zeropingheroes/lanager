@@ -40,23 +40,41 @@ more enjoyable for attendees and organisers alike.
 * An Internet connection
 * Shell access to the server - **web hosting alone will not work!** *
 
-WAMP, LAMP and MAMP are a quick way to satisfy most of the above, just check that the version you download includes PHP 5.3.7+
+WAMP, LAMP and MAMP are a quick way to satisfy most of the above, just check that the version you download includes PHP 5.4+
 
 \* *Steam user states are updated using a batch script so you must be able to run commands and schedule tasks / cron jobs* 
 
 ## Installation
 
-LANager uses the excellent PHP dependency manager [Composer](http://getcomposer.org/) which makes installing and updating a breeze. **You should not download the source directly from GitHub** - it is sufficient to follow the below instructions:
+Do not download the source in a zip file directly from GitHub - if you do updating will be difficult!
 
 1. Download and install [Composer](http://getcomposer.org/download/) and [Git](http://git-scm.com/downloads)
-2. From a terminal in the folder you wish to install LANager, run `composer create-project zeropingheroes/lanager`
-3. Configure your web server to use `lanager/public/` as the root web directory
-4. Change the permissions for the `lanager/storage/` directory to be read & write for your web server
-5. Edit `lanager/app/config/app.php` setting your installation's URL and application key 
-6. In the `lanager/` directory, run `php artisan lanager:install` from the terminal
-7. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
+
+2. In a terminal in the directory you wish to install the project into, run:
+
+	`git clone https://github.com/zeropingheroes/lanager.git`
+
+3. Install the project's dependencies by running:
+
+	`composer update`
+
+4. Configure your web server to use `lanager/public/` as the root web directory
+
+5. Change the permissions for the `lanager/app/storage/` directory to be read & write for your web server:
+
+	`chmod -R 777 lanager/app/storage` (*nix)
+
+6. Edit `lanager/app/config/app.php` setting your installation's URL and 32 character application key
+
+7. In a terminal in the `lanager/` directory, run:
+
+	`php artisan lanager:install`
+
+8. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
+
 	* On Windows
-		1. Add a task for `lanager/SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
+		* Add a task for `lanager/SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
+
 	* On *nix
 		1. From a terminal run `crontab -e`
 		2. Add the following to the end of the file:
@@ -88,12 +106,13 @@ Look through the configuration files inside `lanager/app/config/lanager/` which 
 
 To update to the latest version, from the `lanager/` directory simply run the following commands:
 
-1. `composer update`
-2. `php artisan migrate --path="app/migrations"`
-3. `php artisan db:seed --class="Zeropingheroes\Lanager\Seeds\DatabaseSeeder"`
-4. `php artisan asset:publish`
+1. `git pull origin`
+2. `composer update`
+3. `php artisan migrate --path="app/migrations"`
+4. `php artisan db:seed --class="Zeropingheroes\Lanager\Seeds\DatabaseSeeder"`
+5. `php artisan asset:publish`
 
-If you encounter any problems, delete the entire `lanager/` directory except the `lanager/app/config` directory, and re-install as above, keeping your database intact.
+If you encounter any problems, delete the entire `lanager/` directory except the `lanager/app/config` directory, and re-install by following the *Installation* section, keeping your database intact.
 
 ## Feedback & Contributions
 
