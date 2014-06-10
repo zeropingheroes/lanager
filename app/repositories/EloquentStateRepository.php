@@ -3,16 +3,10 @@
 use Zeropingheroes\Lanager\Models\State,
 	Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Interfaces\StateRepositoryInterface;
-use Config;
 
 class EloquentStateRepository implements StateRepositoryInterface {
 
 	protected $maxage;
-
-	public function __construct()
-	{
-		$this->maxage = Config::get('lanager/states.maxage');
-	}
 
 	/**
 	 * Generate foundation query for latest states
@@ -27,7 +21,7 @@ class EloquentStateRepository implements StateRepositoryInterface {
 								$join->on('states.user_id', '=', 't2.user_id')
 									 ->on('states.created_at', '<', 't2.created_at');
 							})->whereNull('t2.user_id')
-							->where('states.created_at', '>=', date('Y-m-d H:i:s',time()-$this->maxage))
+							->where('states.created_at', '>=', date('Y-m-d H:i:s',time()-300)) // no states older than 5 mins
 							->whereIn('states.user_id', function($query)
 							{
 								$query->select('id')

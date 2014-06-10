@@ -37,7 +37,7 @@ class Vote extends BaseModel {
 			return false;
 		}
 
-		if( $this->playlist_item_id != Playlist\Item::unplayed()->first()->id && Config::get('lanager/playlist.downvoteFutureItems') == false )
+		if( $this->playlist_item_id != Playlist\Item::unplayed()->first()->id )
 		{
 			$this->validationErrors = $errors->add('error', 'This item is not currently playing.' );
 			return false;

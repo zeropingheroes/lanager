@@ -18,7 +18,7 @@ class CustomValidator extends Validator {
 	public function validateFloodProtect($attribute, $value, $parameters)
 	{
 		$date = new ExpressiveDate;
-		$date->minusSeconds(Config::get('lanager/floodprotect.'.$parameters[0]));
+		$date->minusSeconds(15);
 		return ! Auth::user()->{$parameters[0]}()->where('created_at','>',$date)->count();
 	}
 

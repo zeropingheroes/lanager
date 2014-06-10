@@ -72,12 +72,6 @@ class Item extends BaseModel {
 				$maxDuration = new Duration( Config::get('lanager/playlist.maxItemDuration') );
 				$errors->add('error', 'Item is too long. Please submit items ' . $maxDuration->shortFormat() . ' in length or less.' );
 			}
-
-			// Check if playlist full
-			if( $duration = Item::where('playback_state',0)->sum('duration') > Config::get('lanager/playlist.maxQueueLength') )
-			{
-				$errors->add('error', 'Playlist is currently full. Please try again later.');
-			}
 			
 			// Check if video is duplicated
 			if( $duplicates = Item::where('url',$this->url)->count() > Config::get('lanager/playlist.maxDuplicates') )
@@ -89,37 +83,6 @@ class Item extends BaseModel {
 				else
 				{
 					$errors->add('error', 'Item already has ' . $duplicates . ' occurences in the playlist.' );
-				}
-			}
-			
-			// Check if user has submitted too many consecutive videos
-			if( Config::get('lanager/playlist.maxConsecutiveItemsFromSingleUser') == 0)
-			{
-				$recentItemsToTake = 1;
-			}
-			else
-			{
-				$recentItemsToTake = Config::get('lanager/playlist.maxConsecutiveItemsFromSingleUser');
-			}
-
-			$recentSubmitters = Item::where('playlist_id', $this->playlist_id)
-				->where('playback_state', 0)
-				->orderby( 'created_at', 'desc' )
-				->take( $recentItemsToTake )
-				->lists('user_id');
-
-			$distinctSubmitters = count(array_unique($recentSubmitters));
-
-			// If only one person has submitted the last X videos AND that person is the logged in user
-			if( $distinctSubmitters == 1 && $recentSubmitters[0] == Auth::user()->id )
-			{
-				if( Config::get('lanager/playlist.maxConsecutiveItemsFromSingleUser') == 0)
-				{
-					$errors->add('error', 'Consecutive video submissions from a single user have been disabled.' );
-				}
-				else
-				{
-					$errors->add('error', 'You have submitted the maximum number of consecutive items (' . Config::get('lanager/playlist.maxConsecutiveItemsFromSingleUser').')' );
 				}
 			}
 

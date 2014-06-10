@@ -18,17 +18,6 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Max Queue Length
-	|--------------------------------------------------------------------------
-	|
-	| Prevent users from submitting new items if the total of unplayed items
-	| durations exceeds this value
-	|
-	*/
-	'maxQueueLength' => 3600, // Time in seconds
-
-	/*
-	|--------------------------------------------------------------------------
 	| Max Item Duration
 	|--------------------------------------------------------------------------
 	|
@@ -54,19 +43,6 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Max Consecutive Items from One User
-	|--------------------------------------------------------------------------
-	|
-	| Prevent users from submitting a playlist item if it will be their Nth
-	| consecutive item submission
-	| 
-	| Set to 0 to prevent more than one consecutive submission from one user
-	|
-	*/
-	'maxConsecutiveItemsFromSingleUser' => 0, // Item count
-
-	/*
-	|--------------------------------------------------------------------------
 	| Downvote Skip Threshold
 	|--------------------------------------------------------------------------
 	|
@@ -74,17 +50,5 @@ return array(
 	|
 	*/
 	'itemDownvoteSkipThreshold' => 4, // Downvote count
-
-
-	/*
-	|--------------------------------------------------------------------------
-	| Allow Downvoting of Future Entries
-	|--------------------------------------------------------------------------
-	|
-	| False - Users can only downvote the currently playing item
-	| True  - Users can downvote any item
-	|
-	*/
-	'downvoteFutureItems' => false, // Downvote count
 
 );

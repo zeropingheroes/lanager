@@ -51,7 +51,7 @@
 
 
 	@if( count($user->shouts) )
-		<?php $shouts = $user->shouts()->orderBy('created_at','desc')->take(Config::get('lanager/user.profile.shouts'))->get(); ?>
+		<?php $shouts = $user->shouts()->orderBy('created_at','desc')->take(3)->get(); ?>
 		<h2>Shouts</h2>
 		@include('shouts.list')
 	@endif

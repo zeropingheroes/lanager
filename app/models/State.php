@@ -1,7 +1,6 @@
 <?php namespace Zeropingheroes\Lanager\Models;
 
 use Illuminate\Auth\UserInterface;
-use Config;
 
 class State extends BaseModel {
 	
@@ -56,7 +55,7 @@ class State extends BaseModel {
 	public function scopeLatest($query)
 	{
 		return $query->orderBy('created_at', 'desc')
-					->where('created_at', '>=', date('Y-m-d H:i:s',time()-Config::get('lanager/states.maxage')));
+					->where('created_at', '>=', date('Y-m-d H:i:s',time()-300)); // no states older than 5 mins
 	}
 
 }

@@ -23,7 +23,7 @@
 			firstDay: 1,
 			theme: false,
 			height: 1500,
-			eventColor: "{{ Config::get('defaultEventColour') }}",
+			eventColor: "#0f6c00",
 			events: "{{ URL::route('events.timetable') }}",
 		});
 	});
