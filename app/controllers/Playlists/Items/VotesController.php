@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Models\Playlist,
 	Zeropingheroes\Lanager\Models\Playlist\Item,
 	Zeropingheroes\Lanager\Models\Playlist\Item\Vote;
-use Response, Auth, Request, Redirect;
+use Response, Auth, Request, Redirect, Event;
 
 class VotesController extends BaseController {
 
@@ -34,6 +34,8 @@ class VotesController extends BaseController {
 			if ( Request::ajax() ) return Response::json($vote->errors(), 400);
 			return Redirect::back()->withErrors($vote->errors());
 		}
+
+		Event::fire('playlist.item.vote.create', $vote);
 
 		if ( Request::ajax() ) return Response::json($vote, 201);
 		return Redirect::back();

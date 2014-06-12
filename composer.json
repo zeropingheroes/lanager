@@ -37,7 +37,8 @@
 			"app/controllers",
 			"app/commands",
 			"app/validators",
-			"app/helpers"
+			"app/helpers",
+			"app/handlers"
 		]
 	},
 	"scripts": {
