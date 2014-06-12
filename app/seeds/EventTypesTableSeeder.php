@@ -8,7 +8,7 @@ class EventTypesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('event_types')->delete(); // Empty before we seed
+		if( DB::table('event_types')->count()) return; // don't seed if table is not empty
 
 		$eventTypes = array(
 			array(

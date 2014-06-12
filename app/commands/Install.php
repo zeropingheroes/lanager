@@ -48,11 +48,7 @@ class Install extends BaseCommand {
 	{
 		if( Config::get('lanager/config.installed') )
 		{
-			$this->customInfo('Installation already marked as completed');
-			if (!$this->confirm('Are you sure you want to continue? [yes|no]'))
-			{
-				exit();
-			}
+			if (!$this->confirm('Installation already marked as completed - are you sure you want to continue? [yes|no]')) exit();
 		}
 
 		$this->checkRequirements();
@@ -129,7 +125,14 @@ class Install extends BaseCommand {
 		$this->customInfo('Creating database structure...');
 		$migrate = Artisan::call('migrate', array('--path' => 'app/migrations'));
 		if( $migrate != 0 ) $this->abort('Database structure creation failure', $this->criticalMessage);
-		
+
+		if( Config::get('lanager/config.installed') )
+		{
+			if( $this->confirm('Would you like to empty the database and insert default data? [yes|no]') )
+			{
+				$this->emptyDatabase();
+			}
+		}
 		$this->customInfo('Seeding database with example data...');
 		$seed = Artisan::call('db:seed', array('--class' => 'Zeropingheroes\Lanager\Seeds\DatabaseSeeder'));
 		if( $seed != 0 ) $this->abort('Database seeding failure', $this->criticalMessage);
@@ -305,6 +308,41 @@ class Install extends BaseCommand {
 			}
 		}
 		return file_put_contents($path, $fileContents);
+	}
+
+	/**
+	 * Check installation prerequisites are met before running installer.
+	 *
+	 * @return void
+	 */
+	private function emptyDatabase()
+	{
+		$this->customInfo('Emptying database tables...');
+		$tables = array(
+			'achievements',
+			'applications',
+			'awards',
+			'events',
+			'event_signups',
+			'event_types',
+			'info_pages',
+			'lans',
+			'permissions',
+			'playlists',
+			'playlist_items',
+			'playlist_item_votes',
+			'roles',
+			'role_user',
+			'servers',
+			'sessions',
+			'shouts',
+			'states',
+			'users',
+			);
+		foreach($tables as $table)
+		{
+			DB::table($table)->delete();
+		}
 	}
 
 }

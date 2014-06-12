@@ -8,7 +8,7 @@ class InfoPagesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('info_pages')->delete(); // Empty before we seed
+		if( DB::table('info_pages')->count()) return; // don't seed if table is not empty
 
 		$infoPages = array(
 			array(

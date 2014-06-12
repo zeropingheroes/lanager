@@ -8,7 +8,7 @@ class PlaylistsTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('playlists')->delete(); // Empty before we seed
+		if( DB::table('playlists')->count()) return; // don't seed if table is not empty
 
 		$playlists = array(
 			array(

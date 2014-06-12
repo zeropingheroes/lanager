@@ -8,7 +8,7 @@ class RolesTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('roles')->delete(); // Empty before we seed
+		if( DB::table('roles')->count()) return; // don't seed if table is not empty
 
 		$roles = array(
 			array('name' => 'SuperAdmin'),
