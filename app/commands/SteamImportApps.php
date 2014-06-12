@@ -4,7 +4,6 @@ use Zeropingheroes\Lanager\Models\Application,
 	Zeropingheroes\Lanager\Interfaces\SteamAppRepositoryInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Illuminate\Support\Facades\DB as DB;
 
 class SteamImportApps extends BaseCommand {
 

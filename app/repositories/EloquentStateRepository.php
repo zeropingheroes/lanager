@@ -6,8 +6,6 @@ use Zeropingheroes\Lanager\Interfaces\StateRepositoryInterface;
 
 class EloquentStateRepository implements StateRepositoryInterface {
 
-	protected $maxage;
-
 	/**
 	 * Generate foundation query for latest states
 	 *

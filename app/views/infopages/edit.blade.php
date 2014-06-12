@@ -8,4 +8,5 @@
 @include('infopages.form')
 
 {{ Form::close() }}
+
 @endsection

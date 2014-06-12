@@ -1,7 +1,6 @@
 <?php namespace Zeropingheroes\Lanager\Models\Playlist;
 
 use Zeropingheroes\Lanager\Models\BaseModel;
-use Config, Auth;
 use Illuminate\Support\MessageBag;
 use Duration;
 

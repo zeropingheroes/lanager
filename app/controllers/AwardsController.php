@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\Models\Award,
 	Zeropingheroes\Lanager\Models\Lan,
 	Zeropingheroes\Lanager\Models\User,
 	Zeropingheroes\Lanager\Models\Achievement;
-use View, Input, Redirect, Request, Response, URL, Auth;
+use View, Input, Redirect, Request, Response;
 
 class AwardsController extends BaseController {
 

@@ -8,4 +8,5 @@
 @include('awards.form')
 
 {{ Form::close() }}
+
 @endsection

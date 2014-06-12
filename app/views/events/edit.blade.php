@@ -18,4 +18,5 @@
 @include('events.form')
 
 {{ Form::close() }}
+
 @endsection

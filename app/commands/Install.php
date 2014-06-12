@@ -1,9 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Commands;
 
-use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use File, Config, DB, Request, Artisan;
+use Config, DB, Artisan;
 use Tsukanov\SteamLocomotive\Locomotive;
 
 class Install extends BaseCommand {

@@ -7,7 +7,6 @@ use Zeropingheroes\Lanager\Models\User,
 	Zeropingheroes\Lanager\Interfaces\SteamUserRepositoryInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Illuminate\Support\Facades\DB as DB;
 
 class SteamImportUserStates extends BaseCommand {
 

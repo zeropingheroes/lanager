@@ -46,4 +46,5 @@
 	@else
 		No events found!
 	@endif
+
 @endsection

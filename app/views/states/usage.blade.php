@@ -47,5 +47,5 @@
 @else
 	<p>No usage to show!</p>
 @endif
-@endsection
 
+@endsection

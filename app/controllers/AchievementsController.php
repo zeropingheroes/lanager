@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Models\Achievement;
-use View, Input, Redirect, Request, Response, URL, Auth, Authority;
+use View, Input, Redirect, Request, Response, Authority;
 
 class AchievementsController extends BaseController {
 

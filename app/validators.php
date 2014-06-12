@@ -1,4 +1,12 @@
 <?php
+/*
+|--------------------------------------------------------------------------
+| Custom Validators
+|--------------------------------------------------------------------------
+|
+| Here is where you can resolve custom validator classes
+|
+*/
 
 Validator::resolver(function($translator, $data, $rules, $messages)
 {

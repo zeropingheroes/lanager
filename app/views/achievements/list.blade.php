@@ -49,4 +49,5 @@
 	@else
 		No achievements found!
 	@endif
+
 @endsection

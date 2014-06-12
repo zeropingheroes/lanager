@@ -49,7 +49,6 @@
 		</ul>
 	@endif
 
-
 	@if( count($user->shouts) )
 		<?php $shouts = $user->shouts()->orderBy('created_at','desc')->take(3)->get(); ?>
 		<h2>Shouts</h2>
@@ -72,6 +71,6 @@
 			<li>{{ HTML::resourceDelete('users',$user,'Delete User') }}</li>
 		</ul>
 	@endif
-
 </div>
+
 @endsection
