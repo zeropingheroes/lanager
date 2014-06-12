@@ -79,7 +79,7 @@ class Item extends BaseModel {
 			}
 
 			// Check item duplication
-			if( $occurrences = Item::where('url',$this->url)->where('playlist_id', $this->playlist_id)->count() > $this->playlist->max_duplicates )
+			if( ($occurrences = Item::where('url',$this->url)->where('playlist_id', $this->playlist_id)->count()) > $this->playlist->max_duplicates )
 			{
 				$errors->add('error', 'Item already has ' . $occurrences . ' ' . str_plural('occurrence',$occurrences) . ' in the playlist - no more are permitted.' );
 			}
