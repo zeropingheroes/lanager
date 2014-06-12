@@ -35,7 +35,7 @@ class EloquentStateRepository implements StateRepositoryInterface {
 	 * @param  object|array   $users|null
 	 * @return array|object State
 	 */
-	public function getCurrentUserStates( $users = null)
+	public function getCurrentUserStates( $users = null )
 	{
 		// No user(s) specified
 		if( ! $users )

@@ -1,9 +1,9 @@
 <?php namespace Zeropingheroes\Lanager\Validators;
 
-use Config, Auth;
 use Illuminate\Validation\Validator;
 use ExpressiveDate;
 use Carbon\Carbon;
+use Auth;
 
 class CustomValidator extends Validator {
 

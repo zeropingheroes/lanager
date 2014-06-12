@@ -63,7 +63,7 @@ class SteamImportApps extends BaseCommand {
 				// Search for the application in the database to update it if it already exists
 				$application = Application::where( 'steam_app_id', $steamApp->id )->first();
 				
-				if( !$application )
+				if( ! $application )
 				{
 					$application = new Application;
 					$newApp = true;

@@ -277,7 +277,7 @@ class Install extends BaseCommand {
 		{
 			return false;
 		}
-		catch (Guzzle\Http\Exception\CurlException $error)
+		catch (\Guzzle\Http\Exception\CurlException $error)
 		{
 			return false;
 		}
@@ -310,7 +310,7 @@ class Install extends BaseCommand {
 	}
 
 	/**
-	 * Check installation prerequisites are met before running installer.
+	 * Empty database tables.
 	 *
 	 * @return void
 	 */

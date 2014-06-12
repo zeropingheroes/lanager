@@ -43,7 +43,7 @@ class State extends BaseModel {
 				return 'Looking to play';
 			case '0':
 			default:
-			return 'Offline'; // TODO: Return e.g. "last online 15 minutes ago"
+			return 'Offline';
 		}
 	}
 
