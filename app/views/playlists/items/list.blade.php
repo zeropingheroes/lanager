@@ -4,7 +4,7 @@
 	foreach( $items as $item )
 	{
 		$submitted = new ExpressiveDate($item->created_at);
-		$played = new ExpressiveDate($item->updated_at);
+		$played = new ExpressiveDate($item->played_at);
 
 		$user = $item->user;
 		$controls = '';

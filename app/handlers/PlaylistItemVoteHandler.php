@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager\Handlers;
 
 use Zeropingheroes\Lanager\Models\Playlist\Item;
-use DB;
+use DB, DateTime;
 
 class PlaylistItemVoteHandler {
 
@@ -23,6 +23,7 @@ class PlaylistItemVoteHandler {
 			// skip the item
 			$item->playback_state = 2;
 			$item->skip_reason = 'Downvoted by users';
+			$item->played_at = new DateTime;
 			$item->save();
 		}
 

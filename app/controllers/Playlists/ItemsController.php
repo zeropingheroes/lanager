@@ -3,7 +3,7 @@
 use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Models\Playlist,
 	Zeropingheroes\Lanager\Models\Playlist\Item;
-use View, Response, Auth, Input, Redirect, Request;
+use View, Response, Auth, Input, Redirect, Request, DateTime;
 
 class ItemsController extends BaseController {
 
@@ -43,7 +43,7 @@ class ItemsController extends BaseController {
 		{
 			$items = $items
 				->where('playback_state', '!=', 0)
-				->orderBy('created_at', 'desc');
+				->orderBy('played_at', 'desc');
 
 			$title = 'Playlist History';
 			$history = true;
@@ -122,6 +122,8 @@ class ItemsController extends BaseController {
 			
 		if( Input::has('playback_state') ) $item->playback_state = Input::get('playback_state');
 		if( Input::has('skip_reason') && $item->playback_state == 2 ) $item->skip_reason = Input::get('skip_reason');
+		
+		if( $item->playback_state == 1 ) $item->played_at = new DateTime;
 
 		if ( ! $item->save() )
 		{
