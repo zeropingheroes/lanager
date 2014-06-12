@@ -104,15 +104,18 @@ Look through the configuration files inside `lanager/app/config/lanager/` which 
 
 ## Updating
 
-To update to the latest version, from the `lanager/` directory simply run the following commands:
+To update to the latest version, back up your config files and from the `lanager/` directory simply run the following commands:
 
-1. `git pull origin`
+1. `git reset --hard`
+	* This will reset all files to their defaults!
+2. `git pull origin`
 2. `composer update`
-3. `php artisan migrate --path="app/migrations"`
-4. `php artisan db:seed --class="Zeropingheroes\Lanager\Seeds\DatabaseSeeder"`
-5. `php artisan asset:publish`
+3. `php artisan lanager:install"`
+	* When asked, choose to continue with the installation
+	* Emptying the database is recommended but optional
 
-If you encounter any problems, delete the entire `lanager/` directory except the `lanager/app/config` directory, and re-install by following the *Installation* section, keeping your database intact.
+Once the above has run, refer to your backed up config files and manually replicate the settings in the new config files.
+
 
 ## Feedback & Contributions
 
