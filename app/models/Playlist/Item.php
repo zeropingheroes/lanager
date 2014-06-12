@@ -66,6 +66,12 @@ class Item extends BaseModel {
 			$this->duration = $response['entry']['media$group']['yt$duration']['seconds'];
 			$this->url = 'http://www.youtube.com/watch?v='.$youtubeUrl['v'];
 
+			// Check item is embeddable
+			if(isset($response['entry']['yt$noembed']))
+			{
+				$errors->add('error', 'Item is not embeddable.' );
+			}
+
 			// Check item length
 			if( $this->duration > $this->playlist->max_item_duration )
 			{
