@@ -63,49 +63,39 @@ class Install extends BaseCommand {
 	{
 		$this->customInfo('Testing requirements before installation...');
 		
-		$this->displayCheck('PHP version greater than 5.3.7');
-		$this->checkRequirement(
+		$this->checkRequirement('PHP version greater than 5.3.7', 
 			version_compare( PHP_VERSION, '5.3.7' ) >= 0,
-			'Install the latest stable version of PHP'
-			);
+			'Install the latest stable version of PHP');
 
-		$this->displayCheck('Curl PHP module installed and enabled');
-		$this->checkRequirement(
+		$this->checkRequirement('Curl PHP module installed and enabled', 
 			function_exists( 'curl_version' ),
 			'Install and/or enable the Curl PHP module');
 
-		$this->displayCheck('Mcrypt PHP module installed and enabled');
-		$this->checkRequirement(
+		$this->checkRequirement('Mcrypt PHP module installed and enabled', 
 			function_exists( 'mcrypt_module_open' ),
 			'Install and/or enable the Mcrypt PHP module');
 		
-		$this->displayCheck('JSON PHP module installed and enabled');
-		$this->checkRequirement(
+		$this->checkRequirement('JSON PHP module installed and enabled', 
 			function_exists( 'json_encode' ),
 			'Install and/or enable the JSON PHP module');
 	
-		$this->displayCheck('PHP accessible in the system\'s path variable');
-		$this->checkRequirement(
+		$this->checkRequirement('PHP accessible in the system\'s path variable', 
 			$this->checkIfPhpInPath(),
 			'Add PHP to the system\'s path variable and restart your OS');
 		
-		$this->displayCheck('MySQL database accessible using the configured details');
-		$this->checkRequirement(
+		$this->checkRequirement('MySQL database accessible using the configured details', 
 			$this->checkDatabaseConnection(),
 			'Check that the MySQL database server is running and the details in /app/config/database.php are correct');
 
-		$this->displayCheck('Steam Web API key set');
-		$this->checkRequirement(
+		$this->checkRequirement('Steam Web API key set', 
 			strlen(Config::get('lanager/steam.apikey')) == 32,
 			'Enter a valid Steam Web API key in /app/config/lanager/steam.php');
 
-		$this->displayCheck('Server able to access internet');
-		$this->checkRequirement(
+		$this->checkRequirement('Server able to access internet', 
 			$this->checkInternetConnection(),
 			'Check this server can access the internet');
 
-		$this->displayCheck('Steam Web API accessible with provided API key');
-		$this->checkRequirement(
+		$this->checkRequirement('Steam Web API accessible with provided API key', 
 			$this->checkSteamWebApiKey(),
 			'Check that Steam is up on http://steamstat.us and that the API key set in /app/config/lanager/steam.php is correct');
 		
@@ -172,25 +162,16 @@ class Install extends BaseCommand {
 	}
 
 	/**
-	 * Display the requirement about to be checked.
-	 *
-	 * @param string 	$checkDescription	The check description to show the user
-	 * @return void
-	 */
-	private function displayCheck($checkDescription)
-	{
-		$this->customInfo('Checking ' . $checkDescription );
-	}
-
-	/**
 	 * Check a given requirement and continue or abort.
 	 *
+	 * @param string 	$checkDescription 	What is being checked
 	 * @param bool 		$check 				The item being checked
 	 * @param string 	$messageOnFailure 	The message to show the user
 	 * @return void
 	 */
-	private function checkRequirement($check, $messageOnFailure)
+	private function checkRequirement($checkDescription, $check, $messageOnFailure)
 	{
+		$this->customInfo('Checking ' . $checkDescription );
 		if( $check )
 		{
 			$this->customInfo('Passed');
