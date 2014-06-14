@@ -26,6 +26,7 @@ class AwardsController extends BaseController {
 						->get();
 		
 		if ( Request::ajax() ) return Response::json($award);
+		return Redirect::route('achievements.index');
 	}
 
 	/**
@@ -71,16 +72,7 @@ class AwardsController extends BaseController {
 			$award->lan_id = Lan::findOrFail(Input::get('lan_id'))->id;
 		}
 		
-		if ( ! $award->save() )
-		{
-			if ( Request::ajax() ) return Response::json($award->errors(), 400);
-			
-			return Redirect::route('awards.create', array('award' => $award->id))->withErrors($award->errors());
-		}
-
-		if ( Request::ajax() ) return Response::json($award, 201);
-
-		return Redirect::route('users.show',array('user' => $award->user_id));
+		return $this->process( 'store', 'award', $award );
 
 	}
 
@@ -94,7 +86,10 @@ class AwardsController extends BaseController {
 	{
 		$award = Award::onlyVisibleUsers()->with(array('user','achievement'))->findOrFail($id);
 		
-		if ( Request::ajax() ) return Response::json($award);		
+		if ( Request::ajax() ) return Response::json($award);
+		
+		return Redirect::route('achievements.index');
+
 	}
 
 	/**
@@ -122,16 +117,8 @@ class AwardsController extends BaseController {
 		if( Input::has('achievement_id') )	$award->achievement_id	= Achievement::findOrFail(Input::get('achievement_id'))->id;
 		if( Input::has('lan_id') )			$award->lan_id 			= Lan::findOrFail(Input::get('lan_id'))->id;
 
-		if ( ! $award->save() )
-		{
-			if ( Request::ajax() ) return Response::json($award->errors(), 400);
-			
-			return Redirect::route('awards.edit', array('award' => $award->id))->withErrors($award->errors());
-		}
+		return $this->process( 'update', 'award', $award );
 
-		if ( Request::ajax() ) return Response::json($award);
-
-		return Redirect::route('awards.items.index',array('award' => $award->id));
 	}
 
 	/**

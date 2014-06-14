@@ -47,16 +47,8 @@ class PlaylistsController extends BaseController {
 		$playlist->name = Input::get('name');
 		$playlist->playback_state = Input::get('playback_state');
 
-		if ( ! $playlist->save() )
-		{
-			if ( Request::ajax() ) return Response::json($playlist->errors(), 400);
-			
-			return Redirect::route('playlists.create', array('playlist' => $playlist->id))->withErrors($playlist->errors());
-		}
+		return $this->process( 'store', 'playlist', $playlist );
 
-		if ( Request::ajax() ) return Response::json($playlist, 201);
-
-		return Redirect::route('playlists.items.index',array('playlist' => $playlist->id));
 	}
 
 	/**
@@ -100,16 +92,8 @@ class PlaylistsController extends BaseController {
 		if( Input::has('name') ) $playlist->name = Input::get('name');
 		if( Input::has('playback_state') ) $playlist->playback_state = Input::get('playback_state');
 		
-		if ( ! $playlist->save() )
-		{
-			if ( Request::ajax() ) return Response::json($playlist->errors(), 400);
-			
-			return Redirect::route('playlists.edit', array('playlist' => $playlist->id))->withErrors($playlist->errors());
-		}
+		return $this->process( 'update', 'playlist', $playlist );
 
-		if ( Request::ajax() ) return Response::json($playlist);
-
-		return Redirect::route('playlists.items.index',array('playlist' => $playlist->id));
 	}
 
 	/**

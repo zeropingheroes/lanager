@@ -79,16 +79,8 @@ class AchievementsController extends BaseController {
 		if( Input::has('visible') && Input::get('visible') == 1) $achievement->visible = 1;
 		if( ! Input::has('visible') OR Input::get('visible') == 0) $achievement->visible = 0;
 
-		if ( ! $achievement->save() )
-		{
-			if ( Request::ajax() ) return Response::json($achievement->errors(), 400);
-			
-			return Redirect::route('achievements.create', array('achievement' => $achievement->id))->withErrors($achievement->errors());
-		}
+		return $this->process( 'store', 'achievement', $achievement );		
 
-		if ( Request::ajax() ) return Response::json($achievement, 201);
-
-		return Redirect::route('achievements.index');
 	}
 
 	/**
@@ -102,6 +94,8 @@ class AchievementsController extends BaseController {
 		$achievement = Achievement::findOrFail($id);
 		
 		if ( Request::ajax() ) return Response::json($achievement);		
+
+		return Redirect::route('achievements.index');
 	}
 
 	/**
@@ -136,16 +130,8 @@ class AchievementsController extends BaseController {
 		if( Input::has('visible') && Input::get('visible') == 1) $achievement->visible = 1;
 		if( ! Input::has('visible') OR Input::get('visible') == 0) $achievement->visible = 0;
 
-		if ( ! $achievement->save() )
-		{
-			if ( Request::ajax() ) return Response::json($achievement->errors(), 400);
-			
-			return Redirect::route('achievements.edit', array('achievement' => $achievement->id))->withErrors($achievement->errors());
-		}
+		return $this->process( 'update', 'achievement', $achievement );
 
-		if ( Request::ajax() ) return Response::json($achievement);
-
-		return Redirect::route('achievements.index');
 	}
 
 	/**
