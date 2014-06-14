@@ -11,3 +11,8 @@
 */
 
 Event::subscribe('Zeropingheroes\Lanager\Handlers\PlaylistItemVoteHandler');
+
+Event::listen('lanager.*', function()
+{
+	Log::info( Event::firing() ); 
+});
