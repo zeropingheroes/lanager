@@ -48,14 +48,8 @@ class ShoutsController extends BaseController {
 		$shout->user_id = Auth::user()->id;
 		$shout->content = Input::get('content');
 
-		if( ! $shout->save() )
-		{
-			return Redirect::route('shouts.index')->withErrors($shout->validationErrors);
-		}
-		else
-		{
-			return Redirect::route('shouts.index');
-		}
+		return $this->process( 'store', 'shout', $shout );		
+
 	}
 
 	/**
@@ -66,7 +60,7 @@ class ShoutsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		return Redirect::route('shouts.index');
 	}
 
 	/**
