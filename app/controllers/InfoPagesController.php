@@ -53,13 +53,9 @@ class InfoPagesController extends BaseController {
 		$infoPage->title = Input::get('title');
 		$infoPage->content = Input::get('content');
 		$infoPage->parent_id = (is_numeric(Input::get('parent_id')) ? Input::get('parent_id') : NULL); // turn non-numeric & empty values into NULL
-		
-		if(!$infoPage->save())
-		{
-			return Redirect::route('infopages.create')->withErrors($infoPage->errors());
-		}
 
-		return Redirect::route('infopages.show',array('infopage' => $infoPage->id));
+		return $this->process( 'store', 'infopage', $infoPage );		
+
 	}
 
 	/**
@@ -108,13 +104,8 @@ class InfoPagesController extends BaseController {
 		$infoPage->title = Input::get('title');
 		$infoPage->content = Input::get('content');
 		$infoPage->parent_id = (is_numeric(Input::get('parent_id')) ? Input::get('parent_id') : NULL); // turn non-numeric & empty values into NULL
-		
-		if(!$infoPage->save())
-		{
-			return Redirect::route('infopages.edit',array('infopage' => $infoPage->id))->withErrors($infoPage->errors());
-		}
 
-		return Redirect::route('infopages.show',array('infopage' => $infoPage->id));
+		return $this->process( 'update', 'infopage', $infoPage );		
 
 	}
 
