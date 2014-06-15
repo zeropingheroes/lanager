@@ -86,7 +86,7 @@ class EventsController extends BaseController {
 		$event->signup_closes	= (Input::get('signup_closes') != NULL ? Input::get('signup_closes') : NULL);
 		$event->event_type_id 	= (is_numeric(Input::get('event_type_id')) ? Input::get('event_type_id') : NULL); // turn non-numeric & empty values into NULL
 
-		return $this->process( 'store', 'event', $event );		
+		return $this->process( $event );		
 
 	}
 
@@ -139,7 +139,7 @@ class EventsController extends BaseController {
 		$event->signup_closes	= (Input::get('signup_closes') != NULL ? Input::get('signup_closes') : NULL);
 		$event->event_type_id	= (is_numeric(Input::get('event_type_id')) ? Input::get('event_type_id') : NULL); // turn non-numeric & empty values into NULL
 		
-		return $this->process( 'update', 'event', $event );		
+		return $this->process( $event );		
 
 	}
 
@@ -151,8 +151,9 @@ class EventsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		Event::destroy($id);
-		return Redirect::route('events.index');
+		$event = Event::findOrFail($id);
+
+		return $this->process( $event );
 	}
 
 	public function join($id)

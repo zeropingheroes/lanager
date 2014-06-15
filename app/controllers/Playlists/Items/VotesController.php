@@ -29,16 +29,7 @@ class VotesController extends BaseController {
 		$vote->user_id = Auth::user()->id;
 		$vote->vote = -1; // down vote
 
-		if( ! $vote->save() )
-		{
-			if ( Request::ajax() ) return Response::json($vote->errors(), 400);
-			return Redirect::back()->withErrors($vote->errors());
-		}
-
-		Event::fire('playlist.item.vote.create', $vote);
-
-		if ( Request::ajax() ) return Response::json($vote, 201);
-		return Redirect::back();
+		return $this->process( $vote, 'playlists.items.index', 'playlists.items.index' );
 
 	}
 
@@ -51,10 +42,8 @@ class VotesController extends BaseController {
 	public function destroy($playlistId, $itemId, $voteId)
 	{
 		$vote = Playlist::findOrFail($playlistId)->items()->findOrFail($itemId)->votes()->findOrFail($voteId);
-		$destroy = Vote::destroy($vote->id);
 
-		if ( Request::ajax() ) return Response::json( $destroy, 204);
-		return Redirect::back();
+		return $this->process( $vote, 'playlists.items.index', 'playlists.items.index' );
 	}
 
 }

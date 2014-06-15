@@ -54,7 +54,7 @@ class InfoPagesController extends BaseController {
 		$infoPage->content = Input::get('content');
 		$infoPage->parent_id = (is_numeric(Input::get('parent_id')) ? Input::get('parent_id') : NULL); // turn non-numeric & empty values into NULL
 
-		return $this->process( 'store', 'infopage', $infoPage );		
+		return $this->process( $infoPage );		
 
 	}
 
@@ -105,7 +105,7 @@ class InfoPagesController extends BaseController {
 		$infoPage->content = Input::get('content');
 		$infoPage->parent_id = (is_numeric(Input::get('parent_id')) ? Input::get('parent_id') : NULL); // turn non-numeric & empty values into NULL
 
-		return $this->process( 'update', 'infopage', $infoPage );		
+		return $this->process( $infoPage );		
 
 	}
 
@@ -117,9 +117,9 @@ class InfoPagesController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		InfoPage::destroy($id);
-		return Redirect::route('infopages.index');
+		$infoPage = InfoPage::findOrFail($id);
 
+		return $this->process( $infoPage );
 	}
 
 }

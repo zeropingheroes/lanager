@@ -85,14 +85,7 @@ class ItemsController extends BaseController {
 		$item->user_id = Auth::user()->id;
 		$item->url = Input::get('url');
 
-		if( ! $item->save() )
-		{
-			if ( Request::ajax() ) return Response::json($item->errors(), 400);
-			return Redirect::route('playlists.items.index', array('playlist' => $playlistId))->withErrors($item->validationErrors);
-		}
-
-		if ( Request::ajax() ) return Response::json($item, 201);
-		return Redirect::route('playlists.items.index', array('playlist' => $playlistId));
+		return $this->process( $item, 'playlists.items.index', 'playlists.items.index' );
 
 	}
 
@@ -108,6 +101,7 @@ class ItemsController extends BaseController {
 		$item = Playlist::findOrFail($playlistId)->items()->findOrFail($itemId);
 		
 		if ( Request::ajax() ) return Response::json($item);
+		return Redirect::route('playlists.items.index', $playlistId);
 	}
 
 	/**
@@ -125,12 +119,7 @@ class ItemsController extends BaseController {
 		
 		if( $item->playback_state == 1 ) $item->played_at = new DateTime;
 
-		if ( ! $item->save() )
-		{
-			if ( Request::ajax() ) return Response::json($item->errors(), 400);
-		}
-		if ( Request::ajax() ) return Response::json($item);
-		return Redirect::back();
+		return $this->process( $item, 'playlists.items.index', 'playlists.items.index' );
 		
 	}
 
@@ -144,7 +133,7 @@ class ItemsController extends BaseController {
 	{
 		$item = Playlist::findOrFail($playlistId)->items()->findOrFail($itemId);
 
-		if ( Request::ajax() ) return Response::json( $item->destroy($itemId), 204);
+		return $this->process( $item );
 	}
 
 }

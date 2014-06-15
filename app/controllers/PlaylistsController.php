@@ -47,7 +47,7 @@ class PlaylistsController extends BaseController {
 		$playlist->name = Input::get('name');
 		$playlist->playback_state = Input::get('playback_state');
 
-		return $this->process( 'store', 'playlist', $playlist );
+		return $this->process( $playlist );
 
 	}
 
@@ -92,7 +92,7 @@ class PlaylistsController extends BaseController {
 		if( Input::has('name') ) $playlist->name = Input::get('name');
 		if( Input::has('playback_state') ) $playlist->playback_state = Input::get('playback_state');
 		
-		return $this->process( 'update', 'playlist', $playlist );
+		return $this->process( $playlist );
 
 	}
 
@@ -106,7 +106,7 @@ class PlaylistsController extends BaseController {
 	{
 		$playlist = Playlist::findOrFail($playlistId);
 
-		if ( Request::ajax() ) return Response::json( $playlist->destroy($playlistId), 204);
+		return $this->process( $playlist );
 	}
 
 }

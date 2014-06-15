@@ -72,7 +72,7 @@ class AwardsController extends BaseController {
 			$award->lan_id = Lan::findOrFail(Input::get('lan_id'))->id;
 		}
 		
-		return $this->process( 'store', 'award', $award );
+		return $this->process( $award );
 
 	}
 
@@ -117,7 +117,7 @@ class AwardsController extends BaseController {
 		if( Input::has('achievement_id') )	$award->achievement_id	= Achievement::findOrFail(Input::get('achievement_id'))->id;
 		if( Input::has('lan_id') )			$award->lan_id 			= Lan::findOrFail(Input::get('lan_id'))->id;
 
-		return $this->process( 'update', 'award', $award );
+		return $this->process( $award );
 
 	}
 
@@ -129,11 +129,9 @@ class AwardsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$award = Award::findOrFail($id)->destroy($id);
+		$award = Award::findOrFail($id);
 
-		if ( Request::ajax() ) return Response::json( $award, 204);
-
-		return Redirect::back();
+		return $this->process( $award );
 	}
 
 }

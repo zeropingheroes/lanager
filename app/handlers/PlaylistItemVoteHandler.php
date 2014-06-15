@@ -8,9 +8,8 @@ class PlaylistItemVoteHandler {
 	/**
 	* Handle user logout events.
 	*/
-	public function onCreate($vote)
+	public function onStore($vote)
 	{
-
 		$item = Item::find($vote->playlist_item_id);
 
 		// Skip the item if we have met or exceeded the downvote threshold
@@ -26,7 +25,6 @@ class PlaylistItemVoteHandler {
 			$item->played_at = new DateTime;
 			$item->save();
 		}
-
 	}
 
 	/**
@@ -37,7 +35,7 @@ class PlaylistItemVoteHandler {
 	*/
 	public function subscribe($events)
 	{
-		$events->listen('playlist.item.vote.create', 'Zeropingheroes\Lanager\Handlers\PlaylistItemVoteHandler@onCreate');
+		$events->listen('lanager.playlists.items.votes.store', 'Zeropingheroes\Lanager\Handlers\PlaylistItemVoteHandler@onStore');
 	}
 
 }

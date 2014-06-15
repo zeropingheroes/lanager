@@ -79,7 +79,7 @@ class AchievementsController extends BaseController {
 		if( Input::has('visible') && Input::get('visible') == 1) $achievement->visible = 1;
 		if( ! Input::has('visible') OR Input::get('visible') == 0) $achievement->visible = 0;
 
-		return $this->process( 'store', 'achievement', $achievement );		
+		return $this->process( $achievement );		
 
 	}
 
@@ -130,7 +130,7 @@ class AchievementsController extends BaseController {
 		if( Input::has('visible') && Input::get('visible') == 1) $achievement->visible = 1;
 		if( ! Input::has('visible') OR Input::get('visible') == 0) $achievement->visible = 0;
 
-		return $this->process( 'update', 'achievement', $achievement );
+		return $this->process( $achievement );
 
 	}
 
@@ -142,11 +142,9 @@ class AchievementsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$achievement = Achievement::findOrFail($id)->destroy($id);
+		$achievement = Achievement::findOrFail($id);
 
-		if ( Request::ajax() ) return Response::json( $achievement, 204);
-
-		return Redirect::back();
+		return $this->process( $achievement );
 	}
 
 }

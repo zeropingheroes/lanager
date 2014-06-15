@@ -48,7 +48,7 @@ class ShoutsController extends BaseController {
 		$shout->user_id = Auth::user()->id;
 		$shout->content = Input::get('content');
 
-		return $this->process( 'store', 'shout', $shout );		
+		return $this->process( $shout, 'shouts.index', 'shouts.index' );		
 
 	}
 
@@ -93,8 +93,9 @@ class ShoutsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		Shout::destroy($id);
-		return Redirect::route('shouts.index');
+		$shout = Shout::findOrFail($id);
+
+		return $this->process( $shout );
 	}
 
 	/**
