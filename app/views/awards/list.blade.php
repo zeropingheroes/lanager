@@ -1,6 +1,5 @@
 @if(count($awards))
 	{{ Table::open(array('class' => 'achievements')) }}
-
 	<?php
 	foreach( $awards as $award )
 	{
@@ -32,10 +31,8 @@
 		
 	}
 	?>
-
 	{{ Table::body($tableBody) }}
 	{{ Table::close() }}
-
 @else
 	No achievements awarded!
 @endif

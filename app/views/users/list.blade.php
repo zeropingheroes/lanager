@@ -1,6 +1,5 @@
 @extends('layouts.default')
 @section('content')
-	<h2>{{{ $title }}}</h2>
 	@if(count($users))
 		{{ Table::open() }}
 		<?php
@@ -18,12 +17,10 @@
 			if( count($state) )
 			{
 				$status = $state->getStatus();
-				
 				// If user is running a Steam application
 				if ( isset($state->application->steam_app_id) )
 				{
 					$application = link_to( SteamBrowserProtocol::viewAppInStore( $state->application->steam_app_id ), $state->application->name );
-
 					// If user is connected to a server 
 					if ( isset($state->server->address) )
 					{
@@ -31,7 +28,6 @@
 					}
 				}
 			}
-
 			$tableBody[] = array(
 				'user'			=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
 				'status'		=> $status,
@@ -46,5 +42,4 @@
 	@else
 		No users found!
 	@endif
-
 @endsection

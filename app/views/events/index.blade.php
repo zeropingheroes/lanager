@@ -1,6 +1,5 @@
 @extends('layouts.default')
 @section('content')
-	<h2>{{{ $title }}}</h2>
 	@if(count($events))
 		{{ Table::open(array('class' => 'events-list')) }}
 		{{ Table::headers('Name', 'Time', '', 'Type', 'Signups', '') }}
@@ -46,5 +45,4 @@
 	@else
 		No events found!
 	@endif
-
 @endsection

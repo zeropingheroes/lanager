@@ -1,17 +1,17 @@
 <?php
 
 // Show validation errors wrapped in bootstrap style
-HTML::macro('validationErrors', function()
-{
-	$errors = Session::get('errors');
-	if( $errors )
-	{
-		return Alert::error(
-			'<strong>The following errors occurred</strong>'.
-			HTML::ul($errors->all(':message'))
-		);
-	}
-});
+// HTML::macro('validationErrors', function()
+// {
+// 	$errors = Session::get('errors');
+// 	if( $errors )
+// 	{
+// 		return Alert::error(
+// 			'<strong>The following errors occurred</strong>'.
+// 			HTML::ul($errors->all(':message'))
+// 		);
+// 	}
+// });
 
 
 /*

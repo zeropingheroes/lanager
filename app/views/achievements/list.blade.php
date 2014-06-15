@@ -1,17 +1,15 @@
 @extends('layouts.default')
 @section('content')
-	<h2>{{{ $title }}}</h2>
 	@if(count($achievements))
 		{{ Table::open(array('class' => 'achievements')) }}
 		@if( Authority::can('manage', 'achievements') )
 			{{ Table::headers('Name', 'Description', 'Achieved By', 'Controls') }}
 		@else
 			{{ Table::headers('Name', 'Description', 'Achieved By') }}
-		@endif	
+		@endif
 		<?php
 		foreach( $achievements as $achievement )
 		{
-			
 			if( Authority::can('manage', 'achievements') )
 			{
 				$tableBody[] = array(
@@ -44,10 +42,7 @@
 				{{ link_to_route('achievements.index', 'Show all achievements', array('hidden' => 0)) }}
 				@endif
 		@endif
-
-
 	@else
 		No achievements found!
 	@endif
-
 @endsection

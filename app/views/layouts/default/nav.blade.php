@@ -82,7 +82,6 @@
 				</li>	
 				@include('layouts.default.infopages')
 				@include('layouts.default.links')
-
 				@if( Authority::can( 'manage', 'achievements' ) )
 					<li class="dropdown {{ Request::is('achievements*') ? 'active' : '' }}">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Achievements
@@ -105,7 +104,6 @@
 						{{ link_to_route('achievements.index', 'Achievements') }}
 					</li>
 				@endif
-
 			</ul>
 		</div>
 	</div>

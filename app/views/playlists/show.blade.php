@@ -225,5 +225,4 @@
 			}
 		};
 	</script>
-
 @endsection
