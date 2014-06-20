@@ -1,19 +1,16 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Models\User,
-	Zeropingheroes\Lanager\Models\SteamState,
-	Zeropingheroes\Lanager\Models\Role,
-	Zeropingheroes\Lanager\Interfaces\SteamUserRepositoryInterface;
-use App, Auth, Input, Request, Redirect, View;
+	Zeropingheroes\Lanager\Models\Role;
+use App, Input, Redirect, View;
 use LightOpenID;
 
 class UsersController extends BaseController {
 
 	protected $steamInterface;
 	
-	public function __construct(SteamUserRepositoryInterface $steamInterface)
+	public function __construct()
 	{
-		$this->steamInterface = $steamInterface;
 		$this->beforeFilter('checkResourcePermission',array('only' => array('create', 'store', 'edit', 'update', 'destroy') ));
 	}
 
@@ -107,63 +104,6 @@ class UsersController extends BaseController {
 	}
 
 	/**
-	 * Authenticate the user using OpenID
-	 *
-	 * @return Redirect
-	 */
-	public function openIdLogin()
-	{
-		if(Input::has('openid_mode'))
-		{
-			$openId = new LightOpenID(Request::server('HTTP_HOST'));
-	
-			if($openId->validate())
-			{
-				$steamId = str_replace('http://steamcommunity.com/openid/id/','',$openId->identity);
-				
-				if($this->importSteamUser($steamId))
-				{
-					$user = User::visible()->where('steam_id_64', '=', $steamId)->first();
-					Auth::login($user);
-
-					// Make the first user SuperAdmin
-					if( count(User::all()) == 1 && ! $user->hasRole('SuperAdmin') )	$user->roles()->attach(Role::where('name', '=', 'SuperAdmin')->firstOrFail());
-
-					if( $user->steam_visibility != 3 )
-					{
-						return Redirect::route('users.show', $user->id);
-					}
-
-					return Redirect::to('/');
-				}
-				else
-				{
-					App::abort(500, 'Could not import user from Steam into database.');
-				}
-			}
-			else
-			{
-				App::abort(500, 'Could not validate OpenID.');
-			}
-		}
-		else
-		{
-			App::abort(400, 'Bad request.');
-		}
-	}
-
-	/**
-	 * Log the user out
-	 *
-	 * @return Redirect
-	 */
-	public function logout()
-	{
-		Auth::logout();
-		return Redirect::back();
-	}
-
-	/**
 	 * Show the form for editing the specified user's roles.
 	 *
 	 * @return Redirect
@@ -200,37 +140,6 @@ class UsersController extends BaseController {
 		else
 		{
 			App::abort(404, 'Page not found');
-		}
-	}
-
-	/**
-	 * Import the specified Steam user
-	 *
-	 * @return bool
-	 */
-	private function importSteamUser($steamId)
-	{		
-		$steamUser = $this->steamInterface->getUser($steamId);		
-		
-		if($steamUser != NULL)
-		{
-			$user = User::where('steam_id_64', '=', $steamId)->first(); // do not constrain to visible users
-
-			// Create new user if they are not found in the database
-			if($user == NULL) $user = new User;
-
-			$user->username 		= $steamUser->username;
-			$user->steam_id_64		= $steamUser->id;
-			$user->steam_visibility	= $steamUser->visibility;
-			$user->visible			= true;	// make an invisible user visible again if they are returning to the lan
-			$user->avatar			= $steamUser->avatar_url;
-			$user->ip 				= Request::server('REMOTE_ADDR');
-
-			return $user->save();
-		}
-		else
-		{
-			return FALSE;
 		}
 	}
 

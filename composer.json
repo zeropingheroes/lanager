@@ -24,6 +24,10 @@
 	}
 	],
 	"autoload": {
+		"psr-0":
+		{
+			"Zeropingheroes\\Lanager": "app/"
+		},
 		"classmap": [
 			"app/commands",
 			"app/controllers",

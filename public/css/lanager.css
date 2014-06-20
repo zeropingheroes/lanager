@@ -83,6 +83,12 @@ div.fullscreen {
 	max-width: none;
 }
 
+.col-centered{
+    float: none;
+    margin: 0 auto;
+    text-align: center;
+}
+
 /* -------------------------------------------------------------------
    NAVBAR
    -------------------------------------------------------------------
@@ -371,4 +377,12 @@ div#submitter img {
 */
 th:last-child {
 	text-align: right;
+}
+
+/* -------------------------------------------------------------------
+   SESSIONS - CREATE (LOGIN)
+   -------------------------------------------------------------------
+*/
+div.steam-help {
+	padding: 15px 0;
 }

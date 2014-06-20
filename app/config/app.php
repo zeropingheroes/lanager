@@ -122,6 +122,7 @@ return array(
 		'Zeropingheroes\SteamBrowserProtocol\SteamBrowserProtocolServiceProvider',
 		'ExpressiveDateServiceProvider',
 		'Zeropingheroes\Duration\DurationServiceProvider',
+		'Zeropingheroes\Lanager\Users\UserImportServiceProvider',
 
 
 	),
@@ -193,6 +194,8 @@ return array(
 
 		'SteamBrowserProtocol'	=> 'Zeropingheroes\SteamBrowserProtocol\Facades\SteamBrowserProtocol',
 		'Duration'				=> 'Zeropingheroes\Duration\Facades\Duration',
+		'UserImport'			=> 'Zeropingheroes\Lanager\Users\Facades\UserImport',
+
 		'Markdown'				=> 'VTalbot\Markdown\Facades\Markdown',
 		'Alert'					=> 'Bootstrapper\Alert',
 		'Badge'					=> 'Bootstrapper\Badge',

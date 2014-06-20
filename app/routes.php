@@ -20,20 +20,6 @@ Route::pattern('lan', '[0-9]+');
 | Users
 |--------------------------------------------------------------------------
 */
-Route::get(
-	'users/openidlogin',
-	array(
-		'as' => 'users.openIdLogin',
-		'uses' => 'Zeropingheroes\Lanager\UsersController@openIdLogin')
-);
-
-Route::get(
-	'users/logout',
-	array(
-		'as' => 'users.logout',
-		'uses' => 'Zeropingheroes\Lanager\UsersController@logout')
-);
-
 Route::group(array('before' => 'hasRole:SuperAdmin'), function()
 {
 	Route::get(
@@ -50,6 +36,15 @@ Route::group(array('before' => 'hasRole:SuperAdmin'), function()
 	);
 });
 Route::resource('users', 'Zeropingheroes\Lanager\UsersController');
+
+/*
+|--------------------------------------------------------------------------
+| Sessions
+|--------------------------------------------------------------------------
+*/
+Route::resource('sessions', 'Zeropingheroes\Lanager\SessionsController');
+Route::get('login', array('as' => 'sessions.login', 'uses' => 'Zeropingheroes\Lanager\SessionsController@create'));
+Route::get('logout', array('as' => 'sessions.logout', 'uses' => 'Zeropingheroes\Lanager\SessionsController@destroy'));
 
 /*
 |--------------------------------------------------------------------------

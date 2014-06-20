@@ -19,12 +19,12 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>{{ link_to_route('users.show', 'Profile',  Auth::user()->id) }}</li>
-							<li>{{ link_to_route('users.logout', 'Log Out') }}</li>
+							<li>{{ link_to_route('sessions.logout', 'Log Out') }}</li>
 						</ul>
 					</li>
 				@else
 					<li>
-						<a href="{{ $authUrl }}" class=" steam-signin"><img src="{{ asset('/img/sits_large_noborder.png') }}"></a>
+						<a href="{{ URL::route('sessions.login') }}" class=" steam-signin"><img src="{{ asset('/img/sits_large_noborder.png') }}"></a>
 					</li>
 				@endif
 			</ul>
