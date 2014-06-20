@@ -5,9 +5,6 @@ use DB, DateTime;
 
 class PlaylistItemVoteHandler {
 
-	/**
-	* Handle user logout events.
-	*/
 	public function onStore($vote)
 	{
 		$item = Item::find($vote->playlist_item_id);
