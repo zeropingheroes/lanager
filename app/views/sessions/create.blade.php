@@ -13,7 +13,7 @@
 	?>
 	<div class="row">
 		<div class="col-lg-8 col-centered steam-help">
-			Sign in to the LANager with your Steam ID:
+			Sign in to the LANager with your Steam ID
 		</div>
 		<div class="col-lg-8 col-centered">
 			<a href="{{ $steamAuthUrl }}" title="Click here to sign into the LANager using your Steam ID">
