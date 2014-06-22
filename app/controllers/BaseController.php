@@ -90,7 +90,7 @@ class BaseController extends Controller {
 				return Redirect::route( $failureRoute, $route['parameters'] )->withErrors($model->errors());
 			}
 
-			if( Request::ajax() && $route['action'] == 'create' ) return Response::json($model, 201);
+			if( Request::ajax() && $route['action'] == 'store' ) return Response::json($model, 201);
 			if( Request::ajax() && $route['action'] == 'update' ) return Response::json($model, 200);
 
 			// Add the model we just inserted / updated into the route parameters

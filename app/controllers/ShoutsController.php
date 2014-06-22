@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Shouts\Shout;
-use Input, Redirect, View, Auth;
+use Input, Redirect, View, Auth, Request, Response;
 
 class ShoutsController extends BaseController {
 
@@ -18,10 +18,11 @@ class ShoutsController extends BaseController {
 	 */
 	public function index()
 	{
+		if ( Request::ajax() ) return Response::json(Shout::with('user', 'user.roles')->get());
 		$shouts = Shout::with('user', 'user.roles')
-						->orderBy('pinned', 'desc')
-						->orderBy('created_at', 'desc')
-						->paginate(10);
+				->orderBy('pinned', 'desc')
+				->orderBy('created_at', 'desc')
+				->paginate(10);
 		return View::make('shouts.index')
 					->with('title', 'Shouts')
 					->with('shouts', $shouts);
@@ -82,7 +83,13 @@ class ShoutsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$shout = Shout::findOrFail($id);
+
+		if( Input::has('user_id') )	$shout->user_id	= User::findOrFail(Input::get('user_id'))->id;
+		if( Input::has('content') )	$shout->content = Input::get('content');
+		if( Input::has('pinned') )	$shout->pinned = (int) Input::get('pinned');
+
+		return $this->process( $shout, 'shouts.index', 'shouts.index' );		
 	}
 
 	/**
@@ -96,22 +103,6 @@ class ShoutsController extends BaseController {
 		$shout = Shout::findOrFail($id);
 
 		return $this->process( $shout );
-	}
-
-	/**
-	 * Toggle the "pinned" flag on the shouts.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function pin($id)
-	{
-		if( $shout = Shout::findOrFail($id))
-		{
-			$shout->pinned = !$shout->pinned;
-			$shout->save();
-		}
-		return Redirect::route('shouts.index');
 	}
 
 }

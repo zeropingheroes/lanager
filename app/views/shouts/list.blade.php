@@ -9,7 +9,19 @@
 			</a>
 			@if( Authority::can('manage', 'shouts'))
 				<div class="shout-moderation pull-right">
-					{{ Button::link(URL::route('shouts.pin', array('shout' => $shout->id)), 'Pin') }}
+					{{ Form::open(
+								array(
+									'route' => array(
+										'shouts.update',
+											'shout' => $shout->id,
+									),
+									'method' => 'PUT',
+									'class' => 'form-inline')
+								) }}
+					{{ Form::hidden('pinned', ($shout->pinned-1)*-1) }}
+					<?php $pinVerb = $shout->pinned ? 'Unpin' : 'Pin'; ?>
+					{{ Button::xs_submit('', array('title' => $pinVerb.' this shout', 'name' => 'Submit' ))->with_icon('star') }}
+					{{ Form::close() }}
 					{{ HTML::resourceDelete('shouts', $shout->id, 'Delete') }}
 				</div>
 			@endif

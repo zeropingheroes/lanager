@@ -6,7 +6,6 @@
 |--------------------------------------------------------------------------
 */
 
-Route::pattern('shout', '[0-9]+');
 Route::pattern('event', '[0-9]+');
 Route::pattern('playlist', '[0-9]+');
 Route::pattern('item', '[0-9]+');
@@ -43,12 +42,6 @@ Route::resource('infopages', 'Zeropingheroes\Lanager\InfoPagesController');
 | Shouts
 |--------------------------------------------------------------------------
 */
-Route::get(
-	'shouts/{shout}/pin',
-	array(
-		'as' => 'shouts.pin',
-		'uses' => 'Zeropingheroes\Lanager\ShoutsController@pin')
-);
 Route::resource('shouts', 'Zeropingheroes\Lanager\ShoutsController');
 
 /*
