@@ -59,7 +59,7 @@
 		@if( Authority::can( 'manage', 'users', $user ) )
 			<h2>Administration</h2>
 			<ul>
-				<li>{{ Button::link(URL::route('users.roles.edit', $user->id), 'Manage Roles' ) }}</li>
+				<li>{{ Button::link(URL::route('role-assignments.index'), 'Manage Roles' ) }}</li>
 				<li>{{ HTML::resourceDelete('users',$user,'Delete User') }}</li>
 			</ul>
 		@endif
