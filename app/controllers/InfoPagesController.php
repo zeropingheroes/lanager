@@ -66,7 +66,7 @@ class InfoPagesController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$infoPage = InfoPage::find($id);
+		$infoPage = InfoPage::findOrFail($id);
 		$infoPageChildren = InfoPage::where('parent_id',$id)->get();
 
 		return View::make('infopages.show')
@@ -83,7 +83,7 @@ class InfoPagesController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$infoPage = InfoPage::find($id);
+		$infoPage = InfoPage::findOrFail($id);
 		$infoPagesDropdown = array('' => ' ') + InfoPage::lists('title','id');
 		return View::make('infopages.edit')
 					->with('title','Edit Info Page')
@@ -100,7 +100,7 @@ class InfoPagesController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$infoPage = InfoPage::find($id);
+		$infoPage = InfoPage::findOrFail($id);
 		$infoPage->title = Input::get('title');
 		$infoPage->content = Input::get('content');
 		$infoPage->parent_id = (is_numeric(Input::get('parent_id')) ? Input::get('parent_id') : NULL); // turn non-numeric & empty values into NULL

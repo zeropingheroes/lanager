@@ -98,7 +98,7 @@ class EventsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$event = Event::find($id);
+		$event = Event::findOrFail($id);
 
 		return View::make('events.show')
 					->with('title',$event->name)
@@ -113,7 +113,7 @@ class EventsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$event = Event::find($id);
+		$event = Event::findOrFail($id);
 		$eventTypes = array('' => ' ') + EventType::lists('name','id');
 
 		return View::make('events.edit')
@@ -130,7 +130,7 @@ class EventsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$event = Event::find($id);
+		$event = Event::findOrFail($id);
 		$event->name 			= Input::get('name');
 		$event->description		= Input::get('description');
 		$event->start 			= Input::get('start');
@@ -158,7 +158,7 @@ class EventsController extends BaseController {
 
 	public function join($id)
 	{
-		$event = Event::find($id);
+		$event = Event::findOrFail($id);
 		if( !$event->users->contains(Auth::user()) AND (strtotime($event->signup_closes) > time()) ) 
 		{
 			$event->users()->attach(Auth::user());
@@ -168,7 +168,7 @@ class EventsController extends BaseController {
 
 	public function leave($id)
 	{
-		$event = Event::find($id);
+		$event = Event::findOrFail($id);
 		if( $event->users->contains(Auth::user()) )
 		{
 			$event->users()->detach(Auth::user());

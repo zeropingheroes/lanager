@@ -106,7 +106,7 @@ class AchievementsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$achievement = Achievement::find($id);
+		$achievement = Achievement::findOrFail($id);
 
 		return View::make('achievements.edit')
 					->with('title','Edit Achievement')

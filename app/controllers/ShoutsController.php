@@ -106,7 +106,7 @@ class ShoutsController extends BaseController {
 	 */
 	public function pin($id)
 	{
-		if( $shout = Shout::find($id))
+		if( $shout = Shout::findOrFail($id))
 		{
 			$shout->pinned = !$shout->pinned;
 			$shout->save();

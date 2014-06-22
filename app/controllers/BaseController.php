@@ -68,9 +68,9 @@ class BaseController extends Controller {
 			}
 		}
 
+		// Attempt to peform requested action (perform validation in model)
 		if( $route['action'] == 'destroy')
 		{
-			// Attempt to destroy model
 			if( ! $model->delete() )
 			{
 				if ( Request::ajax() ) return Response::json($model->errors(), 400);
@@ -84,7 +84,6 @@ class BaseController extends Controller {
 		}
 		else // Storing or updating
 		{
-			// Attempt to save model
 			if( ! $model->save() )
 			{
 				if ( Request::ajax() ) return Response::json($model->errors(), 400);

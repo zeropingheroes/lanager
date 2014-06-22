@@ -57,16 +57,10 @@ class UsersController extends BaseController {
 	 */
 	public function show($id)
 	{
-		if( $user = User::visible()->find($id) )
-		{
-			return View::make('users.show')
-						->with('title',$user->username)
-						->with('user',$user);
-		}
-		else
-		{
-			App::abort(404, 'User not found');
-		}
+		$user = User::visible()->findOrFail($id);
+		return View::make('users.show')
+					->with('title',$user->username)
+					->with('user',$user);
 	}
 
 	/**
