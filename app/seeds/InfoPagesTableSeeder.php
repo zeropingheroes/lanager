@@ -1,6 +1,6 @@
 <?php namespace Zeropingheroes\Lanager\Seeds;
 
-use Zeropingheroes\Lanager\Models\InfoPage;
+use Zeropingheroes\Lanager\InfoPages\InfoPage;
 use Illuminate\Database\Seeder,
 	Illuminate\Support\Facades\DB;
 

@@ -1,22 +1,20 @@
 <?php namespace Zeropingheroes\Lanager\Users;
 
-use Zeropingheroes\Lanager\Models\User,
-	Zeropingheroes\Lanager\Users\SteamUsers\Interfaces\SteamUserRepositoryInterface,
-	Zeropingheroes\Lanager\Users\Exceptions\UserImportException;
+use	Zeropingheroes\Lanager\Users\SteamUsers\SteamUserContract;
 use Request, Event;
 
 class UserImport {
 	
-	protected $steamUserInterface;
+	protected $steamUser;
 	
-	public function __construct(SteamUserRepositoryInterface $steamUserInterface)
+	public function __construct(SteamUserContract $steamUser)
 	{
-		$this->steamUserInterface = $steamUserInterface;
+		$this->steamUser = $steamUser;
 	}
 
 	public function fromSteam($steamId64)
 	{
-		$steamUser = $this->steamUserInterface->getUser($steamId64);
+		$steamUser = $this->steamUser->getUser($steamId64);
 
 		// Create new user if they are not found in the database
 		if( ! $user = User::where('steam_id_64', '=', $steamId64)->first()) $user = new User;

@@ -11,16 +11,16 @@
 */
 
 App::bind(
-	'Zeropingheroes\Lanager\Users\SteamUsers\Interfaces\SteamUserRepositoryInterface',
-	'Zeropingheroes\Lanager\Users\SteamUsers\Repositories\LocomotiveSteamUserRepository'
+	'Zeropingheroes\Lanager\Users\SteamUsers\SteamUserContract',
+	'Zeropingheroes\Lanager\Users\SteamUsers\LocomotiveSteamUserRepository'
 	);
 
 App::bind(
-	'Zeropingheroes\Lanager\Interfaces\SteamAppRepositoryInterface',
-	'Zeropingheroes\Lanager\Repositories\LocomotiveSteamAppRepository'
+	'Zeropingheroes\Lanager\Applications\SteamApplications\SteamApplicationContract',
+	'Zeropingheroes\Lanager\Applications\SteamApplications\LocomotiveSteamApplicationRepository'
 	);
 
 App::bind(
-	'Zeropingheroes\Lanager\Interfaces\StateRepositoryInterface',
-	'Zeropingheroes\Lanager\Repositories\EloquentStateRepository'
+	'Zeropingheroes\Lanager\States\StateContract',
+	'Zeropingheroes\Lanager\States\EloquentStateRepository'
 	);

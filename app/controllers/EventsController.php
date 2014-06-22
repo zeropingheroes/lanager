@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Models\Event,
-	Zeropingheroes\Lanager\Models\EventType;
+use Zeropingheroes\Lanager\Events\Event,
+	Zeropingheroes\Lanager\Events\Types\Type;
 use View, Input, Redirect, Request, Response, URL, Auth;
 
 class EventsController extends BaseController {
@@ -48,8 +48,8 @@ class EventsController extends BaseController {
 	 */
 	public function index()
 	{
-		$events = Event::orderBy('start')->get();
-		
+		$events = Event::orderBy('start')->with('type')->get();
+	
 		return View::make('events.index')
 					->with('title','Events List')
 					->with('events',$events);
@@ -62,7 +62,7 @@ class EventsController extends BaseController {
 	 */
 	public function create()
 	{
-		$eventTypes = array('' => ' ') + EventType::lists('name','id');
+		$eventTypes = array('' => ' ') + Type::lists('name','id');
 		$event = new Event;
 		return View::make('events.create')
 					->with('title','Create Event')
@@ -114,7 +114,7 @@ class EventsController extends BaseController {
 	public function edit($id)
 	{
 		$event = Event::findOrFail($id);
-		$eventTypes = array('' => ' ') + EventType::lists('name','id');
+		$eventTypes = array('' => ' ') + Type::lists('name','id');
 
 		return View::make('events.edit')
 					->with('title','Edit Event')

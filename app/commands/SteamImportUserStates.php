@@ -1,10 +1,10 @@
 <?php namespace Zeropingheroes\Lanager\Commands;
 
-use Zeropingheroes\Lanager\Models\User,
-	Zeropingheroes\Lanager\Models\State,
-	Zeropingheroes\Lanager\Models\Application,
-	Zeropingheroes\Lanager\Models\Server,
-	Zeropingheroes\Lanager\Users\SteamUsers\Interfaces\SteamUserRepositoryInterface;
+use Zeropingheroes\Lanager\Users\User,
+	Zeropingheroes\Lanager\States\State,
+	Zeropingheroes\Lanager\Applications\Application,
+	Zeropingheroes\Lanager\Servers\Server,
+	Zeropingheroes\Lanager\Users\SteamUsers\SteamUserContract;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -27,19 +27,19 @@ class SteamImportUserStates extends BaseCommand {
 	/**
 	 * The steam user interface.
 	 *
-	 * @var SteamUser
+	 * @var SteamUserContract
 	 */
-	protected $steamUsers;
+	protected $steamUserInterface;
 
 	/**
 	 * Create a new command instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(SteamUserRepositoryInterface $steamUsers)
+	public function __construct(SteamUserContract $steamUserInterface)
 	{
 		parent::__construct();
-		$this->steamUsers = $steamUsers;
+		$this->steamUserInterface = $steamUserInterface;
 	}
 
 	/**
@@ -59,17 +59,17 @@ class SteamImportUserStates extends BaseCommand {
 		}
 		
 		$this->customInfo('Requesting current status of '.count($users).' users from Steam');
-		$steamUsers = $this->steamUsers->getUsers($users);
+		$steamUserInterface = $this->steamUserInterface->getUsers($users);
 
-		if( count($steamUsers) < count($users) ) $this->customError('Steam responded with '.(count($users)-count($steamUsers)).' fewer users than requested');
+		if( count($steamUserInterface) < count($users) ) $this->customError('Steam responded with '.(count($users)-count($steamUserInterface)).' fewer users than requested');
 
-		$this->customInfo('Importing '.count($steamUsers).' user states from Steam into database');
+		$this->customInfo('Importing '.count($steamUserInterface).' user states from Steam into database');
 
 		$successCount = 0;
 		$failureCount = 0;
 		$appFailureCount = 0;
 
-		foreach($steamUsers as $steamUser)
+		foreach($steamUserInterface as $steamUser)
 		{
 			$currentApplication = NULL;
 			$currentServer = NULL;

@@ -1,6 +1,6 @@
 <?php namespace Zeropingheroes\Lanager\Seeds;
 
-use	Zeropingheroes\Lanager\Models\Role;
+use	Zeropingheroes\Lanager\Roles\Role;
 use Illuminate\Database\Seeder,
 	Illuminate\Support\Facades\DB;
 

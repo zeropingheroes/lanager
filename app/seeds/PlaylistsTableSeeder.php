@@ -1,6 +1,6 @@
 <?php namespace Zeropingheroes\Lanager\Seeds;
 
-use	Zeropingheroes\Lanager\Models\Playlist;
+use	Zeropingheroes\Lanager\Playlists\Playlist;
 use Illuminate\Database\Seeder,
 	Illuminate\Support\Facades\DB;
 

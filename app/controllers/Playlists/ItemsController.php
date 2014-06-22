@@ -1,8 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Playlists;
 
 use Zeropingheroes\Lanager\BaseController;
-use Zeropingheroes\Lanager\Models\Playlist,
-	Zeropingheroes\Lanager\Models\Playlist\Item;
+use Zeropingheroes\Lanager\Playlists\Playlist,
+	Zeropingheroes\Lanager\Playlists\Items\Item;
 use View, Response, Auth, Input, Redirect, Request, DateTime;
 
 class ItemsController extends BaseController {

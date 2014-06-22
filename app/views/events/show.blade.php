@@ -1,8 +1,8 @@
 @extends('layouts.default')
 @section('content')
 	<?php $eventTimespan = new Zeropingheroes\Lanager\Helpers\Timespan($event->start, $event->end); ?>
-	@if( isset( $event->event_type->name ) )
-		<h4>{{{ $event->event_type->name }}}</h4>
+	@if( isset( $event->type->name ) )
+		<h4>{{{ $event->type->name }}}</h4>
 	@endif
 	<div class="row">
 		<div class="col-md-6">

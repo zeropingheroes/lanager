@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Illuminate\Routing\Controller;
-use Zeropingheroes\Lanager\Models\BaseModel;
+use Zeropingheroes\Lanager\BaseModel;
 use Redirect, Request, Event, Route, Response;
 
 class BaseController extends Controller {

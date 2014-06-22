@@ -1,14 +1,11 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Models\User,
-	Zeropingheroes\Lanager\Models\Role;
-use App, Input, Redirect, View;
-use LightOpenID;
+use Zeropingheroes\Lanager\Users\User,
+	Zeropingheroes\Lanager\Roles\Role;
+use Input, Redirect, View;
 
 class UsersController extends BaseController {
 
-	protected $steamInterface;
-	
 	public function __construct()
 	{
 		$this->beforeFilter('checkResourcePermission',array('only' => array('create', 'store', 'edit', 'update', 'destroy') ));
@@ -104,18 +101,12 @@ class UsersController extends BaseController {
 	 */
 	public function editRoles($id)
 	{
-		if( $user = User::visible()->find($id) )
-		{
-			$roles = Role::all();
-			return View::make('users.roles')
-							->with('title', $user->username.' - Roles')
-							->with('user', $user)
-							->with('roles', $roles);
-		}
-		else
-		{
-			App::abort(404, 'Page not found');
-		}
+		$user = User::visible()->findOrFail($id);
+		$roles = Role::all();
+		return View::make('users.roles')
+						->with('title', $user->username.' - Roles')
+						->with('user', $user)
+						->with('roles', $roles);
 	}
 
 	/**
@@ -125,16 +116,9 @@ class UsersController extends BaseController {
 	 */
 	public function updateRoles($id)
 	{
-		if( $user = User::visible()->find($id) )
-		{
-			$userRoles = (is_array(Input::get('userRoles')) ? Input::get('userRoles') : array() );
-			$user->roles()->sync($userRoles);
-			return Redirect::route('users.roles.edit',array('user' => $user->id));
-		}
-		else
-		{
-			App::abort(404, 'Page not found');
-		}
+		$userRoles = (is_array(Input::get('userRoles')) ? Input::get('userRoles') : array() );
+		$user->roles()->sync($userRoles);
+		return Redirect::route('users.roles.edit',array('user' => $user->id));
 	}
 
 }

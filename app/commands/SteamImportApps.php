@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager\Commands;
 
-use Zeropingheroes\Lanager\Models\Application,
-	Zeropingheroes\Lanager\Interfaces\SteamAppRepositoryInterface;
+use Zeropingheroes\Lanager\Applications\Application,
+	Zeropingheroes\Lanager\Applications\SteamApplications\SteamApplicationContract;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -24,19 +24,19 @@ class SteamImportApps extends BaseCommand {
 	/**
 	 * The steam app interface.
 	 *
-	 * @var SteamApp
+	 * @var SteamApplicationContract
 	 */
-	protected $steamApps;
+	protected $steamApplicationInterface;
 
 	/**
 	 * Create a new command instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(SteamAppRepositoryInterface $steamApps)
+	public function __construct(SteamApplicationContract $steamApplicationInterface)
 	{
 		parent::__construct();
-		$this->steamApps = $steamApps;
+		$this->steamApplicationInterface = $steamApplicationInterface;
 	}
 
 	/**
@@ -47,15 +47,15 @@ class SteamImportApps extends BaseCommand {
 	public function fire()
 	{
 		$this->customInfo('Requesting all applications from Steam');
-		$steamApps = $this->steamApps->getAppList();
+		$steamApplicationInterface = $this->steamApplicationInterface->getApplicationList();
 
-		$this->customInfo('Importing '.count($steamApps).' applications from Steam into database');
+		$this->customInfo('Importing '.count($steamApplicationInterface).' applications from Steam into database');
 		
 		$successCount = 0;
 		$failureCount = 0;
 		$applicationsCreated = 0;
 
-		foreach($steamApps as $steamApp)
+		foreach($steamApplicationInterface as $steamApp)
 		{
 			$newApp = NULL;
 			try

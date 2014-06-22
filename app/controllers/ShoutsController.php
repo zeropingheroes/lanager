@@ -1,6 +1,6 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Models\Shout;
+use Zeropingheroes\Lanager\Shouts\Shout;
 use Input, Redirect, View, Auth;
 
 class ShoutsController extends BaseController {

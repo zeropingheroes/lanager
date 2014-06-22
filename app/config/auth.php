@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'model' => 'Zeropingheroes\Lanager\Models\User',
+	'model' => 'Zeropingheroes\Lanager\Users\User',
 
 	/*
 	|--------------------------------------------------------------------------

@@ -1,9 +1,9 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Models\Award,
-	Zeropingheroes\Lanager\Models\Lan,
-	Zeropingheroes\Lanager\Models\User,
-	Zeropingheroes\Lanager\Models\Achievement;
+use Zeropingheroes\Lanager\Awards\Award,
+	Zeropingheroes\Lanager\Achievements\Achievement,
+	Zeropingheroes\Lanager\Lans\Lan,
+	Zeropingheroes\Lanager\Users\User;
 use View, Input, Redirect, Request, Response;
 
 class AwardsController extends BaseController {

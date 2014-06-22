@@ -1,6 +1,6 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Models\InfoPage;
+use Zeropingheroes\Lanager\InfoPages\InfoPage;
 use View, Input, Redirect;
 
 class InfoPagesController extends BaseController {

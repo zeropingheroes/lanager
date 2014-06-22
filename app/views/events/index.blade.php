@@ -34,7 +34,7 @@
 				'name'			=> link_to_route('events.show', $event->name, $event->id),
 				'time'			=> $eventTimespan->naturalFormat(),
 				'status'		=> ($eventTimespan->status == 1 ? Label::success('In Progress') : ''),
-				'type'			=> (isset($event->event_type->name) ? $event->event_type->name : ''),
+				'type'			=> (isset($event->type->name) ? $event->type->name : 'asd'),
 				'signup-count'	=> $signupCount,
 				'signup-status'	=> $signupStatus,
 			);

@@ -1,9 +1,9 @@
 <?php namespace Zeropingheroes\Lanager\Playlists\Items;
 
 use Zeropingheroes\Lanager\BaseController;
-use Zeropingheroes\Lanager\Models\Playlist,
-	Zeropingheroes\Lanager\Models\Playlist\Item,
-	Zeropingheroes\Lanager\Models\Playlist\Item\Vote;
+use Zeropingheroes\Lanager\Playlists\Playlist,
+	Zeropingheroes\Lanager\Playlists\Items\Item,
+	Zeropingheroes\Lanager\Playlists\Items\Votes\Vote;
 use Response, Auth, Request, Redirect, Event;
 
 class VotesController extends BaseController {

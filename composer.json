@@ -31,18 +31,10 @@
 		"classmap": [
 			"app/commands",
 			"app/controllers",
-			"app/models",
-			"app/entities",
-			"app/repositories",
-			"app/interfaces",
-			"app/tests/TestCase.php",
 			"app/migrations",
 			"app/seeds",
-			"app/controllers",
-			"app/commands",
 			"app/validators",
-			"app/helpers",
-			"app/handlers"
+			"app/helpers"
 		]
 	},
 	"scripts": {
