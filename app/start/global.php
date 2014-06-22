@@ -55,10 +55,7 @@ Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 |
 */
 
-App::error(function(Exception $exception, $code)
-{
-	Log::error($exception);
-});
+require app_path().'/errors.php';
 
 /*
 |--------------------------------------------------------------------------

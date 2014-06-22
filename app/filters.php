@@ -81,14 +81,6 @@ Route::filter('checkResourcePermission', function($route, $request)
 			$id = $route->parameter($resourceName);
 		}
 	}
-
-	// print_r(array(
-	// 	'action'	=> $action,
-	// 	'resource'	=> $resource,
-	// 	'id'		=> $id,
-	// 	'resources'	=> $resources,
-	// 	'ids'		=> $ids,
-	// )); die();
 	
 	// Replace laravel-style route action names with their CRUD equivalents
 	$actionsToReplace = array('store', 'show', 'index', 'edit', 'destroy');
@@ -97,7 +89,7 @@ Route::filter('checkResourcePermission', function($route, $request)
 
 	if( Authority::cannot($action, $resource, $id) )
 	{
-		return App::abort(403, 'You do not have permission to perform this request.');
+		return App::abort(403);
 	}
 });
 
