@@ -94,7 +94,7 @@ class BaseController extends Controller {
 			if( Request::ajax() && $route['action'] == 'update' ) return Response::json($model, 200);
 
 			// Add the model we just inserted / updated into the route parameters
-			$route['parameters'][$modelName] = $model->id;
+			$route['parameters'][str_plural($modelName)] = $model->id;
 			return Redirect::route( $successRoute, $route['parameters'] );
 		}
 

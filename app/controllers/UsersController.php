@@ -94,31 +94,4 @@ class UsersController extends BaseController {
 		return $this->process( $user );		
 	}
 
-	/**
-	 * Show the form for editing the specified user's roles.
-	 *
-	 * @return Redirect
-	 */
-	public function editRoles($id)
-	{
-		$user = User::visible()->findOrFail($id);
-		$roles = Role::all();
-		return View::make('users.roles')
-						->with('title', $user->username.' - Roles')
-						->with('user', $user)
-						->with('roles', $roles);
-	}
-
-	/**
-	 * Update the specified user's roles in storage.
-	 *
-	 * @return Redirect
-	 */
-	public function updateRoles($id)
-	{
-		$userRoles = (is_array(Input::get('userRoles')) ? Input::get('userRoles') : array() );
-		$user->roles()->sync($userRoles);
-		return Redirect::route('users.roles.edit',array('user' => $user->id));
-	}
-
 }

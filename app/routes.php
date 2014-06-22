@@ -6,7 +6,6 @@
 |--------------------------------------------------------------------------
 */
 
-Route::pattern('user', '[0-9]+');
 Route::pattern('shout', '[0-9]+');
 Route::pattern('event', '[0-9]+');
 Route::pattern('playlist', '[0-9]+');
@@ -20,22 +19,8 @@ Route::pattern('lan', '[0-9]+');
 | Users
 |--------------------------------------------------------------------------
 */
-Route::group(array('before' => 'hasRole:SuperAdmin'), function()
-{
-	Route::get(
-		'users/{user}/roles',
-		array(
-			'as' => 'users.roles.edit',
-			'uses' => 'Zeropingheroes\Lanager\UsersController@editRoles')
-	);
-	Route::put(
-		'users/{user}/roles',
-		array(
-			'as' => 'users.roles.update',
-			'uses' => 'Zeropingheroes\Lanager\UsersController@updateRoles')
-	);
-});
 Route::resource('users', 'Zeropingheroes\Lanager\UsersController');
+Route::resource('role-assignments', 'Zeropingheroes\Lanager\RoleAssignmentsController');
 
 /*
 |--------------------------------------------------------------------------

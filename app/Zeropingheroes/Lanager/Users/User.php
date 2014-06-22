@@ -1,7 +1,9 @@
 <?php namespace Zeropingheroes\Lanager\Users;
 
 use Zeropingheroes\Lanager\BaseModel;
-use Illuminate\Auth\UserInterface;
+use Zeropingheroes\Lanager\Roles\Role;
+use Illuminate\Auth\UserInterface,
+	Illuminate\Support\MessageBag;
 
 class User extends BaseModel implements UserInterface {
 
@@ -54,6 +56,11 @@ class User extends BaseModel implements UserInterface {
 	public function roles()
 	{
 		return $this->belongsToMany('Zeropingheroes\Lanager\Roles\Role');
+	}
+
+	public function roleAssignments()
+	{
+		return $this->hasMany('Zeropingheroes\Lanager\RoleAssignments\RoleAssignment');
 	}
 
 	public function permissions()
@@ -139,15 +146,13 @@ class User extends BaseModel implements UserInterface {
 		return $query->whereVisible(true);
 	}
 
-
-
 	public function hasRole($key) 
 	{
-		foreach($this->roles as $role)
+		foreach($this->roleAssignments as $roleAssignment)
 		{
-			if($role->name === $key)
+			if($roleAssignment->role->name === $key)
 			{
-			return true;
+				return true;
 			}
 		}
 		return false;
@@ -172,7 +177,5 @@ class User extends BaseModel implements UserInterface {
 	{
 		return str_replace('.jpg', '_full.jpg', $this->avatar);
 	}
-
-
 
 }
