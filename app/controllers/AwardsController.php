@@ -22,10 +22,10 @@ class AwardsController extends BaseController {
 	 */
 	public function index()
 	{
-		$award = Award::onlyVisibleUsers()
+		$awards = Award::onlyVisibleUsers()
 						->get();
 		
-		if ( Request::ajax() ) return Response::json($award);
+		if ( Request::ajax() ) return Response::json($awards);
 		return Redirect::route('achievements.index');
 	}
 
