@@ -11,6 +11,16 @@ class User extends BaseModel implements UserInterface {
 	 */
 	protected $table = 'users';
 
+
+	public static $rules = array(
+		'username'			=> 'required|max:32',
+		'steam_id_64'		=> 'required|max:17',
+		'steam_visibility'	=> 'required',
+		'ip'				=> 'ip',
+		'avatar'			=> 'url',
+		//'visible'			=> 'boolean'
+	);
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *

@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\Models\User,
 	Zeropingheroes\Lanager\Models\State,
 	Zeropingheroes\Lanager\Models\Application,
 	Zeropingheroes\Lanager\Models\Server,
-	Zeropingheroes\Lanager\Interfaces\SteamUserRepositoryInterface;
+	Zeropingheroes\Lanager\Users\SteamUsers\Interfaces\SteamUserRepositoryInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 

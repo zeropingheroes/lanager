@@ -11,8 +11,8 @@
 */
 
 App::bind(
-	'Zeropingheroes\Lanager\Interfaces\SteamUserRepositoryInterface',
-	'Zeropingheroes\Lanager\Repositories\LocomotiveSteamUserRepository'
+	'Zeropingheroes\Lanager\Users\SteamUsers\Interfaces\SteamUserRepositoryInterface',
+	'Zeropingheroes\Lanager\Users\SteamUsers\Repositories\LocomotiveSteamUserRepository'
 	);
 
 App::bind(

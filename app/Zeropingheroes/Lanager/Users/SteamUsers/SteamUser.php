@@ -1,4 +1,4 @@
-<?php namespace Zeropingheroes\Lanager\Entities;
+<?php namespace Zeropingheroes\Lanager\Users\SteamUsers;
 
 class SteamUser {
 

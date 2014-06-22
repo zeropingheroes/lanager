@@ -99,8 +99,8 @@ class UsersController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		User::visible()->destroy($id);
-		return Redirect::route('users.index');
+		$user = User::visible()->findOrFail($id);
+		return $this->process( $user );		
 	}
 
 	/**

@@ -71,7 +71,7 @@ class BaseController extends Controller {
 		if( $route['action'] == 'destroy')
 		{
 			// Attempt to destroy model
-			if( ! $model->destroy($model->id) )
+			if( ! $model->delete() )
 			{
 				if ( Request::ajax() ) return Response::json($model->errors(), 400);
 				return Redirect::route( $failureRoute, $route['parameters'] )->withErrors($model->errors());
@@ -90,7 +90,9 @@ class BaseController extends Controller {
 				if ( Request::ajax() ) return Response::json($model->errors(), 400);
 				return Redirect::route( $failureRoute, $route['parameters'] )->withErrors($model->errors());
 			}
-			if ( Request::ajax() ) return Response::json($model, 201);
+
+			if( Request::ajax() && $route['action'] == 'create' ) return Response::json($model, 201);
+			if( Request::ajax() && $route['action'] == 'update' ) return Response::json($model, 200);
 
 			// Add the model we just inserted / updated into the route parameters
 			$route['parameters'][$modelName] = $model->id;

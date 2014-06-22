@@ -1,7 +1,8 @@
-<?php namespace Zeropingheroes\Lanager\Repositories;
+<?php namespace Zeropingheroes\Lanager\Users\SteamUsers\Repositories;
 
-use Zeropingheroes\Lanager\Entities\SteamUser,
-	Zeropingheroes\Lanager\Interfaces\SteamUserRepositoryInterface;
+use Zeropingheroes\Lanager\Users\SteamUsers\SteamUser,
+	Zeropingheroes\Lanager\Users\SteamUsers\Interfaces\SteamUserRepositoryInterface,
+	Zeropingheroes\Lanager\Users\SteamUsers\Exceptions\SteamUserNotFoundException;
 use Config;
 use Tsukanov\SteamLocomotive\Locomotive;
 
@@ -17,31 +18,30 @@ class LocomotiveSteamUserRepository implements SteamUserRepositoryInterface {
 	/**
 	 * Get a single SteamUser by ID
 	 *
-	 * @param  string   $id
+	 * @param  string   $steamId64
 	 * @return object SteamUser|null
 	 */
-	public function getUser($id)
+	public function getUser($steamId64)
 	{
-		$steamUsers = $this->getUsers(array($id));
+		if( strlen($steamId64) != 17 ) throw new \InvalidArgumentException('SteamId64 must be 17 characters in length');
+
+		$steamUsers = $this->getUsers(array($steamId64));
 		if(count($steamUsers) == 1)
 		{
 			return $steamUsers[0];
 		}
-		else
-		{
-			return NULL;
-		}
+		throw new SteamUserNotFoundException('User with SteamId64 '. $steamId64 . ' not found');
 	}
 
 	/**
 	 * Get many SteamUsers by ID
 	 *
-	 * @param  array   $ids
+	 * @param  array   $steamId64s
 	 * @return array
 	 */
-	public function getUsers(array $ids)
+	public function getUsers(array $steamId64s)
 	{
-		$profiles = $this->steamApi->ISteamUser->GetPlayerSummaries($ids);
+		$profiles = $this->steamApi->ISteamUser->GetPlayerSummaries($steamId64s);
 		foreach ($profiles->response->players as $profile)
 		{
 			$steamUser = new SteamUser;
@@ -78,10 +78,7 @@ class LocomotiveSteamUserRepository implements SteamUserRepositoryInterface {
 		{
 			return $steamUsers;
 		}
-		else
-		{
-			return array();
-		}
+		return array();
 	}
 
 }

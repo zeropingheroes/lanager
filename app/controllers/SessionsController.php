@@ -1,7 +1,6 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use	Zeropingheroes\Lanager\Models\User,
-	Zeropingheroes\Lanager\Interfaces\SteamUserRepositoryInterface;
+use	Zeropingheroes\Lanager\Models\User;
 use Illuminate\Support\MessageBag;
 use LightOpenID;
 use Auth, Input, Request, Redirect, View, UserImport;
@@ -9,15 +8,13 @@ use Auth, Input, Request, Redirect, View, UserImport;
 class SessionsController extends BaseController {
 
 
-	public function __construct(SteamUserRepositoryInterface $steamInterface)
+	public function __construct()
 	{
-		$this->steamInterface = $steamInterface;
 		$this->beforeFilter('checkResourcePermission',array('only' => array('index', 'store', 'edit', 'update')));
 	}
 
 	/**
 	 * Display a listing of the resource.
-	 * GET /sessions
 	 *
 	 * @return Response
 	 */
@@ -28,7 +25,6 @@ class SessionsController extends BaseController {
 
 	/**
 	 * Show the form for creating a new resource.
-	 * GET /sessions/create
 	 *
 	 * @return Response
 	 */
@@ -44,7 +40,6 @@ class SessionsController extends BaseController {
 
 	/**
 	 * Store a newly created resource in storage.
-	 * POST /sessions
 	 *
 	 * @return Response
 	 */
@@ -56,27 +51,17 @@ class SessionsController extends BaseController {
 			$openId = new LightOpenID(Request::server('HTTP_HOST'));
 			if ( $openId->validate() )
 			{
-				if( $user = UserImport::fromSteam( substr($openId->identity, -17) ) )
-				{
-					Auth::login($user);
-					if( $user->steam_visibility != 3 ) return Redirect::route('users.show', $user->id);
-					return Redirect::to('/');
-				}
-				else
-				{
-					return Redirect::route( 'session.login' )->withErrors(new Messagebag(array('Unable to import user from Steam.')));
-				}
+				$user = UserImport::fromSteam( substr($openId->identity, -17) );
+				Auth::login($user);
+				if( $user->steam_visibility != 3 ) return Redirect::route('users.show', $user->id);
+				return Redirect::to('/');
 			}
-			else
-			{
-				return Redirect::route( 'session.login' )->withErrors(new Messagebag(array('Unable to validate OpenID.')));
-			}
+			return Redirect::route( 'sessions.login' )->withErrors(new Messagebag(array('Unable to validate OpenID.')));
 		}
 	}
 
 	/**
 	 * Display the specified resource.
-	 * GET /sessions/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -88,7 +73,6 @@ class SessionsController extends BaseController {
 
 	/**
 	 * Show the form for editing the specified resource.
-	 * GET /sessions/{id}/edit
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -100,7 +84,6 @@ class SessionsController extends BaseController {
 
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /sessions/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -112,7 +95,6 @@ class SessionsController extends BaseController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /sessions/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
