@@ -64,6 +64,10 @@ return array(
 			$authority->allow('create', 'playlist.item.votes');
 			$authority->allow('delete', 'playlist.item.votes');
 
+			// Event Signups
+			$authority->allow('create', 'signups');
+			$authority->allow('delete', 'signups');
+
 			// Users
 			$authority->allow('delete', 'users', function($self, $user) 
 			{
