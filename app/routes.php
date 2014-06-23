@@ -62,24 +62,9 @@ Route::get(
 | Events
 |--------------------------------------------------------------------------
 */
-Route::get('events/timetable', 
-	array(
-		'as' => 'events.timetable',
-		'uses' => 'Zeropingheroes\Lanager\EventsController@timetable')
-);
-Route::get(
-	'events/{event}/join',
-	array(
-		'as' => 'events.join',
-		'uses' => 'Zeropingheroes\Lanager\EventsController@join')
-);
-Route::get(
-	'events/{event}/leave',
-	array(
-		'as' => 'events.leave',
-		'uses' => 'Zeropingheroes\Lanager\EventsController@leave')
-);
+Route::get('events/timetable', array('as' => 'events.timetable', 'uses' => 'Zeropingheroes\Lanager\EventsController@timetable'));
 Route::resource('events', 'Zeropingheroes\Lanager\EventsController');
+Route::resource('signups', 'Zeropingheroes\Lanager\SignupsController');
 
 /*
 |--------------------------------------------------------------------------

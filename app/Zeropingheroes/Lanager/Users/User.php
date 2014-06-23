@@ -38,11 +38,6 @@ class User extends BaseModel implements UserInterface {
 		return $this->hasMany('Zeropingheroes\Lanager\Playlists\Items\Votes\Vote');
 	}
 
-	public function events()
-	{
-		return $this->belongsToMany('Zeropingheroes\Lanager\Events\Event', 'event_signups')->withTimestamps();
-	}
-
 	public function awards()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\Awards\Award');
@@ -61,6 +56,11 @@ class User extends BaseModel implements UserInterface {
 	public function roleAssignments()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\RoleAssignments\RoleAssignment');
+	}
+
+	public function signups()
+	{
+		return $this->hasMany('Zeropingheroes\Lanager\Signups\Signup');
 	}
 
 	public function permissions()

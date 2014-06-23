@@ -27,12 +27,14 @@ class BaseController extends Controller {
 	 * @param  str 			$failureRoute 	The full route name to redirect to when errors are found
 	 * @return void
 	 */
-	protected function process( BaseModel $model, $successRoute = '', $failureRoute = '' )
+	protected function process( BaseModel $model, $successRoute = '', $failureRoute = '', $extraRouteParameters = '' )
 	{
 		// Collect route and model information
 		$route['action'] = substr( Route::currentRouteName(), strrpos( Route::currentRouteName(), '.' )+1 );
 		$route['resource'] = str_replace('.' . $route['action'], '', Route::currentRouteName());
 		$route['parameters'] = Route::current()->parameters();
+		$route['parameters'] = is_array($extraRouteParameters) ? array_merge($route['parameters'], $extraRouteParameters) : $route['parameters']; 
+		
 		$reflection = new \ReflectionClass($model);
 		$modelName = strtolower($reflection->getShortName());
 

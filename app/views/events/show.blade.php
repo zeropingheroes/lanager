@@ -59,29 +59,52 @@
 		</div>
 		<hr>
 
-		@if(count($event->users))
+		@if(count($event->signups))
 			<?php
 			$tableBody = array();
-			foreach( $event->users as $user )
+			$controls = '';
+			foreach( $event->signups as $signup )
 			{
+
+				if($signup->user_id == Auth::user()->id)
+				{
+					$controls = Form::open(
+								array(
+									'route' => array('signups.destroy',  $signup->id),
+									'method' => 'DELETE',
+									'class' => 'form-inline')
+								).
+					Button::xs_submit('', array('title' => 'Leave this event', 'name' => 'Submit' ))->with_icon('trash').
+					Form::close();
+				}
+
 				$tableBody[] = array(
-					'user'			=> '<a href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
-					'signup-time'	=> ExpressiveDate::make($user->pivot->created_at)->getRelativeDate(),
+					'user'			=> '<a href="'.URL::route('users.show', $signup->user->id).'">'.HTML::userAvatar($signup->user).' '.e($signup->user->username).'</a>',
+					'signup-time'	=> ExpressiveDate::make($signup->created_at)->getRelativeDate(),
+					'controls'		=> $controls,
 				);
+				$controls = '';
 			}
 			?>
 			{{ Table::open(array('class' => 'signups')) }}
-			{{ Table::headers('User', 'Signed Up') }}
+			{{ Table::headers('User', 'Signed Up', '') }}
 			{{ Table::body($tableBody) }}
 			{{ Table::close() }}
 		@else
 			<p>No users signed up!</p>
 		@endif
-		@if( Auth::check() )
-			@if( !$event->users->contains(Auth::user()) AND $signupTimespan->status === 1)
-				{{ Button::link(URL::route('events.join', array('event' => $event->id)), 'Join') }}
-			@elseif( $event->users->contains(Auth::user()) )
-				{{ Button::link(URL::route('events.leave', array('event' => $event->id)), 'Leave') }}
+		@if(Authority::can('create', 'signup'))
+			@if( ! $event->hasSignupFromUser(Auth::user()->id))
+				{{ Form::open(
+							array(
+								'route' => 'signups.store',
+								'method' => 'POST',
+								'class' => 'form-inline')
+							) }}
+				{{ Form::hidden('event_id', $event->id) }}
+				{{ Form::hidden('user_id', Auth::user()->id) }}
+				{{ Button::submit('Sign Up', array('title' => 'Sign up to this event', 'name' => 'Submit' )) }}
+				{{ Form::close() }}
 			@endif
 		@endif
 	@endif

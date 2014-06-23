@@ -20,9 +20,14 @@ class Event extends BaseModel {
 		return $this->belongsTo('Zeropingheroes\Lanager\Events\Types\Type', 'event_type_id');
 	}
 
-	public function users()
+	public function signups()
 	{
-		return $this->belongsToMany('Zeropingheroes\Lanager\Users\User', 'event_signups')->withTimestamps();
+		return $this->hasMany('Zeropingheroes\Lanager\Signups\Signup');
+	}
+
+	public function hasSignupFromUser($userId)
+	{
+		return ($this->signups()->where('user_id', $userId)->count() > 0);
 	}
 
 	public function beforeSave()
