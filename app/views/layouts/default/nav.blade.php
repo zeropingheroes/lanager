@@ -56,10 +56,10 @@
 					{{ link_to_route('users.index', 'People') }}
 				</li>
 				<li class="{{ Request::is('statistics/applications/current-usage*') ? 'active' : '' }}">
-					{{ link_to_route('statistics.applications.current-usage', 'Games') }}
+					{{ link_to_route('usage.show', 'Games', 'applications') }}
 				</li>
 				<li class="{{ Request::is('statistics/servers/current-usage*') ? 'active' : '' }}">
-					{{ link_to_route('statistics.servers.current-usage', 'Servers') }}
+					{{ link_to_route('usage.show', 'Servers', 'servers') }}
 				</li>
 				<li class="dropdown {{ Request::is('playlists*') ? 'active' : '' }}">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Playlist

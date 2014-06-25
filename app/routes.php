@@ -2,14 +2,6 @@
 
 /*
 |--------------------------------------------------------------------------
-| Route Patterns
-|--------------------------------------------------------------------------
-*/
-
-Route::pattern('event', '[0-9]+');
-
-/*
-|--------------------------------------------------------------------------
 | Users
 |--------------------------------------------------------------------------
 */
@@ -41,21 +33,10 @@ Route::resource('shouts', 'Zeropingheroes\Lanager\ShoutsController');
 
 /*
 |--------------------------------------------------------------------------
-| Statistics
+| Usage
 |--------------------------------------------------------------------------
 */
-Route::get(
-	'statistics/applications/current-usage',
-	array(
-		'as' => 'statistics.applications.current-usage',
-		'uses' => 'Zeropingheroes\Lanager\StatesController@currentApplicationUsage')
-);
-Route::get(
-	'statistics/servers/current-usage',
-	array(
-		'as' => 'statistics.servers.current-usage',
-		'uses' => 'Zeropingheroes\Lanager\StatesController@currentServerUsage')
-);
+Route::resource('usage', 'Zeropingheroes\Lanager\UsageController', array('only' => array('index', 'show')));
 
 /*
 |--------------------------------------------------------------------------
