@@ -3,6 +3,7 @@
 use Zeropingheroes\Lanager\States\State,
 	Zeropingheroes\Lanager\Users\User;
 use Zeropingheroes\Lanager\States\StateContract;
+use DB;
 
 class EloquentStateRepository implements StateContract {
 
@@ -11,21 +12,24 @@ class EloquentStateRepository implements StateContract {
 	 *
 	 * @return object QueryBuilder
 	 */
-	protected function currentStates()
+	protected function getStates($timestamp = '')
 	{
+		$timestamp = !empty($timestamp) ? $timestamp : time();
 		return State::select('states.*')
-							->leftJoin('states as t2', function($join)
-							{
-								$join->on('states.user_id', '=', 't2.user_id')
-									 ->on('states.created_at', '<', 't2.created_at');
-							})->whereNull('t2.user_id')
-							->where('states.created_at', '>=', date('Y-m-d H:i:s',time()-300)) // no states older than 5 mins
-							->whereIn('states.user_id', function($query)
-							{
-								$query->select('id')
-										->from(with(new User)->getTable())
-										->where('visible', 1);
-							})
+							->join(
+								DB::raw('(
+										SELECT max(created_at) max_created_at, user_id
+						    			FROM states
+						    			WHERE created_at
+						    				BETWEEN from_unixtime('.($timestamp-60).') AND from_unixtime('.$timestamp.')
+						    			GROUP BY user_id
+						    			) s2'),
+								function($join)
+								{
+									$join->on('states.user_id', '=', 's2.user_id')
+										 ->on('states.created_at', '=', 's2.max_created_at');
+								})
+							->orderBy('states.user_id')
 							->with('application', 'server', 'user');
 	}
 
@@ -40,13 +44,13 @@ class EloquentStateRepository implements StateContract {
 		// No user(s) specified
 		if( ! $users )
 		{
-			return $this->currentStates()->get();
+			return $this->getStates($timestamp)->get();
 		}
 		
 		// One user specified
 		if( is_object($users) )
 		{
-			return $this->currentStates()->where('states.user_id', '=', $users->id)->get();
+			return $this->getStates($timestamp)->where('states.user_id', '=', $users->id)->get();
 		}		
 
 		// Several users specified
@@ -56,7 +60,7 @@ class EloquentStateRepository implements StateContract {
 			{
 				$userIds[] = $user->id;
 			}
-			return $this->currentStates()->where('states.user_id', '=', $userIds)->get();
+			return $this->getStates($timestamp)->where('states.user_id', '=', $userIds)->get();
 		}
 	}
 
@@ -65,9 +69,9 @@ class EloquentStateRepository implements StateContract {
 	 *
 	 * @return array
 	 */
-	public function getCurrentApplicationUsage()
+	public function getCurrentApplicationUsage($timestamp)
 	{
-		$states = $this->currentStates()->whereNotNull('states.application_id')->get();
+		$states = $this->getStates($timestamp)->whereNotNull('states.application_id')->get();
 
 		if( count($states) )
 		{
@@ -108,7 +112,7 @@ class EloquentStateRepository implements StateContract {
 	 */
 	public function getCurrentServerUsage()
 	{
-		$states = $this->currentStates()->whereNotNull('states.server_id')->get();
+		$states = $this->getStates($timestamp)->whereNotNull('states.server_id')->get();
 
 		if( count($states) )
 		{

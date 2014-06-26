@@ -15,7 +15,7 @@ interface StateContract {
 	 *
 	 * @return array
 	 */
-	public function getCurrentApplicationUsage();
+	public function getCurrentApplicationUsage($timestamp);
 
 	/**
 	 * Get servers currently being used by users

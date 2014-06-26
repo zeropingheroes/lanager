@@ -1,7 +1,8 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\States\StateContract;
-use View, Response, Input, App;
+use Zeropingheroes\Lanager\States\State;
+use View, Response, Input, App, ExpressiveDate;
 
 class UsageController extends BaseController {
 
@@ -22,7 +23,7 @@ class UsageController extends BaseController {
 	 */
 	public function index()
 	{
-		return 'all types of usage at '.$this->timestamp;
+		//
 	}
 
 	/**
@@ -38,7 +39,7 @@ class UsageController extends BaseController {
 		switch($resource)
 		{
 			case 'applications':
-				$usage = $this->stateInterface->getCurrentApplicationUsage();
+				$usage = $this->stateInterface->getCurrentApplicationUsage($this->timestamp);
 				$title = 'Games Currently Being Played';
 				break;
 			case 'servers':
@@ -46,10 +47,12 @@ class UsageController extends BaseController {
 				$title = 'Game Servers Currently Being Used';
 				break;
 		}
+		$lastUpdated = new ExpressiveDate(State::max('created_at'));
 
 		return View::make('usage.'.$resource)
 					->with('title',$title)
-					->with($resource,$usage);
+					->with($resource,$usage)
+					->with('lastUpdated',$lastUpdated);
 	}
 
 }
