@@ -3,25 +3,25 @@
 interface StateContract {
 
 	/**
-	 * Get current states for specified user(s)
+	 * Get states for specified user(s)
 	 *
 	 * @param  array   $users|null
 	 * @return array|object State
 	 */
-	public function getCurrentUserStates($users = null);
+	public function getUserStates($users = null);
 
 	/**
 	 * Get applications currently being used by users
 	 *
 	 * @return array
 	 */
-	public function getCurrentApplicationUsage($timestamp);
+	public function getApplicationUsage($applications = null, $timestamp = null);
 
 	/**
 	 * Get servers currently being used by users
 	 *
 	 * @return array
 	 */
-	public function getCurrentServerUsage();
+	public function getServerUsage($servers = null, $timestamp = null);
 
 }

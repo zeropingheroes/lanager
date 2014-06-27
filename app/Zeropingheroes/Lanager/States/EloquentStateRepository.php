@@ -12,7 +12,7 @@ class EloquentStateRepository implements StateContract {
 	 *
 	 * @return object QueryBuilder
 	 */
-	protected function getStates($timestamp = '')
+	protected function createStatesQuery($timestamp = '')
 	{
 		$timestamp = !empty($timestamp) ? $timestamp : time();
 		return State::select('states.*')
@@ -39,18 +39,18 @@ class EloquentStateRepository implements StateContract {
 	 * @param  object|array   $users|null
 	 * @return array|object State
 	 */
-	public function getCurrentUserStates( $users = null )
+	public function getUserStates( $users = null, $timestamp = null )
 	{
 		// No user(s) specified
 		if( ! $users )
 		{
-			return $this->getStates($timestamp)->get();
+			return $this->createStatesQuery($timestamp)->get(); // Get states for all users
 		}
 		
 		// One user specified
 		if( is_object($users) )
 		{
-			return $this->getStates($timestamp)->where('states.user_id', '=', $users->id)->get();
+			return $this->createStatesQuery($timestamp)->where('states.user_id', '=', $users->id)->get();
 		}		
 
 		// Several users specified
@@ -58,9 +58,9 @@ class EloquentStateRepository implements StateContract {
 		{
 			foreach($users as $user)
 			{
-				$userIds[] = $user->id;
+				$userIds[] = $user->id; // TODO: create a laravel collection instead
 			}
-			return $this->getStates($timestamp)->where('states.user_id', '=', $userIds)->get();
+			return $this->createStatesQuery($timestamp)->where('states.user_id', '=', $userIds)->get();
 		}
 	}
 
@@ -69,9 +69,10 @@ class EloquentStateRepository implements StateContract {
 	 *
 	 * @return array
 	 */
-	public function getCurrentApplicationUsage($timestamp)
+	public function getApplicationUsage($applications = null, $timestamp = null)
 	{
-		$states = $this->getStates($timestamp)->whereNotNull('states.application_id')->get();
+		unset($applications);
+		$states = $this->createStatesQuery($timestamp)->whereNotNull('states.application_id')->get();
 
 		if( count($states) )
 		{
@@ -110,9 +111,9 @@ class EloquentStateRepository implements StateContract {
 	 *
 	 * @return array
 	 */
-	public function getCurrentServerUsage()
+	public function getServerUsage($servers = null, $timestamp = null)
 	{
-		$states = $this->getStates($timestamp)->whereNotNull('states.server_id')->get();
+		$states = $this->createStatesQuery($timestamp)->whereNotNull('states.server_id')->get();
 
 		if( count($states) )
 		{

@@ -12,7 +12,7 @@ class UsageController extends BaseController {
 	public function __construct(StateContract $stateInterface)
 	{
 		$this->stateInterface = $stateInterface;
-		$this->timestamp = Input::get('timestamp', time());
+		$this->timestamp = ((Input::get('timestamp') < time()) && Input::get('timestamp') != 0) ? Input::get('timestamp') : time();
 	}
 
 
@@ -36,15 +36,18 @@ class UsageController extends BaseController {
 	{
 		if( !in_array($resource, array('applications', 'servers'))) App::abort(404);
 
+		$usageTime = new ExpressiveDate();
+		$usageTimeGrammar = ($this->timestamp == time()) ? 'Now' : $usageTime->setTimestamp($this->timestamp)->getRelativeDate();
+
 		switch($resource)
 		{
 			case 'applications':
-				$usage = $this->stateInterface->getCurrentApplicationUsage($this->timestamp);
-				$title = 'Games Currently Being Played';
+				$usage = $this->stateInterface->getApplicationUsage('', $this->timestamp);
+				$title = 'Games Being Played - '.$usageTimeGrammar;
 				break;
 			case 'servers':
-				$usage = $this->stateInterface->getCurrentServerUsage();
-				$title = 'Game Servers Currently Being Used';
+				$usage = $this->stateInterface->getServerUsage('', $this->timestamp);
+				$title = 'Game Servers Being Used - '.$usageTimeGrammar;
 				break;
 		}
 		$lastUpdated = new ExpressiveDate(State::max('created_at'));
