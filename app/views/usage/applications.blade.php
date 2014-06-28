@@ -24,4 +24,5 @@
 		<p>No usage to show!</p>
 	@endif
 	Last updated {{ $lastUpdated->getRelativeDate() }}
+	@include('usage.history-links')
 @endsection
