@@ -72,7 +72,7 @@ class AwardsController extends BaseController {
 			$award->lan_id = Lan::findOrFail(Input::get('lan_id'))->id;
 		}
 		
-		return $this->process( $award );
+		return $this->process( $award, 'achievements.index' );
 
 	}
 
@@ -117,8 +117,7 @@ class AwardsController extends BaseController {
 		if( Input::has('achievement_id') )	$award->achievement_id	= Achievement::findOrFail(Input::get('achievement_id'))->id;
 		if( Input::has('lan_id') )			$award->lan_id 			= Lan::findOrFail(Input::get('lan_id'))->id;
 
-		return $this->process( $award );
-
+		return $this->process( $award, 'achievements.index' );
 	}
 
 	/**
@@ -131,7 +130,7 @@ class AwardsController extends BaseController {
 	{
 		$award = Award::findOrFail($id);
 
-		return $this->process( $award );
+		return $this->process( $award, 'achievements.index' );
 	}
 
 }

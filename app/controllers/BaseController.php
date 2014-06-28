@@ -2,7 +2,7 @@
 
 use Illuminate\Routing\Controller;
 use Zeropingheroes\Lanager\BaseModel;
-use Redirect, Request, Event, Route, Response;
+use Redirect, Request, Event, Route, Response, Notification;
 
 class BaseController extends Controller {
 
@@ -76,31 +76,42 @@ class BaseController extends Controller {
 			if( ! $model->delete() )
 			{
 				if ( Request::ajax() ) return Response::json($model->errors(), 400);
-				return Redirect::route( $failureRoute, $route['parameters'] )->withErrors($model->errors());
+				Notification::danger($model->errors()->all());
+				return Redirect::route( $failureRoute, $route['parameters'] );
 			}
 		
 			if ( Request::ajax() ) return Response::json( $model, 204);
 			// Remove the model we just destroyed from the route parameters
 			unset($route['parameters'][str_plural($modelName)]);
-			return Redirect::route( $successRoute, $route['parameters'] );
+			$successParticiple = 'destroyed';
 		}
 		else // Storing or updating
 		{
 			if( ! $model->save() )
 			{
 				if ( Request::ajax() ) return Response::json($model->errors(), 400);
-				return Redirect::route( $failureRoute, $route['parameters'] )->withErrors($model->errors());
+				Notification::danger($model->errors()->all());
+				return Redirect::route( $failureRoute, $route['parameters'] );
 			}
 
-			if( Request::ajax() && $route['action'] == 'store' ) return Response::json($model, 201);
-			if( Request::ajax() && $route['action'] == 'update' ) return Response::json($model, 200);
+			if( $route['action'] == 'store' )
+			{
+				if( Request::ajax() ) return Response::json($model, 201);
+				$successParticiple = 'created';
+			}
+			else
+			{
+				if( Request::ajax() ) return Response::json($model, 200);
+				$successParticiple = 'updated';
+			}
 
 			// Add the model we just inserted / updated into the route parameters
 			$route['parameters'][str_plural($modelName)] = $model->id;
-			return Redirect::route( $successRoute, $route['parameters'] );
 		}
 
 		Event::fire( 'lanager.' . $route['resource'] . '.' . $route['action'], $model );
+		Notification::success('Successfully '. $successParticiple . ' ' .$modelName);
+		return Redirect::route($successRoute, $route['parameters'] );
 	}
 
 }

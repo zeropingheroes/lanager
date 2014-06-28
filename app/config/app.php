@@ -123,7 +123,7 @@ return array(
 		'ExpressiveDateServiceProvider',
 		'Zeropingheroes\Duration\DurationServiceProvider',
 		'Zeropingheroes\Lanager\Users\UserImportServiceProvider',
-
+		'Krucas\Notification\NotificationServiceProvider'
 
 	),
 
@@ -221,6 +221,7 @@ return array(
 		'Typeahead'				=> 'Bootstrapper\Typeahead',
 		'Typography'			=> 'Bootstrapper\Typography',
 		'Authority'				=> 'Authority\AuthorityL4\Facades\Authority',
+		'Notification'			=> 'Krucas\Notification\Facades\Notification'
 
 	),
 

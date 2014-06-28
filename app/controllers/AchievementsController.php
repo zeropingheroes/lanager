@@ -79,7 +79,7 @@ class AchievementsController extends BaseController {
 		if( Input::has('visible') && Input::get('visible') == 1) $achievement->visible = 1;
 		if( ! Input::has('visible') OR Input::get('visible') == 0) $achievement->visible = 0;
 
-		return $this->process( $achievement );		
+		return $this->process( $achievement, 'achievements.index' );		
 
 	}
 
@@ -130,7 +130,7 @@ class AchievementsController extends BaseController {
 		if( Input::has('visible') && Input::get('visible') == 1) $achievement->visible = 1;
 		if( ! Input::has('visible') OR Input::get('visible') == 0) $achievement->visible = 0;
 
-		return $this->process( $achievement );
+		return $this->process( $achievement, 'achievements.index' );
 
 	}
 

@@ -14,7 +14,8 @@
 		"machuga/authority-l4" : "dev-master",
 		"loic-sharma/profiler": "1.1.*",
 		"jasonlewis/expressive-date": "1.0.*",
-		"zeropingheroes/duration": "dev-master"
+		"zeropingheroes/duration": "dev-master",
+		"edvinaskrucas/notification": "2.*"
 	},
 	"authors": [
 	{

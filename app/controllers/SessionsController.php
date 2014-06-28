@@ -3,7 +3,7 @@
 use	Zeropingheroes\Lanager\Users\User;
 use Illuminate\Support\MessageBag;
 use LightOpenID;
-use Auth, Input, Request, Redirect, View, UserImport;
+use Auth, Input, Request, Redirect, View, UserImport, Notification;
 
 class SessionsController extends BaseController {
 
@@ -56,7 +56,8 @@ class SessionsController extends BaseController {
 				if( $user->steam_visibility != 3 ) return Redirect::route('users.show', $user->id);
 				return Redirect::to('/');
 			}
-			return Redirect::route( 'sessions.login' )->withErrors(new Messagebag(array('Unable to validate OpenID.')));
+			Notification::danger('Unable to validate your OpenID');
+			return Redirect::route( 'sessions.login' );
 		}
 	}
 
