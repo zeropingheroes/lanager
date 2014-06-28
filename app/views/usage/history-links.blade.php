@@ -8,7 +8,8 @@ $timestamps = array(
 	);
 $date = new ExpressiveDate();
 ?>
-<p>View usage: 
+<p>View usage:
+{{ link_to(Request::url(), 'Now') }}
 @foreach($timestamps as $timestamp)
 	{{ link_to(Request::url().'?timestamp='.$timestamp, $date->setTimestamp($timestamp)->getRelativeDate()) }}
 @endforeach
