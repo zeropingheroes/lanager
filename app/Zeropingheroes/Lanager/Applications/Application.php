@@ -5,6 +5,13 @@ use Tsukanov\SteamLocomotive\Core\Tools\Store;
 
 class Application extends BaseModel {
 
+	public function toArray()
+	{
+		$array = parent::toArray();
+		$array['small_logo'] = $this->getLogo();
+		return $array;
+	}
+
 	public function states()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\States\State');

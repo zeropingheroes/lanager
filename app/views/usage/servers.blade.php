@@ -1,26 +1,26 @@
 @extends('layouts.default')
 @section('content')
-	@if(count($servers))
+	@if(count($usage))
 		{{ Table::open(array('class' => 'states-current-usage')) }}
 		<?php
 			$i = 0;
 			$totalUsers = 0;
-			foreach ( $servers as $server )
+			foreach ( $usage as $item )
 			{
 				$users = array();
-				foreach ( $server['users'] as $user )
+				foreach ( $item['users'] as $user )
 				{
-					$users[] = link_to_route('users.show', $user->username, $user->id);
+					$users[] = link_to_route('users.show', $user['username'], $user['id']);
 				}
-				$rows[$i]['application'] = '<a href="'.SteamBrowserProtocol::viewAppInStore($server['application']->steam_app_id).'"><img src="'.$server['application']->getLogo().'" alt="Game Logo" title="'.e($server['application']->name).'"></a>';
+				$rows[$i]['application'] = '<a href="'.SteamBrowserProtocol::viewAppInStore($item['application']['steam_app_id']).'"><img src="'.$item['application']['small_logo'].'" alt="Game Logo" title="'.e($item['application']['name']).'"></a>';
 				$rows[$i]['user-count']	= count($users);
-				if( $server['server']->getUrl() )
+				if( $item['server']['connect_url'] )
 				{
-					$rows[$i]['address'] = '<a href="'.$server['server']->getUrl().'" title="Connect to server">'.$server['server']->getFullAddress().'</a>';
+					$rows[$i]['address'] = '<a href="'.$item['server']['connect_url'].'" title="Connect to server">'.$item['server']['address'].':'.$item['server']['port'].'</a>';
 				}
 				else
 				{
-					$rows[$i]['address'] = $server['server']->getFullAddress();
+					$rows[$i]['address'] = $item['server']['address'].':'.$item['server']['port'];
 				}
 				$rows[$i]['users'] = implode(', ', $users);
 				$i++;

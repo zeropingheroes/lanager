@@ -4,11 +4,12 @@ use Zeropingheroes\Lanager\States\State,
 	Zeropingheroes\Lanager\Users\User;
 use Zeropingheroes\Lanager\States\StateContract;
 use DB;
+use Illuminate\Support\Collection;
 
 class EloquentStateRepository implements StateContract {
 
 	/**
-	 * Generate foundation query for latest states
+	 * Generate foundation query for user states now or at given timestamp
 	 *
 	 * @return object QueryBuilder
 	 */
@@ -34,7 +35,7 @@ class EloquentStateRepository implements StateContract {
 	}
 
 	/**
-	 * Get current states for specified user(s)
+	 * Get states for specified user(s) now or at given timestamp
 	 *
 	 * @param  object|array   $users|null
 	 * @return array|object State
@@ -65,13 +66,12 @@ class EloquentStateRepository implements StateContract {
 	}
 
 	/**
-	 * Get applications currently being used by users
+	 * Get application usage now or at given timestamp
 	 *
 	 * @return array
 	 */
 	public function getApplicationUsage($applications = null, $timestamp = null)
 	{
-		unset($applications);
 		$states = $this->createStatesQuery($timestamp)->whereNotNull('states.application_id')->get();
 
 		if( count($states) )
@@ -79,35 +79,34 @@ class EloquentStateRepository implements StateContract {
 			// Collect and combine states for the same application
 			foreach($states as $state)
 			{
-				$usage[$state->application_id]['application'] = $state->application;
-				$usage[$state->application_id]['users'][] = $state->user;
+				// merge states that refer to the same application 
+				$combinedUsage[$state->application_id]['application'] = $state->application->toArray();
+				// add the state's user as a child of the above application key
+				$combinedUsage[$state->application_id]['users'][] = $state->user->toArray();
 			}
 
 			// Build clean array of applications
-			foreach($usage as $item)
+			foreach($combinedUsage as $item)
 			{
-				$applications[] = array(
+				$usage[] = array(
 					'application'	=> $item['application'],
 					'users'			=> $item['users'],
 					);
 			}
 
 			// Sort applications array by user count, in decending order
-			usort($applications, function($a, $b) {
+			usort($usage, function($a, $b) {
 				return count($b['users']) - count($a['users']);
 			});
-
-			return $applications;
+			
+			return new Collection($usage);
 		}
-		else
-		{
-			return NULL;
-		}
+		return null;
 	}
 
 
 	/**
-	 * Get applications currently being used by users
+	 * Get servers being used by users at the timestamp
 	 *
 	 * @return array
 	 */
@@ -120,15 +119,17 @@ class EloquentStateRepository implements StateContract {
 			// Collect and combine states for the same server
 			foreach($states as $state)
 			{
-				$usage[$state->server_id]['server'] = $state->server;
-				$usage[$state->server_id]['application'] = $state->application;
-				$usage[$state->server_id]['users'][] = $state->user;
+				// merge states that refer to the same server
+				$combinedUsage[$state->server_id]['server'] = $state->server->toArray();
+				$combinedUsage[$state->server_id]['application'] = $state->application->toArray();
+				// add the state's user as a child of the above server key
+				$combinedUsage[$state->server_id]['users'][] = $state->user->toArray();
 			}
 
 			// Build clean array of servers
-			foreach($usage as $item)
+			foreach($combinedUsage as $item)
 			{
-				$servers[] = array(
+				$usage[] = array(
 					'server'		=> $item['server'],
 					'application'	=> $item['application'],
 					'users'			=> $item['users'],
@@ -136,16 +137,13 @@ class EloquentStateRepository implements StateContract {
 			}
 
 			// Sort applications array by user count, in decending order
-			usort($servers, function($a, $b) {
+			usort($usage, function($a, $b) {
 				return count($b['users']) - count($a['users']);
 			});
 
-			return $servers;
+			return new Collection($usage);
 		}
-		else
-		{
-			return NULL;
-		}
+		return null;
 	}
 
 }

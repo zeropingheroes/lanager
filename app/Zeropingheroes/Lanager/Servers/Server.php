@@ -1,11 +1,18 @@
 <?php namespace Zeropingheroes\Lanager\Servers;
 
 use Zeropingheroes\Lanager\BaseModel;
-
 use SteamBrowserProtocol;
 
 class Server extends BaseModel {
 	
+
+	public function toArray()
+	{
+		$array = parent::toArray();
+		$array['connect_url'] = $this->getUrl();
+		return $array;
+	}
+
 	public function application()
 	{
 		return $this->belongsTo('Zeropingheroes\Lanager\Applications\Application');

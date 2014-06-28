@@ -2,7 +2,7 @@
 
 use Zeropingheroes\Lanager\States\StateContract;
 use Zeropingheroes\Lanager\States\State;
-use View, Response, Input, App, ExpressiveDate;
+use View, Response, Input, App, ExpressiveDate, Request;
 
 class UsageController extends BaseController {
 
@@ -52,9 +52,11 @@ class UsageController extends BaseController {
 		}
 		$lastUpdated = new ExpressiveDate(State::max('created_at'));
 
+		if ( Request::ajax() ) return Response::json($usage);
+
 		return View::make('usage.'.$resource)
 					->with('title',$title)
-					->with($resource,$usage)
+					->with('usage',$usage)
 					->with('lastUpdated',$lastUpdated);
 	}
 
