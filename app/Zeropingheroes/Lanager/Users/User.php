@@ -20,7 +20,7 @@ class User extends BaseModel implements UserInterface {
 		'steam_visibility'	=> 'required',
 		'ip'				=> 'ip',
 		'avatar'			=> 'url',
-		//'visible'			=> 'boolean'
+		//'visible'			=> 'boolean' TODO: upgrade to Laravel 4.2 where this validation is added
 	);
 
 	public function shouts()
@@ -78,7 +78,7 @@ class User extends BaseModel implements UserInterface {
 	 *
 	 * @var array
 	 */
-	protected $hidden = array(); // Currently OpenID only so no passwords are stored
+	protected $hidden = array('remember_token', 'visible'); // Currently OpenID only so no passwords are stored
 
 	/**
 	 * Get the unique identifier for the user.

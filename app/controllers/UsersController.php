@@ -2,7 +2,7 @@
 
 use Zeropingheroes\Lanager\Users\User,
 	Zeropingheroes\Lanager\Roles\Role;
-use Input, Redirect, View;
+use Input, Redirect, View, Request, Response;
 
 class UsersController extends BaseController {
 
@@ -19,7 +19,12 @@ class UsersController extends BaseController {
 	 */
 	public function index()
 	{
-		$users = User::visible()->orderBy('username', 'asc')->paginate(10);
+		$users = User::visible()->orderBy('username', 'asc');
+
+		if ( Request::ajax() ) return Response::json($users->get());
+
+		$users = $users->paginate(10);
+
 		return View::make('users.list')
 					->with('title','People')
 					->with('users',$users);
@@ -55,6 +60,8 @@ class UsersController extends BaseController {
 	public function show($id)
 	{
 		$user = User::visible()->findOrFail($id);
+		if ( Request::ajax() ) return Response::json($user);
+
 		return View::make('users.show')
 					->with('title',$user->username)
 					->with('user',$user);
