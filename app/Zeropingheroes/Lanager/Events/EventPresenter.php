@@ -33,7 +33,7 @@ class EventPresenter extends Presenter {
 		{
 			case 'past':	return 'Closed';
 			case 'present':	return 'Open';
-			case 'future':	return 'Not yet open';
+			case 'future':	return 'Not Yet Open';
 		}
 	}
 
