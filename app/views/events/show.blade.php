@@ -1,22 +1,15 @@
 @extends('layouts.default')
 @section('content')
-	<?php $eventTimespan = new Zeropingheroes\Lanager\Helpers\Timespan($event->start, $event->end); ?>
 	@if( isset( $event->type->name ) )
 		<h4>{{{ $event->type->name }}}</h4>
 	@endif
 	<div class="row">
 		<div class="col-md-6">
-			<h4>{{ $eventTimespan->naturalFormat() }}</h4>
+			<h4>{{ $event->present()->timespan }}</h4>
 		</div>
 		<div class="col-md-6">
 			<h4 class="pull-right">
-				@if( $eventTimespan->status === 0 )
-					{{ 'Starting ' . $eventTimespan->start->getRelativeDate() }}
-				@elseif( $eventTimespan->status === 1 )
-					{{ 'Started ' . $eventTimespan->start->getRelativeDate() . ', ending ' . $eventTimespan->end->getRelativeDate() }}
-				@elseif( $eventTimespan->status === 2 )
-					{{ 'Ended ' . $eventTimespan->end->getRelativeDate() }}
-				@endif
+				{{ $event->present()->timespanRelativeToNow }}
 			</h4>
 		</div>
 	</div>
@@ -30,31 +23,12 @@
 	<br>
 
 	@if( isset($event->signup_opens) AND isset($event->signup_closes) )
-		<?php
-		$signupTimespan = new Zeropingheroes\Lanager\Helpers\Timespan($event->signup_opens, $event->signup_closes);
-		switch($signupTimespan->status)
-		{
-			case 0:
-				$signupStatusLabel = Label::info('Not Yet Open');
-				$signupRelativeTime = 'Opening ' . $signupTimespan->start->getRelativeDate();
-				break;
-			case 1:
-				$signupStatusLabel = Label::success('Open');
-				$signupRelativeTime = 'Closing ' . $signupTimespan->end->getRelativeDate();
-				break;
-			case 2:
-				$signupStatusLabel = Label::warning('Closed');
-				$signupRelativeTime = 'Closed ' . $signupTimespan->end->getRelativeDate();
-				break;
-		}
-		?>
-
 		<div class="row">
 			<div class="col-md-6">
-				<h4>Signups {{ $signupStatusLabel }}</h4>
+				<h4>Signups {{ $event->present()->signupTimespanTense }}</h4>
 			</div>
 			<div class="col-md-6">
-				<h4 class="pull-right">{{ $signupRelativeTime }}</h4>
+				<h4 class="pull-right">{{ $event->present()->signupTimespanRelativeToNow }}</h4>
 			</div>
 		</div>
 		<hr>

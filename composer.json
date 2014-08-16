@@ -15,7 +15,9 @@
 		"loic-sharma/profiler": "1.1.*",
 		"jasonlewis/expressive-date": "1.0.*",
 		"zeropingheroes/duration": "dev-master",
-		"edvinaskrucas/notification": "2.*"
+		"edvinaskrucas/notification": "2.*",
+		"laracasts/presenter": "0.1.*",
+		"zeropingheroes/timespan": "dev-master"
 	},
 	"authors": [
 	{

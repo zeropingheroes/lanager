@@ -4,7 +4,14 @@ use Zeropingheroes\Lanager\BaseModel;
 
 use Carbon\Carbon;
 
+use Laracasts\Presenter\PresentableTrait;
+
+
 class Event extends BaseModel {
+
+	use PresentableTrait;
+
+	protected $presenter = 'Zeropingheroes\Lanager\Events\EventPresenter';
 
 	public static $rules = array(
 		'name'			=> 'required|max:255',

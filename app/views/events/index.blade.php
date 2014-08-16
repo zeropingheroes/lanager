@@ -6,37 +6,44 @@
 		<?php
 		foreach( $events as $event )
 		{
-			$eventTimespan = new Zeropingheroes\Lanager\Helpers\Timespan($event->start, $event->end);
 			if(isset($event->signup_opens))
 			{
-				$signupTimespan = new Zeropingheroes\Lanager\Helpers\Timespan($event->signup_opens, $event->signup_closes);
-				switch($signupTimespan->status)
+				$signupTimespanTense = $event->present()->signupTimespanTense;
+				switch($signupTimespanTense)
 				{
-					case 0:
-						$signupTimespan->status = Label::info('Not Yet Open');
+					case 'Not yet open':	$signupTimespanTense = Label::info($signupTimespanTense);
 						break;
-					case 1:
-						$signupTimespan->status = Label::success('Open');
+					case 'Open':			$signupTimespanTense = Label::success($signupTimespanTense);
 						break;
-					case 2:
-						$signupTimespan->status = Label::warning('Closed');
+					case 'Closed':			$signupTimespanTense = Label::warning($signupTimespanTense);
 						break;
 				}
-				$signupStatus = $signupTimespan->status;
 				$signupCount = count($event->users).' '.str_plural('user',count($event->users));
 			}
 			else
 			{
-				$signupStatus = '';
+				$signupTimespanTense = '';
 				$signupCount = '';
 			}
+
+			$eventTense = $event->present()->timespanTense;
+			switch($eventTense)
+			{
+				case 'Upcoming':	$eventTense = Label::info($eventTense);
+					break;
+				case 'In Progress':	$eventTense = Label::success($eventTense);
+					break;
+				case 'Ended':		$eventTense = Label::warning($eventTense);
+					break;
+			}
+
 			$tableBody[] = array(
-				'name'			=> link_to_route('events.show', $event->name, $event->id),
-				'time'			=> $eventTimespan->naturalFormat(),
-				'status'		=> ($eventTimespan->status == 1 ? Label::success('In Progress') : ''),
-				'type'			=> (isset($event->type->name) ? $event->type->name : 'asd'),
-				'signup-count'	=> $signupCount,
-				'signup-status'	=> $signupStatus,
+				'name'					=> link_to_route('events.show', $event->name, $event->id),
+				'time'					=> $event->present()->timespan,
+				'tense'					=> $eventTense,
+				'type'					=> (isset($event->type->name) ? $event->type->name : 'asd'),
+				'signup-count'			=> $signupCount,
+				'signup-timespan-tense'	=> $signupTimespanTense,
 			);
 		}
 		?>

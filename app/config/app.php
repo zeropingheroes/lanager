@@ -122,6 +122,7 @@ return array(
 		'Zeropingheroes\SteamBrowserProtocol\SteamBrowserProtocolServiceProvider',
 		'ExpressiveDateServiceProvider',
 		'Zeropingheroes\Duration\DurationServiceProvider',
+		'Zeropingheroes\Timespan\TimespanServiceProvider',
 		'Zeropingheroes\Lanager\Users\UserImportServiceProvider',
 		'Krucas\Notification\NotificationServiceProvider'
 
@@ -194,6 +195,7 @@ return array(
 
 		'SteamBrowserProtocol'	=> 'Zeropingheroes\SteamBrowserProtocol\Facades\SteamBrowserProtocol',
 		'Duration'				=> 'Zeropingheroes\Duration\Facades\Duration',
+		'Timespan'				=> 'Zeropingheroes\Timespan\Facades\Timespan',
 		'UserImport'			=> 'Zeropingheroes\Lanager\Users\Facades\UserImport',
 
 		'Markdown'				=> 'VTalbot\Markdown\Facades\Markdown',
