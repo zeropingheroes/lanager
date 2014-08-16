@@ -285,9 +285,21 @@ div#timetable {
    EVENTS - LIST
    -------------------------------------------------------------------
 */
-table.events-list td.column-signup-status
+table.events-list td.column-signup-timespan-status
 {
 	text-align: right;
+}
+
+span.label-status-past {
+	background-color: #d74c47;
+}
+
+span.label-status-present {
+	background-color: #439e4c;
+}
+
+span.label-status-future {
+	background-color: #6bafd9;
 }
 
 /* -------------------------------------------------------------------

@@ -2,6 +2,7 @@
 
 use Laracasts\Presenter\Presenter;
 use Timespan;
+use View;
 
 class EventPresenter extends Presenter {
 
@@ -15,26 +16,35 @@ class EventPresenter extends Presenter {
 		return Timespan::relativeToNow($this->start, $this->end);
 	}
 
-	public function timespanTense()
+	public function timespanStatusLabel()
 	{
-		$eventTimespanStatus = Timespan::tense($this->start, $this->end);
-		switch( $eventTimespanStatus )
+		$eventTimespanTense = Timespan::tense($this->start, $this->end);
+		switch( $eventTimespanTense )
 		{
-			case 'past':	return 'Ended';
-			case 'present':	return 'In Progress';
-			case 'future':	return 'Upcoming';
+			case 'past':	$status = 'Ended';
+				break;
+			case 'present':	$status = 'In Progress';
+				break;
+			case 'future':	$status = 'Upcoming';
+				break;
 		}
+		return View::make('events.partials.status')->withStatus($status)->withClass($eventTimespanTense);
 	}
 
-	public function signupTimespanTense()
+	public function signupTimespanStatusLabel()
 	{
 		$signupTimespanTense = Timespan::tense($this->signup_opens, $this->signup_closes);
+
 		switch( $signupTimespanTense )
 		{
-			case 'past':	return 'Closed';
-			case 'present':	return 'Open';
-			case 'future':	return 'Not Yet Open';
+			case 'past':	$status = 'Closed';
+				break;
+			case 'present':	$status = 'Open';
+				break;
+			case 'future':	$status = 'Not Yet Open';
+				break;
 		}
+		return View::make('events.partials.status')->withStatus($status)->withClass($signupTimespanTense);
 	}
 
 	public function signupTimespanRelativeToNow()

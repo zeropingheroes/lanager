@@ -9,7 +9,7 @@
 		</div>
 		<div class="col-md-6">
 			<h4 class="pull-right">
-				{{ $event->present()->timespanRelativeToNow }}
+				{{ $event->present()->timespanRelativeToNow }} {{ $event->present()->timespanStatusLabel }}
 			</h4>
 		</div>
 	</div>
@@ -25,7 +25,7 @@
 	@if( isset($event->signup_opens) AND isset($event->signup_closes) )
 		<div class="row">
 			<div class="col-md-6">
-				<h4>Signups {{ $event->present()->signupTimespanTense }}</h4>
+				<h4>Signups {{ $event->present()->signupTimespanStatusLabel }}</h4>
 			</div>
 			<div class="col-md-6">
 				<h4 class="pull-right">{{ $event->present()->signupTimespanRelativeToNow }}</h4>
