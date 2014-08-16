@@ -33,7 +33,7 @@ more enjoyable for attendees and organisers alike.
 ## Requirements
 * Windows / Linux / OS X
 * Apache Web server
-* PHP 5.3.7+ (with cURL & MCrypt)
+* PHP 5.4+ (with cURL & MCrypt)
 * MySQL
 * [Composer](https://getcomposer.org/)
 * [Steam API Key](http://steamcommunity.com/dev/apikey)
@@ -78,21 +78,7 @@ Do not download the source in a zip file directly from GitHub - if you do updati
 	* On *nix
 		1. From a terminal run `crontab -e`
 		2. Add the following to the end of the file:
-		`*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1`     
-
-## Vagrant
-
-If you want to try out the project quickly and easily, you can use [Vagrant](http://www.vagrantup.com/about.html) to create a virtual machine with everything the project needs to run. Here's how:
-
-1. Follow steps 1 and 2 from the *Installation* section above
-2. [Download and install Vagrant](http://downloads.vagrantup.com/)
-3. From a terminal in the `lanager/` directory, run `vagrant up`
-4. Add `lanager.dev` to your system's `hosts` file, pointing it to `127.0.0.1`
-5. From a terminal in the `lanager/` directory, run `vagrant ssh`
-6. Follow steps 5, 6 and 7 from the *Installation* section above
-7. Navigate to [http://lanager.dev:8080/](http://lanager.dev:8080/) 
-
-When you're finished either run `vagrant destroy` to remove the virtual machine entirely, or `vagrant suspend` to save it for use later. 
+		`*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1`
 
 ## Usage
 

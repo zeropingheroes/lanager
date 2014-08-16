@@ -63,8 +63,8 @@ class Install extends BaseCommand {
 	{
 		$this->customInfo('Testing requirements before installation...');
 		
-		$this->checkRequirement('PHP version greater than 5.3.7', 
-			version_compare( PHP_VERSION, '5.3.7' ) >= 0,
+		$this->checkRequirement('PHP version greater than 5.4', 
+			version_compare( PHP_VERSION, '5.4' ) >= 0,
 			'Install the latest stable version of PHP');
 
 		$this->checkRequirement('Curl PHP module installed and enabled', 
@@ -158,7 +158,7 @@ class Install extends BaseCommand {
 			$this->customInfo('*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1');
 			$this->customInfo('');
 		}
-		$this->customInfo('Once you added the schedule, navigate to http://localhost and have a great LAN!');
+		$this->customInfo('Once you have added the schedule, navigate to this server\'s hostname and have a great LAN!');
 	}
 
 	/**
