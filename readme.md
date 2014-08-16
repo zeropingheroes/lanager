@@ -64,13 +64,11 @@ Do not download the source in a zip file directly from GitHub - if you do updati
 
 	`chmod -R 777 lanager/app/storage` (*nix)
 
-6. Edit `lanager/app/config/app.php` setting your installation's URL and 32 character application key
-
-7. In a terminal in the `lanager/` directory, run:
+6. In a terminal in the `lanager/` directory, run:
 
 	`php artisan lanager:install`
 
-8. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
+7. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
 
 	* On Windows
 		* Add a task for `lanager/SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)

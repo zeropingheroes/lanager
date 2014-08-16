@@ -117,7 +117,7 @@ class Install extends BaseCommand {
 
 		if( Config::get('lanager/config.installed') )
 		{
-			if( $this->confirm('Would you like to empty the database and insert default data? [yes|no]') )
+			if( $this->confirm('Would you like to empty the database before inserting default data? [yes|no]') )
 			{
 				$this->emptyDatabase();
 			}
@@ -137,6 +137,10 @@ class Install extends BaseCommand {
 		$this->customInfo('Changing session driver to database in config file...');
 		$sessionConfig = $this->editConfigFile('app/config/session.php', "'driver' => 'array'", "'driver' => 'database'");
 		if( ! $sessionConfig ) $this->abort('Unable to change session driver', $this->criticalMessage);
+
+		$this->customInfo('Setting application key...');
+		$appKey = Artisan::call('key:generate');
+		if( $import != 0 ) $this->abort('Unable to set application key', $this->criticalMessage);
 
 		$this->customInfo('Marking LANager as installed in config file...');
 		$lanagerConfig = $this->editConfigFile('app/config/lanager/config.php', "'installed'	=> false","'installed'	=> true");
