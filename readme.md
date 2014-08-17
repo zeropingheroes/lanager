@@ -63,12 +63,18 @@ Do not download the source in a zip file directly from GitHub - if you do updati
 5. Change the permissions for the `lanager/app/storage/` directory to be read & write for your web server:
 
 	`chmod -R 777 lanager/app/storage` (*nix)
+	
+6. Open the MySQL console and a database with the following:
+    
+        Database: lanager
+        User: lanager
+        Password: lanager
 
-6. In a terminal in the `lanager/` directory, run:
+7. In a terminal in the `lanager/` directory, run:
 
 	`php artisan lanager:install`
 
-7. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
+8. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
 
 	* On Windows
 		* Add a task for `lanager/SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
