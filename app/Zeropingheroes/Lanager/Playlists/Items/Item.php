@@ -13,6 +13,11 @@ class Item extends BaseModel {
 		'playlist_id'	=> 'numeric|exists:playlists,id'
 	);
 
+	public function getDates()
+	{
+		return array('created_at', 'updated_at', 'played_at');
+	}
+
 
 	public function playlist()
 	{

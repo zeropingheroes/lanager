@@ -23,6 +23,6 @@
 	@else
 		<p>No usage to show!</p>
 	@endif
-	Last updated {{ $lastUpdated->getRelativeDate() }}
+Last updated {{ $lastUpdated->diffForHumans() }}
 	@include('usage.history-links')
 @endsection

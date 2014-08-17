@@ -3,8 +3,6 @@
 	<?php
 	foreach( $items as $item )
 	{
-		$submitted = new ExpressiveDate($item->created_at);
-		$played = new ExpressiveDate($item->played_at);
 
 		$user = $item->user;
 		$controls = '';
@@ -25,7 +23,7 @@
 				'title'			=> link_to($item->url, $item->title, array('target'=>'_blank')),
 				'state'			=> $itemStateLabel,
 				'duration'		=> Duration::shortFormat($item->duration),
-				'played'		=> $played->getRelativeDate(),
+				'played'		=> $item->played_at->diffForHumans(),
 			);
 		}
 		else
@@ -102,7 +100,7 @@
 				'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
 				'title'			=> e($item->title),
 				'duration'		=> Duration::shortFormat($item->duration),
-				'submitted'		=> $submitted->getRelativeDate(),
+				'submitted'		=> $item->created_at->diffForHumans(),
 				'controls'		=> $adminControls.$controls,
 			);
 		}

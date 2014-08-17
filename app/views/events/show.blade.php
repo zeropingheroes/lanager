@@ -54,7 +54,7 @@
 
 				$tableBody[] = array(
 					'user'			=> '<a href="'.URL::route('users.show', $signup->user->id).'">'.HTML::userAvatar($signup->user).' '.e($signup->user->username).'</a>',
-					'signup-time'	=> ExpressiveDate::make($signup->created_at)->getRelativeDate(),
+					'signup-time'	=> $signup->created_at->diffForHumans(),
 					'controls'		=> $controls,
 				);
 				$controls = '';

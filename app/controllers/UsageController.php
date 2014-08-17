@@ -2,7 +2,8 @@
 
 use Zeropingheroes\Lanager\States\StateContract;
 use Zeropingheroes\Lanager\States\State;
-use View, Response, Input, App, ExpressiveDate, Request;
+use Carbon\Carbon;
+use View, Response, Input, App, Request;
 
 class UsageController extends BaseController {
 
@@ -12,7 +13,15 @@ class UsageController extends BaseController {
 	public function __construct(StateContract $stateInterface)
 	{
 		$this->stateInterface = $stateInterface;
-		$this->timestamp = ((Input::get('timestamp') < time()) && Input::get('timestamp') != 0) ? Input::get('timestamp') : time();
+		
+		if( (Input::get('timestamp') < time()) && Input::get('timestamp') != 0)
+		{
+			$this->timestamp = Carbon::createFromTimeStamp(Input::get('timestamp'));
+		}
+		else
+		{
+			$this->timestamp = Carbon::now(); ////////////////////////////////////////////
+		}
 	}
 
 
@@ -36,21 +45,20 @@ class UsageController extends BaseController {
 	{
 		if( !in_array($resource, array('applications', 'servers'))) App::abort(404);
 
-		$usageTime = new ExpressiveDate();
-		$usageTimeGrammar = ($this->timestamp == time()) ? 'Now' : $usageTime->setTimestamp($this->timestamp)->getRelativeDate();
+		$diffForHumans = ($this->timestamp->eq(Carbon::now())) ? 'Now' : $this->timestamp->diffForHumans();
 
 		switch($resource)
 		{
 			case 'applications':
-				$usage = $this->stateInterface->getApplicationUsage('', $this->timestamp);
-				$title = 'Games Being Played - '.$usageTimeGrammar;
+				$usage = $this->stateInterface->getApplicationUsage('', $this->timestamp->timestamp);
+				$title = 'Games Being Played - ' . $diffForHumans;
 				break;
 			case 'servers':
-				$usage = $this->stateInterface->getServerUsage('', $this->timestamp);
-				$title = 'Game Servers Being Used - '.$usageTimeGrammar;
+				$usage = $this->stateInterface->getServerUsage('', $this->timestamp->timestamp);
+				$title = 'Game Servers Being Used - ' . $diffForHumans;
 				break;
 		}
-		$lastUpdated = new ExpressiveDate(State::max('created_at'));
+		$lastUpdated = new Carbon(State::max('created_at'));
 
 		if ( Request::ajax() ) return Response::json($usage);
 

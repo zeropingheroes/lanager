@@ -2,7 +2,6 @@
 	<p>No shouts to show!</p>
 @else
 	@foreach ($shouts as $shout)
-		<?php $date = new ExpressiveDate($shout->created_at); ?>
 		<div class="media">
 			<a class="pull-left" href="{{ URL::route('users.show', $shout->user->id) }}">
 				{{ HTML::userAvatar($shout->user, 'small', 'media-object') }}
@@ -25,8 +24,8 @@
 					{{ HTML::resourceDelete('shouts', $shout->id, 'Delete') }}
 				</div>
 			@endif
-			<span class="pull-right shout-timestamp" title="{{ $date }}">
-				{{ $date->getRelativeDate() }}
+			<span class="pull-right shout-timestamp" title="{{ $shout->created_at }}">
+				{{ $shout->created_at->diffForHumans() }}
 			</span>
 			@if ($shout->pinned)
 				<span class="glyphicon glyphicon-star pull-right" title="This post has been pinned"></span>

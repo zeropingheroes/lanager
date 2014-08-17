@@ -1,7 +1,6 @@
 <?php namespace Zeropingheroes\Lanager\Validators;
 
 use Illuminate\Validation\Validator;
-use ExpressiveDate;
 use Carbon\Carbon;
 use Auth;
 
@@ -17,8 +16,8 @@ class CustomValidator extends Validator {
 	 */	
 	public function validateFloodProtect($attribute, $value, $parameters)
 	{
-		$date = new ExpressiveDate;
-		$date->minusSeconds(15);
+		$date = new Carbon;
+		$date->subSeconds(15);
 		return ! Auth::user()->{$parameters[0]}()->where('created_at','>',$date)->count();
 	}
 
