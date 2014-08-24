@@ -31,7 +31,11 @@ return array(
 	*/
 	'initialise' => function($authority)
 	{
-		$authority->addAlias('manage', array('create', 'read', 'update', 'delete'));
+		$authority->addAlias('create',	array('create', 'store'));
+		$authority->addAlias('read', 	array('read', 'index', 'show'));
+		$authority->addAlias('update',	array('update', 'edit'));
+		$authority->addAlias('delete',	array('delete', 'destroy'));
+		$authority->addAlias('manage',	array('create', 'store', 'read', 'index', 'show', 'update', 'edit', 'delete', 'destroy'));
 		$self = $authority->getCurrentUser();
 
 		if ( is_object($self) )

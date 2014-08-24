@@ -6,7 +6,7 @@
 		$tableBody[] = array(
 			'user'		=> $signup->user->username,
 			'event'		=> $signup->event->name,
-			'controls'	=> HTML::resourceDelete('signups',$signup->id, '', 'trash'),
+			'controls'	=> HTML::button('signups.destroy',$signup->id, ['size' => 'xs']),
 		);
 	}
 	?>

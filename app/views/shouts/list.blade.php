@@ -21,7 +21,7 @@
 					<?php $pinVerb = $shout->pinned ? 'Unpin' : 'Pin'; ?>
 					{{ Button::xs_submit('', array('title' => $pinVerb.' this shout', 'name' => 'Submit' ))->with_icon('star') }}
 					{{ Form::close() }}
-					{{ HTML::resourceDelete('shouts', $shout->id, 'Delete') }}
+					{{ HTML::button('shouts.destroy', $shout->id, ['size' => 'xs', 'value' => '']) }}
 				</div>
 			@endif
 			<span class="pull-right shout-timestamp" title="{{ $shout->created_at }}">

@@ -10,7 +10,7 @@
 		<ul class="user-profile-actions pull-right">
 			@if( Auth::check() AND $user->id == Auth::user()->id )
 				<li>{{ Button::link( SteamBrowserProtocol::openSteamPage('SteamIDEditPage'), 'Edit Profile' ) }}</li>
-				<li>{{ HTML::resourceDelete( 'users', $user, 'Delete Account' ) }}</li>
+				<li>{{ HTML::button( 'users.destroy', $user, ['value' => 'Delete Account', 'confirmation' => 'Are you sure you want to permanently delete your account?'] ) }}</li>
 			@else
 				<li>{{ Button::link( SteamBrowserProtocol::addFriend($user->steam_id_64), 'Add' ) }}</li>
 				<li>{{ Button::link( SteamBrowserProtocol::messageFriend($user->steam_id_64), 'Message' ) }}</li>
@@ -60,7 +60,7 @@
 			<h2>Administration</h2>
 			<ul>
 				<li>{{ Button::link(URL::route('role-assignments.index'), 'Manage Roles' ) }}</li>
-				<li>{{ HTML::resourceDelete('users',$user,'Delete User') }}</li>
+				<li>{{ HTML::button('users.destroy',$user) }}</li>
 			</ul>
 		@endif
 	</div>

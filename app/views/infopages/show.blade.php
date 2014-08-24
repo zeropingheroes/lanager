@@ -6,6 +6,7 @@
 			@include('infopages.list')
 		</ul>
 	@endif
-	{{ HTML::resourceUpdate('infopages', $infoPage->id, 'Edit') }}
-	{{ HTML::resourceDelete('infopages', $infoPage->id, 'Delete') }}
+	{{ HTML::button('infopages.create') }}
+	{{ HTML::button('infopages.edit', $infoPage->id) }}
+	{{ HTML::button('infopages.destroy', $infoPage->id) }}
 @endsection

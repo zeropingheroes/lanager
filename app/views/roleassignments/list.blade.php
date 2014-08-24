@@ -6,7 +6,7 @@
 		$tableBody[] = array(
 			'user'		=> $roleAssignment->user->username,
 			'role'		=> $roleAssignment->role->name,
-			'controls'	=> HTML::resourceDelete('role-assignments',$roleAssignment->id, '', 'trash'),
+			'controls'	=> HTML::button('role-assignments.destroy',$roleAssignment->id, ['value' => '']),
 		);
 	}
 	?>

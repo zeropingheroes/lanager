@@ -3,5 +3,5 @@
 	<ul>
 		@include('infopages.list')
 	</ul>
-	{{ HTML::resourceCreate('infopages', 'Create') }}
+	{{ HTML::button('infopages.create') }}
 @endsection

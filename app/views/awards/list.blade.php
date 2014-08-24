@@ -11,7 +11,7 @@
 
 		if( Authority::can( 'manage', 'awards' ) )
 		{
-			$controls = HTML::resourceDelete('awards', $award->id, 'Delete');
+			$controls = HTML::button('awards.destroy', $award->id, ['value' => 'Revoke', 'size' => 'xs']);
 
 			$tableBody[] = array(
 					'name'		=> $name,

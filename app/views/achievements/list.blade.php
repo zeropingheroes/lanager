@@ -16,9 +16,9 @@
 					'name'			=> e($achievement->name),
 					'descrption'	=> e($achievement->description),
 					'users'			=> $achievement->users->count(),
-					'controls'		=> 	Button::link(URL::route('awards.create', array('achievement_id' => $achievement->id)), '' )->with_icon('user')  . ' ' .
-										HTML::resourceUpdate('achievements',$achievement->id,'')->with_icon('pencil') . ' ' . 
-										HTML::resourceDelete('achievements',$achievement->id, '', 'trash'),
+					'controls'		=> 	Button::sm_link(URL::route('awards.create', array('achievement_id' => $achievement->id)), 'Award' )->with_icon('user')  . ' ' .
+										HTML::button('achievements.edit',$achievement->id, ['size' => 'sm']) .  
+										HTML::button('achievements.destroy',$achievement->id, ['size' => 'sm']),
 				);
 			}
 			else

@@ -16,9 +16,8 @@
 	<hr>
 	{{ Markdown::string($event->description) }}
 	<br>
-	{{ HTML::resourceUpdate('events', $event->id, 'Edit') }}
-
-	{{ HTML::resourceDelete('events', $event->id, 'Delete') }}
+	{{ HTML::button('events.edit', $event->id) }}
+	{{ HTML::button('events.destroy', $event->id) }}
 	<br>
 	<br>
 

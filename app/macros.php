@@ -1,71 +1,52 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Button - Create Resource
-|--------------------------------------------------------------------------
-|
-| Checks if user has permission to create a resource of the specified type
-| and returns a button to do so
-|
-*/
-HTML::macro('resourceCreate', function($resourceName, $buttonValue)
-{
-	if( Authority::can('create', $resourceName) ) return Button::link(URL::route($resourceName.'.create'), $buttonValue);
-});
 
-/*
-|--------------------------------------------------------------------------
-| Button - Edit Resource
-|--------------------------------------------------------------------------
-|
-| Checks if user has permission to edit the sepcified resource item and 
-| returns a button to do so
-|
-*/
-HTML::macro('resourceUpdate', function($resourceName, $resourceItem, $buttonValue)
+/**
+ * Generate HTML buttons for CRUD operations on resources
+ * checking that the logged in user can perform the operation
+ *
+ * @param  string			$route
+ * @param  integer|null		$item
+ * @param  array			$options
+ * @return string
+ */
+HTML::macro('button', function($route, $item = NULL, $options = [])
 {
-	$resourceItemId = (is_object($resourceItem) ? $resourceItem->id : $resourceItem);
-	if( Authority::can('update', $resourceName, $resourceItem) ) return Button::link(URL::route($resourceName.'.edit', array($resourceName => $resourceItemId)), $buttonValue);
-});
+	// Extract resource information
+	$action		= substr( $route, strrpos( $route, '.' )+1 );
+	$resource	= str_replace('.' . $action, '', $route);
+	$item		= is_numeric($item) ? $item : NULL;
+	$url		= URL::route($route, [$resource => $item]);
 
+	// Check if the user has permission to perform the action
+	if( Authority::cannot($action, $resource, $item) ) return;
 
-/*
-|--------------------------------------------------------------------------
-| Button - Delete Resource
-|--------------------------------------------------------------------------
-|
-| Checks if user has permission to edit a sepcified resource item and 
-| returns a button to do so
-|
-*/
-HTML::macro('resourceDelete', function($resourceName, $resourceItem, $buttonValue, $icon = '')
-{
-	$resourceItemId = (is_object($resourceItem) ? $resourceItem->id : $resourceItem);
-	if( Authority::can('delete', $resourceName, $resourceItem) )
+	// Set size and value options to sensible defaults
+	$size		= ( isset($options['size']) ) ? $options['size'] : '';
+	$value		= ( ! isset($options['value']) ) ? ucfirst($action) : $options['value'];
+	
+	// Create the button type to call call based on the action type
+	$type		= ( $action == 'destroy' ) ? 'submit' : 'link';
+	$button		= ( empty($size) ) ? $type : $size . '_' . $type;
+
+	// Generate the button for the given action
+	if( $action == 'create' )	return Button::$button($url, $value, ['title' => ucfirst($action) . ' a new ' . str_singular($resource)])->with_icon('file');
+	if( $action == 'edit' )		return Button::$button($url, $value, ['title' => ucfirst($action) . ' this ' . str_singular($resource)])->with_icon('pencil');
+	if( $action == 'destroy' )
 	{
-		$output = Form::open(array('route' => array($resourceName.'.destroy', $resourceItemId), 'method' => 'DELETE', 'data-confirm' => 'Are you sure?', 'class' => 'resource-destroy'));
-		if( !empty($icon) )
-		{
-			$output .= Button::submit($buttonValue, array('title' => 'Delete '.$resourceName))->with_icon($icon);
-		}
-		else
-		{
-			$output .= Button::submit($buttonValue, array('title' => 'Delete '.$resourceName));
-		}
-		$output .= Form::close();
-
-		return $output;
+		$confirmation = ( ! isset($options['confirmation']) ) ? 'Are you sure you want to permanently delete this ' . str_singular($resource) . '?' : $options['confirmation'];
+		
+		return	Form::open(['url' => $url, 'method' => 'DELETE', 'data-confirm' => $confirmation, 'class' => 'resource-destroy'])
+			 .	Button::$button($value, ['title' => ucfirst($action) . ' this ' . str_singular($resource)])->with_icon('trash')
+			 .	Form::close();
 	}
 });
 
-/*
-|--------------------------------------------------------------------------
-| Date Time
-|--------------------------------------------------------------------------
-|
-| Create bootstrap-compatible date picker with optional linked 2nd picker
-|
-*/
+/**
+ * Generate HTML/JS date and time picker
+ *
+ * @param  string			$name
+ * @return string
+ */
 Form::macro('dateTime', function($name)
 {
 	$input = Form::text($name, NULL, array('placeholder' => 'YYYY-MM-DD HH:MM:SS'));
