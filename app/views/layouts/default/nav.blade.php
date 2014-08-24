@@ -15,7 +15,8 @@
 				@if(Auth::check())
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
-							{{ HTML::userAvatar( Auth::user() ) }} {{{ Auth::user()->username }}} <b class="caret"></b>
+							@include('users.partials.avatar', ['user' => Auth::user()] )
+							{{{ Auth::user()->username }}} <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
 							<li>{{ link_to_route('users.show', 'Profile',  Auth::user()->id) }}</li>

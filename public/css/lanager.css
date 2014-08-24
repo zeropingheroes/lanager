@@ -51,13 +51,13 @@ img.avatar-medium {
 img.avatar-large {
 	border-width: 3px;
 }
-img.avatar.in-game {
+img.avatar-in-game {
 	border-color: #19A601;
 }
-img.avatar.online {
+img.avatar-online {
 	border-color: #01ABFE;
 }
-img.avatar.offline {
+img.avatar-offline {
 	border-color: #333;
 }
 

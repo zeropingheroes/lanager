@@ -4,7 +4,7 @@
 	@foreach ($shouts as $shout)
 		<div class="media">
 			<a class="pull-left" href="{{ URL::route('users.show', $shout->user->id) }}">
-				{{ HTML::userAvatar($shout->user, 'small', 'media-object') }}
+				@include('users.partials.avatar', ['user' => $shout->user, 'size' => 'small', 'classes' => 'media-object'] )
 			</a>
 			@if( Authority::can('manage', 'shouts'))
 				<div class="shout-moderation pull-right">

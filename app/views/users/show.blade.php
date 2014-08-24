@@ -6,7 +6,7 @@
 		link_to(SteamBrowserProtocol::openSteamPage('SteamIDEditPage'), 'changing your profile\'s privacy settings to public') . ', even if it\'s just for the event. Thanks!' ) }}
 	@endif
 	<div class="user-profile-header">
-		{{ HTML::userAvatar($user, 'large') }}
+		@include('users.partials.avatar', ['user' => $user, 'size' => 'large'] )
 		<ul class="user-profile-actions pull-right">
 			@if( Auth::check() AND $user->id == Auth::user()->id )
 				<li>{{ Button::link( SteamBrowserProtocol::openSteamPage('SteamIDEditPage'), 'Edit Profile' ) }}</li>

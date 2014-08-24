@@ -53,7 +53,7 @@
 				}
 
 				$tableBody[] = array(
-					'user'			=> '<a href="'.URL::route('users.show', $signup->user->id).'">'.HTML::userAvatar($signup->user).' '.e($signup->user->username).'</a>',
+					'user'			=> '<a href="'.URL::route('users.show', $signup->user->id).'">'.View::make('users.partials.avatar', ['user' => $signup->user]).' '.e($signup->user->username).'</a>',
 					'signup-time'	=> $signup->created_at->diffForHumans(),
 					'controls'		=> $controls,
 				);

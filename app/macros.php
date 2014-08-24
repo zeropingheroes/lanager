@@ -60,63 +60,6 @@ HTML::macro('resourceDelete', function($resourceName, $resourceItem, $buttonValu
 
 /*
 |--------------------------------------------------------------------------
-| User Avatar
-|--------------------------------------------------------------------------
-|
-| Display a user's avatar with status info and coloured border a la Steam
-|
-*/
-HTML::macro('userAvatar', function($user, $size = 'small', $classes = array())
-{
-	if( ! is_array($classes) ) $classes = array($classes);
-	$classes[] = 'avatar';
-	$classes[] = 'avatar-'.$size;
-	
-	$state = $user->states()->latest()->first();
-	
-	if( count($state) )
-	{
-		if( isset($state->application_id) )
-		{
-			$classes[] = 'in-game';
-			$title = 'In-Game: '.e($state->application->name);
-		}
-		elseif( $state->status )
-		{
-			$classes[] = 'online';
-			$title = $state->getStatus();
-		}
-		else
-		{
-			$classes[] = 'offline';
-			$title = $state->getStatus();
-		}
-	}
-	else
-	{
-		$classes[] = 'offline';
-		$title = 'Status unknown';
-	}
-
-	switch($size)
-	{
-		case 'small':
-			$src = $user->avatar;
-			break;
-		case 'medium':
-			$src = $user->getMediumAvatarUrl();
-			break;
-		case 'large':
-			$src = $user->getLargeAvatarUrl();
-			break;
-		default: $src = $user->avatar;
-	}
-	$classes = implode(' ', $classes);
-	return '<img class="'.$classes.'" src="'.$src.'" alt="Avatar" title="'.$title.'">';
-});
-
-/*
-|--------------------------------------------------------------------------
 | Date Time
 |--------------------------------------------------------------------------
 |
@@ -126,15 +69,13 @@ HTML::macro('userAvatar', function($user, $size = 'small', $classes = array())
 Form::macro('dateTime', function($name)
 {
 	$input = Form::text($name, NULL, array('placeholder' => 'YYYY-MM-DD HH:MM:SS'));
-	$js = '
-		<script type="text/javascript">
+	$js = '<script type="text/javascript">
 			$(function () {
 				$("#'.$name.'").datetimepicker({
-					format: "YYYY-MM-DD hh:mm:ss",
+					format: "YYYY-MM-DD HH:mm:ss",
 				});
 			});
-		</script>
-	';
+		</script>';
 
 	return $js.$input;
 });

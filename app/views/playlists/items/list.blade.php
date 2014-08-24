@@ -19,7 +19,7 @@
 		if( $history == true )
 		{
 			$tableBody[] = array(
-				'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
+				'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.View::make('users.partials.avatar', ['user' => $user]).' '.e($user->username).'</a>',
 				'title'			=> link_to($item->url, $item->title, array('target'=>'_blank')),
 				'state'			=> $itemStateLabel,
 				'duration'		=> Duration::shortFormat($item->duration),
@@ -97,7 +97,7 @@
 			}
 
 			$tableBody[] = array(
-				'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.HTML::userAvatar($user).' '.e($user->username).'</a>',
+				'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.View::make('users.partials.avatar', ['user' => $user]).' '.e($user->username).'</a>',
 				'title'			=> e($item->title),
 				'duration'		=> Duration::shortFormat($item->duration),
 				'submitted'		=> $item->created_at->diffForHumans(),
