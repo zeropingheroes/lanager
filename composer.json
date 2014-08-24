@@ -4,7 +4,7 @@
 	"keywords": ["framework", "laravel"],
 	"license": "AGPL-3.0",
 	"require": {
-		"laravel/framework": "4.1.28",
+		"laravel/framework": "4.2.*",
 		"vtalbot/markdown": "1.*",
 		"laravelbook/ardent": "dev-master",
 		"patricktalmadge/bootstrapper": "dev-develop",
@@ -13,10 +13,11 @@
 		"zeropingheroes/steam-browser-protocol": "dev-dev",
 		"machuga/authority-l4" : "dev-master",
 		"loic-sharma/profiler": "1.1.*",
-		"zeropingheroes/duration": "dev-master",
 		"edvinaskrucas/notification": "2.*",
 		"laracasts/presenter": "0.1.*",
+		"zeropingheroes/duration": "dev-master",
 		"zeropingheroes/timespan": "dev-master"
+
 	},
 	"authors": [
 	{
