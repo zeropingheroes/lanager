@@ -9,10 +9,10 @@ class CustomValidator extends Validator {
 	/**
 	 * Check to see if user has submitted an item more recently than the flood protect time
 	 * 
-	 * @param  $attribute
-	 * @param  $value
-	 * @param  $parameters 
-	 * @return boolean
+	 * @param  string  $attribute
+	 * @param  mixed   $value
+	 * @param  array   $parameters
+	 * @return bool
 	 */	
 	public function validateFloodProtect($attribute, $value, $parameters)
 	{
@@ -22,30 +22,56 @@ class CustomValidator extends Validator {
 	}
 
 	/**
-	 * Check to see if end date comes after start date
-	 * 
-	 * @param  $attribute
-	 * @param  $value
-	 * @param  $parameters 
-	 * @return boolean
+	 * Validate the date is before a given date.
+	 *
+	 * @param  string  $attribute
+	 * @param  mixed   $value
+	 * @param  array   $parameters
+	 * @return bool
 	 */
-	public function validateDateNotBeforeThisInput($attribute, $value, $parameters)
+	protected function validate_before($attribute, $value, $parameters)
 	{
-		if( !empty($value) )
+		/*
+		* If a input with the name equal to the value we compare with, we
+		* use it, otherwise we proceed as usual
+		*/
+
+		if( isset( $this->attributes[ $parameters[0] ] ) )
 		{
-			$start = $this->getValue($parameters[0]); // get the value of the parameter (start)
-
-			$start = Carbon::createFromFormat('d/m/Y H:i',$start)->timestamp;
-			$end = Carbon::createFromFormat('d/m/Y H:i',$value)->timestamp;
-
-			return ($end > $start);
+			$value_to_compare = $this->attributes[ $parameters[0] ];
 		}
-		return false;
+		else
+		{
+			$value_to_compare = $parameters[0];
+		}
+
+		return ( strtotime( $value ) < strtotime( $value_to_compare ) );
 	}
 
-	protected function replaceDateNotBeforeThisInput($message, $attribute, $rule, $parameters)
+	/**
+	 * Validate the date is after a given date.
+	 *
+	 * @param  string  $attribute
+	 * @param  mixed   $value
+	 * @param  array   $parameters
+	 * @return bool
+	 */
+	protected function validate_after($attribute, $value, $parameters)
 	{
-		return str_replace(':other', str_replace('_', ' ', $parameters[0]), $message);
+		/*
+		* If a input with the name equal to the value we compare with, we
+		* use it, otherwise we proceed as usual
+		*/
+
+		if( isset( $this->attributes[ $parameters[0] ] ) )
+		{
+			$value_to_compare = $this->attributes[ $parameters[0] ];
+		}
+		else
+		{
+			$value_to_compare = $parameters[0];
+		}
+		return ( strtotime( $value ) > strtotime( $value_to_compare ) );
 	}
 
 }

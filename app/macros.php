@@ -117,41 +117,24 @@ HTML::macro('userAvatar', function($user, $size = 'small', $classes = array())
 
 /*
 |--------------------------------------------------------------------------
-| Date Picker
+| Date Time
 |--------------------------------------------------------------------------
 |
 | Create bootstrap-compatible date picker with optional linked 2nd picker
 |
 */
-HTML::macro('datePicker', function($name, $options = array())
+Form::macro('dateTime', function($name)
 {
-	$output = '
+	$input = Form::text($name, NULL, array('placeholder' => 'YYYY-MM-DD HH:MM:SS'));
+	$js = '
 		<script type="text/javascript">
 			$(function () {
 				$("#'.$name.'").datetimepicker({
-					language: "en-gb"
+					format: "YYYY-MM-DD hh:mm:ss",
 				});
-			';
-
-		if(isset($options['linkedPickerName']))
-		{
-			$output .= '
-				$("#'.$name.'").on("change.dp",function (e) {
-					if(!!e.date) {
-						$("#'.$options['linkedPickerName'].'").data("DateTimePicker").setStartDate(moment(e.date).subtract("days", 1));
-						$("#'.$options['linkedPickerName'].'").data("DateTimePicker").setDate(moment(e.date));
-					}
-				});
-				$("#'.$options['linkedPickerName'].'").on("change.dp",function (e) {
-					$("#'.$name.'").data("DateTimePicker").setEndDate(e.date);
-				});
-			';
-		}
-
-	$output .= '
-		});
-	</script>
+			});
+		</script>
 	';
 
-	return $output;
+	return $js.$input;
 });

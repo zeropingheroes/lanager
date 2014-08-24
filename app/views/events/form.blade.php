@@ -9,25 +9,21 @@
 <div class="row">
 	<div class="col-md-6">
 		{{ Form::label('start', 'Start') }}
-		{{ Form::text('start', NULL, array('placeholder' => 'DD/MM/YYYY HH:MM')) }}
-		{{ HTML::datePicker('start', array('linkedPickerName' => 'end')) }}
+		{{ Form::dateTime('start') }}
 	</div>
 	<div class="col-md-6">
 		{{ Form::label('end', 'End') }}
-		{{ Form::text('end', NULL, array('placeholder' => 'DD/MM/YYYY HH:MM')) }}
-		{{ HTML::datePicker('end') }}
+		{{ Form::dateTime('end') }}
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-6">
 		{{ Form::label('signup_opens', 'Signup Opens') }}
-		{{ Form::text('signup_opens', NULL, array('placeholder' => 'DD/MM/YYYY HH:MM')) }}
-		{{ HTML::datePicker('signup_opens', array('linkedPickerName' => 'signup_closes')) }}
+		{{ Form::dateTime('signup_opens') }}
 	</div>
 	<div class="col-md-6">
 		{{ Form::label('signup_closes', 'Signup Closes') }}
-		{{ Form::text('signup_closes', NULL, array('placeholder' => 'DD/MM/YYYY HH:MM')) }}
-		{{ HTML::datePicker('signup_closes') }}
+		{{ Form::dateTime('signup_closes') }}
 	</div>
 </div>
 <div class="row">
