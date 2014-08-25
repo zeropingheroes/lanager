@@ -10,7 +10,7 @@ class SessionsController extends BaseController {
 
 	public function __construct()
 	{
-		$this->beforeFilter('checkResourcePermission',array('only' => array('index', 'store', 'edit', 'update')));
+		$this->beforeFilter('permission',array('only' => array('index', 'store', 'edit', 'update')));
 	}
 
 	/**

@@ -13,7 +13,7 @@ return array(
 	*/
 	'banned' => array(
 		'create' => array(
-			'playlist' => array(
+			'playlists' => array(
 				'items' => array(0),
 				),
 			'shouts' => array(0),
@@ -27,15 +27,20 @@ return array(
 	|
 	| Be careful editing here - you could open up the system to serious abuse!
 	| The order in which the permissions are set is important
+	| All resources are plural
 	|
 	*/
 	'initialise' => function($authority)
 	{
+		// Alias all REST verbs to their CRUD counterparts
 		$authority->addAlias('create',	array('create', 'store'));
 		$authority->addAlias('read', 	array('read', 'index', 'show'));
 		$authority->addAlias('update',	array('update', 'edit'));
 		$authority->addAlias('delete',	array('delete', 'destroy'));
+
+		// Create "do everything" alias
 		$authority->addAlias('manage',	array('create', 'store', 'read', 'index', 'show', 'update', 'edit', 'delete', 'destroy'));
+		
 		$self = $authority->getCurrentUser();
 
 		if ( is_object($self) )
@@ -54,19 +59,19 @@ return array(
 			}
 
 			// Playlist Items			
-			$authority->allow('create', 'playlist.items');
-			$authority->allow('delete', 'playlist.items', function($self, $itemId)
+			$authority->allow('create', 'playlists.items');
+			$authority->allow('delete', 'playlists.items', function($self, $itemId)
 			{
 				return $self->getCurrentUser()->items()->find($itemId);
 			});
-			if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlist.items')) )
+			if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlists.items')) )
 			{
-				$authority->deny('create', 'playlist.items');
+				$authority->deny('create', 'playlists.items');
 			}
 
 			// Playlist Item Votes
-			$authority->allow('create', 'playlist.item.votes');
-			$authority->allow('delete', 'playlist.item.votes');
+			$authority->allow('create', 'playlists.item.votes');
+			$authority->allow('delete', 'playlists.item.votes');
 
 			// Event Signups
 			$authority->allow('create', 'signups');
@@ -108,7 +113,7 @@ return array(
 			if ( $self->hasRole('PlaylistsAdmin') ) 
 			{
 				$authority->allow('manage', 'playlists');
-				$authority->allow('manage', 'playlist.items');
+				$authority->allow('manage', 'playlists.items');
 			}
 
 			/*

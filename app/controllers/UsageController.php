@@ -20,7 +20,7 @@ class UsageController extends BaseController {
 		}
 		else
 		{
-			$this->timestamp = Carbon::now(); ////////////////////////////////////////////
+			$this->timestamp = Carbon::now();
 		}
 	}
 

@@ -10,8 +10,7 @@ class VotesController extends BaseController {
 
 	public function __construct()
 	{
-		// Check if user can access requested method
-		$this->beforeFilter( 'checkResourcePermission', array('only' => array('store', 'destroy')) );
+		$this->beforeFilter('permission', array('only' => array('store', 'destroy')) );
 	}
 
 

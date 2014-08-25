@@ -55,59 +55,14 @@ Route::filter('csrf', function()
 | Gets resource type (e.g. User) action (e.g. delete) and item id from request.
 |
 */
-Route::filter('checkResourcePermission', function($route, $request)
+Route::filter('permission', function($route, $request)
 {
-	$resources = explode('.', Route::currentRouteName());
-	$action = array_pop($resources);
-
-	$resource = '';
-	$i = 0;
-
-	foreach($resources as $resourceName)
-	{
-		$i++;
-
-		// Collect resourceName item IDs
-		$ids[$resourceName] = $route->parameter($resourceName);
-
-		// Build expressive resource string
-		if( (count($resources)) != $i )
-		{
-			$resource .= str_singular($resourceName).'.';
-		}
-		else
-		{
-			$resource .= $resourceName;
-			$id = $route->parameter($resourceName);
-		}
-	}
+	$routeArray = explode('.', Route::currentRouteName());
 	
-	// Replace laravel-style route action names with their CRUD equivalents
-	$actionsToReplace = array('store', 'show', 'index', 'edit', 'destroy');
-	$replaceWithAction = array('create', 'read', 'read', 'update', 'delete');
-	$action = str_replace($actionsToReplace, $replaceWithAction, $action);
+	$action		= array_pop($routeArray);
+	$id 		= $route->parameter(end((array_values($routeArray))));
+	$resource 	= implode('.', $routeArray);
 
-	if( Authority::cannot($action, $resource, $id) )
-	{
-		return App::abort(403);
-	}
-});
+	if( Authority::cannot($action, $resource, $id) ) return App::abort(403);
 
-/*
-|--------------------------------------------------------------------------
-| Role-based Permissions
-|--------------------------------------------------------------------------
-|
-| Checks if the logged in user has been assigned the specified role
-|
-*/
-Route::filter('hasRole', function($route, $request, $value)
-{
-	$user = Authority::getCurrentUser();
-
-	// If not logged in or user does not have role
-	if( ! Auth::check() OR ! $user->hasRole($value) )
-	{
-		return App::abort(403, 'You must be assigned the role "'.$value.'" for this request');
-	}
 });

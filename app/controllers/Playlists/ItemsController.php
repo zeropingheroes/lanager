@@ -9,8 +9,7 @@ class ItemsController extends BaseController {
 
 	public function __construct()
 	{
-		// Check if user can access requested method
-		$this->beforeFilter( 'checkResourcePermission', array('only' => array('store', 'update', 'destroy')) );
+		$this->beforeFilter('permission', array('only' => array('store', 'update', 'destroy')) );
 	}
 
 	/**
