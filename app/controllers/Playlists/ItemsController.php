@@ -56,7 +56,7 @@ class ItemsController extends BaseController {
 			
 			$title = 'Playlist';
 			$history = false;
-			$nowPlaying = $items->take(1)->first();
+			$itemInPlayer = $items->take(1)->first();
 		}
 		$duration = $items->sum('duration');
 		$items = $items->paginate(10);
@@ -66,7 +66,7 @@ class ItemsController extends BaseController {
 					->with('playlist', $playlist)
 					->with('duration', $duration)
 					->with('items', $items)
-					->with('nowPlaying', $nowPlaying)
+					->with('itemInPlayer', $itemInPlayer)
 					->with('history', $history);
 	}
 

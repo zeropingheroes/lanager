@@ -91,7 +91,7 @@ class PlaylistsController extends BaseController {
 		if( Input::has('name') ) $playlist->name = Input::get('name');
 		if( Input::has('playback_state') ) $playlist->playback_state = Input::get('playback_state');
 		
-		return $this->process( $playlist );
+		return $this->process( $playlist, 'playlists.items.index', 'playlists.items.index', $playlistId );
 
 	}
 
