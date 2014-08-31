@@ -64,17 +64,23 @@ Do not download the source in a zip file directly from GitHub - if you do updati
 
 	`chmod -R 777 lanager/app/storage` (*nix)
 	
-6. Open the MySQL console and a database with the following:
+6. Create a MySQL user and database, both named `lanager` and grant the required privileges:
     
-        Database: lanager
-        User: lanager
-        Password: lanager
+	1. In a terminal run: `mysql -u root -p`
+	2. Type your MySQL root user password
+	3. Once you are at the mysql> prompt, run each of the following in turn:
+	4. `CREATE DATABASE lanager;`
+	5. `CREATE USER 'lanager'@'localhost' IDENTIFIED BY 'type a secure password here';`
+	6. `GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'localhost';`
+	7. `FLUSH PRIVILEGES;`
 
-7. In a terminal in the `lanager/` directory, run:
+7. In `lanager/app/config/database.php` set the database password you chose above
+
+8. In a terminal in the `lanager/` directory, run:
 
 	`php artisan lanager:install`
 
-8. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
+9. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
 
 	* On Windows
 		* Add a task for `lanager/SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
@@ -100,7 +106,7 @@ To update to the latest version, back up your config files and from the `lanager
 	* This will reset all files to their defaults!
 2. `git pull origin`
 2. `composer update`
-3. `php artisan lanager:install"`
+3. `php artisan lanager:install`
 	* When asked, choose to continue with the installation
 	* Emptying the database is recommended but optional
 
