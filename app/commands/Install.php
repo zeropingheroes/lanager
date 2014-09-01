@@ -140,7 +140,7 @@ class Install extends BaseCommand {
 
 		$this->customInfo('Setting application key...');
 		$appKey = Artisan::call('key:generate');
-		if( $import != 0 ) $this->abort('Unable to set application key', $this->criticalMessage);
+		if( $appKey != 0 ) $this->abort('Unable to set application key', $this->criticalMessage);
 
 		$this->customInfo('Marking LANager as installed in config file...');
 		$lanagerConfig = $this->editConfigFile('app/config/lanager/config.php', "'installed'	=> false","'installed'	=> true");
