@@ -50,6 +50,7 @@ class SteamImportApps extends BaseCommand {
 		$steamApplicationInterface = $this->steamApplicationInterface->getApplicationList();
 
 		$this->customInfo('Importing '.count($steamApplicationInterface).' applications from Steam into database');
+		$this->customInfo('This will take 1 to 5 minutes');
 		
 		$successCount = 0;
 		$failureCount = 0;
