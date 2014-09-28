@@ -11,3 +11,10 @@ View::composer('layouts.default.infopages', function($view)
 
 	$view->with('infoPages', $infoPagesMenuItems);
 });
+
+View::composer('layouts.default.playlists', function($view)
+{
+	$playlists = Zeropingheroes\Lanager\Playlists\Playlist::all();
+
+	$view->with('playlists', $playlists);
+});

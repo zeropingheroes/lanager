@@ -39,6 +39,7 @@
 
 		var playlist = {
 			item: null,
+			title: null,
 			console: {
 				prefix: function()
 				{
@@ -124,6 +125,7 @@
 					else
 					{
 						playlist.item = item[0]; // move into parent object
+						playlist.name = playlist.item.playlist.name;
 
 						playlist.item.playback_state = parseInt(playlist.item.playback_state);
 						playlist.item.playlist.playback_state = parseInt(playlist.item.playlist.playback_state);
@@ -184,7 +186,7 @@
 			},
 			update_title: function() {
 				playlist.console.log('Updating title display');
-				$('div#now-playing').html(playlist.item.title);
+				$('div#now-playing').html("<strong>"+playlist.name + ':</strong> ' +playlist.item.title);
 				$('div#submitter').html(playlist.item.user.username+'<img src="'+playlist.item.user.avatar+'" alt="Avatar">');
 			},
 			update_database: function (playback_state, skip_reason)

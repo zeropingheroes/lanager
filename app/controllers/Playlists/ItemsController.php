@@ -3,7 +3,7 @@
 use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Playlists\Playlist,
 	Zeropingheroes\Lanager\Playlists\Items\Item;
-use View, Response, Auth, Input, Redirect, Request, DateTime;
+use View, Response, Auth, Input, Redirect, Request, DateTime, Authority;
 
 class ItemsController extends BaseController {
 
@@ -44,9 +44,10 @@ class ItemsController extends BaseController {
 				->where('playback_state', '!=', 0)
 				->orderBy('played_at', 'desc');
 
-			$title = 'Playlist History';
+			$title = 'Playlist History - ' . $playlist->name;
 			$history = true;
 			$nowPlaying = false;
+			$itemInPlayer = null;
 		}
 		else
 		{
@@ -54,15 +55,25 @@ class ItemsController extends BaseController {
 				->where('playback_state', 0)
 				->orderBy('created_at', 'asc');			
 			
-			$title = 'Playlist';
+			$title = 'Playlist - ' . $playlist->name;
 			$history = false;
 			$itemInPlayer = $items->take(1)->first();
 		}
 		$duration = $items->sum('duration');
 		$items = $items->paginate(10);
 
+		$titleFloat = '';
+		if( Authority::can('manage', 'playlists') )
+		{
+			$titleFloat = 
+			'<a href="'. route('playlists.show', $playlist->id).'" class="playlist-playback-state" target="_blank" title="Open this playlist full screen">
+				<span class="glyphicon glyphicon-fullscreen"></span>
+			</a>';
+		}
+
 		return View::make('playlists.items.index')
 					->with('title', $title)
+					->with('titleFloat', $titleFloat)
 					->with('playlist', $playlist)
 					->with('duration', $duration)
 					->with('items', $items)

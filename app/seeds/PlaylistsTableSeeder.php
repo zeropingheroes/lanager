@@ -12,8 +12,19 @@ class PlaylistsTableSeeder extends Seeder {
 
 		$playlists = array(
 			array(
-				'name' 				=> '',
-				'playback_state'	=> 0
+				'name' 				=> 'Music',
+				'description'		=> 'All that sweet LAN music to set the atmosphere. This playlist may be played as audio only!',
+				'playback_state'	=> 1
+			),
+			array(
+				'name' 				=> 'Funny',
+				'description'		=> 'Funny videos - what the internet\'s all about',
+				'playback_state'	=> 1
+			),
+			array(
+				'name' 				=> 'Weird',
+				'description'		=> 'Trippy oddities from the depths of the internet',
+				'playback_state'	=> 1
 			),
 		);
 

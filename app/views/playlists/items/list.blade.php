@@ -2,6 +2,8 @@
 	{{ Table::open() }}
 	<?php
 
+	$controls = '';
+
 	// Now playing item at top of table
 	if( ! empty($itemInPlayer) )
 	{
@@ -124,7 +126,7 @@
 				'title'			=> link_to($item->url, $item->title, array('target'=>'_blank')),
 				'state'			=> $itemStateLabel,
 				'duration'		=> Duration::shortFormat($item->duration),
-				'played'		=> $item->played_at->diffForHumans(),
+				'played'		=> ($item->played_at instanceof \DateTime) ? $item->played_at->diffForHumans() : '',
 			);
 		}
 		else
