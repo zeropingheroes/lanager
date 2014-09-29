@@ -130,7 +130,7 @@ class Install extends BaseCommand {
 		$publish = Artisan::call('asset:publish');
 		if( $publish != 0 ) $this->abort('Asset publishing failure', $this->criticalMessage);
 
-		$this->customInfo('Importing Steam applications...');
+		$this->customInfo('Importing Steam applications... (this will take up to 5 minutes)');
 		$import = Artisan::call('steam:import-apps');
 		if( $import != 0 ) $this->abort('Steam app import error', $this->criticalMessage);
 
