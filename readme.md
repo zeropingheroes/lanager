@@ -86,8 +86,10 @@ Do not download the source in a zip file directly from GitHub - if you do updati
 		* Add a task for `lanager/SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
 
 	* On *nix
-		1. From a terminal run `crontab -e`
-		2. Add the following to the end of the file:
+		1. Make `lanager/SteamImportUserStates.sh` executable:
+			`sudo chmod +x SteamImportUserStates.sh`
+		2. From a terminal run `crontab -e`
+		3. Add the following to the end of the file:
 		`*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1`
 
 ## Usage
