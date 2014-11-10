@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return array([
 
 	/*
 	|--------------------------------------------------------------------------
@@ -18,7 +18,14 @@ return array(
 	|
 	|
 	*/
-
-	'Zero Ping Heroes' => 'http://www.zeropingheroes.co.uk/',
-
-);
+	
+	'Links',
+	[
+		[
+		'title'				=> 'Example',
+		'link'				=> 'http://www.example.com/',
+		'linkAttributes'	=> ['target' => '_blank']
+		],
+	],
+	
+]);
