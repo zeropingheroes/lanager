@@ -1,7 +1,6 @@
 @extends('layouts.default')
 @section('content')
 	@if(count($users))
-		{{ Table::open() }}
 		<?php
 		foreach( $users as $user )
 		{
@@ -36,8 +35,8 @@
 			);
 		}
 		?>
-		{{ Table::body($tableBody) }}
-		{{ Table::close() }}
+		{{ Table::withContents($tableBody) }}
+		
 		{{ $users->links() }}
 	@else
 		No users found!

@@ -1,5 +1,4 @@
 @if(count($roleAssignments))
-	{{ Table::open(array('class' => 'role-assignments')) }}
 	<?php
 	foreach( $roleAssignments as $roleAssignment )
 	{
@@ -10,8 +9,8 @@
 		);
 	}
 	?>
-	{{ Table::body($tableBody) }}
-	{{ Table::close() }}
+	{{ Table::withContents($tableBody) }}
+	
 @else
 	No roles assigned!
 @endif

@@ -1,6 +1,5 @@
-@include('layouts.default.header')
-	@include('layouts.default.nav')
-		@include('layouts.default.content')
-	@include('layouts.default.footer')
-	</body>
+<!DOCTYPE html>
+<html>
+	@include('layouts.global.head')
+	@include('layouts.default.body')
 </html>

@@ -4,26 +4,26 @@
 {{ Form::label('description', 'Description') }}
 {{ Form::textarea('description',NULL,array('placeholder' => 'The event description, markdown formatting enabled', 'rows' => 10)) }}
 
-{{ Form::block_help('<a href="https://daringfireball.net/projects/markdown/basics" target="_blank">Markdown cheatsheet</a>') }}
+{{ Form::help('<a href="https://daringfireball.net/projects/markdown/basics" target="_blank">Markdown formatting cheatsheet</a>') }}
 
 <div class="row">
 	<div class="col-md-6">
 		{{ Form::label('start', 'Start') }}
-		{{ Form::dateTime('start') }}
+		{{ Form::dateTimePicker('start') }}
 	</div>
 	<div class="col-md-6">
 		{{ Form::label('end', 'End') }}
-		{{ Form::dateTime('end') }}
+		{{ Form::dateTimePicker('end') }}
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-6">
 		{{ Form::label('signup_opens', 'Signup Opens') }}
-		{{ Form::dateTime('signup_opens') }}
+		{{ Form::dateTimePicker('signup_opens') }}
 	</div>
 	<div class="col-md-6">
 		{{ Form::label('signup_closes', 'Signup Closes') }}
-		{{ Form::dateTime('signup_closes') }}
+		{{ Form::dateTimePicker('signup_closes') }}
 	</div>
 </div>
 <div class="row">
@@ -32,5 +32,8 @@
 		{{ Form::select('event_type_id', $eventTypes) }}
 	</div>
 </div>
-
-{{ Button::submit('Submit') }}
+<div class="row">
+	<div class="col-md-6">
+		{{ Form::submit('Submit') }}
+	</div>
+</div>

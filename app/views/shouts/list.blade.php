@@ -19,9 +19,9 @@
 								) }}
 					{{ Form::hidden('pinned', ($shout->pinned-1)*-1) }}
 					<?php $pinVerb = $shout->pinned ? 'Unpin' : 'Pin'; ?>
-					{{ Button::xs_submit('', array('title' => $pinVerb.' this shout', 'name' => 'Submit' ))->with_icon('star') }}
+					{{ Button::normal('Pin', array('title' => $pinVerb.' this shout', 'name' => 'Submit' ))->prependIcon(Icon::star())->submit() }}
 					{{ Form::close() }}
-					{{ HTML::button('shouts.destroy', $shout->id, ['size' => 'xs', 'value' => '']) }}
+					{{ HTML::button('shouts.destroy', $shout->id) }}
 				</div>
 			@endif
 			<span class="pull-right shout-timestamp" title="{{ $shout->created_at }}">

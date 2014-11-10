@@ -2,43 +2,25 @@
    GENERAL
    -------------------------------------------------------------------
 */
-
-/* dark theme */
 body {
-	background-color: #000000;
-	color: #fff;
 	background-image: url('../img/bg-html.jpg');
 }
 
-/* green links */
-a {
-	color: #19A601;
+div.fullscreen {
+	margin-left: 0px;
+	margin-right: 0px;
+	max-width: none;
 }
 
-/* green links */
-a:hover {
-	color: #2AE208;
-}
-
-/* dark hr with no margin */
-hr {
-	border-color: #333;
-	border-top: 1px solid #333;
-	margin: 0;
-}
-
-/* dark table borders */
-table.table tbody tr td {
-	border-color: #333;
+h1 .title-float {
+	font-size: 35%;
 	vertical-align: middle;
 }
 
-/* make delete form button inline */
-.form-inline, .resource-destroy {
-	display: inline;
-}
-
-/* user avatars mimic steam */
+/* -------------------------------------------------------------------
+   AVATARS
+   -------------------------------------------------------------------
+*/
 img.avatar {
 	border: 1px solid;
 }
@@ -61,32 +43,24 @@ img.avatar-offline {
 	border-color: #333;
 }
 
-div.content {
-	margin-bottom: 10px;
-}
-
-div.alert a {
-	color: white;
-	font-weight: bold;
-}
-
-/* footer separated from content */
-footer {
-	border-top: 1px solid #333;
-	padding-top: 5px;
-	padding-bottom: 40px;
-}
-
-div.fullscreen {
-	margin-left: 0px;
-	margin-right: 0px;
-	max-width: none;
-}
-
-.col-centered{
+/* -------------------------------------------------------------------
+   TABLES
+   -------------------------------------------------------------------
+*/
+.col-centered {
     float: none;
     margin: 0 auto;
     text-align: center;
+}
+
+/* -------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------
+*/
+footer {
+	border-top: 1px solid #333;
+	margin-top: 15px;
+	padding: 5px 0 40px 0;
 }
 
 /* -------------------------------------------------------------------
@@ -94,153 +68,64 @@ div.fullscreen {
    -------------------------------------------------------------------
 */
 
-div.navbar-collapse{
-	height: 46px;
+ /* vertically center brand image & user menu */
+.navbar a.navbar-brand,
+.navbar a.navbar-user {
+	padding: 8px 15px;
+	height: 50px;
 }
 
- /* snug logo in navbar */
-a.navbar-brand {
-	margin: 0;
-	padding-top: 7px;
-	padding-left: 15px;
-	padding-right: 15px;
-	padding-bottom: 0px;
-}
-
-/* dropdown 2nd triangle hidden */
-.navbar .nav > li > .dropdown-menu:after { 
-	display: none;
-}
-
-/* dark dropdown */
-ul.dropdown-menu {
-	background-color: #111;
-	margin-top: 0;
-	padding-top: 0;
-	padding-bottom: 0;
-}
-
-/* brighter (un-hovered) dropdown links */
-.dropdown-menu li > a {
-	color: #999; 
-}
-
-/* green gradient dropdown links */
-.dropdown-menu li > a:hover,
-.dropdown-menu li > a:focus,
-.dropdown-submenu:hover > a {
-	color: #fff !important;
-	text-decoration: none;
-	background-color: #21C404;
-	background-image: -moz-linear-gradient(top, #2AE208, #19A601);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2AE208), to(#19A601));
-	background-image: -webkit-linear-gradient(top, #2AE208, #19A601);
-	background-image: -o-linear-gradient(top, #2AE208, #19A601);
-	background-image: linear-gradient(to bottom, #2AE208, #19A601);
-	background-repeat: repeat-x;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2AE208', endColorstr='#ff19A601', GradientType=0);
-}
-
-/* snug logged in user menu in navbar */
-li.dropdown a.user-menu {
-	padding: 7px 10px;
-	height: 46px;
-/*	width: 160px;
-*/}
-
-/* correct steam sign in link position */
-div.navbar-right ul.navbar-nav li a.steam-signin {
-	padding-top: 1px;
-	padding-bottom: 0px;
+/* vertically center signin button */
+.navbar a.navbar-signin {
+	padding: 13px 15px;
+	height: 50px;
 }
 
 /* -------------------------------------------------------------------
    USER - PROFILE
    -------------------------------------------------------------------
 */
-
-/* separate header from content */
-div.user-profile-header {
-	padding-bottom: 10px;
-	margin-bottom: 10px;
-	border-bottom: 1px solid #222;
-	position: relative;
+div.profile-header {
+	margin-bottom: 5px;
+	height: 190px; /* avatar height*/
 }
 
-/* username float to bottom of image */
-div.user-profile-header img {
-	vertical-align: bottom;
-}
-
-/* username float to bottom of image */
-div.user-profile-header h1 {
+div.profile-header img.avatar {
+	height: 190px;
 	display: inline;
 }
 
-/* buttons right bottom aligned in header */
-div.user-profile-header ul.user-profile-actions {
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	text-align: right;
-	list-style: none;
-}
-
-/* status top right aligned */
-div.user-profile-content div.user-status {
-	text-align: right;
-}
-
-/* neat lists in content */
-div.user-profile-content ul {
-	list-style: none;
-	margin: 0px;
-	padding: 0px;
-}
-
-/* right aligned delete button */
-table.achievements tr td.column-controls {
-	text-align: right;
+div.profile-header h1 {
+	height: 40px;
+	display: inline;
+	margin-left: 10px;
 }
 
 /* -------------------------------------------------------------------
    SHOUT - INDEX
    -------------------------------------------------------------------
 */
-
-/* wide form separated from posts */
-form.shout-create {
+form.shout-create div.input-group {
 	width: 100%;
-	margin-bottom: 10px;
 }
 
-/* full width text input */
-form.shout-create input {
-	width: 1080px;
-}
-
-/* right aligned moderation buttons */
-div.shout-moderation {
-	display: inline;
-	margin-left: 15px;
-}
-
-/* de-emphasise timestamps */
-span.shout-timestamp {
-	font-size: 85%;
+form.shout-create div.input-group span.input-group-btn {
+	width: 54px;
 }
 
 /* -------------------------------------------------------------------
    STATES - CURRENT USAGE
    -------------------------------------------------------------------
 */
+table.states-current-usage tr td { /* verticdally centred rows */
+	vertical-align: middle;
+}
 
-/* snug logo size */
-table.states-current-usage td.column-application {
+table.states-current-usage td.application { /* snug logo size */
 	width: 184px;
 }
-/* easy to read user count */
-table.states-current-usage td.column-user-count {
+
+table.states-current-usage td.user-count { /* easy to read user count */
 	font-size: 200%;
 	font-weight: bold;
 	padding: 0px 30px;
@@ -250,31 +135,30 @@ table.states-current-usage td.column-user-count {
    EVENTS - TIMETABLE
    -------------------------------------------------------------------
 */
-
-/* move timetable up */
 div#timetable {
-	margin-top: -42px;
+	margin-top: -42px; /* move timetable up */
 }
-/* remove timetable background */ 
-.fc-state-highlight {
+
+div#timetable td.fc-state-highlight { /* remove timetable background */ 
 	background-color: transparent;
 }
-/* subtle borders*/ 
-.fc-widget-header,
-.fc-widget-content {
-	border: 1px solid #444;
-}
-/* hide event overlay */ 
-.fc-event-bg {
-	display: none;
+
+div#timetable th.fc-widget-header { /* remove outer borders */
+	border: none;
 }
 
-/* render timeline */
-.timeline {
+div#timetable td.fc-widget-content { /* subtle inner borders*/ 
+	border: 1px dotted #444;
+}
+
+div#timetable .fc-event-bg { /* hide event overlay */ 
+	display: none; 
+}
+
+.timeline { /* green timeline */
 	position: absolute;
 	left: 50px;
-	border: none;
-	border-top: 2px solid #2919FF;
+	border-top: 2px solid #0f0;
 	width: 100%;
 	margin: 0;
 	padding: 0;
@@ -285,11 +169,6 @@ div#timetable {
    EVENTS - LIST
    -------------------------------------------------------------------
 */
-table.events-list td.column-signup-timespan-status
-{
-	text-align: right;
-}
-
 span.label-status-past {
 	background-color: #d74c47;
 }
@@ -306,96 +185,43 @@ span.label-status-future {
    EVENTS - CREATE
    -------------------------------------------------------------------
 */
+form.event-create { /* extra space for date time pickers */
+	margin-bottom: 150px; 
+}
 
-/* dark green hover */ 
-.bootstrap-datetimepicker-widget td.day:hover,
-.bootstrap-datetimepicker-widget td.hour:hover,
-.bootstrap-datetimepicker-widget td.minute:hover,
-.bootstrap-datetimepicker-widget td span:hover,
-.bootstrap-datetimepicker-widget thead tr:first-child th:hover {
+form.event-create .bootstrap-datetimepicker-widget ul td.day:hover,
+form.event-create .bootstrap-datetimepicker-widget ul td.hour:hover,
+form.event-create .bootstrap-datetimepicker-widget ul td.minute:hover,
+form.event-create .bootstrap-datetimepicker-widget ul td span:hover,
+form.event-create .bootstrap-datetimepicker-widget ul thead tr:first-child th:hover { /* dark green hover */ 
 	background: #19A601;
 }
-/* light green selected */ 
-.bootstrap-datetimepicker-widget td.active,
-.bootstrap-datetimepicker-widget td span.active {
+
+form.event-create .bootstrap-datetimepicker-widget ul td.active,
+form.event-create .bootstrap-datetimepicker-widget ul td span.active { /* light green selected */ 
 	background: #2AE208;
-}
-
-/* -------------------------------------------------------------------
-   EVENTS - VIEW
-   -------------------------------------------------------------------
-*/
-
-/* borderless and left aligned */
-table.signups thead tr th,
-table.signups tr td {
-	padding-left: 0;
-	border-bottom: none;
-	border-top: none;
-}
-
-/* right aligned signup time column */
-table.signups th+th,
-table.signups td.column-signup-time
- {
-	text-align: right;
 }
 
 /* -------------------------------------------------------------------
    PLAYLIST ITEMS - INDEX
    -------------------------------------------------------------------
 */
-form.playlist-item-create {
+form.playlist-item-create div.input-group {
 	width: 100%;
-	margin-bottom: 10px;
 }
 
-form.playlist-item-create input {
-	width: 1065px;
-}
-
-div.playlist-controls {
-	margin-top: 30px;
-}
-
-h1 a.playlist-playback-state {
-	font-size: 35%;
-	color: white;
-	vertical-align: middle;
-}
-
-td.column-timestamp {
-	text-align: right;
-}
-
-span.playlist-total-time {
-	margin: 20px 8px 20px 8px;
+form.playlist-item-create div.input-group span.input-group-btn {
+	width: 54px;
 }
 
 /* -------------------------------------------------------------------
-   PLAYLIST - SHOW
+   PLAYLIST - SHOW (SCREEN)
    -------------------------------------------------------------------
 */
 div#now-playing, div#submitter {
 	font-size: 150%;
 }
+
 div#submitter img {
 	padding-left: 5px;
-}
-
-
-/* -------------------------------------------------------------------
-   ACHIEVEMENTS - INDEX
-   -------------------------------------------------------------------
-*/
-th:last-child {
-	text-align: right;
-}
-
-/* -------------------------------------------------------------------
-   SESSIONS - CREATE (LOGIN)
-   -------------------------------------------------------------------
-*/
-div.steam-help {
-	padding: 15px 0;
 }

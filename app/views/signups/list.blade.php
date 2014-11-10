@@ -1,5 +1,4 @@
 @if(count($signups))
-	{{ Table::open(array('class' => 'signups')) }}
 	<?php
 	foreach( $signups as $signup )
 	{
@@ -10,8 +9,8 @@
 		);
 	}
 	?>
-	{{ Table::body($tableBody) }}
-	{{ Table::close() }}
+	{{ Table::withContents($tableBody) }}
+	
 @else
 	No event signups!
 @endif

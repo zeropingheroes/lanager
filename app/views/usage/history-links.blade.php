@@ -2,16 +2,26 @@
 use Carbon\Carbon;
 
 $timestamps = array(
-	time()-300,
-	time()-600,
-	time()-1800,
-	time()-3600,
-	time()-7200,
+	time()-(60*5),
+	time()-(60*15),
+	time()-(60*30),
+	time()-(60*60),
+	time()-(60*60*2),
+	time()-(60*60*4),
+	time()-(60*60*6),
+	time()-(60*60*8),
+	time()-(60*60*12),
 	);
-?>
-<p>
-{{ link_to(Request::url(), 'Now') }}
-@foreach($timestamps as $timestamp)
-	/ {{ link_to(Request::url().'?timestamp='.$timestamp, Carbon::createFromTimeStamp($timestamp)->diffForHumans()) }}
-@endforeach
-</p>
+
+$dropdownItems[0]['url'] = Request::url();
+$dropdownItems[0]['label'] = 'Now';
+
+$i = 1;
+foreach($timestamps as $timestamp)
+{
+	$dropdownItems[$i]['url'] = Request::url().'?timestamp='.($timestamp);
+	$dropdownItems[$i]['label'] = Carbon::createFromTimeStamp($timestamp)->diffForHumans();
+	$i++;
+}
+
+echo DropdownButton::normal('View History')->withContents($dropdownItems);

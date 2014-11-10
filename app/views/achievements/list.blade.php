@@ -16,7 +16,7 @@
 					'name'			=> e($achievement->name),
 					'descrption'	=> e($achievement->description),
 					'users'			=> $achievement->users->count(),
-					'controls'		=> 	Button::sm_link(URL::route('awards.create', array('achievement_id' => $achievement->id)), 'Award' )->with_icon('user')  . ' ' .
+					'controls'		=> 	Button::sm_link(URL::route('awards.create', array('achievement_id' => $achievement->id)), 'Award' )->withIcon(Icon::user())  . ' ' .
 										HTML::button('achievements.edit',$achievement->id, ['size' => 'sm']) .  
 										HTML::button('achievements.destroy',$achievement->id, ['size' => 'sm']),
 				);
@@ -31,8 +31,8 @@
 			}
 		}
 		?>
-		{{ Table::body($tableBody) }}
-		{{ Table::close() }}
+		{{ Table::withContents($tableBody) }}
+		
 		{{ $achievements->links() }}
 		<br>
 		@if( Authority::can('manage', 'achievements') )

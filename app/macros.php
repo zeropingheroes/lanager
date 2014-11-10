@@ -9,34 +9,28 @@
  * @param  array			$options
  * @return string
  */
-HTML::macro('button', function($route, $item = NULL, $options = [])
+HTML::macro('button', function($route, $item = NULL)
 {
 	// Extract resource information
-	$action		= substr( $route, strrpos( $route, '.' )+1 );
-	$resource	= str_replace('.' . $action, '', $route);
-	$item		= is_numeric($item) ? $item : NULL;
+	$action		= substr( $route, strrpos( $route, '.' )+1 );	// e.g. destroy
+	$resource	= str_replace('.' . $action, '', $route);		// e.g. shout
+	$item		= is_numeric($item) ? $item : NULL;				// e.g. 35
+	
+	// Build URL
 	$url		= URL::route($route, [$resource => $item]);
 
-	// Check if the user has permission to perform the action
+	// Exit if the user does not have permission to perform the action on the item
 	if( Authority::cannot($action, $resource, $item) ) return;
 
-	// Set size and value options to sensible defaults
-	$size		= ( isset($options['size']) ) ? $options['size'] : '';
-	$value		= ( ! isset($options['value']) ) ? ucfirst($action) : $options['value'];
-	
-	// Create the button type to call call based on the action type
-	$type		= ( $action == 'destroy' ) ? 'submit' : 'link';
-	$button		= ( empty($size) ) ? $type : $size . '_' . $type;
-
 	// Generate the button for the given action
-	if( $action == 'create' )	return Button::$button($url, $value, ['title' => ucfirst($action) . ' a new ' . str_singular($resource)])->with_icon('file');
-	if( $action == 'edit' )		return Button::$button($url, $value, ['title' => ucfirst($action) . ' this ' . str_singular($resource)])->with_icon('pencil');
+	if( $action == 'create' )	return Button::normal(ucfirst($action))->prependIcon(Icon::file())->asLinkTo($url);
+	if( $action == 'edit' )		return Button::normal(ucfirst($action))->prependIcon(Icon::pencil())->asLinkTo($url);
 	if( $action == 'destroy' )
 	{
-		$confirmation = ( ! isset($options['confirmation']) ) ? 'Are you sure you want to permanently delete this ' . str_singular($resource) . '?' : $options['confirmation'];
+		$confirmation = 'Are you sure you want to permanently delete this ' . str_singular($resource) . '?';
 		
 		return	Form::open(['url' => $url, 'method' => 'DELETE', 'data-confirm' => $confirmation, 'class' => 'resource-destroy'])
-			 .	Button::$button($value, ['title' => ucfirst($action) . ' this ' . str_singular($resource)])->with_icon('trash')
+			 .	Button::normal(ucfirst($action))->prependIcon(Icon::trash())->submit()
 			 .	Form::close();
 	}
 });
@@ -47,7 +41,7 @@ HTML::macro('button', function($route, $item = NULL, $options = [])
  * @param  string			$name
  * @return string
  */
-Form::macro('dateTime', function($name)
+Form::macro('dateTimePicker', function($name)
 {
 	$input = Form::text($name, NULL, array('placeholder' => 'YYYY-MM-DD HH:MM:SS'));
 	$js = '<script type="text/javascript">

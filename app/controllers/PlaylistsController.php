@@ -19,9 +19,11 @@ class PlaylistsController extends BaseController {
 	public function index()
 	{
 		$playlists = Playlist::all();
-		
 		if ( Request::ajax() ) return Response::json($playlists);
-
+		
+		return View::make('playlists.index')
+					->with('title', 'Playlists')
+					->with('playlists', $playlists);
 	}
 
 	/**

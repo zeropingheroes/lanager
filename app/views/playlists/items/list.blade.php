@@ -1,5 +1,4 @@
 @if(count($items))
-	{{ Table::open() }}
 	<?php
 
 	$controls = '';
@@ -24,7 +23,7 @@
 						'method' => 'POST',
 						'class' => 'form-inline')
 					);
-				$controls .= Button::xs_submit('', array('title' => 'Vote to skip this item', 'name' => 'vote'))->with_icon('step-forward');
+				$controls .= Button::normal('', array('title' => 'Vote to skip this item', 'name' => 'vote'))->withIcon(Icon::stepForward())->submit();
 				$controls .= Form::close();
 			}
 			else
@@ -40,7 +39,7 @@
 						'method' => 'DELETE',
 						'class' => 'form-inline')
 					);
-				$controls .= Button::xs_danger_submit('', array('title' => 'Remove your vote to skip this item', 'name' => 'vote'))->with_icon('step-forward');
+				$controls .= Button::normal('', array('title' => 'Remove your vote to skip this item', 'name' => 'vote'))->withIcon(Icon::stepForward())->submit();
 				$controls .= Form::close();
 			}
 		}
@@ -51,11 +50,13 @@
 			$adminControls = Form::open(array('route' => array('playlists.update', $playlist->id), 'method' => 'PUT', 'class' => 'form-inline'));
 			if( $playlist->playback_state == 1 )
 			{
-				$adminControls .= Button::xs_submit('', array('title' => 'Pause playback', 'name' => 'playback_state', 'value' => 0))->with_icon('pause');
+				$adminControls .= Form::hidden('playback_state', 0);
+				$adminControls .= Button::normal('', array('title' => 'Pause playback'))->withIcon(Icon::pause())->submit();
 			}
 			else
 			{
-				$adminControls .= Button::xs_submit('', array('title' => 'Resume playback', 'name' => 'playback_state', 'value' => 1))->with_icon('play');
+				$adminControls .= Form::hidden('playback_state', 1);
+				$adminControls .= Button::normal('', array('title' => 'Resume playback'))->withIcon(Icon::play())->submit();
 			}
 			$adminControls .= Form::close();
 		}
@@ -65,7 +66,7 @@
 		}
 
 		// Admin force skip
-		if( Authority::can('manage', 'playlist.items') )
+		if( Authority::can('manage', 'playlists.items') )
 		{
 			$adminControls .= Form::open(
 						array(
@@ -79,7 +80,7 @@
 							'id' => 'skip'.$item->id)
 						);
 			$adminControls .= Form::hidden('playback_state', 2);
-			$adminControls .= Button::xs_danger_submit('', array('title' => 'Immediately skip this item', 'name' => 'Submit' ))->with_icon('step-forward');
+			$adminControls .= Button::normal('', array('title' => 'Immediately skip this item', 'name' => 'Submit' ))->withIcon(Icon::stepForward())->submit();
 			$adminControls .= Form::close();
 			$adminControls .= '<script type="text/javascript">
 								$( "#'.'skip'.$item->id.'" ).submit(function( event ) {
@@ -131,7 +132,7 @@
 		}
 		else
 		{
-			if( Authority::can('manage', 'playlist.items') )
+			if( Authority::can('manage', 'playlists.items') )
 			{
 				$adminControls = Form::open(
 							array(
@@ -145,7 +146,7 @@
 								'id' => 'skip'.$item->id)
 							);
 				$adminControls .= Form::hidden('playback_state', 2);
-				$adminControls .= Button::xs_danger_submit('', array('title' => 'Immediately skip this item', 'name' => 'Submit' ))->with_icon('fast-forward');
+				$adminControls .= Button::normal('', array('title' => 'Immediately skip this item', 'name' => 'Submit' ))->withIcon(Icon::fastForward())->submit();
 				$adminControls .= Form::close();
 				$adminControls .= '<script type="text/javascript">
 									$( "#'.'skip'.$item->id.'" ).submit(function( event ) {
@@ -175,8 +176,8 @@
 	}
 
 	?>
-	{{ Table::body($tableBody) }}
-	{{ Table::close() }}
+	{{ Table::withContents($tableBody) }}
+	
 	@if( $history )
 		{{ $items->appends(array('history' => '1'))->links() }}
 	@else

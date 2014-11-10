@@ -1,4 +1,5 @@
-@include('layouts.default.header')
-	@include('layouts.fullscreen.content')
-	</body>
+<!DOCTYPE html>
+<html>
+	@include('layouts.global.head')
+	@include('layouts.fullscreen.body')
 </html>

@@ -66,7 +66,7 @@ class ItemsController extends BaseController {
 		if( Authority::can('manage', 'playlists') )
 		{
 			$titleFloat = 
-			'<a href="'. route('playlists.show', $playlist->id).'" class="playlist-playback-state" target="_blank" title="Open this playlist full screen">
+			'<a href="'. route('playlists.show', $playlist->id).'" class="title-float" target="_blank" title="Open this playlist full screen">
 				<span class="glyphicon glyphicon-fullscreen"></span>
 			</a>';
 		}

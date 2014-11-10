@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 	@if(count($usage))
-		{{ Table::open(array('class' => 'states-current-usage')) }}
+		<table class="table states-current-usage">
 		<?php
 			$i = 0;
 			$totalUsers = 0;
@@ -18,8 +18,15 @@
 				$i++;
 			}
 		?>
-		{{ Table::body($rows) }}
-		{{ Table::close() }}
+		@foreach($rows as $row)
+			<tr>
+				<td class="application">{{ $row['application'] }}</td>
+				<td class="user-count">{{ $row['user-count']}}</td>
+				<td>{{ $row['users'] }}</td>
+			</tr>
+		@endforeach
+		</table>
+
 	@else
 		<p>No usage to show!</p>
 	@endif

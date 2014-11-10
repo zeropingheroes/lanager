@@ -31,8 +31,8 @@
 		
 	}
 	?>
-	{{ Table::body($tableBody) }}
-	{{ Table::close() }}
+	{{ Table::withContents($tableBody) }}
+	
 @else
 	No achievements awarded!
 @endif
