@@ -41,7 +41,7 @@
 			@include('awards.list', ['awards' => $user->awards()->orderBy('lan_id','desc')->get()] )
 		@elseif( Input::get('tab') == 'shouts' )
 			<h2>Shouts</h2>
-			@include('shouts.list', ['shouts' => $user->shouts()->orderBy('created_at','desc')->take(3)->get()] )
+			@include('shouts.partials.list', ['shouts' => $user->shouts()->orderBy('created_at','desc')->take(3)->get()] )
 		@endif
 	</div>
 

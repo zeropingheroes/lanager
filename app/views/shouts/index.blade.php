@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('content')
-	@include('shouts.form')
-	@include('shouts.list')
+	@include('shouts.partials.form')
+	@include('shouts.partials.list')
 	{{ $shouts->links() }}
 @endsection
