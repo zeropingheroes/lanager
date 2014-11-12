@@ -116,10 +116,12 @@ return array(
 				$authority->allow('manage', 'playlists.items');
 			}
 
-			if ( $self->hasRole('Admin') ) 
+			if ( $self->hasRole('Admin') )
 			{
 				$authority->allow('manage', 'all');
 				$authority->deny('manage', 'roles');
+
+				// can do everything except modify roles
 				$authority->deny('manage', 'role-assignments');
 			}
 
