@@ -4,4 +4,4 @@
 {{ Form::label('role_id', 'Role') }}
 {{ Form::select('role_id', $roles, Input::get('role_id')) }}
 
-{{ Button::submit('Submit') }}
+{{ Button::normal('Submit')->submit() }}

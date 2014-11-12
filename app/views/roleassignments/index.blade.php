@@ -1,5 +1,5 @@
 @extends('layouts.default')
 @section('content')
 	@include('roleassignments.list')
-	{{ link_to_route('role-assignments.create', 'Create') }}
+	{{ HTML::button('role-assignments.create') }}
 @endsection
