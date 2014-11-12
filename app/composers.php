@@ -5,11 +5,22 @@
 |--------------------------------------------------------------------------
 */
 
-View::composer('layouts.default.infopages', function($view)
+View::composer('layouts.default.nav', function($view)
 {
-	$infoPagesMenuItems = Zeropingheroes\Lanager\InfoPages\InfoPage::whereNull('parent_id')->get();
+	// Info
+	$infoPages = Zeropingheroes\Lanager\InfoPages\InfoPage::whereNull('parent_id')->get();
+	foreach($infoPages as $infoPage)
+	{
+		$menuItems[] =
+		[
+			'title' => $infoPage['title'],
+			'link' => URL::route('infopages.show', $infoPage->id),
+		];
+	}
+	$view->with('info', $menuItems);
 
-	$view->with('infoPages', $infoPagesMenuItems);
+	// Links
+	$view->with('links', Config::get('lanager/links'));
 });
 
 View::composer('layouts.default.playlists', function($view)

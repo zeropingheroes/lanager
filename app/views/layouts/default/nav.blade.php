@@ -28,10 +28,15 @@ echo Navbar::withBrand('<img src="' . asset('img/logo.png') .'" width="82" heigh
 							'title' => 'Playlists',
 							'link' => URL::route('playlists.index'),
 						],
+						[
+							'Info',
+							$info,
+						],
+						[
+							'Links',
+							$links,
+						],
 					]
 				)
-			)
-			->withContent(
-				Navigation::links(Config::get('lanager/links'))
 			)
 			->withContent(View::make('layouts/default/auth'));

@@ -1,6 +1,6 @@
 <?php
 
-return array([
+return array(
 
 	/*
 	|--------------------------------------------------------------------------
@@ -19,13 +19,10 @@ return array([
 	|
 	*/
 	
-	'Links',
 	[
-		[
 		'title'				=> 'Example',
 		'link'				=> 'http://www.example.com/',
 		'linkAttributes'	=> ['target' => '_blank']
-		],
 	],
 	
-]);
+);
