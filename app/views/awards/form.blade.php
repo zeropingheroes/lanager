@@ -7,4 +7,4 @@
 {{ Form::label('lan_id', 'LAN Achieved At') }}
 {{ Form::select('lan_id', $lans) }}
 
-{{ Button::submit('Submit') }}
+{{ Button::normal('Submit')->submit() }}

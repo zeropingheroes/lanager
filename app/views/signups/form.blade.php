@@ -4,4 +4,4 @@
 {{ Form::label('event_id', 'Event') }}
 {{ Form::select('event_id', $events, Input::get('event_id')) }}
 
-{{ Button::submit('Submit') }}
+{{ Button::normal('Submit')->submit() }}
