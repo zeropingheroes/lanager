@@ -95,25 +95,32 @@ return array(
 			| Role-based Permissions
 			|--------------------------------------------------------------------------
 			*/
-			if ( $self->hasRole('InfoPagesAdmin') ) 
+			if ( $self->hasRole('Info Admin') ) 
 			{
 				$authority->allow('manage', 'infopages');
 			}
 
-			if ( $self->hasRole('ShoutsAdmin') ) 
+			if ( $self->hasRole('Shouts Admin') ) 
 			{
 				$authority->allow('manage', 'shouts');
 			}
 
-			if ( $self->hasRole('EventsAdmin') ) 
+			if ( $self->hasRole('Events Admin') ) 
 			{
 				$authority->allow('manage', 'events');
 			}
 
-			if ( $self->hasRole('PlaylistsAdmin') ) 
+			if ( $self->hasRole('Playlists Admin') ) 
 			{
 				$authority->allow('manage', 'playlists');
 				$authority->allow('manage', 'playlists.items');
+			}
+
+			if ( $self->hasRole('Admin') ) 
+			{
+				$authority->allow('manage', 'all');
+				$authority->deny('manage', 'roles');
+				$authority->deny('manage', 'role-assignments');
 			}
 
 			/*
@@ -121,7 +128,7 @@ return array(
 			| SuperAdmin Permissions - Keep at Bottom
 			|--------------------------------------------------------------------------
 			*/
-			if ( $self->hasRole('SuperAdmin') ) 
+			if ( $self->hasRole('Super Admin') ) 
 			{
 				$authority->allow('manage', 'all');
 			}

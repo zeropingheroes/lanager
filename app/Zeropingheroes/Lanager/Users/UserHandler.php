@@ -7,7 +7,7 @@ class UserHandler {
 	public function onStore($user)
 	{
 		// Make the first user SuperAdmin
-		if( count(User::all()) == 1 && ! $user->hasRole('SuperAdmin') )	$user->roles()->attach(Role::where('name', '=', 'SuperAdmin')->firstOrFail());
+		if( count(User::all()) == 1 && ! $user->hasRole('Super Admin') )	$user->roles()->attach(Role::where('name', '=', 'Super Admin')->firstOrFail());
 	}
 
 	/**
