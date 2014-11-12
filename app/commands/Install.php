@@ -64,7 +64,7 @@ class Install extends BaseCommand {
 		$this->customInfo('Testing requirements before installation...');
 		
 		$this->checkRequirement('PHP version greater than 5.4', 
-			version_compare( PHP_VERSION, '5.4' ) >= 0,
+			version_compare( PHP_VERSION, '5.5' ) >= 0,
 			'Install the latest stable version of PHP');
 
 		$this->checkRequirement('Curl PHP module installed and enabled', 

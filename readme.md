@@ -33,7 +33,7 @@ more enjoyable for attendees and organisers alike.
 ## Requirements
 * Windows / Linux / OS X
 * Apache Web server
-* PHP 5.4+ (with cURL & MCrypt)
+* PHP 5.5 (with cURL & MCrypt)
 * MySQL
 * [Composer](https://getcomposer.org/)
 * [Steam API Key](http://steamcommunity.com/dev/apikey)
