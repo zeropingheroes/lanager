@@ -13,6 +13,7 @@
 		<div class="media-body shout-body">
 			<h4 class="media-heading">
 				{{ link_to_route('users.show', $shout->user->username, $shout->user->id) }}
+				@include('roles.partials.badges', ['roles' => $shout->user->roles])
 			</h4>
 			{{{ $shout->content }}}
 		</div>
