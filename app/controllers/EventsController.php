@@ -36,8 +36,6 @@ class EventsController extends BaseController {
 			}
 			return Response::json($fullCalendarJson);
 		}
-		return View::make('events.timetable')
-					->with('title','Events Timetable');
 	}
 
 	/**
@@ -50,7 +48,7 @@ class EventsController extends BaseController {
 		$events = Event::orderBy('start')->with('type')->get();
 	
 		return View::make('events.index')
-					->with('title','Events List')
+					->with('title','Events')
 					->with('events',$events);
 	}
 
