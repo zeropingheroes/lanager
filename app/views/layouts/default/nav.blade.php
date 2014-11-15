@@ -10,7 +10,7 @@ echo Navbar::withBrand('<img src="' . asset('img/logo.png') .'" width="82" heigh
 						],
 						[
 							'title' => 'Events',
-							'link' => URL::route('events.timetable'),
+							'link' => URL::route('events.index'),
 						],
 						[
 							'title' => 'Users',
