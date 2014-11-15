@@ -6,10 +6,11 @@
 		link_to(SteamBrowserProtocol::openSteamPage('SteamIDEditPage'), 'changing your profile\'s privacy settings to public') . ', even if it\'s just for the event. Thanks!' ) }}
 	@endif
 
-	<div class="profile-header">
-		@include('users.partials.avatar', ['user' => $user, 'size' => 'large'] )
-		@include('layouts.default.title')
+	<div class="profile-header ">
+		<div class="profile-avatar">@include('users.partials.avatar', ['user' => $user, 'size' => 'large'] )</div>
+		<h1>{{ $title }}@include('roles.partials.badges', ['roles' => $user->roles])</h1>
 	</div>
+
 	<div class="profile-nav">
 		{{
 			Navigation::tabs([

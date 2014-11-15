@@ -12,11 +12,6 @@ div.fullscreen {
 	max-width: none;
 }
 
-h1 .title-float {
-	font-size: 35%;
-	vertical-align: middle;
-}
-
 div.alert a {
 	color: inherit;
 	font-weight: bold;
@@ -90,20 +85,26 @@ footer {
    USER - PROFILE
    -------------------------------------------------------------------
 */
-div.profile-header {
-	margin-bottom: 5px;
-	height: 190px; /* avatar height*/
-}
 
-div.profile-header img.avatar {
+div.profile-header div.profile-avatar {
 	height: 190px;
-	display: inline;
+	float: left;
 }
 
 div.profile-header h1 {
-	height: 40px;
-	display: inline;
-	margin-left: 10px;
+	margin: 0px;
+	line-height: 190px;
+}
+
+@media (max-width: 1200px) { /* move profile name under avatar for small screens*/
+	div.profile-header h1 {
+		line-height: inherit;
+		clear:both;
+	}
+}
+
+div.profile-nav {
+	margin-top: 5px;
 }
 
 /* -------------------------------------------------------------------
