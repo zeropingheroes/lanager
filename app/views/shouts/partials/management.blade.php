@@ -1,18 +1,31 @@
-@if( Authority::can('manage', 'shouts'))
-	<div class="shout-moderation pull-right">
-		{{ Form::open(
-					array(
-						'route' => array(
-							'shouts.update',
-								'shout' => $shout->id,
-						),
-						'method' => 'PUT',
-						'class' => 'form-inline')
-					) }}
-		{{ Form::hidden('pinned', ($shout->pinned-1)*-1) }}
-		<?php $pinVerb = $shout->pinned ? 'Unpin' : 'Pin'; ?>
-		{{ Button::normal('Pin', array('title' => $pinVerb.' this shout', 'name' => 'Submit' ))->prependIcon(Icon::pushpin())->submit() }}
-		{{ Form::close() }}
-		{{ HTML::button('shouts.destroy', $shout->id) }}
-	</div>
-@endif
+<div class="shout-management">
+	@if( Authority::can('manage', 'shouts'))
+			{{ Form::inline(
+							[
+								'route' => [
+									'shouts.destroy',
+									'shout' => $shout->id,
+								],
+								'method' => 'DELETE',
+								'data-confirm' => 'Are you sure you want to destroy this shout?',
+								'class' => 'pull-right'
+							]
+						) }}
+			{{ Button::normal( Icon::trash() )->extraSmall()->submit() }}
+			{{ Form::close() }}
+
+			{{ Form::inline(
+							[
+								'route' => [
+									'shouts.update',
+									'shout' => $shout->id,
+								],
+								'method' => 'PUT',
+								'class' => 'pull-right'
+							]
+						) }}
+			{{ Form::hidden('pinned', ($shout->pinned-1)*-1) }}
+			{{ Button::normal( Icon::pushpin() )->extraSmall()->submit() }}
+			{{ Form::close() }}
+	@endif
+</div>

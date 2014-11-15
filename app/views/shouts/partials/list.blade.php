@@ -4,11 +4,10 @@
 			@include('users.partials.avatar', ['user' => $shout->user, 'size' => 'medium', 'classes' => 'media-object'] )
 		</a>
 		@include('shouts.partials.management')
-		<span class="pull-right shout-timestamp" title="{{ $shout->created_at }}">
-			{{ $shout->created_at->diffForHumans() }}
-		</span>
 		@if ($shout->pinned)
-			<span class="glyphicon glyphicon-pushpin pull-right" title="This post has been pinned"></span>
+			<div class="pull-right">
+				<span class="glyphicon glyphicon-pushpin shout-pin " title="This shout has been pinned"></span>
+			</div>
 		@endif
 		<div class="media-body shout-body">
 			<h4 class="media-heading">
@@ -16,6 +15,11 @@
 				@include('roles.partials.badges', ['roles' => $shout->user->roles])
 			</h4>
 			{{{ $shout->content }}}
+			<div>
+				<small title="{{ $shout->created_at }}" class="timestamp">
+					{{ $shout->created_at->diffForHumans() }}
+				</small>
+			</div>
 		</div>
 	</div>
 @empty

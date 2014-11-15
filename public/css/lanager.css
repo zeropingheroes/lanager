@@ -113,6 +113,20 @@ form.shout-create div.input-group span.input-group-btn {
 	width: 54px;
 }
 
+span.shout-pin {
+	color: #0f0;
+	line-height: 68px;
+	font-size: 1.5em
+}
+
+div.shout-management {
+	line-height: 68px;
+}
+
+small.timestamp {
+	color: #777;
+}
+
 /* -------------------------------------------------------------------
    STATES - CURRENT USAGE
    -------------------------------------------------------------------
