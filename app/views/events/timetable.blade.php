@@ -1,5 +1,7 @@
 @extends('layouts.default')
 @section('content')
+	@include('layouts.default.title')
+	@include('layouts.default.alerts')
 	<script>
 		$(document).ready(function() {
 			$('#timetable').fullCalendar({

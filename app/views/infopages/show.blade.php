@@ -1,9 +1,11 @@
 @extends('layouts.default')
 @section('content')
+	@include('layouts.default.title')
+	@include('layouts.default.alerts')
 	{{ Markdown::string($infoPage->content) }}
 	@if(!empty($infoPages))
 		<ul>
-			@include('infopages.list')
+			@include('infopages.partials.list')
 		</ul>
 	@endif
 	{{ HTML::button('infopages.create') }}

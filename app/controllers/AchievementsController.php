@@ -44,7 +44,7 @@ class AchievementsController extends BaseController {
 									->paginate(10);
 
 
-		return View::make('achievements.list')
+		return View::make('achievements.index')
 					->with('title','Achievements')
 					->with('achievements',$achievements);
 	}

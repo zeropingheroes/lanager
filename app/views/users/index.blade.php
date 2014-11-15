@@ -1,5 +1,7 @@
 @extends('layouts.default')
 @section('content')
+	@include('layouts.default.title')
+	@include('layouts.default.alerts')
 	@if(count($users))
 		<?php
 		foreach( $users as $user )

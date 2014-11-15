@@ -1,4 +1,6 @@
 @extends('layouts.default')
 @section('content')
-	@include('signups.list')
+	@include('layouts.default.title')
+	@include('layouts.default.alerts')
+	@include('signups.partials.list')
 @endsection

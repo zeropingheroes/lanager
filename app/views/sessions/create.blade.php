@@ -1,5 +1,7 @@
 @extends('layouts.default')
 @section('content')
+	@include('layouts.default.title')
+	@include('layouts.default.alerts')
 	<?php
 		// Steam OpenID Login URL - cached for 1 day due to request time
 		$steamAuthUrl = Cache::remember('steamAuthUrl', 60*24, function()

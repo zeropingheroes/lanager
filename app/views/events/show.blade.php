@@ -1,5 +1,7 @@
 @extends('layouts.default')
 @section('content')
+	@include('layouts.default.title')
+	@include('layouts.default.alerts')
 	@if( isset( $event->type->name ) )
 		<h4>{{{ $event->type->name }}}</h4>
 	@endif

@@ -1,8 +1,10 @@
 @extends('layouts.default')
 @section('content')
+	@include('layouts.default.title')
+	@include('layouts.default.alerts')
 	<p>{{ $playlist->description }}</p>
-	@include('playlists.items.form')
-	@include('playlists.items.list')
+	@include('playlistitems.partials.form')
+	@include('playlistitems.partials.list')
 	<br>
 	@if( ! $history )
 		{{ link_to_route('playlists.items.index', 'History', array('playlist' => $playlist->id, 'history' => 1 ) ) }}

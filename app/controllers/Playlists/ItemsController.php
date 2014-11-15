@@ -62,18 +62,8 @@ class ItemsController extends BaseController {
 		$duration = $items->sum('duration');
 		$items = $items->paginate(10);
 
-		$titleFloat = '';
-		if( Authority::can('manage', 'playlists') )
-		{
-			$titleFloat = 
-			'<a href="'. route('playlists.show', $playlist->id).'" class="title-float" target="_blank" title="Open this playlist full screen">
-				<span class="glyphicon glyphicon-fullscreen"></span>
-			</a>';
-		}
-
-		return View::make('playlists.items.index')
+		return View::make('playlistitems.index')
 					->with('title', $title)
-					->with('titleFloat', $titleFloat)
 					->with('playlist', $playlist)
 					->with('duration', $duration)
 					->with('items', $items)

@@ -25,7 +25,7 @@ class UsersController extends BaseController {
 
 		$users = $users->paginate(10);
 
-		return View::make('users.list')
+		return View::make('users.index')
 					->with('title','People')
 					->with('users',$users);
 	}

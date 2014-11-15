@@ -1,5 +1,5 @@
 @if(count($awards))
-	{{ Table::open(array('class' => 'achievements')) }}
+
 	<?php
 	foreach( $awards as $award )
 	{

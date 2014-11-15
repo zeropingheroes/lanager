@@ -10,7 +10,6 @@
 	}
 	?>
 	{{ Table::withContents($tableBody) }}
-	
 @else
 	No roles assigned!
 @endif

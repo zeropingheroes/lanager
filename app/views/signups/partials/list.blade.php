@@ -5,7 +5,7 @@
 		$tableBody[] = array(
 			'user'		=> $signup->user->username,
 			'event'		=> $signup->event->name,
-			'controls'	=> HTML::button('signups.destroy',$signup->id, ['size' => 'xs']),
+			'controls'	=> HTML::button('signups.destroy',$signup->id),
 		);
 	}
 	?>
