@@ -29,7 +29,7 @@ HTML::macro('button', function($route, $item = NULL)
 	{
 		$confirmation = 'Are you sure you want to permanently delete this ' . str_singular($resource) . '?';
 		
-		return	Form::open(['url' => $url, 'method' => 'DELETE', 'data-confirm' => $confirmation, 'class' => 'resource-destroy'])
+		return	Form::inline(['url' => $url, 'method' => 'DELETE', 'data-confirm' => $confirmation])
 			 .	Button::normal(ucfirst($action))->prependIcon(Icon::trash())->submit()
 			 .	Form::close();
 	}
