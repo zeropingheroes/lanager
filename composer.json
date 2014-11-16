@@ -16,8 +16,8 @@
 		"edvinaskrucas/notification": "3.*",
 		"laracasts/presenter": "0.1.*",
 		"zeropingheroes/duration": "dev-master",
-		"zeropingheroes/timespan": "dev-master"
-
+		"zeropingheroes/timespan": "dev-master",
+		"mews/purifier": "1.0.1"
 	},
 	"authors": [
 	{

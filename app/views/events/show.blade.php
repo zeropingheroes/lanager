@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<hr>
-	{{ Markdown::string($event->description) }}
+	{{ Purifier::clean(Markdown::string($event->description), 'markdown') }}
 	<br>
 	{{ HTML::button('events.edit', $event->id) }}
 	{{ HTML::button('events.destroy', $event->id) }}

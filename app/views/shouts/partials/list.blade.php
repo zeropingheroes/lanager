@@ -14,7 +14,9 @@
 				{{ link_to_route('users.show', $shout->user->username, $shout->user->id) }}
 				@include('roles.partials.badges', ['roles' => $shout->user->roles])
 			</h4>
-			{{{ $shout->content }}}
+			
+			{{ Purifier::clean(Markdown::string($shout->content), 'shout') }}
+			
 			<div>
 				<small title="{{ $shout->created_at }}" class="timestamp">
 					{{ $shout->created_at->diffForHumans() }}
