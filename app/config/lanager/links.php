@@ -22,7 +22,6 @@ return array(
 	[
 		'title'				=> 'Example',
 		'link'				=> 'http://www.example.com/',
-		'linkAttributes'	=> ['target' => '_blank']
 	],
 	
 );

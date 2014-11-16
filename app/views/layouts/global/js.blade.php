@@ -10,9 +10,8 @@
 {{ HTML::script('vendor/google/swfobject.js') }}
 {{ HTML::script('vendor/rails/jquery-ujs/rails.js') }}
 
+{{ HTML::script('js/lanager.js') }}
+
 <script type="text/javascript">
 	var siteUrl = '{{ url('/') }}';
-	$(document).ready(function () {
-		$("[rel=tooltip]").tooltip();
-	});
 </script>
