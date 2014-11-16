@@ -30,10 +30,10 @@
 				}
 			}
 			$tableBody[] = array(
-				'user'			=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.View::make('users.partials.avatar')->withUser($user).' '.e($user->username).'</a>',
-				'status'		=> $status,
-				'application'	=> $application,
-				'server'		=> $server,
+				'User'			=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.View::make('users.partials.avatar')->withUser($user).' '.e($user->username).'</a>',
+				'Status'		=> $status,
+				'Game'			=> $application,
+				'Server'		=> $server,
 			);
 		}
 		?>
