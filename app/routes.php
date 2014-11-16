@@ -53,8 +53,8 @@ Route::resource('signups', 'Zeropingheroes\Lanager\SignupsController');
 |--------------------------------------------------------------------------
 */
 Route::resource('playlists', 'Zeropingheroes\Lanager\PlaylistsController');
-Route::resource('playlists.items', 'Zeropingheroes\Lanager\Playlists\ItemsController');
-Route::resource('playlists.items.votes', 'Zeropingheroes\Lanager\Playlists\Items\VotesController');
+Route::resource('playlists.items', 'Zeropingheroes\Lanager\PlaylistItemsController');
+Route::resource('playlists.items.votes', 'Zeropingheroes\Lanager\PlaylistItemVotesController');
 
 /*
 |--------------------------------------------------------------------------

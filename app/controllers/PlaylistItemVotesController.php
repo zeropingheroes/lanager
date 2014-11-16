@@ -1,4 +1,4 @@
-<?php namespace Zeropingheroes\Lanager\Playlists\Items;
+<?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Playlists\Playlist,
@@ -6,7 +6,7 @@ use Zeropingheroes\Lanager\Playlists\Playlist,
 	Zeropingheroes\Lanager\Playlists\Items\Votes\Vote;
 use Response, Auth, Request, Redirect, Event;
 
-class VotesController extends BaseController {
+class PlaylistItemVotesController extends BaseController {
 
 	public function __construct()
 	{

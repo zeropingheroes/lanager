@@ -1,11 +1,11 @@
-<?php namespace Zeropingheroes\Lanager\Playlists;
+<?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Playlists\Playlist,
 	Zeropingheroes\Lanager\Playlists\Items\Item;
 use View, Response, Auth, Input, Redirect, Request, DateTime, Authority;
 
-class ItemsController extends BaseController {
+class PlaylistItemsController extends BaseController {
 
 	public function __construct()
 	{
