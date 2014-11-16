@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPLaylistPlaybackState extends Migration {
+class AddPlaylistPlaybackState extends Migration {
 
 	/**
 	 * Run the migrations.
