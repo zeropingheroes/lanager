@@ -87,7 +87,10 @@ class BaseController extends Controller {
 		}
 		else // Storing or updating
 		{
-			if( ! $model->save() )
+			if( $route['action'] = 'store' ) $save = $model->save();
+			if( $route['action'] = 'update' ) $save = $model->updateUniques();
+
+			if( ! $save )
 			{
 				if ( Request::ajax() ) return Response::json($model->errors(), 400);
 				Notification::danger($model->errors()->all());
