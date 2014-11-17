@@ -33,8 +33,12 @@ class PlaylistsController extends BaseController {
 	 */
 	public function create()
 	{
-		//
+		$playlist = new Playlist;
+		return View::make('playlists.create')
+					->with('title','Create Playlist')
+					->with('playlist',$playlist);
 	}
+
 
 	/**
 	 * Store a newly created resource in storage.
@@ -46,9 +50,13 @@ class PlaylistsController extends BaseController {
 		$playlist = new Playlist;
 
 		$playlist->name = Input::get('name');
-		$playlist->playback_state = Input::get('playback_state');
 
-		return $this->process( $playlist );
+		if( !empty(Input::get('description')) )			$playlist->description = 			Input::get('description');
+		if( !empty(Input::get('max_item_duration')) )	$playlist->max_item_duration = 		Input::get('max_item_duration');
+		if( !empty(Input::get('max_item_duplicates')) ) $playlist->max_item_duplicates =	Input::get('max_item_duplicates');
+		if( !empty(Input::get('user_skip_threshold')) ) $playlist->user_skip_threshold =	Input::get('user_skip_threshold');
+
+		return $this->process( $playlist, 'playlists.index' );
 
 	}
 
@@ -77,7 +85,11 @@ class PlaylistsController extends BaseController {
 	 */
 	public function edit($playlistId)
 	{
-		//
+		$playlist = Playlist::findOrFail($playlistId);
+
+		return View::make('playlists.edit')
+					->with('title','Edit Playlist')
+					->with('playlist',$playlist);
 	}
 
 	/**
@@ -90,10 +102,16 @@ class PlaylistsController extends BaseController {
 	{
 		$playlist = Playlist::findOrFail($playlistId);
 
+
 		if( Input::has('name') ) $playlist->name = Input::get('name');
 		if( Input::has('playback_state') ) $playlist->playback_state = Input::get('playback_state');
-		
-		return $this->process( $playlist, 'playlists.items.index', 'playlists.items.index', $playlistId );
+
+		if( !empty(Input::get('description')) )			$playlist->description = 			Input::get('description');
+		if( !empty(Input::get('max_item_duration')) )	$playlist->max_item_duration = 		Input::get('max_item_duration');
+		if( !empty(Input::get('max_item_duplicates')) ) $playlist->max_item_duplicates =	Input::get('max_item_duplicates');
+		if( !empty(Input::get('user_skip_threshold')) ) $playlist->user_skip_threshold =	Input::get('user_skip_threshold');
+
+		return $this->process( $playlist, 'playlists.index' );
 
 	}
 
