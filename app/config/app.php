@@ -118,7 +118,8 @@ return array(
 		'Zeropingheroes\Duration\DurationServiceProvider',
 		'Zeropingheroes\Timespan\TimespanServiceProvider',
 		'Zeropingheroes\Lanager\Users\UserImportServiceProvider',
-		'Krucas\Notification\NotificationServiceProvider'
+		'Krucas\Notification\NotificationServiceProvider',
+		'Mews\Purifier\PurifierServiceProvider',
 
 	),
 
@@ -224,6 +225,7 @@ return array(
 		'Authority'				=> 'Authority\AuthorityL4\Facades\Authority',
 		'Notification'			=> 'Krucas\Notification\Facades\Notification',
 		'Markdown'				=> 'VTalbot\Markdown\Facades\Markdown',
+		'Purifier'				=> 'Mews\Purifier\Facades\Purifier',
 
 	),
 
