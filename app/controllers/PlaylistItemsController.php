@@ -3,7 +3,9 @@
 use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Playlists\Playlist,
 	Zeropingheroes\Lanager\Playlists\Items\Item;
-use View, Response, Auth, Input, Redirect, Request, DateTime, Authority;
+use Zeropingheroes\Lanager\Playlists\Items\PlayableItemFactory;
+
+use View, Response, Auth, Input, Redirect, Request, DateTime, Authority, Config;
 
 class PlaylistItemsController extends BaseController {
 
@@ -80,10 +82,17 @@ class PlaylistItemsController extends BaseController {
 	{
 		$playlist = Playlist::findOrFail($playlistId);
 
+		$factory = new PlayableItemFactory;
+
+		$playableItem = $factory->create( Input::get('url'), Config::get('lanager/playlist.providers'));
+
 		$item = new Item;
-		$item->playlist_id = $playlistId;
-		$item->user_id = Auth::user()->id;
-		$item->url = Input::get('url');
+
+		$item->playlist_id 	= $playlistId;
+		$item->user_id 		= Auth::user()->id;
+		$item->url 			= $playableItem->getUrl();
+		$item->duration 	= $playableItem->getDuration();
+		$item->title 	= $playableItem->getTitle();
 
 		return $this->process( $item, 'playlists.items.index', 'playlists.items.index' );
 
