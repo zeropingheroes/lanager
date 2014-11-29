@@ -9,10 +9,12 @@ class YouTubeVideo extends PlayableItem {
 	{
 		parse_str( parse_url( $url, PHP_URL_QUERY ), $queryString);
 		
-		if( empty($queryString['v']) ) throw new UnplayableItemException('Invalid video ID');
+		if( empty($queryString['v']) ) throw new UnplayableItemException('The video ID is invalid');
 
 		$videoApiUrl = self::API_URL.$queryString['v'].self::API_FORMAT_QUERY;
 
+		// TODO: refactor to use guzzle library
+		
 		$connection = curl_init();
 		curl_setopt_array($connection, array(
 						CURLOPT_URL => $videoApiUrl,
@@ -25,10 +27,12 @@ class YouTubeVideo extends PlayableItem {
 		$responseCode = curl_getinfo($connection, CURLINFO_HTTP_CODE);
 		curl_close($connection);
 		
-		if( $responseCode == 404 ) throw new UnplayableItemException('Video does not exist');
-		if( $responseCode == 400 ) throw new UnplayableItemException('Invalid video ID');
+		if( $responseCode == 400 ) throw new UnplayableItemException('The video ID is invalid');
+		if( $responseCode == 404 ) throw new UnplayableItemException('The video does not exist');
+		if( $responseCode == 500 ) throw new UnplayableItemException('The provider experienced an error');
+		if( $responseCode == 503 ) throw new UnplayableItemException('The provider is currently unavailable');
 
-		if( isset($responseData['entry']['yt$noembed']) ) throw new UnplayableItemException('Video owner does not allow embedding');
+		if( isset($responseData['entry']['yt$noembed']) ) throw new UnplayableItemException('The video has embedding disabled');
 
 		$this->title 	= $responseData['entry']['title']['$t'];
 		$this->duration = $responseData['entry']['media$group']['yt$duration']['seconds'];
