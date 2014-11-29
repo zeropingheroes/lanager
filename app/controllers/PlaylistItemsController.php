@@ -4,7 +4,9 @@ use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Playlists\Playlist,
 	Zeropingheroes\Lanager\Playlists\Items\Item,
 	Zeropingheroes\Lanager\Playlists\Items\PlayableItemFactory,
-	Zeropingheroes\Lanager\Playlists\Items\UnplayableItemException;
+	Zeropingheroes\Lanager\Playlists\Items\UnplayableItemException,
+	Zeropingheroes\Lanager\Playlists\Items\ItemValidator;
+
 
 use View, Response, Auth, Input, Redirect, Request, DateTime, Authority, Config, Notification;
 
@@ -85,6 +87,7 @@ class PlaylistItemsController extends BaseController {
 
 		$factory = new PlayableItemFactory;
 
+		// Attempt to pull in the item by its URL
 		try
 		{
 			$playableItem = $factory->create( Input::get('url'), Config::get('lanager/playlist.providers'));
@@ -95,17 +98,24 @@ class PlaylistItemsController extends BaseController {
 			return Redirect::back();
 		}
 
-
 		$item = new Item;
-
 		$item->playlist_id 	= $playlistId;
 		$item->user_id 		= Auth::user()->id;
 		$item->url 			= $playableItem->getUrl();
 		$item->duration 	= $playableItem->getDuration();
-		$item->title 	= $playableItem->getTitle();
+		$item->title 		= $playableItem->getTitle();
 
-		return $this->process( $item, 'playlists.items.index', 'playlists.items.index' );
+		$itemValidator = ItemValidator::make( $item->toArray() );
 
+		if ( $itemValidator->fails() )
+		{
+			Notification::danger($itemValidator->errors()->all());
+			return Redirect::back()->withInput();
+		}
+
+		$item->save();
+		Notification::success('Playlist item added!');
+		return Redirect::back();
 	}
 
 	/**

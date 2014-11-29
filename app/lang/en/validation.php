@@ -34,9 +34,9 @@ return array(
 	"digits"           => "The :attribute must be :digits digits.",
 	"digits_between"   => "The :attribute must be between :min and :max digits.",
 	"email"            => "The :attribute format is invalid.",
-	"exists"           => "The selected :attribute is invalid.",
+	"exists"           => "The given :attribute is invalid.",
 	"image"            => "The :attribute must be an image.",
-	"in"               => "The selected :attribute is invalid.",
+	"in"               => "The given :attribute is invalid.",
 	"integer"          => "The :attribute must be an integer.",
 	"ip"               => "The :attribute must be a valid IP address.",
 	"max"              => array(
@@ -52,7 +52,7 @@ return array(
 		"string"  => "The :attribute must be at least :min characters.",
 		"array"   => "The :attribute must have at least :min items.",
 	),
-	"not_in"           => "The selected :attribute is invalid.",
+	"not_in"           => "The given :attribute is invalid.",
 	"numeric"          => "The :attribute must be a number.",
 	"regex"            => "The :attribute format is invalid.",
 	"required"         => "The :attribute field is required.",
@@ -81,7 +81,6 @@ return array(
 	*/
 
 	'custom' => array(
-		'flood_protect'					=> 'You have posted too recently. Please wait a while and try again.',
 	),
 
 	/*

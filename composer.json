@@ -17,7 +17,8 @@
 		"laracasts/presenter": "0.1.*",
 		"zeropingheroes/duration": "dev-master",
 		"zeropingheroes/timespan": "dev-master",
-		"mews/purifier": "1.0.1"
+		"mews/purifier": "1.0.1",
+		"fadion/validator-assistant": "dev-master"
 	},
 	"authors": [
 	{

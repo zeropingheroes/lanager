@@ -1,16 +1,10 @@
 <?php namespace Zeropingheroes\Lanager\Playlists\Items;
 
 use Zeropingheroes\Lanager\BaseModel;
-use Zeropingheroes\Lanager\Playlists\Items\YouTubeVideo;
-use Illuminate\Support\MessageBag;
 
 class Item extends BaseModel {
 
 	protected $table = 'playlist_items';
-	
-	public static $rules = array(
-		'playlist_id'	=> 'numeric|exists:playlists,id'
-	);
 
 	public function getDates()
 	{
