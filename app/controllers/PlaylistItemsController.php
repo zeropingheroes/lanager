@@ -2,10 +2,11 @@
 
 use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Playlists\Playlist,
-	Zeropingheroes\Lanager\Playlists\Items\Item;
-use Zeropingheroes\Lanager\Playlists\Items\PlayableItemFactory;
+	Zeropingheroes\Lanager\Playlists\Items\Item,
+	Zeropingheroes\Lanager\Playlists\Items\PlayableItemFactory,
+	Zeropingheroes\Lanager\Playlists\Items\UnplayableItemException;
 
-use View, Response, Auth, Input, Redirect, Request, DateTime, Authority, Config;
+use View, Response, Auth, Input, Redirect, Request, DateTime, Authority, Config, Notification;
 
 class PlaylistItemsController extends BaseController {
 
@@ -84,7 +85,16 @@ class PlaylistItemsController extends BaseController {
 
 		$factory = new PlayableItemFactory;
 
-		$playableItem = $factory->create( Input::get('url'), Config::get('lanager/playlist.providers'));
+		try
+		{
+			$playableItem = $factory->create( Input::get('url'), Config::get('lanager/playlist.providers'));
+		}
+		catch(UnplayableItemException $e)
+		{
+			Notification::danger($e->getMessage());
+			return Redirect::back();
+		}
+
 
 		$item = new Item;
 

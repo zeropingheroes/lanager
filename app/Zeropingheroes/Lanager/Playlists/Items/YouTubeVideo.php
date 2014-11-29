@@ -9,7 +9,7 @@ class YouTubeVideo extends PlayableItem {
 	{
 		parse_str( parse_url( $url, PHP_URL_QUERY ), $queryString);
 		
-		if( empty($queryString['v']) ) throw new \Exception('Invalid video ID');
+		if( empty($queryString['v']) ) throw new UnplayableItemException('Invalid video ID');
 
 		$videoApiUrl = self::API_URL.$queryString['v'].self::API_FORMAT_QUERY;
 
@@ -25,10 +25,10 @@ class YouTubeVideo extends PlayableItem {
 		$responseCode = curl_getinfo($connection, CURLINFO_HTTP_CODE);
 		curl_close($connection);
 		
-		if( $responseCode == 404 ) throw new \Exception('Video does not exist');
-		if( $responseCode == 400 ) throw new \Exception('Invalid video ID');
+		if( $responseCode == 404 ) throw new UnplayableItemException('Video does not exist');
+		if( $responseCode == 400 ) throw new UnplayableItemException('Invalid video ID');
 
-		if( isset($responseData['entry']['yt$noembed']) ) throw new \Exception('Video owner does not allow embedding');
+		if( isset($responseData['entry']['yt$noembed']) ) throw new UnplayableItemException('Video owner does not allow embedding');
 
 		$this->title 	= $responseData['entry']['title']['$t'];
 		$this->duration = $responseData['entry']['media$group']['yt$duration']['seconds'];

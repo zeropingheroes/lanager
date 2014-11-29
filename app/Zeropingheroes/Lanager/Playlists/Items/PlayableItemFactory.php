@@ -4,7 +4,7 @@ class PlayableItemFactory {
 
 	public function create($url, $providers)
 	{
-		if ( ! filter_var($url, FILTER_VALIDATE_URL) ) throw new \Exception('Invalid URL');
+		if ( ! filter_var($url, FILTER_VALIDATE_URL) ) throw new UnplayableItemException('Invalid URL');
 
 		foreach ( $providers as $provider )
 		{
@@ -13,6 +13,6 @@ class PlayableItemFactory {
 				return new $provider['class']($url);
 			}
 		}
-		throw new \Exception('URL is not playable');
+		throw new UnplayableItemException('URL is not playable');
 	}
 }
