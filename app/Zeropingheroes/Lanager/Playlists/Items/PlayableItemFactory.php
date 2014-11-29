@@ -8,7 +8,7 @@ class PlayableItemFactory {
 
 		foreach ( $providers as $provider )
 		{
-			if ( stripos($url, $provider['url']) !== false )
+			if ( stripos($url, $provider['domain']) !== false )
 			{
 				return new $provider['class']($url);
 			}
