@@ -23,14 +23,6 @@
 ) }}
 
 {{ ControlGroup::generate(
-	Form::label('max_item_duplicates', 'Max Duplicates'),
-	Form::text('max_item_duplicates', 0),
-	NULL,
-	4,
-	4
-) }}
-
-{{ ControlGroup::generate(
 	Form::label('user_skip_threshold', 'User Skip Threshold'),
 	InputGroup::withContents(Form::text('user_skip_threshold', 50))->append('%'),
 	Form::help('Active users required to vote to skip a playlist item'),
