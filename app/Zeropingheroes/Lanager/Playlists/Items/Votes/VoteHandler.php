@@ -23,13 +23,14 @@ class VoteHandler {
 		// Skip the item if we have met or exceeded the downvote threshold
 		$activeSessions = DB::table('sessions')->where('last_activity', '>', time()-600)->count();
 		$votesRequired = ($item->playlist->user_skip_threshold)* 0.01 * $activeSessions;
-		$itemVotes = abs($item->votes()->sum('vote'));
 
-		if( ( $itemVotes + 1) >= $votesRequired ) // if this vote tips the item beyond the threshold
+		$itemVotes = abs($item->votes()->count());
+
+		if( ($itemVotes + 1) >= $votesRequired ) // if this vote tips the item beyond the threshold
 		{
 			// skip the item
 			$item->playback_state = 2;
-			$item->skip_reason = 'Downvoted by users';
+			$item->skip_reason = ($itemVotes + 1) . ' users voted to skip';
 			$item->played_at = new DateTime;
 			$item->save();
 		}

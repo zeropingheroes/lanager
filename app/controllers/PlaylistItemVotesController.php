@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Playlists\Playlist,
 	Zeropingheroes\Lanager\Playlists\Items\Votes\Vote,
 	Zeropingheroes\Lanager\Playlists\Items\Votes\VoteValidator;
-use Auth, Redirect, Notification;
+use Auth, Redirect, Notification, Event;
 
 class PlaylistItemVotesController extends BaseController {
 
@@ -25,7 +25,6 @@ class PlaylistItemVotesController extends BaseController {
 		$vote = new Vote;
 		$vote->playlist_item_id = $item->id;
 		$vote->user_id = Auth::user()->id;
-		$vote->vote = -1; // down vote
 
 		$voteValidator = VoteValidator::make( $vote->toArray() )->scope('store');
 
@@ -37,6 +36,7 @@ class PlaylistItemVotesController extends BaseController {
 
 		$vote->save();
 		Notification::success('Vote successfully stored');
+		Event::fire('lanager.playlists.items.votes.store', $vote);
 		return Redirect::route('playlists.items.index', $item->playlist_id);
 	}
 
