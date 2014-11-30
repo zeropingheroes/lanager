@@ -37,7 +37,6 @@
 			"app/controllers",
 			"app/migrations",
 			"app/seeds",
-			"app/validators",
 			"app/helpers"
 		]
 	},
