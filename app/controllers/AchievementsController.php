@@ -1,14 +1,14 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Achievements\Achievement;
-use View, Input, Redirect, Request, Response, Authority;
+use Zeropingheroes\Lanager\Achievements\Achievement,
+	Zeropingheroes\Lanager\Achievements\AchievementValidator;
+use View, Input, Redirect, Notification;
 
 class AchievementsController extends BaseController {
-
 	
 	public function __construct()
 	{
-		$this->beforeFilter('permission',array('only' => array('create', 'store', 'edit', 'update', 'destroy') ));
+		$this->beforeFilter('permission', ['only' => ['create', 'store', 'edit', 'update', 'destroy'] ] );
 	}
 
 	/**
@@ -18,31 +18,8 @@ class AchievementsController extends BaseController {
 	 */
 	public function index()
 	{
-		if ( Request::ajax() ) return Response::json(Achievement::all());
-
-		if ( Authority::can('manage', 'achievements') && Input::get('hidden') == true )
-		{
-			$achievements = Achievement::with(array('users' => function($query)
-											{
-												$query->where('visible', true);
-											}))
-											->where('visible', false);
-		}
-		else
-		{
-			$achievements = Achievement::with(array('users' => function($query)
-											{
-												$query->where('visible', true);
-											}))
-										->orWhere(function($q)
-											{
-												$q->orWhere('visible',1);
-												$q->orHas('awards');
-											});
-		}
-		$achievements = $achievements->orderBy('name', 'asc')
+		$achievements = Achievement::orderBy('name', 'asc')
 									->paginate(10);
-
 
 		return View::make('achievements.index')
 					->with('title','Achievements')
@@ -73,13 +50,19 @@ class AchievementsController extends BaseController {
 		$achievement = new Achievement;
 
 		$achievement->name = Input::get('name');
-		$achievement->image = Input::get('image');
 		$achievement->description = Input::get('description');
-		if( Input::has('visible') && Input::get('visible') == 1) $achievement->visible = 1;
-		if( ! Input::has('visible') OR Input::get('visible') == 0) $achievement->visible = 0;
 
-		return $this->process( $achievement, 'achievements.index' );		
+		$achievementValidator = AchievementValidator::make( $achievement->toArray() )->scope('store');
 
+		if ( $achievementValidator->fails() )
+		{
+			Notification::danger( $achievementValidator->errors()->all() );
+			return Redirect::back()->withInput();
+		}
+
+		$achievement->save();
+		Notification::success('Achievement successfully stored');
+		return Redirect::route('achievements.show', $achievement->id);
 	}
 
 	/**
@@ -92,9 +75,9 @@ class AchievementsController extends BaseController {
 	{
 		$achievement = Achievement::findOrFail($id);
 		
-		if ( Request::ajax() ) return Response::json($achievement);		
-
-		return Redirect::route('achievements.index');
+		return View::make('achievements.show')
+					->with('title', 'Achievement - ' . $achievement->name)
+					->with('achievement',$achievement);
 	}
 
 	/**
@@ -123,14 +106,20 @@ class AchievementsController extends BaseController {
 		$achievement = Achievement::findOrFail($id);
 
 		if( Input::has('name') ) $achievement->name = Input::get('name');
-		if( Input::has('image') ) $achievement->image = Input::get('image');
 		if( Input::has('description') ) $achievement->description = Input::get('description');
 
-		if( Input::has('visible') && Input::get('visible') == 1) $achievement->visible = 1;
-		if( ! Input::has('visible') OR Input::get('visible') == 0) $achievement->visible = 0;
+		$achievementValidator = AchievementValidator::make( $achievement->toArray() )->scope('update');
 
-		return $this->process( $achievement, 'achievements.index' );
+		if ( $achievementValidator->fails() )
+		{
+			Notification::danger( $achievementValidator->errors()->all() );		
+			return Redirect::back()->withInput();
+		}
 
+		$achievement->save();
+		Notification::success('Achievement successfully updated');
+
+		return Redirect::route('achievements.show', $achievement->id);
 	}
 
 	/**
@@ -143,7 +132,10 @@ class AchievementsController extends BaseController {
 	{
 		$achievement = Achievement::findOrFail($id);
 
-		return $this->process( $achievement );
+		$achievement->delete();
+		Notification::success('Achievement successfully destroyed');
+		
+		return Redirect::back();
 	}
 
 }

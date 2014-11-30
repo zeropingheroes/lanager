@@ -3,10 +3,6 @@
 use Zeropingheroes\Lanager\BaseModel;
 
 class Achievement extends BaseModel {
-	
-	public static $rules = array(
-		'name'			=> 'required|max:255',
-	);
 
 	public function awards()
 	{

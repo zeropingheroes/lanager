@@ -9,7 +9,7 @@
 			if( Authority::can('manage', 'achievements') )
 			{
 				$tableBody[] = array(
-					'name'			=> e($achievement->name),
+					'name'			=> link_to_route('achievements.show', $achievement->name, $achievement->id),
 					'descrption'	=> e($achievement->description),
 					'users'			=> $achievement->users->count(),
 					'controls'		=> 	Button::normal( Icon::user() . 'Award' )->asLinkTo(URL::route('awards.create', array('achievement_id' => $achievement->id)), 'Award') .
