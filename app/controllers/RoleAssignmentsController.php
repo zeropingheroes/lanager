@@ -82,7 +82,20 @@ class RoleAssignmentsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$roleAssignment = RoleAssignment::findOrFail($id);
+
+		$users = User::visible()
+						->orderBy('username')
+						->lists('username','id');
+
+		$roles = Role::orderBy('name')
+						->lists('name','id');
+
+		return View::make('roleassignments.edit')
+					->with('title','Edit Role Assignment')
+					->with('users',$users)
+					->with('roles',$roles)
+					->with('roleAssignment',$roleAssignment);
 	}
 
 	/**

@@ -5,7 +5,8 @@
 		$tableBody[] = array(
 			'user'		=> $roleAssignment->user->username,
 			'role'		=> $roleAssignment->role->name,
-			'controls'	=> HTML::button('role-assignments.destroy',$roleAssignment->id, ['value' => '']),
+			'controls'	=> HTML::button('role-assignments.edit',$roleAssignment->id, ['value' => ''])
+						.  HTML::button('role-assignments.destroy',$roleAssignment->id, ['value' => '']),
 		);
 	}
 	?>
