@@ -9,7 +9,7 @@ class ItemValidator extends ValidatorAssistant {
 	protected $rules = [
 		'playlist_id'	=> 'required|exists:playlists,id',
 		'user_id'		=> 'required|exists:users,id',
-		'url'			=> 'required|url',
+		'url'			=> 'required|url|unique:playlist_items,url,{id},id,playlist_id,{playlist_id}',
 		'title'			=> 'required|max:255',
 		'duration'		=> 'required|numeric|min:1',
 		'playback_state'=> 'in:0,1,2',
@@ -21,8 +21,9 @@ class ItemValidator extends ValidatorAssistant {
 
 	protected function before()
 	{
-		// Inject the given playlist id into the unique rule
-		$this->rules['url'] .= '|unique:playlist_items,url,NULL,id,playlist_id,' . $this->inputs['playlist_id'];
+		// Bind item id and playlist id for use in rules
+		if( isset($this->inputs['id']) ) $this->bind('id', $this->inputs['id']);
+		$this->bind('playlist_id', $this->inputs['playlist_id']);
 		
 		// Inject the maximum permitted item duration
 		$playlist = Playlist::findOrFail( $this->inputs['playlist_id'] );
