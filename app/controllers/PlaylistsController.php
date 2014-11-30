@@ -139,6 +139,7 @@ class PlaylistsController extends BaseController {
 
 		$playlist->delete();
 		Notification::success('Playlist successfully destroyed');
-		return Redirect::back();	}
+		return Redirect::back();
+	}
 
 }
