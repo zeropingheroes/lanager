@@ -11,7 +11,7 @@ class AchievementValidator extends ValidatorAssistant {
 
 	protected function before()
 	{
-		$this->bind('id', $this->inputs['id']);
+		if( isset($this->inputs['id']) ) $this->bind('id', $this->inputs['id']);
 	}
 
 }
