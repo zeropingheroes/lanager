@@ -11,7 +11,11 @@ $pills = [
 							],
 	'delete-account' =>		[
 								'title' => Icon::trash().' Delete Account',
-								'link' => '#',
+								'link' => route('users.destroy', $user->id),
+								'linkAttributes' => [
+									'data-method' => 'DELETE',
+									'data-confirm' => 'Are you sure?',
+								],
 							],
 	'add-friend' =>			[
 								'title' => Icon::plus().' Add Friend',
@@ -29,7 +33,7 @@ if( Auth::check() AND $user->id == Auth::user()->id ) // Logged in user viewing 
 			$pills['edit-steam-profile'],
 			$pills['view-steam-profile'],
 			$pills['delete-account'],
-		]);
+		])->autoroute(false);
 }
 elseif ( Authority::can('manage', 'users', $user)) // Logged in user who can manage users
 {
@@ -37,7 +41,7 @@ elseif ( Authority::can('manage', 'users', $user)) // Logged in user who can man
 			$pills['add-friend'],
 			$pills['view-steam-profile'],
 			$pills['delete-account'],
-		]);
+		])->autoroute(false);
 }
 else // Default actions for guest/standard user
 {
@@ -45,5 +49,5 @@ else // Default actions for guest/standard user
 			$pills['add-friend'],
 			$pills['message'],
 			$pills['view-steam-profile'],
-		]);
+		])->autoroute(false);
 }
