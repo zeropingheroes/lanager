@@ -1,14 +1,14 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\InfoPages\InfoPage;
-use View, Input, Redirect;
+use Zeropingheroes\Lanager\InfoPages\InfoPage,
+	Zeropingheroes\Lanager\InfoPages\InfoPageValidator;
+use View, Input, Redirect, Notification;
 
 class InfoPagesController extends BaseController {
-
 	
 	public function __construct()
 	{
-		$this->beforeFilter('permission',array('only' => array('create', 'store', 'edit', 'update', 'destroy') ));
+		$this->beforeFilter('permission', ['only' => ['create', 'store', 'edit', 'update', 'destroy'] ]);
 	}
 
 	/**
@@ -49,12 +49,22 @@ class InfoPagesController extends BaseController {
 	public function store()
 	{
 		$infoPage = new InfoPage;
-		$infoPage->title = Input::get('title');
-		$infoPage->content = Input::get('content');
-		$infoPage->parent_id = (is_numeric(Input::get('parent_id')) ? Input::get('parent_id') : NULL); // turn non-numeric & empty values into NULL
 
-		return $this->process( $infoPage );		
+		if( Input::has('title') )		$infoPage->title = Input::get('title');
+		if( Input::has('content') )		$infoPage->content = Input::get('content');
+		if( Input::has('parent_id') )	$infoPage->parent_id = Input::get('parent_id');
 
+		$infoPageValidator = InfoPageValidator::make( $infoPage->toArray() )->scope('store');
+
+		if ( $infoPageValidator->fails() )
+		{
+			Notification::danger( $infoPageValidator->errors()->all() );
+			return Redirect::back()->withInput();
+		}
+
+		$infoPage->save();
+		Notification::success('Info page successfully stored');
+		return Redirect::route('infopages.index');
 	}
 
 	/**
@@ -100,11 +110,22 @@ class InfoPagesController extends BaseController {
 	public function update($id)
 	{
 		$infoPage = InfoPage::findOrFail($id);
-		$infoPage->title = Input::get('title');
-		$infoPage->content = Input::get('content');
-		$infoPage->parent_id = (is_numeric(Input::get('parent_id')) ? Input::get('parent_id') : NULL); // turn non-numeric & empty values into NULL
 
-		return $this->process( $infoPage );		
+		if( Input::has('title') )		$infoPage->title = Input::get('title');
+		if( Input::has('content') )		$infoPage->content = Input::get('content');
+		if( Input::has('parent_id') )	$infoPage->parent_id = Input::get('parent_id');
+
+		$infoPageValidator = InfoPageValidator::make( $infoPage->toArray() )->scope('update');
+
+		if ( $infoPageValidator->fails() )
+		{
+			Notification::danger( $infoPageValidator->errors()->all() );
+			return Redirect::back()->withInput();
+		}
+
+		$infoPage->save();
+		Notification::success('Info page successfully updated');
+		return Redirect::route('infopages.show', $infoPage->id);
 
 	}
 
@@ -118,7 +139,9 @@ class InfoPagesController extends BaseController {
 	{
 		$infoPage = InfoPage::findOrFail($id);
 
-		return $this->process( $infoPage );
+		$infoPage->delete();
+		Notification::success('Info page successfully destroyed');
+		return Redirect::back();
 	}
 
 }
