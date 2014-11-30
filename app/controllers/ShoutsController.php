@@ -8,7 +8,7 @@ class ShoutsController extends BaseController {
 
 	public function __construct()
 	{
-		$this->beforeFilter('permission',array('only' => array('store', 'update', 'destroy') ));
+		$this->beforeFilter('permission', ['only' => ['store', 'update', 'destroy'] ]);
 	}
 
 	/**
