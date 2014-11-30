@@ -2,8 +2,7 @@
 
 use Zeropingheroes\Lanager\BaseModel;
 use Zeropingheroes\Lanager\Roles\Role;
-use Illuminate\Auth\UserInterface,
-	Illuminate\Support\MessageBag;
+use Illuminate\Auth\UserInterface;
 
 class User extends BaseModel implements UserInterface {
 
@@ -13,15 +12,6 @@ class User extends BaseModel implements UserInterface {
 	 * @var string
 	 */
 	protected $table = 'users';
-
-	public static $rules = array(
-		'username'			=> 'required|max:32',
-		'steam_id_64'		=> 'required|max:17',
-		'steam_visibility'	=> 'required',
-		'ip'				=> 'ip',
-		'avatar'			=> 'url',
-		//'visible'			=> 'boolean' TODO: upgrade to Laravel 4.2 where this validation is added
-	);
 
 	public function shouts()
 	{
