@@ -1,15 +1,16 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\RoleAssignments\RoleAssignment,
+	Zeropingheroes\Lanager\RoleAssignments\RoleAssignmentValidator,
 	Zeropingheroes\Lanager\Users\User,
 	Zeropingheroes\Lanager\Roles\Role;
-use View, Input, Redirect, Request, Response;
+use View, Input, Redirect, Notification;
 
 class RoleAssignmentsController extends BaseController {
 	
 	public function __construct()
 	{
-		$this->beforeFilter('permission',array('only' => array('index', 'create', 'store', 'edit', 'update', 'destroy') ));
+		$this->beforeFilter('permission',['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy'] ]);
 	}
 
 	/**
@@ -19,9 +20,7 @@ class RoleAssignmentsController extends BaseController {
 	 */
 	public function index()
 	{
-		$roleAssignments = RoleAssignment::with(array('role','user'))->get();
-
-		if ( Request::ajax() ) return Response::json($roleAssignments);
+		$roleAssignments = RoleAssignment::with(['role','user'])->get();
 
 		return View::make('roleassignments.index')
 					->with('title','Role Assignments')
@@ -62,22 +61,17 @@ class RoleAssignmentsController extends BaseController {
 		$roleAssignment->user_id	= User::findOrFail(Input::get('user_id'))->id;
 		$roleAssignment->role_id	= Role::findOrFail(Input::get('role_id'))->id;
 		
-		return $this->process( $roleAssignment, 'role-assignments.index' );
-	}
+		$roleAssignmentValidator = RoleAssignmentValidator::make( $roleAssignment->toArray() )->scope('store');
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$roleAssignment = RoleAssignment::onlyVisibleUsers()->with(array('role','user'))->findOrFail($id);
-		
-		if ( Request::ajax() ) return Response::json($roleAssignment);
-		
-		return Redirect::route('role-assignments.index');
+		if ( $roleAssignmentValidator->fails() )
+		{
+			Notification::danger( $roleAssignmentValidator->errors()->all() );
+			return Redirect::back()->withInput();
+		}
+
+		$roleAssignment->save();
+		Notification::success('Role assignment successfully stored');
+		return Redirect::route('role-assignments.index', $roleAssignment->id);
 	}
 
 	/**
@@ -101,10 +95,21 @@ class RoleAssignmentsController extends BaseController {
 	{
 		$roleAssignment = RoleAssignment::findOrFail($id);
 
-		if( Input::has('user_id') )	$roleAssignment->user_id	= User::findOrFail(Input::get('user_id'))->id;
-		if( Input::has('role_id') )	$roleAssignment->role_id	= Role::findOrFail(Input::get('role_id'))->id;
+		$roleAssignment->user_id	= User::findOrFail(Input::get('user_id'))->id;
+		$roleAssignment->role_id	= Role::findOrFail(Input::get('role_id'))->id;
+		
+		$roleAssignmentValidator = RoleAssignmentValidator::make( $roleAssignment->toArray() )->scope('update');
 
-		return $this->process( $roleAssignment );
+		if ( $roleAssignmentValidator->fails() )
+		{
+			Notification::danger( $roleAssignmentValidator->errors()->all() );
+			return Redirect::back()->withInput();
+		}
+
+		$roleAssignment->save();
+		Notification::success('Role assignment successfully updated');
+		return Redirect::route('role-assignments.index', $roleAssignment->id);
+
 	}
 
 	/**
@@ -117,7 +122,9 @@ class RoleAssignmentsController extends BaseController {
 	{
 		$roleAssignment = RoleAssignment::findOrFail($id);
 
-		return $this->process( $roleAssignment );
+		$roleAssignment->delete();
+		Notification::success('Role assignment successfully destroyed');
+		return Redirect::back();
 	}
 
 }
