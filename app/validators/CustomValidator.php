@@ -2,24 +2,9 @@
 
 use Illuminate\Validation\Validator;
 use Carbon\Carbon;
-use Auth;
 
 class CustomValidator extends Validator {
 
-	/**
-	 * Check to see if user has submitted an item more recently than the flood protect time
-	 * 
-	 * @param  string  $attribute
-	 * @param  mixed   $value
-	 * @param  array   $parameters
-	 * @return bool
-	 */	
-	public function validateFloodProtect($attribute, $value, $parameters)
-	{
-		$date = new Carbon;
-		$date->subSeconds(15);
-		return ! Auth::user()->{$parameters[0]}()->where('created_at','>',$date)->count();
-	}
 
 	/**
 	 * Validate the date is before a given date.
