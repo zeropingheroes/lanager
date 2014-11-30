@@ -2,17 +2,16 @@
 
 use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Playlists\Playlist,
-	Zeropingheroes\Lanager\Playlists\Items\Item,
-	Zeropingheroes\Lanager\Playlists\Items\Votes\Vote;
-use Response, Auth, Request, Redirect, Event;
+	Zeropingheroes\Lanager\Playlists\Items\Votes\Vote,
+	Zeropingheroes\Lanager\Playlists\Items\Votes\VoteValidator;
+use Auth, Redirect, Notification;
 
 class PlaylistItemVotesController extends BaseController {
 
 	public function __construct()
 	{
-		$this->beforeFilter('permission', array('only' => array('store', 'destroy')) );
+		$this->beforeFilter('permission', ['only' => ['store', 'destroy']] );
 	}
-
 
 	/**
 	 * Store a newly created resource in storage.
@@ -24,12 +23,21 @@ class PlaylistItemVotesController extends BaseController {
 		$item = Playlist::findOrFail($playlistId)->items()->findOrFail($itemId);
 
 		$vote = new Vote;
-		$vote->playlist_item_id = $itemId;
+		$vote->playlist_item_id = $item->id;
 		$vote->user_id = Auth::user()->id;
 		$vote->vote = -1; // down vote
 
-		return $this->process( $vote, 'playlists.items.index', 'playlists.items.index' );
+		$voteValidator = VoteValidator::make( $vote->toArray() )->scope('store');
 
+		if ( $voteValidator->fails() )
+		{
+			Notification::danger( $voteValidator->errors()->all() );
+			return Redirect::back()->withInput();
+		}
+
+		$vote->save();
+		Notification::success('Vote successfully stored');
+		return Redirect::route('playlists.items.index', $item->playlist_id);
 	}
 
 	/**
@@ -42,7 +50,9 @@ class PlaylistItemVotesController extends BaseController {
 	{
 		$vote = Playlist::findOrFail($playlistId)->items()->findOrFail($itemId)->votes()->findOrFail($voteId);
 
-		return $this->process( $vote, 'playlists.items.index', 'playlists.items.index' );
+		$vote->delete();
+		Notification::success('Vote successfully destroyed');
+		return Redirect::back();
 	}
 
 }
