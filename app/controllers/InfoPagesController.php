@@ -61,7 +61,7 @@ class InfoPagesController extends BaseController {
 
 		$infoPage->save();
 		Notification::success('Info page successfully stored');
-		return Redirect::route('infopages.index');
+		return Redirect::route('infopages.show', $infoPage->id);
 	}
 
 	/**

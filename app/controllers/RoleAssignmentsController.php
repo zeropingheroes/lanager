@@ -69,7 +69,7 @@ class RoleAssignmentsController extends BaseController {
 
 		$roleAssignment->save();
 		Notification::success('Role assignment successfully stored');
-		return Redirect::route('role-assignments.index', $roleAssignment->id);
+		return Redirect::route('role-assignments.index');
 	}
 
 	/**
@@ -117,8 +117,7 @@ class RoleAssignmentsController extends BaseController {
 
 		$roleAssignment->save();
 		Notification::success('Role assignment successfully updated');
-		return Redirect::route('role-assignments.index', $roleAssignment->id);
-
+		return Redirect::route('role-assignments.index');
 	}
 
 	/**
