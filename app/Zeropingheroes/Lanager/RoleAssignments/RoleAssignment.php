@@ -10,6 +10,8 @@ class RoleAssignment extends BaseModel {
 
 	protected $fillable = ['user_id', 'role_id'];
 
+	public $validator = 'Zeropingheroes\Lanager\RoleAssignments\RoleAssignmentValidator';
+
 	public function user()
 	{
 		return $this->belongsTo('Zeropingheroes\Lanager\Users\User');

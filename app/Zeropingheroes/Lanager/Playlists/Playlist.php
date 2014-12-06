@@ -8,6 +8,8 @@ class Playlist extends BaseModel {
 
 	protected $nullable = ['description', 'max_item_duration', 'user_skip_threshold'];
 
+	public $validator = 'Zeropingheroes\Lanager\Playlists\PlaylistValidator';
+
 	public function items()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\Playlists\Items\Item');

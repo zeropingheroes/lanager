@@ -15,6 +15,9 @@ class User extends BaseModel implements UserInterface {
 
 	protected $fillable = ['username', 'steam_id_64', 'steam_visibility', 'ip', 'avatar', 'visible'];
 
+	public $validator = 'Zeropingheroes\Lanager\Users\UserValidator';
+
+
 	public function shouts()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\Shouts\Shout');

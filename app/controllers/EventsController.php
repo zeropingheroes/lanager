@@ -78,16 +78,8 @@ class EventsController extends BaseController {
 		$event = new Event;
 		$event->fill( Input::get() );
 
-		$eventValidator = EventValidator::make( $event->toArray() )->scope('store');
-
-		if ( $eventValidator->fails() )
-		{
-			Notification::danger( $eventValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
-
-		$event->save();
-		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'event']) );
+		if ( ! $this->save($event) ) return Redirect::back()->withInput();
+	
 		return Redirect::route('events.show', $event->id);	
 	}
 
@@ -134,16 +126,8 @@ class EventsController extends BaseController {
 		$event = Event::findOrFail($id);
 		$event->fill( Input::get() );
 		
-		$eventValidator = EventValidator::make( $event->toArray() )->scope('update');
+		if ( ! $this->save($event) ) return Redirect::back()->withInput();
 
-		if ( $eventValidator->fails() )
-		{
-			Notification::danger( $eventValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
-
-		$event->save();
-		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'event']) );
 		return Redirect::route('events.show', $event->id);	
 	}
 
@@ -156,9 +140,7 @@ class EventsController extends BaseController {
 	public function destroy($id)
 	{
 		$event = Event::findOrFail($id);
-
-		$event->delete();
-		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'event']) );
+		$this->delete($event);
 		return Redirect::route('events.index');
 	}
 

@@ -48,17 +48,9 @@ class PlaylistsController extends BaseController {
 	{
 		$playlist = new Playlist;
 		$playlist->fill( Input::get() );
+		
+		if ( ! $this->save($playlist) ) return Redirect::back()->withInput();
 
-		$playlistValidator = PlaylistValidator::make( $playlist->toArray() )->scope('store');
-
-		if ( $playlistValidator->fails() )
-		{
-			Notification::danger( $playlistValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
-
-		$playlist->save();
-		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'playlist']) );
 		return Redirect::route('playlists.items.index', $playlist->id);
 	}
 
@@ -103,16 +95,8 @@ class PlaylistsController extends BaseController {
 		$playlist = Playlist::findOrFail($playlistId);
 		$playlist->fill( Input::get() );
 
-		$playlistValidator = PlaylistValidator::make( $playlist->toArray() )->scope('update');
+		if ( ! $this->save($playlist) ) return Redirect::back()->withInput();
 
-		if ( $playlistValidator->fails() )
-		{
-			Notification::danger( $playlistValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
-
-		$playlist->save();
-		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'playlist']) );
 		return Redirect::route('playlists.items.index', $playlist->id);
 
 	}
@@ -126,9 +110,7 @@ class PlaylistsController extends BaseController {
 	public function destroy($playlistId)
 	{
 		$playlist = Playlist::findOrFail($playlistId);
-
-		$playlist->delete();
-		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'playlist']) );
+		$this->delete($playlist);
 		return Redirect::back();
 	}
 

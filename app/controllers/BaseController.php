@@ -3,6 +3,7 @@
 use Illuminate\Routing\Controller;
 use Zeropingheroes\Lanager\BaseModel;
 use Redirect, Request, Event, Route, Response, Notification;
+use ReflectionClass;
 
 class BaseController extends Controller {
 
@@ -19,102 +20,38 @@ class BaseController extends Controller {
 		}
 	}
 
-	/**
-	 * Setup the layout used by the controller.
-	 *
-	 * @param  BaseModel 	$model 			The model to be processed
-	 * @param  str 			$successRoute 	The full route name to redirect to when processing completes without error
-	 * @param  str 			$failureRoute 	The full route name to redirect to when errors are found
-	 * @return void
-	 */
-	protected function process( BaseModel $model, $successRoute = '', $failureRoute = '', $extraRouteParameters = '' )
+	protected function save( BaseModel $model )
 	{
-		// Collect route and model information
-		$route['action'] = substr( Route::currentRouteName(), strrpos( Route::currentRouteName(), '.' )+1 );
-		$route['resource'] = str_replace('.' . $route['action'], '', Route::currentRouteName());
-		$route['parameters'] = Route::current()->parameters();
-		$route['parameters'] = is_array($extraRouteParameters) ? array_merge($route['parameters'], $extraRouteParameters) : $route['parameters']; 
-		
-		$reflection = new \ReflectionClass($model);
-		$modelName = strtolower($reflection->getShortName());
+		$resource = $this->resourceName($model);
+		$action = isset($model->id) ? 'update' : 'store';
 
-		// Set up redirects
-		if( empty($failureRoute) )
+		$validator = new $model->validator( $model->toArray() );
+
+		if ( $validator->fails() )
 		{
-			switch($route['action'])
-			{
-				case 'store':
-					$failureRoute = $route['resource'] . '.create';
-					break;
-				case 'update':
-					$failureRoute = $route['resource'] . '.edit';
-					break;
-				case 'destroy':
-					$failureRoute = $route['resource'] . '.show';
-					break;
-			}
+			Notification::danger( $validator->errors()->all() );
+			return false;
 		}
-		if( empty($successRoute) )
+		else
 		{
-			switch($route['action'])
-			{
-				case 'store':
-					$successRoute = $route['resource'] . '.show';
-					break;
-				case 'update':
-					$successRoute = $route['resource'] . '.show';
-					break;
-				case 'destroy':
-					$successRoute = $route['resource'] . '.index';
-					break;
-			}
+			$model->save();
+			Notification::success( trans('confirmation.after.resource.' . $action, ['resource' => trans('resources.' . $resource) ]) );
+			return true;			
 		}
+	}
 
-		// Attempt to peform requested action (perform validation in model)
-		if( $route['action'] == 'destroy')
-		{
-			if( ! $model->delete() )
-			{
-				if ( Request::ajax() ) return Response::json($model->errors(), 400);
-				Notification::danger($model->errors()->all());
-				return Redirect::route( $failureRoute, $route['parameters'] );
-			}
-		
-			if ( Request::ajax() ) return Response::json( $model, 204);
-			// Remove the model we just destroyed from the route parameters
-			unset($route['parameters'][str_plural($modelName)]);
-			$successParticiple = 'destroyed';
-		}
-		else // Storing or updating
-		{
-			if( $route['action'] = 'store' ) $save = $model->save();
-			if( $route['action'] = 'update' ) $save = $model->updateUniques();
+	protected function delete( BaseModel $model )
+	{
+		$resource = $this->resourceName($model);
+		$delete = $model->delete();
+		if( $delete ) Notification::success( trans('confirmation.after.resource.destroy', ['resource' => trans('resources.' . $resource) ]) );
+		return $delete;
+	}
 
-			if( ! $save )
-			{
-				if ( Request::ajax() ) return Response::json($model->errors(), 400);
-				Notification::danger($model->errors()->all());
-				return Redirect::route( $failureRoute, $route['parameters'] );
-			}
-
-			if( $route['action'] == 'store' )
-			{
-				if( Request::ajax() ) return Response::json($model, 201);
-				$successParticiple = 'created';
-			}
-			else
-			{
-				if( Request::ajax() ) return Response::json($model, 200);
-				$successParticiple = 'updated';
-			}
-
-			// Add the model we just inserted / updated into the route parameters
-			$route['parameters'][str_plural($modelName)] = $model->id;
-		}
-
-		Event::fire( 'lanager.' . $route['resource'] . '.' . $route['action'], $model );
-		Notification::success('Successfully '. $successParticiple . ' ' .$modelName);
-		return Redirect::route($successRoute, $route['parameters'] );
+	private function resourceName( BaseModel $model )
+	{
+		$modelClass = (new ReflectionClass($model))->getShortName();
+		return strtolower(preg_replace('/([a-zA-Z])(?=[A-Z])/', '$1-', $modelClass)); // camel to dash
 	}
 
 }

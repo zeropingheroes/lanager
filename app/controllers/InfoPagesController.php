@@ -51,16 +51,8 @@ class InfoPagesController extends BaseController {
 		$infoPage = new InfoPage;
 		$infoPage->fill( Input::get() );
 
-		$infoPageValidator = InfoPageValidator::make( $infoPage->toArray() )->scope('store');
+		if ( ! $this->save($infoPage) ) return Redirect::back()->withInput();
 
-		if ( $infoPageValidator->fails() )
-		{
-			Notification::danger( $infoPageValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
-
-		$infoPage->save();
-		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'info page']) );
 		return Redirect::route('infopages.show', $infoPage->id);
 	}
 
@@ -109,16 +101,8 @@ class InfoPagesController extends BaseController {
 		$infoPage = InfoPage::findOrFail($id);
 		$infoPage->fill( Input::get() );
 
-		$infoPageValidator = InfoPageValidator::make( $infoPage->toArray() )->scope('update');
+		if ( ! $this->save($infoPage) ) return Redirect::back()->withInput();
 
-		if ( $infoPageValidator->fails() )
-		{
-			Notification::danger( $infoPageValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
-
-		$infoPage->save();
-		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'info page']) );
 		return Redirect::route('infopages.show', $infoPage->id);
 
 	}
@@ -132,10 +116,8 @@ class InfoPagesController extends BaseController {
 	public function destroy($id)
 	{
 		$infoPage = InfoPage::findOrFail($id);
-
-		$infoPage->delete();
-		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'info page']) );
-		return Redirect::back();
+		$this->delete($infoPage);
+		return Redirect::route('infopages.index');
 	}
 
 }

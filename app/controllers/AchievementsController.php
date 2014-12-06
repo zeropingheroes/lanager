@@ -50,16 +50,8 @@ class AchievementsController extends BaseController {
 		$achievement = new Achievement;
 		$achievement->fill( Input::get() );
 
-		$achievementValidator = AchievementValidator::make( $achievement->toArray() )->scope('store');
-
-		if ( $achievementValidator->fails() )
-		{
-			Notification::danger( $achievementValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
-
-		$achievement->save();
-		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'achievement']) );
+		if ( ! $this->save($achievement) ) return Redirect::back()->withInput();
+		
 		return Redirect::route('achievements.show', $achievement->id);
 	}
 
@@ -104,16 +96,7 @@ class AchievementsController extends BaseController {
 		$achievement = Achievement::findOrFail($id);
 		$achievement->fill( Input::get() );
 
-		$achievementValidator = AchievementValidator::make( $achievement->toArray() )->scope('update');
-
-		if ( $achievementValidator->fails() )
-		{
-			Notification::danger( $achievementValidator->errors()->all() );		
-			return Redirect::back()->withInput();
-		}
-
-		$achievement->save();
-		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'achievement']) );
+		if ( ! $this->save($achievement) ) return Redirect::back()->withInput();
 
 		return Redirect::route('achievements.show', $achievement->id);
 	}
@@ -127,11 +110,8 @@ class AchievementsController extends BaseController {
 	public function destroy($id)
 	{
 		$achievement = Achievement::findOrFail($id);
-
-		$achievement->delete();
-		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'achievement']) );
-		
-		return Redirect::back();
+		$this->delete($achievement);
+		return Redirect::route('achievements.index');
 	}
 
 }

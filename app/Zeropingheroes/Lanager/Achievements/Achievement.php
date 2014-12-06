@@ -6,6 +6,9 @@ class Achievement extends BaseModel {
 
 	protected $fillable = ['name', 'description'];
 
+	public $validator = 'Zeropingheroes\Lanager\Achievements\AchievementValidator';
+
+
 	public function awards()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\Awards\Award');

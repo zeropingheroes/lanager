@@ -59,16 +59,8 @@ class RoleAssignmentsController extends BaseController {
 		$roleAssignment = new RoleAssignment;
 		$roleAssignment->fill( Input::get() );
 
-		$roleAssignmentValidator = RoleAssignmentValidator::make( $roleAssignment->toArray() )->scope('store');
+		if ( ! $this->save($roleAssignment) ) return Redirect::back()->withInput();
 
-		if ( $roleAssignmentValidator->fails() )
-		{
-			Notification::danger( $roleAssignmentValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
-
-		$roleAssignment->save();
-		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'role assignment']) );
 		return Redirect::route('role-assignments.index');
 	}
 
@@ -106,17 +98,9 @@ class RoleAssignmentsController extends BaseController {
 	{
 		$roleAssignment = RoleAssignment::findOrFail($id);
 		$roleAssignment->fill( Input::get() );
-		
-		$roleAssignmentValidator = RoleAssignmentValidator::make( $roleAssignment->toArray() )->scope('update');
 
-		if ( $roleAssignmentValidator->fails() )
-		{
-			Notification::danger( $roleAssignmentValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
+		if ( ! $this->save($roleAssignment) ) return Redirect::back()->withInput();
 
-		$roleAssignment->save();
-		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'role assignment']) );
 		return Redirect::route('role-assignments.index');
 	}
 
@@ -129,9 +113,7 @@ class RoleAssignmentsController extends BaseController {
 	public function destroy($id)
 	{
 		$roleAssignment = RoleAssignment::findOrFail($id);
-
-		$roleAssignment->delete();
-		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'role assignment']) );
+		$this->delete($roleAssignment);
 		return Redirect::back();
 	}
 

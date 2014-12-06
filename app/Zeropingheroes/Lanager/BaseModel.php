@@ -6,6 +6,7 @@ use Eloquent;
 class BaseModel extends Eloquent {
 
 	protected $nullable = [];
+	public $validator = '';
 
 	/**
 	* Listen for save event

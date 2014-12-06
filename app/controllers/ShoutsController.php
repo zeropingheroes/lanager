@@ -40,16 +40,8 @@ class ShoutsController extends BaseController {
 
 		$shout->fill( Input::get() );
 
-		$shoutValidator = ShoutValidator::make( $shout->toArray() )->scope('store');
-
-		if ( $shoutValidator->fails() )
-		{
-			Notification::danger( $shoutValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
-
-		$shout->save();
-		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'shout']) );
+		if ( ! $this->save($shout) ) return Redirect::back()->withInput();
+		
 		return Redirect::back();
 	}
 
@@ -64,16 +56,8 @@ class ShoutsController extends BaseController {
 		$shout = Shout::findOrFail($id);
 		$shout->fill( Input::get() );
 
-		$shoutValidator = ShoutValidator::make( $shout->toArray() )->scope('update');
-
-		if ( $shoutValidator->fails() )
-		{
-			Notification::danger( $shoutValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
-
-		$shout->save();
-		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'shout']) );
+		if ( ! $this->save($shout) ) return Redirect::back()->withInput();
+		
 		return Redirect::back();
 	}
 
@@ -86,9 +70,7 @@ class ShoutsController extends BaseController {
 	public function destroy($id)
 	{
 		$shout = Shout::findOrFail($id);
-
-		$shout->delete();
-		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'shout']) );
+		$this->delete($shout);
 		return Redirect::back();
 	}
 
