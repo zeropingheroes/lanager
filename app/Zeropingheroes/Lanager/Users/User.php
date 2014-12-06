@@ -6,13 +6,6 @@ use Illuminate\Auth\UserInterface;
 
 class User extends BaseModel implements UserInterface {
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
-
 	protected $fillable = ['username', 'steam_id_64', 'steam_visibility', 'ip', 'avatar', 'visible'];
 
 	public $validator = 'Zeropingheroes\Lanager\Users\UserValidator';
@@ -37,20 +30,10 @@ class User extends BaseModel implements UserInterface {
 		return $this->hasMany('Zeropingheroes\Lanager\UserAchievements\UserAchievement');
 	}
 
-	public function userRoles()
-	{
-		return $this->hasMany('Zeropingheroes\Lanager\UserRoles\UserRole');
-	}
-
-	public function signups()
-	{
-		return $this->hasMany('Zeropingheroes\Lanager\Signups\Signup');
-	}
-
-	public function permissions()
-	{
-		return $this->hasMany('Zeropingheroes\Lanager\Permissions\Permission');
-	}
+    public function roles()
+    {
+        return $this->belongsToMany('Zeropingheroes\Lanager\Roles\Role', 'user_roles');
+    }
 
 	public function states()
 	{
@@ -132,9 +115,9 @@ class User extends BaseModel implements UserInterface {
 
 	public function hasRole($key) 
 	{
-		foreach($this->userRoles as $userRole)
+		foreach($this->roles as $role)
 		{
-			if($userRole->role->name === $key)
+			if($role->name === $key)
 			{
 				return true;
 			}

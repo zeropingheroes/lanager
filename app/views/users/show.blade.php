@@ -8,7 +8,7 @@
 
 	<div class="profile-header ">
 		<div class="profile-avatar">@include('users.partials.avatar', ['user' => $user, 'size' => 'large'] )</div>
-		<h1>{{ $title }}@include('user-roles.partials.badges', ['userRoles' => $user->userRoles])</h1>
+		<h1>{{ $title }}@include('roles.partials.badges', ['roles' => $user->roles])</h1>
 	</div>
 
 	<div class="profile-nav">
