@@ -4,6 +4,9 @@ use Zeropingheroes\Lanager\BaseModel;
 
 class State extends BaseModel {
 	
+	protected $fillable = ['user_id', 'application_id', 'server_id', 'status'];
+	protected $nullable = ['application_id', 'server_id'];
+
 	public function user()
 	{
 		return $this->belongsTo('Zeropingheroes\Lanager\Users\User');

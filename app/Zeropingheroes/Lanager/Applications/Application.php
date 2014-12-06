@@ -5,6 +5,8 @@ use Tsukanov\SteamLocomotive\Core\Tools\Store;
 
 class Application extends BaseModel {
 
+	protected $fillable = ['name', 'steam_app_id'];
+
 	public function toArray()
 	{
 		$array = parent::toArray();

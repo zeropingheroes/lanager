@@ -4,6 +4,8 @@ use Zeropingheroes\Lanager\BaseModel;
 
 class Award extends BaseModel {
 
+	protected $fillable = ['user_id', 'achievement_id', 'lan_id'];
+
 	public function user()
 	{
 		return $this->belongsTo('Zeropingheroes\Lanager\Users\User');

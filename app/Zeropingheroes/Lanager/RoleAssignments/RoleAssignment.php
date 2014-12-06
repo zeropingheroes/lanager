@@ -8,6 +8,8 @@ class RoleAssignment extends BaseModel {
 
 	protected $table = 'role_user';
 
+	protected $fillable = ['user_id', 'role_id'];
+
 	public function user()
 	{
 		return $this->belongsTo('Zeropingheroes\Lanager\Users\User');

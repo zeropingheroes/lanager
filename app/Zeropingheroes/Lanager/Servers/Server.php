@@ -4,7 +4,8 @@ use Zeropingheroes\Lanager\BaseModel;
 use SteamBrowserProtocol;
 
 class Server extends BaseModel {
-	
+
+	protected $fillable = ['application_id', 'name', 'address', 'port', 'pinned'];
 
 	public function toArray()
 	{

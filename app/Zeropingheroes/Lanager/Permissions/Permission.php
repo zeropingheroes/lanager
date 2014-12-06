@@ -2,4 +2,8 @@
 
 use Zeropingheroes\Lanager\BaseModel;
 
-class Permission extends BaseModel { }
+class Permission extends BaseModel {
+
+	protected $fillable = ['user_id', 'type', 'action', 'resource'];
+
+}

@@ -4,6 +4,8 @@ use Zeropingheroes\Lanager\BaseModel;
 
 class Achievement extends BaseModel {
 
+	protected $fillable = ['name', 'description'];
+
 	public function awards()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\Awards\Award');

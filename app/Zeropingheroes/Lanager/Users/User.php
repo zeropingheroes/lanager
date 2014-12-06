@@ -13,6 +13,8 @@ class User extends BaseModel implements UserInterface {
 	 */
 	protected $table = 'users';
 
+	protected $fillable = ['username', 'steam_id_64', 'steam_visibility', 'ip', 'avatar', 'visible'];
+
 	public function shouts()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\Shouts\Shout');

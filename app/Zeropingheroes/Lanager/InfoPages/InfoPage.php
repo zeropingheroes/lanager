@@ -4,9 +4,7 @@ use Zeropingheroes\Lanager\BaseModel;
 
 class InfoPage extends BaseModel {
 
-	public static $rules = array(
-		'title'		=> 'required|max:255',
-		'parent_id'	=> 'numeric|exists:info_pages,id'
-	);
+	protected $fillable = ['parent_id', 'title', 'content'];
+	protected $nullable = ['parent_id', 'content'];
 
 }

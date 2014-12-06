@@ -11,6 +11,10 @@ class Type extends BaseModel {
 	 */
 	protected $table = 'event_types';
 
+	protected $fillable = ['name', 'colour'];
+
+	protected $nullable = ['colour'];
+
 	public function event()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\Events\Event');
