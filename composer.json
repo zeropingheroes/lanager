@@ -6,7 +6,6 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"vtalbot/markdown": "1.*",
-		"laravelbook/ardent": "dev-master",
 		"patricktalmadge/bootstrapper": "dev-develop",
 		"tsukanov/steam-locomotive": "dev-master",
 		"lightopenid/lightopenid": "dev-master",
