@@ -8,15 +8,9 @@ class Achievement extends BaseModel {
 
 	public $validator = 'Zeropingheroes\Lanager\Achievements\AchievementValidator';
 
-
-	public function awards()
+	public function userAchievements()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\Awards\Award');
-	}
-
-	public function users()
-	{
-		return $this->belongsToMany('Zeropingheroes\Lanager\Users\User', 'awards');
+		return $this->hasMany('Zeropingheroes\Lanager\UserAchievements\UserAchievement');
 	}
 
 }

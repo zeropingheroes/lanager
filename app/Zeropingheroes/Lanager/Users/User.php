@@ -17,7 +17,6 @@ class User extends BaseModel implements UserInterface {
 
 	public $validator = 'Zeropingheroes\Lanager\Users\UserValidator';
 
-
 	public function shouts()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\Shouts\Shout');
@@ -33,14 +32,9 @@ class User extends BaseModel implements UserInterface {
 		return $this->hasMany('Zeropingheroes\Lanager\Playlists\Items\Votes\Vote');
 	}
 
-	public function awards()
+	public function userAchievements()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\Awards\Award');
-	}
-
-	public function achievements()
-	{
-		return $this->belongsToMany('Zeropingheroes\Lanager\Achievements\Achievement', 'awards');
+		return $this->hasMany('Zeropingheroes\Lanager\UserAchievements\UserAchievement');
 	}
 
 	public function roles()

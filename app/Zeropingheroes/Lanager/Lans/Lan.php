@@ -6,9 +6,9 @@ class Lan extends BaseModel {
 
 	protected $fillable = ['name', 'start', 'end'];
 
-	public function awards()
+	public function userAchievement()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\Awards\Award');
+		return $this->hasMany('Zeropingheroes\Lanager\UserAchievements\UserAchievement');
 	}
 
 }

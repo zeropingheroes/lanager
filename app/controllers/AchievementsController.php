@@ -26,7 +26,6 @@ class AchievementsController extends BaseController {
 					->with('achievements',$achievements);
 	}
 
-
 	/**
 	 * Show the form for creating a new resource.
 	 *

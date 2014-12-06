@@ -305,7 +305,6 @@ class Install extends BaseCommand {
 		$tables = array(
 			'achievements',
 			'applications',
-			'awards',
 			'events',
 			'event_signups',
 			'event_types',
@@ -322,6 +321,7 @@ class Install extends BaseCommand {
 			'shouts',
 			'states',
 			'users',
+			'user_achievements',
 			);
 		foreach($tables as $table)
 		{

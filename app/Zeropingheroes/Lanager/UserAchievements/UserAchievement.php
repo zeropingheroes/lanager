@@ -1,10 +1,12 @@
-<?php namespace Zeropingheroes\Lanager\Awards;
+<?php namespace Zeropingheroes\Lanager\UserAchievements;
 
 use Zeropingheroes\Lanager\BaseModel;
 
-class Award extends BaseModel {
+class UserAchievement extends BaseModel {
 
 	protected $fillable = ['user_id', 'achievement_id', 'lan_id'];
+
+	public $validator = 'Zeropingheroes\Lanager\UserAchievements\UserAchievementValidator';
 
 	public function user()
 	{

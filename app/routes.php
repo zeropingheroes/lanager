@@ -7,6 +7,7 @@
 */
 Route::resource('users', 'Zeropingheroes\Lanager\UsersController');
 Route::resource('role-assignments', 'Zeropingheroes\Lanager\RoleAssignmentsController');
+Route::resource('user-achievements', 'Zeropingheroes\Lanager\UserAchievementsController');
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +63,6 @@ Route::resource('playlists.items.votes', 'Zeropingheroes\Lanager\PlaylistItemVot
 |--------------------------------------------------------------------------
 */
 Route::resource('achievements', 'Zeropingheroes\Lanager\AchievementsController');
-Route::resource('awards', 'Zeropingheroes\Lanager\AwardsController');
 
 /*
 |--------------------------------------------------------------------------

@@ -20,5 +20,6 @@ return array(
 	'playlist'				=> 'playlist',
 	'shout'					=> 'shout',
 	'user' 					=> 'user',
+	'user-achievement'		=> 'user achievement',
 
 );

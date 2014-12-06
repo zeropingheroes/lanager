@@ -40,7 +40,7 @@
 			@include('users.partials.actions', ['user' => $user] )
 		@elseif( Input::get('tab') == 'achievements' )
 			<h2>Achievements</h2>
-			@include('awards.partials.list', ['awards' => $user->awards()->orderBy('lan_id','desc')->get()] )
+			@include('user-achievements.partials.list', ['userAchievements' => $user->userAchievements()->orderBy('lan_id','desc')->get()] )
 		@elseif( Input::get('tab') == 'shouts' )
 			<h2>Shouts</h2>
 			@include('shouts.partials.list', ['shouts' => $user->shouts()->orderBy('created_at','desc')->take(3)->get()] )
