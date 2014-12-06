@@ -4,7 +4,7 @@
 			{{ Icon::cog() }} Admin
 		</a>
 		<ul class="dropdown-menu">
-			<li><a href="{{ route('role-assignments.index') }}">{{ Icon::user() }} Assign Roles</a></li>
+			<li><a href="{{ route('user-roles.index') }}">{{ Icon::user() }} Assign Roles</a></li>
 		</ul>
 	</li>
 @endif

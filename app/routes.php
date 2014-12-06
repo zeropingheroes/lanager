@@ -6,7 +6,7 @@
 |--------------------------------------------------------------------------
 */
 Route::resource('users', 'Zeropingheroes\Lanager\UsersController');
-Route::resource('role-assignments', 'Zeropingheroes\Lanager\RoleAssignmentsController');
+Route::resource('user-roles', 'Zeropingheroes\Lanager\UserRolesController');
 Route::resource('user-achievements', 'Zeropingheroes\Lanager\UserAchievementsController');
 
 /*

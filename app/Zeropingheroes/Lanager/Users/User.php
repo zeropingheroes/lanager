@@ -37,14 +37,9 @@ class User extends BaseModel implements UserInterface {
 		return $this->hasMany('Zeropingheroes\Lanager\UserAchievements\UserAchievement');
 	}
 
-	public function roles()
+	public function userRoles()
 	{
-		return $this->belongsToMany('Zeropingheroes\Lanager\Roles\Role');
-	}
-
-	public function roleAssignments()
-	{
-		return $this->hasMany('Zeropingheroes\Lanager\RoleAssignments\RoleAssignment');
+		return $this->hasMany('Zeropingheroes\Lanager\UserRoles\UserRole');
 	}
 
 	public function signups()
@@ -137,9 +132,9 @@ class User extends BaseModel implements UserInterface {
 
 	public function hasRole($key) 
 	{
-		foreach($this->roleAssignments as $roleAssignment)
+		foreach($this->userRoles as $userRole)
 		{
-			if($roleAssignment->role->name === $key)
+			if($userRole->role->name === $key)
 			{
 				return true;
 			}

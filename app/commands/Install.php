@@ -315,13 +315,13 @@ class Install extends BaseCommand {
 			'playlist_items',
 			'playlist_item_votes',
 			'roles',
-			'role_user',
 			'servers',
 			'sessions',
 			'shouts',
 			'states',
 			'users',
 			'user_achievements',
+			'user_roles',
 			);
 		foreach($tables as $table)
 		{

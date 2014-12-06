@@ -1,11 +1,11 @@
-<?php namespace Zeropingheroes\Lanager\RoleAssignments;
+<?php namespace Zeropingheroes\Lanager\UserRoles;
 
 use Fadion\ValidatorAssistant\ValidatorAssistant;
 
-class RoleAssignmentValidator extends ValidatorAssistant {
+class UserRoleValidator extends ValidatorAssistant {
 
 	protected $rules = [
-		'user_id'		=> 'required|exists:users,id|unique:role_user,user_id,NULL,id,role_id,{role_id}',
+		'user_id'		=> 'required|exists:users,id|unique:user_roles,user_id,NULL,id,role_id,{role_id}',
 		'role_id'		=> 'required|exists:roles,id',
 	];
 

@@ -8,7 +8,7 @@ class Role extends BaseModel {
 
 	public function users()
 	{
-		return $this->belongsToMany('Zeropingheroes\Lanager\Users\User', 'role_user');
+		return $this->belongsToMany('Zeropingheroes\Lanager\Users\User', 'user_roles');
 	}
 
 }
