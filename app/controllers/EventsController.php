@@ -87,7 +87,7 @@ class EventsController extends BaseController {
 		}
 
 		$event->save();
-		Notification::success('Event successfully stored');
+		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'event']) );
 		return Redirect::route('events.show', $event->id);	
 	}
 
@@ -143,7 +143,7 @@ class EventsController extends BaseController {
 		}
 
 		$event->save();
-		Notification::success('Event successfully updated');
+		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'event']) );
 		return Redirect::route('events.show', $event->id);	
 	}
 
@@ -158,7 +158,7 @@ class EventsController extends BaseController {
 		$event = Event::findOrFail($id);
 
 		$event->delete();
-		Notification::success('Event successfully destroyed');
+		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'event']) );
 		return Redirect::route('events.index');
 	}
 

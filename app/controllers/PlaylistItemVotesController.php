@@ -35,7 +35,7 @@ class PlaylistItemVotesController extends BaseController {
 		}
 
 		$vote->save();
-		Notification::success('Vote successfully stored');
+		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'skip vote']) );
 		Event::fire('lanager.playlists.items.votes.store', $vote);
 		return Redirect::route('playlists.items.index', $item->playlist_id);
 	}
@@ -51,7 +51,7 @@ class PlaylistItemVotesController extends BaseController {
 		$vote = Playlist::findOrFail($playlistId)->items()->findOrFail($itemId)->votes()->findOrFail($voteId);
 
 		$vote->delete();
-		Notification::success('Vote successfully destroyed');
+		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'skip vote']) );
 		return Redirect::back();
 	}
 

@@ -49,7 +49,7 @@ class ShoutsController extends BaseController {
 		}
 
 		$shout->save();
-		Notification::success('Shout successfully stored');
+		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'shout']) );
 		return Redirect::back();
 	}
 
@@ -73,7 +73,7 @@ class ShoutsController extends BaseController {
 		}
 
 		$shout->save();
-		Notification::success('Shout successfully updated');
+		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'shout']) );
 		return Redirect::back();
 	}
 
@@ -88,7 +88,7 @@ class ShoutsController extends BaseController {
 		$shout = Shout::findOrFail($id);
 
 		$shout->delete();
-		Notification::success('Shout successfully destroyed');
+		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'shout']) );
 		return Redirect::back();
 	}
 

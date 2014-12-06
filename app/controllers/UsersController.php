@@ -50,7 +50,7 @@ class UsersController extends BaseController {
 		$user = User::visible()->findOrFail($id);
 		
 		$user->delete();
-		Notification::success('User successfully destroyed');
+		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'user']) );
 
 		return Redirect::route('users.index');
 	}

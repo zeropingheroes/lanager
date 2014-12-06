@@ -114,7 +114,7 @@ class PlaylistItemsController extends BaseController {
 		}
 
 		$item->save();
-		Notification::success('Playlist item added!');
+		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'playlist item']) );
 		return Redirect::back();
 	}
 

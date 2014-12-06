@@ -27,7 +27,7 @@ HTML::macro('button', function($route, $item = NULL)
 	if( $action == 'edit' )		return Button::normal(ucfirst($action))->prependIcon(Icon::pencil())->asLinkTo($url);
 	if( $action == 'destroy' )
 	{
-		$confirmation = 'Are you sure you want to permanently delete this ' . str_singular($resource) . '?';
+		$confirmation = trans( 'confirmation.before.resource.destroy', ['resource' => str_singular($resource)]);
 		
 		return	Form::inline(['url' => $url, 'method' => 'DELETE', 'data-confirm' => $confirmation])
 			 .	Button::normal(ucfirst($action))->prependIcon(Icon::trash())->submit()

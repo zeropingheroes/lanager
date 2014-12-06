@@ -58,7 +58,7 @@ class PlaylistsController extends BaseController {
 		}
 
 		$playlist->save();
-		Notification::success('Playlist successfully stored');
+		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'playlist']) );
 		return Redirect::route('playlists.items.index', $playlist->id);
 	}
 
@@ -112,7 +112,7 @@ class PlaylistsController extends BaseController {
 		}
 
 		$playlist->save();
-		Notification::success('Playlist successfully updated');
+		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'playlist']) );
 		return Redirect::route('playlists.items.index', $playlist->id);
 
 	}
@@ -128,7 +128,7 @@ class PlaylistsController extends BaseController {
 		$playlist = Playlist::findOrFail($playlistId);
 
 		$playlist->delete();
-		Notification::success('Playlist successfully destroyed');
+		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'playlist']) );
 		return Redirect::back();
 	}
 

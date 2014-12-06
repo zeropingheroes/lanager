@@ -68,7 +68,7 @@ class RoleAssignmentsController extends BaseController {
 		}
 
 		$roleAssignment->save();
-		Notification::success('Role assignment successfully stored');
+		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'role assignment']) );
 		return Redirect::route('role-assignments.index');
 	}
 
@@ -116,7 +116,7 @@ class RoleAssignmentsController extends BaseController {
 		}
 
 		$roleAssignment->save();
-		Notification::success('Role assignment successfully updated');
+		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'role assignment']) );
 		return Redirect::route('role-assignments.index');
 	}
 
@@ -131,7 +131,7 @@ class RoleAssignmentsController extends BaseController {
 		$roleAssignment = RoleAssignment::findOrFail($id);
 
 		$roleAssignment->delete();
-		Notification::success('Role assignment successfully destroyed');
+		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'role assignment']) );
 		return Redirect::back();
 	}
 

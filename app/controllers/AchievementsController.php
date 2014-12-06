@@ -59,7 +59,7 @@ class AchievementsController extends BaseController {
 		}
 
 		$achievement->save();
-		Notification::success('Achievement successfully stored');
+		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'achievement']) );
 		return Redirect::route('achievements.show', $achievement->id);
 	}
 
@@ -113,7 +113,7 @@ class AchievementsController extends BaseController {
 		}
 
 		$achievement->save();
-		Notification::success('Achievement successfully updated');
+		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'achievement']) );
 
 		return Redirect::route('achievements.show', $achievement->id);
 	}
@@ -129,7 +129,7 @@ class AchievementsController extends BaseController {
 		$achievement = Achievement::findOrFail($id);
 
 		$achievement->delete();
-		Notification::success('Achievement successfully destroyed');
+		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'achievement']) );
 		
 		return Redirect::back();
 	}

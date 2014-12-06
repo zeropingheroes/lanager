@@ -60,7 +60,7 @@ class InfoPagesController extends BaseController {
 		}
 
 		$infoPage->save();
-		Notification::success('Info page successfully stored');
+		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'info page']) );
 		return Redirect::route('infopages.show', $infoPage->id);
 	}
 
@@ -118,7 +118,7 @@ class InfoPagesController extends BaseController {
 		}
 
 		$infoPage->save();
-		Notification::success('Info page successfully updated');
+		Notification::success( trans('confirmation.after.resource.update', ['resource' => 'info page']) );
 		return Redirect::route('infopages.show', $infoPage->id);
 
 	}
@@ -134,7 +134,7 @@ class InfoPagesController extends BaseController {
 		$infoPage = InfoPage::findOrFail($id);
 
 		$infoPage->delete();
-		Notification::success('Info page successfully destroyed');
+		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'info page']) );
 		return Redirect::back();
 	}
 
