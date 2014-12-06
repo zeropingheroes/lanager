@@ -48,9 +48,7 @@ class AchievementsController extends BaseController {
 	public function store()
 	{
 		$achievement = new Achievement;
-
-		$achievement->name = Input::get('name');
-		$achievement->description = Input::get('description');
+		$achievement->fill( Input::get() );
 
 		$achievementValidator = AchievementValidator::make( $achievement->toArray() )->scope('store');
 
@@ -104,9 +102,7 @@ class AchievementsController extends BaseController {
 	public function update($id)
 	{
 		$achievement = Achievement::findOrFail($id);
-
-		if( Input::has('name') ) $achievement->name = Input::get('name');
-		if( Input::has('description') ) $achievement->description = Input::get('description');
+		$achievement->fill( Input::get() );
 
 		$achievementValidator = AchievementValidator::make( $achievement->toArray() )->scope('update');
 

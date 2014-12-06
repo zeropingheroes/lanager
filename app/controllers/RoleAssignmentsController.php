@@ -57,10 +57,8 @@ class RoleAssignmentsController extends BaseController {
 	public function store()
 	{
 		$roleAssignment = new RoleAssignment;
+		$roleAssignment->fill( Input::get() );
 
-		$roleAssignment->user_id	= User::findOrFail(Input::get('user_id'))->id;
-		$roleAssignment->role_id	= Role::findOrFail(Input::get('role_id'))->id;
-		
 		$roleAssignmentValidator = RoleAssignmentValidator::make( $roleAssignment->toArray() )->scope('store');
 
 		if ( $roleAssignmentValidator->fails() )
@@ -107,9 +105,7 @@ class RoleAssignmentsController extends BaseController {
 	public function update($id)
 	{
 		$roleAssignment = RoleAssignment::findOrFail($id);
-
-		$roleAssignment->user_id	= User::findOrFail(Input::get('user_id'))->id;
-		$roleAssignment->role_id	= Role::findOrFail(Input::get('role_id'))->id;
+		$roleAssignment->fill( Input::get() );
 		
 		$roleAssignmentValidator = RoleAssignmentValidator::make( $roleAssignment->toArray() )->scope('update');
 

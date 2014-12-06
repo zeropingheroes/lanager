@@ -47,12 +47,7 @@ class PlaylistsController extends BaseController {
 	public function store()
 	{
 		$playlist = new Playlist;
-
-		if( Input::has('name') )				$playlist->name 				= Input::get('name');
-		if( Input::has('description') )			$playlist->description 			= Input::get('description');
-		if( Input::has('max_item_duration') )	$playlist->max_item_duration 	= Input::get('max_item_duration');
-		if( Input::has('user_skip_threshold') )	$playlist->user_skip_threshold 	= Input::get('user_skip_threshold');
-		if( Input::has('playback_state') )		$playlist->playback_state 		= Input::get('playback_state');
+		$playlist->fill( Input::get() );
 
 		$playlistValidator = PlaylistValidator::make( $playlist->toArray() )->scope('store');
 
@@ -106,12 +101,7 @@ class PlaylistsController extends BaseController {
 	public function update($playlistId)
 	{
 		$playlist = Playlist::findOrFail($playlistId);
-
-		if( Input::has('name') )				$playlist->name 				= Input::get('name');
-		if( Input::has('description') )			$playlist->description 			= Input::get('description');
-		if( Input::has('max_item_duration') )	$playlist->max_item_duration 	= Input::get('max_item_duration');
-		if( Input::has('user_skip_threshold') )	$playlist->user_skip_threshold 	= Input::get('user_skip_threshold');
-		if( Input::has('playback_state') )		$playlist->playback_state 		= Input::get('playback_state');
+		$playlist->fill( Input::get() );
 
 		$playlistValidator = PlaylistValidator::make( $playlist->toArray() )->scope('update');
 

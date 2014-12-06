@@ -36,10 +36,9 @@ class ShoutsController extends BaseController {
 	public function store()
 	{
 		$shout = new Shout;
-		
 		$shout->user_id = Auth::user()->id;
-		if( Input::has('content') )	$shout->content = Input::get('content');
-		if( Input::has('pinned') )	$shout->pinned = Input::get('pinned');
+
+		$shout->fill( Input::get() );
 
 		$shoutValidator = ShoutValidator::make( $shout->toArray() )->scope('store');
 
@@ -63,9 +62,7 @@ class ShoutsController extends BaseController {
 	public function update($id)
 	{
 		$shout = Shout::findOrFail($id);
-
-		if( Input::has('content') )	$shout->content = Input::get('content');
-		if( Input::has('pinned') )	$shout->pinned = Input::get('pinned');
+		$shout->fill( Input::get() );
 
 		$shoutValidator = ShoutValidator::make( $shout->toArray() )->scope('update');
 

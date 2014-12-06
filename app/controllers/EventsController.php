@@ -76,14 +76,7 @@ class EventsController extends BaseController {
 	public function store()
 	{
 		$event = new Event;
-
-		if( Input::has('name') )			$event->name 			= Input::get('name');
-		if( Input::has('description') )		$event->description 	= Input::get('description');
-		if( Input::has('start') )			$event->start 			= Input::get('start');
-		if( Input::has('end') )				$event->end 			= Input::get('end');
-		if( Input::has('signup_opens') )	$event->signup_opens 	= Input::get('signup_opens');
-		if( Input::has('signup_closes') )	$event->signup_closes 	= Input::get('signup_closes');
-		if( Input::has('event_type_id') )	$event->event_type_id 	= Input::get('event_type_id');
+		$event->fill( Input::get() );
 
 		$eventValidator = EventValidator::make( $event->toArray() )->scope('store');
 
@@ -96,7 +89,6 @@ class EventsController extends BaseController {
 		$event->save();
 		Notification::success('Event successfully stored');
 		return Redirect::route('events.show', $event->id);	
-
 	}
 
 	/**
@@ -140,14 +132,7 @@ class EventsController extends BaseController {
 	public function update($id)
 	{
 		$event = Event::findOrFail($id);
-
-		if( Input::has('name') )			$event->name 			= Input::get('name');
-		if( Input::has('description') )		$event->description 	= Input::get('description');
-		if( Input::has('start') )			$event->start 			= Input::get('start');
-		if( Input::has('end') )				$event->end 			= Input::get('end');
-		if( Input::has('signup_opens') )	$event->signup_opens 	= Input::get('signup_opens');
-		if( Input::has('signup_closes') )	$event->signup_closes 	= Input::get('signup_closes');
-		if( Input::has('event_type_id') )	$event->event_type_id 	= Input::get('event_type_id');
+		$event->fill( Input::get() );
 		
 		$eventValidator = EventValidator::make( $event->toArray() )->scope('update');
 

@@ -49,10 +49,7 @@ class InfoPagesController extends BaseController {
 	public function store()
 	{
 		$infoPage = new InfoPage;
-
-		if( Input::has('title') )		$infoPage->title = Input::get('title');
-		if( Input::has('content') )		$infoPage->content = Input::get('content');
-		if( Input::has('parent_id') )	$infoPage->parent_id = Input::get('parent_id');
+		$infoPage->fill( Input::get() );
 
 		$infoPageValidator = InfoPageValidator::make( $infoPage->toArray() )->scope('store');
 
@@ -110,10 +107,7 @@ class InfoPagesController extends BaseController {
 	public function update($id)
 	{
 		$infoPage = InfoPage::findOrFail($id);
-
-		if( Input::has('title') )		$infoPage->title = Input::get('title');
-		if( Input::has('content') )		$infoPage->content = Input::get('content');
-		if( Input::has('parent_id') )	$infoPage->parent_id = Input::get('parent_id');
+		$infoPage->fill( Input::get() );
 
 		$infoPageValidator = InfoPageValidator::make( $infoPage->toArray() )->scope('update');
 
