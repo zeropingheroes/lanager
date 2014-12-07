@@ -16,7 +16,7 @@ class Event extends BaseModel {
 
 	public function type()
 	{
-		return $this->belongsTo('Zeropingheroes\Lanager\Events\Types\Type', 'event_type_id');
+		return $this->belongsTo('Zeropingheroes\Lanager\EventTypes\EventType', 'event_type_id');
 	}
 
 	public function signups()
