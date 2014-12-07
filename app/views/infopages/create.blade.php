@@ -2,7 +2,7 @@
 @section('content')
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
-	{{ Form::model($infoPage, array('route' => 'infopages.store', 'info' => $infoPage->id)) }}
+	{{ Form::model($infoPage, array('route' => 'infopages.store')) }}
 		@include('infopages.partials.form')
 	{{ Form::close() }}
 @endsection

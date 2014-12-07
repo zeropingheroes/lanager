@@ -2,7 +2,7 @@
 @section('content')
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
-	{{ Form::model($playlist, array('route' => 'playlists.store', 'playlist' => $playlist->id, 'class' => 'form-horizontal')) }}
+	{{ Form::model($playlist, array('route' => 'playlists.store', 'class' => 'form-horizontal')) }}
 		@include('playlists.partials.form')
 	{{ Form::close() }}
 @endsection
