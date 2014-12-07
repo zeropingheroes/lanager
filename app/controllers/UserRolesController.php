@@ -3,7 +3,7 @@
 use Zeropingheroes\Lanager\UserRoles\UserRole,
 	Zeropingheroes\Lanager\Users\User,
 	Zeropingheroes\Lanager\Roles\Role;
-use View, Input, Redirect, Notification;
+use View, Input, Redirect;
 
 class UserRolesController extends BaseController {
 	

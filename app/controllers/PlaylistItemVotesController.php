@@ -3,7 +3,7 @@
 use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Playlists\Playlist,
 	Zeropingheroes\Lanager\PlaylistItemVotes\Vote;
-use Auth, Redirect, Notification, Event;
+use Auth, Redirect, Event;
 
 class PlaylistItemVotesController extends BaseController {
 

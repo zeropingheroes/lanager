@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\UserAchievements\UserAchievement,
 	Zeropingheroes\Lanager\Achievements\Achievement,
 	Zeropingheroes\Lanager\Lans\Lan,
 	Zeropingheroes\Lanager\Users\User;
-use View, Input, Redirect, Request, Response;
+use View, Input, Redirect;
 
 class UserAchievementsController extends BaseController {
 

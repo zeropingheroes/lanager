@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Users\User;
-use Redirect, View, Notification;
+use Redirect, View;
 
 class UsersController extends BaseController {
 

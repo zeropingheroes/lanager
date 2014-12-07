@@ -3,7 +3,7 @@
 use Zeropingheroes\Lanager\States\StateContract;
 use Zeropingheroes\Lanager\States\State;
 use Carbon\Carbon;
-use View, Response, Input, App, Request;
+use View, Input, App;
 
 class UsageController extends BaseController {
 
@@ -48,8 +48,6 @@ class UsageController extends BaseController {
 				break;
 		}
 		$lastUpdated = new Carbon(State::max('created_at'));
-
-		if ( Request::ajax() ) return Response::json($usage);
 
 		return View::make('usage.'.$resource)
 					->with('title',$title)

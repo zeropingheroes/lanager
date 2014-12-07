@@ -1,8 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Achievements\Achievement,
-	Zeropingheroes\Lanager\Achievements\AchievementValidator;
-use View, Input, Redirect, Notification;
+use Zeropingheroes\Lanager\Achievements\Achievement;
+use View, Input, Redirect;
 
 class AchievementsController extends BaseController {
 	

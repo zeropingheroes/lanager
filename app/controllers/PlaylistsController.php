@@ -1,9 +1,8 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Playlists\Playlist,
-	Zeropingheroes\Lanager\Playlists\Items\Item,
-	Zeropingheroes\Lanager\Playlists\PlaylistValidator;
-use View, Input, Redirect, Notification;
+	Zeropingheroes\Lanager\Playlists\Items\Item;
+use View, Input, Redirect;
 
 class PlaylistsController extends BaseController {
 

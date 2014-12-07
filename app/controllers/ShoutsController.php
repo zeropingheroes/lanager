@@ -1,8 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Shouts\Shout,
-	Zeropingheroes\Lanager\Shouts\ShoutValidator;
-use Input, Redirect, View, Auth, Notification;
+use Zeropingheroes\Lanager\Shouts\Shout;
+use Input, Redirect, View, Auth;
 
 class ShoutsController extends BaseController {
 

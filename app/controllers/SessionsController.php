@@ -1,7 +1,6 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use	Zeropingheroes\Lanager\Users\User;
-use Illuminate\Support\MessageBag;
 use LightOpenID;
 use Auth, Input, Request, Redirect, View, UserImport, Notification;
 

@@ -2,7 +2,7 @@
 
 use Illuminate\Routing\Controller;
 use Zeropingheroes\Lanager\BaseModel;
-use Redirect, Request, Event, Route, Response, Notification;
+use Notification;
 use ReflectionClass;
 
 class BaseController extends Controller {
