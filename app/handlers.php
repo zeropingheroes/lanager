@@ -10,7 +10,7 @@
 |
 */
 
-Event::subscribe('Zeropingheroes\Lanager\Playlists\Items\Votes\VoteHandler');
+Event::subscribe('Zeropingheroes\Lanager\PlaylistItemVotes\PlaylistItemVoteHandler');
 Event::subscribe('Zeropingheroes\Lanager\Users\UserHandler');
 
 Event::listen('lanager.*', function()
