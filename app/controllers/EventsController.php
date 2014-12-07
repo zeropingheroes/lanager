@@ -1,9 +1,8 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Events\Event,
-	Zeropingheroes\Lanager\Events\Types\Type,
-	Zeropingheroes\Lanager\Events\EventValidator;
-use View, Input, Redirect, Request, Response, URL, Auth, Notification;
+	Zeropingheroes\Lanager\EventTypes\EventType;
+use View, Input, Redirect, Request, Response, URL;
 
 class EventsController extends BaseController {
 
@@ -60,7 +59,7 @@ class EventsController extends BaseController {
 	 */
 	public function create()
 	{
-		$eventTypes = array('' => ' ') + Type::lists('name','id');
+		$eventTypes = array('' => ' ') + EventType::lists('name','id');
 		$event = new Event;
 		return View::make('events.create')
 					->with('title','Create Event')
@@ -107,7 +106,7 @@ class EventsController extends BaseController {
 	public function edit($id)
 	{
 		$event = Event::findOrFail($id);
-		$eventTypes = array('' => ' ') + Type::lists('name','id');
+		$eventTypes = array('' => ' ') + EventType::lists('name','id');
 
 		return View::make('events.edit')
 					->with('title','Edit Event')
@@ -143,5 +142,4 @@ class EventsController extends BaseController {
 		$this->delete($event);
 		return Redirect::route('events.index');
 	}
-
 }
