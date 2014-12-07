@@ -2,8 +2,7 @@
 
 use Zeropingheroes\Lanager\BaseController;
 use Zeropingheroes\Lanager\Playlists\Playlist,
-	Zeropingheroes\Lanager\Playlists\Items\Votes\Vote,
-	Zeropingheroes\Lanager\Playlists\Items\Votes\VoteValidator;
+	Zeropingheroes\Lanager\PlaylistItemVotes\Vote;
 use Auth, Redirect, Notification, Event;
 
 class PlaylistItemVotesController extends BaseController {
@@ -26,16 +25,8 @@ class PlaylistItemVotesController extends BaseController {
 		$vote->playlist_item_id = $item->id;
 		$vote->user_id = Auth::user()->id;
 
-		$voteValidator = VoteValidator::make( $vote->toArray() )->scope('store');
+		if ( ! $this->save($vote) ) return Redirect::back()->withInput();
 
-		if ( $voteValidator->fails() )
-		{
-			Notification::danger( $voteValidator->errors()->all() );
-			return Redirect::back()->withInput();
-		}
-
-		$vote->save();
-		Notification::success( trans('confirmation.after.resource.store', ['resource' => 'skip vote']) );
 		Event::fire('lanager.playlists.items.votes.store', $vote);
 		return Redirect::route('playlists.items.index', $item->playlist_id);
 	}
@@ -49,10 +40,8 @@ class PlaylistItemVotesController extends BaseController {
 	public function destroy($playlistId, $itemId, $voteId)
 	{
 		$vote = Playlist::findOrFail($playlistId)->items()->findOrFail($itemId)->votes()->findOrFail($voteId);
-
 		$vote->delete();
-		Notification::success( trans('confirmation.after.resource.destroy', ['resource' => 'skip vote']) );
-		return Redirect::back();
+		return Redirect::route('playlists.items.index', $item->playlist_id);
 	}
 
 }

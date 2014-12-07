@@ -17,5 +17,4 @@ class VoteValidator extends ValidatorAssistant {
 	{
 		$this->bind('playlist_item_id', $this->inputs['playlist_item_id']);
 	}
-
 }
