@@ -15,14 +15,14 @@ class User extends BaseModel implements UserInterface {
 		return $this->hasMany('Zeropingheroes\Lanager\Shouts\Shout');
 	}
 
-	public function items()
+	public function playlistItems()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\Playlists\Items\Item');
+		return $this->hasMany('Zeropingheroes\Lanager\PlaylistItems\PlaylistItem');
 	}
 
-	public function votes()
+	public function playlistItemVotes()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\Playlists\Items\Votes\Vote');
+		return $this->hasMany('Zeropingheroes\Lanager\PlaylistsItemVotes\PlaylistItemVote');
 	}
 
 	public function userAchievements()

@@ -1,4 +1,4 @@
-<?php namespace Zeropingheroes\Lanager\Playlists\Items;
+<?php namespace Zeropingheroes\Lanager\PlaylistItems;
 
 class PlayableItemFactory {
 
@@ -13,6 +13,6 @@ class PlayableItemFactory {
 				return new $provider['class']($url);
 			}
 		}
-		throw new UnplayableItemException('The URL is not playable');
+		throw new UnplayableItemException('The URL is not from a supported provider');
 	}
 }

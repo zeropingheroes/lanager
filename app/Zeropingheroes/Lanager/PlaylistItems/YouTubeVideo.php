@@ -1,4 +1,4 @@
-<?php namespace Zeropingheroes\Lanager\Playlists\Items;
+<?php namespace Zeropingheroes\Lanager\PlaylistItems;
 
 class YouTubeVideo extends PlayableItem {
 
@@ -37,6 +37,6 @@ class YouTubeVideo extends PlayableItem {
 		$this->title 	= $responseData['entry']['title']['$t'];
 		$this->duration = $responseData['entry']['media$group']['yt$duration']['seconds'];
 		$this->url 		= 'http://www.youtube.com/watch?v='.$queryString['v'];
-
 	}
+
 }

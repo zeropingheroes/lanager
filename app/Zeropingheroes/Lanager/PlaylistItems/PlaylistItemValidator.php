@@ -1,10 +1,10 @@
-<?php namespace Zeropingheroes\Lanager\Playlists\Items;
+<?php namespace Zeropingheroes\Lanager\PlaylistItems;
 
 use Fadion\ValidatorAssistant\ValidatorAssistant;
 use Zeropingheroes\Lanager\Playlists\Playlist;
 use Duration;
 
-class ItemValidator extends ValidatorAssistant {
+class PlaylistItemValidator extends ValidatorAssistant {
 
 	protected $rules = [
 		'playlist_id'	=> 'required|exists:playlists,id',

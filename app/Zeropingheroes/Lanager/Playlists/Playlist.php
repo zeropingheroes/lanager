@@ -10,9 +10,9 @@ class Playlist extends BaseModel {
 
 	public $validator = 'Zeropingheroes\Lanager\Playlists\PlaylistValidator';
 
-	public function items()
+	public function playlistItems()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\Playlists\Items\Item');
+		return $this->hasMany('Zeropingheroes\Lanager\PlaylistItems\PlaylistItem');
 	}
 
 }
