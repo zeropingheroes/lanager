@@ -6,7 +6,7 @@
 		$user = $playlistItem->user;
 
 		$tableBody[] = array(
-			'submitter'		=> '<a class="pull-left" href="'.URL::route('users.show', $user->id).'">'.View::make('users.partials.avatar', ['user' => $user]).' '.e($user->username).'</a>',
+			'submitter'		=> View::make('users.partials.avatar-username', ['user' => $user]),
 			'title'			=> e($playlistItem->title),
 			'duration'		=> Duration::shortFormat($playlistItem->duration),
 			'submitted'		=> $playlistItem->created_at->diffForHumans(),
