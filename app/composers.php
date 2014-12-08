@@ -8,14 +8,21 @@
 View::composer('layouts.default.nav', function($view)
 {
 	// Info
-	$infoPages = Zeropingheroes\Lanager\InfoPages\InfoPage::whereNull('parent_id')->get();
-	foreach($infoPages as $infoPage)
+	$pages = Zeropingheroes\Lanager\Pages\Page::whereNull('parent_id')->get();
+	if( $pages->count() )
 	{
-		$menuItems[] =
-		[
-			'title' => $infoPage['title'],
-			'link' => URL::route('infopages.show', $infoPage->id),
-		];
+		foreach($pages as $page)
+		{
+			$menuItems[] =
+			[
+				'title' => $page['title'],
+				'link' => URL::route('pages.show', $page->id),
+			];
+		}
+	}
+	else
+	{
+		$menuItems = []; // TODO: deal with no pages better
 	}
 	$view->with('info', $menuItems);
 

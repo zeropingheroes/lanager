@@ -15,7 +15,7 @@ return array(
 	'achievement'			=> 'achievement',
 	'event'					=> 'event',
 	'event-signup'			=> 'event signup',
-	'info-page'				=> 'info page',
+	'page'					=> 'page',
 	'playlist-item'			=> 'playlist item',
 	'playlist-item-vote'	=> 'skip vote',
 	'playlist'				=> 'playlist',

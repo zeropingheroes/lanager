@@ -95,9 +95,9 @@ return array(
 			| Role-based Permissions
 			|--------------------------------------------------------------------------
 			*/
-			if ( $self->hasRole('Info Admin') ) 
+			if ( $self->hasRole('Pages Admin') ) 
 			{
-				$authority->allow('manage', 'infopages');
+				$authority->allow('manage', 'pages');
 			}
 
 			if ( $self->hasRole('Shouts Admin') ) 

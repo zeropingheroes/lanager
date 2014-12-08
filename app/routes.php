@@ -20,10 +20,10 @@ Route::get('logout', array('as' => 'sessions.logout', 'uses' => 'Zeropingheroes\
 
 /*
 |--------------------------------------------------------------------------
-| Info Pages
+| Pages
 |--------------------------------------------------------------------------
 */
-Route::resource('infopages', 'Zeropingheroes\Lanager\InfoPagesController');
+Route::resource('pages', 'Zeropingheroes\Lanager\PagesController');
 
 /*
 |--------------------------------------------------------------------------

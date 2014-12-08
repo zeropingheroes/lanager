@@ -2,8 +2,7 @@
 @section('content')
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
-	<ul>
-		@include('infopages.partials.list')
-	</ul>
-	{{ HTML::button('infopages.create') }}
+	{{ Form::model($page, array('route' => 'pages.store')) }}
+		@include('pages.partials.form')
+	{{ Form::close() }}
 @endsection
