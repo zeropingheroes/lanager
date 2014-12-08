@@ -74,8 +74,8 @@ return array(
 			$authority->allow('delete', 'playlists.item.votes');
 
 			// Event Signups
-			$authority->allow('create', 'signups');
-			$authority->allow('delete', 'signups');
+			$authority->allow('create', 'events.signups');
+			$authority->allow('delete', 'events.signups');
 
 			// Users
 			$authority->allow('delete', 'users', function($self, $user) 
@@ -108,6 +108,7 @@ return array(
 			if ( $self->hasRole('Events Admin') ) 
 			{
 				$authority->allow('manage', 'events');
+				$authority->allow('manage', 'events.signups');
 			}
 
 			if ( $self->hasRole('Playlists Admin') ) 

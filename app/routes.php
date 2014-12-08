@@ -46,7 +46,7 @@ Route::resource('usage', 'Zeropingheroes\Lanager\UsageController', array('only' 
 */
 Route::get('events/timetable', array('as' => 'events.timetable', 'uses' => 'Zeropingheroes\Lanager\EventsController@timetable'));
 Route::resource('events', 'Zeropingheroes\Lanager\EventsController');
-Route::resource('signups', 'Zeropingheroes\Lanager\SignupsController');
+Route::resource('events.signups', 'Zeropingheroes\Lanager\EventSignupsController');
 
 /*
 |--------------------------------------------------------------------------

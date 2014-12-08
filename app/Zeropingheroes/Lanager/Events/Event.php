@@ -19,14 +19,19 @@ class Event extends BaseModel {
 		return $this->belongsTo('Zeropingheroes\Lanager\EventTypes\EventType', 'event_type_id');
 	}
 
-	public function signups()
+	public function eventSignups()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\Signups\Signup');
+		return $this->hasMany('Zeropingheroes\Lanager\EventSignups\EventSignup');
 	}
 
 	public function hasSignupFromUser($userId)
 	{
-		return ($this->signups()->where('user_id', $userId)->count() > 0);
+		return ($this->eventSignups()->where('user_id', $userId)->count() > 0);
+	}
+
+	public function isOpenForSignups()
+	{
+		return ( time() < strtotime($this->signup_closes) && time() > strtotime($this->signup_opens) );
 	}
 
 }
