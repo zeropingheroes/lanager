@@ -1,7 +1,6 @@
 <?php namespace Zeropingheroes\Lanager\Users;
 
 use Zeropingheroes\Lanager\BaseModel;
-use Zeropingheroes\Lanager\Roles\Role;
 use Illuminate\Auth\UserInterface;
 
 class User extends BaseModel implements UserInterface {
@@ -38,6 +37,11 @@ class User extends BaseModel implements UserInterface {
 	public function states()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\States\State');
+	}
+
+	public function eventSignups()
+	{
+		return $this->hasMany('Zeropingheroes\Lanager\EventSignups\EventSignup', 'event_signups');
 	}
 
 	/**
