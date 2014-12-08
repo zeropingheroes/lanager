@@ -52,7 +52,7 @@ class EventPresenter extends Presenter {
 		$words = array(
 			'starting' => 'Opening',
 			'started' => 'Opened',
-			'ending' => 'closing',
+			'ending' => 'Closing',
 			'ended' => 'Closed'
 			);
 		return Timespan::relativeToNow($this->signup_opens, $this->signup_closes, $words);

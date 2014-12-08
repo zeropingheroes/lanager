@@ -1,8 +1,8 @@
 {{ Form::label('name', 'Name') }}
-{{ Form::text('name',NULL,array('placeholder' => 'The name of the event', 'maxlength' => 255)) }}
+{{ Form::text('name', NULL, ['placeholder' => 'The name of the event', 'maxlength' => 255] ) }}
 
 {{ Form::label('description', 'Description') }}
-{{ Form::textarea('description',NULL,array('placeholder' => 'The event description, markdown formatting enabled', 'rows' => 10)) }}
+{{ Form::textarea('description',NULL, ['placeholder' => 'The event description, markdown formatting enabled', 'rows' => 10] ) }}
 
 {{ Form::help('<a href="https://daringfireball.net/projects/markdown/basics" target="_blank">Markdown formatting cheatsheet</a>') }}
 

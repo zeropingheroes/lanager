@@ -5,7 +5,6 @@ use Zeropingheroes\Lanager\Events\Event,
 use View, Input, Redirect, Request, Response, URL;
 
 class EventsController extends BaseController {
-
 	
 	public function __construct()
 	{
