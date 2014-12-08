@@ -44,74 +44,6 @@ class User extends BaseModel implements UserInterface {
 		return $this->hasMany('Zeropingheroes\Lanager\EventSignups\EventSignup', 'event_signups');
 	}
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('remember_token', 'visible'); // Currently OpenID only so no passwords are stored
-
-	/**
-	 * Get the unique identifier for the user.
-	 *
-	 * @return mixed
-	 */
-	public function getAuthIdentifier()
-	{
-		return $this->getKey();
-	}
-
-	/**
-	 * Get the password for the user.
-	 *
-	 * @return string
-	 */
-	public function getAuthPassword()
-	{
-		return $this->password;
-	}
-
-	/**
-	 * Get the token value for the "remember me" session.
-	 *
-	 * @return string
-	 */
-	public function getRememberToken()
-	{
-		return $this->remember_token;
-	}
-
-	/**
-	 * Set the token value for the "remember me" session.
-	 *
-	 * @param  string  $value
-	 * @return void
-	 */
-	public function setRememberToken($value)
-	{
-		$this->remember_token = $value;
-	}
-
-	/**
-	 * Get the column name for the "remember me" token.
-	 *
-	 * @return string
-	 */
-	public function getRememberTokenName()
-	{
-		return 'remember_token';
-	}
-
-	/**
-	 * Get the e-mail address where password reminders are sent.
-	 *
-	 * @return string
-	 */
-	public function getReminderEmail()
-	{
-		return $this->email;
-	}
-
 	public function scopeVisible($query)
 	{
 		return $query->whereVisible(true);
@@ -147,6 +79,45 @@ class User extends BaseModel implements UserInterface {
 	public function getLargeAvatarUrl()
 	{
 		return str_replace('.jpg', '_full.jpg', $this->avatar);
+	}
+
+
+	/*
+	|--------------------------------------------------------------------------------
+	| Redundant code below due to implementing Laravel's UserInterface contract...
+	|--------------------------------------------------------------------------------
+	*/
+
+	protected $hidden = array('remember_token');
+
+	public function getAuthIdentifier()
+	{
+		return $this->getKey();
+	}
+
+	public function getAuthPassword()
+	{
+		return $this->password;
+	}
+
+	public function getRememberToken()
+	{
+		return $this->remember_token;
+	}
+
+	public function setRememberToken($value)
+	{
+		$this->remember_token = $value;
+	}
+
+	public function getRememberTokenName()
+	{
+		return 'remember_token';
+	}
+
+	public function getReminderEmail()
+	{
+		return $this->email;
 	}
 
 }
