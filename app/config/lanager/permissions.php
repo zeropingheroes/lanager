@@ -70,8 +70,8 @@ return array(
 			}
 
 			// Playlist Item Votes
-			$authority->allow('create', 'playlists.item.votes');
-			$authority->allow('delete', 'playlists.item.votes');
+			$authority->allow('create', 'playlists.items.votes');
+			$authority->allow('delete', 'playlists.items.votes');
 
 			// Event Signups
 			$authority->allow('create', 'events.signups');
