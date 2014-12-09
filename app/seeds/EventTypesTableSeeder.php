@@ -1,6 +1,6 @@
 <?php namespace Zeropingheroes\Lanager\Seeds;
 
-use	Zeropingheroes\Lanager\Events\Types\Type;
+use	Zeropingheroes\Lanager\EventTypes\EventType;
 use Illuminate\Database\Seeder,
 	Illuminate\Support\Facades\DB;
 
@@ -32,7 +32,7 @@ class EventTypesTableSeeder extends Seeder {
 
 		foreach($eventTypes as $eventType)
 		{
-			Type::create($eventType);
+			EventType::create($eventType);
 		}
 	}
 }
