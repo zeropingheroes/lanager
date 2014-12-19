@@ -64,6 +64,14 @@ Route::resource('playlists.items.votes', 'Zeropingheroes\Lanager\PlaylistItemVot
 */
 Route::resource('achievements', 'Zeropingheroes\Lanager\AchievementsController');
 
+
+
+Route::api('v1', function () {
+	Route::resource('users', 'Zeropingheroes\Lanager\Api\UsersController');
+});
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Index

@@ -120,6 +120,7 @@ return array(
 		'Zeropingheroes\Lanager\Users\UserImportServiceProvider',
 		'Krucas\Notification\NotificationServiceProvider',
 		'Mews\Purifier\PurifierServiceProvider',
+		'Dingo\Api\Provider\ApiServiceProvider',
 
 	),
 
@@ -226,6 +227,7 @@ return array(
 		'Notification'			=> 'Krucas\Notification\Facades\Notification',
 		'Markdown'				=> 'VTalbot\Markdown\Facades\Markdown',
 		'Purifier'				=> 'Mews\Purifier\Facades\Purifier',
+		'API'					=> 'Dingo\Api\Facade\API',
 
 	),
 
