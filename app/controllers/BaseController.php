@@ -78,7 +78,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	public function storeSucceeded( ResourceServiceContract $resourceService )
 	{
 		Notification::success( $resourceService->messages );
-		return Redirect::route( $resourceService->resourceName.'s.show', $resourceService->model->id); // TODO: use pluraliser
+		return Redirect::route( str_plural($resourceService->resourceName) . '.show', $resourceService->model->id);
 	}
 
 	public function storeFailed( ResourceServiceContract $resourceService )
@@ -90,7 +90,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	public function updateSucceeded( ResourceServiceContract $resourceService )
 	{
 		Notification::success( $resourceService->messages );
-		return Redirect::route( $resourceService->resourceName.'s.show', $resourceService->model->id); // TODO: use pluraliser
+		return Redirect::route( str_plural($resourceService->resourceName) . '.show', $resourceService->model->id);
 	}
 
 	public function updateFailed( ResourceServiceContract $resourceService )
@@ -102,7 +102,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	public function destroySucceeded( ResourceServiceContract $resourceService )
 	{
 		Notification::success( $resourceService->messages );
-		return Redirect::route( $resourceService->resourceName.'s.index' ); // TODO: use pluraliser
+		return Redirect::route( str_plural($resourceService->resourceName) . '.index' );
 	}
 
 	public function destroyFailed( ResourceServiceContract $resourceService )
