@@ -2,10 +2,20 @@
 
 use Illuminate\Routing\Controller;
 use Zeropingheroes\Lanager\BaseModel;
-use Notification;
+use Zeropingheroes\Lanager\ResourceServiceListenerContract,
+	Zeropingheroes\Lanager\ResourceServiceContract;
+use Notification, Redirect;
 use ReflectionClass;
 
-class BaseController extends Controller {
+class BaseController extends Controller implements ResourceServiceListenerContract {
+
+	protected $resourceService;
+
+	public function __construct()
+	{
+		$this->beforeFilter( 'permission' );
+		if( !empty($this->resourceService) ) $this->resourceService = new $this->resourceService($this); // for child controllers
+	}
 
 	/**
 	 * Setup the layout used by the controller.
@@ -53,5 +63,43 @@ class BaseController extends Controller {
 		$modelClass = (new ReflectionClass($model))->getShortName();
 		return strtolower(preg_replace('/([a-zA-Z])(?=[A-Z])/', '$1-', $modelClass)); // camel to dash
 	}
+
+	/* Listeners */
+	public function storeSucceeded( ResourceServiceContract $resourceService )
+	{
+		Notification::success( $resourceService->messages );
+		return Redirect::route( $resourceService->resourceName.'s.show', $resourceService->model->id);
+	}
+
+	public function storeFailed( ResourceServiceContract $resourceService )
+	{
+		Notification::danger( $resourceService->errors );
+		return Redirect::back()->withInput();
+	}
+
+	public function updateSucceeded( ResourceServiceContract $resourceService )
+	{
+		Notification::success( $resourceService->messages );
+		return Redirect::route( $resourceService->resourceName.'s.show', $resourceService->model->id);
+	}
+
+	public function updateFailed( ResourceServiceContract $resourceService )
+	{
+		Notification::danger( $resourceService->errors );
+		return Redirect::back()->withInput();
+	}
+
+	public function destroySucceeded( ResourceServiceContract $resourceService )
+	{
+		Notification::success( $resourceService->messages );
+		return Redirect::route( $resourceService->resourceName.'s.index' );
+	}
+
+	public function destroyFailed( ResourceServiceContract $resourceService )
+	{
+		Notification::danger( $resourceService->errors );
+		return Redirect::back();
+	}
+
 
 }

@@ -5,10 +5,7 @@ use View, Input, Redirect;
 
 class PagesController extends BaseController {
 	
-	public function __construct()
-	{
-		$this->beforeFilter('permission', ['only' => ['create', 'store', 'edit', 'update', 'destroy'] ]);
-	}
+	protected $resourceService = 'Zeropingheroes\Lanager\Pages\PageService';
 
 	/**
 	 * Display a listing of the resource.
@@ -17,7 +14,7 @@ class PagesController extends BaseController {
 	 */
 	public function index()
 	{
-		$pages = Page::all();
+		$pages = $this->resourceService->all();
 		
 		return View::make('pages.index')
 					->with('title','Info')
