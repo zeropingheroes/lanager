@@ -5,9 +5,9 @@
 
 	{{ Purifier::clean(Markdown::string($page->content), 'markdown') }}
 
-	@if(!empty($pages))
+	@if(!empty($page->children))
 		<ul>
-			@include('pages.partials.list')
+			@include('pages.partials.list', ['pages' => $page->children])
 		</ul>
 	@endif
 	{{ HTML::button('pages.create') }}

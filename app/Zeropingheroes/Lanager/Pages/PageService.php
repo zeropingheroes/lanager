@@ -9,4 +9,10 @@ class PageService extends BaseResourceService implements ResourceServiceContract
 
 	public $resourceName = 'page';
 
+	public function single($id)
+	{
+		$page = call_user_func_array($this->model . '::with', ['children']);
+		return $page->findOrFail($id);
+	}
+
 }

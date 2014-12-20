@@ -9,5 +9,14 @@ class Page extends BaseModel {
 
 	public $validator = 'Zeropingheroes\Lanager\Pages\PageValidator';
 
+    public function parent()
+    {
+        return $this->belongsTo('Zeropingheroes\Lanager\Pages\Page', 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\Pages\Page', 'parent_id');
+    }
 
 }

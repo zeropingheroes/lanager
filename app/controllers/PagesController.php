@@ -40,12 +40,10 @@ class PagesController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$page = Page::findOrFail($id);
-		$pageChildren = Page::where('parent_id',$id)->get();
+		$page = $this->resourceService->single($id);
 
 		return View::make('pages.show')
 					->with('title',$page->title)
-					->with('pages',$pageChildren)
 					->with('page',$page);
 	}
 
