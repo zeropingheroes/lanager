@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Pages\Page;
-use View, Input, Redirect;
+use View;
 
 class PagesController extends BaseController {
 	
@@ -63,7 +63,6 @@ class PagesController extends BaseController {
 					->with('title','Edit Page')
 					->with('pages',$pages)
 					->with('page',$page);
-
 	}
 
 }
