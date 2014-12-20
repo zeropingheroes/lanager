@@ -7,4 +7,9 @@ class BaseController extends Controller {
 
 	use ControllerTrait;
 
+	public function __construct()
+	{
+		$this->beforeFilter( 'permission' );
+	}
+
 }

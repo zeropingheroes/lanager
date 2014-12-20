@@ -64,13 +64,14 @@ Route::resource('playlists.items.votes', 'Zeropingheroes\Lanager\PlaylistItemVot
 */
 Route::resource('achievements', 'Zeropingheroes\Lanager\AchievementsController');
 
-
-
-Route::api('v1', function () {
+/*
+|--------------------------------------------------------------------------
+| REST API
+|--------------------------------------------------------------------------
+*/
+Route::api(['version' => 'v1', 'protected' => true], function () {
 	Route::resource('users', 'Zeropingheroes\Lanager\Api\UsersController');
 });
-
-
 
 /*
 |--------------------------------------------------------------------------

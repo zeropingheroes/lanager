@@ -7,6 +7,8 @@ class User extends BaseModel implements UserInterface {
 
 	protected $fillable = ['username', 'steam_id_64', 'steam_visibility', 'ip', 'avatar', 'visible'];
 
+	protected $hidden = ['remember_token', 'api_key'];
+
 	public $validator = 'Zeropingheroes\Lanager\Users\UserValidator';
 
 	public function shouts()
@@ -87,8 +89,6 @@ class User extends BaseModel implements UserInterface {
 	| Redundant code below due to implementing Laravel's UserInterface contract...
 	|--------------------------------------------------------------------------------
 	*/
-
-	protected $hidden = array('remember_token');
 
 	public function getAuthIdentifier()
 	{

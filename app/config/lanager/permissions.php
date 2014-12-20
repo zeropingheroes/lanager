@@ -53,34 +53,50 @@ return array(
 
 			// Shouts
 			$authority->allow('create', 'shouts');
-			if( in_array($self->id, Config::get('lanager/permissions.banned.create.shouts')) )
+			$authority->allow('read', 'shouts');
+			if( in_array($self->id, Config::get('lanager/permissions.banned.create.shouts')) ) // bans
 			{
 				$authority->deny('create', 'shouts');
 			}
 
 			// Playlist Items			
 			$authority->allow('create', 'playlists.items');
+			$authority->allow('read', 'playlists.items');
 			$authority->allow('delete', 'playlists.items', function($self, $itemId)
 			{
 				return $self->getCurrentUser()->items()->find($itemId);
 			});
-			if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlists.items')) )
+			if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlists.items')) ) // bans
 			{
 				$authority->deny('create', 'playlists.items');
 			}
 
 			// Playlist Item Votes
 			$authority->allow('create', 'playlists.items.votes');
-			$authority->allow('delete', 'playlists.items.votes');
+			$authority->allow('delete', 'playlists.items.votes'); // TODO: users should only be able to delete their own signups
+
+			// Pages
+			$authority->allow('read', 'pages');
+
+			// Usage
+			$authority->allow('read', 'usage');
+
+			// Events
+			$authority->allow('read', 'events');
 
 			// Event Signups
 			$authority->allow('create', 'events.signups');
-			$authority->allow('delete', 'events.signups');
+			$authority->allow('read', 'events.signups');
+			$authority->allow('delete', 'events.signups'); // TODO: users should only be able to delete their own signups
+
+			// Achievements
+			$authority->allow('read', 'achievements');
 
 			// Users
+			$authority->allow('read', 'users');
 			$authority->allow('delete', 'users', function($self, $user) 
 			{
-				if ( is_object($user) )
+				if ( is_object($user) ) // users can only delete themselves
 				{
 					return $self->getCurrentUser()->id === $user->id; // passed entire user object
 				}

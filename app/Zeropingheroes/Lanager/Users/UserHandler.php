@@ -8,6 +8,13 @@ class UserHandler {
 	{
 		// Make the first user SuperAdmin
 		if( count(User::all()) == 1 && ! $user->hasRole('Super Admin') )	$user->roles()->attach(Role::where('name', '=', 'Super Admin')->firstOrFail());
+
+		// Generate an API key if the user does not have one
+		if( empty($user->api_key) )
+		{
+			$user->api_key = md5(str_random(32));
+			$user->save();
+		}
 	}
 
 	/**
