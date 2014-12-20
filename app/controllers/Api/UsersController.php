@@ -12,7 +12,6 @@ class UsersController extends BaseController {
 	 */
 	public function index()
 	{
-
 		$users = User::visible()->orderBy('username', 'asc')->get();
 		return $this->response->collection($users, new UserTransformer);
 	}
