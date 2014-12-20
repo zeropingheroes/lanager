@@ -13,5 +13,4 @@
 	{{ HTML::button('pages.create') }}
 	{{ HTML::button('pages.edit', $page->id) }}
 	{{ HTML::button('pages.destroy', $page->id) }}
-@endsection
-				
+@endsection				
