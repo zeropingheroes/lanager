@@ -108,8 +108,6 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		'Profiler\ProfilerServiceProvider',
-
 		'Authority\AuthorityL4\AuthorityL4ServiceProvider',
 		'VTalbot\Markdown\MarkdownServiceProvider',
 		'Bootstrapper\BootstrapperServiceProvider',
@@ -189,9 +187,6 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 
-		'Notification' => 'Krucas\Notification\Facades\Notification',
-
-		'Profiler'				=> 'Profiler\Facades\Profiler',
 
 		'SteamBrowserProtocol'	=> 'Zeropingheroes\SteamBrowserProtocol\Facades\SteamBrowserProtocol',
 		'Duration'				=> 'Zeropingheroes\Duration\Facades\Duration',
