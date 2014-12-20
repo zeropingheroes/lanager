@@ -6,12 +6,14 @@ use Dingo\Api\Routing\ControllerTrait,
 	Dingo\Api\Exception\UpdateResourceFailedException,
 	Dingo\Api\Exception\DeleteResourceFailedException;
 use Zeropingheroes\Lanager\ResourceServiceListenerContract,
-	Zeropingheroes\Lanager\ResourceServiceContract;
+	Zeropingheroes\Lanager\ResourceServiceContract,
+	Zeropingheroes\Lanager\ResourceControllerTrait;
 use Input;
 
 class BaseController extends Controller implements ResourceServiceListenerContract {
 
 	use ControllerTrait;
+	use ResourceControllerTrait;
 
 	protected $resourceTransformer;
 	protected $resourceService;
@@ -34,16 +36,6 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	}
 
 	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		return $this->resourceService->store( Input::get() );
-	}
-
-	/**
 	 * Display the specified resource.
 	 *
 	 * @param  int  $id
@@ -54,29 +46,16 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 		return $this->resourceService->single($id);
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		return $this->resourceService->update( $id, Input::get() );
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		return $this->resourceService->destroy( $id );
-	}
-
-	/* Listeners */
+	/*
+	|--------------------------------------------------------------------------
+	| Default API Controller Listener Methods
+	|--------------------------------------------------------------------------
+	|
+	| These methods provide sensible boilerplate defaults for after-success and
+	| after-failure actions when the app is being accessed via REST API. 
+	| These methods can be overridden by child controllers if needed.
+	|
+	*/
 	public function storeSucceeded( ResourceServiceContract $resourceService )
 	{
 		return $this->response->created();

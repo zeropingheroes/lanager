@@ -10,6 +10,7 @@ use ReflectionClass;
 class BaseController extends Controller implements ResourceServiceListenerContract {
 
 	protected $resourceService;
+	use ResourceControllerTrait;
 
 	public function __construct()
 	{
@@ -64,11 +65,20 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 		return strtolower(preg_replace('/([a-zA-Z])(?=[A-Z])/', '$1-', $modelClass)); // camel to dash
 	}
 
-	/* Listeners */
+	/*
+	|--------------------------------------------------------------------------
+	| Default Controller Listener Methods
+	|--------------------------------------------------------------------------
+	|
+	| These methods provide sensible boilerplate defaults for after-success and
+	| after-failure actions when the app is being accessed via a web browser. 
+	| These methods can be overridden by child controllers if needed.
+	|
+	*/
 	public function storeSucceeded( ResourceServiceContract $resourceService )
 	{
 		Notification::success( $resourceService->messages );
-		return Redirect::route( $resourceService->resourceName.'s.show', $resourceService->model->id);
+		return Redirect::route( $resourceService->resourceName.'s.show', $resourceService->model->id); // TODO: use pluraliser
 	}
 
 	public function storeFailed( ResourceServiceContract $resourceService )
@@ -80,7 +90,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	public function updateSucceeded( ResourceServiceContract $resourceService )
 	{
 		Notification::success( $resourceService->messages );
-		return Redirect::route( $resourceService->resourceName.'s.show', $resourceService->model->id);
+		return Redirect::route( $resourceService->resourceName.'s.show', $resourceService->model->id); // TODO: use pluraliser
 	}
 
 	public function updateFailed( ResourceServiceContract $resourceService )
@@ -92,7 +102,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	public function destroySucceeded( ResourceServiceContract $resourceService )
 	{
 		Notification::success( $resourceService->messages );
-		return Redirect::route( $resourceService->resourceName.'s.index' );
+		return Redirect::route( $resourceService->resourceName.'s.index' ); // TODO: use pluraliser
 	}
 
 	public function destroyFailed( ResourceServiceContract $resourceService )
@@ -100,6 +110,5 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 		Notification::danger( $resourceService->errors );
 		return Redirect::back();
 	}
-
 
 }

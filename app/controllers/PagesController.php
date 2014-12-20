@@ -33,21 +33,6 @@ class PagesController extends BaseController {
 	}
 
 	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$page = new Page;
-		$page->fill( Input::get() );
-
-		if ( ! $this->save($page) ) return Redirect::back()->withInput();
-
-		return Redirect::route('pages.show', $page->id);
-	}
-
-	/**
 	 * Display the specified resource.
 	 *
 	 * @param  int  $id
@@ -81,33 +66,4 @@ class PagesController extends BaseController {
 
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$page = Page::findOrFail($id);
-		$page->fill( Input::get() );
-
-		if ( ! $this->save($page) ) return Redirect::back()->withInput();
-
-		return Redirect::route('pages.show', $page->id);
-
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$page = Page::findOrFail($id);
-		$this->delete($page);
-		return Redirect::route('pages.index');
-	}
 }
