@@ -7,6 +7,6 @@
 {{ Form::help('<a href="https://daringfireball.net/projects/markdown/basics" target="_blank">Markdown cheatsheet</a>') }}
 
 {{ Form::label('parent_id', 'Parent') }}
-{{ Form::select('parent_id', $pagesDropdown) }}
+{{ Form::select('parent_id', $pages) }}
 
 {{ Button::normal('Submit')->submit() }}

@@ -14,11 +14,9 @@ class PagesController extends BaseController {
 	 */
 	public function index()
 	{
-		$pages = $this->resourceService->all();
-		
 		return View::make('pages.index')
 					->with('title','Info')
-					->with('pages',$pages);
+					->with('pages', $this->resourceService->all());
 	}
 
 	/**
@@ -28,13 +26,10 @@ class PagesController extends BaseController {
 	 */
 	public function create()
 	{
-		$pagesDropdown = array('' => ' ') + Page::lists('title','id');
-		$page = new Page;
 		return View::make('pages.create')
 					->with('title','Create Page')
-					->with('pagesDropdown',$pagesDropdown)
-					->with('page',$page);
-
+					->with('pages',['' => ' '] + $this->resourceService->lists(['title', 'id']))
+					->with('page',null);
 	}
 
 	/**
@@ -78,10 +73,10 @@ class PagesController extends BaseController {
 	public function edit($id)
 	{
 		$page = Page::findOrFail($id);
-		$pagesDropdown = array('' => ' ') + Page::lists('title','id');
+		$pages = array('' => ' ') + Page::lists('title','id');
 		return View::make('pages.edit')
 					->with('title','Edit Page')
-					->with('pagesDropdown',$pagesDropdown)
+					->with('pages',$pages)
 					->with('page',$page);
 
 	}

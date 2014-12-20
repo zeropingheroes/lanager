@@ -27,6 +27,11 @@ abstract class BaseResourceService {
 		return call_user_func($this->model . '::findOrFail', $id);
 	}
 
+	public function lists($fields)
+	{
+		return call_user_func_array($this->model . '::lists', $fields);
+	}
+
 	public function store($input)
 	{
 		$this->model = new $this->model;
