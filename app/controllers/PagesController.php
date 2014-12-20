@@ -55,12 +55,10 @@ class PagesController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$page = Page::findOrFail($id);
-		$pages = array('' => ' ') + Page::lists('title','id');
 		return View::make('pages.edit')
 					->with('title','Edit Page')
-					->with('pages',$pages)
-					->with('page',$page);
+					->with('pages',['' => ' '] + $this->resourceService->lists(['title', 'id']))
+					->with('page',$this->resourceService->single($id));
 	}
 
 }
