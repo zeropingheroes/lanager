@@ -72,6 +72,7 @@ abstract class BaseResourceService {
 	{
 		$this->model = call_user_func($this->model . '::findOrFail', $id);
 		if( $this->model->delete() ) return $this->listener->destroySucceeded( $this );
+		$this->errors = ['Unable to destroy ' . $this->resourceName ];
 		return $this->listener->destroyFailed( $this );
 	}
 		
