@@ -37,6 +37,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 		$action = isset($model->id) ? 'update' : 'store';
 
 		$validator = new $model->validator( $model->toArray() );
+		$validator->scope([$action]);
 
 		if ( $validator->fails() )
 		{
