@@ -32,7 +32,7 @@ more enjoyable for attendees and organisers alike.
 
 ## Requirements
 * Windows / Linux / OS X
-* Apache Web server
+* Apache / nginx Web server
 * PHP 5.5 (with cURL & MCrypt)
 * MySQL
 * [Composer](https://getcomposer.org/)
@@ -60,11 +60,21 @@ Do not download the source in a zip file directly from GitHub - if you do updati
 
 4. Configure your web server to use `lanager/public/` as the root web directory
 
-5. Change the permissions for the `lanager/app/storage/` directory to be read & write for your web server:
+5. Configure your web server for "[pretty URLs](http://laravel.com/docs/4.2/installation#pretty-urls)" e.g. `lanager/user/1` etc
+	1. On Apache [enable the URL rewriting module](http://stackoverflow.com/questions/869092/how-to-enable-mod-rewrite-for-apache-2-2) `mod_rewrite`:
+		1. Set [`AllowOverride All`](http://stackoverflow.com/questions/18740419/how-to-set-allowoverride-all) on your `lanager/app/public` directory
+		2. Run `a2enmod rewrite` from the command line
+		3. Restart Apache
+       
+	2. On nginx use the following in your site config and restart nginx:
+
+        `location / { try_files $uri $uri/ /index.php?$query_string; }`
+
+6. Change the permissions for the `lanager/app/storage/` directory to be read & write for your web server:
 
 	`chmod -R 777 lanager/app/storage` (*nix)
 	
-6. Create a MySQL user and database, both named `lanager` and grant the required privileges:
+7. Create a MySQL user and database, both named `lanager` and grant the required privileges:
     
 	1. In a terminal run: `mysql -u root -p`
 	2. Type your MySQL root user password
@@ -74,13 +84,13 @@ Do not download the source in a zip file directly from GitHub - if you do updati
 	6. `GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'localhost';`
 	7. `FLUSH PRIVILEGES;`
 
-7. In `lanager/app/config/database.php` set the database password you chose above
+8. In `lanager/app/config/database.php` set the database password you chose above
 
-8. In a terminal in the `lanager/` directory, run:
+9. In a terminal in the `lanager/` directory, run:
 
 	`php artisan lanager:install`
 
-9. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
+10. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
 
 	* On Windows
 		* Add a task for `lanager/SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
