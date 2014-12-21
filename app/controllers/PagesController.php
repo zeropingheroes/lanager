@@ -1,6 +1,5 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Pages\Page;
 use View;
 
 class PagesController extends BaseController {
