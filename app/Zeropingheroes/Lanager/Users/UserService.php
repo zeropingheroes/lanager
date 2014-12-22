@@ -5,19 +5,21 @@ use Zeropingheroes\Lanager\BaseResourceService,
 
 class UserService extends BaseResourceService implements ResourceServiceContract {
 
-	public $model = 'Zeropingheroes\Lanager\Users\User';
-
 	public $resourceName = 'user';
+
+	public function __construct( $listener )
+	{
+		$this->listener = $listener;
+		$this->model = new User;
+	}
 
 	public function all()
 	{
-		$users = call_user_func($this->model . '::visible'); // only show visible users
-		return $users->orderBy('username', 'asc')->get();
+		return $this->model->visible()->orderBy('username', 'asc')->get();
 	}
 
 	public function single($id)
 	{
-		$users = call_user_func($this->model . '::visible'); // only show visible users
-		return $users->findOrFail($id);
+		return $this->model->visible()->findOrFail($id);
 	}
 }

@@ -16,13 +16,11 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	use ResourceControllerTrait;
 
 	protected $resourceTransformer;
-	protected $resourceService;
+	protected $service;
 
 	public function __construct()
 	{
 		$this->beforeFilter( 'permission' );
-		$this->resourceService = new $this->resourceService($this); // for child controllers
-		$this->resourceTransformer = new $this->resourceTransformer;
 	}
 
 	/**
@@ -32,7 +30,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	 */
 	public function index()
 	{
-		return $this->resourceService->all();
+		return $this->service->all();
 	}
 
 	/**
@@ -43,7 +41,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	 */
 	public function show($id)
 	{
-		return $this->resourceService->single($id);
+		return $this->service->single($id);
 	}
 
 	/*
@@ -56,34 +54,34 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	| These methods can be overridden by child controllers if needed.
 	|
 	*/
-	public function storeSucceeded( ResourceServiceContract $resourceService )
+	public function storeSucceeded( ResourceServiceContract $service )
 	{
 		return $this->response->created();
 	}
 
-	public function storeFailed( ResourceServiceContract $resourceService )
+	public function storeFailed( ResourceServiceContract $service )
 	{
-		throw new StoreResourceFailedException('Could not create new ' . $resourceService->resourceName, $resourceService->errors);
+		throw new StoreResourceFailedException('Could not create new ' . $service->resourceName, $service->errors);
 	}
 
-	public function updateSucceeded( ResourceServiceContract $resourceService )
+	public function updateSucceeded( ResourceServiceContract $service )
 	{
 		return $this->response->noContent();
 	}
 
-	public function updateFailed( ResourceServiceContract $resourceService )
+	public function updateFailed( ResourceServiceContract $service )
 	{
-		throw new UpdateResourceFailedException('Could not update ' . $resourceService->resourceName, $resourceService->errors);
+		throw new UpdateResourceFailedException('Could not update ' . $service->resourceName, $service->errors);
 	}
 
-	public function destroySucceeded( ResourceServiceContract $resourceService )
+	public function destroySucceeded( ResourceServiceContract $service )
 	{
 		return $this->response->noContent();
 	}
 
-	public function destroyFailed( ResourceServiceContract $resourceService )
+	public function destroyFailed( ResourceServiceContract $service )
 	{
-		throw new DeleteResourceFailedException('Could not destroy ' . $resourceService->resourceName, $resourceService->errors);
+		throw new DeleteResourceFailedException('Could not destroy ' . $service->resourceName, $service->errors);
 	}
 
 }

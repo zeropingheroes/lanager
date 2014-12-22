@@ -5,14 +5,17 @@ use Zeropingheroes\Lanager\BaseResourceService,
 
 class PageService extends BaseResourceService implements ResourceServiceContract {
 
-	public $model = 'Zeropingheroes\Lanager\Pages\Page';
-
 	public $resourceName = 'page';
+
+	public function __construct( $listener )
+	{
+		$this->listener = $listener;
+		$this->model = new Page;
+	}
 
 	public function single($id)
 	{
-		$page = call_user_func_array($this->model . '::with', ['children']);
-		return $page->findOrFail($id);
+		return $this->model->with('children')->findOrFail($id);
 	}
 
 }

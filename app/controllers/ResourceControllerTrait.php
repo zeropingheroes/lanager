@@ -22,7 +22,7 @@ trait ResourceControllerTrait {
 	 */
 	public function store()
 	{
-		return $this->resourceService->store( Input::get() );
+		return $this->service->store( Input::get() );
 	}
 
 	/**
@@ -33,7 +33,7 @@ trait ResourceControllerTrait {
 	 */
 	public function update($id)
 	{
-		return $this->resourceService->update( $id, Input::get() );
+		return $this->service->update( $id, Input::get() );
 	}
 
 	/**
@@ -44,7 +44,7 @@ trait ResourceControllerTrait {
 	 */
 	public function destroy($id)
 	{
-		return $this->resourceService->destroy( $id );
+		return $this->service->destroy( $id );
 	}
 
 }

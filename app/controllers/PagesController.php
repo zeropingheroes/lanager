@@ -1,10 +1,14 @@
 <?php namespace Zeropingheroes\Lanager;
 
+use Zeropingheroes\Lanager\Pages\PageService;
 use View;
 
 class PagesController extends BaseController {
-	
-	protected $resourceService = 'Zeropingheroes\Lanager\Pages\PageService';
+
+	public function __construct()
+	{
+		$this->service = new PageService($this);
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -15,7 +19,7 @@ class PagesController extends BaseController {
 	{
 		return View::make('pages.index')
 					->with('title','Info')
-					->with('pages', $this->resourceService->all());
+					->with('pages', $this->service->all());
 	}
 
 	/**
@@ -27,7 +31,7 @@ class PagesController extends BaseController {
 	{
 		return View::make('pages.create')
 					->with('title','Create Page')
-					->with('pages',['' => ' '] + $this->resourceService->lists(['title', 'id']))
+					->with('pages',['' => ' '] + $this->service->lists('title', 'id'))
 					->with('page',null);
 	}
 
@@ -39,7 +43,7 @@ class PagesController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$page = $this->resourceService->single($id);
+		$page = $this->service->single($id);
 
 		return View::make('pages.show')
 					->with('title',$page->title)
@@ -56,8 +60,8 @@ class PagesController extends BaseController {
 	{
 		return View::make('pages.edit')
 					->with('title','Edit Page')
-					->with('pages',['' => ' '] + $this->resourceService->lists(['title', 'id']))
-					->with('page',$this->resourceService->single($id));
+					->with('pages',['' => ' '] + $this->service->lists('title', 'id'))
+					->with('page',$this->service->single($id));
 	}
 
 }

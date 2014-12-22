@@ -12,29 +12,23 @@ abstract class BaseResourceService {
 
 	public $messages;
 
-	public function __construct($listener)
-	{
-		$this->listener = $listener;
-	}
-
 	public function all()
 	{
-		return call_user_func($this->model . '::all');
+		return $this->model->all();
 	}
 
 	public function single($id)
 	{
-		return call_user_func($this->model . '::findOrFail', $id);
+		return $this->model->findOrFail($id);
 	}
 
 	public function lists($fields)
 	{
-		return call_user_func_array($this->model . '::lists', $fields);
+		return $this->model->lists($fields);
 	}
 
 	public function store($input)
 	{
-		$this->model = new $this->model;
 		$this->model->fill($input);
 
 		$validator = new $this->model->validator( $this->model->toArray() );
@@ -54,8 +48,8 @@ abstract class BaseResourceService {
 
 	public function update($id, $input)
 	{
-		$this->model = call_user_func($this->model . '::findOrFail', $id);
-
+		$this->model = $this->model->findOrFail($id);
+		
 		$this->model->fill($input);
 
 		$validator = new $this->model->validator( $this->model->toArray() );
@@ -75,7 +69,7 @@ abstract class BaseResourceService {
 
 	public function destroy($id)
 	{
-		$this->model = call_user_func($this->model . '::findOrFail', $id);
+		$this->model = $this->model->findOrFail($id);
 		if( $this->model->delete() )
 		{
 			$this->messages = trans('confirmation.after.resource.destroy', ['resource' => trans('resources.' . $this->resourceName) ]);

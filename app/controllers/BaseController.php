@@ -3,19 +3,19 @@
 use Illuminate\Routing\Controller;
 use Zeropingheroes\Lanager\BaseModel;
 use Zeropingheroes\Lanager\ResourceServiceListenerContract,
-	Zeropingheroes\Lanager\ResourceServiceContract;
+	Zeropingheroes\Lanager\ResourceServiceContract,
+	Zeropingheroes\Lanager\BaseResourceService;
 use Notification, Redirect;
 use ReflectionClass;
 
 class BaseController extends Controller implements ResourceServiceListenerContract {
 
-	protected $resourceService;
+	protected $service;
 	use ResourceControllerTrait;
 
 	public function __construct()
 	{
 		$this->beforeFilter( 'permission' );
-		if( !empty($this->resourceService) ) $this->resourceService = new $this->resourceService($this); // for child controllers
 	}
 
 	/**
@@ -76,39 +76,39 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	| These methods can be overridden by child controllers if needed.
 	|
 	*/
-	public function storeSucceeded( ResourceServiceContract $resourceService )
+	public function storeSucceeded( ResourceServiceContract $service )
 	{
-		Notification::success( $resourceService->messages );
-		return Redirect::route( str_plural($resourceService->resourceName) . '.show', $resourceService->model->id);
+		Notification::success( $service->messages );
+		return Redirect::route( str_plural($service->resourceName) . '.show', $service->model->id);
 	}
 
-	public function storeFailed( ResourceServiceContract $resourceService )
+	public function storeFailed( ResourceServiceContract $service )
 	{
-		Notification::danger( $resourceService->errors );
+		Notification::danger( $service->errors );
 		return Redirect::back()->withInput();
 	}
 
-	public function updateSucceeded( ResourceServiceContract $resourceService )
+	public function updateSucceeded( ResourceServiceContract $service )
 	{
-		Notification::success( $resourceService->messages );
-		return Redirect::route( str_plural($resourceService->resourceName) . '.show', $resourceService->model->id);
+		Notification::success( $service->messages );
+		return Redirect::route( str_plural($service->resourceName) . '.show', $service->model->id);
 	}
 
-	public function updateFailed( ResourceServiceContract $resourceService )
+	public function updateFailed( ResourceServiceContract $service )
 	{
-		Notification::danger( $resourceService->errors );
+		Notification::danger( $service->errors );
 		return Redirect::back()->withInput();
 	}
 
-	public function destroySucceeded( ResourceServiceContract $resourceService )
+	public function destroySucceeded( ResourceServiceContract $service )
 	{
-		Notification::success( $resourceService->messages );
-		return Redirect::route( str_plural($resourceService->resourceName) . '.index' );
+		Notification::success( $service->messages );
+		return Redirect::route( str_plural($service->resourceName) . '.index' );
 	}
 
-	public function destroyFailed( ResourceServiceContract $resourceService )
+	public function destroyFailed( ResourceServiceContract $service )
 	{
-		Notification::danger( $resourceService->errors );
+		Notification::danger( $service->errors );
 		return Redirect::back();
 	}
 
