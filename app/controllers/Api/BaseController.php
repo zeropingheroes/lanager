@@ -15,7 +15,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	use ControllerTrait;
 	use ResourceControllerTrait;
 
-	protected $resourceTransformer;
+	protected $transformer;
 	protected $service;
 
 	public function __construct()
@@ -30,7 +30,8 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	 */
 	public function index()
 	{
-		return $this->service->all();
+		$items = $this->service->all();
+		return $this->response->collection($items, $this->transformer);
 	}
 
 	/**
@@ -41,7 +42,8 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	 */
 	public function show($id)
 	{
-		return $this->service->single($id);
+		$item = $this->service->single( $id );
+		return $this->response->item($item, $this->transformer);
 	}
 
 	/*

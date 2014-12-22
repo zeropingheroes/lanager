@@ -1,14 +1,15 @@
 <?php namespace Zeropingheroes\Lanager\Api;
 
-use Zeropingheroes\Lanager\Users\UserService;
+use Zeropingheroes\Lanager\Users\UserService,
+	Zeropingheroes\Lanager\Users\UserTransformer;
 
 class UsersController extends BaseController {
 
-	protected $resourceTransformer = 'Zeropingheroes\Lanager\Users\UserTransformer';
-	
 	public function __construct()
 	{
 		$this->service = new UserService($this);
+		$this->transformer = new UserTransformer;
+
 	}
 
 }
