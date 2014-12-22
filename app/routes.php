@@ -1,78 +1,81 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Users
-|--------------------------------------------------------------------------
-*/
-Route::resource('users', 'Zeropingheroes\Lanager\UsersController');
-Route::resource('user-roles', 'Zeropingheroes\Lanager\UserRolesController');
-Route::resource('user-achievements', 'Zeropingheroes\Lanager\UserAchievementsController');
+Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
+{
+	/*
+	|--------------------------------------------------------------------------
+	| Users
+	|--------------------------------------------------------------------------
+	*/
+	Route::resource('users', 'UsersController');
+	Route::resource('user-roles', 'UserRolesController');
+	Route::resource('user-achievements', 'UserAchievementsController');
 
-/*
-|--------------------------------------------------------------------------
-| Sessions
-|--------------------------------------------------------------------------
-*/
-Route::resource('sessions', 'Zeropingheroes\Lanager\SessionsController');
-Route::get('login', array('as' => 'sessions.login', 'uses' => 'Zeropingheroes\Lanager\SessionsController@create'));
-Route::get('logout', array('as' => 'sessions.logout', 'uses' => 'Zeropingheroes\Lanager\SessionsController@destroy'));
+	/*
+	|--------------------------------------------------------------------------
+	| Sessions
+	|--------------------------------------------------------------------------
+	*/
+	Route::resource('sessions', 'SessionsController');
+	Route::get('login', ['as' => 'sessions.login', 'uses' => 'SessionsController@create']);
+	Route::get('logout', ['as' => 'sessions.logout', 'uses' => 'SessionsController@destroy']);
 
-/*
-|--------------------------------------------------------------------------
-| Pages
-|--------------------------------------------------------------------------
-*/
-Route::resource('pages', 'Zeropingheroes\Lanager\PagesController');
+	/*
+	|--------------------------------------------------------------------------
+	| Pages
+	|--------------------------------------------------------------------------
+	*/
+	Route::resource('pages', 'PagesController');
 
-/*
-|--------------------------------------------------------------------------
-| Shouts
-|--------------------------------------------------------------------------
-*/
-Route::resource('shouts', 'Zeropingheroes\Lanager\ShoutsController');
+	/*
+	|--------------------------------------------------------------------------
+	| Shouts
+	|--------------------------------------------------------------------------
+	*/
+	Route::resource('shouts', 'ShoutsController');
 
-/*
-|--------------------------------------------------------------------------
-| Usage
-|--------------------------------------------------------------------------
-*/
-Route::resource('usage', 'Zeropingheroes\Lanager\UsageController', array('only' => array('index', 'show')));
+	/*
+	|--------------------------------------------------------------------------
+	| Usage
+	|--------------------------------------------------------------------------
+	*/
+	Route::resource('usage', 'UsageController', ['only' => ['index', 'show']]);
 
-/*
-|--------------------------------------------------------------------------
-| Events
-|--------------------------------------------------------------------------
-*/
-Route::get('events/timetable', array('as' => 'events.timetable', 'uses' => 'Zeropingheroes\Lanager\EventsController@timetable'));
-Route::resource('events', 'Zeropingheroes\Lanager\EventsController');
-Route::resource('events.signups', 'Zeropingheroes\Lanager\EventSignupsController');
+	/*
+	|--------------------------------------------------------------------------
+	| Events
+	|--------------------------------------------------------------------------
+	*/
+	Route::get('events/timetable', ['as' => 'events.timetable', 'uses' => 'EventsController@timetable']);
+	Route::resource('events', 'EventsController');
+	Route::resource('events.signups', 'EventSignupsController');
 
-/*
-|--------------------------------------------------------------------------
-| Playlists
-|--------------------------------------------------------------------------
-*/
-Route::resource('playlists', 'Zeropingheroes\Lanager\PlaylistsController');
-Route::resource('playlists.items', 'Zeropingheroes\Lanager\PlaylistItemsController');
-Route::resource('playlists.items.votes', 'Zeropingheroes\Lanager\PlaylistItemVotesController');
+	/*
+	|--------------------------------------------------------------------------
+	| Playlists
+	|--------------------------------------------------------------------------
+	*/
+	Route::resource('playlists', 'PlaylistsController');
+	Route::resource('playlists.items', 'PlaylistItemsController');
+	Route::resource('playlists.items.votes', 'PlaylistItemVotesController');
 
-/*
-|--------------------------------------------------------------------------
-| Achievements
-|--------------------------------------------------------------------------
-*/
-Route::resource('achievements', 'Zeropingheroes\Lanager\AchievementsController');
+	/*
+	|--------------------------------------------------------------------------
+	| Achievements
+	|--------------------------------------------------------------------------
+	*/
+	Route::resource('achievements', 'AchievementsController');
 
-/*
-|--------------------------------------------------------------------------
-| REST API
-|--------------------------------------------------------------------------
-*/
-Route::api(['version' => 'v1', 'protected' => true], function () {
-	Route::resource('achievements', 'Zeropingheroes\Lanager\Api\v1\AchievementsController');
-	Route::resource('users', 'Zeropingheroes\Lanager\Api\v1\UsersController');
-	Route::resource('pages', 'Zeropingheroes\Lanager\Api\v1\PagesController');
+	/*
+	|--------------------------------------------------------------------------
+	| REST API
+	|--------------------------------------------------------------------------
+	*/
+	Route::api(['version' => 'v1', 'protected' => true], function () {
+		Route::resource('achievements', 'Api\v1\AchievementsController');
+		Route::resource('users', 'Api\v1\UsersController');
+		Route::resource('pages', 'Api\v1\PagesController');
+	});
 });
 
 /*
