@@ -1,13 +1,16 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Achievements\Achievement;
-use View, Input, Redirect;
+use Zeropingheroes\Lanager\Achievements\AchievementService;
+use View;
 
 class AchievementsController extends BaseController {
-	
+
+	protected $route = 'achievements';
+
 	public function __construct()
 	{
-		$this->beforeFilter('permission', ['only' => ['create', 'store', 'edit', 'update', 'destroy'] ] );
+		parent::__construct();
+		$this->service = new AchievementService($this);
 	}
 
 	/**
@@ -17,12 +20,9 @@ class AchievementsController extends BaseController {
 	 */
 	public function index()
 	{
-		$achievements = Achievement::orderBy('name', 'asc')
-									->paginate(10);
-
 		return View::make('achievements.index')
 					->with('title','Achievements')
-					->with('achievements',$achievements);
+					->with('achievements', $this->service->all() );
 	}
 
 	/**
@@ -32,25 +32,9 @@ class AchievementsController extends BaseController {
 	 */
 	public function create()
 	{
-		$achievement = new Achievement;
 		return View::make('achievements.create')
 					->with('title','Create Achievement')
-					->with('achievement',$achievement);
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$achievement = new Achievement;
-		$achievement->fill( Input::get() );
-
-		if ( ! $this->save($achievement) ) return Redirect::back()->withInput();
-		
-		return Redirect::route('achievements.show', $achievement->id);
+					->with('achievement',null);
 	}
 
 	/**
@@ -61,7 +45,7 @@ class AchievementsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$achievement = Achievement::findOrFail($id);
+		$achievement = $this->service->single($id);
 		
 		return View::make('achievements.show')
 					->with('title', 'Achievement - ' . $achievement->name)
@@ -76,40 +60,9 @@ class AchievementsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$achievement = Achievement::findOrFail($id);
-
 		return View::make('achievements.edit')
 					->with('title','Edit Achievement')
-					->with('achievement',$achievement);
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$achievement = Achievement::findOrFail($id);
-		$achievement->fill( Input::get() );
-
-		if ( ! $this->save($achievement) ) return Redirect::back()->withInput();
-
-		return Redirect::route('achievements.show', $achievement->id);
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$achievement = Achievement::findOrFail($id);
-		$this->delete($achievement);
-		return Redirect::route('achievements.index');
+					->with('achievement', $this->service->single($id) );
 	}
 
 }

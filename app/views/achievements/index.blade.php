@@ -29,7 +29,6 @@
 		?>
 		{{ Table::withContents($tableBody) }}
 		
-		{{ $achievements->links() }}
 	@else
 		<p>No achievements found!</p>
 	@endif
