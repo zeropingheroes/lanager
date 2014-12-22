@@ -6,7 +6,7 @@ use Dingo\Api\Auth\AuthorizationProvider;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Config, Auth;
+use Auth;
 
 class UserApiKeyAuthorizationProvider extends AuthorizationProvider
 {
@@ -19,17 +19,16 @@ class UserApiKeyAuthorizationProvider extends AuthorizationProvider
 		$apikey = trim(strstr($request->header('authorization'), ' '));
 		
 		// verify that api key is 32 char hexadecimal string
-		if ( strlen($apikey) != 32 ) throw new UnauthorizedHttpException(null);
-		if ( ! ctype_xdigit($apikey) ) throw new UnauthorizedHttpException(null);
+		if ( strlen($apikey) != 32 ) throw new BadRequestHttpException('Invalid API key');
+		if ( ! ctype_xdigit($apikey) ) throw new BadRequestHttpException('Invalid API key');
 		
 		// attempt to find user in database with given api key
 		try
 		{
 			$user = User::where('api_key', $apikey)->firstOrFail();
 			
-			// "Log the user in" for this request without making a session so that authority lib can work
-			Config::set('session.driver', 'array');
-			Auth::login($user);
+			// Log the user in once for this request without making a session so that authority lib can work
+			Auth::onceUsingId($user->id);
 
 			return $user;
 		}
