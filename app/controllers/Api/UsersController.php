@@ -9,7 +9,6 @@ class UsersController extends BaseController {
 	{
 		$this->service = new UserService($this);
 		$this->transformer = new UserTransformer;
-
 	}
 
 }
