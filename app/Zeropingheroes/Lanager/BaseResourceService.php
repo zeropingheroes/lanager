@@ -3,14 +3,10 @@
 abstract class BaseResourceService implements ResourceServiceContract {
 
 	protected $listener;
-	
-	public $model;
-
-	public $resourceName;
-
-	public $errors;
-
-	public $messages;
+	protected $model;
+	protected $resourceName;
+	protected $errors;
+	protected $messages;
 
 	public function all()
 	{
@@ -78,5 +74,27 @@ abstract class BaseResourceService implements ResourceServiceContract {
 		$this->errors = ['Unable to destroy ' . $this->resourceName ];
 		return $this->listener->destroyFailed( $this );
 	}
-		
+
+	// Getters
+	public function model()
+	{
+		return $this->model;
+	}
+
+	public function resourceName()
+	{
+		return $this->resourceName;
+	}
+
+	public function errors()
+	{
+		return $this->errors;
+	}
+
+	public function messages()
+	{
+		return $this->messages;
+	}
+
+
 }
