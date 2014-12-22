@@ -70,8 +70,8 @@ Route::resource('achievements', 'Zeropingheroes\Lanager\AchievementsController')
 |--------------------------------------------------------------------------
 */
 Route::api(['version' => 'v1', 'protected' => true], function () {
-	Route::resource('users', 'Zeropingheroes\Lanager\Api\UsersController');
-	Route::resource('pages', 'Zeropingheroes\Lanager\Api\PagesController');
+	Route::resource('users', 'Zeropingheroes\Lanager\Api\v1\UsersController');
+	Route::resource('pages', 'Zeropingheroes\Lanager\Api\v1\PagesController');
 });
 
 /*

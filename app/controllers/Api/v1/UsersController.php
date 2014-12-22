@@ -1,4 +1,4 @@
-<?php namespace Zeropingheroes\Lanager\Api;
+<?php namespace Zeropingheroes\Lanager\Api\v1;
 
 use Zeropingheroes\Lanager\Users\UserService,
 	Zeropingheroes\Lanager\Users\UserTransformer;
