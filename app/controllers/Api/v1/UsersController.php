@@ -7,6 +7,7 @@ class UsersController extends BaseController {
 
 	public function __construct()
 	{
+		parent::__construct();
 		$this->service = new UserService($this);
 		$this->transformer = new UserTransformer;
 	}
