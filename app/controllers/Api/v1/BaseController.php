@@ -8,7 +8,6 @@ use Dingo\Api\Routing\ControllerTrait,
 use Zeropingheroes\Lanager\ResourceServiceListenerContract,
 	Zeropingheroes\Lanager\ResourceServiceContract,
 	Zeropingheroes\Lanager\ResourceControllerTrait;
-use Input;
 
 class BaseController extends Controller implements ResourceServiceListenerContract {
 
