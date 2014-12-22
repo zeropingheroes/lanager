@@ -79,36 +79,36 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	public function storeSucceeded( ResourceServiceContract $service )
 	{
 		Notification::success( $service->messages() );
-		return Redirect::route( str_plural($service->resourceName()) . '.show', $service->model()->id );
+		return Redirect::route( $this->route . '.show', $service->model()->id );
 	}
 
 	public function storeFailed( ResourceServiceContract $service )
 	{
-		Notification::danger( $service->errors );
+		Notification::danger( $service->errors() );
 		return Redirect::back()->withInput();
 	}
 
 	public function updateSucceeded( ResourceServiceContract $service )
 	{
 		Notification::success( $service->messages() );
-		return Redirect::route( str_plural($service->resourceName()) . '.show', $service->model()->id );
+		return Redirect::route( $this->route . '.show', $service->model()->id );
 	}
 
 	public function updateFailed( ResourceServiceContract $service )
 	{
-		Notification::danger( $service->errors );
+		Notification::danger( $service->errors() );
 		return Redirect::back()->withInput();
 	}
 
 	public function destroySucceeded( ResourceServiceContract $service )
 	{
 		Notification::success( $service->messages() );
-		return Redirect::route( str_plural($service->resourceName()) . '.index' );
+		return Redirect::route( $this->route . '.index' );
 	}
 
 	public function destroyFailed( ResourceServiceContract $service )
 	{
-		Notification::danger( $service->errors );
+		Notification::danger( $service->errors() );
 		return Redirect::back();
 	}
 

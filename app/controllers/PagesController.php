@@ -5,6 +5,8 @@ use View;
 
 class PagesController extends BaseController {
 
+	protected $route = 'pages';
+
 	public function __construct()
 	{
 		$this->service = new PageService($this);

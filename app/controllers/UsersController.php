@@ -5,6 +5,8 @@ use Redirect, View;
 
 class UsersController extends BaseController {
 
+	protected $route = 'users';
+
 	public function __construct()
 	{
 		$this->beforeFilter( 'permission', ['only' => ['destroy'] ] );
