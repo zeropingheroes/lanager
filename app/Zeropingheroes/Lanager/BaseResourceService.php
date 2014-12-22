@@ -18,9 +18,9 @@ abstract class BaseResourceService implements ResourceServiceContract {
 		return $this->model->findOrFail($id);
 	}
 
-	public function lists($fields)
+	public function lists($key, $value)
 	{
-		return $this->model->lists($fields);
+		return $this->model->lists($key, $value);
 	}
 
 	public function store($input)
