@@ -12,4 +12,13 @@ class UsersController extends BaseController {
 		$this->transformer = new UserTransformer;
 	}
 
+	public function store()
+	{
+		return $this->response->error('Method not allowed', 405);
+	}
+
+	public function update($id)
+	{
+		return $this->response->error('Method not allowed', 405);
+	}
 }
