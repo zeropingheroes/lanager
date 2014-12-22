@@ -96,5 +96,4 @@ abstract class BaseResourceService implements ResourceServiceContract {
 		return $this->messages;
 	}
 
-
 }
