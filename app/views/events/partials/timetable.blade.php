@@ -4,9 +4,6 @@
 		var timelineInterval;
 
 		$.ajax({
-			beforeSend: function(request) {
-				request.setRequestHeader("Authorization", 'Lanager {{ Auth::user()->api_key }}');
-			},
 			dataType: "json",
 			url: "http://" + location.host + "/api/events", // todo: fix URL generator route issue
 			success: function(response) {
