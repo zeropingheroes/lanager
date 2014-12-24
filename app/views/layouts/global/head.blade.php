@@ -8,7 +8,7 @@
 	{{ HTML::style('css/bootstrap/bootstrap.css') }}
 	{{ HTML::style('css/lanager.css') }}
 
-	{{ HTML::style('vendor/fullcalendar/fullcalendar.css') }}
+	{{ HTML::style('vendor/fullcalendar/fullcalendar.min.css') }}
 	{{ HTML::style('vendor/eonasdan/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">

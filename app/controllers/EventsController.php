@@ -1,40 +1,17 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Events\Event,
-	Zeropingheroes\Lanager\EventTypes\EventType;
+use Zeropingheroes\Lanager\Events\EventService,
+	Zeropingheroes\Lanager\EventTypes\EventTypeService;
 use View, Input, Redirect, Request, Response, URL;
 
 class EventsController extends BaseController {
-	
+
+	protected $route = 'events';
+
 	public function __construct()
 	{
-		$this->beforeFilter('permission', ['only' => ['create', 'store', 'edit', 'update', 'destroy'] ]);
-	}
-
-	/**
-	 * Display the events in a timetable.
-	 *
-	 * @return Response
-	 */
-	public function timetable()
-	{
-		if (Request::ajax()) {
-			$events = Event::all();
-			
-			//format JSON for FullCalendar
-			foreach($events as $event)
-			{
-				$fullCalendarJson[] = array(
-					'start'		=> date('c',strtotime($event->start)),
-					'end'		=> date('c',strtotime($event->end)),
-					'title'		=> $event->name,
-					'allDay'	=> false,
-					'url'		=> URL::route('events.show', $event->id),
-					'color'		=> (isset($event->event_type->colour) ? $event->event_type->colour : ''),
-					);
-			}
-			return Response::json($fullCalendarJson);
-		}
+		parent::__construct();
+		$this->service = new EventService($this);
 	}
 
 	/**
@@ -44,11 +21,9 @@ class EventsController extends BaseController {
 	 */
 	public function index()
 	{
-		$events = Event::orderBy('start')->with('type')->get();
-	
 		return View::make('events.index')
 					->with('title','Events')
-					->with('events',$events);
+					->with('events', $this->service->all());
 	}
 
 	/**
@@ -58,27 +33,12 @@ class EventsController extends BaseController {
 	 */
 	public function create()
 	{
-		$eventTypes = array('' => ' ') + EventType::lists('name','id');
-		$event = new Event;
+		$eventTypes = ['' => ''] + (new EventTypeService($this))->lists('name','id');
+
 		return View::make('events.create')
 					->with('title','Create Event')
 					->with('eventTypes',$eventTypes)
-					->with('event',$event);
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$event = new Event;
-		$event->fill( Input::get() );
-
-		if ( ! $this->save($event) ) return Redirect::back()->withInput();
-	
-		return Redirect::route('events.show', $event->id);	
+					->with('event', null);
 	}
 
 	/**
@@ -89,7 +49,7 @@ class EventsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$event = Event::findOrFail($id);
+		$event = $this->service->single($id);
 
 		return View::make('events.show')
 					->with('title',$event->name)
@@ -104,8 +64,8 @@ class EventsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$event = Event::findOrFail($id);
-		$eventTypes = array('' => ' ') + EventType::lists('name','id');
+		$event = $this->service->single($id);
+		$eventTypes = ['' => ''] + (new EventTypeService($this))->lists('name','id');
 
 		return View::make('events.edit')
 					->with('title','Edit Event')
@@ -113,32 +73,4 @@ class EventsController extends BaseController {
 					->with('event',$event);
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$event = Event::findOrFail($id);
-		$event->fill( Input::get() );
-		
-		if ( ! $this->save($event) ) return Redirect::back()->withInput();
-
-		return Redirect::route('events.show', $event->id);	
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$event = Event::findOrFail($id);
-		$this->delete($event);
-		return Redirect::route('events.index');
-	}
 }

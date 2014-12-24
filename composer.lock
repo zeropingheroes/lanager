@@ -255,12 +255,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fadion/ValidatorAssistant.git",
-                "reference": "51504961db370565267930b56cdf5c5a777ef792"
+                "reference": "a6c9461b0dc73f632511ddd4e7b9e805b1e11ec8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fadion/ValidatorAssistant/zipball/51504961db370565267930b56cdf5c5a777ef792",
-                "reference": "51504961db370565267930b56cdf5c5a777ef792",
+                "url": "https://api.github.com/repos/fadion/ValidatorAssistant/zipball/a6c9461b0dc73f632511ddd4e7b9e805b1e11ec8",
+                "reference": "a6c9461b0dc73f632511ddd4e7b9e805b1e11ec8",
                 "shasum": ""
             },
             "require": {
@@ -291,7 +291,7 @@
                 "laravel",
                 "validation"
             ],
-            "time": "2014-12-09 00:49:30"
+            "time": "2014-12-22 02:14:30"
         },
         {
             "name": "filp/whoops",
@@ -649,16 +649,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v4.2.12",
+            "version": "v4.2.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "70a60f2ff9b96b3fcd88a68ef5382557733fe671"
+                "reference": "a8104d53fef0582a8e93b33f424eafd4bd5c7989"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/70a60f2ff9b96b3fcd88a68ef5382557733fe671",
-                "reference": "70a60f2ff9b96b3fcd88a68ef5382557733fe671",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a8104d53fef0582a8e93b33f424eafd4bd5c7989",
+                "reference": "a8104d53fef0582a8e93b33f424eafd4bd5c7989",
                 "shasum": ""
             },
             "require": {
@@ -760,7 +760,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-12-11 17:14:36"
+            "time": "2014-12-21 20:31:14"
         },
         {
             "name": "league/fractal",

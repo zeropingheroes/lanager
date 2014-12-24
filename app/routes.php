@@ -46,7 +46,6 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	| Events
 	|--------------------------------------------------------------------------
 	*/
-	Route::get('events/timetable', ['as' => 'events.timetable', 'uses' => 'EventsController@timetable']);
 	Route::resource('events', 'EventsController');
 	Route::resource('events.signups', 'EventSignupsController');
 
@@ -73,8 +72,12 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	*/
 	Route::api(['version' => 'v1', 'protected' => true], function () {
 		Route::resource('achievements', 'Api\v1\AchievementsController');
+		Route::resource('events', 'Api\v1\EventsController');
 		Route::resource('users', 'Api\v1\UsersController');
 		Route::resource('pages', 'Api\v1\PagesController');
+		Route::get('/test', ['as' => 'test'], function(){
+			return;
+		});		
 	});
 });
 
