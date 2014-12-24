@@ -72,7 +72,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	*/
 	Route::group(['namespace' => 'Api\v1'], function()
 	{
-		Route::api(['version' => 'v1', 'protected' => true], function () {
+		Route::api(['version' => 'v1'], function () {
 			Route::resource('achievements', 'AchievementsController');
 			Route::resource('events', 'EventsController');
 			Route::resource('users', 'UsersController');

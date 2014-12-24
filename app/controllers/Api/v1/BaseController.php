@@ -19,7 +19,8 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 
 	public function __construct()
 	{
-		$this->beforeFilter( 'permission' );
+		$this->protect(['store', 'update', 'destroy']); // require API auth for these methods
+		$this->beforeFilter( 'permission' ); // for all mothods, check if the user requesting has permission
 	}
 
 	/**
