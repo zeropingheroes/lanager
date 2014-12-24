@@ -70,14 +70,14 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	| REST API
 	|--------------------------------------------------------------------------
 	*/
-	Route::api(['version' => 'v1', 'protected' => true], function () {
-		Route::resource('achievements', 'Api\v1\AchievementsController');
-		Route::resource('events', 'Api\v1\EventsController');
-		Route::resource('users', 'Api\v1\UsersController');
-		Route::resource('pages', 'Api\v1\PagesController');
-		Route::get('/test', ['as' => 'test'], function(){
-			return;
-		});		
+	Route::group(['namespace' => 'Api\v1'], function()
+	{
+		Route::api(['version' => 'v1', 'protected' => true], function () {
+			Route::resource('achievements', 'AchievementsController');
+			Route::resource('events', 'EventsController');
+			Route::resource('users', 'UsersController');
+			Route::resource('pages', 'PagesController');
+		});
 	});
 });
 
