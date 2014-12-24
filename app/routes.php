@@ -73,10 +73,10 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	Route::group(['namespace' => 'Api\v1'], function()
 	{
 		Route::api(['version' => 'v1'], function () {
-			Route::resource('achievements', 'AchievementsController');
-			Route::resource('events', 'EventsController');
-			Route::resource('users', 'UsersController');
-			Route::resource('pages', 'PagesController');
+			Route::resource('achievements',			'AchievementsController',	['except' => ['create', 'edit'] ]);
+			Route::resource('events',				'EventsController',			['except' => ['create', 'edit'] ]);
+			Route::resource('pages',				'PagesController',			['except' => ['create', 'edit'] ]);
+			Route::resource('users',				'UsersController',			['except' => ['create', 'edit'] ]);
 		});
 	});
 });
