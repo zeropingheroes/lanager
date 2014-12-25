@@ -13,5 +13,5 @@
 	{{ Table::withContents($tableBody) }}
 	
 @else
-	No achievements userAchievemented!
+	No achievements awarded!
 @endif
