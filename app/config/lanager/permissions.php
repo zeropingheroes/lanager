@@ -49,6 +49,7 @@ return array(
 		|--------------------------------------------------------------------------
 		*/
 		$authority->allow('read', 'shouts');
+		$authority->allow('read', 'playlists');
 		$authority->allow('read', 'playlists.items');
 		$authority->allow('read', 'pages');
 		$authority->allow('read', 'usage');
@@ -127,6 +128,7 @@ return array(
 
 			if ( $self->hasRole('Playlists Admin') ) 
 			{
+				$authority->allow('play', 'playlists');
 				$authority->allow('manage', 'playlists');
 				$authority->allow('manage', 'playlists.items');
 			}
@@ -147,6 +149,7 @@ return array(
 			*/
 			if ( $self->hasRole('Super Admin') ) 
 			{
+				$authority->allow('play', 'playlists');
 				$authority->allow('manage', 'all');
 			}
 		}

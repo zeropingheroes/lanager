@@ -48,7 +48,7 @@ class PlaylistsController extends BaseController {
 		$playlist = $this->service->single($playlistId);
 
 		return View::make('playlists.show')
-					->with('title', $playlist->name . ' Playlist Screen')
+					->with('title', 'Playlist - ' . $playlist->name)
 					->with('playlist', $playlist);				
 	}
 
@@ -64,4 +64,20 @@ class PlaylistsController extends BaseController {
 					->with('title','Edit Playlist')
 					->with('playlist',$this->service->single($playlistId));
 	}
+
+	/**
+	 * Play the specified playlist.
+	 *
+	 * @param  int  $playlistId
+	 * @return Response
+	 */
+	public function play($playlistId)
+	{
+		$playlist = $this->service->single($playlistId);
+
+		return View::make('playlists.play')
+					->with('title', 'Playlist - ' . $playlist->name)
+					->with('playlist', $playlist);				
+	}
+
 }
