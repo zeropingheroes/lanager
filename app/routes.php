@@ -7,7 +7,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	| Users
 	|--------------------------------------------------------------------------
 	*/
-	Route::resource('users', 'UsersController');
+	Route::resource('users', 'UsersController', ['only' => ['index', 'show', 'destroy']]);
 	Route::resource('user-roles', 'UserRolesController');
 	Route::resource('user-achievements', 'UserAchievementsController');
 
@@ -76,7 +76,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 			Route::resource('achievements',			'AchievementsController',	['except' => ['create', 'edit'] ]);
 			Route::resource('events',				'EventsController',			['except' => ['create', 'edit'] ]);
 			Route::resource('pages',				'PagesController',			['except' => ['create', 'edit'] ]);
-			Route::resource('users',				'UsersController',			['except' => ['create', 'edit'] ]);
+			Route::resource('users',				'UsersController',			['except' => ['create', 'store', 'edit', 'update'] ]);
 		});
 	});
 });
