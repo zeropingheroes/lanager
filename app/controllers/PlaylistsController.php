@@ -1,14 +1,16 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Playlists\Playlist,
-	Zeropingheroes\Lanager\Playlists\Items\Item;
-use View, Input, Redirect;
+use Zeropingheroes\Lanager\Playlists\PlaylistService;
+use View;
 
 class PlaylistsController extends BaseController {
 
+	protected $route = 'playlists';
+
 	public function __construct()
 	{
-		$this->beforeFilter('permission', ['only' => ['create', 'store', 'show', 'edit', 'update', 'destroy'] ] );
+		parent::__construct();
+		$this->service = new PlaylistService($this);
 	}
 
 	/**
@@ -18,11 +20,9 @@ class PlaylistsController extends BaseController {
 	 */
 	public function index()
 	{
-		$playlists = Playlist::all();
-		
 		return View::make('playlists.index')
 					->with('title', 'Playlists')
-					->with('playlists', $playlists);
+					->with('playlists', $this->service->all());
 	}
 
 	/**
@@ -32,25 +32,9 @@ class PlaylistsController extends BaseController {
 	 */
 	public function create()
 	{
-		$playlist = new Playlist;
 		return View::make('playlists.create')
 					->with('title','Create Playlist')
-					->with('playlist',$playlist);
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$playlist = new Playlist;
-		$playlist->fill( Input::get() );
-		
-		if ( ! $this->save($playlist) ) return Redirect::back()->withInput();
-
-		return Redirect::route('playlists.items.index', $playlist->id);
+					->with('playlist',null);
 	}
 
 	/**
@@ -61,7 +45,7 @@ class PlaylistsController extends BaseController {
 	 */
 	public function show($playlistId)
 	{
-		$playlist = Playlist::findOrFail($playlistId);
+		$playlist = $this->service->single($playlistId);
 
 		return View::make('playlists.show')
 					->with('title', $playlist->name . ' Playlist Screen')
@@ -76,41 +60,8 @@ class PlaylistsController extends BaseController {
 	 */
 	public function edit($playlistId)
 	{
-		$playlist = Playlist::findOrFail($playlistId);
-
 		return View::make('playlists.edit')
 					->with('title','Edit Playlist')
-					->with('playlist',$playlist);
+					->with('playlist',$this->service->single($playlistId));
 	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $playlistId
-	 * @return Response
-	 */
-	public function update($playlistId)
-	{
-		$playlist = Playlist::findOrFail($playlistId);
-		$playlist->fill( Input::get() );
-
-		if ( ! $this->save($playlist) ) return Redirect::back()->withInput();
-
-		return Redirect::route('playlists.items.index', $playlist->id);
-
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $playlistId
-	 * @return Response
-	 */
-	public function destroy($playlistId)
-	{
-		$playlist = Playlist::findOrFail($playlistId);
-		$this->delete($playlist);
-		return Redirect::back();
-	}
-
 }
