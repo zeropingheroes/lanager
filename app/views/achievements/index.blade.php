@@ -22,7 +22,7 @@
 				$tableBody[] = array(
 					'name'			=> e($achievement->name),
 					'descrption'	=> e($achievement->description),
-					'users'			=> $achievement->users->count(),
+					'users'			=> $achievement->userAchievements->count(),
 				);	
 			}
 		}
