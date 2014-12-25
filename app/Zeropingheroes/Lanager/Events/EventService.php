@@ -15,7 +15,7 @@ class EventService extends BaseResourceService implements ResourceServiceContrac
 
 	public function all()
 	{
-		return $this->model->with('type')->get();
+		return $this->model->with('type')->orderby('start', 'asc')->get();
 	}
 
 	public function single($id)
