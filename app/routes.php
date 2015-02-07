@@ -86,6 +86,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 			Route::resource('pages',				'PagesController',			['except' => ['create', 'edit'] ]);
 			Route::resource('lans',					'LansController',			['except' => ['create', 'edit'] ]);
 			Route::resource('playlists',			'PlaylistsController',		['except' => ['create', 'edit'] ]);
+			Route::resource('playlists.items',		'PlaylistItemsController',	['except' => ['create', 'edit'] ]);
 			Route::resource('users',				'UsersController',			['except' => ['create', 'store', 'edit', 'update'] ]);
 		});
 	});
