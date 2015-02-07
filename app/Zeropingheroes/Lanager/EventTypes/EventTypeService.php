@@ -1,15 +1,14 @@
 <?php namespace Zeropingheroes\Lanager\EventTypes;
 
-use Zeropingheroes\Lanager\BaseResourceService;
+use Zeropingheroes\Lanager\SingularResourceService;
 
-class EventTypeService extends BaseResourceService {
+class EventTypeService extends SingularResourceService {
 
-	public $resourceName = 'event type';
+	protected $resource = 'event type';
 
 	public function __construct( $listener )
 	{
-		$this->listener = $listener;
-		$this->model = new EventType;
+		parent::__construct($listener, new EventType);
 	}
 
 }

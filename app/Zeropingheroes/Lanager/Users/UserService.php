@@ -1,15 +1,14 @@
 <?php namespace Zeropingheroes\Lanager\Users;
 
-use Zeropingheroes\Lanager\BaseResourceService;
+use Zeropingheroes\Lanager\SingularResourceService;
 
-class UserService extends BaseResourceService {
+class UserService extends SingularResourceService {
 
-	public $resourceName = 'user';
+	protected $resource = 'user';
 
 	public function __construct( $listener )
 	{
-		$this->listener = $listener;
-		$this->model = new User;
+		parent::__construct($listener, new User);
 	}
 
 	public function all()

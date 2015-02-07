@@ -1,15 +1,14 @@
 <?php namespace Zeropingheroes\Lanager\Achievements;
 
-use Zeropingheroes\Lanager\BaseResourceService;
+use Zeropingheroes\Lanager\SingularResourceService;
 
-class AchievementService extends BaseResourceService {
+class AchievementService extends SingularResourceService {
 
-	public $resourceName = 'achievement';
+	protected $resource = 'achievement';
 
 	public function __construct( $listener )
 	{
-		$this->listener = $listener;
-		$this->model = new Achievement;
+		parent::__construct($listener, new Achievement);
 	}
 
 }

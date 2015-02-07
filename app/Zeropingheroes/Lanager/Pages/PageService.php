@@ -1,15 +1,14 @@
 <?php namespace Zeropingheroes\Lanager\Pages;
 
-use Zeropingheroes\Lanager\BaseResourceService;
+use Zeropingheroes\Lanager\SingularResourceService;
 
-class PageService extends BaseResourceService {
+class PageService extends SingularResourceService {
 
-	public $resourceName = 'page';
+	protected $resource = 'page';
 
 	public function __construct( $listener )
 	{
-		$this->listener = $listener;
-		$this->model = new Page;
+		parent::__construct($listener, new Page);
 	}
 
 	public function single($id)

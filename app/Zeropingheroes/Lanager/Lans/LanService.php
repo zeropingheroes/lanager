@@ -1,15 +1,14 @@
 <?php namespace Zeropingheroes\Lanager\Lans;
 
-use Zeropingheroes\Lanager\BaseResourceService;
+use Zeropingheroes\Lanager\SingularResourceService;
 
-class LanService extends BaseResourceService  {
+class LanService extends SingularResourceService  {
 
-	public $resourceName = 'lan';
+	protected $resource = 'lan';
 
 	public function __construct( $listener )
 	{
-		$this->listener = $listener;
-		$this->model = new Lan;
+		parent::__construct($listener, new Lan);
 	}
 
 	public function all()

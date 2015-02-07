@@ -1,15 +1,14 @@
 <?php namespace Zeropingheroes\Lanager\Playlists;
 
-use Zeropingheroes\Lanager\BaseResourceService;
+use Zeropingheroes\Lanager\SingularResourceService;
 
-class PlaylistService extends BaseResourceService {
+class PlaylistService extends SingularResourceService {
 
-	public $resourceName = 'playlist';
+	protected $resource = 'playlist';
 
 	public function __construct( $listener )
 	{
-		$this->listener = $listener;
-		$this->model = new Playlist;
+		parent::__construct($listener, new Playlist);
 	}
 
 }
