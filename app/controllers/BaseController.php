@@ -3,8 +3,8 @@
 use Illuminate\Routing\Controller;
 use Zeropingheroes\Lanager\BaseModel;
 use Zeropingheroes\Lanager\ResourceServiceListenerContract,
-	Zeropingheroes\Lanager\ResourceServiceContract,
-	Zeropingheroes\Lanager\BaseResourceService;
+	Zeropingheroes\Lanager\BaseResourceService,
+	Zeropingheroes\Lanager\ResourceControllerTrait;
 use Notification, Redirect;
 use ReflectionClass;
 
@@ -76,37 +76,37 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	| These methods can be overridden by child controllers if needed.
 	|
 	*/
-	public function storeSucceeded( ResourceServiceContract $service )
+	public function storeSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
 		return Redirect::route( $this->route . '.show', $service->model()->id );
 	}
 
-	public function storeFailed( ResourceServiceContract $service )
+	public function storeFailed( BaseResourceService $service )
 	{
 		Notification::danger( $service->errors() );
 		return Redirect::back()->withInput();
 	}
 
-	public function updateSucceeded( ResourceServiceContract $service )
+	public function updateSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
 		return Redirect::route( $this->route . '.show', $service->model()->id );
 	}
 
-	public function updateFailed( ResourceServiceContract $service )
+	public function updateFailed( BaseResourceService $service )
 	{
 		Notification::danger( $service->errors() );
 		return Redirect::back()->withInput();
 	}
 
-	public function destroySucceeded( ResourceServiceContract $service )
+	public function destroySucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
 		return Redirect::route( $this->route . '.index' );
 	}
 
-	public function destroyFailed( ResourceServiceContract $service )
+	public function destroyFailed( BaseResourceService $service )
 	{
 		Notification::danger( $service->errors() );
 		return Redirect::back();

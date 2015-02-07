@@ -1,6 +1,6 @@
 <?php namespace Zeropingheroes\Lanager;
 
-abstract class BaseResourceService implements ResourceServiceContract {
+abstract class BaseResourceService {
 
 	protected $listener;
 	protected $model;

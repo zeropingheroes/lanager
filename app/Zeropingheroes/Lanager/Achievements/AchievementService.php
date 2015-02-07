@@ -1,9 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Achievements;
 
-use Zeropingheroes\Lanager\BaseResourceService,
-	Zeropingheroes\Lanager\ResourceServiceContract;
+use Zeropingheroes\Lanager\BaseResourceService;
 
-class AchievementService extends BaseResourceService implements ResourceServiceContract {
+class AchievementService extends BaseResourceService {
 
 	public $resourceName = 'achievement';
 

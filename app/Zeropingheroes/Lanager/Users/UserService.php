@@ -1,9 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Users;
 
-use Zeropingheroes\Lanager\BaseResourceService,
-	Zeropingheroes\Lanager\ResourceServiceContract;
+use Zeropingheroes\Lanager\BaseResourceService;
 
-class UserService extends BaseResourceService implements ResourceServiceContract {
+class UserService extends BaseResourceService {
 
 	public $resourceName = 'user';
 

@@ -1,9 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Pages;
 
-use Zeropingheroes\Lanager\BaseResourceService,
-	Zeropingheroes\Lanager\ResourceServiceContract;
+use Zeropingheroes\Lanager\BaseResourceService;
 
-class PageService extends BaseResourceService implements ResourceServiceContract {
+class PageService extends BaseResourceService {
 
 	public $resourceName = 'page';
 

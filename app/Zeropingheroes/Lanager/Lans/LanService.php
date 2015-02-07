@@ -1,9 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Lans;
 
-use Zeropingheroes\Lanager\BaseResourceService,
-	Zeropingheroes\Lanager\ResourceServiceContract;
+use Zeropingheroes\Lanager\BaseResourceService;
 
-class LanService extends BaseResourceService implements ResourceServiceContract {
+class LanService extends BaseResourceService  {
 
 	public $resourceName = 'lan';
 

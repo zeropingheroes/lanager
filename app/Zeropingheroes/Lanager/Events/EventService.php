@@ -1,9 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Events;
 
-use Zeropingheroes\Lanager\BaseResourceService,
-	Zeropingheroes\Lanager\ResourceServiceContract;
+use Zeropingheroes\Lanager\BaseResourceService;
 
-class EventService extends BaseResourceService implements ResourceServiceContract {
+class EventService extends BaseResourceService {
 
 	public $resourceName = 'event';
 

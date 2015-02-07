@@ -1,9 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Playlists;
 
-use Zeropingheroes\Lanager\BaseResourceService,
-	Zeropingheroes\Lanager\ResourceServiceContract;
+use Zeropingheroes\Lanager\BaseResourceService;
 
-class PlaylistService extends BaseResourceService implements ResourceServiceContract {
+class PlaylistService extends BaseResourceService {
 
 	public $resourceName = 'playlist';
 

@@ -6,7 +6,7 @@ use Dingo\Api\Routing\ControllerTrait,
 	Dingo\Api\Exception\UpdateResourceFailedException,
 	Dingo\Api\Exception\DeleteResourceFailedException;
 use Zeropingheroes\Lanager\ResourceServiceListenerContract,
-	Zeropingheroes\Lanager\ResourceServiceContract,
+	Zeropingheroes\Lanager\BaseResourceService,
 	Zeropingheroes\Lanager\ResourceControllerTrait;
 
 class BaseController extends Controller implements ResourceServiceListenerContract {
@@ -56,32 +56,32 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	| These methods can be overridden by child controllers if needed.
 	|
 	*/
-	public function storeSucceeded( ResourceServiceContract $service )
+	public function storeSucceeded( BaseResourceService $service )
 	{
 		return $this->response->created();
 	}
 
-	public function storeFailed( ResourceServiceContract $service )
+	public function storeFailed( BaseResourceService $service )
 	{
 		throw new StoreResourceFailedException('Could not create new ' . $service->resourceName(), $service->errors() );
 	}
 
-	public function updateSucceeded( ResourceServiceContract $service )
+	public function updateSucceeded( BaseResourceService $service )
 	{
 		return $this->response->noContent();
 	}
 
-	public function updateFailed( ResourceServiceContract $service )
+	public function updateFailed( BaseResourceService $service )
 	{
 		throw new UpdateResourceFailedException('Could not update ' . $service->resourceName(), $service->errors() );
 	}
 
-	public function destroySucceeded( ResourceServiceContract $service )
+	public function destroySucceeded( BaseResourceService $service )
 	{
 		return $this->response->noContent();
 	}
 
-	public function destroyFailed( ResourceServiceContract $service )
+	public function destroyFailed( BaseResourceService $service )
 	{
 		throw new DeleteResourceFailedException('Could not destroy ' . $service->resourceName(), $service->errors() );
 	}

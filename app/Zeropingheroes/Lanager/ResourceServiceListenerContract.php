@@ -2,16 +2,16 @@
 
 interface ResourceServiceListenerContract {
 
-	public function storeSucceeded( ResourceServiceContract $resourceService );
+	public function storeSucceeded( BaseResourceService $resourceService );
 
-	public function storeFailed( ResourceServiceContract $resourceService );
+	public function storeFailed( BaseResourceService $resourceService );
 
-	public function updateSucceeded( ResourceServiceContract $resourceService );
+	public function updateSucceeded( BaseResourceService $resourceService );
 
-	public function updateFailed( ResourceServiceContract $resourceService );
+	public function updateFailed( BaseResourceService $resourceService );
 
-	public function destroySucceeded( ResourceServiceContract $resourceService );
+	public function destroySucceeded( BaseResourceService $resourceService );
 
-	public function destroyFailed( ResourceServiceContract $resourceService );
+	public function destroyFailed( BaseResourceService $resourceService );
 
 }
