@@ -1,8 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\EventTypes;
 
-use Zeropingheroes\Lanager\SingularResourceService;
+use Zeropingheroes\Lanager\FlatResourceService;
 
-class EventTypeService extends SingularResourceService {
+class EventTypeService extends FlatResourceService {
 
 	protected $resource = 'event type';
 

@@ -1,6 +1,6 @@
 <?php namespace Zeropingheroes\Lanager;
 
-abstract class SingularResourceService extends BaseResourceService {
+abstract class FlatResourceService extends BaseResourceService {
 
 	protected $model;
 

@@ -1,8 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Pages;
 
-use Zeropingheroes\Lanager\SingularResourceService;
+use Zeropingheroes\Lanager\FlatResourceService;
 
-class PageService extends SingularResourceService {
+class PageService extends FlatResourceService {
 
 	protected $resource = 'page';
 

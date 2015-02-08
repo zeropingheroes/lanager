@@ -1,8 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Achievements;
 
-use Zeropingheroes\Lanager\SingularResourceService;
+use Zeropingheroes\Lanager\FlatResourceService;
 
-class AchievementService extends SingularResourceService {
+class AchievementService extends FlatResourceService {
 
 	protected $resource = 'achievement';
 

@@ -1,8 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Events;
 
-use Zeropingheroes\Lanager\SingularResourceService;
+use Zeropingheroes\Lanager\FlatResourceService;
 
-class EventService extends SingularResourceService {
+class EventService extends FlatResourceService {
 
 	protected $resource = 'event';
 

@@ -1,8 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Users;
 
-use Zeropingheroes\Lanager\SingularResourceService;
+use Zeropingheroes\Lanager\FlatResourceService;
 
-class UserService extends SingularResourceService {
+class UserService extends FlatResourceService {
 
 	protected $resource = 'user';
 

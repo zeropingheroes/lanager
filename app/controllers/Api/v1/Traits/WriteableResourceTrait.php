@@ -11,7 +11,11 @@ trait WriteableResourceTrait {
 	 */
 	public function store()
 	{
-		return $this->service->store( Input::get() );
+		// Flat resource
+		if( func_num_args() == 0 ) return $this->service->store( Input::get() );
+		
+		// Nested resource
+		if( func_num_args() > 0 ) return $this->service->store( func_get_args(), Input::get() );
 	}
 
 	/**
@@ -20,9 +24,13 @@ trait WriteableResourceTrait {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update()
 	{
-		return $this->service->update( $id, Input::get() );
+		// Flat resource
+		if( func_num_args() == 1 ) return $this->service->update( func_get_arg(0), Input::get() );
+		
+		// Nested resource
+		if( func_num_args() > 1 ) return $this->service->update( func_get_args(), Input::get() );
 	}
 
 	/**
@@ -31,9 +39,13 @@ trait WriteableResourceTrait {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		return $this->service->destroy( $id );
+		// Flat resource
+		if( func_num_args() == 1 ) return $this->service->destroy( func_get_arg(0), Input::get() );
+		
+		// Nested resource
+		if( func_num_args() > 1 ) return $this->service->destroy( func_get_args(), Input::get() );
 	}
 
 }

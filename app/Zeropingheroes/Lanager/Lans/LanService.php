@@ -1,8 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Lans;
 
-use Zeropingheroes\Lanager\SingularResourceService;
+use Zeropingheroes\Lanager\FlatResourceService;
 
-class LanService extends SingularResourceService  {
+class LanService extends FlatResourceService  {
 
 	protected $resource = 'lan';
 

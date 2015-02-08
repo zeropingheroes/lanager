@@ -9,7 +9,11 @@ trait ReadableResourceTrait {
 	 */
 	public function index()
 	{
-		$items = $this->service->all( func_get_args() );
+		// Flat resource
+		if( func_num_args() == 0 ) $items = $this->service->all();
+		
+		// Nested resource
+		if( func_num_args() > 0 ) $items = $this->service->all( func_get_args() );
 
 		return $this->response->collection( $items, $this->transformer );
 	}
@@ -22,7 +26,11 @@ trait ReadableResourceTrait {
 	 */
 	public function show()
 	{
-		$item = $this->service->single( func_get_args() );
+		// Flat resource
+		if( func_num_args() == 1 ) $item = $this->service->single( func_get_arg(0) );
+		
+		// Nested resource
+		if( func_num_args() > 1 ) $item = $this->service->single( func_get_args() );
 
 		return $this->response->item( $item, $this->transformer );
 	}

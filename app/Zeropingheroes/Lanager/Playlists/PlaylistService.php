@@ -1,8 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Playlists;
 
-use Zeropingheroes\Lanager\SingularResourceService;
+use Zeropingheroes\Lanager\FlatResourceService;
 
-class PlaylistService extends SingularResourceService {
+class PlaylistService extends FlatResourceService {
 
 	protected $resource = 'playlist';
 
