@@ -6,6 +6,8 @@ class PlaylistItemVote extends BaseModel {
 
 	protected $table = 'playlist_item_votes';
 
+	protected $fillable = ['playlist_item_id', 'user_id'];
+
 	public $validator = 'Zeropingheroes\Lanager\PlaylistItemVotes\PlaylistItemVoteValidator';
 
 	public function playlistItem()

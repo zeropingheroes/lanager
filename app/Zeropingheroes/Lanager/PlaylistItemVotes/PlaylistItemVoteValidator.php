@@ -1,8 +1,8 @@
-<?php namespace Zeropingheroes\Lanager\Playlists\Items\Votes;
+<?php namespace Zeropingheroes\Lanager\PlaylistItemVotes;
 
 use Fadion\ValidatorAssistant\ValidatorAssistant;
 
-class VoteValidator extends ValidatorAssistant {
+class PlaylistItemVoteValidator extends ValidatorAssistant {
 
 	protected $rules = [
 		'playlist_item_id'	=> 'required|exists:playlist_items,id',

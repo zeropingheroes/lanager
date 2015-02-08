@@ -81,13 +81,14 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	Route::group(['namespace' => 'Api\v1'], function()
 	{
 		Route::api(['version' => 'v1'], function () {
-			Route::resource('achievements',			'AchievementsController',	['except' => ['create', 'edit'] ]);
-			Route::resource('events',				'EventsController',			['except' => ['create', 'edit'] ]);
-			Route::resource('pages',				'PagesController',			['except' => ['create', 'edit'] ]);
-			Route::resource('lans',					'LansController',			['except' => ['create', 'edit'] ]);
-			Route::resource('playlists',			'PlaylistsController',		['except' => ['create', 'edit'] ]);
-			Route::resource('playlists.items',		'PlaylistItemsController',	['except' => ['create', 'edit'] ]);
-			Route::resource('users',				'UsersController',			['except' => ['create', 'store', 'edit', 'update'] ]);
+			Route::resource('achievements',			'AchievementsController',		['except' => ['create', 'edit'] ]);
+			Route::resource('events',				'EventsController',				['except' => ['create', 'edit'] ]);
+			Route::resource('pages',				'PagesController',				['except' => ['create', 'edit'] ]);
+			Route::resource('lans',					'LansController',				['except' => ['create', 'edit'] ]);
+			Route::resource('playlists',			'PlaylistsController',			['except' => ['create', 'edit'] ]);
+			Route::resource('playlists.items',		'PlaylistItemsController',		['except' => ['create', 'edit'] ]);
+			Route::resource('playlists.items.votes','PlaylistItemVotesController',	['except' => ['create', 'edit'] ]);
+			Route::resource('users',				'UsersController',				['except' => ['create', 'store', 'edit', 'update'] ]);
 		});
 	});
 });
