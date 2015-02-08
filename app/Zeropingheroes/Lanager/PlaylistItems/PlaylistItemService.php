@@ -5,7 +5,7 @@ use Zeropingheroes\Lanager\Playlists\Playlist;
 
 class PlaylistItemService extends NestedResourceService {
 
-	public $resourceName = 'playlist item';
+	public $resource = 'playlist item';
 
 	public function __construct( $listener )
 	{
