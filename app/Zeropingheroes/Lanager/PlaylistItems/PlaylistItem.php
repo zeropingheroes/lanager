@@ -25,7 +25,7 @@ class PlaylistItem extends BaseModel {
 
 	public function playlistItemVotes()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\PlaylistItemVotes\Vote', 'playlist_item_id');
+		return $this->hasMany('Zeropingheroes\Lanager\PlaylistItemVotes\PlaylistItemVote', 'playlist_item_id');
 	}
 
 	public function scopeUnplayed($query)
