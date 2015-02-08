@@ -6,7 +6,7 @@ abstract class NestedResourceService extends BaseResourceService {
 
 	protected $models;
 
-	public function __construct( $listener, $models )
+	public function __construct( ResourceServiceListenerContract $listener, $models )
 	{
 		foreach( $models as $model )
 		{

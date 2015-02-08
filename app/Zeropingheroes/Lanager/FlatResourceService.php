@@ -4,7 +4,7 @@ abstract class FlatResourceService extends BaseResourceService {
 
 	protected $model;
 
-	public function __construct( $listener, BaseModel $model )
+	public function __construct( ResourceServiceListenerContract $listener, BaseModel $model )
 	{
 		$this->model = $model;
 		parent::__construct($listener);

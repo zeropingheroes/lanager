@@ -7,7 +7,7 @@ abstract class BaseResourceService {
 	protected $errors;
 	protected $messages;
 
-	public function __construct( $listener )
+	public function __construct( ResourceServiceListenerContract $listener )
 	{
 		$this->listener = $listener;
 	}
