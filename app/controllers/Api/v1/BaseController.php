@@ -6,13 +6,15 @@ use Dingo\Api\Routing\ControllerTrait,
 	Dingo\Api\Exception\UpdateResourceFailedException,
 	Dingo\Api\Exception\DeleteResourceFailedException;
 use Zeropingheroes\Lanager\ResourceServiceListenerContract,
-	Zeropingheroes\Lanager\BaseResourceService,
-	Zeropingheroes\Lanager\ResourceControllerTrait;
+	Zeropingheroes\Lanager\BaseResourceService;
+use Zeropingheroes\Lanager\Api\v1\Traits\ReadableResourceTrait,
+	Zeropingheroes\Lanager\Api\v1\Traits\WriteableResourceTrait;
 
 class BaseController extends Controller implements ResourceServiceListenerContract {
 
 	use ControllerTrait;
-	use ResourceControllerTrait;
+	use ReadableResourceTrait;
+	use WriteableResourceTrait;
 
 	protected $transformer;
 	protected $service;
@@ -21,29 +23,6 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	{
 		$this->protect(['store', 'update', 'destroy']); // require API auth for these methods
 		$this->beforeFilter( 'permission' ); // for all methods, check if the user requesting has permission
-	}
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$items = $this->service->all();
-		return $this->response->collection($items, $this->transformer);
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$item = $this->service->single( $id );
-		return $this->response->item($item, $this->transformer);
 	}
 
 	/*

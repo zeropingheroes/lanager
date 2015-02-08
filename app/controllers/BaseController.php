@@ -4,14 +4,15 @@ use Illuminate\Routing\Controller;
 use Zeropingheroes\Lanager\BaseModel;
 use Zeropingheroes\Lanager\ResourceServiceListenerContract,
 	Zeropingheroes\Lanager\BaseResourceService,
-	Zeropingheroes\Lanager\ResourceControllerTrait;
+	Zeropingheroes\Lanager\Api\v1\Traits\WriteableResourceTrait;
 use Notification, Redirect;
 use ReflectionClass;
 
 class BaseController extends Controller implements ResourceServiceListenerContract {
 
+	use WriteableResourceTrait;
+	
 	protected $service;
-	use ResourceControllerTrait;
 
 	public function __construct()
 	{

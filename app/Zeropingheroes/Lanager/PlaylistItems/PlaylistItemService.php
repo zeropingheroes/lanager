@@ -2,7 +2,6 @@
 
 use Zeropingheroes\Lanager\NestedResourceService;
 use Zeropingheroes\Lanager\Playlists\Playlist;
-use Zeropingheroes\Lanager\PlaylistItemVotes\PlaylistItemVote;
 
 class PlaylistItemService extends NestedResourceService {
 

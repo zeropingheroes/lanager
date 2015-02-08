@@ -47,18 +47,15 @@ abstract class NestedResourceService extends BaseResourceService {
 		return $model;
 	}
 
-	public function all()
+	public function all( array $nestedIds )
 	{
-		$ids = func_get_args();
-
-		return $this->nestedFindOrFail( $ids )->get();
+		return $this->nestedFindOrFail( $nestedIds )->get();
 	}
 
-	public function single()
+	public function single( array $nestedIds )
 	{
-		$args = func_get_args();
-		$itemId = array_pop($args); // last argument is item id
-		$parentIds = $args; // remaining arguments are item's parent(s)
+		$itemId = array_pop($nestedIds); // last argument is item id
+		$parentIds = $nestedIds; // remaining arguments are item's parent(s)
 
 		return $this->nestedFindOrFail( $parentIds )->findOrFail($itemId);
 	}

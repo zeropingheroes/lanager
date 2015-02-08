@@ -1,19 +1,8 @@
-<?php namespace Zeropingheroes\Lanager;
+<?php namespace Zeropingheroes\Lanager\Api\v1\Traits;
 
 use Input;
 
-trait ResourceControllerTrait {
-
-	/*
-	|--------------------------------------------------------------------------
-	| Default Controller Methods
-	|--------------------------------------------------------------------------
-	|
-	| These methods provide sensible boilerplate defaults for processing and
-	| responding to requests. These methods can be overridden in child controllers
-	| if needed.
-	|
-	*/
+trait WriteableResourceTrait {
 
 	/**
 	 * Store a newly created resource in storage.

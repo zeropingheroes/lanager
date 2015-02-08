@@ -12,17 +12,4 @@ class PlaylistItemsController extends BaseController {
 		$this->transformer = new PlaylistItemTransformer;
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		// TODO: fix parent Api\v1\BaseController signature to allow for multiple IDs
-		$playlistId = 1;
-		$items = $this->service->all($playlistId);
-		return $this->response->collection($items, $this->transformer);
-	}
-
 }
