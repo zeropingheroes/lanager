@@ -6,11 +6,11 @@ abstract class NestedResourceService extends BaseResourceService {
 
 	protected $models;
 
-	public function __construct( ResourceServiceListenerContract $listener, $models )
+	public function __construct( ResourceServiceListenerContract $listener, array $models )
 	{
 		foreach( $models as $model )
 		{
-			if( ! ($model instanceof BaseModel) ) throw new InvalidArgumentException('Given model hierachy instances must extend BaseModel');
+			if( ! ($model instanceof BaseModel) ) throw new InvalidArgumentException('Models must be instances of BaseModel');
 		}
 
 		$this->models = $models;
@@ -19,45 +19,70 @@ abstract class NestedResourceService extends BaseResourceService {
 
 	private function nestedFindOrFail(array $ids)
 	{
-		$idCount = count($ids);
-		$expectedIdCount = (count($this->models)-1);
-		if( $idCount != $expectedIdCount ) throw new InvalidArgumentException('Expected ' . $expectedIdCount.' but '. $idCount .' given' );
+		$models = $this->models;
+
+		// Only accept one less ID than the number of models in the nest
+		if( (count($models) - count($ids)) > 1 )
+		{
+			throw new InvalidArgumentException('Expected a minimum of ' . count($models)-1 . ' IDs but ' . count($ids) . ' given' );
+		}
 
 		$i = 0;
 		foreach( $ids as $id )
 		{
-			if( $i == 0 )
+			// initially, verify the first model of given id exists (and fetch it)
+			if( $i == 0 ) $model = $models[$i]->findOrFail($id);
+
+			// after 1st loop iteration, verify the current model of given id exists (and fetch it)
+			if( $i > 0 ) $model = $model->findOrFail($id);
+
+			// if we have not yet reached the bottom of the nest 
+			if( ($i+1) < count($models) )
 			{
-				// find first model in the hierarchy
-				$model = $this->models[$i]->findOrFail($id);
+				// get method name of the next model in the nest
+				$children = str_plural((new ReflectionClass($models[$i+1]))->getShortName());
 
-				// get method name of second model in the hierachy
-				$children = str_plural((new ReflectionClass($this->models[$i+1]))->getShortName());
-
-				// fetch its children
+				// fetch all items of the next model, which belong to the current model
 				$model = $model->{$children}();
 			}
-			else
-			{
-				// find subsequent models in the hierarchy
-				$model = $model->findOrFail($id);
-			}
+
 			$i++;
 		}
 		return $model;
 	}
 
-	public function all( array $nestedIds )
+	public function all( array $ids )
 	{
-		return $this->nestedFindOrFail( $nestedIds )->get();
+		return $this->nestedFindOrFail( $ids )->get();
 	}
 
-	public function single( array $nestedIds )
+	public function single( array $ids )
 	{
-		$itemId = array_pop($nestedIds); // last argument is item id
-		$parentIds = $nestedIds; // remaining arguments are item's parent(s)
+		return $this->nestedFindOrFail( $ids );
+	}
 
-		return $this->nestedFindOrFail( $parentIds )->findOrFail($itemId);
+	public function store( array $ids, $input)
+	{
+		$parent = $this->nestedFindOrFail( $ids );
+
+		// get an instance of the model we want to create
+		$child = end($this->models);
+
+		$child = $child->fill($input);
+
+		$validator = new $child->validator( $child->toArray() );
+
+		if ( $validator->fails() )
+		{
+			$this->errors = $validator->errors()->all();
+			return $this->listener->storeFailed( $this );
+		}
+		else
+		{
+			$parent->save($child);
+			$this->messages = trans('confirmation.after.resource.store', ['resource' => trans('resources.' . $this->resource()) ]);
+			return $this->listener->storeSucceeded( $this );
+		}
 	}
 
 }
