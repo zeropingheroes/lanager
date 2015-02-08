@@ -63,7 +63,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 
 	public function storeFailed( BaseResourceService $service )
 	{
-		throw new StoreResourceFailedException('Could not create new ' . $service->resourceName(), $service->errors() );
+		throw new StoreResourceFailedException('Could not create new ' . $service->resource(), $service->errors() );
 	}
 
 	public function updateSucceeded( BaseResourceService $service )
@@ -73,7 +73,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 
 	public function updateFailed( BaseResourceService $service )
 	{
-		throw new UpdateResourceFailedException('Could not update ' . $service->resourceName(), $service->errors() );
+		throw new UpdateResourceFailedException('Could not update ' . $service->resource(), $service->errors() );
 	}
 
 	public function destroySucceeded( BaseResourceService $service )
@@ -83,7 +83,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 
 	public function destroyFailed( BaseResourceService $service )
 	{
-		throw new DeleteResourceFailedException('Could not destroy ' . $service->resourceName(), $service->errors() );
+		throw new DeleteResourceFailedException('Could not destroy ' . $service->resource(), $service->errors() );
 	}
 
 }
