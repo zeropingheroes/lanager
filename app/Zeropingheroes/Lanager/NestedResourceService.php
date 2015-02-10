@@ -70,6 +70,12 @@ abstract class NestedResourceService extends BaseResourceService {
 
 		$child = $child->fill($input);
 
+		// find the name of the foreign key field for the parent of this new model 
+		$foreignKeyField = substr($parent->getForeignKey(), strrpos($parent->getForeignKey(), '.') + 1);
+		
+		// set this new model's foreign key field for the parent to the last id
+		$child->{$foreignKeyField} = end($ids);
+
 		$validator = new $child->validator( $child->toArray() );
 
 		if ( $validator->fails() )
