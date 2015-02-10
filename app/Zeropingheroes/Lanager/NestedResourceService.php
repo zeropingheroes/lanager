@@ -61,7 +61,7 @@ abstract class NestedResourceService extends BaseResourceService {
 		return $this->nestedFindOrFail( $ids );
 	}
 
-	public function store( array $ids, $input)
+	public function store( array $ids, $input )
 	{
 		$parent = $this->nestedFindOrFail( $ids );
 
