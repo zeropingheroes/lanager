@@ -3,7 +3,7 @@
 use Zeropingheroes\Lanager\NestedResourceService;
 use Zeropingheroes\Lanager\Playlists\Playlist;
 
-use Auth, Config;
+use Auth, Authority, Config;
 
 class PlaylistItemService extends NestedResourceService {
 
@@ -18,16 +18,29 @@ class PlaylistItemService extends NestedResourceService {
 		parent::__construct($listener, $models);
 	}
 
-	public function fetchItem( $url )
+	private function fetchItem( $url )
 	{
 		$providers = Config::get('lanager/playlist.providers');
 		return (new PlayableItemFactory)->create( $url, $providers);
 	}
 
+	private function filterInput( $input )
+	{
+		if( Authority::can('manage', 'playlists') )
+		{
+			$input = array_only($input, ['url', 'playback_state', 'played_at', 'skip_reason']);
+		}
+		else // only accept URL from standard users
+		{
+			$input = array_only($input, ['url']);
+			$input['user_id'] = Auth::user()->id;
+		}
+		return $input;
+	}
+
 	public function store( array $ids, $input)
 	{
-		$input = array_only($input, ['url']);
-		$input['user_id'] = Auth::user()->id;
+		$input = $this->filterInput($input);
 
 		try
 		{
@@ -45,17 +58,19 @@ class PlaylistItemService extends NestedResourceService {
 
 	public function update( array $ids, $input)
 	{
-		$input = array_only($input, ['url']);
-		$input['user_id'] = Auth::user()->id;
+		$input = $this->filterInput($input);
 
-		try
+		if( array_key_exists('url', $input) ) // if the URL has been changed, fetch the new item
 		{
-			$input = array_merge( $input, $this->fetchItem( $input['url'] )->toArray() );
-		}
-		catch( UnplayableItemException $e)
-		{
-			$this->errors = $e->getMessage();
-			return $this->listener->updateFailed( $this );
+			try
+			{
+				$input = array_merge( $input, $this->fetchItem( $input['url'] )->toArray() );
+			}
+			catch( UnplayableItemException $e)
+			{
+				$this->errors = $e->getMessage();
+				return $this->listener->updateFailed( $this );
+			}
 		}
 
 		// pass new input containing metadata to base service provider for validation and storage
