@@ -13,6 +13,8 @@ class PlaylistItemValidator extends ValidatorAssistant {
 		'title'			=> 'required|max:255',
 		'duration'		=> 'required|numeric|min:1|max:{duration.max}',
 		'playback_state'=> 'in:0,1,2',
+		'played_at'		=> 'date_format:Y-m-d H:i:s',
+		'skip_reason'	=> 'max:255',
 	];
 
 	protected $messages = [
