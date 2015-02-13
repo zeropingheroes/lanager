@@ -19,6 +19,7 @@ class ShoutValidator extends ValidatorAssistant {
 
 	protected $messages = [
 		'content.flood_protect'	=> 'You have posted too recently - please wait a while and try again.',
+		'pinned.boolean'		=> 'Pinned must be set to either true or false',
 	];
 
 	public function customFloodProtect($attribute, $value, $parameters)
