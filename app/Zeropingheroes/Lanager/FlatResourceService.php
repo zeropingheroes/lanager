@@ -30,6 +30,7 @@ abstract class FlatResourceService extends BaseResourceService {
 		$this->model->fill($input);
 
 		$validator = new $this->model->validator( $this->model->toArray() );
+		$validator->scope(['store']);
 
 		if ( $validator->fails() )
 		{
@@ -51,6 +52,7 @@ abstract class FlatResourceService extends BaseResourceService {
 		$this->model->fill($input);
 
 		$validator = new $this->model->validator( $this->model->toArray() );
+		$validator->scope(['update']);
 
 		if ( $validator->fails() )
 		{
