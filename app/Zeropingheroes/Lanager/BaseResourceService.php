@@ -19,6 +19,7 @@ abstract class BaseResourceService {
 
 	public function errors()
 	{
+		if( !is_array($this->errors) ) $this->errors = [$this->errors];
 		return $this->errors;
 	}
 
