@@ -90,5 +90,25 @@ abstract class NestedResourceService extends BaseResourceService {
 			return $this->listener->storeSucceeded( $this );
 		}
 	}
+	
+	public function update( array $ids, $input )
+	{
+		$item = $this->nestedFindOrFail( $ids );
+		$item = $item->fill($input);
 
+		$validator = new $item->validator( $item->toArray() );
+		
+		if ( $validator->fails() )
+		{
+			$this->errors = $validator->errors()->all();
+			return $this->listener->updateFailed( $this );
+		}
+		else
+		{
+			$item->save();
+			$this->messages = trans('confirmation.after.resource.update', ['resource' => trans('resources.' . $this->resource()) ]);
+			return $this->listener->updateSucceeded( $this );
+		}
+
+	}
 }
