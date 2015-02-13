@@ -109,6 +109,17 @@ abstract class NestedResourceService extends BaseResourceService {
 			$this->messages = trans('confirmation.after.resource.update', ['resource' => trans('resources.' . $this->resource()) ]);
 			return $this->listener->updateSucceeded( $this );
 		}
+	}
 
+	public function destroy( array $ids )
+	{
+		$item = $this->nestedFindOrFail( $ids );
+		if( $item->delete() )
+		{
+			$this->messages = trans('confirmation.after.resource.destroy', ['resource' => trans('resources.' . $this->resource()) ]);
+			return $this->listener->destroySucceeded( $this );
+		}
+		$this->errors = ['Unable to destroy ' . $this->resource() ];
+		return $this->listener->destroyFailed( $this );
 	}
 }
