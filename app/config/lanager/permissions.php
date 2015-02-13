@@ -77,7 +77,7 @@ return array(
 			$authority->allow('create', 'playlists.items');
 			$authority->allow('delete', 'playlists.items', function($self, $itemId)
 			{
-				return $self->getCurrentUser()->items()->find($itemId);
+				return $self->getCurrentUser()->playlistItems()->find($itemId);
 			});
 			if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlists.items')) ) // bans
 			{
