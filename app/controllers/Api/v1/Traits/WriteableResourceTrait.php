@@ -42,10 +42,9 @@ trait WriteableResourceTrait {
 	public function destroy()
 	{
 		// Flat resource
-		if( func_num_args() == 1 ) return $this->service->destroy( func_get_arg(0), Input::get() );
-		
+		if( func_num_args() == 1 ) return $this->service->destroy( func_get_arg(0) );
 		// Nested resource
-		if( func_num_args() > 1 ) return $this->service->destroy( func_get_args(), Input::get() );
+		if( func_num_args() > 1 ) return $this->service->destroy( func_get_args() );
 	}
 
 }
