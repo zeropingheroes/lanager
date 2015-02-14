@@ -17,40 +17,6 @@ abstract class NestedResourceService extends BaseResourceService {
 		parent::__construct($listener);
 	}
 
-	private function nestedFindOrFail(array $ids)
-	{
-		$models = $this->models;
-
-		// Only accept one less ID than the number of models in the nest
-		if( (count($models) - count($ids)) > 1 )
-		{
-			throw new InvalidArgumentException('Expected a minimum of ' . count($models)-1 . ' IDs but ' . count($ids) . ' given' );
-		}
-
-		$i = 0;
-		foreach( $ids as $id )
-		{
-			// initially, verify the first model of given id exists (and fetch it)
-			if( $i == 0 ) $model = $models[$i]->findOrFail($id);
-
-			// after 1st loop iteration, verify the current model of given id exists (and fetch it)
-			if( $i > 0 ) $model = $model->findOrFail($id);
-
-			// if we have not yet reached the bottom of the nest 
-			if( ($i+1) < count($models) )
-			{
-				// get method name of the next model in the nest
-				$children = str_plural((new ReflectionClass($models[$i+1]))->getShortName());
-
-				// fetch all items of the next model, which belong to the current model
-				$model = $model->{$children}();
-			}
-
-			$i++;
-		}
-		return $model;
-	}
-
 	public function all( array $ids )
 	{
 		return $this->nestedFindOrFail( $ids )->get();
@@ -121,5 +87,39 @@ abstract class NestedResourceService extends BaseResourceService {
 		}
 		$this->errors = ['Unable to destroy ' . $this->resource() ];
 		return $this->listener->destroyFailed( $this );
+	}
+
+	private function nestedFindOrFail(array $ids)
+	{
+		$models = $this->models;
+
+		// Only accept one less ID than the number of models in the nest
+		if( (count($models) - count($ids)) > 1 )
+		{
+			throw new InvalidArgumentException('Expected a minimum of ' . count($models)-1 . ' IDs but ' . count($ids) . ' given' );
+		}
+
+		$i = 0;
+		foreach( $ids as $id )
+		{
+			// initially, verify the first model of given id exists (and fetch it)
+			if( $i == 0 ) $model = $models[$i]->findOrFail($id);
+
+			// after 1st loop iteration, verify the current model of given id exists (and fetch it)
+			if( $i > 0 ) $model = $model->findOrFail($id);
+
+			// if we have not yet reached the bottom of the nest 
+			if( ($i+1) < count($models) )
+			{
+				// get method name of the next model in the nest
+				$children = str_plural((new ReflectionClass($models[$i+1]))->getShortName());
+
+				// fetch all items of the next model, which belong to the current model
+				$model = $model->{$children}();
+			}
+
+			$i++;
+		}
+		return $model;
 	}
 }
