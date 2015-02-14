@@ -2,8 +2,14 @@
 
 use League\Fractal;
 
+use Zeropingheroes\Lanager\Users\UserTransformer;
+
 class PlaylistItemTransformer extends Fractal\TransformerAbstract {
-	
+
+	protected $defaultIncludes = [
+		'user',
+	];
+
 	public function transform(PlaylistItem $playlistItem)
 	{
 		return [
@@ -14,12 +20,7 @@ class PlaylistItemTransformer extends Fractal\TransformerAbstract {
 			'duration'		=> $playlistItem->duration,
 			'playback_state'=> (int) $playlistItem->playback_state,
 			'skip_reason'	=> $playlistItem->skip_reason,
-			'played'		=> date('c',strtotime($playlistItem->played_at)),
-			'user'			=> [
-				'id'			=> $playlistItem->user->id,
-				'username'		=> $playlistItem->user->username,
-				'avatar'		=> $playlistItem->user->avatar,
-			],
+			'played_at'		=> date('c',strtotime($playlistItem->played_at)),
 			'links'			=> [
 				[
 					'rel' => 'self',
@@ -27,5 +28,10 @@ class PlaylistItemTransformer extends Fractal\TransformerAbstract {
 				]
 			],
 		];
+	}
+
+	public function includeUser(PlaylistItem $playlistItem)
+	{
+		return $this->collection($playlistItem->user()->get(), new UserTransformer);
 	}
 }

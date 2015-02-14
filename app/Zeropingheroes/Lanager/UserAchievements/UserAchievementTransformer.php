@@ -8,9 +8,9 @@ class UserAchievementTransformer extends Fractal\TransformerAbstract {
 	{
 		return [
 			'id'			=> (int) $userAchievement->id,
-			'user'			=> $userAchievement->user,
-			'achievement'	=> $userAchievement->achievement,
-			'lan'			=> $userAchievement->lan,
+			'user_id'		=> (int) $userAchievement->user_id,
+			'achievement_id'=> (int) $userAchievement->achievement_id,
+			'lan_id'		=> (int) $userAchievement->lan_id,
 			'links'			=> [
 				[
 					'rel' => 'self',

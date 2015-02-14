@@ -2,19 +2,20 @@
 
 use League\Fractal;
 
+use Zeropingheroes\Lanager\Users\UserTransformer;
+
 class ShoutTransformer extends Fractal\TransformerAbstract {
-	
+
+	protected $defaultIncludes = [
+		'user',
+	];
+
 	public function transform(Shout $shout)
 	{
 		return [
 			'id'			=> (int) $shout->id,
 			'content'		=> $shout->content,
 			'pinned'		=> (bool) $shout->pinned,
-			'user'			=> [
-				'id'			=> $shout->user->id,
-				'username'		=> $shout->user->username,
-				'avatar'		=> $shout->user->avatar,
-			],
 			'links'			=> [
 				[
 					'rel' => 'self',
@@ -23,4 +24,10 @@ class ShoutTransformer extends Fractal\TransformerAbstract {
 			],
 		];
 	}
+
+	public function includeUser(Shout $shout)
+	{
+		return $this->collection($shout->user()->get(), new UserTransformer);
+	}
+
 }

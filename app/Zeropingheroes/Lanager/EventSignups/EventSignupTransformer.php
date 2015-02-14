@@ -2,18 +2,20 @@
 
 use League\Fractal;
 
+use Zeropingheroes\Lanager\Users\UserTransformer;
+
 class EventSignupTransformer extends Fractal\TransformerAbstract {
-	
+
+	protected $defaultIncludes = [
+		'user',
+	];
+
 	public function transform(EventSignup $eventSignup)
 	{
 		return [
 			'id'			=> (int) $eventSignup->id,
 			'event_id'		=> (int) $eventSignup->event_id,
-			'user'			=> [
-				'id'			=> $eventSignup->user->id,
-				'username'		=> $eventSignup->user->username,
-				'avatar'		=> $eventSignup->user->avatar,
-			],
+			'user_id'		=> (int) $eventSignup->user_id,
 			'links'			=> [
 				[
 					'rel' => 'self',
@@ -21,5 +23,10 @@ class EventSignupTransformer extends Fractal\TransformerAbstract {
 				]
 			],
 		];
+	}
+
+	public function includeUser(EventSignup $eventSignup)
+	{
+		return $this->collection($eventSignup->user()->get(), new UserTransformer);
 	}
 }

@@ -1,15 +1,22 @@
 <?php namespace Zeropingheroes\Lanager\UserRoles;
 
 use League\Fractal;
+use Zeropingheroes\Lanager\Users\UserTransformer,
+	Zeropingheroes\Lanager\Roles\RoleTransformer;
 
 class UserRoleTransformer extends Fractal\TransformerAbstract {
+
+	protected $defaultIncludes = [
+		'user',
+		'role',
+	];
 	
 	public function transform(UserRole $userRole)
 	{
 		return [
 			'id'			=> (int) $userRole->id,
-			'user'			=> $userRole->user,
-			'role'			=> $userRole->role,
+			'user_id'		=> (int) $userRole->user_id,
+			'role_id'		=> (int) $userRole->role_id,
 			'links'			=> [
 				[
 					'rel' => 'self',
@@ -17,5 +24,15 @@ class UserRoleTransformer extends Fractal\TransformerAbstract {
 				]
 			],
 		];
+	}
+
+	public function includeUser(UserRole $userRole)
+	{
+		return $this->collection($userRole->user()->get(), new UserTransformer);
+	}
+
+	public function includeRole(UserRole $userRole)
+	{
+		return $this->collection($userRole->role()->get(), new RoleTransformer);
 	}
 }
