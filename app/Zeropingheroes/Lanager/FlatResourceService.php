@@ -10,9 +10,10 @@ abstract class FlatResourceService extends BaseResourceService {
 		parent::__construct($listener);
 	}
 
-	public function all()
+	public function all($filters = [])
 	{
-		return $this->model->all();
+		$this->model = $this->filter($this->model, $filters);
+		return $this->model->get();
 	}
 
 	public function single($id)

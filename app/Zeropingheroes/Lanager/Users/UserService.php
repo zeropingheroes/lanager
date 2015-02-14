@@ -11,13 +11,14 @@ class UserService extends FlatResourceService {
 		parent::__construct($listener, new User);
 	}
 
-	public function all()
-	{
-		return $this->model->visible()->orderBy('username', 'asc')->get();
-	}
+	// Todo: convert to using global scopes: http://laravel.com/docs/4.2/eloquent#global-scopes
+	// public function all()
+	// {
+	// 	return $this->model->visible()->orderBy('username', 'asc')->get();
+	// }
 
-	public function single($id)
-	{
-		return $this->model->visible()->findOrFail($id);
-	}
+	// public function single($id)
+	// {
+	// 	return $this->model->visible()->findOrFail($id);
+	// }
 }

@@ -17,9 +17,12 @@ abstract class NestedResourceService extends BaseResourceService {
 		parent::__construct($listener);
 	}
 
-	public function all( array $ids )
+	public function all( array $ids, $options = [] )
 	{
-		return $this->nestedFindOrFail( $ids )->get();
+		$model = $this->nestedFindOrFail( $ids );
+		$model = $this->filter($model, $options);
+
+		return $model->get();
 	}
 
 	public function single( array $ids )

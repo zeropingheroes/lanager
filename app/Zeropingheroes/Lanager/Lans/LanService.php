@@ -11,9 +11,4 @@ class LanService extends FlatResourceService  {
 		parent::__construct($listener, new Lan);
 	}
 
-	public function all()
-	{
-		return $this->model->orderby('start', 'asc')->get();
-	}
-
 }

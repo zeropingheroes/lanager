@@ -11,14 +11,4 @@ class EventService extends FlatResourceService {
 		parent::__construct($listener, new Event);
 	}
 
-	public function all()
-	{
-		return $this->model->with('type')->orderby('start', 'asc')->get();
-	}
-
-	public function single($id)
-	{
-		return $this->model->with('type')->findOrFail($id);
-	}
-
 }
