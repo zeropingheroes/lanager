@@ -38,8 +38,6 @@
 		}
 		?>
 		{{ Table::withContents($tableBody) }}
-		
-		{{ $users->links() }}
 	@else
 		No users found!
 	@endif

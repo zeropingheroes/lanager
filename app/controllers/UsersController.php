@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Users\User;
-use Redirect, View;
+use Zeropingheroes\Lanager\Users\UserService;
+use View;
 
 class UsersController extends BaseController {
 
@@ -9,7 +9,8 @@ class UsersController extends BaseController {
 
 	public function __construct()
 	{
-		$this->beforeFilter( 'permission', ['only' => ['destroy'] ] );
+		parent::__construct();
+		$this->service = new UserService($this);
 	}
 
 	/**
@@ -19,11 +20,10 @@ class UsersController extends BaseController {
 	 */
 	public function index()
 	{
-		$users = User::visible()->orderBy('username', 'asc');
-
+		$options['orderBy'] = ['username'];
 		return View::make('users.index')
 					->with('title','Users')
-					->with('users',$users->paginate(10));
+					->with('users', $this->service->all($options));
 	}
 
 	/**
@@ -34,24 +34,10 @@ class UsersController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$user = User::visible()->findOrFail($id);
-
+		$user = $this->service->single($id);
 		return View::make('users.show')
 					->with('title',$user->username)
 					->with('user',$user);
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$user = User::visible()->findOrFail($id);
-		$this->delete($user);
-		return Redirect::route('users.index');
 	}
 
 }
