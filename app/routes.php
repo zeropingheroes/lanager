@@ -82,6 +82,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	{
 		Route::api(['version' => 'v1'], function () {
 			Route::resource('achievements',			'AchievementsController',		['except' => ['create', 'edit'] ]);
+			Route::resource('user-achievements',	'UserAchievementsController',	['except' => ['create', 'edit'] ]);
 			Route::resource('events',				'EventsController',				['except' => ['create', 'edit'] ]);
 			Route::resource('events.signups',		'EventSignupsController',		['except' => ['create', 'edit', 'update'] ]);
 			Route::resource('event-types',			'EventTypesController',			['except' => ['create', 'edit'] ]);
