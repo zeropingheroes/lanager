@@ -18,4 +18,10 @@ class PlaylistItemVoteService extends NestedResourceService {
 		parent::__construct($listener, $models);
 	}
 
+	public function update( array $ids, $input)
+	{
+		$this->errors = 'This resource does not support being updated';
+		return $this->listener->storeFailed($this);
+	}
+
 }
