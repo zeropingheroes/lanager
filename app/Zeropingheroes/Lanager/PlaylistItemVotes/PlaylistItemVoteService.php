@@ -21,7 +21,7 @@ class PlaylistItemVoteService extends NestedResourceService {
 	public function update( array $ids, $input)
 	{
 		$this->errors = 'This resource does not support being updated';
-		return $this->listener->storeFailed($this);
+		return $this->listener->updateFailed($this);
 	}
 
 }
