@@ -83,6 +83,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 		Route::api(['version' => 'v1'], function () {
 			Route::resource('achievements',			'AchievementsController',		['except' => ['create', 'edit'] ]);
 			Route::resource('events',				'EventsController',				['except' => ['create', 'edit'] ]);
+			Route::resource('event-types',			'EventTypesController',			['except' => ['create', 'edit'] ]);
 			Route::resource('pages',				'PagesController',				['except' => ['create', 'edit'] ]);
 			Route::resource('lans',					'LansController',				['except' => ['create', 'edit'] ]);
 			Route::resource('playlists',			'PlaylistsController',			['except' => ['create', 'edit'] ]);
