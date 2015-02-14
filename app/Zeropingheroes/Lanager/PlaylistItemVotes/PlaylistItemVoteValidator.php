@@ -15,6 +15,6 @@ class PlaylistItemVoteValidator extends ValidatorAssistant {
 
 	protected function before()
 	{
-		$this->bind('playlist_item_id', $this->inputs['playlist_item_id']);
+		if( isset($this->inputs['playlist_item_id']) ) $this->bind('playlist_item_id', $this->inputs['playlist_item_id']);
 	}
 }

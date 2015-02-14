@@ -15,7 +15,7 @@ class UserRoleValidator extends ValidatorAssistant {
 
 	protected function before()
 	{
-		$this->bind('role_id', $this->inputs['role_id']);
+		if( isset($this->inputs['role_id']) ) $this->bind('role_id', $this->inputs['role_id']);
 	}
 
 }

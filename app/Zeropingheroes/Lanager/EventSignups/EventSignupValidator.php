@@ -15,6 +15,6 @@ class EventSignupValidator extends ValidatorAssistant {
 
 	protected function before()
 	{
-		$this->bind('event_id', $this->inputs['event_id']);
+		if( isset($this->inputs['event_id']) ) $this->bind('event_id', $this->inputs['event_id']);
 	}
 }
