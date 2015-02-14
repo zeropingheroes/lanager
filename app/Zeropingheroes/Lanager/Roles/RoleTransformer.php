@@ -13,7 +13,7 @@ class RoleTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/roles/'. $role->id),
+					'uri' => (url().'/roles/'. $role->id),
 				]
 			],
 		];

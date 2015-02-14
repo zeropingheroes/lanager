@@ -24,7 +24,7 @@ class PlaylistItemTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/playlists/'. $playlistItem->playlist_id .'/items/'. $playlistItem->id),
+					'uri' => (url().'/playlists/'. $playlistItem->playlist_id .'/items/'. $playlistItem->id),
 				]
 			],
 		];

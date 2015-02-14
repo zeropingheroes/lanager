@@ -20,7 +20,7 @@ class UserRoleTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/user-roles/'. $userRole->id),
+					'uri' => (url().'/user-roles/'. $userRole->id),
 				]
 			],
 		];

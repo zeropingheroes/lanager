@@ -13,7 +13,7 @@ class AchievementTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/achievements/'. $achievement->id),
+					'uri' => (url().'/achievements/'. $achievement->id),
 				]
 			],
 		];

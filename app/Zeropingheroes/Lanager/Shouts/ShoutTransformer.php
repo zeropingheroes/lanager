@@ -19,7 +19,7 @@ class ShoutTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/shouts/'. $shout->id),
+					'uri' => (url().'/shouts/'. $shout->id),
 				]
 			],
 		];

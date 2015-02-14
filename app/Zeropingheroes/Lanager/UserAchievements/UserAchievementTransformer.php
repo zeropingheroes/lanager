@@ -14,7 +14,7 @@ class UserAchievementTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/user-achievements/'. $userAchievement->id),
+					'uri' => (url().'/user-achievements/'. $userAchievement->id),
 				]
 			],
 		];

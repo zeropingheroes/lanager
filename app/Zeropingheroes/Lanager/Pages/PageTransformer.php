@@ -15,7 +15,7 @@ class PageTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/pages/'. $page->id),
+					'uri' => (url().'/pages/'. $page->id),
 				]
 			],
 		];

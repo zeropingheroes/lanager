@@ -16,7 +16,7 @@ class PlaylistTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/playlists/'. $playlist->id),
+					'uri' => (url().'/playlists/'. $playlist->id),
 				]
 			],
 		];

@@ -15,7 +15,7 @@ class UserTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/users/'. $user->id),
+					'uri' => (url().'/users/'. $user->id),
 				]
 			],
 		];

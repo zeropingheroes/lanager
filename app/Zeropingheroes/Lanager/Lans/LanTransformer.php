@@ -14,7 +14,7 @@ class LanTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/lans/'. $lan->id),
+					'uri' => (url().'/lans/'. $lan->id),
 				]
 			],
 		];

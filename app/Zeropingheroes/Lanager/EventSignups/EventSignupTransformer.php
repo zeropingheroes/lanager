@@ -19,7 +19,7 @@ class EventSignupTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/events/'. $eventSignup->event_id .'/signups/'. $eventSignup->id),
+					'uri' => (url().'/events/'. $eventSignup->event_id .'/signups/'. $eventSignup->id),
 				]
 			],
 		];

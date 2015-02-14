@@ -22,7 +22,7 @@ class EventTransformer extends Fractal\TransformerAbstract {
 			'links'			=> [
 				[
 					'rel' => 'self',
-					'uri' => ('/events/'. $event->id),
+					'uri' => (url().'/events/'. $event->id),
 				]
 			],
 		];
