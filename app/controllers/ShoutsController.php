@@ -1,13 +1,16 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\Shouts\Shout;
-use Input, Redirect, View, Auth;
+use Zeropingheroes\Lanager\Shouts\ShoutService;
+use View, Notification, Redirect;
 
 class ShoutsController extends BaseController {
 
+	protected $route = 'shouts';
+
 	public function __construct()
 	{
-		$this->beforeFilter('permission', ['only' => ['store', 'update', 'destroy'] ]);
+		parent::__construct();
+		$this->service = new ShoutService($this);
 	}
 
 	/**
@@ -17,60 +20,23 @@ class ShoutsController extends BaseController {
 	 */
 	public function index()
 	{
-		$shouts = Shout::with('user', 'user.roles')
-					->orderBy('pinned', 'desc')
-					->orderBy('created_at', 'desc')
-					->paginate(10);
+		$options['orderBy'] = ['-pinned', 'created_at'];
 
 		return View::make('shouts.index')
 					->with('title', 'Shouts')
-					->with('shouts', $shouts);
+					->with('shouts', $this->service->all($options));
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
+	public function storeSucceeded( BaseResourceService $service )
 	{
-		$shout = new Shout;
-		$shout->user_id = Auth::user()->id;
-
-		$shout->fill( Input::get() );
-
-		if ( ! $this->save($shout) ) return Redirect::back()->withInput();
-		
-		return Redirect::back();
+		Notification::success( $service->messages() );
+		return Redirect::route( $this->route . '.index', $service->model()->id );
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
+	public function updateSucceeded( BaseResourceService $service )
 	{
-		$shout = Shout::findOrFail($id);
-		$shout->fill( Input::get() );
-
-		if ( ! $this->save($shout) ) return Redirect::back()->withInput();
-		
-		return Redirect::back();
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$shout = Shout::findOrFail($id);
-		$this->delete($shout);
-		return Redirect::back();
+		Notification::success( $service->messages() );
+		return Redirect::route( $this->route . '.index', $service->model()->id );
 	}
 
 }

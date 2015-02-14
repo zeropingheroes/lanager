@@ -32,17 +32,29 @@ abstract class BaseResourceService {
 	{
 		if( isset($filters['orderBy']) )
 		{
-			if( starts_with($filters['orderBy'], '-') )
+			if( str_contains(',', $filters['orderBy']) )
 			{
-				$field = ltrim($filters['orderBy'], '-');
-				$direction = 'desc';
+				$filters['orderBy'] = explode($filters['orderBy']);
 			}
-			else
+			elseif( !is_array($filters['orderBy']) )
 			{
-				$field = $filters['orderBy'];
-				$direction = 'asc';
+				$filters['orderBy'] = [$filters['orderBy']];
 			}
-			$model = $model->orderBy( $field, $direction );
+			foreach($filters['orderBy'] as $value)
+			{
+				if( starts_with($value, '-') )
+				{
+					$field = ltrim($value, '-');
+					$direction = 'desc';
+				}
+				else
+				{
+					$field = $value;
+					$direction = 'asc';
+				}
+				$model = $model->orderBy( $field, $direction );				
+			}
+
 		}
 
 		if( isset($filters['skip']) && is_numeric($filters['skip']) )
