@@ -2,7 +2,7 @@
 
 use Zeropingheroes\Lanager\Events\EventService,
 	Zeropingheroes\Lanager\EventTypes\EventTypeService;
-use View, Input, Redirect, Request, Response, URL;
+use View;
 
 class EventsController extends BaseController {
 
