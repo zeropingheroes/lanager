@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	/*
 	|--------------------------------------------------------------------------
@@ -22,6 +22,5 @@ return array(
 	[
 		'title'				=> 'Example',
 		'link'				=> 'http://www.example.com/',
-	],
-	
-);
+	],	
+];
