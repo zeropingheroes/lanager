@@ -23,7 +23,7 @@ class User extends BaseModel implements UserInterface {
 
 	public function playlistItemVotes()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\PlaylistsItemVotes\PlaylistItemVote');
+		return $this->hasMany('Zeropingheroes\Lanager\PlaylistItemVotes\PlaylistItemVote');
 	}
 
 	public function userAchievements()
