@@ -20,7 +20,9 @@
 	</div>
 	@if( Input::get('tab') == 'timetable' OR empty(Input::get('tab')) )
 		@include('events.partials.timetable' )
+		{{ HTML::button('events.create') }}
 	@elseif( Input::get('tab') == 'list' )
 		@include('events.partials.list', ['events' => $events] )
+		{{ HTML::button('events.create') }}
 	@endif
 @endsection
