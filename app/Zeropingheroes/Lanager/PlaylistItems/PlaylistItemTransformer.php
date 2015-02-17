@@ -20,7 +20,7 @@ class PlaylistItemTransformer extends Fractal\TransformerAbstract {
 			'duration'		=> $playlistItem->duration,
 			'playback_state'=> (int) $playlistItem->playback_state,
 			'skip_reason'	=> $playlistItem->skip_reason,
-			'played_at'		=> date('c',strtotime($playlistItem->played_at)),
+			'played_at'		=> ( empty($playlistItem->played_at) ? null : date('c',strtotime($playlistItem->played_at)) ),
 			'links'			=> [
 				[
 					'rel' => 'self',
