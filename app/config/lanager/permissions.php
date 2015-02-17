@@ -86,7 +86,10 @@ return array(
 
 			// Playlist Item Votes
 			$authority->allow('create', 'playlists.items.votes');
-			$authority->allow('delete', 'playlists.items.votes'); // TODO: users should only be able to delete their own signups
+			$authority->allow('delete', 'playlists.items.votes', function($self, $itemId)
+			{
+				return $self->getCurrentUser()->playlistItemVotes()->find($itemId);
+			});
 
 			// Event Signups
 			$authority->allow('create', 'events.signups');
