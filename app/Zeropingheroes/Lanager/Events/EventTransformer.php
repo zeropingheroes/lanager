@@ -2,7 +2,13 @@
 
 use League\Fractal;
 
+use Zeropingheroes\Lanager\EventTypes\EventTypeTransformer;
+
 class EventTransformer extends Fractal\TransformerAbstract {
+
+	protected $defaultIncludes = [
+		'type',
+	];
 	
 	public function transform(Event $event)
 	{
@@ -14,11 +20,6 @@ class EventTransformer extends Fractal\TransformerAbstract {
 			'end'			=> date('c',strtotime($event->end)),
 			'signup_opens'	=> ( empty($event->signup_opens) ? null : date('c',strtotime($event->signup_opens)) ),
 			'signup_closes'	=> ( empty($event->signup_closes) ? null : date('c',strtotime($event->signup_closes)) ),
-			'type'			=> [
-				'id'			=> $event->type['id'],
-				'name'			=> $event->type['name'],
-				'colour'		=> $event->type['colour'],
-			],
 			'links'			=> [
 				[
 					'rel' => 'self',
@@ -26,5 +27,10 @@ class EventTransformer extends Fractal\TransformerAbstract {
 				]
 			],
 		];
+	}
+
+	public function includeType(Event $event)
+	{
+		return $this->collection($event->type()->get(), new EventTypeTransformer);
 	}
 }
