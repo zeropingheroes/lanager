@@ -63,6 +63,18 @@ class User extends BaseModel implements UserInterface {
 		return false;
 	}
 
+	public function isAdmin()
+	{
+		foreach($this->roles as $role)
+		{
+			if(str_contains(strtolower($role->name), 'admin'))
+			{
+				return true;
+			}
+		}
+		return false;	
+	}
+
 	/**
 	 * Get the URL for the user's medium avatar.
 	 *
