@@ -24,11 +24,12 @@ class PlaylistItemService extends NestedResourceService {
 		return (new PlayableItemFactory)->create( $url, $providers);
 	}
 
-	private function filterInput( $input )
+	private function filterInput( $input, $scope )
 	{
 		if( Authority::can('manage', 'playlists') )
 		{
 			$input = array_only($input, ['url', 'playback_state', 'played_at', 'skip_reason']);
+			if( $scope != 'update') $input['user_id'] = Auth::user()->id; // if playlist manager is posting new video default to their user id
 		}
 		else // only accept URL from standard users
 		{
@@ -40,7 +41,7 @@ class PlaylistItemService extends NestedResourceService {
 
 	public function store( array $ids, $input)
 	{
-		$input = $this->filterInput($input);
+		$input = $this->filterInput($input, 'store');
 
 		try
 		{
@@ -58,7 +59,7 @@ class PlaylistItemService extends NestedResourceService {
 
 	public function update( array $ids, $input)
 	{
-		$input = $this->filterInput($input);
+		$input = $this->filterInput($input, 'update');
 
 		if( array_key_exists('url', $input) ) // if the URL has been changed, fetch the new item
 		{
