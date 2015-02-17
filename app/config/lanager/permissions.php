@@ -48,15 +48,20 @@ return array(
 		| Permissions for un-authenticated users
 		|--------------------------------------------------------------------------
 		*/
-		$authority->allow('read', 'shouts');
+		$authority->allow('read', 'achievements');
+		$authority->allow('read', 'events');
+		$authority->allow('read', 'event-types');
+		$authority->allow('read', 'events.signups');
+		$authority->allow('read', 'lans');
+		$authority->allow('read', 'pages');
 		$authority->allow('read', 'playlists');
 		$authority->allow('read', 'playlists.items');
-		$authority->allow('read', 'pages');
+		$authority->allow('read', 'roles');
+		$authority->allow('read', 'shouts');
 		$authority->allow('read', 'usage');
-		$authority->allow('read', 'events');
-		$authority->allow('read', 'events.signups');
-		$authority->allow('read', 'achievements');
 		$authority->allow('read', 'users');
+		$authority->allow('read', 'user-achievements');
+		$authority->allow('read', 'user-roles');
 
 		if ( is_object($self) )
 		{
