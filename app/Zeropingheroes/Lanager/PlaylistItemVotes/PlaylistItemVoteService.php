@@ -4,6 +4,8 @@ use Zeropingheroes\Lanager\NestedResourceService;
 use Zeropingheroes\Lanager\Playlists\Playlist,
 	Zeropingheroes\Lanager\PlaylistItems\PlaylistItem;
 
+use Auth;
+
 class PlaylistItemVoteService extends NestedResourceService {
 
 	public $resource = 'playlist item vote';
@@ -16,6 +18,14 @@ class PlaylistItemVoteService extends NestedResourceService {
 			new PlaylistItemVote,
 		];
 		parent::__construct($listener, $models);
+	}
+
+	public function store( array $ids, $input)
+	{
+		unset($input); // no input needed
+		$input['user_id'] = Auth::user()->id; // set user id to current user
+		
+		return parent::store($ids, $input);
 	}
 
 	public function update( array $ids, $input)
