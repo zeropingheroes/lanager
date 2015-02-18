@@ -18,6 +18,8 @@
 	<hr>
 	{{ Purifier::clean(Markdown::string($event->description), 'markdown') }}
 	<br>
+	{{ link_to_route('events.signups.index','Signups', $event->id) }}
+	<br>
 	{{ HTML::button('events.edit', $event->id) }}
 	{{ HTML::button('events.destroy', $event->id) }}
 	<br>
