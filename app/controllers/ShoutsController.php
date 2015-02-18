@@ -20,7 +20,7 @@ class ShoutsController extends BaseController {
 	 */
 	public function index()
 	{
-		$options['orderBy'] = ['-pinned', 'created_at'];
+		$options['orderBy'] = ['-pinned', '-created_at'];
 
 		return View::make('shouts.index')
 					->with('title', 'Shouts')
