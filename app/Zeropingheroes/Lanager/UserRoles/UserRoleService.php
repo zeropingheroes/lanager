@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\FlatResourceService;
 
 class UserRoleService extends FlatResourceService {
 
-	protected $resource = 'user role';
+	protected $resource = 'user-role';
 
 	public function __construct( $listener )
 	{
