@@ -80,7 +80,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	public function storeSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.show', $service->model()->id );
+		return Redirect::route( $this->route . '.show', $service->resourceIds() );
 	}
 
 	public function storeFailed( BaseResourceService $service )
@@ -92,7 +92,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	public function updateSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.show', $service->model()->id );
+		return Redirect::route( $this->route . '.show', $service->resourceIds() );
 	}
 
 	public function updateFailed( BaseResourceService $service )
@@ -104,7 +104,7 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	public function destroySucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index' );
+		return Redirect::route( $this->route . '.index', $service->resourceIds() );
 	}
 
 	public function destroyFailed( BaseResourceService $service )

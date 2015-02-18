@@ -74,15 +74,16 @@ abstract class FlatResourceService extends BaseResourceService {
 		if( $this->model->delete() )
 		{
 			$this->messages = trans('confirmation.after.resource.destroy', ['resource' => trans('resources.' . $this->resource()) ]);
+			unset($this->model);
 			return $this->listener->destroySucceeded( $this );
 		}
 		$this->errors = ['Unable to destroy ' . $this->resource() ];
 		return $this->listener->destroyFailed( $this );
 	}
 
-	// Getters
-	public function model()
+	public function resourceIds()
 	{
-		return $this->model;
+		if( isset($this->model) ) return $this->model->id;
 	}
+
 }

@@ -5,6 +5,7 @@ use InvalidArgumentException, ReflectionClass;
 abstract class NestedResourceService extends BaseResourceService {
 
 	protected $models;
+	protected $ids;
 
 	public function __construct( ResourceServiceListenerContract $listener, array $models )
 	{
@@ -27,12 +28,15 @@ abstract class NestedResourceService extends BaseResourceService {
 
 	public function single( array $ids )
 	{
-		return $this->nestedFindOrFail( $ids );
+		$item = $this->nestedFindOrFail( $ids );
+		$this->ids = $ids;
+		return $item;
 	}
 
 	public function store( array $ids, $input )
 	{
 		$parent = $this->nestedFindOrFail( $ids );
+		$this->ids = $ids;
 
 		// get an instance of the model we want to create
 		$child = end($this->models);
@@ -63,6 +67,7 @@ abstract class NestedResourceService extends BaseResourceService {
 	public function update( array $ids, $input )
 	{
 		$item = $this->nestedFindOrFail( $ids );
+		$this->ids = $ids;
 		$item = $item->fill($input);
 
 		$validator = new $item->validator( $item->toArray() );
@@ -83,9 +88,11 @@ abstract class NestedResourceService extends BaseResourceService {
 	public function destroy( array $ids )
 	{
 		$item = $this->nestedFindOrFail( $ids );
+		$this->ids = $ids;
 		if( $item->delete() )
 		{
 			$this->messages = trans('confirmation.after.resource.destroy', ['resource' => trans('resources.' . $this->resource()) ]);
+			array_pop($this->ids);
 			return $this->listener->destroySucceeded( $this );
 		}
 		$this->errors = ['Unable to destroy ' . $this->resource() ];
@@ -95,6 +102,11 @@ abstract class NestedResourceService extends BaseResourceService {
 	public function parent( array $ids )
 	{
 		return $this->nestedFindOrFail( $ids, false );
+	}
+
+	public function resourceIds()
+	{
+		if( isset($this->ids) ) return $this->ids;
 	}
 
 	private function nestedFindOrFail(array $ids, $fetchChildren = true)
