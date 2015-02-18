@@ -8,7 +8,7 @@
 			'controls'	=> Button::normal('Remove Signup')
 							->asLinkTo( route('events.signups.destroy', ['event' => $eventSignup->event->id, 'signup' => $eventSignup->id]) )
 							->prependIcon(Icon::remove())
-							->withAttributes( ['data-method' => 'DELETE', 'data-confirm' => 'Are you sure?'] ),
+							->withAttributes( ['data-method' => 'DELETE', 'data-confirm' => 'Are you sure you want to destroy this event signup?'] ),
 		);
 	}
 	?>
