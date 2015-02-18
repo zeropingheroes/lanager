@@ -32,7 +32,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	| Shouts
 	|--------------------------------------------------------------------------
 	*/
-	Route::resource('shouts', 'ShoutsController');
+	Route::resource('shouts', 'ShoutsController', ['only' => ['index', 'store', 'update', 'destroy']]);
 
 	/*
 	|--------------------------------------------------------------------------
