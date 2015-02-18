@@ -92,7 +92,12 @@ abstract class NestedResourceService extends BaseResourceService {
 		return $this->listener->destroyFailed( $this );
 	}
 
-	private function nestedFindOrFail(array $ids)
+	public function parent( array $ids )
+	{
+		return $this->nestedFindOrFail( $ids, false );
+	}
+
+	private function nestedFindOrFail(array $ids, $fetchChildren = true)
 	{
 		$models = $this->models;
 
@@ -112,7 +117,7 @@ abstract class NestedResourceService extends BaseResourceService {
 			if( $i > 0 ) $model = $model->findOrFail($id);
 
 			// if we have not yet reached the bottom of the nest 
-			if( ($i+1) < count($models) )
+			if( ( ($i+1) < count($models) ) && $fetchChildren )
 			{
 				// get method name of the next model in the nest
 				$children = str_plural((new ReflectionClass($models[$i+1]))->getShortName());

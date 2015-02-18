@@ -37,6 +37,11 @@ class EventSignupService extends NestedResourceService {
 	public function store( array $ids, $input)
 	{
 		$input = $this->filterInput($input);
+		if( ! parent::parent($ids)->isOpenForSignups() )
+		{
+			$this->errors = 'Event is not open for signups';
+			return $this->listener->storeFailed($this);
+		}	
 		return parent::store($ids, $input);
 	}
 
