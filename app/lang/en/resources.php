@@ -13,6 +13,7 @@ return array(
 	*/
 
 	'achievement'			=> 'achievement',
+	'lan'					=> 'LAN',
 	'event'					=> 'event',
 	'event-signup'			=> 'event signup',
 	'page'					=> 'page',
