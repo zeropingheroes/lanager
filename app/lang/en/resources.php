@@ -15,6 +15,7 @@ return array(
 	'achievement'			=> 'achievement',
 	'lan'					=> 'LAN',
 	'event'					=> 'event',
+	'event-type'			=> 'event type',
 	'event-signup'			=> 'event signup',
 	'page'					=> 'page',
 	'playlist-item'			=> 'playlist item',
