@@ -25,5 +25,6 @@ return array(
 	'user' 					=> 'user',
 	'user-achievement'		=> 'user achievement',
 	'user-role'				=> 'user role',
+	'role'					=> 'role',
 
 );

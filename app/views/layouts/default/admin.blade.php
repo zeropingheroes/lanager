@@ -7,6 +7,9 @@
 			@if( Authority::can('manage', 'user-roles') )
 				<li><a href="{{ route('user-roles.index') }}">{{ Icon::user() }} Assign Roles</a></li>
 			@endif
+			@if( Authority::can('manage', 'roles') )
+				<li><a href="{{ route('roles.create') }}">{{ Icon::user() }} Create Role</a></li>
+			@endif
 			@if( Authority::can('manage', 'events') )
 				<li><a href="{{ route('events.create') }}">{{ Icon::calendar() }} Create Event</a></li>
 			@endif

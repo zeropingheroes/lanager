@@ -37,6 +37,10 @@ $navbar =
 				'title' => 'LANs',
 				'link' => URL::route('lans.index'),
 			],
+			[
+				'title' => 'Roles',
+				'link' => URL::route('roles.index'),
+			],
 		],
 	],
 	[
