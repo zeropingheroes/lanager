@@ -48,6 +48,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	*/
 	Route::resource('events', 'EventsController');
 	Route::resource('events.signups', 'EventSignupsController');
+	Route::resource('event-types', 'EventTypesController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]);
 
 	/*
 	|--------------------------------------------------------------------------

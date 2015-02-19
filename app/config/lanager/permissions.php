@@ -131,6 +131,7 @@ return array(
 			if ( $self->hasRole('Events Admin') ) 
 			{
 				$authority->allow('manage', 'events');
+				$authority->allow('manage', 'event-types');
 				$authority->allow('manage', 'events.signups');
 			}
 
