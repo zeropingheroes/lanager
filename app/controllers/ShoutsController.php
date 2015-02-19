@@ -30,13 +30,13 @@ class ShoutsController extends BaseController {
 	public function storeSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index', $service->resources() );
+		return Redirect::route( $this->route . '.index', $service->resourceIds() );
 	}
 
 	public function updateSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index', $service->resources() );
+		return Redirect::route( $this->route . '.index', $service->resourceIds() );
 	}
 
 }
