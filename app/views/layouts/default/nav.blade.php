@@ -34,6 +34,10 @@ $navbar =
 				'link' => URL::route('achievements.index'),
 			],
 			[
+				'title' => 'User Achievements',
+				'link' => URL::route('user-achievements.index'),
+			],
+			[
 				'title' => 'LANs',
 				'link' => URL::route('lans.index'),
 			],

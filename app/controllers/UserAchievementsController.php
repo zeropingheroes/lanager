@@ -1,17 +1,32 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\UserAchievements\UserAchievement,
-	Zeropingheroes\Lanager\Achievements\Achievement,
-	Zeropingheroes\Lanager\Lans\Lan,
-	Zeropingheroes\Lanager\Users\User;
-use View, Input, Redirect;
+use Zeropingheroes\Lanager\UserAchievements\UserAchievementService,
+	Zeropingheroes\Lanager\Users\UserService,
+	Zeropingheroes\Lanager\Achievements\AchievementService,
+	Zeropingheroes\Lanager\Lans\LanService;
+use Zeropingheroes\Lanager\NotificationListener;
+use View, Notification, Redirect;
 
 class UserAchievementsController extends BaseController {
 
-	
+	protected $route = 'user-achievements';
+
 	public function __construct()
 	{
-		$this->beforeFilter('permission', ['only' => ['create', 'store', 'edit', 'update', 'destroy'] ]);
+		parent::__construct();
+		$this->service = new UserAchievementService($this);
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		return View::make('user-achievements.index')
+					->with('title','User Achievements')
+					->with('userAchievements', $this->service->all());
 	}
 
 	/**
@@ -21,18 +36,32 @@ class UserAchievementsController extends BaseController {
 	 */
 	public function create()
 	{
-		$userAchievement = new UserAchievement;
-		$users = User::visible()
-						->orderBy('username')
-						->lists('username','id');
-
-		$achievements = Achievement::orderBy('name')
-						->lists('name','id');
-
-		$lans = Lan::orderBy('start','desc')
-						->lists('name','id');
+		$users 			= (new UserService((new NotificationListener)))->lists('username', 'id');
+		$achievements 	= (new AchievementService((new NotificationListener)))->lists('name', 'id');
+		$lans 			= (new LanService((new NotificationListener)))->lists('name', 'id');
 
 		return View::make('user-achievements.create')
+					->with('title','Award Achievement')
+					->with('userAchievement',null)
+					->with('users',$users)
+					->with('achievements',$achievements)
+					->with('lans',$lans);
+	}
+
+	/**
+	 * Show the form for editing an existing resource.
+	 *
+	 * @return Response
+	 */
+	public function edit( $userAchievementId )
+	{
+		$userAchievement = $this->service->single($userAchievementId);
+
+		$users 			= (new UserService((new NotificationListener)))->lists('username', 'id');
+		$achievements 	= (new AchievementService((new NotificationListener)))->lists('name', 'id');
+		$lans 			= (new LanService((new NotificationListener)))->lists('name', 'id');
+
+		return View::make('user-achievements.edit')
 					->with('title','Award Achievement')
 					->with('userAchievement',$userAchievement)
 					->with('users',$users)
@@ -40,32 +69,15 @@ class UserAchievementsController extends BaseController {
 					->with('lans',$lans);
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
+	public function storeSucceeded( BaseResourceService $service )
 	{
-		$userAchievement = new UserAchievement;
-		$userAchievement->fill( Input::get() );
-
-		if ( ! $this->save($userAchievement) ) return Redirect::back()->withInput();
-
-		return Redirect::route('achievements.index');
+		Notification::success( $service->messages() );
+		return Redirect::route( $this->route . '.index' );
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
+	public function updateSucceeded( BaseResourceService $service )
 	{
-		$userAchievement = UserAchievement::findOrFail($id);
-
-		return $this->process( $userAchievement, 'achievements.index' );
+		Notification::success( $service->messages() );
+		return Redirect::route( $this->route . '.index' );
 	}
-
 }
