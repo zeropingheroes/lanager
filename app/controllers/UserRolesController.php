@@ -1,15 +1,19 @@
 <?php namespace Zeropingheroes\Lanager;
 
-use Zeropingheroes\Lanager\UserRoles\UserRole,
-	Zeropingheroes\Lanager\Users\User,
-	Zeropingheroes\Lanager\Roles\Role;
-use View, Input, Redirect;
+use Zeropingheroes\Lanager\UserRoles\UserRoleService,
+	Zeropingheroes\Lanager\Users\UserService,
+	Zeropingheroes\Lanager\Roles\RoleService;
+use Zeropingheroes\Lanager\NotificationListener;
+use View, Notification, Redirect;
 
 class UserRolesController extends BaseController {
-	
+
+	protected $route = 'user-roles';
+
 	public function __construct()
 	{
-		$this->beforeFilter('permission',['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy'] ]);
+		parent::__construct();
+		$this->service = new UserRoleService($this);
 	}
 
 	/**
@@ -19,11 +23,9 @@ class UserRolesController extends BaseController {
 	 */
 	public function index()
 	{
-		$userRoles = UserRole::with(['role','user'])->get();
-
 		return View::make('user-roles.index')
 					->with('title','User Roles')
-					->with('userRoles',$userRoles);
+					->with('userRoles', $this->service->all());
 	}
 
 	/**
@@ -33,47 +35,19 @@ class UserRolesController extends BaseController {
 	 */
 	public function create()
 	{
-		$userRole = new UserRole;
-		$users = User::visible()
-						->orderBy('username')
-						->lists('username','id');
-
-		$roles = Role::orderBy('name')
-						->lists('name','id');
+		$users = (new UserService((new NotificationListener)))->lists('username', 'id');
+		$roles = (new RoleService((new NotificationListener)))->lists('name', 'id');
 
 		return View::make('user-roles.create')
 					->with('title','Assign Role')
 					->with('users',$users)
 					->with('roles',$roles)
-					->with('userRole',$userRole);
+					->with('userRole',null);
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
+	public function storeSucceeded( BaseResourceService $service )
 	{
-		$userRole = new UserRole;
-		$userRole->fill( Input::get() );
-
-		if ( ! $this->save($userRole) ) return Redirect::back()->withInput();
-
-		return Redirect::route('user-roles.index');
+		Notification::success( $service->messages() );
+		return Redirect::route( $this->route . '.index' );
 	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$userRole = UserRole::findOrFail($id);
-		$this->delete($userRole);
-		return Redirect::back();
-	}
-
 }

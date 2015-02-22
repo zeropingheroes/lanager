@@ -8,7 +8,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	|--------------------------------------------------------------------------
 	*/
 	Route::resource('users', 'UsersController', ['only' => ['index', 'show', 'destroy']]);
-	Route::resource('user-roles', 'UserRolesController');
+	Route::resource('user-roles', 'UserRolesController', ['only' => ['index', 'create', 'store', 'destroy']]);
 	Route::resource('user-achievements', 'UserAchievementsController');
 
 	/*

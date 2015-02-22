@@ -42,6 +42,10 @@ $navbar =
 				'link' => URL::route('roles.index'),
 			],
 			[
+				'title' => 'User Roles',
+				'link' => URL::route('user-roles.index'),
+			],
+			[
 				'title' => 'Event Types',
 				'link' => URL::route('event-types.index'),
 			],
