@@ -57,7 +57,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	*/
 	Route::resource('playlists', 'PlaylistsController');
 	Route::resource('playlists.items', 'PlaylistItemsController', ['only' => ['index', 'store', 'update', 'destroy']]);
-	Route::resource('playlists.items.votes', 'PlaylistItemVotesController');
+	Route::resource('playlists.items.votes', 'PlaylistItemVotesController', ['only' => ['store', 'destroy']]);
 	Route::get('playlists/{playlists}/play', ['as' => 'playlists.play', 'uses' => 'PlaylistsController@play']);
 
 	/*
