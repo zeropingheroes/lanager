@@ -6,15 +6,17 @@ if( Authority::can('destroy', $resource, $item) )
 	// If an array of parameters is specified use it, otherwise default to the singular resource id
 	$parameters = ( isset($parameters) && is_array($parameters) ) ? $parameters : $item->id;
 
+	$resourceName = trans('resources.'.str_singular($resource));
+
 	// Set defaults for any options not specified
 	$text  = ( ! isset($text)  ) ? '' : $text;
 	$icon  = ( ! isset($icon)  ) ? 'trash'  : $icon;
 	$size  = ( ! isset($size)  ) ? 'small' : $size;
 	$type  = ( ! isset($type)  ) ? 'normal' : $type;
-	$hover = ( ! isset($hover) ) ? 'Delete this item' : $hover;
+	$hover = ( ! isset($hover) ) ? 'Delete this '.$resourceName : $hover;
 
 	$class = ( ! isset($class) ) ? 'inline' : $class;
-	$confirmation = ( ! isset($confirmation) ) ? 'Are you sure you want to delete this item?' : $confirmation;
+	$confirmation = ( ! isset($confirmation) ) ? 'Are you sure you want to delete this ' . $resourceName . '?' : $confirmation;
 
 	// Echo the form
 	echo Form::inline(

@@ -13,7 +13,7 @@ if( Authority::can('edit', $resource, $item) )
 		'icon' => ( ( ! isset($icon) ) ? 'pencil' : $icon ),
 		'size' => ( ( ! isset($size) ) ? 'small' : $size ),
 		'type' => ( ( ! isset($type) ) ? 'normal' : $type ),
-		'hover' => ( ( ! isset($hover) ) ? 'Edit this item' : $hover ),
+		'hover' => ( ( ! isset($hover) ) ? 'Edit this '.trans('resources.'.str_singular($resource)) : $hover ),
 	];
 
 	echo View::make('buttons.url', $options);
