@@ -1,39 +1,47 @@
 <?php
 
-// Set defaults for any options not specified
-$text  = ( ! isset($text)  ) ? '' : $text;
-$icon  = ( ! isset($icon)  ) ? 'trash'  : $icon;
-$size  = ( ! isset($size)  ) ? 'small' : $size;
-$type  = ( ! isset($type)  ) ? 'normal' : $type;
-$hover = ( ! isset($hover) ) ? 'Delete this item' : $hover;
+// Check the current user is allowed to destroy this particular item (pass the Model object)
+if( Authority::can('destroy', $resource, $item) )
+{
+	// If an array of parameters is specified use it, otherwise default to the singular resource id
+	$parameters = ( isset($parameters) && is_array($parameters) ) ? $parameters : $item->id;
 
-$class = ( ! isset($class) ) ? 'inline' : $class;
-$confirmation = ( ! isset($confirmation) ) ? 'Are you sure you want to delete this item?' : $confirmation;
+	// Set defaults for any options not specified
+	$text  = ( ! isset($text)  ) ? '' : $text;
+	$icon  = ( ! isset($icon)  ) ? 'trash'  : $icon;
+	$size  = ( ! isset($size)  ) ? 'small' : $size;
+	$type  = ( ! isset($type)  ) ? 'normal' : $type;
+	$hover = ( ! isset($hover) ) ? 'Delete this item' : $hover;
 
-// Echo the form
-echo Form::inline(
-					[
-						'url' 			=> $url, 
-						'method' 		=> 'DELETE',
-						'data-confirm'	=> $confirmation,
-						'class'			=> $class,
-					]
-				);
+	$class = ( ! isset($class) ) ? 'inline' : $class;
+	$confirmation = ( ! isset($confirmation) ) ? 'Are you sure you want to delete this item?' : $confirmation;
 
-// Create the basic button
-$button = Button::{$type}($text);
+	// Echo the form
+	echo Form::inline(
+						[
+							'url' 			=> URL::route($resource.'.destroy', $parameters), 
+							'method' 		=> 'DELETE',
+							'data-confirm'	=> $confirmation,
+							'class'			=> $class,
+						]
+					);
 
-// If an icon is specified add it
-if( ! empty($icon) )	$button = $button->prependIcon(Icon::{$icon}());
+	// Create the basic button
+	$button = Button::{$type}($text);
 
-// If hover text is specified add it
-if( ! empty($hover) )	$button = $button->addAttributes(['title' => $hover]);
+	// If an icon is specified add it
+	if( ! empty($icon) )	$button = $button->prependIcon(Icon::{$icon}());
 
-// If a size other than normal is specified set it
-if( $size != 'normal' )	$button = $button->{$size}();
+	// If hover text is specified add it
+	if( ! empty($hover) )	$button = $button->addAttributes(['title' => $hover]);
 
-// Echo out finished button
-echo $button->submit();
+	// If a size other than normal is specified set it
+	if( $size != 'normal' )	$button = $button->{$size}();
 
-// Close the form
-echo Form::close();
+	// Echo out finished button
+	echo $button->submit();
+
+	// Close the form
+	echo Form::close();
+
+}
