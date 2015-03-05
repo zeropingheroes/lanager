@@ -19,6 +19,10 @@ View::composer('layouts.default.nav', function($view)
 				'link' => URL::route('pages.show', $page->id),
 			];
 		}
+		$menuItems[] = [
+			'title' => 'All Pages',
+			'link' => URL::route('pages.index'),
+		];
 	}
 	else
 	{
