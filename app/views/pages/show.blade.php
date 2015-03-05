@@ -10,7 +10,8 @@
 			@include('pages.partials.list', ['pages' => $page->children])
 		</ul>
 	@endif
-	{{ HTML::button('pages.create') }}
-	{{ HTML::button('pages.edit', $page->id) }}
-	{{ HTML::button('pages.destroy', $page->id) }}
+	
+	@include('buttons.edit', ['resource' => 'pages', 'item' => $page] )
+	@include('buttons.destroy', ['resource' => 'pages', 'item' => $page] )
+
 @endsection				
