@@ -29,6 +29,9 @@
 			@if( Authority::can('manage', 'lans') )
 				<li><a href="{{ route('lans.create') }}">{{ Icon::hdd() }} Create LAN</a></li>
 			@endif
+			@if( Authority::can('manage', 'shouts') )
+				<li><a href="{{ route('shouts.index') }}">{{ Icon::bullhorn() }} Moderate Shouts</a></li>
+			@endif
 		</ul>
 	</li>
 @endif
