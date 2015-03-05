@@ -13,7 +13,7 @@ class RolesTableSeeder extends Seeder {
 		$roles = array(
 			array('name' => 'Super Admin'),
 			array('name' => 'Admin'),
-			array('name' => 'Info Admin'),
+			array('name' => 'Pages Admin'),
 			array('name' => 'Shouts Admin'),
 			array('name' => 'Events Admin'),
 			array('name' => 'Playlists Admin'),
