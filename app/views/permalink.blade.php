@@ -1,0 +1,1 @@
+<a href="{{ $url }}" class="permalink"> {{ Icon::link() }}</a>
