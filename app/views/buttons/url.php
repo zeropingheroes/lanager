@@ -1,5 +1,12 @@
 <?php
 
+// Generic default options
+$text = ( ( ! isset($text) ) ? '' : $text );
+$icon = ( ( ! isset($icon) ) ? ''	  : $icon );
+$size = ( ( ! isset($size) ) ? 'normal' : $size );
+$type = ( ( ! isset($type) ) ? 'normal' : $type );
+$hover = ( ( ! isset($hover) ) ? '' : $hover );
+
 // Create the basic button
 $button = Button::{$type}($text);
 
