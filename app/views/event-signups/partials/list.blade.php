@@ -19,14 +19,29 @@
 					</span>
 				</td>
 				<td class="text-right">
-					@if( Authority::can('manage', 'events.signups') OR (Auth::check() AND $eventSignup->user->id == Auth::user()->id) )
+					@if( Authority::can('manage', 'events.signups') )
 						@include(
 							'buttons.destroy',
 							[
 								'resource' => 'events.signups',
 								'item' => $eventSignup,
-								'icon' => 'trash',
-								'text' => 'Delete Signup',
+								'icon' => 'remove',
+								'text' => 'Remove Signup',
+								'parameters' =>
+								[
+									'event_id' => $eventSignup->event_id,
+									'event_signup_id' => $eventSignup->id,
+								],
+							])
+					@elseif( Auth::check() AND $eventSignup->user->id == Auth::user()->id )
+						@include(
+							'buttons.destroy',
+							[
+								'resource' => 'events.signups',
+								'item' => $eventSignup,
+								'icon' => 'remove',
+								'text' => 'Remove Signup',
+								'confirmation' => 'Are you sure you want to remove your signup to this event?',
 								'parameters' =>
 								[
 									'event_id' => $eventSignup->event_id,

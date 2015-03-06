@@ -28,7 +28,8 @@ class EventPresenter extends Presenter {
 			case 'future':	$status = 'Upcoming';
 				break;
 		}
-		return View::make('events.partials.status')->withStatus($status)->withClass($eventTimespanTense);
+		$hover = $this->timespanRelativeToNow();
+		return View::make('events.partials.status')->withStatus($status)->withClass($eventTimespanTense)->withHover($hover);
 	}
 
 	public function signupTimespanStatusLabel()
@@ -37,14 +38,15 @@ class EventPresenter extends Presenter {
 
 		switch( $signupTimespanTense )
 		{
-			case 'past':	$status = 'Closed';
+			case 'past':	$status = 'Signups Closed';
 				break;
-			case 'present':	$status = 'Open';
+			case 'present':	$status = 'Signups Open';
 				break;
-			case 'future':	$status = 'Not Yet Open';
+			case 'future':	$status = 'Signups Not Yet Open';
 				break;
 		}
-		return View::make('events.partials.status')->withStatus($status)->withClass($signupTimespanTense);
+		$hover = $this->signupTimespanRelativeToNow();
+		return View::make('events.partials.status')->withStatus($status)->withClass($signupTimespanTense)->withHover($hover);
 	}
 
 	public function signupTimespanRelativeToNow()

@@ -1,26 +1,22 @@
 @extends('layouts.default')
 @section('content')
-	@include('layouts.default.title')
+
+	@include('events.partials.header')
 	@include('layouts.default.alerts')
-	@if( isset( $event->type->name ) )
-		<h4>{{{ $event->type->name }}}</h4>
-	@endif
-	<div class="row">
-		<div class="col-md-6">
-			<h4>{{ $event->present()->timespan }}</h4>
-		</div>
-		<div class="col-md-6">
-			<h4 class="pull-right">
-				{{ $event->present()->timespanRelativeToNow }} {{ $event->present()->timespanStatusLabel }}
-			</h4>
-		</div>
-	</div>
-	<hr>
+
+	@include('events.partials.time-info')
+
 	{{ Purifier::clean(Markdown::string($event->description), 'markdown') }}
-	<br>
-	{{ link_to_route('events.signups.index','Signups', $event->id) }}
-	<br>
-	{{ HTML::button('events.edit', $event->id) }}
-	{{ HTML::button('events.destroy', $event->id) }}
-	<br>
+
+	<hr>
+
+	@if( $event->allowsSignups() )
+		@include('event-signups.partials.title')
+		@include('event-signups.partials.list', ['eventSignups' => $event->eventSignups] )
+		@include('event-signups.partials.signup-button')
+		<hr>
+	@endif
+
+	@include('buttons.edit', ['resource' => 'events', 'item' => $event])
+	@include('buttons.destroy', ['resource' => 'events', 'item' => $event])
 @endsection

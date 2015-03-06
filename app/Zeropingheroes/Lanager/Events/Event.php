@@ -34,4 +34,9 @@ class Event extends BaseModel {
 		return ( time() < strtotime($this->signup_closes) && time() > strtotime($this->signup_opens) );
 	}
 
+	public function allowsSignups()
+	{
+		return ( ! empty( $this->signup_opens ) );
+	}
+
 }

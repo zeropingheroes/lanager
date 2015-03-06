@@ -1,1 +1,1 @@
-<span class="label label-status-{{ $class }}">{{ $status }}</span>
+<span class="label label-status-{{ $class }}" title="{{ $hover }}">{{ $status }}</span>
