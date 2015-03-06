@@ -17,6 +17,7 @@ return array(
 	'event'					=> 'event',
 	'event-type'			=> 'event type',
 	'event-signup'			=> 'event signup',
+	'events.signup'			=> 'event signup',
 	'page'					=> 'page',
 	'playlist-item'			=> 'playlist item',
 	'playlist-item-vote'	=> 'skip vote',

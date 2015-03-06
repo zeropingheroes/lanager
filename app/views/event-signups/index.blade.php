@@ -1,7 +1,24 @@
 @extends('layouts.default')
 @section('content')
-	@include('layouts.default.title')
+	
+	<h1>Signups: {{ link_to_route('events.show', $event->name, $event->id) }}</h1>
+
 	@include('layouts.default.alerts')
+
 	@include('event-signups.partials.list')
-	@include('event-signups.partials.signup-button', ['event' => $event])
+
+
+	@if( ! $event->hasSignupFromUser(Auth::user()->id) )
+		@include(
+			'buttons.store',
+			[
+				'resource' => 'events.signups',
+				'text' => 'Sign up',
+				'size' => 'normal',
+				'icon' => 'plus',
+				'hover' => 'Sign up to this event',
+				'parameters' => ['event_id' => $event->id],
+			])
+	@endif
+
 @endsection
