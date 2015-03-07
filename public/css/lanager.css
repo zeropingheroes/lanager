@@ -121,6 +121,7 @@ table.users-index tr td {
 div.profile-header div.profile-avatar {
 	height: 190px;
 	float: left;
+	margin-right: 10px;
 }
 
 div.profile-header h1 {
@@ -135,8 +136,17 @@ div.profile-header h1 {
 	}
 }
 
+div.profile-actions {
+	text-align: center;
+	width: 190px;
+}
+
 div.profile-nav {
 	margin-top: 5px;
+}
+
+div.profile-content {
+	padding-top: 15px;
 }
 
 /* -------------------------------------------------------------------
