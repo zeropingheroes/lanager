@@ -21,10 +21,7 @@
 					<td>{{ link_to_route('achievements.show', $achievement->name, $achievement->id) }}</td>
 					<td>{{ $achievement->description }}</td>
 					<td>
-						@if( $achievement->userAchievements->count() > 0 )
-							{{ $achievement->userAchievements->count() }}
-							{{ str_plural('user', $achievement->userAchievements->count() ) }}
-						@endif
+						@include('plural', ['singular' => 'user', 'collection' => $achievement->userAchievements ])
 					</td>
 					@if( Authority::can('manage', 'achievements') )
 						<td class="text-center">
