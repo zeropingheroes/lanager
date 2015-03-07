@@ -2,9 +2,14 @@
 {{ Form::text('name', NULL, ['placeholder' => 'The name of the event', 'maxlength' => 255] ) }}
 
 {{ Form::label('description', 'Description') }}
-{{ Form::textarea('description',NULL, ['placeholder' => 'The event description, markdown formatting enabled', 'rows' => 10] ) }}
+{{ Form::textarea('description',NULL,
+	[
+		'placeholder' => 'The event description, markdown formatting enabled. Tip: use relative links, e.g. [Install Guide](/pages/3) to easily link to other pages in the LANager.',
+		'rows' => 10
+	])
+}}
 
-{{ Form::help('<a href="https://daringfireball.net/projects/markdown/basics" target="_blank">Markdown formatting cheatsheet</a>') }}
+{{ Form::help( link_to('https://daringfireball.net/projects/markdown/basics', 'Markdown formatting cheatsheet' ) ) }}
 
 <div class="row">
 	<div class="col-md-6">
