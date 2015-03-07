@@ -8,16 +8,31 @@
 			<thead>
 				<tr>
 					<th>Name</th>
-					<th>Start</th>
-					<th>End</th>
+					<th>Dates</th>
+					<th>Times</th>
+					<th>Duration</th>
+					<th>Achievements</th>
+					@if( Authority::can('manage', 'lans') )
+						<th class="text-center">{{ Icon::cog() }}</th>
+					@endif
 				</tr>
 			</thead>
 			<tbody>
 			@foreach( $lans as $lan )
 				<tr>
 					<td>{{ link_to_route('lans.show', $lan->name, $lan->id) }}</td>
-					<td>{{ $lan->start }}</td>
-					<td>{{ $lan->end }}</td>
+					<td>{{ $lan->present()->monthYear }}</td>
+					<td>{{ $lan->present()->timespan }}</td>
+					<td>{{ $lan->present()->duration }}</td>
+					<td>
+						@include('plural', ['singular' => 'award', 'collection' => $lan->userAchievements()])
+					</td>
+					@if( Authority::can('manage', 'lans') )
+						<td class="text-center">
+							@include('buttons.edit', ['resource' => 'lans', 'item' => $lan, 'size' => 'extraSmall'])
+							@include('buttons.destroy', ['resource' => 'lans', 'item' => $lan, 'size' => 'extraSmall'])
+						</td>
+					@endif
 				</tr>
 			@endforeach
 			</tbody>
@@ -26,5 +41,6 @@
 		No LANs found!
 	@endif
 
-	{{ HTML::button('lans.create') }}
+	@include('buttons.create', ['resource' => 'lans'])
+
 @endsection

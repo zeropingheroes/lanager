@@ -1,6 +1,7 @@
 <?php namespace Zeropingheroes\Lanager\Lans;
 
 use Zeropingheroes\Lanager\BaseModel;
+use Laracasts\Presenter\PresentableTrait;
 
 class Lan extends BaseModel {
 
@@ -8,7 +9,11 @@ class Lan extends BaseModel {
 
 	public $validator = 'Zeropingheroes\Lanager\Lans\LanValidator';
 
-	public function userAchievement()
+	use PresentableTrait;
+
+	protected $presenter = 'Zeropingheroes\Lanager\Lans\LanPresenter';
+
+	public function userAchievements()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\UserAchievements\UserAchievement');
 	}
