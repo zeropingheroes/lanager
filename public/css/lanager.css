@@ -144,6 +144,10 @@ span.shout-pin {
 	font-size: 1.5em
 }
 
+div.shout-pinned.bg-info {
+	background: rgba(107,175,217, 0.3);
+}
+
 div.shout-management {
 	line-height: 68px;
 }

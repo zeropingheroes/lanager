@@ -1,14 +1,13 @@
 @forelse($shouts as $shout)
-	<div class="media">
+	@if ($shout->pinned)
+		<div class="media bg-info shout-pinned" title="This shout has been pinned">
+	@else
+		<div class="media">
+	@endif
 		<a class="pull-left" href="{{ URL::route('users.show', $shout->user->id) }}">
 			@include('users.partials.avatar', ['user' => $shout->user, 'size' => 'medium', 'classes' => 'media-object'] )
 		</a>
 		@include('shouts.partials.management')
-		@if ($shout->pinned)
-			<div class="pull-right">
-				<span class="glyphicon glyphicon-pushpin shout-pin " title="This shout has been pinned"></span>
-			</div>
-		@endif
 		<div class="media-body shout-body">
 			<h4 class="media-heading">
 				{{ link_to_route('users.show', $shout->user->username, $shout->user->id) }}
