@@ -2,7 +2,7 @@
 
 use Zeropingheroes\Lanager\Events\EventService,
 	Zeropingheroes\Lanager\EventTypes\EventTypeService;
-use View;
+use View, Notification, Redirect;
 
 class EventsController extends BaseController {
 
@@ -72,6 +72,12 @@ class EventsController extends BaseController {
 					->with('title','Edit Event')
 					->with('eventTypes',$eventTypes)
 					->with('event',$event);
+	}
+
+	public function destroySucceeded( BaseResourceService $service )
+	{
+		Notification::success( $service->messages() );
+		return Redirect::route( $this->route . '.index', [$service->resourceIds(), 'tab' => 'list'] );
 	}
 
 }
