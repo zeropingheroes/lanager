@@ -28,7 +28,7 @@
 					@include('plural', ['singular' => 'signup', 'collection' => $event->eventSignups ])
 				</td>
 				<td>
-					{{ (isset($event->type->name) ? $event->type->name : '') }}
+					{{ $event->type->present()->colouredType }}
 				</td>
 			</tr>
 		@endforeach
