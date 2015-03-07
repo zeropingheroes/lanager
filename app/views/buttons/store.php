@@ -10,10 +10,10 @@ if( Authority::can('store', $resource) )
 
 	// Set defaults for any options not specified
 	$text  = ( ! isset($text)  ) ? '' : $text;
-	$icon  = ( ! isset($icon)  ) ? 'trash'  : $icon;
+	$icon  = ( ! isset($icon)  ) ? 'floppyDisk'  : $icon;
 	$size  = ( ! isset($size)  ) ? 'small' : $size;
 	$type  = ( ! isset($type)  ) ? 'normal' : $type;
-	$hover = ( ! isset($hover) ) ? 'Delete this '.$resourceName : $hover;
+	$hover = ( ! isset($hover) ) ? '' : $hover;
 
 	$class = ( ! isset($class) ) ? 'inline' : $class;
 
