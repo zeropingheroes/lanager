@@ -14,9 +14,11 @@ class ShoutService extends FlatResourceService {
 
 	public function filterInput($input)
 	{
-		$input['user_id'] = Auth::user()->id;
-		
-		if( Authority::cannot('manage', 'shouts') ) unset($input['pinned']);
+		if( Authority::cannot('manage', 'shouts') )
+		{
+			$input['user_id'] = Auth::user()->id;
+			unset($input['pinned']);
+		}
 		
 		return $input;
 	}
