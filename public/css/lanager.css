@@ -4,6 +4,7 @@
 */
 body {
 	background-image: url('../img/bg-html.jpg');
+	padding-top: 40px;
 }
 
 div.fullscreen {

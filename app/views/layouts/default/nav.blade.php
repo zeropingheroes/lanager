@@ -61,7 +61,7 @@ $navbar =
 	],
 ];
 
-echo Navbar::withBrand('<img src="' . asset('img/logo.png') .'" width="82" height="29" alt="LANager Logo">')
+echo Navbar::create(Navbar::NAVBAR_TOP)->withBrand('<img src="' . asset('img/logo.png') .'" width="82" height="29" alt="LANager Logo">')
 			->withContent(
 				Navigation::links($navbar)
 			)
