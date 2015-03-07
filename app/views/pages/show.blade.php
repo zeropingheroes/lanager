@@ -7,7 +7,9 @@
 
 	@if(!empty($page->children))
 		<ul>
-			@include('pages.partials.list', ['pages' => $page->children])
+			@foreach($page->children as $page)
+				<li>{{ link_to_route('pages.show',$page->title, $page->id) }}</li>
+			@endforeach
 		</ul>
 	@endif
 	
