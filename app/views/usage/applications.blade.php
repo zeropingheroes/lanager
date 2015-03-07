@@ -2,6 +2,7 @@
 @section('content')
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
+
 	@if(count($usage))
 		<table class="table states-current-usage">
 		<?php
@@ -9,7 +10,7 @@
 			$totalUsers = 0;
 			foreach ( $usage as $item )
 			{
-				$users = array();
+				$users = [];
 				foreach ( $item['users'] as $user )
 				{
 					$users[] = link_to_route('users.show', $user['username'], $user['id']);
@@ -32,6 +33,8 @@
 	@else
 		<p>No usage to show!</p>
 	@endif
-Last updated {{ $lastUpdated->diffForHumans() }}
-	@include('usage.history-links')
+
+	@include('usage.partials.last-updated')
+	@include('usage.partials.history-links')
+
 @endsection

@@ -24,4 +24,4 @@ foreach($timestamps as $timestamp)
 	$i++;
 }
 
-echo DropdownButton::normal('View History')->withContents($dropdownItems);
+echo DropdownButton::normal( Icon::time() . ' View History')->withContents($dropdownItems);
