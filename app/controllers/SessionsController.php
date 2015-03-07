@@ -2,7 +2,7 @@
 
 use	Zeropingheroes\Lanager\Users\User;
 use LightOpenID;
-use Auth, Input, Request, Redirect, View, UserImport, Notification;
+use Auth, Input, Request, Redirect, View, UserImport, Notification, Cache;
 
 class SessionsController extends BaseController {
 
@@ -33,8 +33,19 @@ class SessionsController extends BaseController {
 
 		if ( Input::has('openid_identity') ) return $this->store(); // If request is an OpenID login, store the session
 
+		// Steam OpenID Login URL - cached for 1 day due to request time
+		$steamAuthUrl = Cache::remember('steamAuthUrl', 60*24, function()
+		{
+			$openId = new LightOpenID(Request::server('HTTP_HOST'));
+			
+			$openId->identity = 'http://steamcommunity.com/openid';
+			$openId->returnUrl = URL::route('sessions.create');
+			return $openId->authUrl();
+		});
+
 		return View::make('sessions.create')
-						->with('title','Log In');
+						->with('title','Log In')
+						->with('steamAuthUrl', $steamAuthUrl);
 	}
 
 	/**
