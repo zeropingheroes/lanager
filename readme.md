@@ -42,7 +42,7 @@ more enjoyable for attendees and organisers alike.
 
 ## Installation on [Ubuntu Server 14.04](http://www.ubuntu.com/download/server)
 
-*Advanced users will be able to deploy LANager to Windows and OS X, though this is not recommended.*
+*Advanced users will be able to deploy LANager to Windows and OS X, though LANager has not been fully tested on these OSes.*
 
 1. Install the project's packaged dependencies:
 
@@ -84,7 +84,7 @@ more enjoyable for attendees and organisers alike.
 	
 		`DocumentRoot /var/www/lanager/public`
 
-	3. Add the following lines to allow .htaccess files to set options in this directory (for [pretty URLs](http://laravel.com/docs/4.2/installation#pretty-urls):
+	3. Add the following lines to allow .htaccess files to set options in this directory (for [pretty URLs](http://laravel.com/docs/4.2/installation#pretty-urls)):
 	
 		```
 		<Directory /var/www/lanager/public>
@@ -177,7 +177,7 @@ To update to the latest version,  directory simply run the following commands:
 
 	`sudo composer update`
 
-7. Manually set your config options from the backed up files (see install steps 10 and 11)
+7. Manually set your config options from the backed up files (see steps 10 and 11 from the Install guide)
 
 8. Re-allow full read and write access on the app's storage directory:
 
