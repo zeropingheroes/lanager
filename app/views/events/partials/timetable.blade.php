@@ -16,7 +16,6 @@
 						color: 	value.type.data[0].colour,
 						url: 	value.links[0].uri
 					};
-					console.log(event);
 					fullCalendarEvents.push(event);
 				});
 				// add events to calendar
