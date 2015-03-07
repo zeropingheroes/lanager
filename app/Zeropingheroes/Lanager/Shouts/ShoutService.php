@@ -25,6 +25,8 @@ class ShoutService extends FlatResourceService {
 
 	public function store($input)
 	{
+		if( ! array_key_exists('user_id', $input) ) $input['user_id'] = Auth::user()->id;
+		
 		$input = $this->filterInput($input);
 		return parent::store($input);
 	}
