@@ -2,6 +2,7 @@
 @section('content')
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
+
 	<div class="timetable-nav">
 		{{
 			Navigation::tabs([
@@ -18,11 +19,12 @@
 			])
 		}}
 	</div>
+
 	@if( Input::get('tab') == 'timetable' OR empty(Input::get('tab')) )
 		@include('events.partials.timetable' )
-		{{ HTML::button('events.create') }}
 	@elseif( Input::get('tab') == 'list' )
 		@include('events.partials.list', ['events' => $events] )
-		{{ HTML::button('events.create') }}
 	@endif
+	@include('buttons.create', ['resource' => 'events'])
+
 @endsection

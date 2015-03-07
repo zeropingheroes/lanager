@@ -36,7 +36,7 @@ class Event extends BaseModel {
 
 	public function allowsSignups()
 	{
-		return ( ! empty( $this->signup_opens ) );
+		return ( ! is_null( $this->signup_opens ) );
 	}
 
 }
