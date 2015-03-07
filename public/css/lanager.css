@@ -100,10 +100,24 @@ footer {
 	height: 50px;
 }
 
+
+/* -------------------------------------------------------------------
+   USER - INDEX
+   -------------------------------------------------------------------
+*/
+
+table.users-index tr,
+table.users-index tr td {
+	vertical-align: middle;
+}
+
 /* -------------------------------------------------------------------
    USER - PROFILE
    -------------------------------------------------------------------
 */
+div.profile-header {
+	padding-top: 25px;
+}
 
 div.profile-header div.profile-avatar {
 	height: 190px;

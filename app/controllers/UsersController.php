@@ -21,6 +21,7 @@ class UsersController extends BaseController {
 	public function index()
 	{
 		$options['orderBy'] = ['username'];
+		$options['visible'] = true;
 		return View::make('users.index')
 					->with('title','Users')
 					->with('users', $this->service->all($options));

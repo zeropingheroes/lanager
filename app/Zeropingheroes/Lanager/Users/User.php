@@ -2,6 +2,7 @@
 
 use Zeropingheroes\Lanager\BaseModel;
 use Illuminate\Auth\UserInterface;
+use Laracasts\Presenter\PresentableTrait;
 
 class User extends BaseModel implements UserInterface {
 
@@ -10,6 +11,10 @@ class User extends BaseModel implements UserInterface {
 	protected $hidden = ['remember_token', 'api_key'];
 
 	public $validator = 'Zeropingheroes\Lanager\Users\UserValidator';
+
+	use PresentableTrait;
+
+	protected $presenter = 'Zeropingheroes\Lanager\Users\UserPresenter';
 
 	public function shouts()
 	{
