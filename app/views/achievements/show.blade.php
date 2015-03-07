@@ -9,8 +9,12 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Achievers</th>
-					<th>Awarded at</th>
+					<th>
+						Achievers
+					</th>
+					<th colspan="2">
+						Awarded at
+					</th>
 					@if( Authority::can('manage', 'user-achievements') )
 						<th class="text-center">{{ Icon::cog() }}</th>
 					@endif
@@ -19,8 +23,15 @@
 		@foreach($achievement->userAchievements as $userAchievement)
 			<tbody>
 				<tr>
-					<td>@include('users.partials.avatar-username', ['user' => $userAchievement->user])</td>
-					<td>{{ $userAchievement->lan->name }}</td>
+					<td>
+						@include('users.partials.avatar-username', ['user' => $userAchievement->user])
+					</td>
+					<td>
+						{{ $userAchievement->lan->name }}
+					</td>
+					<td>
+						{{ (new ExpressiveDate($userAchievement->created_at))->format('D g:ia') }}
+					</td>
 					@if( Authority::can('manage', 'user-achievements') )
 						<td class="text-center">
 							@include('buttons.edit', ['resource' => 'user-achievements', 'item' => $userAchievement, 'size' => 'extraSmall'])

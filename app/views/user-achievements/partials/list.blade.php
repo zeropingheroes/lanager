@@ -4,10 +4,9 @@
 			<tr>
 				<th>User</th>
 				<th>Achievement</th>
-				<th>LAN</th>
-				<th>Date</th>
-				@if( Authority::can('manage', 'user-achievements'))
-					<th>Controls</th>
+				<th colspan="2">Awarded At</th>
+				@if( Authority::can('manage', 'user-achievements') )
+					<th class="text-center">{{ Icon::cog() }}</th>
 				@endif
 			</tr>
 		</thead>
@@ -18,18 +17,18 @@
 					@include('users.partials.avatar-username', ['user' => $userAchievement->user])
 				</td>
 				<td>
-					<abbr title="{{ $userAchievement->achievement->description }}">{{ $userAchievement->achievement->name }}</abbr>
+					{{ link_to_route('achievements.show', $userAchievement->achievement->name, $userAchievement->achievement->id, ['title' => $userAchievement->achievement->description] ) }}
 				</td>
 				<td>
 					{{ $userAchievement->lan->name}}
 				</td>
 				<td>
-					{{ date('M Y', strtotime($userAchievement->lan->start) ) }}
+					{{ (new ExpressiveDate($userAchievement->created_at))->format('D g:ia') }}
 				</td>
 				@if( Authority::can('manage', 'user-achievements'))
-					<td>
-						{{ HTML::button('user-achievements.edit',$userAchievement->id, ['value' => '']) }}
-						{{ HTML::button('user-achievements.destroy',$userAchievement->id, ['value' => '']) }}
+					<td class="text-center">
+						@include('buttons.edit', ['resource' => 'user-achievements', 'item' => $userAchievement, 'size' => 'extraSmall'])
+						@include('buttons.destroy', ['resource' => 'user-achievements', 'item' => $userAchievement, 'size' => 'extraSmall'])
 					</td>
 				@endif
 			</tr>
