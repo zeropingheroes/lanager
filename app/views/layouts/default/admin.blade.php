@@ -12,7 +12,10 @@
 			@endif
 			@if( Authority::can('manage', 'events') )
 				<li><a href="{{ route('events.create') }}">{{ Icon::calendar() }} Create Event</a></li>
-				<li><a href="{{ route('event-types.create') }}">{{ Icon::calendar() }} Create Event Type</a></li>
+				<li><a href="{{ route('events.index', ['tab' => 'list']) }}">{{ Icon::calendar() }} Manage Events</a></li>
+			@endif
+			@if( Authority::can('manage', 'event-types') )
+				<li><a href="{{ route('event-types.index') }}">{{ Icon::calendar() }} Manage Event Types</a></li>
 			@endif
 			@if( Authority::can('manage', 'playlists') )
 				<li><a href="{{ route('playlists.create') }}">{{ Icon::music() }} Create Playlist</a></li>
