@@ -308,7 +308,7 @@ class Install extends BaseCommand {
 			'events',
 			'event_signups',
 			'event_types',
-			'info_pages',
+			'pages',
 			'lans',
 			'permissions',
 			'playlists',
