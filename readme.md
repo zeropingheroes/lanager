@@ -31,98 +31,163 @@ more enjoyable for attendees and organisers alike.
 \* *Planned but not yet implemented*
 
 ## Requirements
-* Windows / Linux / OS X
-* Apache / nginx Web server
-* PHP 5.5 (with cURL & MCrypt)
-* MySQL
-* [Composer](https://getcomposer.org/)
-* [Steam API Key](http://steamcommunity.com/dev/apikey)
+* Web server - *Apache 2.4.x recommended*
+* Database server - *MySQL 5.5.x recommended*
+* Git 1.9.x
+* PHP 5.5.x
+* Composer 1.x
+* A [Steam Account](https://store.steampowered.com/join/)
 * An Internet connection
-* Shell access to the server - **web hosting alone will not work!** *
+* Shell access to the server - **basic web hosting alone will not work!** 
 
-WAMP, LAMP and MAMP are a quick way to satisfy most of the above, just check that the version you download includes PHP 5.4+
+## Installation on [Ubuntu Server 14.04](http://www.ubuntu.com/download/server)
 
-\* *Steam user states are updated using a batch script so you must be able to run commands and schedule tasks / cron jobs* 
+*Advanced users will be able to deploy LANager to Windows and OS X, though this is not recommended.*
 
-## Installation
+1. Install the project's packaged dependencies:
 
-Do not download the source in a zip file directly from GitHub - if you do updating will be difficult!
+	`sudo apt-get install git php5-common php5-cli php5-mcrypt php5-curl php5-mysql libapache2-mod-php5 mysql-server apache2`
 
-1. Download and install [Composer](http://getcomposer.org/download/) and [Git](http://git-scm.com/downloads)
+2. Enable Apache and PHP modules:
 
-2. In a terminal in the directory you wish to install the project into, run:
+	`sudo a2enmod rewrite`
 
-	`git clone https://github.com/zeropingheroes/lanager.git`
+	`sudo php5enmod mcrypt curl`
 
-3. Install the project's dependencies by running:
+3. Install Composer:
 
-	`composer update`
+	`sudo curl -sS https://getcomposer.org/installer | php`
 
-4. Configure your web server to use `lanager/public/` as the root web directory
+	`sudo mv composer.phar /usr/bin/composer`
 
-5. Configure your web server for "[pretty URLs](http://laravel.com/docs/4.2/installation#pretty-urls)" e.g. `lanager/user/1` etc
-	1. On Apache [enable the URL rewriting module](http://stackoverflow.com/questions/869092/how-to-enable-mod-rewrite-for-apache-2-2) `mod_rewrite`:
-		1. Set [`AllowOverride All`](http://stackoverflow.com/questions/18740419/how-to-set-allowoverride-all) on your `lanager/app/public` directory
-		2. Run `a2enmod rewrite` from the command line
-		3. Restart Apache
-       
-	2. On nginx use the following in your site config and restart nginx:
+4. Clone the project:
 
-        `location / { try_files $uri $uri/ /index.php?$query_string; }`
+	`sudo git clone https://github.com/zeropingheroes/lanager.git`
 
-6. Change the permissions for the `lanager/app/storage/` directory to be read & write for your web server:
+5. Move the project to Apache's web root directory:
 
-	`chmod -R 777 lanager/app/storage` (*nix)
+	`sudo mv lanager /var/www/lanager`
+
+6. Install the project's dependencies:
+
+	`cd /var/www/lanager`
 	
-7. Create a MySQL user and database, both named `lanager` and grant the required privileges:
+	`sudo composer update`
+
+7. Configure Apache to use the LANager's public directory as the web root:
+
+	1. Edit the default site configuration:
+
+		`sudo nano /etc/apache2/sites-enabled/000-default.conf`
+
+	2. Change the DocumentRoot line to:
+	
+		`DocumentRoot /var/www/lanager/public`
+
+	3. Add the following lines to allow .htaccess files to set options in this directory (for [pretty URLs](http://laravel.com/docs/4.2/installation#pretty-urls):
+	
+		```
+		<Directory /var/www/lanager/public>
+			AllowOverride All
+		</Directory>
+		```
+
+8. Allow full read and write access on the app's storage directory:
+
+	`sudo chmod -R 777 /var/www/lanager/app/storage`
+	
+9. Create a MySQL user and database and grant the required privileges:
     
-	1. In a terminal run: `mysql -u root -p`
-	2. Type your MySQL root user password
-	3. Once you are at the mysql> prompt, run each of the following in turn:
-	4. `CREATE DATABASE lanager;`
-	5. `CREATE USER 'lanager'@'localhost' IDENTIFIED BY 'type a secure password here';`
-	6. `GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'localhost';`
-	7. `FLUSH PRIVILEGES;`
+	1. Run `mysql -u root -p`
+	2. Type your MySQL root user password you chose during MySQL package installation
+	3. Once you are at the `mysql>` prompt, run each of the following in turn:
+		1. `CREATE DATABASE lanager;`
+		2. `CREATE USER 'lanager'@'localhost' IDENTIFIED BY 'type a password here';`
+		3. `GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'localhost';`
+		4. `FLUSH PRIVILEGES;`
+		5. `quit;`
 
-8. In `lanager/app/config/database.php` set the database password you chose above
+10. Set the database password in the database config file:
 
-9. In a terminal in the `lanager/` directory, run:
+	1. `sudo nano /var/www/lanager/app/config/database.php`
+	2. Change the `password` line to your chosen password in the previous step
 
-	`php artisan lanager:install`
+11. Set your [Steam Web API key](http://steamcommunity.com/dev/apikey) in the steam config file:
 
-10. Schedule the artisan command `steam:import-user-states` to run at 1 minute intervals
+	`sudo nano /var/www/lanager/app/config/lanager/steam.php`
 
-	* On Windows
-		* Add a task for `lanager/SteamImportUserStates.bat` in [Task Scheduler](http://support.microsoft.com/kb/226795)
+12. Run the LANager installation command:
 
-	* On *nix
-		1. Make `lanager/SteamImportUserStates.sh` executable:
-			`sudo chmod +x SteamImportUserStates.sh`
-		2. From a terminal run `crontab -e`
-		3. Add the following to the end of the file:
-		`*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1`
+	`cd /var/www/lanager`
+	
+	`sudo php artisan lanager:install`
+
+13. Schedule the LANager Steam state import command to run at 1 minute intervals:
+
+	1. Make the script file executable
+		
+		`sudo chmod +x /var/www/lanager/SteamImportUserStates.sh`
+	
+	2. Add the script as a cron job
+		
+		1. Run `crontab -e`
+		2. Add the following to the end of the file:
+		`*/1 * * * * /var/www/lanager/SteamImportUserStates.sh >> /dev/null 2>&1`
 
 ## Usage
 
-Once you have completed the installation, you can sign in via Steam. The first user to sign in will be granted the SuperAdmin role, allowing you to assign roles to other users.
+Once you have completed the installation, you can sign in via Steam. The first user to sign in will be granted the "Super Admin" role, allowing you to assign roles to other users who sign in.
 
-Look through the configuration files inside `lanager/app/config/lanager/` which will allow you to tailor your installation to your event.  
+Look through the configuration files inside `/var/www/lanager/app/config/lanager/` which will allow you to tailor your installation to your event.  
 
 *This section will be expanded upon as features are solidified.*
 
 ## Updating
 
-To update to the latest version, back up your config files and from the `lanager/` directory simply run the following commands:
+To update to the latest version,  directory simply run the following commands:
 
-1. `git reset --hard`
-	* This will reset all files to their defaults!
-2. `git pull origin`
-2. `composer update`
-3. `php artisan lanager:install`
-	* When asked, choose to continue with the installation
-	* Emptying the database is recommended but optional
+1. Back up your config files:
 
-Once the above has run, refer to your backed up config files and manually replicate the settings in the new config files.
+	`sudo cp /var/www/lanager/app/config ~/lanager-config-backup`
+
+2. Back up your database data:
+
+	`mysqldump lanager -u lanager -p --result-file=lanager.sql`
+
+3. Move to the root of the project directory:
+
+	`cd /var/www/lanager`
+
+4. Reset all project files to their defaults:
+
+	`sudo git reset --hard`
+
+5. Empty the database data and structure:
+
+	1. `mysql -u root -p`
+	2. `DROP DATABASE lanager;`
+	3. `CREATE DATABASE lanager;`
+	4. `quit;`
+
+5. Get the latest version from the project repository:
+	
+	`sudo git pull origin`
+
+6. Install / update dependencies:
+
+	`sudo composer update`
+
+7. Manually set your config options from the backed up files (see install steps 10 and 11)
+
+8. Re-allow full read and write access on the app's storage directory:
+
+	`sudo chmod -R 777 /var/www/lanager/app/storage`
+
+8. Re-run the installation command:
+	
+	`sudo php artisan lanager:install`
+
+Be warned that config file and database structure may have changed between versions so pay attention when copying data from backups from old versions.
 
 
 ## Feedback & Contributions
