@@ -7,6 +7,9 @@
 				<th>Time</th>
 				<th colspan="2">Signups</th>
 				<th>Type</th>
+				@if( Authority::can('manage', 'events') )
+					<th class="text-center">{{ Icon::cog() }}</th>
+				@endif
 			</tr>
 		</thead>
 		<tbody>
@@ -30,6 +33,12 @@
 				<td>
 					{{ $event->type->present()->colouredType }}
 				</td>
+				@if( Authority::can('manage', 'events') )
+					<td class="text-center">
+						@include('buttons.edit', ['resource' => 'events', 'item' => $event, 'size' => 'extraSmall'])
+						@include('buttons.destroy', ['resource' => 'events', 'item' => $event, 'size' => 'extraSmall'])
+					</td>
+				@endif
 			</tr>
 		@endforeach
 		</tbody>
