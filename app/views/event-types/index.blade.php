@@ -2,8 +2,8 @@
 @section('content')
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
-	<ul>
-		@include('event-types.partials.list')
-	</ul>
-	{{ HTML::button('event-types.create') }}
+
+	@include('event-types.partials.list')
+
+	@include('buttons.create', ['resource' => 'event-types'])
 @endsection

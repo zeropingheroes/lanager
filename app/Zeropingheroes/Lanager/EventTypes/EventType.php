@@ -1,6 +1,7 @@
 <?php namespace Zeropingheroes\Lanager\EventTypes;
 
 use Zeropingheroes\Lanager\BaseModel;
+use Laracasts\Presenter\PresentableTrait;
 
 class EventType extends BaseModel {
 
@@ -10,7 +11,11 @@ class EventType extends BaseModel {
 
 	public $validator = 'Zeropingheroes\Lanager\EventTypes\EventTypeValidator';
 
-	public function event()
+	use PresentableTrait;
+
+	protected $presenter = 'Zeropingheroes\Lanager\EventTypes\EventTypePresenter';
+
+	public function events()
 	{
 		return $this->hasMany('Zeropingheroes\Lanager\Events\Event');
 	}
