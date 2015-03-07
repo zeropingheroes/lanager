@@ -4,7 +4,10 @@
 */
 body {
 	background-image: url('../img/bg-html.jpg');
-	padding-top: 40px;
+}
+
+div.container.content {
+	padding-top: 60px;
 }
 
 div.fullscreen {
@@ -115,10 +118,6 @@ table.users-index tr td {
    USER - PROFILE
    -------------------------------------------------------------------
 */
-div.profile-header {
-	padding-top: 25px;
-}
-
 div.profile-header div.profile-avatar {
 	height: 190px;
 	float: left;
