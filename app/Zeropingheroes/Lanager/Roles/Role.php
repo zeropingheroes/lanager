@@ -13,4 +13,9 @@ class Role extends BaseModel {
 		return $this->belongsToMany('Zeropingheroes\Lanager\Users\User', 'user_roles');
 	}
 
+	public function userRoles()
+	{
+		return $this->hasMany('Zeropingheroes\Lanager\UserRoles\UserRole');
+	}
+
 }

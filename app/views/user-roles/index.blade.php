@@ -2,6 +2,9 @@
 @section('content')
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
+
 	@include('user-roles.partials.list')
-	{{ HTML::button('user-roles.create') }}
+
+	@include('buttons.create', ['resource' => 'user-roles'])
+
 @endsection

@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Roles\RoleService;
-use View;
+use View, Notification, Redirect;
 
 class RolesController extends BaseController {
 
@@ -63,6 +63,18 @@ class RolesController extends BaseController {
 		return View::make('roles.edit')
 					->with('title','Edit Role')
 					->with('role',$this->service->single($id));
+	}
+
+	public function storeSucceeded( BaseResourceService $service )
+	{
+		Notification::success( $service->messages() );
+		return Redirect::route( $this->route . '.index' );
+	}
+
+	public function updateSucceeded( BaseResourceService $service )
+	{
+		Notification::success( $service->messages() );
+		return Redirect::route( $this->route . '.index' );
 	}
 
 }
