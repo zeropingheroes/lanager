@@ -19,20 +19,25 @@
 			</thead>
 			<tbody>
 			@foreach( $users as $user )
-				<?php $latestState = $user->states()->latest()->first(); ?>
 				<tr>
 					<td>
 						@include('users.partials.avatar-username', ['user' => $user])
 						@include('roles.partials.badges', ['roles' => $user->roles])
 					</td>
 					<td>
-						{{{ ( ($latestState) ? $latestState->present()->statusText : '' ) }}}
+						@if( $user->state()->count() )
+							{{ $user->state()->present()->statusText }}
+						@endif
 					</td>
 					<td>
-						{{ ( ($latestState) ? $latestState->present()->applicationLink : '') }}
+						@if( $user->state()->application()->count() )
+							@include('applications.partials.link', ['application' => $user->state()->application])
+						@endif
 					</td>
 					<td>
-						{{ (($latestState) ? $latestState->present()->serverLink : '') }}
+						@if( $user->state()->server()->count() )
+							@include('servers.partials.link', ['server' => $user->state()->server])
+						@endif
 					</td>
 					<td>
 						@include('plural', ['singular' => 'award', 'collection' => $user->userAchievements()] )

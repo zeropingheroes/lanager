@@ -77,7 +77,12 @@ class User extends BaseModel implements UserInterface {
 				return true;
 			}
 		}
-		return false;	
+		return false;
+	}
+
+	public function state()
+	{
+		return $this->states()->latest()->first();
 	}
 
 	/*

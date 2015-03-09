@@ -1,6 +1,4 @@
 <?php
-	$state = $user->states()->latest()->first();
-
 	// default to small size
 	$size = empty($size) ? 'small' : $size;
 	
@@ -19,25 +17,22 @@
 	$classes[] = 'avatar';
 	$classes[] = 'avatar-'.$size;
 		
-	// if we have a useable state for this user
-	// set the image classes and title based on
-	// what they are doing
-	if( count($state) )
+	if( $user->state()->count() )
 	{
-		if( isset($state->application_id) )
+		if( isset($user->state()->application_id) )
 		{
 			$classes[] = 'avatar-in-game';
-			$title = 'In-Game: '.$state->application->name;
+			$title = 'In-Game: ' . $user->state()->application->name;
 		}
-		elseif( $state->status )
+		elseif( $user->state()->status )
 		{
 			$classes[] = 'avatar-online';
-			$title = $state->getStatus();
+			$title = $user->state()->present()->statusText;
 		}
 		else
 		{
 			$classes[] = 'avatar-offline';
-			$title = $state->getStatus();
+			$title = $user->state()->present()->statusText;
 		}
 	}
 	else

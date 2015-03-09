@@ -1,18 +1,15 @@
 <?php namespace Zeropingheroes\Lanager\Servers;
 
 use Zeropingheroes\Lanager\BaseModel;
-use SteamBrowserProtocol;
+use Laracasts\Presenter\PresentableTrait;
 
 class Server extends BaseModel {
 
 	protected $fillable = ['application_id', 'name', 'address', 'port', 'pinned'];
 
-	public function toArray()
-	{
-		$array = parent::toArray();
-		$array['connect_url'] = $this->getUrl();
-		return $array;
-	}
+	use PresentableTrait;
+
+	protected $presenter = 'Zeropingheroes\Lanager\Servers\ServerPresenter';
 
 	public function application()
 	{
@@ -24,25 +21,4 @@ class Server extends BaseModel {
 		return $this->hasMany('Zeropingheroes\Lanager\States\State');
 	}
 
-	public function getFullAddress()
-	{
-		if( $this->address && $this->port)
-		{
-			return $this->address.':'.$this->port;
-		}
-		if( $this->address )
-		{
-			return $this->address;
-			// Todo: add support for default application ports
-		}
-	}
-
-	public function getUrl()
-	{
-		if( ! empty($this->application->steam_app_id) )
-		{
-			return SteamBrowserProtocol::connectToServer($this->getFullAddress());
-		}
-		// Todo: add support for non-steam app connection URLs
-	}
 }

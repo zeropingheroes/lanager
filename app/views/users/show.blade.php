@@ -41,7 +41,7 @@
 
 		@if( Input::get('tab') == 'status' OR empty(Input::get('tab')) )
 
-			@include('users.partials.status', ['state' => $user->states()->latest()->first()] )
+			@include('users.partials.status', ['state' => $user->state()] )
 
 			{{--
 				<h3>History</h3>
