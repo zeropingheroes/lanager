@@ -1,12 +1,13 @@
 @extends('layouts.default')
 @section('content')
-	@include('layouts.default.title')
+
+	@include('playlists.partials.header', ['playlist' => $playlist])
+
 	@include('layouts.default.alerts')
+	<p>
+		{{ link_to_route('playlists.items.index',  $playlist->playlistItems()->count() . ' items', $playlist->id) }}
+	</p>
 
-	<p>{{ $playlist->description }}</p>
-<p>Items: {{ $playlist->playlistItems()->count() }}</p>
-
-	{{ HTML::button('playlists.create') }}
-	{{ HTML::button('playlists.edit', $playlist->id) }}
-	{{ HTML::button('playlists.destroy', $playlist->id) }}
+	@include('buttons.edit', ['resource' => 'playlists', 'item' => $playlist])
+	@include('buttons.destroy', ['resource' => 'playlists', 'item' => $playlist])
 @endsection				

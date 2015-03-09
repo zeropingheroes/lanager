@@ -1,0 +1,20 @@
+<?php namespace Zeropingheroes\Lanager\Playlists;
+
+use Laracasts\Presenter\Presenter;
+
+class PlaylistPresenter extends Presenter {
+
+	public function playbackStateText()
+	{
+		switch ($this->playback_state)
+		{
+			case 0:
+				return 'Paused';
+			case 1:
+				return 'Playing';
+			default:
+				return 'Unknown';
+		}
+	}
+
+}

@@ -1,6 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Playlists;
 
 use Zeropingheroes\Lanager\BaseModel;
+use Laracasts\Presenter\PresentableTrait;
+
 
 class Playlist extends BaseModel {
 
@@ -9,6 +11,10 @@ class Playlist extends BaseModel {
 	protected $nullable = ['description', 'max_item_duration', 'user_skip_threshold'];
 
 	public $validator = 'Zeropingheroes\Lanager\Playlists\PlaylistValidator';
+
+	use PresentableTrait;
+
+	protected $presenter = 'Zeropingheroes\Lanager\Playlists\PlaylistPresenter';
 
 	public function playlistItems()
 	{

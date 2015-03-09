@@ -1,27 +1,35 @@
-@if(count($playlistItems))
+@if( $items->count() )
 	<table class="table">
+		<thead>
+			<tr>
+				<th>Submitter</th>
+				<th>Title</th>
+				<th>Duration</th>
+				<th>Submitted</th>
+				@if( Authority::can('create', 'playlists.items.votes') OR
+					Authority::can('manage', 'playlists.items') )
+					<th class="text-center">{{ Icon::cog() }}</th>
+				@endif
+			</tr>
+		</thead>
 		<tbody>
-		@foreach( $playlistItems as $playlistItem )
+		@foreach( $items as $item )
 			<tr>
 				<td>
-					@include('users.partials.avatar-username', ['user' => $playlistItem->user])
+					@include('users.partials.avatar-username', ['user' => $item->user])
 				</td>
 				<td>
-					{{ $playlistItem->title }}
+					{{{ $item->title }}}
 				</td>
 				<td>
-					{{ Duration::shortFormat($playlistItem->duration) }}
+					{{ Duration::shortFormat($item->duration) }}
 				</td>
 				<td>
-					{{ $playlistItem->created_at->diffForHumans() }}
+					{{ $item->created_at->diffForHumans() }}
 				</td>
 				<td>
-					@if( Authority::can('create', 'playlists.items.votes'))
-						@include('playlist-items.partials.vote-skip', ['item' => $playlistItem])
-					@endif
-					@if( Authority::can('delete', 'playlists.items', $playlistItem->id))
-						@include('playlist-items.partials.destroy', ['item' => $playlistItem])
-					@endif
+					@include('playlist-items.partials.vote-skip', ['item' => $item])
+					@include('playlist-items.partials.destroy', ['item' => $item])
 				</td>
 			</tr>
 		@endforeach

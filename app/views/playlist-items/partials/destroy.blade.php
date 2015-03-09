@@ -1,8 +1,14 @@
-<?php
-	$confirmation = trans( 'confirmation.before.resource.destroy', ['resource' => 'playlist-item']);
-	$route = ['playlists.items.destroy', $item->playlist_id, $item->id ];
-?>
-
-{{ Form::inline(['route' => $route, 'method' => 'DELETE', 'data-confirm' => $confirmation]) }}
-	{{ Button::normal(Icon::trash())->extraSmall()->submit() }}
-{{ Form::close() }}
+@if( $item->count() )
+	@include(
+		'buttons.destroy',
+		[
+			'resource' => 'playlists.items',
+			'item' => $item,
+			'size' => 'extraSmall',
+			'parameters' =>
+			[
+				'playlist_id' => $item->playlist_id,
+				'playlist_item_id' => $item->id,
+			],
+		])
+@endif

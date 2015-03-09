@@ -6,6 +6,7 @@ $icon = ( ( ! isset($icon) ) ? ''	  : $icon );
 $size = ( ( ! isset($size) ) ? 'normal' : $size );
 $type = ( ( ! isset($type) ) ? 'normal' : $type );
 $hover = ( ( ! isset($hover) ) ? '' : $hover );
+$target = ( ( ! isset($target) ) ? '' : $target );
 
 // Create the basic button
 $button = Button::{$type}($text);
@@ -15,6 +16,7 @@ if( ! empty($icon) )	$button = $button->prependIcon(Icon::{$icon}());
 
 // If hover text is specified add it
 if( ! empty($hover) )	$button = $button->addAttributes(['title' => $hover]);
+if( ! empty($target) )	$button = $button->addAttributes(['target' => $target]);
 
 // If a size other than normal is specified set it
 if( $size != 'normal' )	$button = $button->{$size}();

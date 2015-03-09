@@ -1,7 +1,15 @@
-<?php
-	$route = ['playlists.items.votes.store', $item->playlist_id, $item->id ];
-?>
-
-{{ Form::inline(['route' => $route, 'method' => 'POST']) }}
-	{{ Button::normal(Icon::stepForward())->extraSmall()->submit() }}
-{{ Form::close() }}
+@if( $item->count() )
+	@include(
+		'buttons.store',
+		[
+			'resource' => 'playlists.items.votes',
+			'icon' => 'removeSign',
+			'hover' => 'Vote to skip this item',
+			'size' => 'extraSmall',
+			'parameters' =>
+			[
+				'playlist_id' => $item->playlist_id,
+				'item_id' => $item->id,
+			],
+		])
+@endif

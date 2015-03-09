@@ -1,9 +1,11 @@
 @extends('layouts.default')
 @section('content')
-	@include('layouts.default.title')
+
+	@include('playlists.partials.header', ['playlist' => $playlist])
 	@include('layouts.default.alerts')
-	<p>{{ $playlist->description }}</p>
-	@include('playlist-items.partials.form')
-	@include('playlist-items.partials.list')
-	<br>
+
+	@include('playlist-items.partials.form', ['playlist' => $playlist])
+
+	@include('playlist-items.partials.list', ['items' => $playlistItems])
+
 @endsection
