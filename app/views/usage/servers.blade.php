@@ -15,15 +15,11 @@
 				{
 					$users[] = link_to_route('users.show', $user['username'], $user['id']);
 				}
-				$rows[$i]['application'] = '<a href="'.SteamBrowserProtocol::viewAppInStore($item['application']['steam_app_id']).'"><img src="'.$item['application']['small_logo'].'" alt="Game Logo" title="'.e($item['application']['name']).'"></a>';
+				$rows[$i]['application'] = $item['application']['name'];
 				$rows[$i]['user-count']	= count($users);
-				if( $item['server']['connect_url'] )
+				if( $item['server'] )
 				{
-					$rows[$i]['address'] = '<a href="'.$item['server']['connect_url'].'" title="Connect to server">'.$item['server']['address'].':'.$item['server']['port'].'</a>';
-				}
-				else
-				{
-					$rows[$i]['address'] = $item['server']['address'].':'.$item['server']['port'];
+					$rows[$i]['address'] = $item['server']['address'];
 				}
 				$rows[$i]['users'] = implode(', ', $users);
 				$i++;

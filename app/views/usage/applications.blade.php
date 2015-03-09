@@ -15,7 +15,7 @@
 				{
 					$users[] = link_to_route('users.show', $user['username'], $user['id']);
 				}
-				$rows[$i]['application'] = '<a href="'.SteamBrowserProtocol::viewAppInStore($item['application']['steam_app_id']).'"><img src="'.$item['application']['small_logo'].'" alt="Game Logo" title="'.e($item['application']['name']).'"></a>';
+				$rows[$i]['application'] = $item['application']['name'];
 				$rows[$i]['user-count']	= count($users);
 				$rows[$i]['users'] = implode(', ', $users);
 				$i++;
