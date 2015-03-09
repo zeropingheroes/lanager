@@ -80,27 +80,6 @@ class User extends BaseModel implements UserInterface {
 		return false;	
 	}
 
-	/**
-	 * Get the URL for the user's medium avatar.
-	 *
-	 * @return string
-	 */
-	public function getMediumAvatarUrl()
-	{
-		return str_replace('.jpg', '_medium.jpg', $this->avatar);
-	}
-
-	/**
-	 * Get the URL for the user's large avatar.
-	 *
-	 * @return string
-	 */
-	public function getLargeAvatarUrl()
-	{
-		return str_replace('.jpg', '_full.jpg', $this->avatar);
-	}
-
-
 	/*
 	|--------------------------------------------------------------------------------
 	| Redundant code below due to implementing Laravel's UserInterface contract...

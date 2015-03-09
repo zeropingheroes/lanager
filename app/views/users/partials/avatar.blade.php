@@ -3,15 +3,16 @@
 
 	// default to small size
 	$size = empty($size) ? 'small' : $size;
+	
 	switch($size)
 	{
-		case 'small':	$src = $user->avatar;
+		case 'small':	$url = $user->present()->avatarSmall;
 			break;
-		case 'medium':	$src = $user->getMediumAvatarUrl();
+		case 'medium':	$url = $user->present()->avatarMedium;
 			break;
-		case 'large':	$src = $user->getLargeAvatarUrl();
+		case 'large':	$url = $user->present()->avatarLarge;
 			break;
-		default: 		$src = $user->avatar;
+		default: 		$url = $user->present()->avatarSmall;
 	}
 
 	if( isset($classes) && ! is_array($classes) ) $classes = array($classes);
@@ -46,4 +47,4 @@
 	}
 
 ?>
-<img class="{{{ implode(' ', $classes) }}}" src="{{ $src }}" alt="Avatar for {{{ $user->username }}}" title="{{{ $title }}}">
+<img class="{{{ implode(' ', $classes) }}}" src="{{ $url }}" alt="Avatar for {{{ $user->username }}}" title="{{{ $title }}}">

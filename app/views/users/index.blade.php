@@ -22,7 +22,7 @@
 				<?php $latestState = $user->states()->latest()->first(); ?>
 				<tr>
 					<td>
-						@include('users.partials.avatar-username', ['user' => $user, 'class' => ''])
+						@include('users.partials.avatar-username', ['user' => $user])
 						@include('roles.partials.badges', ['roles' => $user->roles])
 					</td>
 					<td>
