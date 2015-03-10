@@ -10,7 +10,8 @@ div.container.content {
 	padding-top: 60px;
 }
 
-div.fullscreen {
+div.container.content.fullscreen {
+	padding-top: 5px;
 	margin-left: 0px;
 	margin-right: 0px;
 	max-width: none;
