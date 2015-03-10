@@ -3,11 +3,13 @@
 use League\Fractal;
 
 use Zeropingheroes\Lanager\Users\UserTransformer;
+use Zeropingheroes\Lanager\Playlists\PlaylistTransformer;
 
 class PlaylistItemTransformer extends Fractal\TransformerAbstract {
 
 	protected $defaultIncludes = [
 		'user',
+		'playlist',
 	];
 
 	public function transform(PlaylistItem $playlistItem)
@@ -32,6 +34,11 @@ class PlaylistItemTransformer extends Fractal\TransformerAbstract {
 
 	public function includeUser(PlaylistItem $playlistItem)
 	{
-		return $this->collection($playlistItem->user()->get(), new UserTransformer);
+		return $this->item($playlistItem->user()->first(), new UserTransformer);
+	}
+
+	public function includePlaylist(PlaylistItem $playlistItem)
+	{
+		return $this->item($playlistItem->playlist()->first(), new PlaylistTransformer);
 	}
 }
