@@ -184,7 +184,7 @@
 			{
 				skip_reason = typeof skip_reason !== 'undefined' ? skip_reason : NULL;
 				$.ajax({
-					url: '{{ route('playlists.items.update', $playlist->id) }}'+'/'+playlist.item.id+'/',
+					url: '{{ route('playlists.items.update', $playlist->id) }}'+'/'+playlist.item.id+'/', // todo: use API route
 					type: 'PUT',
 					data: {
 						playback_state: playback_state,
