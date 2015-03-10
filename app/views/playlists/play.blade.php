@@ -1,14 +1,7 @@
 @extends('layouts.fullscreen')
 @section('content')
 	<?php
-		$pollQuery = array(
-				'playlist' => $playlist->id,
-				'playback_state' => 0,
-				'order_by' => 'created_at',
-				'take'	=> 1,
-				'with' => 'user,playlist',
-			);
-		$pollUrl = route('playlists.items.index', $pollQuery );
+		$pollUrl = url().'/api/playlists/'. $playlist->id.'/items/?orderBy=created_at&playback_state=0&take=1'; // waiting for api route fix
 	?>
 	<div style="width: {{ Config::get('lanager/playlist.videoplayer.width') }}px">
 		<div id="now-playing" class="pull-left">&nbsp;</div>
@@ -118,20 +111,18 @@
 				setTimeout(playlist.poll,1000);
 				$.getJSON( '{{ $pollUrl }}', function( item )
 				{
-					if( item.length == 0)
+					if( item.data.length === 0)
 					{
 						console.log('Playlist: Polling: No item received - nothing to play');
 					}
 					else
 					{
-						playlist.item = item[0]; // move into parent object
-						playlist.name = playlist.item.playlist.name;
-
-						playlist.item.playback_state = parseInt(playlist.item.playback_state);
-						playlist.item.playlist.playback_state = parseInt(playlist.item.playlist.playback_state);
+						item = item.data[0]; // extract data
+						
+						playlist.item = item; // move into parent object
+						playlist.item.playlist = playlist.item.playlist;
 
 						playlist.item.youtube_id = playlist.extract_youtube_id(playlist.item.url);
-
 
 						// Check for change of video
 						if( (playlist.item.youtube_id != playlist.player.loaded_video.youtube_id) || (playlist.item.id != playlist.player.loaded_video.id))
@@ -186,7 +177,7 @@
 			},
 			update_title: function() {
 				playlist.console.log('Updating title display');
-				$('div#now-playing').html("<strong>"+playlist.name + ':</strong> ' +playlist.item.title);
+				$('div#now-playing').html("<strong>"+playlist.item.playlist.name + ':</strong> ' +playlist.item.title);
 				$('div#submitter').html(playlist.item.user.username+'<img src="'+playlist.item.user.avatar+'" alt="Avatar">');
 			},
 			update_database: function (playback_state, skip_reason)
