@@ -31,7 +31,9 @@
 					@include('plural', ['singular' => 'signup', 'collection' => $event->eventSignups ])
 				</td>
 				<td>
-					{{ $event->type->present()->colouredType }}
+					@if( $event->type()->count() )
+						{{ $event->type->present()->colouredType }}
+					@endif
 				</td>
 				@if( Authority::can('manage', 'events') )
 					<td class="text-center">
