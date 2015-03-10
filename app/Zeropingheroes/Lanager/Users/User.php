@@ -82,7 +82,10 @@ class User extends BaseModel implements UserInterface {
 
 	public function state()
 	{
-		return $this->states()->latest()->first();
+		if( $this->states()->count() )
+		{
+			return $this->states()->latest()->first();
+		}
 	}
 
 	/*

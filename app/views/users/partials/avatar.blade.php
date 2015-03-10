@@ -17,7 +17,7 @@
 	$classes[] = 'avatar';
 	$classes[] = 'avatar-'.$size;
 		
-	if( $user->state()->count() )
+	if( $user->state() )
 	{
 		if( isset($user->state()->application_id) )
 		{
