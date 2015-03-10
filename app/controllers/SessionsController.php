@@ -2,7 +2,7 @@
 
 use	Zeropingheroes\Lanager\Users\User;
 use LightOpenID;
-use Auth, Input, Request, Redirect, View, UserImport, Notification, Cache;
+use Auth, Input, Request, Redirect, View, UserImport, Notification, Cache, URL;
 
 class SessionsController extends BaseController {
 
