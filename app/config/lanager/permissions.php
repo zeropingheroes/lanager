@@ -142,6 +142,7 @@ return array(
 				$authority->allow('play', 'playlists');
 				$authority->allow('manage', 'playlists');
 				$authority->allow('manage', 'playlists.items');
+				$authority->allow('manage', 'playlists.items.votes');
 			}
 
 			if ( $self->hasRole('Admin') )
