@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\PlaylistItems\PlaylistItemService;
-use View;
+use View, Notification, Redirect;
 
 class PlaylistItemsController extends BaseController {
 
@@ -26,6 +26,18 @@ class PlaylistItemsController extends BaseController {
 					->with('title','Playlist: '. $playlist->name)
 					->with('playlist', $playlist)
 					->with('playlistItems', $this->service->all([$playlistId]));
+	}
+
+	public function storeSucceeded( BaseResourceService $service )
+	{
+		Notification::success( $service->messages() );
+		return Redirect::route( $this->route . '.index', $service->resourceIds() );
+	}
+
+	public function updateSucceeded( BaseResourceService $service )
+	{
+		Notification::success( $service->messages() );
+		return Redirect::route( $this->route . '.index', $service->resourceIds() );
 	}
 
 }

@@ -5,7 +5,7 @@ use Notification, Redirect;
 
 class PlaylistItemVotesController extends BaseController {
 
-	protected $route = 'playlists.items';
+	protected $route = 'playlists.items.votes';
 
 	public function __construct()
 	{
@@ -16,7 +16,7 @@ class PlaylistItemVotesController extends BaseController {
 	public function storeSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index', $service->resourceIds() );
+		return Redirect::route( 'playlists.items.index', $service->resourceIds() );
 	}
 
 }
