@@ -63,7 +63,7 @@ return [
 	|
 	*/
 
-	'conditional_request' => true,
+	'conditional_request' => false, // we're on a LAN
 
 	/*
 	|--------------------------------------------------------------------------
