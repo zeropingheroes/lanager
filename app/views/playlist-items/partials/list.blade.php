@@ -29,6 +29,7 @@
 				</td>
 				<td>
 					@include('playlist-items.partials.vote-skip', ['item' => $item])
+					@include('playlist-items.partials.skip', ['item' => $item])
 					@include('playlist-items.partials.destroy', ['item' => $item])
 				</td>
 			</tr>
