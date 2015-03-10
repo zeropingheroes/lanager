@@ -22,6 +22,6 @@ class PlaylistItemVoteTransformer extends Fractal\TransformerAbstract {
 
 	public function includeUser(PlaylistItemVote $playlistItemVote)
 	{
-		return $this->collection($playlistItemVote->user()->get(), new UserTransformer);
+		return $this->item($playlistItemVote->user()->first(), new UserTransformer);
 	}
 }

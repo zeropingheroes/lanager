@@ -31,6 +31,10 @@ class EventTransformer extends Fractal\TransformerAbstract {
 
 	public function includeType(Event $event)
 	{
-		return $this->collection($event->type()->get(), new EventTypeTransformer);
+		if( $event->type()->count() )
+		{
+			return $this->item($event->type()->first(), new EventTypeTransformer);
+		}
+		return null;
 	}
 }

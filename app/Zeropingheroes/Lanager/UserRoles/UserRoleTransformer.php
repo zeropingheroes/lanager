@@ -28,11 +28,11 @@ class UserRoleTransformer extends Fractal\TransformerAbstract {
 
 	public function includeUser(UserRole $userRole)
 	{
-		return $this->collection($userRole->user()->get(), new UserTransformer);
+		return $this->item($userRole->user()->first(), new UserTransformer);
 	}
 
 	public function includeRole(UserRole $userRole)
 	{
-		return $this->collection($userRole->role()->get(), new RoleTransformer);
+		return $this->item($userRole->role()->first(), new RoleTransformer);
 	}
 }

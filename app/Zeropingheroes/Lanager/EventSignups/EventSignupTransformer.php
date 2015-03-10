@@ -27,6 +27,6 @@ class EventSignupTransformer extends Fractal\TransformerAbstract {
 
 	public function includeUser(EventSignup $eventSignup)
 	{
-		return $this->collection($eventSignup->user()->get(), new UserTransformer);
+		return $this->item($eventSignup->user()->first(), new UserTransformer);
 	}
 }

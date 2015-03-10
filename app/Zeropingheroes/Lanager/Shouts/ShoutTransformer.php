@@ -27,7 +27,7 @@ class ShoutTransformer extends Fractal\TransformerAbstract {
 
 	public function includeUser(Shout $shout)
 	{
-		return $this->collection($shout->user()->get(), new UserTransformer);
+		return $this->item($shout->user()->first(), new UserTransformer);
 	}
 
 }
