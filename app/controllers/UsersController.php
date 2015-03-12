@@ -22,9 +22,13 @@ class UsersController extends BaseController {
 	{
 		$options['orderBy'] = ['username'];
 		$options['visible'] = true;
+		$eagerLoad = ['userAchievements', 'roles'];
+
+		$users = $this->service->all($options, $eagerLoad);
+
 		return View::make('users.index')
 					->with('title','Users')
-					->with('users', $this->service->all($options));
+					->with('users', $users);
 	}
 
 	/**
@@ -35,7 +39,9 @@ class UsersController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$user = $this->service->single($id);
+		$eagerLoad = ['userAchievements', 'roles', 'shouts',];
+		$user = $this->service->single( $id, $eagerLoad );
+
 		return View::make('users.show')
 					->with('title',$user->username)
 					->with('user',$user);

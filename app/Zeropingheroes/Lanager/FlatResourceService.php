@@ -10,14 +10,19 @@ abstract class FlatResourceService extends BaseResourceService {
 		parent::__construct($listener);
 	}
 
-	public function all($filters = [])
+	public function all($filters = [], $eagerLoad = [])
 	{
 		$this->model = $this->filter($this->model, $filters);
+
+		if( ! empty($eagerLoad) ) return $this->model->with($eagerLoad)->get();
+
 		return $this->model->get();
 	}
 
-	public function single($id)
+	public function single($id, $eagerLoad = [])
 	{
+		if( ! empty($eagerLoad) ) return $this->model->with($eagerLoad)->findOrFail($id);
+
 		return $this->model->findOrFail($id);
 	}
 

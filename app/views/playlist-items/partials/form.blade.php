@@ -1,4 +1,4 @@
-@if( Authority::can('create', 'playlists.items') AND $playlist->count() )
+@if( Authority::can('create', 'playlists.items') )
 	{{ Form::horizontal( ['route' =>  ['playlists.items.store', $playlist->id], 'class' => 'form-inline playlist-item-create'] ) }}
 		{{ 
 			InputGroup::withContents(

@@ -20,12 +20,16 @@ class EventSignupsController extends BaseController {
 	 */
 	public function index($eventId)
 	{
+		
+		$eagerLoad = ['user'];
+	
+		$eventSignups = $this->service->all([$eventId], [], $eagerLoad);
 		$event = $this->service->parent([$eventId]);
 
 		return View::make('event-signups.index')
 					->with('title','Signups: '.$event->name)
 					->with('event',$event)
-					->with('eventSignups', $this->service->all([$eventId]));
+					->with('eventSignups', $eventSignups);
 	}
 
 }

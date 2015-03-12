@@ -25,7 +25,7 @@
 					<td>{{ $lan->present()->timespan }}</td>
 					<td>{{ $lan->present()->duration }}</td>
 					<td>
-						@include('plural', ['singular' => 'award', 'collection' => $lan->userAchievements()])
+						@include('plural', ['singular' => 'award', 'collection' => $lan->userAchievements])
 					</td>
 					@if( Authority::can('manage', 'lans') )
 						<td class="text-center">

@@ -22,9 +22,13 @@ class EventsController extends BaseController {
 	public function index()
 	{
 		$options['orderBy'] = ['start'];
+		$eagerLoad = ['type', 'eventSignups', 'eventSignups.user'];
+
+		$events = $this->service->all($options, $eagerLoad);
+
 		return View::make('events.index')
 					->with('title','Events')
-					->with('events', $this->service->all($options));
+					->with('events', $events);
 	}
 
 	/**

@@ -82,8 +82,7 @@ return array(
 			$authority->allow('create', 'playlists.items');
 			$authority->allow('delete', 'playlists.items', function($self, $item)
 			{
-				$id = ( is_object($item) ? $item->id : $item );
-				return $self->getCurrentUser()->playlistItems()->find($id);
+				return ($item->user_id == $self->getCurrentUser()->id);
 			});
 			if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlists.items')) ) // bans
 			{
@@ -94,8 +93,7 @@ return array(
 			$authority->allow('create', 'playlists.items.votes');
 			$authority->allow('delete', 'playlists.items.votes', function($self, $item)
 			{
-				$id = ( is_object($item) ? $item->id : $item );
-				return $self->getCurrentUser()->playlistItemVotes()->find($id);
+				return ($item->user_id == $self->getCurrentUser()->id);
 			});
 
 			// Event Signups

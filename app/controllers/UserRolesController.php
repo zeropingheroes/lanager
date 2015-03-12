@@ -23,9 +23,12 @@ class UserRolesController extends BaseController {
 	 */
 	public function index()
 	{
+		$eagerLoad = ['user', 'role'];
+		$userRoles = $this->service->all( [], $eagerLoad);
+
 		return View::make('user-roles.index')
 					->with('title','User Roles')
-					->with('userRoles', $this->service->all());
+					->with('userRoles', $userRoles);
 	}
 
 	/**

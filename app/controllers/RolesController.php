@@ -20,9 +20,12 @@ class RolesController extends BaseController {
 	 */
 	public function index()
 	{
+		$eagerLoad = ['userRoles', 'users'];
+		$roles = $this->service->all([], $eagerLoad);
+
 		return View::make('roles.index')
 					->with('title','Roles')
-					->with('roles', $this->service->all());
+					->with('roles', $roles);
 	}
 
 	/**
@@ -45,7 +48,8 @@ class RolesController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$role = $this->service->single($id);
+		$eagerLoad = ['userRoles.role', 'userRoles.user'];
+		$role = $this->service->single($id, $eagerLoad);
 
 		return View::make('roles.show')
 					->with('title', 'Role: '.$role->name)

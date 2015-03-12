@@ -11,7 +11,7 @@ class PageService extends FlatResourceService {
 		parent::__construct($listener, new Page);
 	}
 
-	public function single($id)
+	public function single($id, $eagerLoad = [])
 	{
 		return $this->model->with('children')->findOrFail($id);
 	}

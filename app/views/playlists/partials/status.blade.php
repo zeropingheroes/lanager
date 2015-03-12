@@ -1,5 +1,4 @@
 <?php
-if( $playlist->count() )
 	switch ($playlist->playback_state)
 	{
 		case 0:

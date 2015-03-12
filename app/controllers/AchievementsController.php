@@ -20,9 +20,13 @@ class AchievementsController extends BaseController {
 	 */
 	public function index()
 	{
+		$eagerLoad = ['userAchievements'];
+
+		$achievements = $this->service->all( [], $eagerLoad );
+
 		return View::make('achievements.index')
 					->with('title','Achievements')
-					->with('achievements', $this->service->all() );
+					->with('achievements', $achievements );
 	}
 
 	/**
@@ -45,7 +49,9 @@ class AchievementsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$achievement = $this->service->single($id);
+		$eagerLoad = ['userAchievements', 'userAchievements.user', 'userAchievements.lan'];
+
+		$achievement = $this->service->single($id, $eagerLoad);
 		
 		return View::make('achievements.show')
 					->with('title', 'Achievement - ' . $achievement->name)

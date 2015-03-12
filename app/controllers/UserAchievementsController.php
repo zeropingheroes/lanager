@@ -24,9 +24,12 @@ class UserAchievementsController extends BaseController {
 	 */
 	public function index()
 	{
+		$eagerLoad = ['user', 'lan', 'achievement'];
+		$userAchievements = $this->service->all([], $eagerLoad);
+
 		return View::make('user-achievements.index')
 					->with('title','User Achievements')
-					->with('userAchievements', $this->service->all());
+					->with('userAchievements', $userAchievements);
 	}
 
 	/**

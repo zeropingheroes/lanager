@@ -20,9 +20,13 @@ class LansController extends BaseController {
 	 */
 	public function index()
 	{
+		$eagerLoad = ['userAchievements'];
+
+		$lans = $this->service->all( [], $eagerLoad );
+
 		return View::make('lans.index')
 					->with('title','LANs')
-					->with('lans', $this->service->all());
+					->with('lans', $lans);
 	}
 
 	/**
@@ -45,11 +49,13 @@ class LansController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$lan = $this->service->single($id);
+		$eagerLoad = ['userAchievements', 'userAchievements.user', 'userAchievements.achievement', 'userAchievements.lan'];
+		
+		$lan = $this->service->single($id, $eagerLoad);
 
 		return View::make('lans.show')
-					->with('title',$lan->name)
-					->with('lan',$lan);
+					->with('title', $lan->name)
+					->with('lan', $lan);
 	}
 
 	/**

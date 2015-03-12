@@ -19,28 +19,29 @@
 			</thead>
 			<tbody>
 			@foreach( $users as $user )
+				<?php $state = $user->state(); ?>
 				<tr>
 					<td>
 						@include('users.partials.avatar-username', ['user' => $user])
 						@include('roles.partials.badges', ['roles' => $user->roles])
 					</td>
 					<td>
-						@if( $user->state()->count() )
-							{{ $user->state()->present()->statusText }}
+						@if( $state->count() )
+							{{ $state->present()->statusText }}
 						@endif
 					</td>
 					<td>
-						@if( $user->state()->application()->count() )
-							@include('applications.partials.link', ['application' => $user->state()->application])
+						@if( $state->application )
+							@include('applications.partials.link', ['application' => $state->application])
 						@endif
 					</td>
 					<td>
-						@if( $user->state()->server()->count() )
-							@include('servers.partials.link', ['server' => $user->state()->server])
+						@if( $state->server )
+							@include('servers.partials.link', ['server' => $state->server])
 						@endif
 					</td>
 					<td>
-						@include('plural', ['singular' => 'award', 'collection' => $user->userAchievements()] )
+						@include('plural', ['singular' => 'award', 'collection' => $user->userAchievements] )
 					</td>
 					@if( Authority::can('manage', 'users') )
 						<td class="text-center">

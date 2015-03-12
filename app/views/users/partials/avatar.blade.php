@@ -17,29 +17,33 @@
 	$classes[] = 'avatar';
 	$classes[] = 'avatar-'.$size;
 		
-	if( $user->state() )
-	{
-		if( isset($user->state()->application_id) )
-		{
-			$classes[] = 'avatar-in-game';
-			$title = 'In-Game: ' . $user->state()->application->name;
-		}
-		elseif( $user->state()->status )
-		{
-			$classes[] = 'avatar-online';
-			$title = $user->state()->present()->statusText;
-		}
-		else
-		{
-			$classes[] = 'avatar-offline';
-			$title = $user->state()->present()->statusText;
-		}
-	}
-	else
-	{
+	// $state = $user->state();
+	
+	// if( $state )
+	// {
+	// 	if( isset($state->application_id) )
+	// 	{
+	// 		$classes[] = 'avatar-in-game';
+	// 		$title = 'In-Game: ' . $state->application->name;
+	// 	}
+	// 	elseif( $state->status )
+	// 	{
+	// 		$classes[] = 'avatar-online';
+	// 		$title = $state->present()->statusText;
+	// 	}
+	// 	else
+	// 	{
+	// 		$classes[] = 'avatar-offline';
+	// 		$title = $state->present()->statusText;
+	// 	}
+	// }
+	// else
+	// {
+	// 	$classes[] = 'avatar-offline';
+	// 	$title = 'Status unknown';
+	// }
 		$classes[] = 'avatar-offline';
 		$title = 'Status unknown';
-	}
 
 ?>
 <img class="{{{ implode(' ', $classes) }}}" src="{{ $url }}" alt="Avatar for {{{ $user->username }}}" title="{{{ $title }}}">

@@ -20,9 +20,12 @@ class EventTypesController extends BaseController {
 	 */
 	public function index()
 	{
+		$eagerLoad = ['events'];
+		$eventTypes = $this->service->all( [], $eagerLoad );
+
 		return View::make('event-types.index')
 					->with('title','Event Types')
-					->with('eventTypes', $this->service->all());
+					->with('eventTypes', $eventTypes );
 	}
 
 	/**
@@ -35,21 +38,6 @@ class EventTypesController extends BaseController {
 		return View::make('event-types.create')
 					->with('title','Create Event Type')
 					->with('eventType',null);
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$eventType = $this->service->single($id);
-
-		return View::make('event-types.show')
-					->with('title', 'Event Type: '.$eventType->name)
-					->with('eventType',$eventType);
 	}
 
 	/**

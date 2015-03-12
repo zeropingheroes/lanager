@@ -24,7 +24,7 @@ class ShoutsController extends BaseController {
 
 		return View::make('shouts.index')
 					->with('title', 'Shouts')
-					->with('shouts', $this->service->all($options));
+					->with('shouts', $this->service->all($options, ['user.roles', 'user.states']));
 	}
 
 	public function storeSucceeded( BaseResourceService $service )

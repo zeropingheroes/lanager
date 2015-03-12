@@ -31,7 +31,7 @@
 					@include('plural', ['singular' => 'signup', 'collection' => $event->eventSignups ])
 				</td>
 				<td>
-					@if( $event->type()->count() )
+					@if( $event->event_type_id )
 						{{ $event->type->present()->colouredType }}
 					@endif
 				</td>

@@ -24,12 +24,12 @@
 				'active' => (Input::get('tab') == 'status' OR empty(Input::get('tab')) ),
 			],
 			[
-				'title' => 'Achievements' . View::make('badge', ['collection' => $user->userAchievements()] ),
+				'title' => 'Achievements' . View::make('badge', ['collection' => $user->userAchievements] ),
 				'link' => route('users.show', ['user' => $user->id, 'tab' => 'achievements'] ),
 				'active' => Input::get('tab') == 'achievements',
 			],
 			[
-				'title' => 'Shouts' . View::make('badge', ['collection' => $user->shouts()] ),
+				'title' => 'Shouts' . View::make('badge', ['collection' => $user->shouts] ),
 				'link' => route('users.show', ['user' => $user->id, 'tab' => 'shouts'] ),
 				'active' => Input::get('tab') == 'shouts',
 			],
