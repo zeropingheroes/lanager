@@ -1,8 +1,9 @@
 $(document).ready(function () {
 	// Make all external links open in a new window
 	$('a').each(function() {
-		var a = new RegExp('/' + window.location.host + '/');
-		if(!a.test(this.href)) {
+		var thisHost = new RegExp('/' + window.location.host + '/');
+		var thisJs = new RegExp('^javascript');
+		if( ! thisHost.test(this.href) && ! thisJs.test(this.href) ) {
 			$(this).click(function(event) {
 				event.preventDefault();
 				event.stopPropagation();
