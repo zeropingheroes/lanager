@@ -49,7 +49,12 @@ class LansController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$eagerLoad = ['userAchievements', 'userAchievements.user', 'userAchievements.achievement', 'userAchievements.lan'];
+		$eagerLoad = [
+			'userAchievements.achievement',
+			'userAchievements.lan',
+			'userAchievements.user.state.application',
+			'userAchievements.user.state.server',
+		];
 		
 		$lan = $this->service->single($id, $eagerLoad);
 

@@ -17,7 +17,7 @@
 	$classes[] = 'avatar';
 	$classes[] = 'avatar-'.$size;
 		
-	$state = $user->state();
+	$state = $user->state;
 	
 	if( $state )
 	{
@@ -42,6 +42,5 @@
 		$classes[] = 'avatar-offline';
 		$title = 'Status unknown';
 	}
-
 ?>
 <img class="{{{ implode(' ', $classes) }}}" src="{{ $url }}" alt="Avatar for {{{ $user->username }}}" title="{{{ $title }}}">

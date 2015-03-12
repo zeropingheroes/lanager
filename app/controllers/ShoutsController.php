@@ -21,10 +21,18 @@ class ShoutsController extends BaseController {
 	public function index()
 	{
 		$options['orderBy'] = ['-pinned', '-created_at'];
+		$eagerLoad =
+		[
+			'user.roles',
+			'user.state.application',
+			'user.state.server',
+		];
+
+		$shouts = $this->service->all($options, $eagerLoad);
 
 		return View::make('shouts.index')
 					->with('title', 'Shouts')
-					->with('shouts', $this->service->all($options, ['user.roles', 'user.states']));
+					->with('shouts', $shouts);
 	}
 
 	public function storeSucceeded( BaseResourceService $service )

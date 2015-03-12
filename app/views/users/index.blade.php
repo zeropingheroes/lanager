@@ -19,24 +19,24 @@
 			</thead>
 			<tbody>
 			@foreach( $users as $user )
-				<?php $state = $user->state(); ?>
+				<?php $state = $user->state; ?>
 				<tr>
 					<td>
 						@include('users.partials.avatar-username', ['user' => $user])
 						@include('roles.partials.badges', ['roles' => $user->roles])
 					</td>
 					<td>
-						@if( $state->count() )
+						@if( $state )
 							{{ $state->present()->statusText }}
 						@endif
 					</td>
 					<td>
-						@if( $state->application )
+						@if( isset($state->application) )
 							@include('applications.partials.link', ['application' => $state->application])
 						@endif
 					</td>
 					<td>
-						@if( $state->server )
+						@if( isset($state->server) )
 							@include('servers.partials.link', ['server' => $state->server])
 						@endif
 					</td>

@@ -21,13 +21,20 @@ class PlaylistItemsController extends BaseController {
 	public function index($playlistId)
 	{
 		$playlist = $this->service->parent([$playlistId]);
-		$eagerLoad = ['user', 'playlistItemVotes'];
+		
+		$eagerLoad =
+		[
+			'playlistItemVotes',
+			'user.state.application',
+			'user.state.server'
+		];
+		$playlistItems = $this->service->all([$playlistId], [], $eagerLoad);
 
 
 		return View::make('playlist-items.index')
 					->with('title','Playlist: '. $playlist->name)
 					->with('playlist', $playlist)
-					->with('playlistItems', $this->service->all([$playlistId], [], $eagerLoad));
+					->with('playlistItems', $playlistItems);
 	}
 
 	public function storeSucceeded( BaseResourceService $service )

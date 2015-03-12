@@ -48,7 +48,12 @@ class RolesController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$eagerLoad = ['userRoles.role', 'userRoles.user'];
+		$eagerLoad =
+		[
+			'userRoles.role',
+			'userRoles.user.state.application',
+			'userRoles.user.state.server',
+		];
 		$role = $this->service->single($id, $eagerLoad);
 
 		return View::make('roles.show')

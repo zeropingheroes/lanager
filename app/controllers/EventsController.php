@@ -22,7 +22,7 @@ class EventsController extends BaseController {
 	public function index()
 	{
 		$options['orderBy'] = ['start'];
-		$eagerLoad = ['type', 'eventSignups', 'eventSignups.user'];
+		$eagerLoad = ['type', 'eventSignups'];
 
 		$events = $this->service->all($options, $eagerLoad);
 
@@ -54,7 +54,14 @@ class EventsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$event = $this->service->single($id);
+		$eagerLoad = [
+			'type',
+			'eventSignups',
+			'eventSignups.user.state.application',
+			'eventSignups.user.state.server',
+		];
+
+		$event = $this->service->single($id, $eagerLoad);
 
 		return View::make('events.show')
 					->with('title',$event->name)

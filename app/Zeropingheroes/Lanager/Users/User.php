@@ -3,6 +3,7 @@
 use Zeropingheroes\Lanager\BaseModel;
 use Illuminate\Auth\UserInterface;
 use Laracasts\Presenter\PresentableTrait;
+use DB;
 
 class User extends BaseModel implements UserInterface {
 
@@ -36,14 +37,9 @@ class User extends BaseModel implements UserInterface {
 		return $this->hasMany('Zeropingheroes\Lanager\UserAchievements\UserAchievement');
 	}
 
-    public function roles()
-    {
-        return $this->belongsToMany('Zeropingheroes\Lanager\Roles\Role', 'user_roles');
-    }
-
-	public function states()
+	public function roles()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\States\State');
+		return $this->belongsToMany('Zeropingheroes\Lanager\Roles\Role', 'user_roles');
 	}
 
 	public function eventSignups()
@@ -54,6 +50,32 @@ class User extends BaseModel implements UserInterface {
 	public function scopeVisible($query)
 	{
 		return $query->whereVisible(true);
+	}
+
+	// all states belonging to a user
+	public function states()
+	{
+		return $this->hasMany('Zeropingheroes\Lanager\States\State');
+	}
+
+	// psuedo-relation for a user's most recent state
+	public function state()
+	{
+		return $this->hasOne('Zeropingheroes\Lanager\States\State')
+					->join(
+						DB::raw('(
+								SELECT max(created_at) max_created_at, user_id
+								FROM states
+								WHERE created_at
+									BETWEEN from_unixtime('.(time()-60).') AND from_unixtime('.time().')
+								GROUP BY user_id
+								) s2'),
+						function($join)
+						{
+							$join->on('states.user_id', '=', 's2.user_id')
+								 ->on('states.created_at', '=', 's2.max_created_at');
+						})
+					->orderBy('states.user_id');
 	}
 
 	public function hasRole($key) 
@@ -78,14 +100,6 @@ class User extends BaseModel implements UserInterface {
 			}
 		}
 		return false;
-	}
-
-	public function state()
-	{
-		if( $this->states()->count() )
-		{
-			return $this->states()->latest()->first();
-		}
 	}
 
 	/*

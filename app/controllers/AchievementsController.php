@@ -49,7 +49,12 @@ class AchievementsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$eagerLoad = ['userAchievements', 'userAchievements.user', 'userAchievements.lan'];
+		$eagerLoad = [
+			'userAchievements',
+			'userAchievements.lan',
+			'userAchievements.user.state.application',
+			'userAchievements.user.state.server',
+			];
 
 		$achievement = $this->service->single($id, $eagerLoad);
 		

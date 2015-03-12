@@ -21,7 +21,11 @@ class EventSignupsController extends BaseController {
 	public function index($eventId)
 	{
 		
-		$eagerLoad = ['user'];
+		$eagerLoad =
+		[
+			'user.state.application',
+			'user.state.server',
+		];
 	
 		$eventSignups = $this->service->all([$eventId], [], $eagerLoad);
 		$event = $this->service->parent([$eventId]);
