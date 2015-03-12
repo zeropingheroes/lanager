@@ -1,6 +1,7 @@
 <?php namespace Zeropingheroes\Lanager\Pages;
 
 use Zeropingheroes\Lanager\FlatResourceService;
+use Cache;
 
 class PageService extends FlatResourceService {
 
@@ -16,4 +17,15 @@ class PageService extends FlatResourceService {
 		return $this->model->with('children')->findOrFail($id);
 	}
 
+	public function store($input)
+	{
+		Cache::forget('pageMenu');
+		return parent::store($input);
+	}
+
+	public function update($id, $input)
+	{
+		Cache::forget('pageMenu');
+		return parent::update($id, $input);
+	}
 }
