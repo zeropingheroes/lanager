@@ -148,7 +148,7 @@ To update to the latest version,  directory simply run the following commands:
 
 1. Back up your config files:
 
-	`sudo cp /var/www/lanager/app/config ~/lanager-config-backup`
+	`sudo cp -R /var/www/lanager/app/config ~/lanager-config-backup`
 
 2. Back up your database data:
 
