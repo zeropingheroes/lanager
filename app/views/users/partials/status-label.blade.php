@@ -1,5 +1,6 @@
 <?php
 if( $state->count() )
+{
 	switch ($state->status)
 	{
 		case 1:
@@ -7,13 +8,13 @@ if( $state->count() )
 			if( ! is_null($state->application_id) ) $labelType = 'success';
 			break;
 		case 2:
-			$labelType = 'info';
+			$labelType = 'warning';
 			break;
 		case 3:
-			$labelType = 'info';
+			$labelType = 'warning';
 			break;
 		case 4:
-			$labelType = 'info';
+			$labelType = 'warning';
 			break;
 		case 5:
 			$labelType = 'info';
@@ -29,4 +30,9 @@ if( $state->count() )
 	}
 
 	echo Label::{$labelType}($state->present()->statusText);
+}
+else
+{
+	echo Label::normal('Status unknown');
+}
 ?>

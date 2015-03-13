@@ -27,7 +27,7 @@
 					</td>
 					<td>
 						@if( $state )
-							{{ $state->present()->statusText }}
+							@include('users.partials.status-label', ['state' => $state])
 						@endif
 					</td>
 					<td>
