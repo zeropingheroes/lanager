@@ -67,7 +67,7 @@ class User extends BaseModel implements UserInterface {
 								SELECT max(created_at) max_created_at, user_id
 								FROM states
 								WHERE created_at
-									BETWEEN from_unixtime('.(time()-60).') AND from_unixtime('.time().')
+									BETWEEN from_unixtime('.(time()-300).') AND from_unixtime('.time().')
 								GROUP BY user_id
 								) s2'),
 						function($join)
