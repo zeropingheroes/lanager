@@ -284,6 +284,7 @@ form.event-create .bootstrap-datetimepicker-widget ul td span.active { /* light 
 */
 form.playlist-item-create div.input-group {
 	width: 100%;
+	margin-bottom: 15px;
 }
 
 form.playlist-item-create div.input-group span.input-group-btn {

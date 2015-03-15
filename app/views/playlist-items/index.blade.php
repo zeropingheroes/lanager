@@ -6,6 +6,40 @@
 
 	@include('playlist-items.partials.form', ['playlist' => $playlist])
 
-	@include('playlist-items.partials.list', ['items' => $playlistItems])
+	{{
+		Navigation::tabs([
+		[
+			'title' => 'Unplayed' . View::make('badge', ['collection' => $unplayedItems] ),
+			'link' => route('playlists.items.index', ['playlist' => $playlist->id, 'tab' => 'unplayed'] ),
+			'active' => (Input::get('tab') == 'unplayed' OR empty(Input::get('tab')) ),
+		],
+		[
+			'title' => 'Played' . View::make('badge', ['collection' => $playedItems] ),
+			'link' => route('playlists.items.index', ['playlist' => $playlist->id, 'tab' => 'played'] ),
+			'active' => Input::get('tab') == 'played',
+		],
+		[
+			'title' => 'Skipped' . View::make('badge', ['collection' => $skippedItems] ),
+			'link' => route('playlists.items.index', ['playlist' => $playlist->id, 'tab' => 'skipped'] ),
+			'active' => Input::get('tab') == 'skipped',
+		],
+		])
+	}}
+
+	@if( Input::get('tab') == 'unplayed' OR empty(Input::get('tab')) )
+
+		@include('playlist-items.partials.list', ['items' => $unplayedItems])
+
+	@elseif( Input::get('tab') == 'played' )
+
+		@include('playlist-items.partials.list', ['items' => $playedItems])
+
+	@elseif( Input::get('tab') == 'skipped' )
+
+		@include('playlist-items.partials.list', ['items' => $skippedItems])
+
+	@endif
+
+
 
 @endsection
