@@ -38,7 +38,7 @@
 			</tbody>
 		</table>
 	@else
-		No LANs found!
+		<p>No LANs found!</p>
 	@endif
 
 	@include('buttons.create', ['resource' => 'lans'])

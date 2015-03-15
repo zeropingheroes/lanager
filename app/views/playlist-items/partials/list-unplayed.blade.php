@@ -40,5 +40,5 @@
 		</tbody>
 	</table>
 @else
-	No playlist entries to show!
+	<p>No playlist entries to show!</p>
 @endif

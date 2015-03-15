@@ -44,7 +44,7 @@
 			</tbody>
 		</table>
 	@else
-		No playlists found!
+		<p>No playlists found!</p>
 	@endif
 
 	@include('buttons.create', ['resource' => 'playlists'])

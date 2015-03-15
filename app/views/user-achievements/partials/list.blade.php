@@ -36,5 +36,5 @@
 		</tbody>
 	</table>
 @else
-	No achievements awarded!
+	<p>No achievements awarded!</p>
 @endif

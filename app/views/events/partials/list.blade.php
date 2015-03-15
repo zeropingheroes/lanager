@@ -46,5 +46,5 @@
 		</tbody>
 	</table>
 @else
-	No events found!
+	<p>No events found!</p>
 @endif
