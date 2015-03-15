@@ -19,7 +19,7 @@
 					@include('users.partials.avatar-username', ['user' => $item->user])
 				</td>
 				<td>
-					{{{ $item->title }}}
+					{{ link_to($item->url, $item->title) }}
 				</td>
 				<td>
 					{{ Duration::shortFormat($item->duration) }}

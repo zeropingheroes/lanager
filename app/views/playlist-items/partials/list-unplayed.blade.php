@@ -30,6 +30,7 @@
 				@if( Authority::can('create', 'playlists.items.votes') OR
 					Authority::can('manage', 'playlists.items') )
 					<td class="col-centered">
+						@include('playlist-items.partials.preview', ['item' => $item])
 						@include('playlist-items.partials.vote-skip', ['item' => $item])
 						@include('playlist-items.partials.skip', ['item' => $item])
 						@include('playlist-items.partials.destroy', ['item' => $item])
