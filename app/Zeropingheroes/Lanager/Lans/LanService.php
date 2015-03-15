@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\FlatResourceService;
 
 class LanService extends FlatResourceService  {
 
-	protected $resource = 'lan';
+	protected $resource = 'lans';
 
 	public function __construct( $listener )
 	{

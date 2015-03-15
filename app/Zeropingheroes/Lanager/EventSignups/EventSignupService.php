@@ -7,7 +7,7 @@ use Auth, Authority;
 
 class EventSignupService extends NestedResourceService {
 
-	public $resource = 'event-signup';
+	public $resource = 'events.signups';
 
 	public function __construct( $listener )
 	{

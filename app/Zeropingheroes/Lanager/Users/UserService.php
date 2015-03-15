@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\FlatResourceService;
 
 class UserService extends FlatResourceService {
 
-	protected $resource = 'user';
+	protected $resource = 'users';
 
 	public function __construct( $listener )
 	{

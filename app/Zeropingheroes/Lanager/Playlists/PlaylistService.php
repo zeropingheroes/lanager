@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\FlatResourceService;
 
 class PlaylistService extends FlatResourceService {
 
-	protected $resource = 'playlist';
+	protected $resource = 'playlists';
 
 	public function __construct( $listener )
 	{

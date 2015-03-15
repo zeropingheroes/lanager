@@ -7,7 +7,7 @@ use Auth, Authority, Config;
 
 class PlaylistItemService extends NestedResourceService {
 
-	public $resource = 'playlist-item';
+	public $resource = 'playlists.items';
 
 	public function __construct( $listener )
 	{

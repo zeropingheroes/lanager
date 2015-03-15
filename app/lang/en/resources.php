@@ -1,31 +1,30 @@
 <?php 
 
-return array(
+return [
 
 	/*
 	|--------------------------------------------------------------------------
 	| Resource Language lines
 	|--------------------------------------------------------------------------
 	|
-	| The following language lines are used to translate model class names to
-	| their friendly names (all lower case)
+	| The following language lines are used to translate resource names as
+	| defined in their service classes to their friendly names
 	|
 	*/
 
-	'achievement'			=> 'achievement',
-	'lan'					=> 'LAN',
-	'event'					=> 'event',
-	'event-type'			=> 'event type',
+	'achievements'			=> 'achievement',
+	'lans'					=> 'LAN',
+	'events'				=> 'event',
+	'event-types'			=> 'event type',
 	'event-signup'			=> 'event signup',
-	'events.signup'			=> 'event signup',
-	'page'					=> 'page',
-	'playlist-item'			=> 'playlist item',
-	'playlist-item-vote'	=> 'skip vote',
-	'playlist'				=> 'playlist',
-	'shout'					=> 'shout',
-	'user' 					=> 'user',
-	'user-achievement'		=> 'user achievement',
-	'user-role'				=> 'user role',
-	'role'					=> 'role',
+	'pages'					=> 'page',
+	'playlists'				=> 'playlist',
+	'playlists.items'		=> 'playlist item',
+	'playlists.items.votes'	=> 'skip vote',
+	'shouts'				=> 'shout',
+	'users' 				=> 'user',
+	'user-achievements'		=> 'user achievement',
+	'user-roles'			=> 'user role',
+	'roles'					=> 'role',
 
-);
+];

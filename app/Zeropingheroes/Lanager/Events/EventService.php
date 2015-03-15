@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\FlatResourceService;
 
 class EventService extends FlatResourceService {
 
-	protected $resource = 'event';
+	protected $resource = 'events';
 
 	public function __construct( $listener )
 	{

@@ -8,7 +8,7 @@ use Auth;
 
 class PlaylistItemVoteService extends NestedResourceService {
 
-	public $resource = 'playlist-item-vote';
+	public $resource = 'playlists.items.votes';
 
 	public function __construct( $listener )
 	{

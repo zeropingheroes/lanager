@@ -4,7 +4,7 @@ use Zeropingheroes\Lanager\FlatResourceService;
 
 class AchievementService extends FlatResourceService {
 
-	protected $resource = 'achievement';
+	protected $resource = 'achievements';
 
 	public function __construct( $listener )
 	{

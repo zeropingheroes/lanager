@@ -3,7 +3,7 @@
 	[
 		'resource' => 'playlists.items.votes',
 		'icon' => 'removeSign',
-		'hover' => 'Vote to skip this item',
+		'hover' => 'Vote to skip this playlist item',
 		'size' => 'extraSmall',
 		'parameters' =>
 		[

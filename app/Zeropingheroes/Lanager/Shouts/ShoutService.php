@@ -5,7 +5,7 @@ use Auth, Authority;
 
 class ShoutService extends FlatResourceService {
 
-	protected $resource = 'shout';
+	protected $resource = 'shouts';
 
 	public function __construct( $listener )
 	{

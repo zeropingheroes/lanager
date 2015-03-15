@@ -6,7 +6,7 @@ if( Authority::can('destroy', $resource, $item) )
 	// If an array of parameters is specified use it, otherwise default to the singular resource id
 	$parameters = ( isset($parameters) && is_array($parameters) ) ? $parameters : $item->id;
 
-	$resourceName = trans('resources.'.str_singular($resource));
+	$resourceName = trans('resources.'.$resource);
 
 	// Set defaults for any options not specified
 	$text  = ( ! isset($text)  ) ? '' : $text;

@@ -5,7 +5,7 @@ use Cache;
 
 class PageService extends FlatResourceService {
 
-	protected $resource = 'page';
+	protected $resource = 'pages';
 
 	public function __construct( $listener )
 	{

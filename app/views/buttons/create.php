@@ -11,7 +11,7 @@ if( Authority::can('create', $resource) )
 		'icon' => ( ( ! isset($icon) ) ? 'file'	  : $icon ),
 		'size' => ( ( ! isset($size) ) ? 'small' : $size ),
 		'type' => ( ( ! isset($type) ) ? 'normal' : $type ),
-		'hover' => ( ( ! isset($hover) ) ? 'Create a new '.trans('resources.'.str_singular($resource)) : $hover ),
+		'hover' => ( ( ! isset($hover) ) ? 'Create a new '.trans('resources.'.$resource) : $hover ),
 	];
 
 	echo View::make('buttons.url', $options);
