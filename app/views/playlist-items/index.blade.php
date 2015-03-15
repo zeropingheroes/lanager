@@ -28,15 +28,15 @@
 
 	@if( Input::get('tab') == 'unplayed' OR empty(Input::get('tab')) )
 
-		@include('playlist-items.partials.list', ['items' => $unplayedItems])
+		@include('playlist-items.partials.list-unplayed', ['items' => $unplayedItems])
 
 	@elseif( Input::get('tab') == 'played' )
 
-		@include('playlist-items.partials.list', ['items' => $playedItems])
+		@include('playlist-items.partials.list-played', ['items' => $playedItems])
 
 	@elseif( Input::get('tab') == 'skipped' )
 
-		@include('playlist-items.partials.list', ['items' => $skippedItems])
+		@include('playlist-items.partials.list-skipped', ['items' => $skippedItems])
 
 	@endif
 
