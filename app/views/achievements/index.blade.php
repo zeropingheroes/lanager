@@ -25,15 +25,7 @@
 					</td>
 					@if( Authority::can('manage', 'achievements') )
 						<td class="text-center">
-							@include(
-								'buttons.create',
-								[
-									'resource' => 'user-achievements',
-									'size' => 'extraSmall',
-									'icon' => 'user',
-									'hover' => 'Award this achievement',
-									'parameters' => ['achievement_id' => $achievement->id],
-								])
+							@include('achievements.partials.button-award', ['achievement' => $achievement, 'size' => 'extraSmall'])
 							@include('buttons.edit', ['resource' => 'achievements', 'item' => $achievement, 'size' => 'extraSmall'])
 							@include('buttons.destroy', ['resource' => 'achievements', 'item' => $achievement, 'size' => 'extraSmall'])
 						</td>

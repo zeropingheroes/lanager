@@ -46,6 +46,7 @@
 		<p>No-one has been awarded this achievement yet!</p>
 	@endif
 
+	@include('achievements.partials.button-award', ['achievement' => $achievement, 'size' => 'small'])
 	@include('buttons.edit', ['resource' => 'achievements', 'item' => $achievement])
 	@include('buttons.destroy', ['resource' => 'achievements', 'item' => $achievement])
 
