@@ -57,14 +57,22 @@ Route::filter('csrf', function()
 */
 Route::filter('permission', function($route, $request)
 {
-	$currentRouteName = str_replace('api.', '', Route::currentRouteName()); // remove "api" prefix from route names
+	// remove "api" prefix if present
+	$routeName	= str_replace('api.', '', $route->getName());
 
-	$routeArray = explode('.', $currentRouteName);
+	// convert dotted route name into array
+	$routeName	= explode('.', $routeName); 
 	
-	$action		= array_pop($routeArray);
-	$id 		= $route->parameter(end((array_values($routeArray))));
-	$resource 	= implode('.', $routeArray);
+	// take the last part as the action
+	$action		= array_pop($routeName);
 
-	if( Authority::cannot($action, $resource, $id) ) return App::abort(403);
+	// get the resource name (without action)
+	$resource 	= implode('.', $routeName);
+
+	// get resource ids as array
+	$parameters = $route->parameters();
+
+	// test if current user has permission to perform {action} on {resource} with {parameters}
+	if( Authority::cannot($action, $resource, $parameters) ) return App::abort(403);
 
 });

@@ -1,24 +1,6 @@
 <?php
 
 return array(
-
-	/*
-	|--------------------------------------------------------------------------
-	| Bans
-	|--------------------------------------------------------------------------
-	|
-	| List the database IDs of users who should not be allowed to perform an
-	| action on a resource
-	|
-	*/
-	'banned' => array(
-		'create' => array(
-			'playlists' => array(
-				'items' => array(0),
-				),
-			'shouts' => array(0),
-		),
-	),
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -73,44 +55,42 @@ return array(
 
 			// Shouts
 			$authority->allow('create', 'shouts');
-			if( in_array($self->id, Config::get('lanager/permissions.banned.create.shouts')) ) // bans
+			$authority->allow('delete', 'shouts', function($self, $item)
 			{
-				$authority->deny('create', 'shouts');
-			}
+				if ( is_object($item) ) return ($item->user_id == $self->getCurrentUser()->id);
+				if ( is_array($item) ) return $self->getCurrentUser()->shouts()->where('id', $item['shouts'])->count();
+			});
 
 			// Playlist Items			
 			$authority->allow('create', 'playlists.items');
 			$authority->allow('delete', 'playlists.items', function($self, $item)
 			{
-				return ($item->user_id == $self->getCurrentUser()->id);
+				if ( is_object($item) ) return ($item->user_id == $self->getCurrentUser()->id);
+				if ( is_array($item) ) return $self->getCurrentUser()->playlistItems()->where('id', $item['items'])->count();
 			});
-			if( in_array($self->id, Config::get('lanager/permissions.banned.create.playlists.items')) ) // bans
-			{
-				$authority->deny('create', 'playlists.items');
-			}
+
 
 			// Playlist Item Votes
 			$authority->allow('create', 'playlists.items.votes');
 			$authority->allow('delete', 'playlists.items.votes', function($self, $item)
 			{
-				return ($item->user_id == $self->getCurrentUser()->id);
+				if ( is_object($item) ) return ($item->user_id == $self->getCurrentUser()->id);
+				if ( is_array($item) ) return $self->getCurrentUser()->playlistItemVotes()->where('id', $item['votes'])->count();
 			});
 
 			// Event Signups
 			$authority->allow('create', 'events.signups');
-			$authority->allow('delete', 'events.signups'); // TODO: users should only be able to delete their own signups
+			$authority->allow('delete', 'events.signups', function($self, $item) 
+			{
+				if ( is_object($item) ) return ($item->user_id == $self->getCurrentUser()->id);
+				if ( is_array($item) ) return $self->getCurrentUser()->eventSignups()->where('id', $item['signups'])->count();
+			});
 
 			// Users
-			$authority->allow('delete', 'users', function($self, $user) 
+			$authority->allow('delete', 'users', function($self, $item) 
 			{
-				if ( is_object($user) ) // users can only delete themselves
-				{
-					return $self->getCurrentUser()->id === $user->id; // passed entire user object
-				}
-				else
-				{
-					return $self->getCurrentUser()->id === $user; // just passed user id
-				}
+				if ( is_object($item) ) return ($item->id == $self->getCurrentUser()->id);
+				if ( is_array($item) ) return $self->getCurrentUser()->id == $item['users'];
 			});
 			
 			/*
