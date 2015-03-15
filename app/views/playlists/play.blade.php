@@ -2,6 +2,7 @@
 @section('content')
 	<?php
 		$pollUrl = url().'/api/playlists/'. $playlist->id.'/items/?orderBy=created_at&playback_state=0&take=1'; // waiting for api route fix
+		$apiKey = Auth::user()->api_key;
 	?>
 	<div style="width: {{ Config::get('lanager/playlist.videoplayer.width') }}px">
 		<div id="now-playing" class="pull-left">&nbsp;</div>
@@ -182,23 +183,17 @@
 			},
 			update_database: function (playback_state, skip_reason)
 			{
-				skip_reason = typeof skip_reason !== 'undefined' ? skip_reason : NULL;
+				skip_reason = typeof skip_reason !== 'undefined' ? skip_reason : null;
 				$.ajax({
-					url: '{{ route('playlists.items.update', $playlist->id) }}'+'/'+playlist.item.id+'/', // todo: use API route
+					beforeSend: function (request)
+					{
+						request.setRequestHeader('Authorization', 'Lanager {{ $apiKey }}' );
+					},
+					url: '{{ url() }}/api/playlists/' + playlist.item.playlist.id + '/items/' + playlist.item.id,
 					type: 'PUT',
 					data: {
 						playback_state: playback_state,
 						skip_reason: skip_reason
-					},
-					success: function(updated_item) {
-						if(updated_item.playback_state == playback_state ) 
-						{
-							playlist.console.log('Updated playback state: ' + playback_state);
-						}
-						else
-						{
-							playlist.console.error('Playback state not updated - response: ' + updated_item);
-						}
 					},
 					error: function (request, status, error) {
 						playlist.console.error('Error updating playback state: '+error);
