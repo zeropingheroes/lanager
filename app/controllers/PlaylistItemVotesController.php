@@ -19,4 +19,10 @@ class PlaylistItemVotesController extends BaseController {
 		return Redirect::route( 'playlists.items.index', $service->resourceIds() );
 	}
 
+	public function destroySucceeded( BaseResourceService $service )
+	{
+		Notification::success( $service->messages() );
+		return Redirect::route( 'playlists.items.index', $service->resourceIds() );
+	}
+
 }
