@@ -1,5 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
+use Event;
+
 abstract class BaseResourceService {
 
 	protected $resource;
@@ -26,6 +28,30 @@ abstract class BaseResourceService {
 	public function messages()
 	{
 		return $this->messages;
+	}
+
+	protected function handleEvent( $action, $outcome, $item = null)
+	{
+		$this->messages = trans('confirmation.after.resource.' . $action, ['resource' => trans('resources.' . $this->resource()) ]);
+		
+		$eventName =
+		[
+			'lanager',
+			$this->resource(),
+			$action,
+			$outcome,
+		];
+
+		Event::fire( implode('.', $eventName) , $item);
+		
+		return $this->listener->{$action.$outcome}( $this );
+	}
+
+	protected function storeSucceeded( $item )
+	{
+		$this->messages = trans('confirmation.after.resource.store', ['resource' => trans('resources.' . $this->resource()) ]);
+		Event::fire( 'lanager.' . $this->resource() . '.store', $item);
+		return $this->listener->storeSucceeded( $this );
 	}
 
 	public function filter( $model, array $filters)

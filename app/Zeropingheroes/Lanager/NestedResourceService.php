@@ -56,13 +56,12 @@ abstract class NestedResourceService extends BaseResourceService {
 		if ( $validator->fails() )
 		{
 			$this->errors = $validator->errors()->all();
-			return $this->listener->storeFailed( $this );
+			return parent::handleEvent( 'store', 'failed', $child );
 		}
 		else
 		{
 			$parent->save($child);
-			$this->messages = trans('confirmation.after.resource.store', ['resource' => trans('resources.' . $this->resource()) ]);
-			return $this->listener->storeSucceeded( $this );
+			return parent::handleEvent( 'store', 'succeeded', $child );
 		}
 	}
 	
@@ -77,13 +76,12 @@ abstract class NestedResourceService extends BaseResourceService {
 		if ( $validator->fails() )
 		{
 			$this->errors = $validator->errors()->all();
-			return $this->listener->updateFailed( $this );
+			return parent::handleEvent( 'update', 'failed', $item );
 		}
 		else
 		{
 			$item->save();
-			$this->messages = trans('confirmation.after.resource.update', ['resource' => trans('resources.' . $this->resource()) ]);
-			return $this->listener->updateSucceeded( $this );
+			return parent::handleEvent( 'update', 'succeeded', $item );
 		}
 	}
 
@@ -93,12 +91,11 @@ abstract class NestedResourceService extends BaseResourceService {
 		$this->ids = $ids;
 		if( $item->delete() )
 		{
-			$this->messages = trans('confirmation.after.resource.destroy', ['resource' => trans('resources.' . $this->resource()) ]);
 			array_pop($this->ids);
-			return $this->listener->destroySucceeded( $this );
+			return parent::handleEvent( 'destroy', 'succeeded' );
 		}
 		$this->errors = ['Unable to destroy ' . $this->resource() ];
-		return $this->listener->destroyFailed( $this );
+		return parent::handleEvent( 'destroy', 'failed', $item );
 	}
 
 	public function parent( array $ids )

@@ -41,13 +41,12 @@ abstract class FlatResourceService extends BaseResourceService {
 		if ( $validator->fails() )
 		{
 			$this->errors = $validator->errors()->all();
-			return $this->listener->storeFailed( $this );
+			return parent::handleEvent( 'store', 'failed', $this->model );
 		}
 		else
 		{
 			$this->model->save();
-			$this->messages = trans('confirmation.after.resource.store', ['resource' => trans('resources.' . $this->resource()) ]);
-			return $this->listener->storeSucceeded( $this );
+			return parent::handleEvent( 'store', 'succeeded', $this->model );
 		}
 	}
 
@@ -63,13 +62,12 @@ abstract class FlatResourceService extends BaseResourceService {
 		if ( $validator->fails() )
 		{
 			$this->errors = $validator->errors()->all();
-			return $this->listener->updateFailed( $this );
+			return parent::handleEvent( 'update', 'failed', $this->model );
 		}
 		else
 		{
 			$this->model->save();
-			$this->messages = trans('confirmation.after.resource.update', ['resource' => trans('resources.' . $this->resource()) ]);
-			return $this->listener->updateSucceeded( $this );
+			return parent::handleEvent( 'update', 'succeeded', $this->model );
 		}
 	}
 
@@ -78,12 +76,11 @@ abstract class FlatResourceService extends BaseResourceService {
 		$this->model = $this->model->findOrFail($id);
 		if( $this->model->delete() )
 		{
-			$this->messages = trans('confirmation.after.resource.destroy', ['resource' => trans('resources.' . $this->resource()) ]);
 			unset($this->model);
-			return $this->listener->destroySucceeded( $this );
+			return parent::handleEvent( 'destroy', 'succeeded' );
 		}
 		$this->errors = ['Unable to destroy ' . $this->resource() ];
-		return $this->listener->destroyFailed( $this );
+		return parent::handleEvent( 'destroy', 'failed', $this->model );
 	}
 
 	public function resourceIds()
