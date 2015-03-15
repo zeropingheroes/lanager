@@ -44,7 +44,7 @@ class User extends BaseModel implements UserInterface {
 
 	public function eventSignups()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\EventSignups\EventSignup', 'event_signups');
+		return $this->hasMany('Zeropingheroes\Lanager\EventSignups\EventSignup');
 	}
 
 	public function scopeVisible($query)
