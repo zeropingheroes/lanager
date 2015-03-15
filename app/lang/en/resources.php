@@ -16,7 +16,7 @@ return [
 	'lans'					=> 'LAN',
 	'events'				=> 'event',
 	'event-types'			=> 'event type',
-	'event-signup'			=> 'event signup',
+	'events.signups'		=> 'event signup',
 	'pages'					=> 'page',
 	'playlists'				=> 'playlist',
 	'playlists.items'		=> 'playlist item',
