@@ -16,15 +16,30 @@ if( Authority::can('update', $resource) )
 	$hover = ( ! isset($hover) ) ? '' : $hover;
 
 	$class = ( ! isset($class) ) ? 'inline' : $class;
+	$id    = ( ! isset($id) )    ? '' : $id;
 
 	// Echo the form
-	echo Form::inline(
-						[
-							'url' 			=> URL::route($resource.'.update', $parameters), 
-							'method' 		=> 'PUT',
-							'class'			=> $class,
-						]
-					);
+	if( !empty($id) )
+	{
+		echo Form::inline(
+							[
+								'url' 			=> URL::route($resource.'.update', $parameters), 
+								'method' 		=> 'PUT',
+								'class'			=> $class,
+								'id'			=> $id,
+							]
+						);
+	}
+	else
+	{
+		echo Form::inline(
+								[
+									'url' 			=> URL::route($resource.'.update', $parameters), 
+									'method' 		=> 'PUT',
+									'class'			=> $class,
+								]
+							);
+	}
 
 	// Set any hidden input data
 	if( isset($data) && is_array($data) )
