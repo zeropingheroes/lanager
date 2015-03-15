@@ -29,8 +29,8 @@ class PlaylistItemsController extends BaseController {
 			'user.state.server'
 		];
 		$unplayedItems = $this->service->all([$playlistId], ['playback_state' => 0], $eagerLoad);
-		$playedItems = $this->service->all([$playlistId], ['playback_state' => 1], $eagerLoad);
-		$skippedItems = $this->service->all([$playlistId], ['playback_state' => 2], $eagerLoad);
+		$playedItems = $this->service->all([$playlistId], ['playback_state' => 1, 'orderBy' => '-updated_at'], $eagerLoad);
+		$skippedItems = $this->service->all([$playlistId], ['playback_state' => 2, 'orderBy' => '-updated_at'], $eagerLoad);
 
 		return View::make('playlist-items.index')
 					->with('title','Playlist: '. $playlist->name)

@@ -4,9 +4,9 @@ use Zeropingheroes\Lanager\BaseModel;
 
 class PlaylistItem extends BaseModel {
 
-	protected $fillable = ['playlist_id', 'user_id', 'url', 'title', 'playback_state', 'duration', 'skip_reason', 'played_at'];
+	protected $fillable = ['playlist_id', 'user_id', 'url', 'title', 'playback_state', 'duration', 'skip_reason'];
 
-	protected $nullable = ['skip_reason', 'played_at'];
+	protected $nullable = ['skip_reason'];
 
 	public $validator = 'Zeropingheroes\Lanager\PlaylistItems\PlaylistItemValidator';
 

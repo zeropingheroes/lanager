@@ -25,7 +25,7 @@
 					{{ Duration::shortFormat($item->duration) }}
 				</td>
 				<td>
-					{{-- FIX THIS: $item->played_at->diffForHumans() --}}
+					{{ $item->updated_at->diffForHumans() }}
 				</td>
 				@if( Authority::can('manage', 'playlists.items') )
 					<td>
