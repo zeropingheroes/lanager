@@ -28,7 +28,7 @@ class UserImport {
 
 		if( $user->save() )
 		{
-			Event::fire('lanager.users.store', $user );
+			Event::fire('lanager.users.store', $user ); // todo: use service
 			return $user;
 		}
 
