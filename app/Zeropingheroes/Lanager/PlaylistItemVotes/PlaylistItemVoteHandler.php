@@ -13,7 +13,7 @@ class PlaylistItemVoteHandler {
 	*/
 	public function subscribe($events)
 	{
-		$events->listen('lanager.playlists.items.votes.store', 'Zeropingheroes\Lanager\PlaylistItemVotes\PlaylistItemVoteHandler@onStore');
+		$events->listen('lanager.playlists.items.votes.store.succeeded', 'Zeropingheroes\Lanager\PlaylistItemVotes\PlaylistItemVoteHandler@onStore');
 	}
 
 	public function onStore($playlistItemVote)
@@ -31,7 +31,6 @@ class PlaylistItemVoteHandler {
 			// skip the item
 			$playlistItem->playback_state = 2;
 			$playlistItem->skip_reason = ($playlistItemVotes + 1) . ' users voted to skip';
-			$playlistItem->played_at = new DateTime;
 			$playlistItem->save();
 		}
 	}

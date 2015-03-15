@@ -12,7 +12,7 @@ class PlaylistItem extends BaseModel {
 
 	public function getDates()
 	{
-		return array('created_at', 'updated_at', 'played_at');
+		return array('created_at', 'updated_at');
 	}
 
 	public function playlist()
