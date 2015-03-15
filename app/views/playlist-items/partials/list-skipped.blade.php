@@ -7,8 +7,7 @@
 				<th>Duration</th>
 				<th>Skipped</th>
 				<th>Reason</th>
-				@if( Authority::can('create', 'playlists.items.votes') OR
-					Authority::can('manage', 'playlists.items') )
+				@if( Authority::can('manage', 'playlists.items') )
 					<th class="text-center">{{ Icon::cog() }}</th>
 				@endif
 			</tr>

@@ -27,11 +27,14 @@
 				<td>
 					{{ $item->created_at->diffForHumans() }}
 				</td>
-				<td>
-					@include('playlist-items.partials.vote-skip', ['item' => $item])
-					@include('playlist-items.partials.skip', ['item' => $item])
-					@include('playlist-items.partials.destroy', ['item' => $item])
-				</td>
+				@if( Authority::can('create', 'playlists.items.votes') OR
+					Authority::can('manage', 'playlists.items') )
+					<td class="col-centered">
+						@include('playlist-items.partials.vote-skip', ['item' => $item])
+						@include('playlist-items.partials.skip', ['item' => $item])
+						@include('playlist-items.partials.destroy', ['item' => $item])
+					</td>
+				@endif
 			</tr>
 		@endforeach
 		</tbody>

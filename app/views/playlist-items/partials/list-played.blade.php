@@ -6,8 +6,7 @@
 				<th>Title</th>
 				<th>Duration</th>
 				<th>Played</th>
-				@if( Authority::can('create', 'playlists.items.votes') OR
-					Authority::can('manage', 'playlists.items') )
+				@if( Authority::can('manage', 'playlists.items') )
 					<th class="text-center">{{ Icon::cog() }}</th>
 				@endif
 			</tr>
@@ -28,7 +27,7 @@
 					{{ $item->updated_at->diffForHumans() }}
 				</td>
 				@if( Authority::can('manage', 'playlists.items') )
-					<td>
+					<td class="col-centered">
 						@include('playlist-items.partials.destroy', ['item' => $item])
 					</td>
 				@endif
