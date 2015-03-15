@@ -1,5 +1,5 @@
 <?php
-if( $state->count() )
+if( isset($state) )
 {
 	switch ($state->status)
 	{
