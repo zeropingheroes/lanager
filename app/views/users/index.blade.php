@@ -9,8 +9,7 @@
 				<tr>
 					<th>User</th>
 					<th>Status</th>
-					<th>Game</th>
-					<th>Server</th>
+					<th>Currently Playing</th>
 					<th>Achievements</th>
 					@if( Authority::can('manage', 'users') )
 						<th class="text-center">{{ Icon::cog() }}</th>
@@ -33,11 +32,6 @@
 					<td>
 						@if( isset($state->application) )
 							@include('applications.partials.link', ['application' => $state->application])
-						@endif
-					</td>
-					<td>
-						@if( isset($state->server) )
-							@include('servers.partials.link', ['server' => $state->server])
 						@endif
 					</td>
 					<td>

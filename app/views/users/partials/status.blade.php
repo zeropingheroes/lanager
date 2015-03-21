@@ -10,18 +10,12 @@
 			<thead>
 				<tr>
 					<th>Game</th>
-					<th>Server</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>
 						@include('applications.partials.button', ['application' => $state->application])
-					</td>
-					<td>
-						@if( isset( $state->server->address ) )
-							@include('servers.partials.link', ['server' => $state->server])
-						@endif
 					</td>
 				</tr>
 			</tbody>
