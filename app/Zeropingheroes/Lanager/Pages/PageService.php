@@ -28,4 +28,10 @@ class PageService extends FlatResourceService {
 		Cache::forget('pageMenu');
 		return parent::update($id, $input);
 	}
+
+	public function destroy($id)
+	{
+		Cache::forget('pageMenu');
+		return parent::destroy($id);
+	}
 }
