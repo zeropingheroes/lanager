@@ -3,7 +3,11 @@ $(document).ready(function () {
 	$('a').each(function() {
 		var thisHost = new RegExp('/' + window.location.host + '/');
 		var thisJs = new RegExp('^javascript');
-		if( ! thisHost.test(this.href) && ! thisJs.test(this.href) ) {
+		var thisSteam = new RegExp('^steam');
+		if( ! thisHost.test(this.href) &&
+			! thisJs.test(this.href) && 
+			! thisSteam.test(this.href)
+		) {
 			$(this).click(function(event) {
 				event.preventDefault();
 				event.stopPropagation();
