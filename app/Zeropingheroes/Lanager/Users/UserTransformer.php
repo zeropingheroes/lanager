@@ -12,6 +12,9 @@ class UserTransformer extends Fractal\TransformerAbstract {
 			'steam_id_64'	=> $user->steam_id_64,
 			'ip'			=> $user->ip,
 			'avatar'		=> $user->avatar,
+			'avatar_small'	=> $user->present()->avatarSmall(),
+			'avatar_medium'	=> $user->present()->avatarMedium(),
+			'avatar_large'	=> $user->present()->avatarLarge(),
 			'links'			=> [
 				[
 					'rel' => 'self',

@@ -17,7 +17,10 @@
 				</td>
 				<td class="user-list">
 					@foreach( $application['users'] as $user )
-						{{ link_to_route('users.show', $user['username'], $user['id']) }}					
+						<a href="{{ URL::route('users.show', $user['id']) }}">
+							<img src="{{ $user['avatar_small']}}"> {{{ $user['username'] }}}
+						</a>
+						<br>
 					@endforeach
 				</td>
 			</tr>
