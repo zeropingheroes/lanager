@@ -12,11 +12,7 @@ $navbar =
 	],
 	[
 		'title' => 'Games',
-		'link' => URL::route('usage.show', 'applications'),
-	],
-	[
-		'title' => 'Servers',
-		'link' => URL::route('usage.show', 'servers'),
+		'link' => URL::route('application-usage.index'),
 	],
 	[
 		'title' => 'Playlists',

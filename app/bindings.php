@@ -19,8 +19,3 @@ App::bind(
 	'Zeropingheroes\Lanager\Applications\SteamApplications\SteamApplicationContract',
 	'Zeropingheroes\Lanager\Applications\SteamApplications\LocomotiveSteamApplicationRepository'
 	);
-
-App::bind(
-	'Zeropingheroes\Lanager\States\StateContract',
-	'Zeropingheroes\Lanager\States\EloquentStateRepository'
-	);

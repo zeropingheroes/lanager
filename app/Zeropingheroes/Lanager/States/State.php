@@ -27,15 +27,4 @@ class State extends BaseModel {
 		return $this->belongsTo('Zeropingheroes\Lanager\Servers\Server');
 	}
 
-	/**
-	 * Get the most recent Steam state
-	 *
-	 * @return Query
-	 */
-	public function scopeLatest($query)
-	{
-		return $query->orderBy('created_at', 'desc')
-					->where('created_at', '>=', date('Y-m-d H:i:s',time()-300)); // no states older than 5 mins
-	}
-
 }

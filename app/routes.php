@@ -36,10 +36,10 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 
 	/*
 	|--------------------------------------------------------------------------
-	| Usage
+	| Application Usage
 	|--------------------------------------------------------------------------
 	*/
-	Route::resource('usage', 'UsageController', ['only' => ['index', 'show']]);
+	Route::resource('application-usage', 'ApplicationUsageController', ['only' => ['index']]);
 
 	/*
 	|--------------------------------------------------------------------------
