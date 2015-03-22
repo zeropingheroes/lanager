@@ -108,18 +108,28 @@
 				{
 					if( shouts.data.length != 0 )
 					{
-						var tbody = '';
-						$.each(shouts.data, function(i, shout)
-						{
-							tbody +=
-							'<tr>' + 
-								'<td class="shout-user-avatar shrink"><img src="' + shout.user.avatar_medium + '"></td>' +
-								'<td class="shout-user-username shrink a">' + shout.user.username + '</td>' +
-								'<td class="shout-content expand">' + shout.content + '</td>' +
-							'</tr>';
+						var tbody = $('<tbody>');
 
+						$.each(shouts.data, function(idx, shout) {
+							var row = $("<tr>");
+
+							row.append(
+								$("<td>").append(
+									$("<img>").attr('src', shout.user.avatar_medium)
+								).addClass('shout-user-avatar shrink')
+							);
+							row.append(
+								$("<td>").text(shout.user.username)
+								.addClass('shout-user-username shrink')
+							);
+							row.append(
+								$("<td>").text(shout.content)
+								.addClass('shout-content expand')
+							);
+
+							tbody.append(row);
 						});
-						$("#shouts tbody").html(tbody);
+						$("#shouts").html(tbody);
 					}
 					else
 					{
