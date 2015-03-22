@@ -11,10 +11,14 @@ div.container.content {
 }
 
 div.container.content.fullscreen {
-	padding-top: 5px;
+	padding-top: 0px;
 	margin-left: 0px;
 	margin-right: 0px;
 	max-width: none;
+}
+div.container.content.fullscreen h1 {
+	margin-top: 5px;
+	margin-bottom: 0px;
 }
 
 div.alert a {
@@ -308,7 +312,8 @@ div#submitter img {
    DASHBOARD
    -------------------------------------------------------------------
 */
-table#events {
+table#events,
+table#applicationUsage {
 	font-size: 32px;
 	margin: 0px;
 }
@@ -319,4 +324,17 @@ table#events td.event-timer {
 
 h1.dashboard-events-label {
 	margin: 0px;
+}
+
+table#applicationUsage tr td { /* verticdally centred rows */
+	vertical-align: middle;
+}
+
+table#applicationUsage td.application-logo { /* snug logo size */
+	width: 184px;
+}
+
+table#applicationUsage td.application-user-count { /* easy to read user count */
+	font-weight: bold;
+	padding: 0px 30px;
 }

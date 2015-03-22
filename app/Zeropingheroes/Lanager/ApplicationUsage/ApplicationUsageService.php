@@ -17,14 +17,9 @@ class ApplicationUsageService {
 		$this->userTransformer = new UserTransformer;
 	}
 
-	public function at( $timestamp )
-	{
-		return $this->states->at( $timestamp )->whereNotNull('states.application_id')->get();
-	}
-
 	public function userTotalsAt( $timestamp )
 	{
-		$states = $this->at( $timestamp );
+		$states = $this->states->at( $timestamp )->whereNotNull('states.application_id')->get();
 
 		if( count($states) )
 		{

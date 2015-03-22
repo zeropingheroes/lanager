@@ -4,7 +4,14 @@
 <script type="text/javascript">
 
 	var dashboard = {
-		
+
+		clock: {
+			update: function()
+			{
+				$('#clock').text( moment().format("h:mma") );
+			},
+		},
+
 		events: {
 			feedUrl: '{{ url() }}/api/events/?orderBy=start',
 			poll: function()
@@ -51,20 +58,41 @@
 				});
 			},
 		},
-
-		clock: {
-			update: function()
+		applicationUsage: {
+			feedUrl: '{{ url() }}/api/application-usage/',
+			poll: function()
 			{
-				$('#clock').text( moment().format("h:mma") );
+				console.log('Polling application usage');
+				$.getJSON( dashboard.applicationUsage.feedUrl, function( applicationUsage )
+				{
+					var tbody = '';
+					$.each(applicationUsage, function(i, applicationInUse)
+					{
+						applicationInUse.userList = '';
+						$.each(applicationInUse.users, function(i, user) {
+							applicationInUse.userList += '<img src="' + user.avatar_small + '">';
+						});
+						tbody +=
+						'<tr>' + 
+							'<td class="application-logo"><img src="' + applicationInUse.logo_small + '"></td>' +
+							'<td class="application-name">' + applicationInUse.name + '</td>' +
+							'<td class="application-user-count">' + applicationInUse.users.length + ' In Game</td>' +
+							'<td class="application-user-list">' + applicationInUse.userList + '</td>' +
+						'</tr>';
+
+					});
+					$("#applicationUsage tbody").html(tbody);
+				});
 			},
 		},
-
 	};
 	$( document ).ready(function() {
 		dashboard.clock.update();
 		dashboard.events.poll();
-		window.setInterval(dashboard.events.poll,1000 * 30);
+		dashboard.applicationUsage.poll();
 		window.setInterval(dashboard.clock.update,1000 * 1);
+		window.setInterval(dashboard.events.poll,1000 * 30);
+		window.setInterval(dashboard.applicationUsage.poll,1000 * 15);
 	});
 
 </script>
@@ -81,6 +109,17 @@
 </div>
 
 <table class="table" id="events">
+	<tbody>
+		<tr>
+			<td>
+				{{ ProgressBar::normal(100)->animated() }}
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<h1>Games</h1>
+<table class="table" id="applicationUsage">
 	<tbody>
 		<tr>
 			<td>
