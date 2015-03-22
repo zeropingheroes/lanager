@@ -52,6 +52,7 @@ abstract class NestedResourceService extends BaseResourceService {
 		$child->{$foreignKeyField} = end($ids);
 
 		$validator = new $child->validator( $child->toArray() );
+		$validator->scope(['store']);
 
 		if ( $validator->fails() )
 		{
@@ -72,7 +73,8 @@ abstract class NestedResourceService extends BaseResourceService {
 		$item = $item->fill($input);
 
 		$validator = new $item->validator( $item->toArray() );
-		
+		$validator->scope(['update']);
+
 		if ( $validator->fails() )
 		{
 			$this->errors = $validator->errors()->all();
