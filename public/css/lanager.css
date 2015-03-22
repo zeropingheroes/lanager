@@ -313,8 +313,9 @@ div#submitter img {
    -------------------------------------------------------------------
 */
 table#events,
-table#applicationUsage {
-	font-size: 32px;
+table#applicationUsage,
+table#shouts {
+	font-size: 30px;
 	margin: 0px;
 }
 
@@ -337,4 +338,8 @@ table#applicationUsage td.application-logo { /* snug logo size */
 table#applicationUsage td.application-user-count { /* easy to read user count */
 	font-weight: bold;
 	padding: 0px 30px;
+}
+
+table#shouts td.shout-content {
+	font-size: 80%;
 }

@@ -85,14 +85,38 @@
 				});
 			},
 		},
+		shouts: {
+			feedUrl: '{{ url() }}/api/shouts/?orderBy=-created_at&take=3',
+			poll: function()
+			{
+				console.log('Polling shouts');
+				$.getJSON( dashboard.shouts.feedUrl, function( shouts )
+				{
+					var tbody = '';
+					$.each(shouts.data, function(i, shout)
+					{
+						tbody +=
+						'<tr>' + 
+							'<td class="shout-user-avatar"><img src="' + shout.user.avatar_medium + '"></td>' +
+							'<td class="shout-user-username">' + shout.user.username + '</td>' +
+							'<td class="shout-content">' + shout.content + '</td>' +
+						'</tr>';
+
+					});
+					$("#shouts tbody").html(tbody);
+				});
+			},
+		},
 	};
 	$( document ).ready(function() {
 		dashboard.clock.update();
 		dashboard.events.poll();
 		dashboard.applicationUsage.poll();
+		dashboard.shouts.poll();
 		window.setInterval(dashboard.clock.update,1000 * 1);
 		window.setInterval(dashboard.events.poll,1000 * 30);
 		window.setInterval(dashboard.applicationUsage.poll,1000 * 15);
+		window.setInterval(dashboard.shouts.poll,1000 * 15);
 	});
 
 </script>
@@ -120,6 +144,17 @@
 
 <h1>Games</h1>
 <table class="table" id="applicationUsage">
+	<tbody>
+		<tr>
+			<td>
+				{{ ProgressBar::normal(100)->animated() }}
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<h1>Shouts</h1>
+<table class="table" id="shouts">
 	<tbody>
 		<tr>
 			<td>
