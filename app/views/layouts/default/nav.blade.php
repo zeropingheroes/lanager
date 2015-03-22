@@ -26,6 +26,10 @@ $navbar =
 		'Extras',
 		[
 			[
+				'title' => 'Live Dashboard',
+				'link' => URL::route('dashboard.index'),
+			],
+			[
 				'title' => 'Achievements',
 				'link' => URL::route('achievements.index'),
 			],

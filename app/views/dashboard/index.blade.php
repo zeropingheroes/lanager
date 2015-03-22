@@ -50,7 +50,7 @@
 							tbody +=
 							'<tr>' + 
 								'<td class="event-status">' + event.status + '</td>' +
-								'<td class="event-name">' + event.name + '</td>' +
+								'<td class="event-name"><a href="' + event.links[0].uri + '">' + event.name + '</a></td>' +
 								'<td class="event-type">' + event.type.name + '</td>' +
 								'<td class="event-timer">' + event.timer + '</td>' +
 							'</tr>';
@@ -84,7 +84,7 @@
 							tbody +=
 							'<tr>' + 
 								'<td class="application-logo"><img src="' + applicationInUse.logo_small + '"></td>' +
-								'<td class="application-name">' + applicationInUse.name + '</td>' +
+								'<td class="application-name"><a href="' + applicationInUse.url + '">' + applicationInUse.name + '</a></td>' +
 								'<td class="application-user-count">' + applicationInUse.users.length + ' In Game</td>' +
 								'<td class="application-user-list">' + applicationInUse.userList + '</td>' +
 							'</tr>';
@@ -119,7 +119,9 @@
 								).addClass('shout-user-avatar shrink')
 							);
 							row.append(
-								$("<td>").text(shout.user.username)
+								$("<td>").append(
+									$("<a>").attr('href', shout.user.links[0].uri
+									).text(shout.user.username))
 								.addClass('shout-user-username shrink')
 							);
 							row.append(
