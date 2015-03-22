@@ -14,7 +14,7 @@
 						title: 	value.name,
 						start: 	value.start,
 						end: 	value.end,
-						color: 	value.type.data[0].colour,
+						color: 	value.type.colour,
 						url: 	value.links[0].uri
 					};
 					fullCalendarEvents.push(event);
