@@ -44,6 +44,17 @@ h6:hover a.permalink {
 	display: inline;
 }
 
+table td.shrink {
+	white-space: nowrap
+}
+table td.expand {
+	width: 99%
+}
+
+table.table-valign-middle tr td {
+	vertical-align: middle;
+}
+
 /* -------------------------------------------------------------------
    AVATARS
    -------------------------------------------------------------------
@@ -321,25 +332,27 @@ table#shouts {
 
 table#events td.event-timer {
 	text-align: right;
+	font-size: 80%;
 }
 
-h1.dashboard-events-label {
+table#events h1.dashboard-events-label {
 	margin: 0px;
-}
-
-table#applicationUsage tr td { /* verticdally centred rows */
-	vertical-align: middle;
-}
-
-table#applicationUsage td.application-logo { /* snug logo size */
-	width: 184px;
 }
 
 table#applicationUsage td.application-user-count { /* easy to read user count */
 	font-weight: bold;
 	padding: 0px 30px;
+	width: 220px;
+}
+
+table#applicationUsage td.application-user-list {
+	text-align: right;
+}
+
+table#applicationUsage td.application-logo { /* easy to read user count */
+	width: 184px;
 }
 
 table#shouts td.shout-content {
-	font-size: 80%;
+	font-size: 70%;
 }

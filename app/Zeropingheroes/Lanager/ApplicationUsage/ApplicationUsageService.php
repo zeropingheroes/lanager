@@ -47,6 +47,7 @@ class ApplicationUsageService {
 
 			return $applications;
 		}
+		return [];
 	}
 
 }
