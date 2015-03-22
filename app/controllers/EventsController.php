@@ -38,7 +38,7 @@ class EventsController extends BaseController {
 	 */
 	public function create()
 	{
-		$eventTypes = ['' => ''] + (new EventTypeService($this))->lists('name','id');
+		$eventTypes = (new EventTypeService($this))->lists('name','id');
 
 		return View::make('events.create')
 					->with('title','Create Event')
