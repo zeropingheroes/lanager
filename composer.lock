@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8d9989c1309a6c79bed46008e12ab8bc",
+    "hash": "0e5e2ad58dac9c6ac234fca17a592a8a",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2771,6 +2771,43 @@
             "time": "2014-08-24 10:58:00"
         },
         {
+            "name": "zeropingheroes/htmlpurifier-urischeme-steam",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zeropingheroes/htmlpurifier-urischeme-steam.git",
+                "reference": "1762c0f881b667f9357ca7498ee3995c8847e01f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zeropingheroes/htmlpurifier-urischeme-steam/zipball/1762c0f881b667f9357ca7498ee3995c8847e01f",
+                "reference": "1762c0f881b667f9357ca7498ee3995c8847e01f",
+                "shasum": ""
+            },
+            "require": {
+                "ezyang/htmlpurifier": "4.6.*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "AGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Olly Baker",
+                    "email": "ilumos@gmail.com"
+                }
+            ],
+            "description": "HTMLPurifier URI scheme validator for steam:// links for interacting with Valve's Steam application",
+            "time": "2015-04-06 19:13:36"
+        },
+        {
             "name": "zeropingheroes/steam-browser-protocol",
             "version": "dev-dev",
             "source": {
@@ -2856,7 +2893,8 @@
         "machuga/authority-l4": 20,
         "zeropingheroes/duration": 20,
         "zeropingheroes/timespan": 20,
-        "fadion/validator-assistant": 20
+        "fadion/validator-assistant": 20,
+        "zeropingheroes/htmlpurifier-urischeme-steam": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

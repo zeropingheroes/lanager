@@ -18,7 +18,8 @@
 		"mews/purifier": "1.0.1",
 		"fadion/validator-assistant": "dev-master",
 		"dingo/api": "0.8.*",
-		"barryvdh/laravel-debugbar": "1.8.4"
+		"barryvdh/laravel-debugbar": "1.8.4",
+		"zeropingheroes/htmlpurifier-urischeme-steam": "dev-master"
 	},
 	"authors": [
 	{

@@ -19,7 +19,7 @@ return array(
 			'CSS.AllowedProperties'		=> 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
 			'AutoFormat.AutoParagraph'	=> true,
 			'AutoFormat.RemoveEmpty'	=> true,
-			'Cache.SerializerPath'		=> storage_path(),
+			'Cache.SerializerPath'		=> storage_path().'/purifier',
 		),
 		'markdown' => array(
 			'HTML.Doctype'				=> 'XHTML 1.0 Strict',
@@ -27,8 +27,8 @@ return array(
 			'CSS.AllowedProperties'		=> 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
 			'AutoFormat.AutoParagraph'	=> true,
 			'AutoFormat.RemoveEmpty'	=> true,
-			'Cache.SerializerPath'		=> storage_path(),
-
+			'Cache.SerializerPath'		=> storage_path().'/purifier',
+			'URI.AllowedSchemes'		=> ['http', 'https', 'steam'],
 		),
 		'shout' => array(
 			'HTML.Doctype'				=> 'XHTML 1.0 Strict',
@@ -37,7 +37,8 @@ return array(
 			'AutoFormat.AutoParagraph'	=> false,
 			'AutoFormat.RemoveEmpty'	=> true,
 			'AutoFormat.Linkify'		=> true,
-			'Cache.SerializerPath'		=> storage_path(),
+			'Cache.SerializerPath'		=> storage_path().'/purifier',
+			'URI.AllowedSchemes'		=> ['http', 'https', 'steam'],
 		),
 	),
 );
