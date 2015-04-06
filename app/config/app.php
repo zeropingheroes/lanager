@@ -34,12 +34,14 @@ return array(
 	|--------------------------------------------------------------------------
 	|
 	| Here you may specify the default timezone for your application, which
-	| will be used by the PHP date and date-time functions. We have gone
-	| ahead and set this to a sensible default for you out of the box.
+	| will be used by the PHP date and date-time functions.
 	|
+	| Please set according to your location to ensure correct time display.
+	| For a list of valid timezones, see here:
+	| http://php.net/manual/en/timezones.php
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Europe/London',
 
 	/*
 	|--------------------------------------------------------------------------

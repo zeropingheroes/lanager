@@ -116,6 +116,10 @@ more enjoyable for attendees and organisers alike.
 
 	`sudo nano /var/www/lanager/app/config/lanager/steam.php`
 
+12. Set the correct time zone for your location in the app config file:
+	1. `sudo nano /var/www/lanager/app/config/app.php`
+	2. Change the `timezone` value to a [valid PHP timezone](http://php.net/manual/en/timezones.php)  
+
 12. Run the LANager installation command:
 
 	`cd /var/www/lanager`
