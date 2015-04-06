@@ -121,7 +121,7 @@ return array(
 		'Krucas\Notification\NotificationServiceProvider',
 		'Mews\Purifier\PurifierServiceProvider',
 		'Dingo\Api\Provider\ApiServiceProvider',
-
+		// 'Barryvdh\Debugbar\ServiceProvider',
 	),
 
 	/*
@@ -225,7 +225,7 @@ return array(
 		'Markdown'				=> 'VTalbot\Markdown\Facades\Markdown',
 		'Purifier'				=> 'Mews\Purifier\Facades\Purifier',
 		'API'					=> 'Dingo\Api\Facade\API',
-
+		// 'Debugbar'				=> 'Barryvdh\Debugbar\Facade',
 	),
 
 );
