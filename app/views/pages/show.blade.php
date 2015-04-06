@@ -7,8 +7,8 @@
 
 	@if(!empty($page->children))
 		<ul>
-			@foreach($page->children as $page)
-				<li>{{ link_to_route('pages.show',$page->title, $page->id) }}</li>
+			@foreach($page->children as $child)
+				<li>{{ link_to_route('pages.show',$child->title, $child->id) }}</li>
 			@endforeach
 		</ul>
 	@endif
