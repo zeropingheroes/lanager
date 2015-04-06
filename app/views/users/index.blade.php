@@ -11,7 +11,7 @@
 					<th>Status</th>
 					<th>Currently Playing</th>
 					<th>Achievements</th>
-					@if( Authority::can('manage', 'users') )
+					@if( Authority::can('delete', 'users') OR Authority::can('manage', 'user-roles') )
 						<th class="text-center">{{ Icon::cog() }}</th>
 					@endif
 				</tr>
@@ -37,7 +37,7 @@
 					<td>
 						@include('plural', ['singular' => 'award', 'collection' => $user->userAchievements] )
 					</td>
-					@if( Authority::can('manage', 'users') )
+					@if( Authority::can('delete', 'users') OR Authority::can('manage', 'user-roles') )
 						<td class="text-center">
 							@include('buttons.create',
 								[
