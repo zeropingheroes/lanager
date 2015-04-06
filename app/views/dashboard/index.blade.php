@@ -19,49 +19,47 @@
 				console.log('Polling events');
 				$.getJSON( dashboard.events.feedUrl, function( events )
 				{
-					if( events.data.length != 0 )
+					var now = moment();
+					var tbody = '';
+					var futureEventCount = 0;
+					var show = { id : true, name : true, type: true };
+					$.each(events.data, function(i, event)
 					{
-						var now = moment();
-						var tbody = '';
-						var futureEventCount = 0;
-						var show = { id : true, name : true, type: true };
-						$.each(events.data, function(i, event)
+						event.start = moment(event.start);
+						event.end = moment(event.end);
+
+						if( event.start.isBefore( now ) && event.end.isAfter( now ) )
 						{
-							event.start = moment(event.start);
-							event.end = moment(event.end);
+							event.status = '<span class="label label-success">Now</span>';
+							event.timer = 'Ending ' + event.end.fromNow();
 
-							if( event.start.isBefore( now ) && event.end.isAfter( now ) )
-							{
-								event.status = '<span class="label label-success">Now</span>';
-								event.timer = 'Ending ' + event.end.fromNow();
+						}
+						else if( event.start.isAfter( now ) && event.end.isAfter( now ))
+						{
+							event.status = '<span class="label label-info">Next</span>';
+							event.timer = 'Starting ' + event.start.fromNow();
+							if( futureEventCount == 1 ) return true; // only display 1 future event
+							futureEventCount++;
+						}
+						else
+						{
+							return true; // skip event as it is in the past
+						}
+						// add a row for the event
+						tbody +=
+						'<tr>' + 
+							'<td class="event-status">' + event.status + '</td>' +
+							'<td class="event-name"><a href="' + event.links[0].uri + '">' + event.name + '</a></td>' +
+							'<td class="event-type">' + event.type.name + '</td>' +
+							'<td class="event-timer">' + event.timer + '</td>' +
+						'</tr>';
 
-							}
-							else if( event.start.isAfter( now ) && event.end.isAfter( now ))
-							{
-								event.status = '<span class="label label-info">Next</span>';
-								event.timer = 'Starting ' + event.start.fromNow();
-								if( futureEventCount == 1 ) return true; // only display 1 future event
-								futureEventCount++;
-							}
-							else
-							{
-								return true; // skip this event
-							}
-							tbody +=
-							'<tr>' + 
-								'<td class="event-status">' + event.status + '</td>' +
-								'<td class="event-name"><a href="' + event.links[0].uri + '">' + event.name + '</a></td>' +
-								'<td class="event-type">' + event.type.name + '</td>' +
-								'<td class="event-timer">' + event.timer + '</td>' +
-							'</tr>';
-
-						});
-						$("#events tbody").html(tbody);
-					}
-					else
+					});
+					if( tbody === '' )
 					{
-						$("#events tbody").html('<tr><td>No events to show!</td></tr>');
+						tbody = '<tr><td class="text-muted">No events to show!</td></tr>';
 					}
+					$("#events tbody").html( tbody );
 				});
 			},
 		},
@@ -94,7 +92,7 @@
 					}
 					else
 					{
-						$("#applicationUsage tbody").html('<tr><td>No games being played!</td></tr>');
+						$("#applicationUsage tbody").html('<tr><td class="text-muted">No games being played!</td></tr>');
 					}
 				});
 			},
@@ -135,7 +133,7 @@
 					}
 					else
 					{
-						$("#shouts tbody").html('<tr><td>No shouts to show!</td></tr>');
+						$("#shouts tbody").html('<tr><td class="text-muted">No shouts to show!</td></tr>');
 					}
 				});
 			},
