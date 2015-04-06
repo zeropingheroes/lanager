@@ -6,6 +6,7 @@ use Laracasts\Presenter\PresentableTrait;
 class Server extends BaseModel {
 
 	protected $fillable = ['application_id', 'name', 'address', 'port', 'pinned'];
+	protected $nullable = ['name'];
 
 	use PresentableTrait;
 

@@ -8,6 +8,7 @@ use DB;
 class User extends BaseModel implements UserInterface {
 
 	protected $fillable = ['username', 'steam_id_64', 'steam_visibility', 'ip', 'avatar', 'visible'];
+	protected $optional = ['steam_visibility', 'visible'];
 
 	protected $hidden = ['remember_token', 'api_key'];
 

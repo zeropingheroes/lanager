@@ -5,6 +5,7 @@ use Eloquent;
 
 class BaseModel extends Eloquent {
 
+	protected $optional = [];
 	protected $nullable = [];
 	public $validator = '';
 
@@ -17,21 +18,37 @@ class BaseModel extends Eloquent {
 
 		static::saving(function($model)
 		{
-			self::setNullables($model);
+			self::unsetOptionalFields($model);
+			self::nullNullableFields($model);
 		});
 	}
 
 	/**
-	* Unset empty nullable fields so that MySQL will null/default them
+	* Unset optional fields that are empty, so that MySQL will default them
 	* @param object $model
 	*/
-	protected static function setNullables($model)
+	protected static function unsetOptionalFields($model)
 	{
-		foreach($model->nullable as $field)
+		foreach($model->optional as $field)
 		{
 			if ( empty($model->{$field}) )
 			{
 				unset($model->{$field});
+			}
+		}
+	}
+
+	/**
+	* Set nullable fields that are empty/missing to null
+	* @param object $model
+	*/
+	protected static function nullNullableFields($model)
+	{
+		foreach($model->nullable as $field)
+		{
+			if ( ! isset($model->{$field} ) OR empty($model->{$field}) )
+			{
+				$model->{$field} = NULL;
 			}
 		}
 	}

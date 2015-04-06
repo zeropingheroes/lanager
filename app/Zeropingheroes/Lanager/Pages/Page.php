@@ -5,7 +5,7 @@ use Zeropingheroes\Lanager\BaseModel;
 class Page extends BaseModel {
 
 	protected $fillable = ['parent_id', 'title', 'content'];
-	protected $nullable = ['parent_id', 'content'];
+	protected $nullable = ['content', 'parent_id'];
 
 	public $validator = 'Zeropingheroes\Lanager\Pages\PageValidator';
 

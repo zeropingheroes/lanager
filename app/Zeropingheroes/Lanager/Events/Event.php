@@ -6,7 +6,7 @@ use Laracasts\Presenter\PresentableTrait;
 class Event extends BaseModel {
 
 	protected $fillable = ['name', 'description', 'start', 'end', 'signup_opens', 'signup_closes', 'event_type_id'];
-	protected $nullable = ['event_type_id', 'signup_opens', 'signup_closes'];
+	protected $nullable = ['description', 'signup_opens', 'signup_closes'];
 	
 	public $validator = 'Zeropingheroes\Lanager\Events\EventValidator';
 

@@ -7,8 +7,8 @@ use Laracasts\Presenter\PresentableTrait;
 class Playlist extends BaseModel {
 
 	protected $fillable = ['name', 'description', 'playback_state', 'max_item_duration', 'user_skip_threshold'];
-
-	protected $nullable = ['description', 'max_item_duration', 'user_skip_threshold'];
+	protected $nullable = ['description'];
+	protected $optional = ['playback_state', 'max_item_duration', 'user_skip_threshold'];
 
 	public $validator = 'Zeropingheroes\Lanager\Playlists\PlaylistValidator';
 
