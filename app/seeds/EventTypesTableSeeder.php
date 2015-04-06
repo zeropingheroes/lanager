@@ -21,7 +21,7 @@ class EventTypesTableSeeder extends Seeder {
 			],
 			[
 				'name'	=> 'Tournament',
-				'colour'=>	'#19A601', // light green
+				'colour'=>	'#A0000C', // red
 			],
 			[
 				'name'	=> 'Food & Drink',
