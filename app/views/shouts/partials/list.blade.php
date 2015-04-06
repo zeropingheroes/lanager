@@ -14,7 +14,7 @@
 				@include('roles.partials.badges', ['roles' => $shout->user->roles])
 			</h4>
 			
-			{{ Purifier::clean(Markdown::string($shout->content), 'shout') }}
+			{{ Purifier::clean($shout->content, 'shout') }}
 			
 			<div>
 				<small title="{{ $shout->created_at }}" class="timestamp">
