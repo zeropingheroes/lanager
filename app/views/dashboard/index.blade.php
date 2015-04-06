@@ -98,7 +98,7 @@
 			},
 		},
 		shouts: {
-			feedUrl: '{{ url() }}/api/shouts/?orderBy=-created_at&take=3',
+			feedUrl: '{{ url() }}/api/shouts/?orderBy=-pinned,-created_at&take=3',
 			poll: function()
 			{
 				console.log('Polling shouts');
@@ -109,31 +109,38 @@
 						var tbody = $('<tbody>');
 
 						$.each(shouts.data, function(idx, shout) {
-							var row = $("<tr>");
+							if( shout.pinned )
+							{
+								var row = $('<tr class="bg-info shout-pinned">');
+							}
+							else
+							{
+								var row = $('<tr>');
+							}
 
 							row.append(
-								$("<td>").append(
-									$("<img>").attr('src', shout.user.avatar_medium)
+								$('<td>').append(
+									$('<img>').attr('src', shout.user.avatar_medium)
 								).addClass('shout-user-avatar shrink')
 							);
 							row.append(
-								$("<td>").append(
-									$("<a>").attr('href', shout.user.links[0].uri
+								$('<td>').append(
+									$('<a>').attr('href', shout.user.links[0].uri
 									).text(shout.user.username))
 								.addClass('shout-user-username shrink')
 							);
 							row.append(
-								$("<td>").text(shout.content)
+								$('<td>').text(shout.content)
 								.addClass('shout-content expand')
 							);
 
 							tbody.append(row);
 						});
-						$("#shouts").html(tbody);
+						$('#shouts').html(tbody);
 					}
 					else
 					{
-						$("#shouts tbody").html('<tr><td class="text-muted">No shouts to show!</td></tr>');
+						$('#shouts tbody').html('<tr><td class="text-muted">No shouts to show!</td></tr>');
 					}
 				});
 			},
