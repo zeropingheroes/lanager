@@ -2,7 +2,7 @@
 {{ HTML::script('vendor/twbs/bootstrap/bootstrap.min.js') }}
 
 {{ HTML::script('vendor/moment/moment.min.js') }}
-{{ HTML::script('vendor/eonasdan/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}
+{{ HTML::script('vendor/eonasdan/bootstrap-datetimepicker/bootstrap-datetimepicker.js') }}
 
 {{ HTML::script('vendor/fullcalendar/fullcalendar.min.js') }}
 {{ HTML::script('vendor/fullcalendar/timeline.js') }}
