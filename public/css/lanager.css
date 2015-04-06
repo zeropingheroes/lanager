@@ -165,6 +165,15 @@ div.profile-content {
 	padding-top: 15px;
 }
 
+table.user-status td.application-logo { /* snug logo size */
+	width: 184px;
+}
+
+table.user-status td.application-name { /* snug logo size */
+	font-size: 130%;
+	vertical-align: middle;
+}
+
 /* -------------------------------------------------------------------
    SHOUT - INDEX
    -------------------------------------------------------------------

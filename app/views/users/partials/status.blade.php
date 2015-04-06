@@ -6,16 +6,19 @@
 	
 	@if( isset( $state->application->steam_app_id) )
 
-		<table class="table">
+		<table class="table user-status">
 			<thead>
 				<tr>
-					<th>Game</th>
+					<th colspan="2">Game</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td>
+					<td class="application-logo">
 						@include('applications.partials.button', ['application' => $state->application])
+					</td>
+					<td class="application-name">
+						{{{ $state->application->name }}}
 					</td>
 				</tr>
 			</tbody>
