@@ -36,6 +36,7 @@ return array(
 			'CSS.AllowedProperties'		=> '',
 			'AutoFormat.AutoParagraph'	=> false,
 			'AutoFormat.RemoveEmpty'	=> true,
+			'AutoFormat.Linkify'		=> true,
 			'Cache.SerializerPath'		=> storage_path(),
 		),
 	),
