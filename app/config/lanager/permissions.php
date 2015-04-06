@@ -128,7 +128,7 @@ return array(
 				$authority->allow('manage', 'all');
 
 				// can do everything except modify users & roles
-				$authority->deny('manage', 'users');
+				$authority->deny('delete', 'users');
 				$authority->deny('manage', 'roles');
 				$authority->deny('manage', 'user-roles');
 			}
