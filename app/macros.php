@@ -43,11 +43,12 @@ HTML::macro('button', function($route, $item = NULL)
  */
 Form::macro('dateTimePicker', function($name)
 {
-	$input = Form::text($name, NULL, array('placeholder' => 'YYYY-MM-DD HH:MM:SS'));
+	$input = Form::text($name, NULL, array('placeholder' => 'YYYY-MM-DD HH:MM'));
 	$js = '<script type="text/javascript">
 			$(function () {
 				$("#'.$name.'").datetimepicker({
-					format: "YYYY-MM-DD HH:mm:ss",
+					sideBySide: true,
+					format: "YYYY-MM-DD HH:mm",
 				});
 			});
 		</script>';
