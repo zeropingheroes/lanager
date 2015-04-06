@@ -58,9 +58,9 @@ abstract class BaseResourceService {
 	{
 		if( isset($filters['orderBy']) )
 		{
-			if( str_contains(',', $filters['orderBy']) )
+			if( ! is_array( $filters['orderBy'] ) && str_contains( $filters['orderBy'], ',') )
 			{
-				$filters['orderBy'] = explode($filters['orderBy']);
+				$filters['orderBy'] = explode(',', $filters['orderBy']);
 			}
 			elseif( !is_array($filters['orderBy']) )
 			{
