@@ -15,15 +15,8 @@ ClassLoader::addDirectories(array(
 
 	app_path().'/commands',
 	app_path().'/controllers',
-	app_path().'/models',
-	app_path().'/entities',
-	app_path().'/handlers',
-	app_path().'/helpers',
-	app_path().'/interfaces',
 	app_path().'/migrations',
-	app_path().'/repositories',
 	app_path().'/seeds',
-	app_path().'/validators',
 
 ));
 
@@ -100,5 +93,4 @@ require app_path().'/filters.php';
 
 require app_path().'/bindings.php';
 require app_path().'/composers.php';
-require app_path().'/macros.php';
 require app_path().'/handlers.php';
