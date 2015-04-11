@@ -30,6 +30,11 @@ form.inline {
 	display: inline;
 }
 
+.form-group.required .control-label:after {
+  content: " *";
+  color: red;
+}
+
 a.permalink {
 	font-size: 60%;
 	display: none;
