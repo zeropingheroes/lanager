@@ -26,9 +26,10 @@ abstract class FlatResourceService extends BaseResourceService {
 		return $this->model->findOrFail($id);
 	}
 
-	public function lists($key, $value)
+	public function lists($key, $value, $orderBy = '')
 	{
-		return $this->model->lists($key, $value);
+		if( ! empty($orderBy) ) $model = $this->model->orderBy( $orderBy );
+		return $model->lists($key, $value);
 	}
 
 	public function store($input)
