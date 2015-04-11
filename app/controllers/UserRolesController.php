@@ -43,8 +43,8 @@ class UserRolesController extends BaseController {
 	 */
 	public function create()
 	{
-		$users = (new UserService((new NotificationListener)))->lists('username', 'id');
-		$roles = (new RoleService((new NotificationListener)))->lists('name', 'id');
+		$users = (new UserService((new NotificationListener)))->lists('username', 'id', 'username');
+		$roles = (new RoleService((new NotificationListener)))->lists('name', 'id', 'name');
 
 		return View::make('user-roles.create')
 					->with('title','Assign Role')
