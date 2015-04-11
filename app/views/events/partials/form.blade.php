@@ -14,21 +14,21 @@
 <div class="row">
 	<div class="col-md-6">
 		{{ Form::label('start', 'Start') }}
-		{{ Form::dateTimePicker('start') }}
+		@include('datetimepicker', ['name' => 'start'] )
 	</div>
 	<div class="col-md-6">
 		{{ Form::label('end', 'End') }}
-		{{ Form::dateTimePicker('end') }}
+		@include('datetimepicker', ['name' => 'end'] )
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-6">
 		{{ Form::label('signup_opens', 'Signup Opens') }}
-		{{ Form::dateTimePicker('signup_opens') }}
+		@include('datetimepicker', ['name' => 'signup_opens'] )
 	</div>
 	<div class="col-md-6">
 		{{ Form::label('signup_closes', 'Signup Closes') }}
-		{{ Form::dateTimePicker('signup_closes') }}
+		@include('datetimepicker', ['name' => 'signup_closes'] )
 	</div>
 </div>
 <div class="row">
