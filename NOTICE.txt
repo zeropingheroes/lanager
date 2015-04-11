@@ -1,5 +1,5 @@
 LANager - LAN Party Administration System
-Copyright © 2014 Oliver Baker
+Copyright © 2015 Oliver Baker
 
 This product includes software ("Software") developed by Oliver Baker.
 
