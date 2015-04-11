@@ -6,8 +6,8 @@ class LanValidator extends ValidatorAssistant {
 
 	protected $rules = [
 		'name'		=> 'required|max:255',
-		'start'		=> 'required|date_format:Y-m-d H:i:s|before:end',
-		'end'		=> 'required|date_format:Y-m-d H:i:s|after:start',
+		'start'		=> 'required|date_format:Y-m-d H:i|before:end',
+		'end'		=> 'required|date_format:Y-m-d H:i|after:start',
 	];
 
 }
