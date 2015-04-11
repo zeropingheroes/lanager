@@ -37,8 +37,7 @@
 			"app/commands",
 			"app/controllers",
 			"app/migrations",
-			"app/seeds",
-			"app/helpers"
+			"app/seeds"
 		]
 	},
 	"scripts": {
