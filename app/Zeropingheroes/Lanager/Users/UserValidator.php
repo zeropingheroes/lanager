@@ -4,6 +4,10 @@ use Fadion\ValidatorAssistant\ValidatorAssistant;
 
 class UserValidator extends ValidatorAssistant {
 
+	/**
+	 * Validation rules to enforce for each field
+	 * @var array
+	 */
 	protected $rules = [
 		'username'			=> 'required|max:32',
 		'steam_id_64'		=> 'required|max:17',

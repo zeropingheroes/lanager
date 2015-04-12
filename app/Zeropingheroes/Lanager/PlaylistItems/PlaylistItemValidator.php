@@ -7,6 +7,10 @@ use Duration, Carbon\Carbon;;
 
 class PlaylistItemValidator extends ValidatorAssistant {
 
+	/**
+	 * Validation rules to enforce for each field
+	 * @var array
+	 */
 	protected $rules = [
 		'playlist_id'	=> 'required|exists:playlists,id',
 		'user_id'		=> 'required|exists:users,id',
@@ -18,15 +22,26 @@ class PlaylistItemValidator extends ValidatorAssistant {
 		'skip_reason'	=> 'max:255',
 	];
 
+	/**
+	 * Validation rules to only when storing the item
+	 * @var array
+	 */
 	protected $rulesStore = [
 		'playlist_id'	=> 'submissionsPerHour:2',
 	];
 
+	/**
+	 * Custom validation messages
+	 * @var array
+	 */
 	protected $messages = [
 		'url.unique'	=> 'The item has already been added to this playlist',
 		'submissions_per_hour'	=> 'You have submitted 2 items in the past hour - the maximum allowed. Please wait a while and try again later.',
 	];
 
+	/**
+	 * Processing to carry out before running validation
+	 */
 	protected function before()
 	{
 		// Bind item id and playlist id for use in rules
@@ -39,6 +54,13 @@ class PlaylistItemValidator extends ValidatorAssistant {
 		$this->messages['duration.max'] = 'The item\'s duration must not exceed ' . Duration::longFormat($playlist->max_item_duration);
 	}
 
+	/**
+	 * Validate a user has not submitted over the permitted number of submissions per hour
+	 * @param  string $attribute  Name of the input field
+	 * @param  string $value      Value of the input field
+	 * @param  array  $parameters
+	 * @return bool               True if validation passes, false otherwise
+	 */
 	public function customSubmissionsPerHour($attribute, $value, $parameters)
 	{
 		$oneHourAgo = (new Carbon)->subSeconds(3600);
