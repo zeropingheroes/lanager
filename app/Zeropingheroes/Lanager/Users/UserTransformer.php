@@ -3,7 +3,12 @@
 use League\Fractal;
 
 class UserTransformer extends Fractal\TransformerAbstract {
-	
+
+	/**
+	 * Transform resource into standard output format with correct typing
+	 * @param  object BaseModel   Resource being transformed
+	 * @return array              Transformed object array ready for output
+	 */
 	public function transform(User $user)
 	{
 		return [

@@ -7,11 +7,20 @@ use Zeropingheroes\Lanager\Playlists\PlaylistTransformer;
 
 class PlaylistItemTransformer extends Fractal\TransformerAbstract {
 
+	/**
+	 * Default related resources to include in transformed output
+	 * @var array
+	 */
 	protected $defaultIncludes = [
 		'user',
 		'playlist',
 	];
 
+	/**
+	 * Transform resource into standard output format with correct typing
+	 * @param  object BaseModel   Resource being transformed
+	 * @return array              Transformed object array ready for output
+	 */
 	public function transform(PlaylistItem $playlistItem)
 	{
 		return [
@@ -32,11 +41,21 @@ class PlaylistItemTransformer extends Fractal\TransformerAbstract {
 		];
 	}
 
+	/**
+	 * Pull in and transform the specified resource
+	 * @param  object BaseModel   Model being pulled in
+	 * @return array              Transformed model
+	 */
 	public function includeUser(PlaylistItem $playlistItem)
 	{
 		return $this->item($playlistItem->user()->first(), new UserTransformer);
 	}
 
+	/**
+	 * Pull in and transform the specified resource
+	 * @param  object BaseModel   Model being pulled in
+	 * @return array              Transformed model
+	 */
 	public function includePlaylist(PlaylistItem $playlistItem)
 	{
 		return $this->item($playlistItem->playlist()->first(), new PlaylistTransformer);

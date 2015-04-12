@@ -6,10 +6,19 @@ use Zeropingheroes\Lanager\EventTypes\EventTypeTransformer;
 
 class EventTransformer extends Fractal\TransformerAbstract {
 
+	/**
+	 * Default related resources to include in transformed output
+	 * @var array
+	 */
 	protected $defaultIncludes = [
 		'type',
 	];
-	
+
+	/**
+	 * Transform resource into standard output format with correct typing
+	 * @param  object BaseModel   Resource being transformed
+	 * @return array              Transformed object array ready for output
+	 */
 	public function transform(Event $event)
 	{
 		return [
@@ -29,6 +38,11 @@ class EventTransformer extends Fractal\TransformerAbstract {
 		];
 	}
 
+	/**
+	 * Pull in and transform the specified resource
+	 * @param  object BaseModel   Model being pulled in
+	 * @return array              Transformed model
+	 */
 	public function includeType(Event $event)
 	{
 		if( $event->type()->count() )

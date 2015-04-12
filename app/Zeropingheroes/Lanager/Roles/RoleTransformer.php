@@ -5,6 +5,11 @@ use Zeropingheroes\Lanager\Users\UserTransformer;
 
 class RoleTransformer extends Fractal\TransformerAbstract {
 
+	/**
+	 * Transform resource into standard output format with correct typing
+	 * @param  object BaseModel   Resource being transformed
+	 * @return array              Transformed object array ready for output
+	 */
 	public function transform(Role $role)
 	{
 		return [

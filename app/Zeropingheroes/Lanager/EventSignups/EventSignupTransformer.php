@@ -6,10 +6,19 @@ use Zeropingheroes\Lanager\Users\UserTransformer;
 
 class EventSignupTransformer extends Fractal\TransformerAbstract {
 
+	/**
+	 * Default related resources to include in transformed output
+	 * @var array
+	 */
 	protected $defaultIncludes = [
 		'user',
 	];
 
+	/**
+	 * Transform resource into standard output format with correct typing
+	 * @param  object BaseModel   Resource being transformed
+	 * @return array              Transformed object array ready for output
+	 */
 	public function transform(EventSignup $eventSignup)
 	{
 		return [
@@ -25,6 +34,11 @@ class EventSignupTransformer extends Fractal\TransformerAbstract {
 		];
 	}
 
+	/**
+	 * Pull in and transform the specified resource
+	 * @param  object BaseModel   Model being pulled in
+	 * @return array              Transformed model
+	 */
 	public function includeUser(EventSignup $eventSignup)
 	{
 		return $this->item($eventSignup->user()->first(), new UserTransformer);
