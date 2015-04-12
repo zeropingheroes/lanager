@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder,
 
 class PagesTableSeeder extends Seeder {
 
+	/**
+	 * Seed the pages table with data
+	 */
 	public function run()
 	{
 		if ( DB::table('pages')->count() ) return; // don't seed if table is not empty

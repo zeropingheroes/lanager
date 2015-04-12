@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder,
 
 class EventTypesTableSeeder extends Seeder {
 
+	/**
+	 * Seed the event types table with data
+	 */
 	public function run()
 	{
 		if( DB::table('event_types')->count()) return; // don't seed if table is not empty

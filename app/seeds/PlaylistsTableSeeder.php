@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder,
 
 class PlaylistsTableSeeder extends Seeder {
 
+	/**
+	 * Seed the playlists table with data
+	 */
 	public function run()
 	{
 		if( DB::table('playlists')->count()) return; // don't seed if table is not empty

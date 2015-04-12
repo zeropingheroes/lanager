@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder,
 
 class RolesTableSeeder extends Seeder {
 
+	/**
+	 * Seed the roles table with data
+	 */
 	public function run()
 	{
 		if( DB::table('roles')->count()) return; // don't seed if table is not empty
