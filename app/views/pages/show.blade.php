@@ -6,8 +6,9 @@
 	{{ Purifier::clean(Markdown::string($page->content), 'markdown') }}
 
 	@if(!empty($page->children))
+		<?php $children = $page->children()->orderBy(DB::raw('ISNULL(position)'))->get(); ?>
 		<ul>
-			@foreach($page->children as $child)
+			@foreach($children as $child)
 				<li>{{ link_to_route('pages.show',$child->title, $child->id) }}</li>
 			@endforeach
 		</ul>

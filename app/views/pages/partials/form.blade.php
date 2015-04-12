@@ -23,7 +23,16 @@
 {{ ControlGroup::generate(
 	Form::label('parent_id', 'Parent Page'),
 	Form::select('parent_id', $pages),
-	NULL,
+	Form::help('Nest this page below another page'),
+	2,
+	9
+)
+}}
+
+{{ ControlGroup::generate(
+	Form::label('position', 'Position'),
+	Form::text('position',NULL,['placeholder' => 'The position of the page in dropdown menus', 'maxlength' => 10]),
+	Form::help('This number determines where this item shows in dropdown menus - a higher number means further down the menu'),
 	2,
 	9
 )
