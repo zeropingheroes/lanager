@@ -126,6 +126,7 @@ return array(
 			if ( $self->hasRole('Admin') )
 			{
 				$authority->allow('play', 'playlists');
+				$authority->allow('read', 'logs');
 				$authority->allow('manage', 'all');
 
 				// can do everything except modify users & roles

@@ -370,3 +370,15 @@ table#applicationUsage td.application-logo { /* easy to read user count */
 table#shouts td.shout-content {
 	font-size: 70%;
 }
+
+
+/* -------------------------------------------------------------------
+   LOGS - INDEX
+   -------------------------------------------------------------------
+*/
+table.logs-index th.time {
+	width: 120px;
+}
+table.logs-index th.sapi {
+	width: 90px;
+}

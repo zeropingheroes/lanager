@@ -83,6 +83,13 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 
 	/*
 	|--------------------------------------------------------------------------
+	| Logs
+	|--------------------------------------------------------------------------
+	*/
+	Route::resource('logs', 'LogsController', ['only' => ['index']]);
+
+	/*
+	|--------------------------------------------------------------------------
 	| Dashboard
 	|--------------------------------------------------------------------------
 	*/
@@ -111,6 +118,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 			Route::resource('user-roles',			'UserRolesController',			['except' => ['create', 'edit', 'update'] ]);
 			Route::resource('users',				'UsersController',				['except' => ['create', 'store', 'edit', 'update'] ]);
 			Route::resource('application-usage',	'ApplicationUsageController',	['only' => ['index'] ]);
+			Route::resource('logs',					'LogsController',				['only' => ['index'] ]);
 		});
 	});
 });
