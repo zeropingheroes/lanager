@@ -31,7 +31,6 @@ class Install extends BaseCommand {
 	/**
 	 * Create a new command instance.
 	 *
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -56,8 +55,6 @@ class Install extends BaseCommand {
 
 	/**
 	 * Check installation prerequisites are met before running installer.
-	 *
-	 * @return void
 	 */
 	private function checkRequirements()
 	{
@@ -106,8 +103,6 @@ class Install extends BaseCommand {
 
 	/**
 	 * Run installation steps.
-	 *
-	 * @return void
 	 */
 	private function runInstaller()
 	{
@@ -171,7 +166,6 @@ class Install extends BaseCommand {
 	 * @param string 	$checkDescription 	What is being checked
 	 * @param bool 		$check 				The item being checked
 	 * @param string 	$messageOnFailure 	The message to show the user
-	 * @return void
 	 */
 	private function checkRequirement($checkDescription, $check, $messageOnFailure)
 	{
@@ -191,7 +185,6 @@ class Install extends BaseCommand {
 	 *
 	 * @param string $message 			The failure message to display
 	 * @param string $actionRequired	The recommended action to recover
-	 * @return void
 	 */
 	private function abort($message, $actionRequired)
 	{
@@ -297,7 +290,6 @@ class Install extends BaseCommand {
 	/**
 	 * Empty database tables.
 	 *
-	 * @return void
 	 */
 	private function emptyDatabase()
 	{

@@ -12,6 +12,10 @@ class BaseCommand extends Command {
 	 */
 	protected $timestampFormat = 'Y-m-d H:i:s';
 
+	/**
+	 * Display info message with date and message, and log it
+	 * @param  string $message info message to display & log
+	 */
 	public function customInfo($message)
 	{
 		$this->info(date($this->timestampFormat).' '.$message);
@@ -19,6 +23,10 @@ class BaseCommand extends Command {
 
 	}
 
+	/**
+	 * Display error message with date and message, and log it
+	 * @param  string $message Error message to display & log
+	 */
 	public function customError($message)
 	{
 		$this->error(date($this->timestampFormat).' '.$message);

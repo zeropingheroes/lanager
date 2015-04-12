@@ -31,7 +31,6 @@ class SteamImportApps extends BaseCommand {
 	/**
 	 * Create a new command instance.
 	 *
-	 * @return void
 	 */
 	public function __construct(SteamApplicationContract $steamApplicationInterface)
 	{
@@ -42,7 +41,6 @@ class SteamImportApps extends BaseCommand {
 	/**
 	 * Execute the console command.
 	 *
-	 * @return void
 	 */
 	public function fire()
 	{
