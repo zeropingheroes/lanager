@@ -5,6 +5,9 @@ use Zeropingheroes\Lanager\Roles\RoleService,
 
 class RolesController extends BaseController {
 
+	/**
+	 * Set the service and transformer classes
+	 */
 	public function __construct()
 	{
 		parent::__construct();

@@ -7,10 +7,18 @@ use Dingo\Api\Routing\ControllerTrait;
 
 class ApplicationUsageController extends Controller {
 
+	use ControllerTrait;
+	
+	/**
+	 * Service class used to get data
+	 * @var object BaseResourceService
+	 */
 	protected $service;
 
-	use ControllerTrait;
 
+	/**
+	 * Set the service classe
+	 */
 	public function __construct()
 	{
 		$this->service = new ApplicationUsageService;

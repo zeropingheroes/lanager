@@ -5,6 +5,9 @@ use Zeropingheroes\Lanager\EventSignups\EventSignupService,
 
 class EventSignupsController extends BaseController {
 
+	/**
+	 * Set the service and transformer classes
+	 */
 	public function __construct()
 	{
 		parent::__construct();
