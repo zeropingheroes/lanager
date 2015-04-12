@@ -31,9 +31,31 @@ ClassLoader::addDirectories(array(
 |
 */
 
+// Log to files as standard
 $logFile = 'log-'.php_sapi_name().'.txt';
-
 Log::useDailyFiles(storage_path().'/logs/'.$logFile);
+
+// Log to the database asynchronously
+Log::listen(function($level, $message, $context) {
+
+	// Save the php sapi and date, because the closure needs to be serialized
+	$apiName = php_sapi_name();
+	$date = new DateTime;
+
+	Queue::push(function() use ($level, $message, $context, $apiName, $date) {
+		DB::insert(
+			'INSERT INTO logs (php_sapi_name, level, message, context, created_at)
+			VALUES (?, ?, ?, ?, ?)',
+			[
+				$apiName,
+				$level,
+				$message,
+				json_encode($context),
+				$date
+			]
+		);
+	});
+});
 
 /*
 |--------------------------------------------------------------------------
