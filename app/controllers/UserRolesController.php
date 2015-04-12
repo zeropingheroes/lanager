@@ -8,8 +8,15 @@ use View, Notification, Redirect;
 
 class UserRolesController extends BaseController {
 
+	/**
+	 * Based named route used by this resource
+	 * @var string
+	 */
 	protected $route = 'user-roles';
 
+	/**
+	 * Set the controller's service
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -53,6 +60,11 @@ class UserRolesController extends BaseController {
 					->with('userRole',null);
 	}
 
+	/**
+	 * Override listener function for this resource action result
+	 * @param  BaseResourceService $service Service class that called this
+	 * @return object Response
+	 */
 	public function storeSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );

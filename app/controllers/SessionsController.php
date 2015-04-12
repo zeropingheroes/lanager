@@ -6,22 +6,6 @@ use Auth, Input, Request, Redirect, View, UserImport, Notification, Cache, URL;
 
 class SessionsController extends BaseController {
 
-
-	public function __construct()
-	{
-		$this->beforeFilter('permission',array('only' => array('index', 'store', 'edit', 'update')));
-	}
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
-
 	/**
 	 * Show the form for creating a new resource.
 	 *

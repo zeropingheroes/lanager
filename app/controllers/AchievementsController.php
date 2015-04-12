@@ -5,8 +5,15 @@ use View;
 
 class AchievementsController extends BaseController {
 
+	/**
+	 * Based named route used by this resource
+	 * @var string
+	 */
 	protected $route = 'achievements';
 
+	/**
+	 * Set the controller's service
+	 */
 	public function __construct()
 	{
 		parent::__construct();

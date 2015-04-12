@@ -6,7 +6,10 @@ use View;
 class ApplicationUsageController extends BaseController {
 
 	protected $applicationUsage;
-	
+
+	/**
+	 * Set the controller's service
+	 */
 	public function __construct()
 	{
 		$this->applicationUsage = new ApplicationUsageService;

@@ -5,8 +5,15 @@ use View, Notification, Redirect;
 
 class RolesController extends BaseController {
 
+	/**
+	 * Based named route used by this resource
+	 * @var string
+	 */
 	protected $route = 'roles';
 
+	/**
+	 * Set the controller's service
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -74,12 +81,22 @@ class RolesController extends BaseController {
 					->with('role',$this->service->single($id));
 	}
 
+	/**
+	 * Override listener function for this resource action result
+	 * @param  BaseResourceService $service Service class that called this
+	 * @return object Response
+	 */
 	public function storeSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
 		return Redirect::route( $this->route . '.index' );
 	}
 
+	/**
+	 * Override listener function for this resource action result
+	 * @param  BaseResourceService $service Service class that called this
+	 * @return object Response
+	 */
 	public function updateSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );

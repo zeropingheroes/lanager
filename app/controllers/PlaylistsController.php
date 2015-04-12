@@ -5,8 +5,15 @@ use View, Notification, Redirect;
 
 class PlaylistsController extends BaseController {
 
+	/**
+	 * Based named route used by this resource
+	 * @var string
+	 */
 	protected $route = 'playlists';
 
+	/**
+	 * Set the controller's service
+	 */
 	public function __construct()
 	{
 		parent::__construct();

@@ -5,8 +5,15 @@ use View, Notification, Redirect;
 
 class PlaylistItemsController extends BaseController {
 
+	/**
+	 * Based named route used by this resource
+	 * @var string
+	 */
 	protected $route = 'playlists.items';
 
+	/**
+	 * Set the controller's service
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -40,12 +47,22 @@ class PlaylistItemsController extends BaseController {
 					->with('skippedItems', $skippedItems);
 	}
 
+	/**
+	 * Override listener function for this resource action result
+	 * @param  BaseResourceService $service Service class that called this
+	 * @return object Response
+	 */
 	public function storeSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
 		return Redirect::route( $this->route . '.index', $service->resourceIds() );
 	}
 
+	/**
+	 * Override listener function for this resource action result
+	 * @param  BaseResourceService $service Service class that called this
+	 * @return object Response
+	 */
 	public function updateSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );

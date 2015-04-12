@@ -6,8 +6,15 @@ use View, Notification, Redirect;
 
 class EventsController extends BaseController {
 
+	/**
+	 * Based named route used by this resource
+	 * @var string
+	 */
 	protected $route = 'events';
 
+	/**
+	 * Set the controller's service
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -85,6 +92,11 @@ class EventsController extends BaseController {
 					->with('event',$event);
 	}
 
+	/**
+	 * Override listener function for this resource action result
+	 * @param  BaseResourceService $service Service class that called this
+	 * @return object Response
+	 */
 	public function destroySucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
