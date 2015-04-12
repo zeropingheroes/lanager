@@ -3,7 +3,7 @@
 use Zeropingheroes\Lanager\BaseModel;
 use Illuminate\Auth\UserInterface;
 use Laracasts\Presenter\PresentableTrait;
-use DB;
+use DB, Config, Carbon\Carbon;
 
 class User extends BaseModel implements UserInterface {
 
@@ -59,16 +59,20 @@ class User extends BaseModel implements UserInterface {
 		return $this->hasMany('Zeropingheroes\Lanager\States\State');
 	}
 
-	// psuedo-relation for a user's most recent state
+	// pseudo-relation for a user's most recent state
 	public function state()
 	{
+		$start = Carbon::createFromTimeStamp(time()-(Config::get('lanager/steam.pollingInterval')));
+		$end = Carbon::createFromTimeStamp(time()+(Config::get('lanager/steam.pollingInterval')));
+
 		return $this->hasOne('Zeropingheroes\Lanager\States\State')
 					->join(
 						DB::raw('(
 								SELECT max(created_at) max_created_at, user_id
 								FROM states
 								WHERE created_at
-									BETWEEN from_unixtime('.(time()-300).') AND from_unixtime('.time().')
+									BETWEEN "'.$start.'"
+									AND 	"'.$end.'"
 								GROUP BY user_id
 								) s2'),
 						function($join)

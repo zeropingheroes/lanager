@@ -1,6 +1,6 @@
 <?php namespace Zeropingheroes\Lanager\States;
 
-use DB;
+use DB, Carbon\Carbon, Config;
 
 class StateService {
 
@@ -16,6 +16,8 @@ class StateService {
 		];
 
 		$options = array_merge($defaults, $options);
+		$start = Carbon::createFromTimeStamp($timestamp-(Config::get('lanager/steam.pollingInterval')));
+		$end = Carbon::createFromTimeStamp($timestamp+(Config::get('lanager/steam.pollingInterval')));
 
 		return State::select( 'states.*' )
 							->join(
@@ -23,8 +25,8 @@ class StateService {
 										SELECT max(created_at) max_created_at, user_id
 										FROM states
 										WHERE created_at
-											BETWEEN from_unixtime(' . ($timestamp-60) . ')
-											AND 	from_unixtime(' . ($timestamp+60) . ')
+											BETWEEN "'.$start.'"
+											AND 	"'.$end.'"
 										GROUP BY user_id
 										) s2'),
 								function($join)
