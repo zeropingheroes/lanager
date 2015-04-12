@@ -16,6 +16,10 @@ class PlaylistItemVoteHandler {
 		$events->listen('lanager.playlists.items.votes.store.succeeded', 'Zeropingheroes\Lanager\PlaylistItemVotes\PlaylistItemVoteHandler@onStore');
 	}
 
+	/**
+	 * Check if we need to skip the playlist item after the playlist item vote has been stored 
+	 * @param  object BaseModel $playlistItemVote Vote item
+	 */
 	public function onStore($playlistItemVote)
 	{
 		$playlistItem = PlaylistItem::find($playlistItemVote->playlist_item_id);

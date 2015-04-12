@@ -10,6 +10,14 @@ use Auth;
 
 class UserApiKeyAuthorizationProvider extends AuthorizationProvider
 {
+	/**
+	 * Authenticate a user's request using their API key
+	 * @param  Request   $request Request to the app
+	 * @param  Route     $route   Route into the app
+	 * @return BaseModel          User object if successfully authenticated
+	 * @throws BadHttpException            When API key format incorrect
+	 * @throws UnauthorizedHttpException   When no user found with given API key
+	 */
 	public function authenticate(Request $request, Route $route)
 	{
 		// verify that Authorization header is for this provider
@@ -39,6 +47,10 @@ class UserApiKeyAuthorizationProvider extends AuthorizationProvider
 		}
 	}
 
+	/**
+	 * Name the authorisation method
+	 * @return string
+	 */
 	public function getAuthorizationMethod()
 	{
 		return 'lanager';

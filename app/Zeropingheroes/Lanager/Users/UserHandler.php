@@ -4,6 +4,10 @@ use Zeropingheroes\Lanager\Roles\Role;
 
 class UserHandler {
 
+	/**
+	 * Perform actions after new user has been stored
+	 * @param  BaseModel $user User that has just been stored
+	 */
 	public function onStore($user)
 	{
 		// Make the first user SuperAdmin
