@@ -4,6 +4,12 @@ use DB, Carbon\Carbon, Config;
 
 class StateService {
 
+	/**
+	 * Get states at the given timestamp
+	 * @param  integer $timestamp 		UNIX timestamp of the desired state time
+	 * @param  array   $options   		Extra query options: "order by" and "with"
+	 * @return object Collection        All user states at the given timestamp
+	 */
 	public function at( $timestamp, $options = [] )
 	{
 		$defaults = [

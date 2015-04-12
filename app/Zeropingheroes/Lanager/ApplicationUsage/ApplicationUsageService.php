@@ -6,10 +6,27 @@ use Zeropingheroes\Lanager\Applications\ApplicationTransformer,
 
 class ApplicationUsageService {
 
+	/**
+	 * State service class
+	 * @var object StateService
+	 */
 	protected $states;
+
+	/**
+	 * Class responsible for transforming application data
+	 * @var object
+	 */
 	protected $applicationTransformer;
+
+	/**
+	 * Class responsible for transforming user data
+	 * @var object
+	 */
 	protected $userTransformer;
 
+	/**
+	 * Pull in the services and transformers required
+	 */
 	public function __construct()
 	{
 		$this->states = new StateService;
@@ -17,6 +34,11 @@ class ApplicationUsageService {
 		$this->userTransformer = new UserTransformer;
 	}
 
+	/**
+	 * Calculate the total number of users playing each game at a given timestamp
+	 * @param  int $timestamp UNIX timestamp
+	 * @return array $applications	Applications in use and the users using them
+	 */
 	public function userTotalsAt( $timestamp )
 	{
 		$states = $this->states->at( $timestamp )->whereNotNull('states.application_id')->get();

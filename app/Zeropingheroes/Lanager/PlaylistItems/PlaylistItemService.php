@@ -7,8 +7,17 @@ use Auth, Authority, Config;
 
 class PlaylistItemService extends NestedResourceService {
 
+	/**
+	 * The canonical application-wide name for the resource that this service provides for
+	 * @var string
+	 */
 	public $resource = 'playlists.items';
 
+	/**
+	 * Instantiate the service with a listener that the service can call methods
+	 * on after action success/failure
+	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
+	 */
 	public function __construct( $listener )
 	{
 		$models = [
@@ -18,12 +27,22 @@ class PlaylistItemService extends NestedResourceService {
 		parent::__construct($listener, $models);
 	}
 
+	/**
+	 * Fetch the given item's metadata
+	 * @param  string $url URL of the item
+	 * @return object PlayableItem      Playable item
+	 */
 	private function fetchItem( $url )
 	{
 		$providers = Config::get('lanager/playlist.providers');
 		return (new PlayableItemFactory)->create( $url, $providers);
 	}
 
+	/**
+	 * Filter user input for data integrity and security
+	 * @param  array $input raw input from user
+	 * @return array $input input, filtered
+	 */
 	private function filterInput( $input, $scope )
 	{
 		if( Authority::can('manage', 'playlists') )
@@ -39,6 +58,11 @@ class PlaylistItemService extends NestedResourceService {
 		return $input;
 	}
 
+	/**
+	 * Store the resource (with additional processing to standard service method)
+	 * @param  array  $ids   list of ids of parent models
+	 * @param  array  $input raw input from user
+	 */
 	public function store( array $ids, $input)
 	{
 		$input = $this->filterInput($input, 'store');
@@ -57,6 +81,11 @@ class PlaylistItemService extends NestedResourceService {
 		return parent::store($ids, $input);
 	}
 
+	/**
+	 * Update the resource (with additional processing to standard service method)
+	 * @param  array  $ids   list of ids of parent models
+	 * @param  array  $input raw input from user
+	 */
 	public function update( array $ids, $input)
 	{
 		$input = $this->filterInput($input, 'update');

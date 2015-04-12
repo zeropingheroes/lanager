@@ -4,9 +4,23 @@ use InvalidArgumentException, ReflectionClass;
 
 abstract class NestedResourceService extends BaseResourceService {
 
+	/**
+	 * Array of parent model objects for the nest of models that precede the model the service will process
+	 * @var array
+	 */
 	protected $models;
+
+	/**
+	 * Array of parent resource IDs for the nest of specific resources that precede the resource the service will process
+	 * @var array
+	 */
 	protected $ids;
 
+	/**
+	 * Set the models and the service listener
+	 * @param ResourceServiceListenerContract $listener Listener class with methods to call after successful/failed operations
+	 * @param array                       $models    The resource's model nest that the service will use
+	 */
 	public function __construct( ResourceServiceListenerContract $listener, array $models )
 	{
 		foreach( $models as $model )
@@ -18,6 +32,13 @@ abstract class NestedResourceService extends BaseResourceService {
 		parent::__construct($listener);
 	}
 
+	/**
+	 * Get all items of this resource
+	 * @param  array $ids       Array of parent resource IDs for the nest of specific resources that precede the resource
+	 * @param  array $options   Filters to apply to the model
+	 * @param  array $eagerLoad Related models to eager load
+	 * @return Collection       Query results
+	 */
 	public function all( array $ids, $options = [], $eagerLoad = [] )
 	{
 		$model = $this->nestedFindOrFail( $ids );
@@ -28,6 +49,11 @@ abstract class NestedResourceService extends BaseResourceService {
 		return $model->get();
 	}
 
+	/**
+	 * Get a single resource item by its ID (and parent item IDs)
+	 * @param  array $ids       Array of parent resource IDs for the nest of specific resources that precede the resource
+	 * @return Collection       Query results
+	 */
 	public function single( array $ids )
 	{
 		$item = $this->nestedFindOrFail( $ids );
@@ -35,6 +61,11 @@ abstract class NestedResourceService extends BaseResourceService {
 		return $item;
 	}
 
+	/**
+	 * Store a new resource item
+	 * @param  array $ids       Array of parent resource IDs for the nest of specific resources that precede the resource
+	 * @param  array $input     Raw user input
+	 */
 	public function store( array $ids, $input )
 	{
 		$parent = $this->nestedFindOrFail( $ids );
@@ -65,7 +96,12 @@ abstract class NestedResourceService extends BaseResourceService {
 			return parent::handleEvent( 'store', 'succeeded', $child );
 		}
 	}
-	
+
+	/**
+	 * Update an existing resource item by ID
+	 * @param  array $ids       Array of parent resource IDs for the nest of specific resources that precede the resource
+	 * @param  array $input     Raw user input
+	 */
 	public function update( array $ids, $input )
 	{
 		$item = $this->nestedFindOrFail( $ids );
@@ -87,6 +123,10 @@ abstract class NestedResourceService extends BaseResourceService {
 		}
 	}
 
+	/**
+	 * Destroy an existing resource item by ID
+	 * @param  array $ids       Array of parent resource IDs for the nest of specific resources that precede the resource
+	 */
 	public function destroy( array $ids )
 	{
 		$item = $this->nestedFindOrFail( $ids );
@@ -100,17 +140,32 @@ abstract class NestedResourceService extends BaseResourceService {
 		return parent::handleEvent( 'destroy', 'failed', $item );
 	}
 
+	/**
+	 * Get the parent resource item for a given nest of IDs
+	 * @param  array $ids       Array of parent resource IDs for the nest of specific resources that precede the resource
+	 * @return Collection       Query results
+	 */
 	public function parent( array $ids )
 	{
 		return $this->nestedFindOrFail( $ids, false );
 	}
 
+	/**
+	 * Get the resource IDs of the nest of resource types
+	 * @return integer    Item's ID
+	 */
 	public function resourceIds()
 	{
 		if( isset($this->ids) ) return $this->ids;
 	}
 
-	private function nestedFindOrFail(array $ids, $fetchChildren = true)
+	/**
+	 * Verify each resource item of given ID exists
+	 * @param  array $ids              Array of parent resource IDs for the nest of specific resources that precede the resource
+	 * @param  boolean $fetchLastChild Once parent resources are verified to exist, get the last child or not
+	 * @return BaseModel $model        Model of last parent or last child, depending on $fetchLastChild
+	 */
+	private function nestedFindOrFail(array $ids, $fetchLastChild = true)
 	{
 		$models = $this->models;
 
@@ -130,7 +185,7 @@ abstract class NestedResourceService extends BaseResourceService {
 			if( $i > 0 ) $model = $model->findOrFail($id);
 
 			// if we have not yet reached the bottom of the nest 
-			if( ( ($i+1) < count($models) ) && $fetchChildren )
+			if( ( ($i+1) < count($models) ) && $fetchLastChild )
 			{
 				// get method name of the next model in the nest
 				$children = str_plural((new ReflectionClass($models[$i+1]))->getShortName());
