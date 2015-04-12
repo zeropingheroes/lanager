@@ -5,13 +5,28 @@ use Eloquent;
 
 class BaseModel extends Eloquent {
 
+	/**
+	 * Fields that have a useful default set in the database
+	 * If any of these fields are empty when creating or updating the model should be set to this default
+	 * @var array
+	 */
 	protected $optional = [];
+
+	/**
+	 * Fields that can be set to null in the database, if they are not specified when creating a new model
+	 * @var array
+	 */
 	protected $nullable = [];
+
+	/**
+	 * Validator class responsible for validating this model
+	 * @var string
+	 */
 	public $validator = '';
 
 	/**
-	* Listen for save event
-	*/
+	 * Perform actions when class is instantiated
+	 */
 	protected static function boot()
 	{
 		parent::boot();
@@ -24,7 +39,7 @@ class BaseModel extends Eloquent {
 	}
 
 	/**
-	* Unset optional fields that are empty, so that MySQL will default them
+	* Unset optional fields that are empty, so that the database will use the field's default
 	* @param object $model
 	*/
 	protected static function unsetOptionalFields($model)
@@ -51,16 +66,6 @@ class BaseModel extends Eloquent {
 				$model->{$field} = NULL;
 			}
 		}
-	}
-
-	public function scopeOnlyVisibleUsers($query)
-	{
-		$query->whereIn('user_id', function($query)
-		{
-			$query->select('id')
-					->from(with(new User)->getTable())
-					->where('visible', 1);
-		});
 	}
 
 }
