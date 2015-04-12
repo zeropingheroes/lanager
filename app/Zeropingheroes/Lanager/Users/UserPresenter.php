@@ -5,7 +5,7 @@ use Laracasts\Presenter\Presenter;
 class UserPresenter extends Presenter {
 
 	/**
-	 * Get the URL for the user's small avatar.
+	 * Get the URL for the user's small avatar
 	 *
 	 * @return string
 	 */
@@ -13,8 +13,9 @@ class UserPresenter extends Presenter {
 	{
 		return $this->avatar;
 	}
+
 	/**
-	 * Get the URL for the user's medium avatar.
+	 * Get the URL for the user's medium avatar
 	 *
 	 * @return string
 	 */
@@ -24,7 +25,7 @@ class UserPresenter extends Presenter {
 	}
 
 	/**
-	 * Get the URL for the user's large avatar.
+	 * Get the URL for the user's large avatar
 	 *
 	 * @return string
 	 */
@@ -32,6 +33,5 @@ class UserPresenter extends Presenter {
 	{
 		return str_replace('.jpg', '_full.jpg', $this->avatar);
 	}
-
 
 }

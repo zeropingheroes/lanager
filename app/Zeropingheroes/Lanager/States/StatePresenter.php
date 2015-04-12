@@ -4,6 +4,10 @@ use Laracasts\Presenter\Presenter;
 
 class StatePresenter extends Presenter {
 
+	/**
+	 * Get the state's status text based on the status code
+	 * @return string
+	 */
 	public function statusText()
 	{
 		switch ($this->status)

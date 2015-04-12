@@ -6,16 +6,28 @@ use View;
 
 class EventPresenter extends Presenter {
 
+	/**
+	 * Get the event's human readable timespan
+	 * @return string
+	 */
 	public function timespan()
 	{
 		return Timespan::summarise($this->start, $this->end);
 	}
 
+	/**
+	 * Get the event's timespan relative to now
+	 * @return string
+	 */
 	public function timespanRelativeToNow()
 	{
 		return Timespan::relativeToNow($this->start, $this->end);
 	}
 
+	/**
+	 * Get the event's status label
+	 * @return string
+	 */
 	public function timespanStatusLabel()
 	{
 		$eventTimespanTense = Timespan::tense($this->start, $this->end);
@@ -32,6 +44,11 @@ class EventPresenter extends Presenter {
 		return View::make('events.partials.status')->withStatus($status)->withClass($eventTimespanTense)->withHover($hover);
 	}
 
+	/**
+	 * Get the event's signup status label
+	 * @param  string $prefix Optional prefix for status
+	 * @return string
+	 */
 	public function signupTimespanStatusLabel($prefix = '')
 	{
 		if( ! is_null($this->signup_opens) )
@@ -53,6 +70,10 @@ class EventPresenter extends Presenter {
 		return View::make('events.partials.status')->withStatus('N/A')->withClass('')->withHover('Event does not allow signups');
 	}
 
+	/**
+	 * Get the event's signup timespan relative to now
+	 * @return string
+	 */
 	public function signupTimespanRelativeToNow()
 	{
 		if( ! is_null($this->signup_opens) )

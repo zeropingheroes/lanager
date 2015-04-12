@@ -5,6 +5,10 @@ use SteamBrowserProtocol;
 
 class ServerPresenter extends Presenter {
 
+	/**
+	 * Get the server's IP and (if present) port
+	 * @return string
+	 */
 	public function ipAndPort()
 	{
 		// Todo: add support for default application ports
@@ -18,6 +22,10 @@ class ServerPresenter extends Presenter {
 		}
 	}
 
+	/**
+	 * Get a URL to connect to the server through steam
+	 * @return string
+	 */
 	public function url()
 	{
 		// Todo: add support for non-steam app connection URLs

@@ -4,6 +4,10 @@ use Laracasts\Presenter\Presenter;
 
 class PlaylistPresenter extends Presenter {
 
+	/**
+	 * Get the playlist's playback state text based on its status
+	 * @return [type] [description]
+	 */
 	public function playbackStateText()
 	{
 		switch ($this->playback_state)
