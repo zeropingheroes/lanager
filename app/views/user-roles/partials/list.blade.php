@@ -4,7 +4,7 @@
 			<tr>
 				<th>User</th>
 				<th>Role</th>
-				<th>Assigned</th>
+				<th colspan="2">Assigned By</th>
 				@if( Authority::can('manage', 'user-roles') )
 					<th class="text-center">{{ Icon::cog() }}</th>
 				@endif
@@ -21,12 +21,19 @@
 				</td>
 				</td>
 				<td>
+					@if( $userRole->assigned_by != NULL )
+						@include('users.partials.avatar-username', ['user' => $userRole->assignedBy ])
+					@else
+						Unknown
+					@endif
+				</td>
+				<td>
 					<span title="{{ $userRole->created_at }}">
 						{{ $userRole->created_at->diffForHumans() }}
 					</span>
 				</td>
 				@if( Authority::can('manage', 'user-roles') )
-					<td class="text-right">
+					<td class="text-center">
 						@include(
 							'buttons.destroy',
 							[
