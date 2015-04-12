@@ -18,9 +18,11 @@ class BaseCommand extends Command {
 	 */
 	public function customInfo($message)
 	{
-		$this->info(date($this->timestampFormat).' '.$message);
-		Log::info($this->name.' - '.$message);
+		// Display message
+		$this->info( date($this->timestampFormat) . ' ' . $message);
 
+		// Log message
+		Log::info( '[' . $this->name . '] ' . $message);
 	}
 
 	/**
@@ -29,8 +31,11 @@ class BaseCommand extends Command {
 	 */
 	public function customError($message)
 	{
-		$this->error(date($this->timestampFormat).' '.$message);
-		Log::error($this->name.' - '.$message);
+		// Display message
+		$this->error( date($this->timestampFormat) . ' ' . $message);
+
+		// Log message
+		Log::error( '[' . $this->name . '] ' . $message);
 	}
 
 }
