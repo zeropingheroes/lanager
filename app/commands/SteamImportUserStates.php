@@ -47,25 +47,22 @@ class SteamImportUserStates extends BaseCommand {
 	 */
 	public function fire()
 	{
-
 		$users = User::where('visible', 1)->get()->lists('steam_id_64');
 
 		if(count($users) == 0)
 		{
-			$this->customError('No users in database');
+			$this->info('No users in database');
 			return;
 		}
 		
-		$this->customInfo('Requesting current status of '.count($users).' users from Steam');
+		$this->info('Requesting current status of '.count($users).' users from Steam');
 		$steamUserInterface = $this->steamUserInterface->getUsers($users);
 
-		if( count($steamUserInterface) < count($users) ) $this->customError('Steam responded with '.(count($users)-count($steamUserInterface)).' fewer users than requested');
-
-		$this->customInfo('Importing '.count($steamUserInterface).' user states from Steam into database');
+		if( count($steamUserInterface) < count($users) ) $this->error('Steam responded with '.(count($users)-count($steamUserInterface)).' fewer users than requested');
 
 		$successCount = 0;
 		$failureCount = 0;
-		$appFailureCount = 0;
+		$missingApps = [];
 
 		foreach($steamUserInterface as $steamUser)
 		{
@@ -90,8 +87,7 @@ class SteamImportUserStates extends BaseCommand {
 					$currentApplication = Application::where('steam_app_id', $steamUser->current_app_id)->first();
 					if( ! count($currentApplication) )
 					{
-						$this->customError('Steam app not found in database. App: '.$steamUser->current_app_id.' User: '.$user->id.' '.$steamUser->username);
-						$appFailureCount++;
+						$missingApps[] = $steamUser->current_app_id;
 						$currentApplication = NULL;
 					}
 				}
@@ -127,14 +123,13 @@ class SteamImportUserStates extends BaseCommand {
 			}
 			catch(\Exception $e) // Catch any exceptions and print an error but continue
 			{
-				$this->customError('Unable to insert user state for '.$steamUser->id.' "'.$steamUser->username.'" : '. $e->getMessage());
+				$this->error('Unable to insert user state for user ['.$steamUser->id.']: '. $e->getMessage());
 				$failureCount++;
 			}
 		}
 		// Provide info on results
-		if( $successCount > 0 ) $this->customInfo($successCount.' Steam user states successfully added');
-		if( $failureCount > 0 ) $this->customError($failureCount.' Steam user states were not added due to errors');
-		if( $appFailureCount > 0 ) $this->customError($appFailureCount.' applications were not found in the database - Consider running steam:import-apps');
+		if( $successCount > 0 ) $this->info($successCount . ' Steam user states successfully imported' );
+		if( count($missingApps) > 0 ) $this->error(count($missingApps). ' ' . str_plural('application', count($missingApps)).' missing from local database - Please run "steam:import-apps"');
 	}
 
 }

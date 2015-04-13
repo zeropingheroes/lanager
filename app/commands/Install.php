@@ -58,7 +58,7 @@ class Install extends BaseCommand {
 	 */
 	private function checkRequirements()
 	{
-		$this->customInfo('Testing requirements before installation...');
+		$this->info('Testing requirements before installation...');
 	
 		$this->checkRequirement('PHP accessible in the system\'s path variable', 
 			$this->checkIfPhpInPath(),
@@ -79,10 +79,7 @@ class Install extends BaseCommand {
 		$this->checkRequirement('Steam Web API accessible with provided API key', 
 			$this->checkSteamWebApiKey(),
 			'Check that Steam is up on http://steamstat.us and that the API key set in /app/config/lanager/steam.php is correct');
-		
-		$this->customInfo('');
-		$this->customInfo('All requirements passed - continuing with installation');
-		$this->customInfo('');
+		$this->info('All requirements passed - continuing with installation');
 	}
 
 	/**
@@ -90,7 +87,7 @@ class Install extends BaseCommand {
 	 */
 	private function runInstaller()
 	{
-		$this->customInfo('Creating database structure...');
+		$this->info('Creating database structure...');
 		$migrate = Artisan::call('migrate', array('--path' => 'app/migrations', '--force' => true));
 		if( $migrate != 0 ) $this->abort('Database structure creation failure', $this->criticalMessage);
 
@@ -101,47 +98,47 @@ class Install extends BaseCommand {
 				$this->emptyDatabase();
 			}
 		}
-		$this->customInfo('Seeding database with example data...');
+		$this->info('Seeding database with example data...');
 		$seed = Artisan::call('db:seed', array('--class' => 'Zeropingheroes\Lanager\Seeds\DatabaseSeeder', '--force' => true));
 		if( $seed != 0 ) $this->abort('Database seeding failure', $this->criticalMessage);
 
-		$this->customInfo('Publishing package assets...');
+		$this->info('Publishing package assets...');
 		$publish = Artisan::call('asset:publish');
 		if( $publish != 0 ) $this->abort('Asset publishing failure', $this->criticalMessage);
 
-		$this->customInfo('Importing Steam applications... (this will take up to 5 minutes)');
+		$this->info('Importing Steam applications... (this will take up to 5 minutes)');
 		$import = Artisan::call('steam:import-apps');
 		if( $import != 0 ) $this->abort('Steam app import error', $this->criticalMessage);
 
-		$this->customInfo('Changing session driver to database in config file...');
+		$this->info('Changing session driver to database in config file...');
 		$sessionConfig = $this->editConfigFile('app/config/session.php', "'driver' => 'array'", "'driver' => 'database'");
 		if( ! $sessionConfig ) $this->abort('Unable to change session driver', $this->criticalMessage);
 
-		$this->customInfo('Setting application key...');
+		$this->info('Setting application key...');
 		$appKey = Artisan::call('key:generate');
 		if( $appKey != 0 ) $this->abort('Unable to set application key', $this->criticalMessage);
 
-		$this->customInfo('Marking LANager as installed in config file...');
+		$this->info('Marking LANager as installed in config file...');
 		$lanagerConfig = $this->editConfigFile('app/config/lanager/config.php', "'installed'	=> false","'installed'	=> true");
 		if( ! $lanagerConfig ) $this->abort('Unable to mark installation as completed', $this->criticalMessage);
 
-		$this->customInfo('');
-		$this->customInfo('Installation completed!');
-		$this->customInfo('');
-		$this->customInfo('IMPORTANT: Please schedule "SteamImportUserStates" to run every minute before continuing.');
+		$this->info('');
+		$this->info('Installation completed!');
+		$this->info('');
+		$this->info('IMPORTANT: Please schedule "SteamImportUserStates" to run every minute before continuing.');
 		if( strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' )
 		{
-			$this->customInfo('Add a task for "SteamImportUserStates.bat" in Windows task scheduler');
-			$this->customInfo('More info: http://support.microsoft.com/kb/226795');
+			$this->info('Add a task for "SteamImportUserStates.bat" in Windows task scheduler');
+			$this->info('More info: http://support.microsoft.com/kb/226795');
 		}
 		else
 		{
-			$this->customInfo('From a terminal run "crontab -e" and add the following to the end of the file:');
-			$this->customInfo('');
-			$this->customInfo('*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1');
-			$this->customInfo('');
+			$this->info('From a terminal run "crontab -e" and add the following to the end of the file:');
+			$this->info('');
+			$this->info('*/1 * * * * /path/to/lanager/SteamImportUserStates.sh >> /dev/null 2>&1');
+			$this->info('');
 		}
-		$this->customInfo('Once you have added the schedule, navigate to this server\'s hostname and have a great LAN!');
+		$this->info('Once you have added the schedule, navigate to this server\'s hostname and have a great LAN!');
 	}
 
 	/**
@@ -153,10 +150,10 @@ class Install extends BaseCommand {
 	 */
 	private function checkRequirement($checkDescription, $check, $messageOnFailure)
 	{
-		$this->customInfo('Checking ' . $checkDescription );
+		$this->info('Checking ' . $checkDescription );
 		if( $check )
 		{
-			$this->customInfo('Passed');
+			$this->info('Passed');
 		}
 		else
 		{
@@ -172,9 +169,9 @@ class Install extends BaseCommand {
 	 */
 	private function abort($message, $actionRequired)
 	{
-		$this->customError('ERROR: ' . $message);
-		$this->customError('INSTALLATION ABORTED');
-		$this->customError($actionRequired);
+		$this->error('ERROR: ' . $message);
+		$this->error('INSTALLATION ABORTED');
+		$this->error($actionRequired);
 		exit();
 	}
 
@@ -277,7 +274,7 @@ class Install extends BaseCommand {
 	 */
 	private function emptyDatabase()
 	{
-		$this->customInfo('Emptying database tables...');
+		$this->info('Emptying database tables...');
 		$tables = array(
 			'achievements',
 			'applications',

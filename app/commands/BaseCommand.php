@@ -16,26 +16,36 @@ class BaseCommand extends Command {
 	 * Display info message with date and message, and log it
 	 * @param  string $message info message to display & log
 	 */
-	public function customInfo($message)
+	public function info($message)
 	{
-		// Display message
-		$this->info( date($this->timestampFormat) . ' ' . $message);
-
 		// Log message
-		Log::info( '[' . $this->name . '] ' . $message);
+		$this->log($message, 'info');
+
+		// Display message
+		parent::info( date($this->timestampFormat) . ' ' . $message);
 	}
 
 	/**
 	 * Display error message with date and message, and log it
 	 * @param  string $message Error message to display & log
 	 */
-	public function customError($message)
+	public function error($message)
 	{
-		// Display message
-		$this->error( date($this->timestampFormat) . ' ' . $message);
-
 		// Log message
-		Log::error( '[' . $this->name . '] ' . $message);
+		$this->log($message, 'error');
+		
+		// Display message
+		parent::error( date($this->timestampFormat) . ' ' . $message);
+	}
+
+	/**
+	 * Log a message, attaching the command name
+	 * @param  string $message Error message to display & log
+	 * @param  string $level   Severity of the error
+	 */
+	public function log($message, $level = 'debug')
+	{
+		Log::{$level}( '[' . $this->name . '] ' . $message);
 	}
 
 }

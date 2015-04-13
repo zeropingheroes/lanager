@@ -44,10 +44,10 @@ class SteamImportApps extends BaseCommand {
 	 */
 	public function fire()
 	{
-		$this->customInfo('Requesting all applications from Steam');
+		$this->info('Requesting all applications from Steam');
 		$steamApplicationInterface = $this->steamApplicationInterface->getApplicationList();
 
-		$this->customInfo('Importing '.count($steamApplicationInterface).' applications from Steam into database (this will take up to 5 minutes)');
+		$this->info('Importing '.count($steamApplicationInterface).' applications from Steam into database (this will take up to 5 minutes)');
 
 		$successCount = 0;
 		$failureCount = 0;
@@ -83,12 +83,12 @@ class SteamImportApps extends BaseCommand {
 			}
 			catch(\Exception $e) // Catch any exceptions and print an error but continue
 			{
-				$this->customError('Unable to import application '.$steamApp->id.' "'.$steamApp->name.'" : '. $e->getMessage());
+				$this->error('Unable to import application '.$steamApp->id.' "'.$steamApp->name.'" : '. $e->getMessage());
 				$failureCount++;
 			}
 		}
-		$this->customInfo($successCount.' Steam applications successfully imported. New: '.$applicationsCreated);
-		if( $failureCount > 0 ) $this->customError($failureCount.' Steam applications were not imported due to errors');
+		$this->info($successCount.' Steam applications successfully imported. New: '.$applicationsCreated);
+		if( $failureCount > 0 ) $this->error($failureCount.' Steam applications were not imported due to errors');
 	}
 
 }
