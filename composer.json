@@ -4,6 +4,9 @@
 	"keywords": ["framework", "laravel"],
 	"license": "AGPL-3.0",
 	"require": {
+		"php" : ">=5.5",
+		"ext-mcrypt": "*",
+		"ext-curl": "*",
 		"laravel/framework": "4.2.*",
 		"vtalbot/markdown": "1.*",
 		"patricktalmadge/bootstrapper": "dev-develop",

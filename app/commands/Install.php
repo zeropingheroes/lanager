@@ -59,22 +59,6 @@ class Install extends BaseCommand {
 	private function checkRequirements()
 	{
 		$this->customInfo('Testing requirements before installation...');
-		
-		$this->checkRequirement('PHP version greater than 5.5', 
-			version_compare( PHP_VERSION, '5.5' ) >= 0,
-			'Install the latest stable version of PHP');
-
-		$this->checkRequirement('Curl PHP module installed and enabled', 
-			function_exists( 'curl_version' ),
-			'Install and/or enable the Curl PHP module');
-
-		$this->checkRequirement('Mcrypt PHP module installed and enabled', 
-			function_exists( 'mcrypt_module_open' ),
-			'Install and/or enable the Mcrypt PHP module');
-		
-		$this->checkRequirement('JSON PHP module installed and enabled', 
-			function_exists( 'json_encode' ),
-			'Install and/or enable the JSON PHP module');
 	
 		$this->checkRequirement('PHP accessible in the system\'s path variable', 
 			$this->checkIfPhpInPath(),
