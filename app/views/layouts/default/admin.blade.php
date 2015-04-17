@@ -37,7 +37,7 @@
 				<li><a href="{{ route('shouts.index') }}">{{ Icon::bullhorn() }} Moderate Shouts</a></li>
 			@endif
 			@if( Authority::can('read', 'logs') )
-				<li><a href="{{ route('logs.index') }}">{{ Icon::thList() }} View Logs</a></li>
+				<li><a href="{{ route('logs.index') }}">{{ Icon::console() }} View Logs</a></li>
 			@endif
 		</ul>
 	</li>
