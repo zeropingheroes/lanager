@@ -17,8 +17,8 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	|--------------------------------------------------------------------------
 	*/
 	Route::resource('sessions', 'SessionsController');
-	Route::get('login', ['as' => 'sessions.login', 'uses' => 'SessionsController@create']);
-	Route::get('logout', ['as' => 'sessions.logout', 'uses' => 'SessionsController@destroy']);
+	Route::get('login', ['as' => 'sessions.create', 'uses' => 'SessionsController@create']);
+	Route::get('logout', ['as' => 'sessions.destroy', 'uses' => 'SessionsController@destroy']);
 
 	/*
 	|--------------------------------------------------------------------------

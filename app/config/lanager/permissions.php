@@ -23,7 +23,6 @@ return array(
 		// Create "do everything" alias
 		$authority->addAlias('manage',	array('create', 'store', 'read', 'index', 'show', 'update', 'edit', 'delete', 'destroy'));
 		
-		$self = $authority->getCurrentUser();
 
 		/*
 		|--------------------------------------------------------------------------
@@ -44,6 +43,11 @@ return array(
 		$authority->allow('read', 'users');
 		$authority->allow('read', 'user-achievements');
 		$authority->allow('read', 'user-roles');
+		$authority->allow('create', 'sessions');
+		$authority->allow('delete', 'sessions');
+
+		// Check if a user is logged in
+		$self = $authority->getCurrentUser();
 
 		if ( is_object($self) )
 		{
