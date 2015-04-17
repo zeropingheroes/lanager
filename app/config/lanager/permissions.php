@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -15,18 +15,17 @@ return array(
 	'initialise' => function($authority)
 	{
 		// Alias all REST verbs to their CRUD counterparts
-		$authority->addAlias('create',	array('create', 'store'));
-		$authority->addAlias('read', 	array('read', 'index', 'show'));
-		$authority->addAlias('update',	array('update', 'edit'));
-		$authority->addAlias('delete',	array('delete', 'destroy'));
+		$authority->addAlias('create',	['create', 'store']);
+		$authority->addAlias('read', 	['read', 'index', 'show']);
+		$authority->addAlias('update',	['update', 'edit']);
+		$authority->addAlias('delete',	['delete', 'destroy']);
 
 		// Create "do everything" alias
-		$authority->addAlias('manage',	array('create', 'store', 'read', 'index', 'show', 'update', 'edit', 'delete', 'destroy'));
-		
+		$authority->addAlias('manage',	['create', 'store', 'read', 'index', 'show', 'update', 'edit', 'delete', 'destroy']);
 
 		/*
 		|--------------------------------------------------------------------------
-		| Permissions for un-authenticated users
+		| Permissions for users who have not logged in
 		|--------------------------------------------------------------------------
 		*/
 		$authority->allow('read', 'achievements');
@@ -151,4 +150,4 @@ return array(
 			}
 		}
 	}
-);
+];
