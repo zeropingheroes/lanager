@@ -26,15 +26,8 @@
 					<td>
 						{{{ strtoupper($log->php_sapi_name) }}}
 					</td>
-
-					@if( $log->level == 'info' )
-						<td class="text-info">
-					@elseif( $log->level == 'error' )
-						<td class="text-danger">
-					@else
-						<td>
-					@endif
-						{{{ $log->level }}}
+					<td>
+						@include('logs.partials.level', ['level' => $log->level])
 					</td>
 					<td>
 						{{{ $log->message }}}
