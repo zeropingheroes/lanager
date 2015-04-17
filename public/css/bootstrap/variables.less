@@ -1,6 +1,7 @@
 //
 // Variables
 // --------------------------------------------------
+// Bootstrap-3.3.4
 
 
 //== Colors
@@ -21,8 +22,10 @@
 @gray-light:             lighten(#000, 46.7%); // #777
 @gray-lighter:           lighten(#000, 93.5%); // #eee
 
+
 @link-color:            #19A601;
 @link-hover-color:      lighten(@link-color, 30%);
+@link-hover-decoration: underline;
 
 //== Typography
 
@@ -161,6 +164,12 @@
 @input-border:                   @brand-primary;
 //** `<input>` border radius
 @input-border-radius:            @border-radius-base;
+
+//** Large `.form-control` border radius
+@input-border-radius-large:      @border-radius-large;
+//** Small `.form-control` border radius
+@input-border-radius-small:      @border-radius-small;
+
 //** Border color for inputs on focus
 @input-border-focus:             lighten(@brand-primary, 20%);
 
@@ -174,6 +183,9 @@
 //** Small `.form-control` height
 @input-height-small:             (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
 
+//** `.form-group` margin
+@form-group-margin-bottom:       15px;
+
 @legend-color:                   darken(@text-color, 8%);
 @legend-border-color:            fade(lighten(@brand-default, 12%), 81%);
 
@@ -181,6 +193,9 @@
 @input-group-addon-bg:           @input-bg;
 //** Border color for textual input addons
 @input-group-addon-border-color: @input-border;
+
+//** Disabled cursor for form controls and buttons.
+@cursor-disabled:                not-allowed;
 
 
 //== Dropdowns
@@ -607,6 +622,8 @@
 @progress-bg:                 @brand-default;
 //** Progress bar text color
 @progress-bar-color:          @text-color;
+//** Variable for setting rounded corners on progress bar.
+@progress-border-radius:      @border-radius-base;
 
 //** Default progress bar color
 @progress-bar-bg:             @brand-primary;
