@@ -74,17 +74,22 @@ abstract class BaseResourceService {
 	 */
 	protected function handleEvent( $action, $outcome, $item = null)
 	{
-		$this->messages = trans('confirmation.after.resource.' . $action, ['resource' => trans('resources.' . $this->resource()) ]);
+		if( $outcome == 'succeeded' ) $this->messages = trans('confirmation.after.resource.' . $action, ['resource' => trans('resources.' . $this->resource()) ]);
+		if( $outcome == 'failed' ) $this->messages = 'Unable to ' . $action . ' ' . trans('resources.' . $this->resource() );
 		
 		$eventName =
 		[
-			'lanager',
+			'lanager.services',
 			$this->resource(),
 			$action,
 			$outcome,
 		];
 
-		Event::fire( implode('.', $eventName) , $item);
+		$eventParameters['messages'] = $this->messages();
+		$eventParameters['errors'] = $this->errors();
+		$eventParameters['item'] = $item;
+
+		Event::fire( implode('.', $eventName) , [$eventParameters] );
 		
 		return $this->listener->{$action.$outcome}( $this );
 	}

@@ -13,7 +13,7 @@ class PlaylistItemVoteHandler {
 	*/
 	public function subscribe($events)
 	{
-		$events->listen('lanager.playlists.items.votes.store.succeeded', 'Zeropingheroes\Lanager\PlaylistItemVotes\PlaylistItemVoteHandler@onStore');
+		$events->listen('lanager.services.playlists.items.votes.store.succeeded', 'Zeropingheroes\Lanager\PlaylistItemVotes\PlaylistItemVoteHandler@onStore');
 	}
 
 	/**
