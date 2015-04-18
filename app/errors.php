@@ -1,78 +1,104 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Error Handlers
-|--------------------------------------------------------------------------
-*/
-function handle404($message = '') {
-	$message = empty($message) ? 'The requested resource was not found' : $message;
-	return Response::view('errors.http', array('title' => '404 Not Found', 'code' => 404, 'error' => $message), 404);
-}
 
 /*
 |--------------------------------------------------------------------------
-| Uncaught exception
+| Handle Uncaught Exceptions
 |--------------------------------------------------------------------------
 */
-App::error(function(Exception $exception, $code)
+App::error( function( Exception $exception, $code )
 {
-	if( ! Config::get('app.debug') )
-	{
-		$message = 'An error was encountered';
-		return Response::view('errors.http', array('title' => '500 Internal Server Error', 'code' => 500, 'error' => $message), 500);
-	}
-	Log::error($exception);
-});
-
-/*
-|--------------------------------------------------------------------------
-| HTTP Error Codes (Except 404)
-|--------------------------------------------------------------------------
-*/
-App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $exception, $code)
-{
-	$headers = $exception->getHeaders();
-
-	switch ($code)
-	{
-
-		case 403:
-			$defaultMessage = 'Insufficient privileges to perform this action';
-			$viewTitle = '403 Forbidden';
-		break;
-
-		default:
-			$defaultMessage = 'An error was encountered';
-			$viewTitle = '500 Internal Server Error';
-			$code = 500;
-	}
-
-	$message = $exception->getMessage() ?: $defaultMessage;
+	Log::error( 'Uncaught exception: ' . get_class( $exception ), [ $exception->__toString() ] );
 	
-	return Response::view('errors.http', array('title' => $viewTitle, 'code' => $code, 'error' => $message), $code);
+	// Display pretty HTTP 500 page if we aren't in debug mode (and don't log it again)
+	if( ! Config::get('app.debug') ) return handleHttpError( 500, ['log' => false] );
 });
 
 /*
 |--------------------------------------------------------------------------
-| HTTP 404
+| Handle all HTTP Status Codes
 |--------------------------------------------------------------------------
 */
-App::missing(function($exception)
+App::error( function( Symfony\Component\HttpKernel\Exception\HttpException $exception, $httpStatusCode )
 {
-	return handle404($exception->getMessage()); // always display pretty 404 page for non-existant routes
+	return handleHttpError( $httpStatusCode );
 });
 
 /*
 |--------------------------------------------------------------------------
-| Model Not Found
+| Handle Model Not Found (GUI Access)
 |--------------------------------------------------------------------------
 */
-API::error(function(Illuminate\Database\Eloquent\ModelNotFoundException $exception)
+App::error( function( Illuminate\Database\Eloquent\ModelNotFoundException $exception )
 {
-    return Response::make(['message' => 'Not found'], 404);
-});
-App::error(function(Illuminate\Database\Eloquent\ModelNotFoundException $exception)
-{
-	if( ! Config::get('app.debug') ) return handle404(); // Only display pretty 404 page if we arent in debug mode
+	// Treat as HTTP 404
+	return handleHttpError( 404, ['source' => 'gui'] );
 });
 
+/*
+|--------------------------------------------------------------------------
+| Handle Model Not Found (API Access)
+|--------------------------------------------------------------------------
+*/
+API::error( function( Illuminate\Database\Eloquent\ModelNotFoundException $exception )
+{
+	// Treat as HTTP 404
+	return handleHttpError( 404, ['source' => 'api'] );
+});
+
+/*
+|--------------------------------------------------------------------------
+| Handler Function for Common HTTP Status Codes
+|--------------------------------------------------------------------------
+*/
+function handleHttpError($httpStatusCode, $options = [])
+{
+	switch ( $httpStatusCode )
+	{
+		case 403:
+			$httpStatusName = 'Forbidden';
+			$httpDescription = 'Insufficient privileges to perform this action.';
+			$level = 'notice';
+		break;
+		case 404:
+			$httpStatusName = 'Not Found';
+			$httpDescription = 'The requested resource was not found.';
+			$level = 'notice';
+		break;
+		case 500:
+			$httpStatusName = 'Internal Server Error';
+			$httpDescription = 'The server encountered an unexpected condition which prevented it from fulfilling the request.';
+			$level = 'error';
+		break;
+	}
+
+	if( ! isset($options['log']) OR $options['log'] == true )
+	{
+		Log::{$level}( $httpStatusCode . ' ' . $httpStatusName . ': ' . Request::fullUrl(),
+			[
+				'url' 		=> Request::fullUrl(),
+				'headers'	=> Request::header(),
+				'ips'		=> Request::ips()
+			]
+		);
+	}
+
+	if( ! isset($options['source']) OR $options['source'] == 'gui' )
+	{
+		return Response::view( 'errors.http',
+			[
+				'title' => $httpStatusCode . ' ' . $httpStatusName,
+				'httpDescription' => $httpDescription,
+			],
+			$httpStatusCode
+		);
+	}
+	elseif( isset($options['source']) && $options['source'] == 'api' )
+	{
+	    return Response::make(
+	    	[
+	    		'message' => $httpDescription,
+	    	],
+	    	$httpStatusCode
+	    );
+	}
+}
