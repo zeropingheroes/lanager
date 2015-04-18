@@ -30,4 +30,4 @@ switch( $level )
 		$class = '';
 }
 ?>
-<span class="{{ $class }}">{{ $level }}</span>
+<span class="{{ $class }}">{{ ucwords($level) }}</span>
