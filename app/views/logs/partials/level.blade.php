@@ -23,7 +23,7 @@ switch( $level )
 	case 'alert':
 		$class = 'text-danger';
 		break;
-	case 'emerg':
+	case 'emergency':
 		$class = 'text-danger';
 		break;
 	default:
