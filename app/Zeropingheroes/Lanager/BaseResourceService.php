@@ -139,7 +139,14 @@ abstract class BaseResourceService {
 
 		foreach($fields as $field => $value)
 		{
-			$model = $model->where( $field, $value);
+			if( is_array($value) )
+			{
+				$model = $model->whereIn( $field, $value );
+			}
+			else
+			{
+				$model = $model->where( $field, $value);
+			}
 		}
 
 		return $model;
