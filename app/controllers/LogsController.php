@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Logs\LogService;
-use View;
+use Input, View;
 
 class LogsController extends BaseController {
 
@@ -27,8 +27,18 @@ class LogsController extends BaseController {
 	 */
 	public function index()
 	{
+		$minLevel = Input::get('minLevel');
+
+		$levels = ['debug', 'info', 'notice', 'warning', 'error', 'critical', 'alert', 'emergency'];
+
+		$levelsToShow = array_slice( $levels, array_search($minLevel, $levels) );
+
+		$filters['orderBy'] = '-created_at';
+		$filters['level'] = $levelsToShow;
+		if( Input::get('sapi') ) $filters['php_sapi_name'] = Input::get('sapi');
+
 		return View::make('logs.index')
 					->with('title','Logs')
-					->with('logs', $this->service->all(['orderBy' => '-created_at']));
+					->with('logs', $this->service->all( $filters ));
 	}
 }
