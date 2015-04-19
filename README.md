@@ -4,31 +4,33 @@ LANager
 LANager is a web application designed to make [LAN Parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
 
-## Goals & Features
+## Features
 
-* Enhance participation
-	* [Games in progress](http://zeropingheroes.co.uk/wp-content/gallery/lanager/games.png) updated every minute from Steam
-	* [Servers being played on](http://zeropingheroes.co.uk/wp-content/gallery/lanager/servers.png) with join links, again from Steam
-	* [Events](http://zeropingheroes.co.uk/wp-content/gallery/lanager/lanager-timetable.png) system optionally allowing users to [join events](http://zeropingheroes.co.uk/wp-content/gallery/lanager/event-signups.png)
-	* [Shouts](http://zeropingheroes.co.uk/wp-content/gallery/lanager/shouts.png) allowing advertising of games
-	* [Files](http://zeropingheroes.co.uk/wp-content/gallery/lanager-old/files.png) that may be required to join in *
-* Boost social interaction
-	* [Attendee profiles](http://zeropingheroes.co.uk/wp-content/gallery/lanager/profile.png) with links to add or message on Steam
-	* [List of attendees](http://zeropingheroes.co.uk/wp-content/gallery/lanager/people.png) with their current status
-* Broadcast information
-	* [Info pages](http://zeropingheroes.co.uk/wp-content/gallery/lanager/info_0.png) so that everyone can find out about the venue, food or tournament rules  
-	* [Links](http://zeropingheroes.co.uk/wp-content/gallery/lanager/links.png) to other sites e.g. game stats, organiser's website 
-* Allow attendee feedback
-	* [Request music & videos](http://zeropingheroes.co.uk/wp-content/gallery/lanager/playlist.png) for play-out on a big screen
-	* [Watch & listen](http://zeropingheroes.co.uk/wp-content/gallery/lanager-old/playlist_screen.png) to requested music & videos
-* API access
-	* Allow user status, game and server information for non-steam applications to be used *
-	* Make data available for events, users, info pages, shouts, videos etc *
-	* Generally avoid tying the project to the Steam platform *
-* Much more
-	* Check the [issue tracker](https://github.com/zeropingheroes/lanager-core/issues?labels=enhancement&milestone=&page=1&state=open) for more planned enhancements
+### Enhance Participation
 
-\* *Planned but not yet implemented*
+* **Games in progress**, updated every minute from Steam
+* **Timetable of events**, optionally allowing users to sign up to events
+* **Achievements**, created by admins, and awardable to attendees
+
+### Boost Social Interaction
+* **Attendee profiles** with links to add or message on Steam
+* **Attendee list** with their current status
+
+### Broadcast Useful Information
+* **Info pages** for attendees to find out about the venue, rules etc, editable by admins 
+* **Links** to other sites e.g. game stats, organiser's website 
+* **Shouts** allowing attendees and admins to broadcast short messages
+* **Live Dashboard** showing current and next events, games in progress and shouts, for big screen display
+
+### Improve Atmosphere
+* **User-generated playlists**, allowing users to request music & videos for play-out on a big screen and PA system
+
+### Open for Integration
+* **RESTful API** with open read access and API key guarded write access to all resources
+* **Events dispatcher** allowing for hooking in of extra operations 
+* **Comprehensive logging** of events allowing for debugging and auditing
+
+And much more planned - check the [issue tracker](https://github.com/zeropingheroes/lanager-core/issues?labels=enhancement&milestone=&page=1&state=open) for future enhancements
 
 ## Requirements
 * Web server - *Apache 2.4.x recommended*
