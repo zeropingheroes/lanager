@@ -20,7 +20,17 @@ App::error( function( Exception $exception, $code )
 */
 App::error( function( Symfony\Component\HttpKernel\Exception\HttpException $exception, $httpStatusCode )
 {
-	return handleHttpError( $httpStatusCode );
+	return handleHttpError( $httpStatusCode, ['source' => 'gui'] );
+});
+
+/*
+|--------------------------------------------------------------------------
+| Handle Unauthorized Requests (API Access)
+|--------------------------------------------------------------------------
+*/
+API::error( function( Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException $exception )
+{
+	return handleHttpError( 401, ['source' => 'api'] );
 });
 
 /*
@@ -54,6 +64,11 @@ function handleHttpError($httpStatusCode, $options = [])
 {
 	switch ( $httpStatusCode )
 	{
+		case 401:
+			$httpStatusName = 'Unauthorized';
+			$httpDescription = 'Access is denied due to invalid credentials.';
+			$level = 'notice';
+		break;
 		case 403:
 			$httpStatusName = 'Forbidden';
 			$httpDescription = 'Insufficient privileges to perform this action.';
@@ -94,11 +109,13 @@ function handleHttpError($httpStatusCode, $options = [])
 	}
 	elseif( isset($options['source']) && $options['source'] == 'api' )
 	{
-	    return Response::make(
-	    	[
-	    		'message' => $httpDescription,
-	    	],
-	    	$httpStatusCode
-	    );
+		$response = Response::make(
+			[
+				'message' => $httpDescription,
+			],
+			$httpStatusCode
+		);
+		if( $httpStatusCode == 401 ) $response->header('WWW-Authenticate', 'Lanager');
+		return $response;
 	}
 }

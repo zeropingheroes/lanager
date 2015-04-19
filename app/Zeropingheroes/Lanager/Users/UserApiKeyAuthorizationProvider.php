@@ -27,8 +27,8 @@ class UserApiKeyAuthorizationProvider extends AuthorizationProvider
 		$apikey = trim(strstr($request->header('authorization'), ' '));
 		
 		// verify that api key is 32 char hexadecimal string
-		if ( strlen($apikey) != 32 ) throw new BadRequestHttpException('Invalid API key');
-		if ( ! ctype_xdigit($apikey) ) throw new BadRequestHttpException('Invalid API key');
+		if ( strlen($apikey) != 32 ) throw new UnauthorizedHttpException(null, 401);
+		if ( ! ctype_xdigit($apikey) ) throw new UnauthorizedHttpException(null, 401);
 		
 		// attempt to find user in database with given api key
 		try
@@ -43,7 +43,7 @@ class UserApiKeyAuthorizationProvider extends AuthorizationProvider
 		catch (ModelNotFoundException $e)
 		{
 			// reject auth if no user found with given key
-			throw new UnauthorizedHttpException(null);
+			throw new UnauthorizedHttpException(null, 401);
 		}
 	}
 
