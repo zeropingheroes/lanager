@@ -53,6 +53,12 @@ abstract class BaseResourceService {
 	protected $orderBy;
 
 	/**
+	 * The where clause(s) to apply to the query
+	 * @var array
+	 */
+	protected $where;
+
+	/**
 	 * Instantiate the service with a listener that the service can call methods
 	 * on after action success/failure
 	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
@@ -167,12 +173,20 @@ abstract class BaseResourceService {
 				$builder->orderBy( $order['column'], $order['direction'] );
 			}
 		}
+		if ( $this->where )
+		{
+			foreach( $this->where as $where )
+			{
+				$builder->where( $where['column'], $where['operator'], $where['value'], $where['boolean'] );
+			}
+		}
 
 		// Reset query properties
 		$this->eagerLoad = null;
 		$this->skip = null;
 		$this->take = null;
 		$this->orderBy = [];
+		$this->where = [];
 
 		return $builder;
 	}
@@ -221,6 +235,23 @@ abstract class BaseResourceService {
 		$direction = strtolower($direction) == 'asc' ? 'asc' : 'desc';
 
 		$this->orderBy[] = compact('column', 'direction');
+		return $this;
+	}
+
+	/**
+	 * Add a basic where clause to the query.
+	 *
+	 * @param  string  $column
+	 * @param  string  $operator
+	 * @param  mixed   $value
+	 * @param  string  $boolean
+	 * @return $this
+	 *
+	 * @throws \InvalidArgumentException
+	 */
+	public function where($column, $operator = null, $value = null, $boolean = 'and')
+	{
+		$this->where[] = compact('column', 'operator', 'value', 'boolean');
 		return $this;
 	}
 
