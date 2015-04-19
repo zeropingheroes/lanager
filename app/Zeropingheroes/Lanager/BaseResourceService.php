@@ -47,6 +47,12 @@ abstract class BaseResourceService {
 	protected $take;
 
 	/**
+	 * The column(s) to order the results by
+	 * @var array
+	 */
+	protected $orderBy;
+
+	/**
 	 * Instantiate the service with a listener that the service can call methods
 	 * on after action success/failure
 	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
@@ -121,33 +127,6 @@ abstract class BaseResourceService {
 	 */
 	public function filter( $model, array $filters)
 	{
-		if( isset($filters['orderBy']) )
-		{
-			if( ! is_array( $filters['orderBy'] ) && str_contains( $filters['orderBy'], ',') )
-			{
-				$filters['orderBy'] = explode(',', $filters['orderBy']);
-			}
-			elseif( !is_array($filters['orderBy']) )
-			{
-				$filters['orderBy'] = [$filters['orderBy']];
-			}
-			foreach($filters['orderBy'] as $value)
-			{
-				if( starts_with($value, '-') )
-				{
-					$field = ltrim($value, '-');
-					$direction = 'desc';
-				}
-				else
-				{
-					$field = $value;
-					$direction = 'asc';
-				}
-				$model = $model->orderBy( $field, $direction );				
-			}
-
-		}
-
 		// Take any other query parameters and use them as where clauses
 		$fields = array_except($filters, ['orderBy', 'skip', 'take']);
 
@@ -166,7 +145,6 @@ abstract class BaseResourceService {
 		return $model;
 	}
 
-
 	/**
 	 * Returns a Builder instance for use in constructing a query, honouring the 
 	 * current filters. Resets the filters, ready for the next query.
@@ -179,10 +157,18 @@ abstract class BaseResourceService {
 		if ($this->eagerLoad)	$builder->with( $this->eagerLoad );
 		if ($this->skip)		$builder->skip( $this->skip );
 		if ($this->take)		$builder->take( $this->take );
+		if ($this->orderBy)
+		{
+			foreach( $this->orderBy as $order )
+			{
+				$builder->orderBy( $order['column'], $order['direction'] );
+			}
+		}
 	
 		$this->eagerLoad = null;
 		$this->skip = null;
 		$this->take = null;
+		$this->orderBy = [];
 
 		return $builder;
 	}
@@ -217,6 +203,21 @@ abstract class BaseResourceService {
 	public function take( $take )
 	{
 		$this->take = $take;
+		return $this;
+	}
+
+	/**
+	 * Add an "order by" clause to the query.
+	 * @param  string  $column
+	 * @param  string  $direction
+	 * @return $this
+	 */
+	public function orderBy($column, $direction = 'asc')
+	{
+		$direction = strtolower($direction) == 'asc' ? 'asc' : 'desc';
+
+		$this->orderBy[] = compact('column', 'direction');
+
 		return $this;
 	}
 
