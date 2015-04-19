@@ -8,6 +8,7 @@
 			</a>
 			<ul class="dropdown-menu">
 				<li><a href="{{ route('users.show', Auth::user()->id) }}">{{ Icon::user() }} Profile</a></li>
+				<li><a href="{{ route('users.show', ['id' => Auth::user()->id, 'tab' => 'api']) }}">{{ Icon::transfer() }} API</a></li>
 				<li><a href="{{ route('sessions.destroy') }}">{{ Icon::logOut() }} Log Out</a></li>
 			</ul>
 		</li>

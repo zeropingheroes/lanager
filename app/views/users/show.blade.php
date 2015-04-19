@@ -16,25 +16,30 @@
 		@include('users.partials.actions', ['user' => $user] )
 	</div>
 	<div class="profile-nav">
-		{{
-			Navigation::tabs([
-			[
-				'title' => 'Status',
-				'link' => route('users.show', ['user' => $user->id, 'tab' => 'status'] ),
-				'active' => (Input::get('tab') == 'status' OR empty(Input::get('tab')) ),
-			],
-			[
-				'title' => 'Achievements' . View::make('badge', ['collection' => $user->userAchievements] ),
-				'link' => route('users.show', ['user' => $user->id, 'tab' => 'achievements'] ),
-				'active' => Input::get('tab') == 'achievements',
-			],
-			[
-				'title' => 'Shouts' . View::make('badge', ['collection' => $user->shouts] ),
-				'link' => route('users.show', ['user' => $user->id, 'tab' => 'shouts'] ),
-				'active' => Input::get('tab') == 'shouts',
-			],
-			])
-		}}
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="<?php if (Input::get('tab') == 'status') echo 'active'; ?>">
+				<a href="{{ route('users.show', ['user' => $user->id, 'tab' => 'status'] ) }}">
+					Status
+				</a>
+			</li>
+			<li role="presentation" class="<?php if (Input::get('tab') == 'achievements') echo 'active'; ?>">
+				<a href="{{ route('users.show', ['user' => $user->id, 'tab' => 'achievements'] ) }}">
+					Achievements {{ View::make('badge', ['collection' => $user->userAchievements] ) }}
+				</a>
+			</li>
+			<li role="presentation" class="<?php if (Input::get('tab') == 'shouts') echo 'active'; ?>">
+				<a href="{{ route('users.show', ['user' => $user->id, 'tab' => 'shouts'] ) }}">
+					Shouts {{ View::make('badge', ['collection' => $user->shouts] ) }}
+				</a>
+			</li>
+			@if( Auth::check() AND $user->id == Auth::user()->id )
+				<li role="presentation" class="<?php if (Input::get('tab') == 'api') echo 'active'; ?>">
+					<a href="{{ route('users.show', ['user' => $user->id, 'tab' => 'api'] ) }}">
+						API
+					</a>
+				</li>
+			@endif
+		</ul>
 	</div>
 	<div class="profile-content">
 		@include('layouts.default.alerts')
@@ -55,6 +60,10 @@
 		@elseif( Input::get('tab') == 'shouts' )
 
 			@include('shouts.partials.list', ['shouts' => $user->shouts()->orderBy('created_at','desc')->take(3)->get()] )
+
+		@elseif( Input::get('tab') == 'api' AND Auth::check() AND $user->id == Auth::user()->id )
+
+			@include('users.partials.api', ['user' => $user])
 
 		@endif
 
