@@ -39,7 +39,7 @@
 }}
 
 <div class="form-group">
-    <label for="published" class="control-label col-sm-2">Published</label>
+	<label for="published" class="control-label col-sm-2">Published</label>
 	<div class="checkbox col-sm-9">
 		<label>
 			{{ Form::hidden( 'published', '0' ) }}
