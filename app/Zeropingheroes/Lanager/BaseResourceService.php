@@ -35,6 +35,18 @@ abstract class BaseResourceService {
 	protected $eagerLoad;
 
 	/**
+	 * The number of items that should be skipped
+	 * @var integer
+	 */
+	protected $skip;
+
+	/**
+	 * The maximum number of items that should be returned
+	 * @var array
+	 */
+	protected $take;
+
+	/**
 	 * Instantiate the service with a listener that the service can call methods
 	 * on after action success/failure
 	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
@@ -178,9 +190,14 @@ abstract class BaseResourceService {
 	{
 		$builder = with( $this->model )->newQuery();
 	
-		if ($this->eagerLoad) $builder->with( $this->eagerLoad );
+		if ($this->eagerLoad)	$builder->with( $this->eagerLoad );
+		if ($this->skip)		$builder->skip( $this->skip );
+		if ($this->take)		$builder->take( $this->take );
 	
 		$this->eagerLoad = null;
+		$this->skip = null;
+		$this->take = null;
+
 		return $builder;
 	}
 
@@ -194,6 +211,28 @@ abstract class BaseResourceService {
 	public function with( $resources )
 	{
 		$this->eagerLoad = $resources;
+		return $this;
+	}
+
+	/**
+	 * Sets the number of items that should be skipped
+	 * @param integer $take
+	 * @return self
+	 */
+	public function skip( $skip )
+	{
+		$this->skip = $skip;
+		return $this;
+	}
+
+	/**
+	 * Sets the maximum number of items that should be returned
+	 * @param integer $take
+	 * @return self
+	 */
+	public function take( $take )
+	{
+		$this->take = $take;
 		return $this;
 	}
 
