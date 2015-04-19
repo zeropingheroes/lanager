@@ -3,31 +3,31 @@
 switch( $level )
 {
 	case 'debug':
-		$class = 'text-muted';
+		$class = 'label-default';
 		break;
 	case 'info':
-		$class = 'text-info';
+		$class = 'label-info';
 		break;
 	case 'notice':
-		$class = 'text-info';
+		$class = 'label-info';
 		break;
 	case 'warning':
-		$class = 'text-warning';
+		$class = 'label-warning';
 		break;
 	case 'error':
-		$class = 'text-danger';
+		$class = 'label-danger';
 		break;
 	case 'critical':
-		$class = 'text-danger';
+		$class = 'label-danger';
 		break;
 	case 'alert':
-		$class = 'text-danger';
+		$class = 'label-danger';
 		break;
 	case 'emergency':
-		$class = 'text-danger';
+		$class = 'label-danger';
 		break;
 	default:
 		$class = '';
 }
 ?>
-<span class="{{ $class }}">{{ ucwords($level) }}</span>
+<span class="label {{ $class }}">{{ ucwords($level) }}</span>
