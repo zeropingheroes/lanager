@@ -46,7 +46,11 @@ class BaseModel extends Eloquent {
 	{
 		foreach($model->optional as $field)
 		{
-			if ( empty($model->{$field}) )
+			if (
+				empty($model->{$field})
+				&& $model->{$field} !== 0
+				&& $model->{$field} !== '0'
+				)
 			{
 				unset($model->{$field});
 			}
