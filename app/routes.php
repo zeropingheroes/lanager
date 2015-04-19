@@ -119,6 +119,21 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 			Route::resource('users',				'UsersController',				['except' => ['create', 'store', 'edit', 'update'] ]);
 			Route::resource('application-usage',	'ApplicationUsageController',	['only' => ['index'] ]);
 			Route::resource('logs',					'LogsController',				['only' => ['index'] ]);
+			
+			// List of endpoints
+			Route::get('/', function () {
+				$routes = Route::getApiGroups()->getByVersion('v1');
+
+				$endpoints = [];
+				foreach ($routes as $route) {
+					$endpoints['endpoints'][] =
+					[
+						'path' => $route->getPath(),
+						'methods' => $route->getMethods()
+					];
+				}
+				return Response::make($endpoints, 200, [], ['options' => JSON_PRETTY_PRINT] );
+			});
 		});
 	});
 });
