@@ -41,4 +41,20 @@ class LogsController extends BaseController {
 					->with('title','Logs')
 					->with('logs', $this->service->all( $filters ));
 	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$log = $this->service->single($id);
+
+		return View::make('logs.show')
+					->with('title','Log Item ' . $log->id)
+					->with('log',$log);
+	}
+
 }

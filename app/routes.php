@@ -86,7 +86,7 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	| Logs
 	|--------------------------------------------------------------------------
 	*/
-	Route::resource('logs', 'LogsController', ['only' => ['index']]);
+	Route::resource('logs', 'LogsController', ['only' => ['index', 'show']]);
 
 	/*
 	|--------------------------------------------------------------------------

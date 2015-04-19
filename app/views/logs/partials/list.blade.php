@@ -6,14 +6,14 @@
 				<th class="time">Time</th>
 				<th class="sapi">SAPI</th>
 				<th>Level</th>
-				<th>Message</th>
+				<th colspan="2">Message</th>
 			</tr>
 		</thead>
 		<tbody>
 		@foreach( $logs as $log )
 			<tr>
 				<td>
-					{{{ $log->id }}}
+					{{ link_to_route('logs.show', $log->id, $log->id) }}
 				</td>
 				<td title="{{{ $log->created_at }}}">
 					{{{ $log->created_at->diffForHumans() }}}
@@ -26,6 +26,15 @@
 				</td>
 				<td>
 					{{{ $log->message }}}
+				</td>
+				<td class="text-right">
+					@include('buttons.url',
+						[
+							'url' => route('logs.show', $log->id),
+							'icon' => 'optionHorizontal',
+							'size' => 'extraSmall'
+						]
+					)
 				</td>
 			</tr>
 		@endforeach
