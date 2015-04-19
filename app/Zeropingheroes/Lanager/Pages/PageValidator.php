@@ -18,6 +18,7 @@ class PageValidator extends ValidatorAssistant {
 		'title'		=> 'required|max:255',
 		'parent_id'	=> 'numeric|exists:pages,id',
 		'position'	=> 'numeric|min:0',
+		'published'	=> 'boolean',
 	];
 
 }

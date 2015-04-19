@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager;
 
 use Zeropingheroes\Lanager\Pages\PageService;
-use View;
+use View, Authority, Input, App;
 
 class PagesController extends BaseController {
 
@@ -27,9 +27,12 @@ class PagesController extends BaseController {
 	 */
 	public function index()
 	{
+		if( Authority::can('manage', 'pages') )	$pages = $this->service->all();
+		if( Authority::cannot('manage', 'pages') )	$pages = $this->service->all( ['published' => true ] );
+
 		return View::make('pages.index')
 					->with('title','Info')
-					->with('pages', $this->service->all());
+					->with('pages', $pages );
 	}
 
 	/**
@@ -54,6 +57,8 @@ class PagesController extends BaseController {
 	public function show($id)
 	{
 		$page = $this->service->single($id);
+
+		if( Authority::cannot('manage', 'pages') AND $page->published == 0 ) App::abort(404);
 
 		return View::make('pages.show')
 					->with('title',$page->title)

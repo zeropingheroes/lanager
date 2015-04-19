@@ -10,6 +10,7 @@
 					<th>Title</th>
 					<th>Last Updated</th>
 					@if( Authority::can('manage', 'pages') )
+						<th class="text-center">Published</th>
 						<th class="text-center">{{ Icon::cog() }}</th>
 					@endif
 				</tr>
@@ -19,6 +20,11 @@
 				<tr>
 					<td>{{ link_to_route('pages.show', $page->title, $page->id) }}</td>
 					<td>{{ $page->updated_at->diffForHumans() }}</td>
+					<td class="text-center">
+						@if( $page->published )
+							{{ Icon::ok() }}
+						@endif
+					</td>
 					@if( Authority::can('manage', 'pages') )
 						<td class="text-center">
 							@include('buttons.edit', ['resource' => 'pages', 'item' => $page, 'size' => 'extraSmall'])
