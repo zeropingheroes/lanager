@@ -29,6 +29,12 @@ abstract class BaseResourceService {
 	protected $messages;
 
 	/**
+	 * The resources that should be eager loaded
+	 * @var array
+	 */
+	protected $eagerLoad;
+
+	/**
 	 * Instantiate the service with a listener that the service can call methods
 	 * on after action success/failure
 	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
@@ -36,6 +42,7 @@ abstract class BaseResourceService {
 	public function __construct( ResourceServiceListenerContract $listener )
 	{
 		$this->listener = $listener;
+		$this->eagerLoad = [];
 	}
 
 	/**
@@ -155,6 +162,39 @@ abstract class BaseResourceService {
 		}
 
 		return $model;
+	}
+
+
+	/**
+	 * Returns a Builder instance for use in constructing a query, honouring the 
+	 * current filters. Resets the filters, ready for the next query.
+	 *
+	 * Example usage:
+	 * $result = $this->getQueryBuilder()->find($id);
+	 *
+	 * @return \Illuminate\Database\Query\Builder
+	 */
+	protected function getQueryBuilder()
+	{
+		$builder = with( $this->model )->newQuery();
+	
+		if ($this->eagerLoad) $builder->with( $this->eagerLoad );
+	
+		$this->eagerLoad = null;
+		return $builder;
+	}
+
+	/**
+	 * Eager loads additional related resources
+	 *
+	 * @param array $resources Resources to eager load
+	 *
+	 * @return self
+	 */
+	public function with( $resources )
+	{
+		$this->eagerLoad = $resources;
+		return $this;
 	}
 
 }

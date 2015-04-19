@@ -9,6 +9,12 @@ abstract class FlatResourceService extends BaseResourceService {
 	protected $model;
 
 	/**
+	 * The resources that should be eager loaded
+	 * @var array
+	 */
+	protected $eagerLoad;
+
+	/**
 	 * Set the model and the service listener
 	 * @param ResourceServiceListenerContract $listener Listener class with methods to call after successful/failed operations
 	 * @param BaseModel                       $model    The resource's model that the service will use
@@ -16,6 +22,7 @@ abstract class FlatResourceService extends BaseResourceService {
 	public function __construct( ResourceServiceListenerContract $listener, BaseModel $model )
 	{
 		$this->model = $model;
+		$this->eagerLoad = [];
 		parent::__construct($listener);
 	}
 
@@ -29,9 +36,9 @@ abstract class FlatResourceService extends BaseResourceService {
 	{
 		$this->model = $this->filter($this->model, $filters);
 
-		if( ! empty($eagerLoad) ) return $this->model->with($eagerLoad)->get();
+		if( ! empty($eagerLoad) ) $this->with($eagerLoad);
 
-		return $this->model->get();
+		return $this->getQueryBuilder()->get();
 	}
 
 	/**
