@@ -39,10 +39,3 @@ View::composer('layouts.default.nav', function($view)
 	// Links
 	$view->with('links', Config::get('lanager/links'));
 });
-
-View::composer('layouts.default.playlists', function($view)
-{
-	$playlists = Zeropingheroes\Lanager\Playlists\Playlist::all();
-
-	$view->with('playlists', $playlists);
-});
