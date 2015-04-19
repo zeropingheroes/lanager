@@ -240,14 +240,11 @@ abstract class BaseResourceService {
 
 	/**
 	 * Add a basic where clause to the query.
-	 *
 	 * @param  string  $column
 	 * @param  string  $operator
 	 * @param  mixed   $value
 	 * @param  string  $boolean
 	 * @return $this
-	 *
-	 * @throws \InvalidArgumentException
 	 */
 	public function where($column, $operator = null, $value = null, $boolean = 'and')
 	{
