@@ -148,16 +148,6 @@ abstract class BaseResourceService {
 
 		}
 
-		if( isset($filters['skip']) && is_numeric($filters['skip']) )
-		{
-			$model = $model->skip($filters['skip']);
-		}
-
-		if( isset($filters['take']) && is_numeric($filters['take']) )
-		{
-			$model = $model->take($filters['take']);
-		}
-
 		// Take any other query parameters and use them as where clauses
 		$fields = array_except($filters, ['orderBy', 'skip', 'take']);
 
@@ -180,10 +170,6 @@ abstract class BaseResourceService {
 	/**
 	 * Returns a Builder instance for use in constructing a query, honouring the 
 	 * current filters. Resets the filters, ready for the next query.
-	 *
-	 * Example usage:
-	 * $result = $this->getQueryBuilder()->find($id);
-	 *
 	 * @return \Illuminate\Database\Query\Builder
 	 */
 	protected function getQueryBuilder()
@@ -203,9 +189,7 @@ abstract class BaseResourceService {
 
 	/**
 	 * Eager loads additional related resources
-	 *
 	 * @param array $resources Resources to eager load
-	 *
 	 * @return self
 	 */
 	public function with( $resources )
