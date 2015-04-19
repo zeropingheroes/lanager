@@ -127,7 +127,6 @@ abstract class BaseResourceService {
 	 */
 	public function filter( $model, array $filters)
 	{
-		// Take any other query parameters and use them as where clauses
 		$fields = array_except($filters, ['orderBy', 'skip', 'take']);
 
 		foreach($fields as $field => $value)
@@ -154,17 +153,19 @@ abstract class BaseResourceService {
 	{
 		$builder = with( $this->model )->newQuery();
 	
-		if ($this->eagerLoad)	$builder->with( $this->eagerLoad );
-		if ($this->skip)		$builder->skip( $this->skip );
-		if ($this->take)		$builder->take( $this->take );
-		if ($this->orderBy)
+		// Apply query properties in turn
+		if ( $this->eagerLoad )	$builder->with( $this->eagerLoad );
+		if ( $this->skip )		$builder->skip( $this->skip );
+		if ( $this->take )		$builder->take( $this->take );
+		if ( $this->orderBy )
 		{
 			foreach( $this->orderBy as $order )
 			{
 				$builder->orderBy( $order['column'], $order['direction'] );
 			}
 		}
-	
+
+		// Reset query properties
 		$this->eagerLoad = null;
 		$this->skip = null;
 		$this->take = null;
@@ -217,7 +218,6 @@ abstract class BaseResourceService {
 		$direction = strtolower($direction) == 'asc' ? 'asc' : 'desc';
 
 		$this->orderBy[] = compact('column', 'direction');
-
 		return $this;
 	}
 
