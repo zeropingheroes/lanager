@@ -8,6 +8,7 @@
 				<th colspan="2">Signups</th>
 				<th>Type</th>
 				@if( Authority::can('manage', 'events') )
+					<th class="text-center">Published</th>
 					<th class="text-center">{{ Icon::cog() }}</th>
 				@endif
 			</tr>
@@ -36,6 +37,11 @@
 					@endif
 				</td>
 				@if( Authority::can('manage', 'events') )
+					<td class="text-center">
+						@if( $event->published )
+							{{ Icon::ok() }}
+						@endif
+					</td>
 					<td class="text-center">
 						@include('buttons.edit', ['resource' => 'events', 'item' => $event, 'size' => 'extraSmall'])
 						@include('buttons.destroy', ['resource' => 'events', 'item' => $event, 'size' => 'extraSmall'])

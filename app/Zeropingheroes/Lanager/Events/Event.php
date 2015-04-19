@@ -11,13 +11,20 @@ class Event extends BaseModel {
 	 * Fields that can be mass assigned
 	 * @var array
 	 */
-	protected $fillable = ['name', 'description', 'start', 'end', 'signup_opens', 'signup_closes', 'event_type_id'];
+	protected $fillable = ['name', 'description', 'start', 'end', 'signup_opens', 'signup_closes', 'event_type_id', 'published'];
 
 	/**
 	 * Fields that can be set to null in the database, if they are not specified when creating a new model
 	 * @var array
 	 */
 	protected $nullable = ['description', 'signup_opens', 'signup_closes'];
+
+	/**
+	 * Fields that have a useful default set in the database
+	 * If any of these fields are empty when creating or updating the model should be set to this default
+	 * @var array
+	 */
+	protected $optional = ['published'];
 
 	/**
 	 * Validator class responsible for validating this model
