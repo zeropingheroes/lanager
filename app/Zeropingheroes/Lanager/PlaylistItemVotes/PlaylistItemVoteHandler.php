@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager\PlaylistItemVotes;
 
 use Zeropingheroes\Lanager\PlaylistItems\PlaylistItem;
-use DB, DateTime;
+use DB, DateTime, Log;
 
 class PlaylistItemVoteHandler {
 
@@ -20,8 +20,10 @@ class PlaylistItemVoteHandler {
 	 * Check if we need to skip the playlist item after the playlist item vote has been stored 
 	 * @param  object BaseModel $playlistItemVote Vote item
 	 */
-	public function onStore($playlistItemVote)
+	public function onStore( $parameters )
 	{
+		$playlistItemVote = $parameters['item'];
+
 		$playlistItem = PlaylistItem::find($playlistItemVote->playlist_item_id);
 
 		// Skip the playlist item if we have met or exceeded the downvote threshold
@@ -36,6 +38,7 @@ class PlaylistItemVoteHandler {
 			$playlistItem->playback_state = 2;
 			$playlistItem->skip_reason = ($playlistItemVotes + 1) . ' users voted to skip';
 			$playlistItem->save();
+			Log::debug('Skipping playlist item ' . $playlistItem->id . ' as ' . $playlistItemVotes . ' user(s) voted to skip', ['item' => $playlistItem]);
 		}
 	}
 
