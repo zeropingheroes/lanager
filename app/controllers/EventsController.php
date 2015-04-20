@@ -2,7 +2,6 @@
 
 use Zeropingheroes\Lanager\Events\EventService,
 	Zeropingheroes\Lanager\EventTypes\EventTypeService;
-use View, Notification, Redirect;
 use View, Notification, Redirect, Authority, App;
 
 class EventsController extends BaseController {
