@@ -41,7 +41,10 @@ trait ReadableResourceTrait {
 
 		if( $this->draftable == true )
 		{
-			if( ! $item->published AND Authority::cannot( 'manage', $this->service->resource() ) ) App::abort(404);
+			if( ! $item->published AND Authority::cannot( 'manage', $this->service->resource() ) )
+			{
+				throw new \Illuminate\Database\Eloquent\ModelNotFoundException;
+			}
 		}
 
 		return $this->response->item( $item, $this->transformer );
