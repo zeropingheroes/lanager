@@ -3,6 +3,7 @@
 use Zeropingheroes\Lanager\Events\EventService,
 	Zeropingheroes\Lanager\EventTypes\EventTypeService;
 use View, Notification, Redirect;
+use View, Notification, Redirect, Authority, App;
 
 class EventsController extends BaseController {
 
@@ -28,6 +29,7 @@ class EventsController extends BaseController {
 	 */
 	public function index()
 	{
+		if( Authority::cannot('manage', 'events') ) $this->service->where('published', true);
 
 		$events = $this->service
 						->with( ['type', 'eventSignups'] )
@@ -70,6 +72,8 @@ class EventsController extends BaseController {
 		];
 
 		$event = $this->service->single($id, $eagerLoad);
+
+		if( Authority::cannot('manage', 'events') AND ! $event->published ) App::abort(404);
 
 		return View::make('events.show')
 					->with('title',$event->name)
