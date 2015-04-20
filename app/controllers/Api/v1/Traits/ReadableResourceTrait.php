@@ -1,6 +1,6 @@
 <?php namespace Zeropingheroes\Lanager\Api\v1\Traits;
 
-use Input;
+use Input, Authority, App;
 
 trait ReadableResourceTrait {
 
@@ -11,6 +11,11 @@ trait ReadableResourceTrait {
 	 */
 	public function index()
 	{
+		if( $this->draftable == true )
+		{
+			if( Authority::cannot( 'manage', $this->service->resource() ) ) $this->service->where('published', true);
+		}
+		
 		// Flat resource
 		if( func_num_args() == 0 ) $items = $this->service->all( Input::all() );
 		
@@ -33,6 +38,11 @@ trait ReadableResourceTrait {
 		
 		// Nested resource
 		if( func_num_args() > 1 ) $item = $this->service->single( func_get_args() );
+
+		if( $this->draftable == true )
+		{
+			if( ! $item->published AND Authority::cannot( 'manage', $this->service->resource() ) ) App::abort(404);
+		}
 
 		return $this->response->item( $item, $this->transformer );
 	}

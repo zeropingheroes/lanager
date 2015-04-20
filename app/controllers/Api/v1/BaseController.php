@@ -29,6 +29,12 @@ class BaseController extends Controller implements ResourceServiceListenerContra
 	protected $service;
 
 	/**
+	 * Whether the resource can be marked as a draft and hidden from standard users
+	 * @var object BaseResourceService
+	 */
+	protected $draftable = false;
+
+	/**
 	 * Protect and filter all API controllers
 	 */
 	public function __construct()

@@ -13,6 +13,7 @@ class EventsController extends BaseController {
 		parent::__construct();
 		$this->service = new EventService($this);
 		$this->transformer = new EventTransformer;
+		$this->draftable = true;
 	}
 
 }
