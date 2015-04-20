@@ -28,10 +28,11 @@ class EventsController extends BaseController {
 	 */
 	public function index()
 	{
-		$options['orderBy'] = ['start'];
-		$eagerLoad = ['type', 'eventSignups'];
 
-		$events = $this->service->all($options, $eagerLoad);
+		$events = $this->service
+						->with( ['type', 'eventSignups'] )
+						->orderBy( 'start' )
+						->all();
 
 		return View::make('events.index')
 					->with('title','Events')
