@@ -1,4 +1,4 @@
-<?php namespace Zeropingheroes\Lanager;
+<?php namespace Zeropingheroes\Lanager\Gui;
 
 use	Zeropingheroes\Lanager\Users\User;
 use LightOpenID;

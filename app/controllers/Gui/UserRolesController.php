@@ -1,5 +1,6 @@
-<?php namespace Zeropingheroes\Lanager;
+<?php namespace Zeropingheroes\Lanager\Gui;
 
+use Zeropingheroes\Lanager\BaseResourceService;
 use Zeropingheroes\Lanager\UserRoles\UserRoleService,
 	Zeropingheroes\Lanager\Users\UserService,
 	Zeropingheroes\Lanager\Roles\RoleService;

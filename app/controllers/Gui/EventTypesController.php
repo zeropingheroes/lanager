@@ -1,15 +1,16 @@
-<?php namespace Zeropingheroes\Lanager;
+<?php namespace Zeropingheroes\Lanager\Gui;
 
-use Zeropingheroes\Lanager\Roles\RoleService;
+use Zeropingheroes\Lanager\BaseResourceService;
+use Zeropingheroes\Lanager\EventTypes\EventTypeService;
 use View, Notification, Redirect;
 
-class RolesController extends BaseController {
+class EventTypesController extends BaseController {
 
 	/**
 	 * Based named route used by this resource
 	 * @var string
 	 */
-	protected $route = 'roles';
+	protected $route = 'event-types';
 
 	/**
 	 * Set the controller's service
@@ -17,7 +18,7 @@ class RolesController extends BaseController {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->service = new RoleService($this);
+		$this->service = new EventTypeService($this);
 	}
 
 	/**
@@ -27,12 +28,12 @@ class RolesController extends BaseController {
 	 */
 	public function index()
 	{
-		$eagerLoad = ['userRoles', 'users'];
-		$roles = $this->service->all([], $eagerLoad);
+		$eagerLoad = ['events'];
+		$eventTypes = $this->service->all( [], $eagerLoad );
 
-		return View::make('roles.index')
-					->with('title','Roles')
-					->with('roles', $roles);
+		return View::make('event-types.index')
+					->with('title','Event Types')
+					->with('eventTypes', $eventTypes );
 	}
 
 	/**
@@ -42,30 +43,9 @@ class RolesController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('roles.create')
-					->with('title','Create Role')
-					->with('role',null);
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$eagerLoad =
-		[
-			'userRoles.role',
-			'userRoles.user.state.application',
-			'userRoles.user.state.server',
-		];
-		$role = $this->service->single($id, $eagerLoad);
-
-		return View::make('roles.show')
-					->with('title', 'Role: '.$role->name)
-					->with('role',$role);
+		return View::make('event-types.create')
+					->with('title','Create Event Type')
+					->with('eventType',null);
 	}
 
 	/**
@@ -76,9 +56,9 @@ class RolesController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		return View::make('roles.edit')
-					->with('title','Edit Role')
-					->with('role',$this->service->single($id));
+		return View::make('event-types.edit')
+					->with('title','Edit Event Type')
+					->with('eventType',$this->service->single($id));
 	}
 
 	/**
@@ -89,7 +69,7 @@ class RolesController extends BaseController {
 	public function storeSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index' );
+		return Redirect::route( $this->route . '.index', $service->resourceIds() );
 	}
 
 	/**
@@ -100,7 +80,7 @@ class RolesController extends BaseController {
 	public function updateSucceeded( BaseResourceService $service )
 	{
 		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index' );
+		return Redirect::route( $this->route . '.index', $service->resourceIds() );
 	}
 
 }

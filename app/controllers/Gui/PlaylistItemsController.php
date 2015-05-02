@@ -1,15 +1,16 @@
-<?php namespace Zeropingheroes\Lanager;
+<?php namespace Zeropingheroes\Lanager\Gui;
 
-use Zeropingheroes\Lanager\Shouts\ShoutService;
+use Zeropingheroes\Lanager\BaseResourceService;
+use Zeropingheroes\Lanager\PlaylistItems\PlaylistItemService;
 use View, Notification, Redirect;
 
-class ShoutsController extends BaseController {
+class PlaylistItemsController extends BaseController {
 
 	/**
 	 * Based named route used by this resource
 	 * @var string
 	 */
-	protected $route = 'shouts';
+	protected $route = 'playlists.items';
 
 	/**
 	 * Set the controller's service
@@ -17,7 +18,7 @@ class ShoutsController extends BaseController {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->service = new ShoutService($this);
+		$this->service = new PlaylistItemService($this);
 	}
 
 	/**
@@ -25,21 +26,26 @@ class ShoutsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($playlistId)
 	{
-		$options['orderBy'] = ['-pinned', '-created_at'];
+		$playlist = $this->service->parent([$playlistId]);
+
 		$eagerLoad =
 		[
-			'user.roles',
+			'playlistItemVotes',
 			'user.state.application',
-			'user.state.server',
+			'user.state.server'
 		];
+		$unplayedItems = $this->service->all([$playlistId], ['playback_state' => 0], $eagerLoad);
+		$playedItems = $this->service->all([$playlistId], ['playback_state' => 1, 'orderBy' => '-updated_at'], $eagerLoad);
+		$skippedItems = $this->service->all([$playlistId], ['playback_state' => 2, 'orderBy' => '-updated_at'], $eagerLoad);
 
-		$shouts = $this->service->all($options, $eagerLoad);
-
-		return View::make('shouts.index')
-					->with('title', 'Shouts')
-					->with('shouts', $shouts);
+		return View::make('playlist-items.index')
+					->with('title','Playlist: '. $playlist->name)
+					->with('playlist', $playlist)
+					->with('playedItems', $playedItems)
+					->with('unplayedItems', $unplayedItems)
+					->with('skippedItems', $skippedItems);
 	}
 
 	/**

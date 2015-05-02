@@ -1,5 +1,6 @@
-<?php namespace Zeropingheroes\Lanager;
+<?php namespace Zeropingheroes\Lanager\Gui;
 
+use Zeropingheroes\Lanager\BaseResourceService;
 use Zeropingheroes\Lanager\PlaylistItemVotes\PlaylistItemVoteService;
 use Notification, Redirect;
 

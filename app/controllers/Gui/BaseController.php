@@ -1,4 +1,4 @@
-<?php namespace Zeropingheroes\Lanager;
+<?php namespace Zeropingheroes\Lanager\Gui;
 
 use Illuminate\Routing\Controller;
 use Zeropingheroes\Lanager\ResourceServiceListenerContract,

@@ -1,5 +1,6 @@
-<?php namespace Zeropingheroes\Lanager;
+<?php namespace Zeropingheroes\Lanager\Gui;
 
+use Zeropingheroes\Lanager\BaseResourceService;
 use Zeropingheroes\Lanager\UserAchievements\UserAchievementService,
 	Zeropingheroes\Lanager\Users\UserService,
 	Zeropingheroes\Lanager\Achievements\AchievementService,
