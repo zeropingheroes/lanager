@@ -1,6 +1,11 @@
 <?php
 
-Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
+Route::group(
+[
+	'namespace' => 'Zeropingheroes\Lanager\Gui',
+	'before' => 'permission',
+],
+function()
 {
 	/*
 	|--------------------------------------------------------------------------
@@ -94,46 +99,51 @@ Route::group(['namespace' => 'Zeropingheroes\Lanager'], function()
 	|--------------------------------------------------------------------------
 	*/
 	Route::get('dashboard', ['as' => 'dashboard.index', 'uses' => 'DashboardController@index']);
+});
 
-	/*
-	|--------------------------------------------------------------------------
-	| REST API
-	|--------------------------------------------------------------------------
-	*/
-	Route::group(['namespace' => 'Api\v1'], function()
-	{
-		Route::api(['version' => 'v1'], function () {
-			Route::resource('achievements',			'AchievementsController',		['except' => ['create', 'edit'] ]);
-			Route::resource('user-achievements',	'UserAchievementsController',	['except' => ['create', 'edit'] ]);
-			Route::resource('events',				'EventsController',				['except' => ['create', 'edit'] ]);
-			Route::resource('events.signups',		'EventSignupsController',		['except' => ['create', 'edit', 'update'] ]);
-			Route::resource('event-types',			'EventTypesController',			['except' => ['create', 'edit'] ]);
-			Route::resource('pages',				'PagesController',				['except' => ['create', 'edit'] ]);
-			Route::resource('lans',					'LansController',				['except' => ['create', 'edit'] ]);
-			Route::resource('playlists',			'PlaylistsController',			['except' => ['create', 'edit'] ]);
-			Route::resource('playlists.items',		'PlaylistItemsController',		['except' => ['create', 'edit'] ]);
-			Route::resource('playlists.items.votes','PlaylistItemVotesController',	['except' => ['create', 'edit', 'update'] ]);
-			Route::resource('shouts',				'ShoutsController',				['except' => ['create', 'edit'] ]);
-			Route::resource('roles',				'RolesController',				['except' => ['create', 'edit'] ]);
-			Route::resource('user-roles',			'UserRolesController',			['except' => ['create', 'edit', 'update'] ]);
-			Route::resource('users',				'UsersController',				['except' => ['create', 'store', 'edit', 'update'] ]);
-			Route::resource('application-usage',	'ApplicationUsageController',	['only' => ['index'] ]);
-			Route::resource('logs',					'LogsController',				['only' => ['index'] ]);
-			
-			// List of endpoints
-			Route::get('/', function () {
-				$routes = Route::getApiGroups()->getByVersion('v1');
+/*
+|--------------------------------------------------------------------------
+| REST API
+|--------------------------------------------------------------------------
+*/
+Route::group(
+[
+	'namespace' => 'Zeropingheroes\Lanager\Api\v1',
+	'before' => 'permission',
+],
+function()
+{
+	Route::api(['version' => 'v1'], function () {
+		Route::resource('achievements',			'AchievementsController',		['except' => ['create', 'edit'] ]);
+		Route::resource('user-achievements',	'UserAchievementsController',	['except' => ['create', 'edit'] ]);
+		Route::resource('events',				'EventsController',				['except' => ['create', 'edit'] ]);
+		Route::resource('events.signups',		'EventSignupsController',		['except' => ['create', 'edit', 'update'] ]);
+		Route::resource('event-types',			'EventTypesController',			['except' => ['create', 'edit'] ]);
+		Route::resource('pages',				'PagesController',				['except' => ['create', 'edit'] ]);
+		Route::resource('lans',					'LansController',				['except' => ['create', 'edit'] ]);
+		Route::resource('playlists',			'PlaylistsController',			['except' => ['create', 'edit'] ]);
+		Route::resource('playlists.items',		'PlaylistItemsController',		['except' => ['create', 'edit'] ]);
+		Route::resource('playlists.items.votes','PlaylistItemVotesController',	['except' => ['create', 'edit', 'update'] ]);
+		Route::resource('shouts',				'ShoutsController',				['except' => ['create', 'edit'] ]);
+		Route::resource('roles',				'RolesController',				['except' => ['create', 'edit'] ]);
+		Route::resource('user-roles',			'UserRolesController',			['except' => ['create', 'edit', 'update'] ]);
+		Route::resource('users',				'UsersController',				['except' => ['create', 'store', 'edit', 'update'] ]);
+		Route::resource('application-usage',	'ApplicationUsageController',	['only' => ['index'] ]);
+		Route::resource('logs',					'LogsController',				['only' => ['index'] ]);
+		
+		// List of endpoints
+		Route::get('/', function () {
+			$routes = Route::getApiGroups()->getByVersion('v1');
 
-				$endpoints = [];
-				foreach ($routes as $route) {
-					$endpoints['endpoints'][] =
-					[
-						'path' => $route->getPath(),
-						'methods' => $route->getMethods()
-					];
-				}
-				return Response::make($endpoints, 200, [], ['options' => JSON_PRETTY_PRINT] );
-			});
+			$endpoints = [];
+			foreach ($routes as $route) {
+				$endpoints['endpoints'][] =
+				[
+					'path' => $route->getPath(),
+					'methods' => $route->getMethods()
+				];
+			}
+			return Response::make($endpoints, 200, [], ['options' => JSON_PRETTY_PRINT] );
 		});
 	});
 });
