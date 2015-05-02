@@ -42,6 +42,8 @@ return [
 		$authority->allow('read', 'users');
 		$authority->allow('read', 'user-achievements');
 		$authority->allow('read', 'user-roles');
+		$authority->allow('read', 'application-usage');
+		$authority->allow('read', 'dashboard');
 		$authority->allow('create', 'sessions');
 		$authority->allow('delete', 'sessions');
 
