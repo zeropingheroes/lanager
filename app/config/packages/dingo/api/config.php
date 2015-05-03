@@ -103,7 +103,7 @@ return [
 
 	'auth' => [
 		'lanager' => function ($app) {
-			return new Zeropingheroes\Lanager\Users\UserApiKeyAuthorizationProvider($app['auth']);
+			return new Zeropingheroes\Lanager\Domain\Users\UserApiKeyAuthorizationProvider($app['auth']);
 		}
 	],
 

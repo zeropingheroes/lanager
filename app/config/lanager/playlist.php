@@ -19,7 +19,7 @@ return [
 	'providers' => [
 		[
 			'domain'	=> 'youtube.com',
-			'class'		=> 'Zeropingheroes\\Lanager\\PlaylistItems\\YouTubeVideo',
+			'class'		=> 'Zeropingheroes\\Lanager\\Domain\\PlaylistItems\\YouTubeVideo',
 		],
 	]
 

@@ -1,10 +1,10 @@
 <?php namespace Zeropingheroes\Lanager\Commands;
 
-use Zeropingheroes\Lanager\Users\User,
-	Zeropingheroes\Lanager\States\State,
-	Zeropingheroes\Lanager\Applications\Application,
-	Zeropingheroes\Lanager\Servers\Server,
-	Zeropingheroes\Lanager\Users\SteamUsers\SteamUserContract;
+use Zeropingheroes\Lanager\Domain\Users\User,
+	Zeropingheroes\Lanager\Domain\States\State,
+	Zeropingheroes\Lanager\Domain\Applications\Application,
+	Zeropingheroes\Lanager\Domain\Servers\Server,
+	Zeropingheroes\Lanager\Domain\Users\SteamUsers\SteamUserContract;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 

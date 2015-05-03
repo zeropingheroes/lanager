@@ -2,7 +2,7 @@
 
 Route::group(
 [
-	'namespace' => 'Zeropingheroes\Lanager\Gui',
+	'namespace' => 'Zeropingheroes\Lanager\Http\Gui',
 	'before' => 'permission',
 ],
 function()
@@ -108,7 +108,7 @@ function()
 */
 Route::group(
 [
-	'namespace' => 'Zeropingheroes\Lanager\Api\v1',
+	'namespace' => 'Zeropingheroes\Lanager\Http\Api\v1',
 	'before' => 'permission',
 ],
 function()

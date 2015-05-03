@@ -117,7 +117,7 @@ return array(
 		'ExpressiveDateServiceProvider',
 		'Zeropingheroes\Duration\DurationServiceProvider',
 		'Zeropingheroes\Timespan\TimespanServiceProvider',
-		'Zeropingheroes\Lanager\Users\UserImportServiceProvider',
+		'Zeropingheroes\Lanager\Domain\Users\UserImportServiceProvider',
 		'Krucas\Notification\NotificationServiceProvider',
 		'Mews\Purifier\PurifierServiceProvider',
 		'Dingo\Api\Provider\ApiServiceProvider',
@@ -194,7 +194,7 @@ return array(
 		'SteamBrowserProtocol'	=> 'Zeropingheroes\SteamBrowserProtocol\Facades\SteamBrowserProtocol',
 		'Duration'				=> 'Zeropingheroes\Duration\Facades\Duration',
 		'Timespan'				=> 'Zeropingheroes\Timespan\Facades\Timespan',
-		'UserImport'			=> 'Zeropingheroes\Lanager\Users\Facades\UserImport',
+		'UserImport'			=> 'Zeropingheroes\Lanager\Domain\Users\Facades\UserImport',
 
 		'Accordion'				=> 'Bootstrapper\Facades\Accordion',
 		'Alert'					=> 'Bootstrapper\Facades\Alert',

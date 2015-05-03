@@ -1,0 +1,62 @@
+<?php namespace Zeropingheroes\Lanager\Http\Gui;
+
+use Zeropingheroes\Lanager\Domain\Users\UserService;
+use View;
+
+class UsersController extends ResourceServiceController {
+
+	/**
+	 * Based named route used by this resource
+	 * @var string
+	 */
+	protected $route = 'users';
+
+	/**
+	 * Set the controller's service
+	 */
+	public function __construct()
+	{
+		$this->service = new UserService($this);
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		$options['orderBy'] = ['username'];
+		$options['visible'] = true;
+		$eagerLoad =
+		[
+			'userAchievements',
+			'roles',
+			'state.application',
+			'state.server'
+		];
+
+		$users = $this->service->all($options, $eagerLoad);
+
+		return View::make('users.index')
+					->with('title','Users')
+					->with('users', $users);
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$eagerLoad = ['userAchievements', 'roles', 'shouts', 'state.application', 'state.server'];
+		$user = $this->service->single( $id, $eagerLoad );
+
+		return View::make('users.show')
+					->with('title',$user->username)
+					->with('user',$user);
+	}
+
+}

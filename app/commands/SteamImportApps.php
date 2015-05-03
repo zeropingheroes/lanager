@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager\Commands;
 
-use Zeropingheroes\Lanager\Applications\Application,
-	Zeropingheroes\Lanager\Applications\SteamApplications\SteamApplicationContract;
+use Zeropingheroes\Lanager\Domain\Applications\Application,
+	Zeropingheroes\Lanager\Domain\Applications\SteamApplications\SteamApplicationContract;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
