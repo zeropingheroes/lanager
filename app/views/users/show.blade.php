@@ -59,7 +59,7 @@
 
 		@elseif( Input::get('tab') == 'shouts' )
 
-			@include('shouts.partials.list', ['shouts' => $user->shouts()->orderBy('created_at','desc')->take(3)->get()] )
+			@include('shouts.partials.list', ['shouts' => $user->shouts()->orderBy('created_at','desc')->get()] )
 
 		@elseif( Input::get('tab') == 'api' AND Auth::check() AND $user->id == Auth::user()->id )
 
