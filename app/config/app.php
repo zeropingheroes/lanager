@@ -122,7 +122,6 @@ return array(
 		'Mews\Purifier\PurifierServiceProvider',
 		'Dingo\Api\Provider\ApiServiceProvider',
 		// 'Barryvdh\Debugbar\ServiceProvider',
-		'HieuLe\Active\ActiveServiceProvider',
 	),
 
 	/*
@@ -226,7 +225,6 @@ return array(
 		'Markdown'				=> 'VTalbot\Markdown\Facades\Markdown',
 		'Purifier'				=> 'Mews\Purifier\Facades\Purifier',
 		'API'					=> 'Dingo\Api\Facade\API',
-		'Active'				=> 'HieuLe\Active\Facades\Active',
 		// 'Debugbar'				=> 'Barryvdh\Debugbar\Facade',
 	),
 
