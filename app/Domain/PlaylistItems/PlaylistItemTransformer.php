@@ -12,7 +12,6 @@ class PlaylistItemTransformer extends TransformerAbstract {
 	 */
 	protected $defaultIncludes = [
 		'user',
-		'playlist',
 	];
 
 	/**
@@ -47,15 +46,5 @@ class PlaylistItemTransformer extends TransformerAbstract {
 	public function includeUser( PlaylistItem $playlistItem )
 	{
 		return $this->item($playlistItem->user()->first(), new UserTransformer);
-	}
-
-	/**
-	 * Pull in and transform the specified resource
-	 * @param  object BaseModel   Model being pulled in
-	 * @return array              Transformed model
-	 */
-	public function includePlaylist( PlaylistItem $playlistItem )
-	{
-		return $this->item($playlistItem->playlist()->first(), new PlaylistTransformer);
 	}
 }

@@ -1,30 +1,24 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
 use Zeropingheroes\Lanager\Domain\UserAchievements\UserAchievementService;
 use Zeropingheroes\Lanager\Domain\Users\UserService;
 use Zeropingheroes\Lanager\Domain\Achievements\AchievementService;
 use Zeropingheroes\Lanager\Domain\Lans\LanService;
-use Zeropingheroes\Lanager\Domain\NotificationListener;
-
 use View;
-use Notification;
 use Redirect;
 
 class UserAchievementsController extends ResourceServiceController {
-
-	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'user-achievements';
 
 	/**
 	 * Set the controller's service
 	 */
 	public function __construct()
 	{
-		$this->service = new UserAchievementService($this);
+		$this->service = new UserAchievementService;
+		$this->users 			= lists( (new UserService)->all(), 'id', 'username' );
+		$this->achievements 	= lists( (new AchievementService)->all(), 'id', 'name' );
+		$this->lans 			= lists( (new LanService)->all(), 'id', 'name' );
+
 	}
 
 	/**
@@ -34,18 +28,11 @@ class UserAchievementsController extends ResourceServiceController {
 	 */
 	public function index()
 	{
-		$eagerLoad =
-		[
-			'lan',
-			'achievement',
-			'user.state.application',
-			'user.state.server',
-		];
-		$userAchievements = $this->service->all([], $eagerLoad);
+		$userAchievements = $this->service->all();
 
-		return View::make('user-achievements.index')
-					->with('title','User Achievements')
-					->with('userAchievements', $userAchievements);
+		return View::make( 'user-achievements.index' )
+					->with( 'title', 'User Achievements' )
+					->with( 'userAchievements', $userAchievements );
 	}
 
 	/**
@@ -55,16 +42,12 @@ class UserAchievementsController extends ResourceServiceController {
 	 */
 	public function create()
 	{
-		$users 			= (new UserService((new NotificationListener)))->lists('username', 'id');
-		$achievements 	= (new AchievementService((new NotificationListener)))->lists('name', 'id');
-		$lans 			= (new LanService((new NotificationListener)))->lists('name', 'id');
-
-		return View::make('user-achievements.create')
-					->with('title','Award Achievement')
-					->with('userAchievement',null)
-					->with('users',$users)
-					->with('achievements',$achievements)
-					->with('lans',$lans);
+		return View::make( 'user-achievements.create' )
+					->with( 'title', 'Award Achievement' )
+					->with( 'userAchievement', null )
+					->with( 'users', $this->users )
+					->with( 'achievements', $this->achievements )
+					->with( 'lans', $this->lans );
 	}
 
 	/**
@@ -74,39 +57,29 @@ class UserAchievementsController extends ResourceServiceController {
 	 */
 	public function edit( $userAchievementId )
 	{
-		$userAchievement = $this->service->single($userAchievementId);
+		$userAchievement = $this->service->single( $userAchievementId );
 
-		$users 			= (new UserService((new NotificationListener)))->lists('username', 'id');
-		$achievements 	= (new AchievementService((new NotificationListener)))->lists('name', 'id');
-		$lans 			= (new LanService((new NotificationListener)))->lists('name', 'id');
-
-		return View::make('user-achievements.edit')
-					->with('title','Award Achievement')
-					->with('userAchievement',$userAchievement)
-					->with('users',$users)
-					->with('achievements',$achievements)
-					->with('lans',$lans);
+		return View::make( 'user-achievements.edit' )
+					->with( 'title', 'Award Achievement' )
+					->with( 'userAchievement', $userAchievement )
+					->with( 'users', $this->users )
+					->with( 'achievements', $this->achievements )
+					->with( 'lans', $this->lans );
 	}
 
-	/**
-	 * Override listener function for this resource action result
-	 * @param  BaseResourceService $service Service class that called this
-	 * @return object Response
-	 */
-	public function storeSucceeded( BaseResourceService $service )
+	protected function redirectAfterStore()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index' );
+		return Redirect::route('user-achievements.index' );
 	}
 
-	/**
-	 * Override listener function for this resource action result
-	 * @param  BaseResourceService $service Service class that called this
-	 * @return object Response
-	 */
-	public function updateSucceeded( BaseResourceService $service )
+	protected function redirectAfterUpdate()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index' );
+		return $this->redirectAfterStore();
 	}
+
+	protected function redirectAfterDestroy()
+	{
+		return $this->redirectAfterStore();
+	}
+
 }

@@ -1,6 +1,5 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
 use Zeropingheroes\Lanager\Domain\Logs\LogService;
 use Input;
 use View;
@@ -8,17 +7,11 @@ use View;
 class LogsController extends ResourceServiceController {
 
 	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'logs';
-
-	/**
 	 * Set the controller's service
 	 */
 	public function __construct()
 	{
-		$this->service = new logService($this);
+		$this->service = new logService;
 	}
 
 	/**
@@ -28,19 +21,17 @@ class LogsController extends ResourceServiceController {
 	 */
 	public function index()
 	{
-		$minLevel = Input::get('minLevel');
+		if( Input::get( 'sapi' ) )
+			$this->service->filterBySapi( Input::get( 'sapi' ) );
 
-		$levels = ['debug', 'info', 'notice', 'warning', 'error', 'critical', 'alert', 'emergency'];
+		if( Input::get( 'minLevel' ) )
+			$this->service->filterByMinimumLevel( Input::get( 'minLevel' ) );
 
-		$levelsToShow = array_slice( $levels, array_search($minLevel, $levels) );
+		$logs = $this->service->all();
 
-		$filters['orderBy'] = '-created_at';
-		$filters['level'] = $levelsToShow;
-		if( Input::get('sapi') ) $filters['php_sapi_name'] = Input::get('sapi');
-
-		return View::make('logs.index')
-					->with('title','Logs')
-					->with('logs', $this->service->all( $filters ));
+		return View::make( 'logs.index' )
+					->with( 'title', 'Logs' )
+					->with( 'logs', $logs );
 	}
 
 	/**
@@ -49,13 +40,13 @@ class LogsController extends ResourceServiceController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show( $id )
 	{
-		$log = $this->service->single($id);
+		$log = $this->service->single( $id );
 
-		return View::make('logs.show')
-					->with('title','Log Item ' . $log->id)
-					->with('log',$log);
+		return View::make( 'logs.show' )
+					->with( 'title', 'Log Item ' . $log->id )
+					->with( 'log', $log );
 	}
 
 }

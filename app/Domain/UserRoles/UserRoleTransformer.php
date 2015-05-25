@@ -1,8 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Domain\UserRoles;
 
 use League\Fractal\TransformerAbstract;
-use Zeropingheroes\Lanager\Domain\Users\UserTransformer,
-	Zeropingheroes\Lanager\Roles\RoleTransformer;
+use Zeropingheroes\Lanager\Domain\Users\UserTransformer;
+use	Zeropingheroes\Lanager\Domain\Roles\RoleTransformer;
 
 class UserRoleTransformer extends TransformerAbstract {
 

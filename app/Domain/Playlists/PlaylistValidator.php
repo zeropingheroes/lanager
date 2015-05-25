@@ -1,8 +1,9 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Playlists;
 
 use Fadion\ValidatorAssistant\ValidatorAssistant;
+use Zeropingheroes\Lanager\Domain\InputValidatorContract;
 
-class PlaylistValidator extends ValidatorAssistant {
+class PlaylistValidator extends ValidatorAssistant implements InputValidatorContract {
 
 	/**
 	 * Validation rules to enforce for each field
@@ -15,14 +16,5 @@ class PlaylistValidator extends ValidatorAssistant {
 		'max_item_duration'		=> 'numeric|min:1',
 		'user_skip_threshold'	=> 'numeric|min:1|max:100',
 	];
-
-	/**
-	 * Processing to carry out before running validation
-	 */
-	protected function before()
-	{
-		// Bind the ID so it can be used in the validation rules
-		if( isset($this->inputs['id']) ) $this->bind('id', $this->inputs['id']);
-	}
 
 }

@@ -4,17 +4,7 @@ use Zeropingheroes\Lanager\Domain\BaseModel;
 
 class Shout extends BaseModel {
 
-	/**
-	 * Fields that can be mass assigned
-	 * @var array
-	 */
-	protected $fillable = ['user_id', 'content', 'pinned'];
-
-	/**
-	 * Validator class responsible for validating this model
-	 * @var string
-	 */
-	public $validator = 'Zeropingheroes\Lanager\Domain\Shouts\ShoutValidator';
+	protected $fillable = [ 'user_id', 'content', 'pinned' ];
 
 	/**
 	 * A single shout belongs to a single user
@@ -22,7 +12,7 @@ class Shout extends BaseModel {
 	 */
 	public function user()
 	{
-		return $this->belongsTo('Zeropingheroes\Lanager\Domain\Users\User');
+		return $this->belongsTo( 'Zeropingheroes\Lanager\Domain\Users\User' );
 	}
 
 }

@@ -2,21 +2,16 @@
 
 use Zeropingheroes\Lanager\Domain\Users\UserService;
 use View;
+use Redirect;
 
 class UsersController extends ResourceServiceController {
-
-	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'users';
 
 	/**
 	 * Set the controller's service
 	 */
 	public function __construct()
 	{
-		$this->service = new UserService($this);
+		$this->service = new UserService;
 	}
 
 	/**
@@ -26,17 +21,7 @@ class UsersController extends ResourceServiceController {
 	 */
 	public function index()
 	{
-		$options['orderBy'] = ['username'];
-		$options['visible'] = true;
-		$eagerLoad =
-		[
-			'userAchievements',
-			'roles',
-			'state.application',
-			'state.server'
-		];
-
-		$users = $this->service->all($options, $eagerLoad);
+		$users = $this->service->all();
 
 		return View::make('users.index')
 					->with('title','Users')
@@ -51,8 +36,7 @@ class UsersController extends ResourceServiceController {
 	 */
 	public function show($id)
 	{
-		$eagerLoad = ['userAchievements', 'roles', 'shouts', 'state.application', 'state.server'];
-		$user = $this->service->single( $id, $eagerLoad );
+		$user = $this->service->single( $id );
 
 		return View::make('users.show')
 					->with('title',$user->username)

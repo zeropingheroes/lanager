@@ -1,23 +1,17 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
 use Zeropingheroes\Lanager\Domain\Lans\LanService;
 use View;
+use Redirect;
 
 class LansController extends ResourceServiceController {
-
-	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'lans';
 
 	/**
 	 * Set the controller's service
 	 */
 	public function __construct()
 	{
-		$this->service = new LanService($this);
+		$this->service = new LanService;
 	}
 
 	/**
@@ -27,13 +21,11 @@ class LansController extends ResourceServiceController {
 	 */
 	public function index()
 	{
-		$eagerLoad = ['userAchievements'];
+		$lans = $this->service->all();
 
-		$lans = $this->service->all( [], $eagerLoad );
-
-		return View::make('lans.index')
-					->with('title','LANs')
-					->with('lans', $lans);
+		return View::make( 'lans.index' )
+					->with( 'title', 'LANs' )
+					->with( 'lans', $lans );
 	}
 
 	/**
@@ -43,9 +35,9 @@ class LansController extends ResourceServiceController {
 	 */
 	public function create()
 	{
-		return View::make('lans.create')
-					->with('title','Create LAN')
-					->with('lan',null);
+		return View::make( 'lans.create' )
+					->with( 'title', 'Create LAN' )
+					->with( 'lan', null );
 	}
 
 	/**
@@ -54,20 +46,13 @@ class LansController extends ResourceServiceController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show( $id )
 	{
-		$eagerLoad = [
-			'userAchievements.achievement',
-			'userAchievements.lan',
-			'userAchievements.user.state.application',
-			'userAchievements.user.state.server',
-		];
-		
-		$lan = $this->service->single($id, $eagerLoad);
+		$lan = $this->service->single( $id );
 
-		return View::make('lans.show')
-					->with('title', $lan->name)
-					->with('lan', $lan);
+		return View::make( 'lans.show' )
+					->with( 'title', $lan->name )
+					->with( 'lan', $lan );
 	}
 
 	/**
@@ -78,9 +63,26 @@ class LansController extends ResourceServiceController {
 	 */
 	public function edit($id)
 	{
-		return View::make('lans.edit')
-					->with('title','Edit LAN')
-					->with('lan',$this->service->single($id));
+		$lan = $this->service->single( $id );
+
+		return View::make( 'lans.edit' )
+					->with( 'title', 'Edit LAN' )
+					->with( 'lan', $lan );
+	}
+
+	protected function redirectAfterStore()
+	{
+		return Redirect::route( 'lans.show', $this->service->id() );
+	}
+
+	protected function redirectAfterUpdate()
+	{
+		return $this->redirectAfterStore();
+	}
+
+	protected function redirectAfterDestroy()
+	{
+		return Redirect::route( 'lans.index' );
 	}
 
 }

@@ -1,26 +1,17 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
 use Zeropingheroes\Lanager\Domain\Pages\PageService;
 use View;
-use Authority;
-use Input;
-use App;
+use Redirect;
 
 class PagesController extends ResourceServiceController {
-
-	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'pages';
 
 	/**
 	 * Set the controller's service
 	 */
 	public function __construct()
 	{
-		$this->service = new PageService($this);
+		$this->service = new PageService;
 	}
 
 	/**
@@ -30,12 +21,11 @@ class PagesController extends ResourceServiceController {
 	 */
 	public function index()
 	{
-		if( Authority::can('manage', 'pages') )	$pages = $this->service->all();
-		if( Authority::cannot('manage', 'pages') )	$pages = $this->service->all( ['published' => true ] );
+		$pages = $this->service->all();
 
-		return View::make('pages.index')
-					->with('title','Info')
-					->with('pages', $pages );
+		return View::make( 'pages.index' )
+					->with( 'title', 'Info' )
+					->with( 'pages', $pages );
 	}
 
 	/**
@@ -45,10 +35,12 @@ class PagesController extends ResourceServiceController {
 	 */
 	public function create()
 	{
-		return View::make('pages.create')
-					->with('title','Create Page')
-					->with('pages',['' => ' '] + $this->service->lists('title', 'id'))
-					->with('page',null);
+		$pages = ['' => ''] + lists( $this->service->all(), 'id', 'title' );
+
+		return View::make( 'pages.create' )
+					->with( 'title','Create Page' )
+					->with( 'pages', $pages )
+					->with( 'page', null );
 	}
 
 	/**
@@ -57,15 +49,13 @@ class PagesController extends ResourceServiceController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show( $id )
 	{
-		$page = $this->service->single($id);
+		$page = $this->service->single( $id );
 
-		if( Authority::cannot('manage', 'pages') AND $page->published == 0 ) App::abort(404);
-
-		return View::make('pages.show')
-					->with('title',$page->title)
-					->with('page',$page);
+		return View::make( 'pages.show' )
+					->with( 'title', $page->title )
+					->with( 'page', $page );
 	}
 
 	/**
@@ -74,12 +64,29 @@ class PagesController extends ResourceServiceController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit( $id )
 	{
-		return View::make('pages.edit')
-					->with('title','Edit Page')
-					->with('pages',['' => ' '] + $this->service->lists('title', 'id'))
-					->with('page',$this->service->single($id));
+		$pages = ['' => ''] + lists( $this->service->all(), 'id', 'title' );
+
+		return View::make( 'pages.edit' )
+					->with( 'title', 'Edit Page' )
+					->with( 'pages', $pages )
+					->with( 'page', $this->service->single( $id ) );
+	}
+
+	protected function redirectAfterStore()
+	{
+		return Redirect::route( 'pages.show', $this->service->id() );
+	}
+
+	protected function redirectAfterUpdate()
+	{
+		return $this->redirectAfterStore();
+	}
+
+	protected function redirectAfterDestroy()
+	{
+		return Redirect::route( 'pages.index' );
 	}
 
 }

@@ -1,77 +1,83 @@
 <?php namespace Zeropingheroes\Lanager\Domain\EventSignups;
 
-use Zeropingheroes\Lanager\Domain\NestedResourceService;
-use Zeropingheroes\Lanager\Domain\Events\Event;
+use Zeropingheroes\Lanager\Domain\ResourceService;
+use Zeropingheroes\Lanager\Domain\Events\EventService;
+use Zeropingheroes\Lanager\Domain\AuthorisationException;
+use DomainException;
 
-use Auth, Authority;
+class EventSignupService extends ResourceService {
 
-class EventSignupService extends NestedResourceService {
+	protected $eagerLoad = [ 'user.state.application' ];
 
-	/**
-	 * The canonical application-wide name for the resource that this service provides for
-	 * @var string
-	 */
-	public $resource = 'events.signups';
-
-	/**
-	 * Instantiate the service with a listener that the service can call methods
-	 * on after action success/failure
-	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
-	 */
-	public function __construct( $listener )
+	public function __construct()
 	{
-		$models = [
-			new Event,
+		parent::__construct(
 			new EventSignup,
-		];
-		parent::__construct($listener, $models);
+			new EventSignupValidator
+		);
+	}
+
+	public function store( $input )
+	{
+		if ( ! isset( $input['user_id'] ) ) $input['user_id'] = $this->user->id();
+
+		parent::store( $input );
 	}
 
 	/**
-	 * Filter user input for data integrity and security
-	 * @param  array $input raw input from user
-	 * @return array $input input, filtered
+	 * Filter by a given event
+	 * @param  integer $eventId  event's ID
+	 * @return Collection       Collection of items
 	 */
-	private function filterInput( $input )
+	public function filterByEvent( $eventId )
 	{
-		if( Authority::can('manage', 'events.signups') )
-		{
-			$input = array_only($input, ['user_id']);
+		$this->model = $this->model->where( 'user_id', $eventId );
 
-			// allow event managers to sign up other users (or default to their user id)
-			if( ! array_key_exists('user_id', $input) )	$input['user_id'] = Auth::user()->id;
+		return $this;
+	}
+
+	protected function readAuthorised()
+	{
+		return true;
+	}
+
+	protected function storeAuthorised()
+	{
+		return $this->user->isAuthenticated();
+	}
+
+	protected function destroyAuthorised()
+	{
+		return $this->user->isAuthenticated();
+	}
+
+	protected function rulesOnStore( $input )
+	{
+		$event = ( new EventService )->single( $input['event_id'] );
+
+		if ( ! $this->user->hasRole('Events Admin') )
+		{
+			if ( $this->input['user_id'] != $this->user->id() )
+				throw new AuthorisationException( 'You may only sign yourself up to events' );
+
+			if ( ! $event->isOpenForSignups() )
+				throw new DomainException( 'Event is not open for signups' );
 		}
-		else // only allow standard users to sign themselves up
+
+		if ( ! $event->allowsSignups() )
+			throw new DomainException( 'Event does not allow signups' );
+
+		if ( $event->hasSignupFromUser( $this->model->user_id ) )
+			throw new DomainException( 'User already signed up to event' );
+	}
+
+	protected function rulesOnDestroy( $input )
+	{
+		if ( ! $this->user->hasRole('Events Admin') )
 		{
-			$input['user_id'] = Auth::user()->id;
+			if ( $input['user_id'] != $this->user->id() )
+				throw new AuthorisationException( 'You may only delete your own event signups' );
 		}
-		return $input;
 	}
 
-	/**
-	 * Store the resource (with additional processing to standard service method)
-	 * @param  array  $ids   list of ids of parent models
-	 * @param  array  $input raw input from user
-	 */
-	public function store( array $ids, $input)
-	{
-		$input = $this->filterInput($input);
-		if( ! parent::parent($ids)->isOpenForSignups() )
-		{
-			$this->errors = 'Event is not open for signups';
-			return $this->listener->storeFailed($this);
-		}	
-		return parent::store($ids, $input);
-	}
-
-	/**
-	 * Block attempts to update the resource
-	 * @param  array  $ids   list of ids of parent models
-	 * @param  array  $input raw input from user
-	 */
-	public function update( array $ids, $input)
-	{
-		$this->errors = 'This resource does not support being updated';
-		return $this->listener->updateFailed($this);
-	}
 }

@@ -11,30 +11,11 @@ class User extends BaseModel implements UserInterface {
 
 	use PresentableTrait;
 
-	/**
-	 * Fields that can be mass assigned
-	 * @var array
-	 */
 	protected $fillable = ['username', 'steam_id_64', 'steam_visibility', 'ip', 'avatar', 'visible'];
 
-	/**
-	 * Fields that have a useful default set in the database
-	 * If any of these fields are empty when creating or updating the model should be set to this default
-	 * @var array
-	 */
 	protected $optional = ['steam_visibility', 'visible'];
 
-	/**
-	 * Fields that should not be exposed when getting the model's JSON form (nb: transformers in use)
-	 * @var array
-	 */
 	protected $hidden = ['remember_token', 'api_key'];
-
-	/**
-	 * Validator class responsible for validating this model
-	 * @var string
-	 */
-	public $validator = 'Zeropingheroes\Lanager\Domain\Users\UserValidator';
 
 	/**
 	 * Presenter class responsible for presenting this model's fields
@@ -134,17 +115,23 @@ class User extends BaseModel implements UserInterface {
 
 	/**
 	 * Check if the user has the specified role assigned to them
-	 * @param  string  $key Role name
+	 * @param  string  $requiredRoleName Role name
 	 * @return boolean      true if user has role, false otherwise
 	 */
-	public function hasRole($key) 
+	public function hasRole($requiredRoleName) 
 	{
-		foreach($this->roles as $role)
+		foreach($this->roles as $assignedRole)
 		{
-			if($role->name === $key)
-			{
+			// If the user is assigned the "admin" role, let them do everything
+			// except things that require superadmin acccess
+			if( $assignedRole->name == 'Admin' AND $requiredRoleName != 'Super Admin' )
 				return true;
-			}
+
+			// If the user is assigned the "super admin" role, let them do everything
+			if( $assignedRole->name == 'Super Admin' )
+				return true;
+
+			return ($assignedRole->name === $requiredRoleName);
 		}
 		return false;
 	}

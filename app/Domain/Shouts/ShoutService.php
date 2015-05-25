@@ -1,65 +1,92 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Shouts;
 
-use Zeropingheroes\Lanager\Domain\FlatResourceService;
-use Auth;
-use Authority;
+use Zeropingheroes\Lanager\Domain\ResourceService;
+use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByCreatedAt;
+use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByUser;
+use Zeropingheroes\Lanager\Domain\AuthorisationException;
+use DomainException;
+use Carbon\Carbon;
 
-class ShoutService extends FlatResourceService {
+class ShoutService extends ResourceService {
 
-	/**
-	 * The canonical application-wide name for the resource that this service provides for
-	 * @var string
-	 */
-	protected $resource = 'shouts';
+	protected $orderBy = [ [ 'pinned', 'desc' ], [ 'created_at', 'desc' ] ];
 
-	/**
-	 * Instantiate the service with a listener that the service can call methods
-	 * on after action success/failure
-	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
-	 */
-	public function __construct( $listener )
+	protected $eagerLoad = [ 'user.roles', 'user.state.application' ];
+
+	use FilterableByCreatedAt;
+
+	use FilterableByUser;
+
+	public function __construct()
 	{
-		parent::__construct($listener, new Shout);
+		parent::__construct(
+			new Shout,
+			new ShoutValidator
+		);
 	}
 
-	/**
-	 * Filter user input for data integrity and security
-	 * @param  array $input raw input from user
-	 * @return array $input input, filtered
-	 */
-	public function filterInput($input)
+	public function store( $input )
 	{
-		if( Authority::cannot('manage', 'shouts') )
+		$input['user_id'] = $this->user->id();
+
+		return parent::store( $input );
+	}
+
+	protected function readAuthorised()
+	{
+		return true;
+	}
+
+	protected function storeAuthorised()
+	{
+		return $this->user->isAuthenticated();
+	}
+
+	protected function updateAuthorised()
+	{
+		return $this->user->isAuthenticated();
+	}
+
+	protected function destroyAuthorised()
+	{
+		return $this->user->isAuthenticated();
+	}
+
+	protected function rulesOnStore( $input )
+	{
+		if ( ! $this->user->hasRole( 'Shouts Admin' ) )
 		{
-			$input['user_id'] = Auth::user()->id;
-			unset($input['pinned']);
+			if ( isset( $input['pinned'] ) )
+				throw new AuthorisationException( 'You must be a shouts admin to pin shouts' );
 		}
-		
-		return $input;
+
+		$past = (new Carbon)->subSeconds(15);
+
+		$recentShouts = ( new self )->filterCreatedAfter( $past )->filterByUser( $input['user_id'] )->all();
+
+		if ( $recentShouts->count() != 0 )
+			throw new DomainException( 'You have posted too recently - please wait a while and try again' );
 	}
 
-	/**
-	 * Store the resource (with additional processing to standard service method)
-	 * @param  array  $ids   list of ids of parent models
-	 * @param  array  $input raw input from user
-	 */
-	public function store($input)
+	protected function rulesOnUpdate( $input, $original )
 	{
-		if( ! array_key_exists('user_id', $input) ) $input['user_id'] = Auth::user()->id;
-		
-		$input = $this->filterInput($input);
-		return parent::store($input);
+		if ( ! $this->user->hasRole( 'Shouts Admin' ) )
+		{
+			if ( $input['user_id'] != $this->user->id() )
+				throw new AuthorisationException( 'You may only edit your own shouts' );
+
+			if ( $input['pinned'] != $original['pinned'] )
+				throw new AuthorisationException( 'You must be a shouts admin to pin shouts' );
+		}
 	}
 
-	/**
-	 * Update the resource (with additional processing to standard service method)
-	 * @param  array  $ids   list of ids of parent models
-	 * @param  array  $input raw input from user
-	 */
-	public function update($id, $input)
+	protected function rulesOnDestroy( $input )
 	{
-		$input = $this->filterInput($input);
-		return parent::update($id, $input);
+		if ( ! $this->user->hasRole( 'Shouts Admin' ) )
+		{
+			if ( $input['user_id'] != $this->user->id() )
+				throw new AuthorisationException( 'You may only delete your own shouts' );
+		}
 	}
 
 }

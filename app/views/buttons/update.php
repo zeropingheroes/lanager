@@ -17,6 +17,7 @@ if( Authority::can('update', $resource, $item) )
 		'hover'		=> ( ( ! isset($hover) )	? ''			: $hover ),
 		'class'		=> ( ( ! isset($class) )	? 'inline'		: $class ),
 		'id'		=> ( ( ! isset($id) )		? ''			: $id ),
+		'data'		=> ( ( ! isset($data) )		? ''			: $data ),
 	];
 
 	echo View::make('buttons.form', $options);

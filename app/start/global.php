@@ -115,3 +115,18 @@ require app_path().'/filters.php';
 require app_path().'/bindings.php';
 require app_path().'/composers.php';
 require app_path().'/handlers.php';
+
+
+
+// TODO: move to library
+if ( ! function_exists('lists') ) 
+{
+	function lists( $items, $key, $value )
+	{
+		foreach( $items as $item )
+		{
+			$list[$item->$key] = $item->$value;
+		}
+		return $list;
+	}
+}

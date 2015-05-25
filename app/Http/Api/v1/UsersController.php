@@ -2,8 +2,11 @@
 
 use Zeropingheroes\Lanager\Domain\Users\UserService;
 use Zeropingheroes\Lanager\Domain\Users\UserTransformer;
+use Zeropingheroes\Lanager\Http\Api\v1\Traits\FlatResourceTrait;
 
 class UsersController extends ResourceServiceController {
+
+	use FlatResourceTrait;
 
 	/**
 	 * Set the service and transformer classes
@@ -11,7 +14,7 @@ class UsersController extends ResourceServiceController {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->service = new UserService($this);
+		$this->service = new UserService;
 		$this->transformer = new UserTransformer;
 	}
 

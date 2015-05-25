@@ -1,23 +1,18 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
 use Zeropingheroes\Lanager\Domain\EventSignups\EventSignupService;
+use Zeropingheroes\Lanager\Domain\Events\EventService;
 use View;
+use Redirect;
 
 class EventSignupsController extends ResourceServiceController {
-
-	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'events.signups';
 
 	/**
 	 * Set the controller's service
 	 */
 	public function __construct()
 	{
-		$this->service = new EventSignupService($this);
+		$this->service = new EventSignupService;
 	}
 
 	/**
@@ -25,22 +20,32 @@ class EventSignupsController extends ResourceServiceController {
 	 *
 	 * @return Response
 	 */
-	public function index($eventId)
+	public function index( $eventId )
 	{
-		
-		$eagerLoad =
-		[
-			'user.state.application',
-			'user.state.server',
-		];
-	
-		$eventSignups = $this->service->all([$eventId], [], $eagerLoad);
-		$event = $this->service->parent([$eventId]);
+		$eventSignups = $this->service->all( $eventId );
+
+		$event = (new EventService)->single( $eventId );
 
 		return View::make('event-signups.index')
 					->with('title','Signups: '.$event->name)
 					->with('event',$event)
+					->with('eventSignupService',$this->service)
 					->with('eventSignups', $eventSignups);
+	}
+
+	protected function redirectAfterStore()
+	{
+		return Redirect::route('events.signups.index', $this->currentRouteParameters() );
+	}
+
+	protected function redirectAfterUpdate()
+	{
+		return $this->redirectAfterStore();
+	}
+
+	protected function redirectAfterDestroy()
+	{
+		return $this->redirectAfterStore();
 	}
 
 }

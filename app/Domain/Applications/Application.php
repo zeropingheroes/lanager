@@ -7,17 +7,9 @@ class Application extends BaseModel {
 	
 	use PresentableTrait;
 
-	/**
-	 * Fields that can be mass assigned
-	 * @var array
-	 */
-	protected $fillable = ['name', 'steam_app_id'];
-
-	/**
-	 * Presenter class responsible for presenting this model's fields
-	 * @var string
-	 */
 	protected $presenter = 'Zeropingheroes\Lanager\Domain\Applications\ApplicationPresenter';
+
+	protected $fillable = ['name', 'steam_app_id'];
 
 	/**
 	 * A single application has many states

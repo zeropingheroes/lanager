@@ -4,30 +4,11 @@ use Zeropingheroes\Lanager\Domain\BaseModel;
 
 class PlaylistItem extends BaseModel {
 
-	/**
-	 * Fields that can be mass assigned
-	 * @var array
-	 */
-	protected $fillable = ['playlist_id', 'user_id', 'url', 'title', 'playback_state', 'duration', 'skip_reason'];
+	protected $fillable = [ 'playlist_id', 'user_id', 'url', 'title', 'playback_state', 'duration', 'skip_reason' ];
 
-	/**
-	 * Fields that can be set to null in the database, if they are not specified when creating a new model
-	 * @var array
-	 */
-	protected $nullable = ['skip_reason'];
+	protected $nullable = [ 'skip_reason' ];
 
-	/**
-	 * Fields that have a useful default set in the database
-	 * If any of these fields are empty when creating or updating the model should be set to this default
-	 * @var array
-	 */
-	protected $optional = ['playback_state'];
-
-	/**
-	 * Validator class responsible for validating this model
-	 * @var string
-	 */
-	public $validator = 'Zeropingheroes\Lanager\Domain\PlaylistItems\PlaylistItemValidator';
+	protected $optional = [ 'playback_state' ];
 
 	/**
 	 * A single playlist item belongs to a single playlist

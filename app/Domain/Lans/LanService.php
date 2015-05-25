@@ -1,23 +1,39 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Lans;
 
-use Zeropingheroes\Lanager\Domain\FlatResourceService;
+use Zeropingheroes\Lanager\Domain\ResourceService;
 
-class LanService extends FlatResourceService  {
+class LanService extends ResourceService  {
 
-	/**
-	 * The canonical application-wide name for the resource that this service provides for
-	 * @var string
-	 */
-	protected $resource = 'lans';
+	protected $orderBy = [ 'start' ];
 
-	/**
-	 * Instantiate the service with a listener that the service can call methods
-	 * on after action success/failure
-	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
-	 */
-	public function __construct( $listener )
+	protected $eagerLoad = [ 'userAchievements.achievement', 'userAchievements.user.state.application' ];
+
+	public function __construct()
 	{
-		parent::__construct($listener, new Lan);
+		parent::__construct(
+			new Lan,
+			new LanValidator
+		);
+	}
+
+	protected function readAuthorised()
+	{
+		return true;
+	}
+
+	protected function storeAuthorised()
+	{
+		return $this->user->hasRole('LANs Admin');
+	}
+
+	protected function updateAuthorised()
+	{
+		return $this->user->hasRole('LANs Admin');
+	}
+
+	protected function destroyAuthorised()
+	{
+		return $this->user->hasRole('LANs Admin');
 	}
 
 }

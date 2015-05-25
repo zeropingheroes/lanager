@@ -6,6 +6,12 @@ use Eloquent;
 class BaseModel extends Eloquent {
 
 	/**
+	 * Fields that can be mass assigned
+	 * @var array
+	 */
+	protected $fillable = [];
+
+	/**
 	 * Fields that have a useful default set in the database
 	 * If any of these fields are empty when creating or updating the model should be set to this default
 	 * @var array
@@ -19,10 +25,10 @@ class BaseModel extends Eloquent {
 	protected $nullable = [];
 
 	/**
-	 * Validator class responsible for validating this model
+	 * Presenter class responsible for presenting this model's fields
 	 * @var string
 	 */
-	public $validator = '';
+	protected $presenter = '';
 
 	/**
 	 * Perform actions when class is instantiated

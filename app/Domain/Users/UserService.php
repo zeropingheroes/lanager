@@ -1,23 +1,34 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Users;
 
-use Zeropingheroes\Lanager\Domain\FlatResourceService;
+use Zeropingheroes\Lanager\Domain\ResourceService;
 
-class UserService extends FlatResourceService {
+class UserService extends ResourceService {
 
-	/**
-	 * The canonical application-wide name for the resource that this service provides for
-	 * @var string
-	 */
-	protected $resource = 'users';
+	protected $orderBy = [ 'username' ];
 
-	/**
-	 * Instantiate the service with a listener that the service can call methods
-	 * on after action success/failure
-	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
-	 */
-	public function __construct( $listener )
+	protected $eagerLoad = [ 'state.application', 'userAchievements', 'roles' ];
+
+	public function __construct()
 	{
-		parent::__construct( $listener, new User );
+		parent::__construct(
+			new User,
+			new UserValidator
+		);
 	}
 
+	protected function readAuthorised()
+	{
+		return true;
+	}
+
+	protected function destroyAuthorised()
+	{
+		return $this->user->hasRole('Super Admin');
+	}
+
+	protected function filter()
+	{
+		if ( ! $this->user->hasRole( 'Super Admin' ) )
+			$this->model = $this->model->where( 'visible', true );
+	}
 }

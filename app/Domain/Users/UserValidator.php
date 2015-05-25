@@ -1,8 +1,9 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Users;
 
 use Fadion\ValidatorAssistant\ValidatorAssistant;
+use Zeropingheroes\Lanager\Domain\InputValidatorContract;
 
-class UserValidator extends ValidatorAssistant {
+class UserValidator extends ValidatorAssistant implements InputValidatorContract {
 
 	/**
 	 * Validation rules to enforce for each field

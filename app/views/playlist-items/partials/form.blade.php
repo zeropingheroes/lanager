@@ -5,5 +5,6 @@
 				Form::text('url', NULL, ['placeholder' => 'Paste a YouTube video URL'] )
 			)->appendButton(Button::normal('Post')->submit())
 		}}
+		{{ Form::hidden('playlist_id', $playlist->id) }}
 	{{ Form::close() }}
 @endif

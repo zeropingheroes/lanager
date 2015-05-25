@@ -7,7 +7,7 @@ InputGroup::withContents(
 	$(function () {
 		$("#{{ $name }}").datetimepicker({
 			sideBySide: true,
-			format: "YYYY-MM-DD HH:mm",
+			format: "YYYY-MM-DD HH:mm:ss",
 		});
 	});
 </script>

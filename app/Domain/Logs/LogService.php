@@ -1,23 +1,49 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Logs;
 
-use Zeropingheroes\Lanager\Domain\FlatResourceService;
+use Zeropingheroes\Lanager\Domain\ResourceService;
 
-class LogService extends FlatResourceService {
+class LogService extends ResourceService {
 
-	/**
-	 * The canonical application-wide name for the resource that this service provides for
-	 * @var string
-	 */
-	protected $resource = 'logs';
+	protected $orderBy = [ ['created_at', 'desc'] ];
 
-	/**
-	 * Instantiate the service with a listener that the service can call methods
-	 * on after action success/failure
-	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
-	 */
-	public function __construct( $listener )
+	public function __construct()
 	{
-		parent::__construct($listener, new log);
+		parent::__construct( new Log );
+	}
+
+	protected function readAuthorised()
+	{
+		return $this->user->hasRole('Super Admin');
+	}
+
+	/**
+	 * Filter log entries by SAPI
+	 * @param  string $sapi
+	 */
+	public function filterBySapi( $sapi )
+	{
+		$validSapis = [ 'cli', 'cli-server', 'fpm-fcgi', 'apache', 'apache2handler', 'cgi-fcgi' ];
+
+		if ( in_array( $sapi, $validSapis ) )
+			$this->model = $this->model->where( 'php_sapi_name', $sapi );
+		
+		return $this;
+	}
+
+	/**
+	 * Filter log entries by their level
+	 * @param  string $minimumLevel
+	 * @return self
+	 */
+	public function filterByMinimumLevel( $minimumLevel )
+	{
+		$levels = [ 'debug', 'info', 'notice', 'warning', 'error', 'critical', 'alert', 'emergency' ];
+
+		$levelsToShow = array_slice( $levels, array_search($minimumLevel, $levels) );
+
+		$this->model = $this->model->whereIn( 'level', $levelsToShow );
+		
+		return $this;
 	}
 
 }

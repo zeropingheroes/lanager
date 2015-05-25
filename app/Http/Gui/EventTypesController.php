@@ -1,25 +1,17 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
 use Zeropingheroes\Lanager\Domain\EventTypes\EventTypeService;
 use View;
-use Notification;
 use Redirect;
 
 class EventTypesController extends ResourceServiceController {
-
-	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'event-types';
 
 	/**
 	 * Set the controller's service
 	 */
 	public function __construct()
 	{
-		$this->service = new EventTypeService($this);
+		$this->service = new EventTypeService;
 	}
 
 	/**
@@ -29,12 +21,11 @@ class EventTypesController extends ResourceServiceController {
 	 */
 	public function index()
 	{
-		$eagerLoad = ['events'];
-		$eventTypes = $this->service->all( [], $eagerLoad );
+		$eventTypes = $this->service->all();
 
-		return View::make('event-types.index')
-					->with('title','Event Types')
-					->with('eventTypes', $eventTypes );
+		return View::make( 'event-types.index' )
+					->with( 'title', 'Event Types' )
+					->with( 'eventTypes', $eventTypes );
 	}
 
 	/**
@@ -44,9 +35,9 @@ class EventTypesController extends ResourceServiceController {
 	 */
 	public function create()
 	{
-		return View::make('event-types.create')
-					->with('title','Create Event Type')
-					->with('eventType',null);
+		return View::make( 'event-types.create' )
+					->with( 'title', 'Create Event Type' )
+					->with( 'eventType',null);
 	}
 
 	/**
@@ -57,31 +48,25 @@ class EventTypesController extends ResourceServiceController {
 	 */
 	public function edit($id)
 	{
-		return View::make('event-types.edit')
-					->with('title','Edit Event Type')
-					->with('eventType',$this->service->single($id));
+		$eventType = $this->service->single($id);
+
+		return View::make( 'event-types.edit' )
+					->with( 'title', 'Edit Event Type' )
+					->with( 'eventType', $eventType);
 	}
 
-	/**
-	 * Override listener function for this resource action result
-	 * @param  BaseResourceService $service Service class that called this
-	 * @return object Response
-	 */
-	public function storeSucceeded( BaseResourceService $service )
+	protected function redirectAfterStore()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index', $service->resourceIds() );
+		return Redirect::route('event-types.index', $this->currentRouteParameters() );
 	}
 
-	/**
-	 * Override listener function for this resource action result
-	 * @param  BaseResourceService $service Service class that called this
-	 * @return object Response
-	 */
-	public function updateSucceeded( BaseResourceService $service )
+	protected function redirectAfterUpdate()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index', $service->resourceIds() );
+		return $this->redirectAfterStore();
 	}
 
+	protected function redirectAfterDestroy()
+	{
+		return $this->redirectAfterStore();
+	}
 }

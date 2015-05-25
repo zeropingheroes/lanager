@@ -1,55 +1,66 @@
 <?php namespace Zeropingheroes\Lanager\Domain\PlaylistItemVotes;
 
-use Zeropingheroes\Lanager\Domain\NestedResourceService;
-use Zeropingheroes\Lanager\Domain\Playlists\Playlist;
-use	Zeropingheroes\Lanager\Domain\PlaylistItems\PlaylistItem;
-use Auth;
+use Zeropingheroes\Lanager\Domain\ResourceService;
+use Zeropingheroes\Lanager\Domain\Playlists\PlaylistService;
+use Zeropingheroes\Lanager\Domain\PlaylistItems\PlaylistItemService;
+use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByUser;
+use Zeropingheroes\Lanager\Domain\AuthorisationException;
+use DomainException;
 
-class PlaylistItemVoteService extends NestedResourceService {
+class PlaylistItemVoteService extends ResourceService {
+	
+	protected $eagerLoad = [ 'user.state.application' ];
 
-	/**
-	 * The canonical application-wide name for the resource that this service provides for
-	 * @var string
-	 */
-	public $resource = 'playlists.items.votes';
+	use FilterableByUser;
 
-	/**
-	 * Instantiate the service with a listener that the service can call methods
-	 * on after action success/failure
-	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
-	 */
-	public function __construct( $listener )
+	public function __construct()
 	{
-		$models = [
-			new Playlist,
-			new PlaylistItem,
+		parent::__construct(
 			new PlaylistItemVote,
-		];
-		parent::__construct($listener, $models);
+			new PlaylistItemVoteValidator
+		);
 	}
 
-	/**
-	 * Store the resource (with additional processing to standard service method)
-	 * @param  array  $ids   list of ids of parent models
-	 * @param  array  $input raw input from user
-	 */
-	public function store( array $ids, $input)
+	protected function readAuthorised()
 	{
-		unset($input); // no input needed
-		$input['user_id'] = Auth::user()->id; // set user id to current user
+		return $this->user->hasRole('Playlists Admin');
+	}
+
+	protected function storeAuthorised()
+	{
+		return $this->user->isAuthenticated();
+	}
+
+	protected function destroyAuthorised()
+	{
+		return $this->user->isAuthenticated();
+	}
+
+	public function store( $input )
+	{
+		$input['user_id'] = $this->user->id();
+
+		parent::store( $input );
+	}
+
+	protected function rulesOnStore( $input )
+	{
+		$votes = (new self)->filterByUser( $input['user_id'] )->filterByPlaylistItem( $input['playlist_item_id'] )->all();
 		
-		return parent::store($ids, $input);
+		if ( $votes->count() != 0 )
+			throw new DomainException( 'You have already voted to skip this item' );
 	}
 
 	/**
-	 * Block attempts to update the resource
-	 * @param  array  $ids   list of ids of parent models
-	 * @param  array  $input raw input from user
+	 * Filter by a given playlist item ID
+	 * @param  integer     $playlistItemId
+	 * @return self
 	 */
-	public function update( array $ids, $input)
+	public function filterByPlaylistItem( $playlistItemId )
 	{
-		$this->errors = 'This resource does not support being updated';
-		return $this->listener->updateFailed($this);
+		$this->model = $this->model->where( 'playlist_item_id', $playlistItemId );
+
+		return $this;
 	}
 
 }

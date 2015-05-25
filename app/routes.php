@@ -52,7 +52,7 @@ function()
 	|--------------------------------------------------------------------------
 	*/
 	Route::resource('events', 'EventsController');
-	Route::resource('events.signups', 'EventSignupsController');
+	Route::resource('events.signups', 'EventSignupsController', ['only' => ['index', 'store', 'destroy']]);
 	Route::resource('event-types', 'EventTypesController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]);
 
 	/*
@@ -128,11 +128,11 @@ function()
 		Route::resource('roles',				'RolesController',				['except' => ['create', 'edit'] ]);
 		Route::resource('user-roles',			'UserRolesController',			['except' => ['create', 'edit', 'update'] ]);
 		Route::resource('users',				'UsersController',				['except' => ['create', 'store', 'edit', 'update'] ]);
-		Route::resource('application-usage',	'ApplicationUsageController',	['only' => ['index'] ]);
-		Route::resource('logs',					'LogsController',				['only' => ['index'] ]);
+		Route::resource('application-usage',	'ApplicationUsageController',	['except' => ['create', 'show', 'store', 'edit', 'update', 'destroy'] ]);
+		Route::resource('logs',					'LogsController',				['except' => ['create', 'store', 'edit', 'update', 'destroy'] ]);
 		
 		// List of endpoints
-		Route::get('/', function () {
+		Route::get('/', ['as' => 'api.index', function () {
 			$routes = Route::getApiGroups()->getByVersion('v1');
 
 			$endpoints = [];
@@ -144,7 +144,7 @@ function()
 				];
 			}
 			return Response::make($endpoints, 200, [], ['options' => JSON_PRETTY_PRINT] );
-		});
+		}]);
 	});
 });
 

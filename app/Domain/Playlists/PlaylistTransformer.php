@@ -1,8 +1,17 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Playlists;
 
 use League\Fractal\TransformerAbstract;
+use Zeropingheroes\Lanager\Domain\PlaylistItems\PlaylistItemTransformer;
 
 class PlaylistTransformer extends TransformerAbstract {
+
+	/**
+	 * Default related resources to include in transformed output
+	 * @var array
+	 */
+	protected $defaultIncludes = [
+		'currentItem',
+	];
 
 	/**
 	 * Transform resource into standard output format with correct typing
@@ -26,4 +35,19 @@ class PlaylistTransformer extends TransformerAbstract {
 			],
 		];
 	}
+
+
+	/**
+	 * Pull in and transform the specified resource
+	 * @param  object BaseModel   Model being pulled in
+	 * @return array              Transformed model
+	 */
+	public function includeCurrentItem( Playlist $playlist )
+	{
+		$currentItem = $playlist->currentItem();
+
+		if ( $currentItem )
+			return $this->item( $currentItem, new PlaylistItemTransformer );
+	}
+
 }

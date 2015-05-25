@@ -1,25 +1,18 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
 use Zeropingheroes\Lanager\Domain\PlaylistItems\PlaylistItemService;
+use Zeropingheroes\Lanager\Domain\Playlists\PlaylistService;
 use View;
-use Notification;
 use Redirect;
 
 class PlaylistItemsController extends ResourceServiceController {
-
-	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'playlists.items';
 
 	/**
 	 * Set the controller's service
 	 */
 	public function __construct()
 	{
-		$this->service = new PlaylistItemService($this);
+		$this->service = new PlaylistItemService;
 	}
 
 	/**
@@ -27,48 +20,36 @@ class PlaylistItemsController extends ResourceServiceController {
 	 *
 	 * @return Response
 	 */
-	public function index($playlistId)
+	public function index( $playlistId )
 	{
-		$playlist = $this->service->parent([$playlistId]);
+		$playlist = (new PlaylistService)->single( $playlistId );
 
-		$eagerLoad =
-		[
-			'playlistItemVotes',
-			'user.state.application',
-			'user.state.server'
-		];
-		$unplayedItems = $this->service->all([$playlistId], ['playback_state' => 0], $eagerLoad);
-		$playedItems = $this->service->all([$playlistId], ['playback_state' => 1, 'orderBy' => '-updated_at'], $eagerLoad);
-		$skippedItems = $this->service->all([$playlistId], ['playback_state' => 2, 'orderBy' => '-updated_at'], $eagerLoad);
+		$unplayed 	= (new PlaylistItemService)->filterByPlaylist( $playlistId )->unplayed();
+		$played 	= (new PlaylistItemService)->filterByPlaylist( $playlistId )->played();
+		$skipped 	= (new PlaylistItemService)->filterByPlaylist( $playlistId )->skipped();
 
 		return View::make('playlist-items.index')
 					->with('title','Playlist: '. $playlist->name)
 					->with('playlist', $playlist)
-					->with('playedItems', $playedItems)
-					->with('unplayedItems', $unplayedItems)
-					->with('skippedItems', $skippedItems);
+					->with('unplayedItems', $unplayed)
+					->with('playedItems', $played)
+					->with('skippedItems', $skipped);
 	}
 
-	/**
-	 * Override listener function for this resource action result
-	 * @param  BaseResourceService $service Service class that called this
-	 * @return object Response
-	 */
-	public function storeSucceeded( BaseResourceService $service )
+	protected function redirectAfterStore()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index', $service->resourceIds() );
+		return Redirect::route('playlists.items.index', $this->currentRouteParameters()['playlists'] );
 	}
 
-	/**
-	 * Override listener function for this resource action result
-	 * @param  BaseResourceService $service Service class that called this
-	 * @return object Response
-	 */
-	public function updateSucceeded( BaseResourceService $service )
+	protected function redirectAfterUpdate()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index', $service->resourceIds() );
+		return $this->redirectAfterStore();
 	}
+
+	protected function redirectAfterDestroy()
+	{
+		return $this->redirectAfterStore();
+	}
+
 
 }

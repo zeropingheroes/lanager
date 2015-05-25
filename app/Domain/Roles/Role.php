@@ -4,17 +4,7 @@ use Zeropingheroes\Lanager\Domain\BaseModel;
 
 class Role extends BaseModel {
 
-	/**
-	 * Fields that can be mass assigned
-	 * @var array
-	 */
-	protected $fillable = ['name'];
-
-	/**
-	 * Validator class responsible for validating this model
-	 * @var string
-	 */
-	public $validator = 'Zeropingheroes\Lanager\Domain\Roles\RoleValidator';
+	protected $fillable = [ 'name' ];
 
 	/**
 	 * A single role belongs to many users
@@ -22,7 +12,7 @@ class Role extends BaseModel {
 	 */
 	public function users()
 	{
-		return $this->belongsToMany('Zeropingheroes\Lanager\Domain\Users\User', 'user_roles');
+		return $this->belongsToMany( 'Zeropingheroes\Lanager\Domain\Users\User', 'user_roles' );
 	}
 
 	/**
@@ -31,7 +21,7 @@ class Role extends BaseModel {
 	 */
 	public function userRoles()
 	{
-		return $this->hasMany('Zeropingheroes\Lanager\Domain\UserRoles\UserRole');
+		return $this->hasMany( 'Zeropingheroes\Lanager\Domain\UserRoles\UserRole' );
 	}
 
 }

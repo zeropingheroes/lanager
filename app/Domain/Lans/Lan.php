@@ -7,23 +7,9 @@ class Lan extends BaseModel {
 
 	use PresentableTrait;
 
-	/**
-	 * Fields that can be mass assigned
-	 * @var array
-	 */
-	protected $fillable = ['name', 'start', 'end'];
-
-	/**
-	 * Validator class responsible for validating this model
-	 * @var string
-	 */
-	public $validator = 'Zeropingheroes\Lanager\Domain\Lans\LanValidator';
-
-	/**
-	 * Presenter class responsible for presenting this model's fields
-	 * @var string
-	 */
 	protected $presenter = 'Zeropingheroes\Lanager\Domain\Lans\LanPresenter';
+
+	protected $fillable = ['name', 'start', 'end'];
 
 	/**
 	 * A single LAN has many user achievements

@@ -1,16 +1,17 @@
 <?php namespace Zeropingheroes\Lanager\Domain\EventTypes;
 
 use Fadion\ValidatorAssistant\ValidatorAssistant;
+use Zeropingheroes\Lanager\Domain\InputValidatorContract;
 
-class EventTypeValidator extends ValidatorAssistant {
+class EventTypeValidator extends ValidatorAssistant implements InputValidatorContract{
 
 	/**
 	 * Validation rules to enforce for each field
 	 * @var array
 	 */
 	protected $rules = [
-		'name'			=> 'required|max:255',
-		'colour'		=> 'max:255|hex_colour',
+		'name'			=> 'required|max:255|unique:event_types,name,{id}',
+		'colour'		=> 'hex_colour',
 	];
 
 	/**

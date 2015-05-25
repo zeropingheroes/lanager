@@ -1,69 +1,126 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
 use Illuminate\Routing\Controller;
-use Zeropingheroes\Lanager\Http\WriteableResourceTrait;
-use Zeropingheroes\Lanager\Domain\ResourceServiceListenerContract;
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
+use Zeropingheroes\Lanager\Domain\ValidationException;
+use DomainException;
+use Input;
 use Notification;
 use Redirect;
+use Request;
+use Route;
 
-abstract class ResourceServiceController extends Controller implements ResourceServiceListenerContract {
-
-	use WriteableResourceTrait;
+abstract class ResourceServiceController extends Controller {
 
 	/**
-	 * Display HTML notification and redirect based on service action result
-	 * @param  BaseResourceService $service Service class that was called
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
 	 */
-	public function storeSucceeded( BaseResourceService $service )
+	public function store()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.show', $service->resourceIds() );
+		try
+		{
+			$this->service->store( Input::get() );
+			return $this->redirectAfterStore();
+		}
+		catch ( ValidationException $e )
+		{
+			Notification::danger( $e->getValidationErrors() );
+			return Redirect::back()->withInput();
+		}
+		catch ( DomainException $e )
+		{
+			Notification::danger( $e->getMessage() );
+			return Redirect::back()->withInput();
+		}
 	}
 
 	/**
-	 * @see ResourceServiceController::storeSucceeded
+	 * Update the specified resource in storage.
+	 *
+	 * @return Response
 	 */
-	public function storeFailed( BaseResourceService $service )
+	public function update()
 	{
-		Notification::danger( $service->errors() );
-		return Redirect::back()->withInput();
+		try
+		{
+			$ids = func_get_args();
+			$id = end( $ids );
+			$this->service->update( $id, Input::get() );
+			return $this->redirectAfterUpdate();
+		}
+		catch ( ValidationException $e )
+		{
+			Notification::danger( $e->getValidationErrors() );
+			return Redirect::back()->withInput();
+		}
+		catch ( DomainException $e )
+		{
+			Notification::danger( $e->getMessage() );
+			return Redirect::back()->withInput();
+		}
 	}
 
 	/**
-	 * @see ResourceServiceController::storeSucceeded
+	 * Remove the specified resource from storage.
+	 *
+	 * @return Response
 	 */
-	public function updateSucceeded( BaseResourceService $service )
+	public function destroy()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.show', $service->resourceIds() );
+		try
+		{
+			$ids = func_get_args();
+			$id = end( $ids );
+			$this->service->destroy( $id );
+			return $this->redirectAfterDestroy();
+		}
+		catch ( ValidationException $e )
+		{
+			Notification::danger( $e->getValidationErrors() );
+			return Redirect::back()->withInput();
+		}
+		catch ( DomainException $e )
+		{
+			Notification::danger( $e->getMessage() );
+			return Redirect::back()->withInput();
+		}
 	}
 
 	/**
-	 * @see ResourceServiceController::storeSucceeded
+	 * Generate response for redirect after successful store
+	 * @return Response
 	 */
-	public function updateFailed( BaseResourceService $service )
+	protected function redirectAfterStore()
 	{
-		Notification::danger( $service->errors() );
-		return Redirect::back()->withInput();
+		return Redirect::to('/');
 	}
 
 	/**
-	 * @see ResourceServiceController::storeSucceeded
+	 * Generate response for redirect after successful update
+	 * @return Response
 	 */
-	public function destroySucceeded( BaseResourceService $service )
+	protected function redirectAfterUpdate()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index', $service->resourceIds() );
+		return Redirect::to('/');
 	}
 
 	/**
-	 * @see ResourceServiceController::storeSucceeded
+	 * Generate response for redirect after successful destroy
+	 * @return Response
 	 */
-	public function destroyFailed( BaseResourceService $service )
+	protected function redirectAfterDestroy()
 	{
-		Notification::danger( $service->errors() );
-		return Redirect::back();
+		return Redirect::to('/');
+	}
+
+	/**
+	 * Get the current route parameters
+	 * @return array
+	 */
+	protected function currentRouteParameters()
+	{
+		return Route::getCurrentRoute()->bindParameters( Request::instance() );
 	}
 
 }

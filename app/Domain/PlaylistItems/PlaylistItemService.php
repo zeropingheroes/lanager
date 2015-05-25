@@ -1,110 +1,170 @@
 <?php namespace Zeropingheroes\Lanager\Domain\PlaylistItems;
 
-use Zeropingheroes\Lanager\Domain\NestedResourceService;
-use Zeropingheroes\Lanager\Domain\Playlists\Playlist;
-use Auth;
-use Authority;
+use Zeropingheroes\Lanager\Domain\ResourceService;
+use Zeropingheroes\Lanager\Domain\Playlists\PlaylistService;
+use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByCreatedAt;
+use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByUser;
+use Zeropingheroes\Lanager\Domain\AuthorisationException;
+use DomainException;
 use Config;
+use Duration;
+use Carbon\Carbon;
 
-class PlaylistItemService extends NestedResourceService {
+class PlaylistItemService extends ResourceService {
 
-	/**
-	 * The canonical application-wide name for the resource that this service provides for
-	 * @var string
-	 */
-	public $resource = 'playlists.items';
+	protected $eagerLoad = [ 'playlistItemVotes', 'user.state.application' ];
 
-	/**
-	 * Instantiate the service with a listener that the service can call methods
-	 * on after action success/failure
-	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
-	 */
-	public function __construct( $listener )
+	use FilterableByCreatedAt;
+
+	use FilterableByUser;
+
+	public function __construct()
 	{
-		$models = [
-			new Playlist,
+		parent::__construct(
 			new PlaylistItem,
-		];
-		parent::__construct($listener, $models);
+			new PlaylistItemValidator
+		);
 	}
 
-	/**
-	 * Fetch the given item's metadata
-	 * @param  string $url URL of the item
-	 * @return object PlayableItem      Playable item
-	 */
-	private function fetchItem( $url )
+	protected function readAuthorised()
+	{
+		return true;
+	}
+
+	protected function storeAuthorised()
+	{
+		return $this->user->isAuthenticated();
+	}
+
+	protected function updateAuthorised()
+	{
+		return $this->user->hasRole( 'Playlists Admin' );
+	}
+
+	protected function destroyAuthorised()
+	{
+		return $this->user->isAuthenticated();
+	}
+
+	public function store( $input )
 	{
 		$providers = Config::get('lanager/playlist.providers');
-		return (new PlayableItemFactory)->create( $url, $providers);
+		$item = (new PlayableItemFactory)->create( $input['url'], $providers);
+
+		$input = array_merge( $input, $item->toArray() );
+
+		$input['user_id'] = $this->user->id();
+		$input['playback_state'] = 0;
+		$input['skip_reason'] = null;
+
+		return parent::store( $input );
+	}
+
+	public function update( $id, $input)
+	{
+		if ( isset( $input['url'] ) OR isset( $input['title'] ) OR isset( $input['duration'] ) OR isset( $input['user_id'] ) )
+			throw new DomainException( 'The URL, title, duration and user ID fields are not updateable' );
+
+		return parent::update( $id, $input );
+	}
+
+	protected function rulesOnStore( $input )
+	{
+		$past = (new Carbon)->subMinutes(15);
+
+		$recentPlaylistItems = ( new self )->filterCreatedAfter( $past )->filterByUser( $input['user_id'] )->get();
+
+		if ( $recentPlaylistItems->count() != 0 )
+			throw new DomainException( 'You have posted too recently - please wait a while and try again' );
+
+		$playlist = (new PlaylistService)->single( $input['playlist_id'] );
+		
+		if ( $playlist->max_item_duration < $input['duration'] )
+			throw new DomainException( 'The item\'s duration must not exceed ' . Duration::longFormat($playlist->max_item_duration) );
+
+		$duplicates = ( new self )->filterByUrl( $input['url'] )->filterByPlaylist( $input['playlist_id'] )->get();
+
+		if ( $duplicates->count() != 0 )
+			throw new DomainException( 'The item has already been added to this playlist' );
+
+	}
+
+	protected function rulesOnUpdate( $input, $original )
+	{
+		if ( $input['playback_state'] == 2 AND empty( $input['skip_reason'] ) )
+			throw new DomainException( 'You must specify a reason when skipping an item' );
+	}
+
+	protected function rulesOnDestroy( $input )
+	{
+		if ( ! $this->user->hasRole( 'Playlists Admin' ) )
+		{
+			if ( $input['user_id'] != $this->user->id() )
+				throw new AuthorisationException( 'You may only delete your own playlist items' );
+		}
 	}
 
 	/**
-	 * Filter user input for data integrity and security
-	 * @param  array $input raw input from user
-	 * @return array $input input, filtered
+	 * Filter by a given playlist ID
+	 * @param  integer     $playlistId
+	 * @return self
 	 */
-	private function filterInput( $input, $scope )
+	public function filterByPlaylist( $playlistId )
 	{
-		if( Authority::can('manage', 'playlists') )
-		{
-			$input = array_only($input, ['url', 'playback_state', 'played_at', 'skip_reason']);
-			if( $scope != 'update') $input['user_id'] = Auth::user()->id; // if playlist manager is posting new video default to their user id
-		}
-		else // only accept URL from standard users
-		{
-			$input = array_only($input, ['url']);
-			$input['user_id'] = Auth::user()->id;
-		}
-		return $input;
+		$this->model = $this->model->where( 'playlist_id', $playlistId );
+
+		return $this;
 	}
 
 	/**
-	 * Store the resource (with additional processing to standard service method)
-	 * @param  array  $ids   list of ids of parent models
-	 * @param  array  $input raw input from user
+	 * Filter by a given URL
+	 * @param  string       $url
+	 * @return self
 	 */
-	public function store( array $ids, $input)
+	public function filterByUrl( $url )
 	{
-		$input = $this->filterInput($input, 'store');
+		$this->model = $this->model->where( 'url', $url );
 
-		try
-		{
-			$input = array_merge( $input, $this->fetchItem( $input['url'] )->toArray() );
-		}
-		catch( UnplayableItemException $e)
-		{
-			$this->errors = $e->getMessage();
-			return $this->listener->storeFailed( $this );
-		}
-
-		// pass new input containing metadata to base service provider for validation and storage
-		return parent::store($ids, $input);
+		return $this;
 	}
 
 	/**
-	 * Update the resource (with additional processing to standard service method)
-	 * @param  array  $ids   list of ids of parent models
-	 * @param  array  $input raw input from user
+	 * Get all unplayed items
+	 * @return Collection       Collection of items
 	 */
-	public function update( array $ids, $input)
+	public function unplayed()
 	{
-		$input = $this->filterInput($input, 'update');
+		$this->runChecks( 'read' );
 
-		if( array_key_exists('url', $input) ) // if the URL has been changed, fetch the new item
-		{
-			try
-			{
-				$input = array_merge( $input, $this->fetchItem( $input['url'] )->toArray() );
-			}
-			catch( UnplayableItemException $e)
-			{
-				$this->errors = $e->getMessage();
-				return $this->listener->updateFailed( $this );
-			}
-		}
+		$this->model = $this->model->where( 'playback_state', 0 )->orderBy('created_at');
 
-		// pass new input containing metadata to base service provider for validation and storage
-		return parent::update($ids, $input);
+		return $this->get();
 	}
+
+	/**
+	 * Get all played items
+	 * @return Collection       Collection of items
+	 */
+	public function played()
+	{
+		$this->runChecks( 'read' );
+
+		$this->model = $this->model->where( 'playback_state', 1 )->orderBy('updated_at', 'desc');
+
+		return $this->get();
+	}
+
+	/**
+	 * Get all skipped items
+	 * @return Collection       Collection of items
+	 */
+	public function skipped()
+	{
+		$this->runChecks( 'read' );
+
+		$this->model = $this->model->where( 'playback_state', 2 )->orderBy('updated_at', 'desc');
+
+		return $this->get();
+	}
+
 }

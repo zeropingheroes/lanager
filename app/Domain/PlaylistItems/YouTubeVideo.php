@@ -1,5 +1,7 @@
 <?php namespace Zeropingheroes\Lanager\Domain\PlaylistItems;
 
+use DomainException;
+
 class YouTubeVideo extends PlayableItem {
 
 	/**
@@ -20,7 +22,7 @@ class YouTubeVideo extends PlayableItem {
 	{
 		parse_str( parse_url( $url, PHP_URL_QUERY ), $queryString);
 		
-		if( empty($queryString['v']) ) throw new UnplayableItemException('The video ID is invalid');
+		if( empty($queryString['v']) ) throw new DomainException('The video ID is invalid');
 
 		$videoApiUrl = self::API_URL.$queryString['v'].self::API_FORMAT_QUERY;
 
@@ -38,12 +40,12 @@ class YouTubeVideo extends PlayableItem {
 		$responseCode = curl_getinfo($connection, CURLINFO_HTTP_CODE);
 		curl_close($connection);
 		
-		if( $responseCode == 400 ) throw new UnplayableItemException('The video ID is invalid');
-		if( $responseCode == 404 ) throw new UnplayableItemException('The video does not exist');
-		if( $responseCode == 500 ) throw new UnplayableItemException('The provider experienced an error');
-		if( $responseCode == 503 ) throw new UnplayableItemException('The provider is currently unavailable');
+		if( $responseCode == 400 ) throw new DomainException('The video ID is invalid');
+		if( $responseCode == 404 ) throw new DomainException('The video does not exist');
+		if( $responseCode == 500 ) throw new DomainException('The provider experienced an error');
+		if( $responseCode == 503 ) throw new DomainException('The provider is currently unavailable');
 
-		if( isset($responseData['entry']['yt$noembed']) ) throw new UnplayableItemException('The video has embedding disabled');
+		if( isset($responseData['entry']['yt$noembed']) ) throw new DomainException('The video has embedding disabled');
 
 		$this->title 	= $responseData['entry']['title']['$t'];
 		$this->duration = $responseData['entry']['media$group']['yt$duration']['seconds'];

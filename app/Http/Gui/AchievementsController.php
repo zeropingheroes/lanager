@@ -1,23 +1,17 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
 use Zeropingheroes\Lanager\Domain\Achievements\AchievementService;
 use View;
+use Redirect;
 
 class AchievementsController extends ResourceServiceController {
-
-	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'achievements';
 
 	/**
 	 * Set the controller's service
 	 */
 	public function __construct()
 	{
-		$this->service = new AchievementService($this);
+		$this->service = new AchievementService;
 	}
 
 	/**
@@ -27,13 +21,11 @@ class AchievementsController extends ResourceServiceController {
 	 */
 	public function index()
 	{
-		$eagerLoad = ['userAchievements'];
+		$achievements = $this->service->all();
 
-		$achievements = $this->service->all( [], $eagerLoad );
-
-		return View::make('achievements.index')
-					->with('title','Achievements')
-					->with('achievements', $achievements );
+		return View::make( 'achievements.index' )
+					->with( 'title', 'Achievements' )
+					->with( 'achievements', $achievements );
 	}
 
 	/**
@@ -43,9 +35,9 @@ class AchievementsController extends ResourceServiceController {
 	 */
 	public function create()
 	{
-		return View::make('achievements.create')
-					->with('title','Create Achievement')
-					->with('achievement',null);
+		return View::make( 'achievements.create' )
+					->with( 'title','Create Achievement' )
+					->with( 'achievement', null );
 	}
 
 	/**
@@ -54,20 +46,13 @@ class AchievementsController extends ResourceServiceController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show( $id )
 	{
-		$eagerLoad = [
-			'userAchievements',
-			'userAchievements.lan',
-			'userAchievements.user.state.application',
-			'userAchievements.user.state.server',
-			];
-
-		$achievement = $this->service->single($id, $eagerLoad);
+		$achievement = $this->service->single( $id );
 		
-		return View::make('achievements.show')
-					->with('title', 'Achievement - ' . $achievement->name)
-					->with('achievement',$achievement);
+		return View::make( 'achievements.show' )
+					->with( 'title', 'Achievement - ' . $achievement->name )
+					->with( 'achievement', $achievement );
 	}
 
 	/**
@@ -76,11 +61,28 @@ class AchievementsController extends ResourceServiceController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit( $id )
 	{
-		return View::make('achievements.edit')
-					->with('title','Edit Achievement')
-					->with('achievement', $this->service->single($id) );
+		$achievement = $this->service->single( $id );
+
+		return View::make( 'achievements.edit' )
+					->with( 'title','Edit Achievement' )
+					->with( 'achievement', $achievement );
+	}
+
+	protected function redirectAfterStore()
+	{
+		return Redirect::route('achievements.show', $this->service->id() );
+	}
+
+	protected function redirectAfterUpdate()
+	{
+		return $this->redirectAfterStore();
+	}
+
+	protected function redirectAfterDestroy()
+	{
+		return Redirect::route('achievements.index');
 	}
 
 }

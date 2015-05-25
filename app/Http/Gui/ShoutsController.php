@@ -1,25 +1,17 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
 use Zeropingheroes\Lanager\Domain\Shouts\ShoutService;
 use View;
-use Notification;
 use Redirect;
 
 class ShoutsController extends ResourceServiceController {
-
-	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'shouts';
 
 	/**
 	 * Set the controller's service
 	 */
 	public function __construct()
 	{
-		$this->service = new ShoutService($this);
+		$this->service = new ShoutService;
 	}
 
 	/**
@@ -29,41 +21,25 @@ class ShoutsController extends ResourceServiceController {
 	 */
 	public function index()
 	{
-		$options['orderBy'] = ['-pinned', '-created_at'];
-		$eagerLoad =
-		[
-			'user.roles',
-			'user.state.application',
-			'user.state.server',
-		];
+		$shouts = $this->service->all();
 
-		$shouts = $this->service->all($options, $eagerLoad);
-
-		return View::make('shouts.index')
-					->with('title', 'Shouts')
-					->with('shouts', $shouts);
+		return View::make( 'shouts.index' )
+					->with( 'title', 'Shouts' )
+					->with( 'shouts', $shouts );
 	}
 
-	/**
-	 * Override listener function for this resource action result
-	 * @param  BaseResourceService $service Service class that called this
-	 * @return object Response
-	 */
-	public function storeSucceeded( BaseResourceService $service )
+	protected function redirectAfterStore()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index', $service->resourceIds() );
+		return Redirect::route('shouts.index' );
 	}
 
-	/**
-	 * Override listener function for this resource action result
-	 * @param  BaseResourceService $service Service class that called this
-	 * @return object Response
-	 */
-	public function updateSucceeded( BaseResourceService $service )
+	protected function redirectAfterUpdate()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.index', $service->resourceIds() );
+		return $this->redirectAfterStore();
 	}
 
+	protected function redirectAfterDestroy()
+	{
+		return $this->redirectAfterStore();
+	}
 }

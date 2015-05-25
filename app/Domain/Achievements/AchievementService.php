@@ -1,23 +1,45 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Achievements;
 
-use Zeropingheroes\Lanager\Domain\FlatResourceService;
+use Zeropingheroes\Lanager\Domain\ResourceService;
 
-class AchievementService extends FlatResourceService {
+class AchievementService extends ResourceService {
 
-	/**
-	 * The canonical application-wide name for the resource that this service provides for
-	 * @var string
-	 */
-	protected $resource = 'achievements';
+	protected $orderBy = [ 'name' ];
 
-	/**
-	 * Instantiate the service with a listener that the service can call methods
-	 * on after action success/failure
-	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
-	 */
-	public function __construct( $listener )
+	protected $eagerLoad = [ 'userAchievements', 'userAchievements.lan', 'userAchievements.user.state.application' ];
+
+	public function __construct()
 	{
-		parent::__construct($listener, new Achievement);
+		parent::__construct(
+			new Achievement,
+			new AchievementValidator
+		);
+	}
+
+	protected function readAuthorised()
+	{
+		return true;
+	}
+
+	protected function storeAuthorised()
+	{
+		return $this->user->hasRole('Achievements Admin');
+	}
+
+	protected function updateAuthorised()
+	{
+		return $this->user->hasRole('Achievements Admin');
+	}
+
+	protected function destroyAuthorised()
+	{
+		return $this->user->hasRole('Achievements Admin');
+	}
+
+	protected function filter()
+	{
+		if ( ! $this->user->hasRole( 'Achievements Admin' ) )
+			$this->model = $this->model->where( 'visible', true );
 	}
 
 }

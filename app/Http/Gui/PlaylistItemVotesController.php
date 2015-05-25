@@ -1,46 +1,31 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
 use Zeropingheroes\Lanager\Domain\PlaylistItemVotes\PlaylistItemVoteService;
-use Notification;
 use Redirect;
 
 class PlaylistItemVotesController extends ResourceServiceController {
-
-	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'playlists.items.votes';
 
 	/**
 	 * Set the controller's service
 	 */
 	public function __construct()
 	{
-		$this->service = new PlaylistItemVoteService($this);
+		$this->service = new PlaylistItemVoteService;
 	}
 
-	/**
-	 * Override listener function for this resource action result
-	 * @param  BaseResourceService $service Service class that called this
-	 * @return object Response
-	 */
-	public function storeSucceeded( BaseResourceService $service )
+	protected function redirectAfterStore()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( 'playlists.items.index', $service->resourceIds() );
+		return Redirect::route('playlists.items.index', $this->currentRouteParameters()['playlists'] );
 	}
 
-	/**
-	 * Override listener function for this resource action result
-	 * @param  BaseResourceService $service Service class that called this
-	 * @return object Response
-	 */
-	public function destroySucceeded( BaseResourceService $service )
+	protected function redirectAfterUpdate()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( 'playlists.items.index', $service->resourceIds() );
+		return $this->redirectAfterStore();
+	}
+
+	protected function redirectAfterDestroy()
+	{
+		return $this->redirectAfterStore();
 	}
 
 }

@@ -4,17 +4,7 @@ use Zeropingheroes\Lanager\Domain\BaseModel;
 
 class PlaylistItemVote extends BaseModel {
 
-	/**
-	 * Fields that can be mass assigned
-	 * @var array
-	 */
-	protected $fillable = ['playlist_item_id', 'user_id'];
-
-	/**
-	 * Validator class responsible for validating this model
-	 * @var string
-	 */
-	public $validator = 'Zeropingheroes\Lanager\Domain\PlaylistItemVotes\PlaylistItemVoteValidator';
+	protected $fillable = [ 'playlist_item_id', 'user_id' ];
 
 	/**
 	 * A single playlist item vote belongs to a single playlist item

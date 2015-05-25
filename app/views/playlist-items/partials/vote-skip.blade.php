@@ -33,5 +33,9 @@
 				'playlist_id' => $item->playlist_id,
 				'item_id' => $item->id,
 			],
+			'data' =>
+			[
+				'playlist_item_id' => $item->id,
+			],
 		])
 @endif

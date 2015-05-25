@@ -1,64 +1,43 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Pages;
 
-use Zeropingheroes\Lanager\Domain\FlatResourceService;
-use Cache;
+use Zeropingheroes\Lanager\Domain\ResourceService;
 
-class PageService extends FlatResourceService {
+class PageService extends ResourceService {
 
-	/**
-	 * The canonical application-wide name for the resource that this service provides for
-	 * @var string
-	 */
-	protected $resource = 'pages';
+	protected $orderBy = [ 'position' ];
 
-	/**
-	 * Instantiate the service with a listener that the service can call methods
-	 * on after action success/failure
-	 * @param object ResourceServiceListenerContract $listener Listener class with required methods
-	 */
-	public function __construct( $listener )
+	public function __construct()
 	{
-		parent::__construct($listener, new Page);
+		parent::__construct(
+			new Page,
+			new PageValidator
+		);
 	}
 
-	/**
-	 * Get a single resource item (with additional processing to standard service method)
-	 * @param  array  $ids   list of ids of parent models
-	 * @param  array  $input raw input from user
-	 */
-	public function single($id, $eagerLoad = [])
+	protected function readAuthorised()
 	{
-		return $this->model->with('children')->findOrFail($id);
+		return true;
 	}
 
-	/**
-	 * Store the resource (with additional processing to standard service method)
-	 * @param  array  $input raw input from user
-	 */
-	public function store($input)
+	protected function storeAuthorised()
 	{
-		Cache::forget('pageMenu');
-		return parent::store($input);
+		return $this->user->hasRole( 'Pages Admin' );
 	}
 
-	/**
-	 * Update the resource (with additional processing to standard service method)
-	 * @param  array  $id   list of ids of parent models
-	 * @param  array  $input raw input from user
-	 */
-	public function update($id, $input)
+	protected function updateAuthorised()
 	{
-		Cache::forget('pageMenu');
-		return parent::update($id, $input);
+		return $this->user->hasRole( 'Pages Admin' );
 	}
 
-	/**
-	 * Destroy the resource (with additional processing to standard service method)
-	 * @param  array  $id   list of ids of parent models
-	 */
-	public function destroy($id)
+	protected function destroyAuthorised()
 	{
-		Cache::forget('pageMenu');
-		return parent::destroy($id);
+		return $this->user->hasRole( 'Pages Admin' );
 	}
+
+	protected function filter()
+	{
+		if ( ! $this->user->hasRole( 'Pages Admin' ) )
+			$this->model = $this->model->where( 'published', true );
+	}
+
 }

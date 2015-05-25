@@ -7,23 +7,11 @@ class Server extends BaseModel {
 
 	use PresentableTrait;
 
-	/**
-	 * Fields that can be mass assigned
-	 * @var array
-	 */
+	protected $presenter = 'Zeropingheroes\Lanager\Domain\Servers\ServerPresenter';
+
 	protected $fillable = ['application_id', 'name', 'address', 'port', 'pinned'];
 
-	/**
-	 * Fields that can be set to null in the database, if they are not specified when creating a new model
-	 * @var array
-	 */
 	protected $nullable = ['name'];
-
-	/**
-	 * Presenter class responsible for presenting this model's fields
-	 * @var string
-	 */
-	protected $presenter = 'Zeropingheroes\Lanager\Domain\Servers\ServerPresenter';
 
 	/**
 	 * A single server belongs to a single application

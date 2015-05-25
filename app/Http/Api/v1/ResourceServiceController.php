@@ -5,16 +5,13 @@ use Dingo\Api\Routing\ControllerTrait;
 use	Dingo\Api\Exception\StoreResourceFailedException;
 use	Dingo\Api\Exception\UpdateResourceFailedException;
 use	Dingo\Api\Exception\DeleteResourceFailedException;
-use Zeropingheroes\Lanager\Domain\ResourceServiceListenerContract;
-use	Zeropingheroes\Lanager\Domain\BaseResourceService;
-use Zeropingheroes\Lanager\Http\Api\v1\Traits\ReadableResourceTrait;
-use	Zeropingheroes\Lanager\Http\WriteableResourceTrait;
+use Zeropingheroes\Lanager\Domain\ValidationException;
+use DomainException;
+use Input;
 
-abstract class ResourceServiceController extends Controller implements ResourceServiceListenerContract {
+abstract class ResourceServiceController extends Controller {
 
 	use ControllerTrait;
-	use ReadableResourceTrait;
-	use WriteableResourceTrait;
 
 	/**
 	 * Transformer class to use when presenting the resource data to the user
@@ -24,83 +21,86 @@ abstract class ResourceServiceController extends Controller implements ResourceS
 
 	/**
 	 * Service class to use when working with the resource
-	 * @var object BaseResourceService
+	 * @var object ResourceService
 	 */
 	protected $service;
-
-	/**
-	 * Whether the resource can be marked as a draft and hidden from standard users
-	 * @var object BaseResourceService
-	 */
-	protected $draftable = false;
 
 	/**
 	 * Protect and filter all API controllers
 	 */
 	public function __construct()
 	{
-		$this->protect(['store', 'update', 'destroy']); // require API auth for these methods
-	}
-
-	/*
-	|--------------------------------------------------------------------------
-	| Default API Controller Listener Methods
-	|--------------------------------------------------------------------------
-	|
-	| These methods provide sensible boilerplate defaults for after-success and
-	| after-failure actions when the app is being accessed via REST API. 
-	| These methods can be overridden by child controllers if needed.
-	|
-	*/
-
-
-	/**
-	 * Display JSON notification based on service action result
-	 * @param  BaseResourceService $service Service class that was called
-	 */
-	public function storeSucceeded( BaseResourceService $service )
-	{
-		return $this->response->created();
+		$this->protect( ['store', 'update', 'destroy'] ); // require API auth for these methods
 	}
 
 	/**
-	 * @see ResourceServiceController::storeSucceeded
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
 	 */
-	public function storeFailed( BaseResourceService $service )
+	public function store()
 	{
-		throw new StoreResourceFailedException('Could not create ' . trans('resources.' . $service->resource()), $service->errors() );
+		try
+		{
+			$this->service->store( Input::get() );
+			return $this->response->created();
+		}
+		catch ( ValidationException $e )
+		{
+			throw new StoreResourceFailedException('Store failed', $e->getValidationErrors() );
+		}
+		catch ( DomainException $e )
+		{
+			throw new StoreResourceFailedException('Store failed', [ $e->getMessage() ] );
+		}
 	}
 
 	/**
-	 * @see ResourceServiceController::storeSucceeded
+	 * Update the specified resource in storage.
+	 *
+	 * @return Response
 	 */
-	public function updateSucceeded( BaseResourceService $service )
+	public function update()
 	{
-		return $this->response->noContent();
+		try
+		{
+			$ids = func_get_args();
+			$id = end( $ids );
+			$this->service->update( $id, Input::get() );
+			return $this->response->noContent();
+		}
+		catch ( ValidationException $e )
+		{
+			throw new UpdateResourceFailedException('Update failed', $e->getValidationErrors() );
+		}
+		catch ( DomainException $e )
+		{
+			throw new UpdateResourceFailedException('Update failed', [ $e->getMessage() ] );
+		}
 	}
 
 	/**
-	 * @see ResourceServiceController::storeSucceeded
+	 * Remove the specified resource from storage.
+	 *
+	 * @return Response
 	 */
-	public function updateFailed( BaseResourceService $service )
+	public function destroy()
 	{
-		throw new UpdateResourceFailedException('Could not update ' . trans('resources.' . $service->resource()), $service->errors() );
-	}
-
-	/**
-	 * @see ResourceServiceController::storeSucceeded
-	 */
-	public function destroySucceeded( BaseResourceService $service )
-	{
-		return $this->response->noContent();
-	}
-
-	/**
-	 * @see ResourceServiceController::storeSucceeded
-	 */
-	public function destroyFailed( BaseResourceService $service )
-	{
-		throw new DeleteResourceFailedException('Could not destroy ' . trans('resources.' . $service->resource()), $service->errors() );
+		try
+		{
+			$ids = func_get_args();
+			$id = end( $ids );
+			$this->service->destroy( $id );
+			return $this->response->noContent();
+		}
+		catch ( ValidationException $e )
+		{
+			throw new DeleteResourceFailedException('Delete failed', $e->getValidationErrors() );
+		}
+		catch ( DomainException $e )
+		{
+			throw new DeleteResourceFailedException('Delete failed', [ $e->getMessage() ] );
+		}
 	}
 
 }

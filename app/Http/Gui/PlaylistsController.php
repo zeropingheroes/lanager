@@ -3,16 +3,9 @@
 use Zeropingheroes\Lanager\Domain\BaseResourceService;
 use Zeropingheroes\Lanager\Domain\Playlists\PlaylistService;
 use View;
-use Notification;
 use Redirect;
 
 class PlaylistsController extends ResourceServiceController {
-
-	/**
-	 * Based named route used by this resource
-	 * @var string
-	 */
-	protected $route = 'playlists';
 
 	/**
 	 * Set the controller's service
@@ -89,16 +82,19 @@ class PlaylistsController extends ResourceServiceController {
 					->with('playlist', $playlist);				
 	}
 
-	public function storeSucceeded( BaseResourceService $service )
+	protected function redirectAfterStore()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.items.index', $service->resourceIds() );
+		return Redirect::route('playlists.show', $this->service->id() );
 	}
 
-	public function updateSucceeded( BaseResourceService $service )
+	protected function redirectAfterUpdate()
 	{
-		Notification::success( $service->messages() );
-		return Redirect::route( $this->route . '.items.index', $service->resourceIds() );
+		return $this->redirectAfterStore();
+	}
+
+	protected function redirectAfterDestroy()
+	{
+		return Redirect::route('playlists.index');
 	}
 
 }

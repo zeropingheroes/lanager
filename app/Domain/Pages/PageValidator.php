@@ -1,14 +1,9 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Pages;
 
 use Fadion\ValidatorAssistant\ValidatorAssistant;
+use Zeropingheroes\Lanager\Domain\InputValidatorContract;
 
-class PageValidator extends ValidatorAssistant {
-
-	// Todo: check implementation
-	// Not yet implemented
-	// protected $filters = [
-	// 	'parent_id' => 'intval',
-	// ];
+class PageValidator extends ValidatorAssistant implements InputValidatorContract {
 
 	/**
 	 * Validation rules to enforce for each field

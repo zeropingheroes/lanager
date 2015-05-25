@@ -4,7 +4,6 @@ use Zeropingheroes\Lanager\Domain\ApplicationUsage\ApplicationUsageService;
 use Illuminate\Routing\Controller;
 use Dingo\Api\Routing\ControllerTrait;
 
-
 class ApplicationUsageController extends Controller {
 
 	use ControllerTrait;

@@ -1,5 +1,7 @@
 <?php namespace Zeropingheroes\Lanager\Domain\PlaylistItems;
 
+use DomainException;
+
 class PlayableItemFactory {
 
 	/**
@@ -7,11 +9,11 @@ class PlayableItemFactory {
 	 * @param  string $url              Playable item's URL
 	 * @param  array  $providers        Array of supported providers
 	 * @return object PlayableItem      The playable item
-	 * @throws UnplayableItemException  When the URL is from an unsupported provider or is invalid
+	 * @throws DomainException  When the URL is from an unsupported provider or is invalid
 	 */
 	public function create($url, $providers)
 	{
-		if ( ! filter_var($url, FILTER_VALIDATE_URL) ) throw new UnplayableItemException('The URL is invalid');
+		if ( ! filter_var($url, FILTER_VALIDATE_URL) ) throw new DomainException('The URL is invalid');
 
 		foreach ( $providers as $provider )
 		{
@@ -20,6 +22,6 @@ class PlayableItemFactory {
 				return new $provider['class']($url);
 			}
 		}
-		throw new UnplayableItemException('The URL is not from a supported provider');
+		throw new DomainException('The URL is not from a supported provider');
 	}
 }

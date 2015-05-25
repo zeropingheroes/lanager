@@ -11,8 +11,22 @@ class EventSignupsController extends ResourceServiceController {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->service = new EventSignupService($this);
+		$this->service = new EventSignupService;
 		$this->transformer = new EventSignupTransformer;
+	}
+
+	public function index( $eventId )
+	{
+		$items = $this->service->filterByEvent( $eventId )->all();
+
+		return $this->response->collection( $items, $this->transformer );
+	}
+
+	public function show( $eventId, $eventSignupId )
+	{
+		$item = $this->service->filterByEvent( $eventId )->single( $eventSignupId );
+
+		return $this->response->item( $item, $this->transformer );
 	}
 
 }
