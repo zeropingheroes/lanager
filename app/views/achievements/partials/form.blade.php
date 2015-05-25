@@ -13,7 +13,7 @@
 	NULL,
 	2,
 	9
-)
+)->withAttributes( ['class' => 'required'] )
 }}
 
 <div class="row">
