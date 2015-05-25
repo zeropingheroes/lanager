@@ -10,7 +10,7 @@ View::composer('layouts.default.nav', function($view)
 	// Info (cached until a page is edited)
 	$pageMenu = Cache::rememberForever('pageMenu', function()
 	{
-		$pages = Zeropingheroes\Lanager\Pages\Page::whereNull('parent_id')->where('published', true)->orderBy(DB::raw('ISNULL(position)'))->get();
+		$pages = Zeropingheroes\Lanager\Domain\Pages\Page::whereNull('parent_id')->where('published', true)->orderBy(DB::raw('ISNULL(position)'))->get();
 		if( $pages->count() )
 		{
 			foreach($pages as $page)
