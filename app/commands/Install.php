@@ -88,7 +88,7 @@ class Install extends BaseCommand {
 	private function runInstaller()
 	{
 		$this->info('Creating database structure...');
-		$migrate = Artisan::call('migrate', array('--path' => 'app/migrations', '--force' => true));
+		$migrate = Artisan::call('migrate', array('--path' => 'database/migrations', '--force' => true));
 		if( $migrate != 0 ) $this->abort('Database structure creation failure', $this->criticalMessage);
 
 		if( Config::get('lanager/config.installed') )
@@ -99,7 +99,7 @@ class Install extends BaseCommand {
 			}
 		}
 		$this->info('Seeding database with example data...');
-		$seed = Artisan::call('db:seed', array('--class' => 'Zeropingheroes\Lanager\Seeds\DatabaseSeeder', '--force' => true));
+		$seed = Artisan::call('db:seed', array('--class' => 'DatabaseSeeder', '--force' => true));
 		if( $seed != 0 ) $this->abort('Database seeding failure', $this->criticalMessage);
 
 		$this->info('Publishing package assets...');
