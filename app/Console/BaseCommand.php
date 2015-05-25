@@ -1,9 +1,9 @@
-<?php namespace Zeropingheroes\Lanager\Commands;
+<?php namespace Zeropingheroes\Lanager\Console;
 
 use Illuminate\Console\Command;
 use Log;
 
-class BaseCommand extends Command {
+abstract class BaseCommand extends Command {
 
 	/**
 	 * The timestamp format for console messages.

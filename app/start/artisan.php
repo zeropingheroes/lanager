@@ -11,6 +11,6 @@
 |
 */
 
-Artisan::add(new Zeropingheroes\Lanager\Commands\Install);
-Artisan::resolve('Zeropingheroes\Lanager\Commands\SteamImportApps');
-Artisan::resolve('Zeropingheroes\Lanager\Commands\SteamImportUserStates');
+Artisan::add(new Zeropingheroes\Lanager\Console\Install);
+Artisan::resolve('Zeropingheroes\Lanager\Console\SteamImportApps');
+Artisan::resolve('Zeropingheroes\Lanager\Console\SteamImportUserStates');

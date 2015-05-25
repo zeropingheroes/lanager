@@ -1,4 +1,4 @@
-<?php namespace Zeropingheroes\Lanager\Commands;
+<?php namespace Zeropingheroes\Lanager\Console;
 
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;

@@ -1,4 +1,4 @@
-<?php namespace Zeropingheroes\Lanager\Commands;
+<?php namespace Zeropingheroes\Lanager\Console;
 
 use Zeropingheroes\Lanager\Domain\Applications\Application,
 	Zeropingheroes\Lanager\Domain\Applications\SteamApplications\SteamApplicationContract;
