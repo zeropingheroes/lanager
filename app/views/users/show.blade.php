@@ -11,6 +11,7 @@
 			{{{ $user->username }}}
 			@include('roles.partials.badges', ['roles' => $user->roles])
 		</h1>
+		@include('users.partials.ip', ['user' => $user] )
 	</div>
 	<div class="profile-actions">
 		@include('users.partials.actions', ['user' => $user] )
