@@ -100,10 +100,11 @@ abstract class ResourceService {
 	{
 		foreach ( $this->orderBy as $orderBy )
 		{
+			// only field name specified
 			if ( count( $orderBy ) == 1 )
 				$this->model = $this->model->orderBy( $orderBy );
 			
-			// field and direction
+			// field name and direction specified
 			if ( count( $orderBy ) == 2 )
 				$this->model = $this->model->orderBy( $orderBy[0], $orderBy[1] );
 		}
@@ -131,7 +132,7 @@ abstract class ResourceService {
 	 */
 	public function update( $id, $input )
 	{
-		$this->model = $this->model->findOrFail( $id );
+		$this->model = $this->get( $id );
 		
 		$this->model = $this->model->fill( $input );
 
@@ -147,7 +148,7 @@ abstract class ResourceService {
 	 */
 	public function destroy( $id )
 	{
-		$this->model = $this->model->findOrFail( $id );
+		$this->model = $this->get( $id );
 
 		$this->runChecks( 'destroy', $this->model->toArray() );
 
