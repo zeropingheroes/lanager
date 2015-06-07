@@ -13,14 +13,50 @@ abstract class ResourceServiceController extends Controller {
 
 	/**
 	 * Store a newly created resource in storage.
-	 *
+	 * 
 	 * @return Response
 	 */
 	public function store()
 	{
+		return $this->processStore( Input::get() );
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param integer $id      Resource's ID
+	 * @return Response
+	 */
+	public function update()
+	{
+		$id = func_get_arg(0);
+		return $this->processUpdate( $id, Input::get() );
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param integer $id      Resource's ID
+	 * @return Response
+	 */
+	public function destroy()
+	{
+		$id = func_get_arg(0);
+		return $this->processDestroy( $id );
+	}
+
+	/**
+	 * Store a newly created resource in storage
+	 * or handle any errors that may occur
+	 * 
+	 * @param array   $input   Resource's data
+	 * @return Response
+	 */
+	protected function processStore( $input )
+	{
 		try
 		{
-			$this->service->store( Input::get() );
+			$this->service->store( $input );
 			return $this->redirectAfterStore();
 		}
 		catch ( ValidationException $e )
@@ -36,17 +72,18 @@ abstract class ResourceServiceController extends Controller {
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update the specified resource in storage
+	 * or handle any errors that may occur
 	 *
+	 * @param integer $id      Resource's ID
+	 * @param array   $input   Resource's data
 	 * @return Response
 	 */
-	public function update()
+	protected function processUpdate( $id, $input )
 	{
 		try
 		{
-			$ids = func_get_args();
-			$id = end( $ids );
-			$this->service->update( $id, Input::get() );
+			$this->service->update( $id, $input );
 			return $this->redirectAfterUpdate();
 		}
 		catch ( ValidationException $e )
@@ -62,16 +99,16 @@ abstract class ResourceServiceController extends Controller {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified resource from storage
+	 * or handle any errors that may occur
 	 *
+	 * @param integer $id      Resource's ID
 	 * @return Response
 	 */
-	public function destroy()
+	protected function processDestroy( $id )
 	{
 		try
 		{
-			$ids = func_get_args();
-			$id = end( $ids );
 			$this->service->destroy( $id );
 			return $this->redirectAfterDestroy();
 		}
