@@ -131,6 +131,7 @@ class User extends BaseModel implements UserInterface {
 			if( $assignedRole->name == 'Super Admin' )
 				return true;
 
+			// Otherwise just check if they have the role
 			return ($assignedRole->name === $requiredRoleName);
 		}
 		return false;
