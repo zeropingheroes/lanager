@@ -123,6 +123,7 @@ if ( ! function_exists('lists') )
 {
 	function lists( $items, $key, $value )
 	{
+		$list = [];
 		foreach( $items as $item )
 		{
 			$list[$item->$key] = $item->$value;
