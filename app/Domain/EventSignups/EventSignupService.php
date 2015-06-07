@@ -31,7 +31,7 @@ class EventSignupService extends ResourceService {
 	 */
 	public function filterByEvent( $eventId )
 	{
-		$this->model = $this->model->where( 'user_id', $eventId );
+		$this->model = $this->model->where( 'event_id', $eventId );
 
 		return $this;
 	}
