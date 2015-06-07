@@ -38,8 +38,9 @@ class AchievementService extends ResourceService {
 
 	protected function filter()
 	{
-		if ( ! $this->user->hasRole( 'Achievements Admin' ) )
-			$this->model = $this->model->where( 'visible', true );
+		// Todo: re-implement hidden achievements
+		// if ( ! $this->user->hasRole( 'Achievements Admin' ) )
+		// 	$this->model = $this->model->where( 'visible', true );
 	}
 
 }
