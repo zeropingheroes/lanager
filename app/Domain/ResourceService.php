@@ -243,6 +243,10 @@ abstract class ResourceService {
 
 		$validation = $this->inputValidator->make( $input );
 		$validation->scope( [ $action ] );
+		
+		// Remove eager loaded data
+		$input = array_filter($input, function($inputVal) { return ! is_array($inputVal); });
+
 		$validation->bind( $input ); // provide all input data for use in rule definitions
 
 		if ( $validation->fails() )
