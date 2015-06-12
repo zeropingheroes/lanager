@@ -12,7 +12,7 @@ class Role extends BaseModel {
 	 */
 	public function users()
 	{
-		return $this->belongsToMany( 'Zeropingheroes\Lanager\Domain\Users\User', 'user_roles' );
+		return $this->belongsToMany( 'Zeropingheroes\Lanager\Domain\Users\User', 'user_roles' )->withTimestamps();
 	}
 
 	/**
