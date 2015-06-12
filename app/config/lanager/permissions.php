@@ -34,8 +34,6 @@ return [
 		$authority->allow('read', 'events.signups');
 		$authority->allow('read', 'lans');
 		$authority->allow('read', 'pages');
-		$authority->allow('read', 'playlists');
-		$authority->allow('read', 'playlists.items');
 		$authority->allow('read', 'roles');
 		$authority->allow('read', 'shouts');
 		$authority->allow('read', 'usage');
@@ -65,23 +63,6 @@ return [
 			{
 				if ( is_object($item) ) return ($item->user_id == $self->getCurrentUser()->id);
 				if ( is_array($item) ) return $self->getCurrentUser()->shouts()->where('id', $item['shouts'])->count();
-			});
-
-			// Playlist Items			
-			$authority->allow('create', 'playlists.items');
-			$authority->allow('delete', 'playlists.items', function($self, $item)
-			{
-				if ( is_object($item) ) return ($item->user_id == $self->getCurrentUser()->id);
-				if ( is_array($item) ) return $self->getCurrentUser()->playlistItems()->where('id', $item['items'])->count();
-			});
-
-
-			// Playlist Item Votes
-			$authority->allow('create', 'playlists.items.votes');
-			$authority->allow('delete', 'playlists.items.votes', function($self, $item)
-			{
-				if ( is_object($item) ) return ($item->user_id == $self->getCurrentUser()->id);
-				if ( is_array($item) ) return $self->getCurrentUser()->playlistItemVotes()->where('id', $item['votes'])->count();
 			});
 
 			// Event Signups
@@ -121,17 +102,8 @@ return [
 				$authority->allow('manage', 'events.signups');
 			}
 
-			if ( $self->hasRole('Playlists Admin') ) 
-			{
-				$authority->allow('play', 'playlists');
-				$authority->allow('manage', 'playlists');
-				$authority->allow('manage', 'playlists.items');
-				$authority->allow('manage', 'playlists.items.votes');
-			}
-
 			if ( $self->hasRole('Admin') )
 			{
-				$authority->allow('play', 'playlists');
 				$authority->allow('read', 'logs');
 				$authority->allow('manage', 'all');
 

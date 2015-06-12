@@ -22,9 +22,6 @@ more enjoyable for attendees and organisers alike.
 * **Shouts** allowing attendees and admins to broadcast short messages
 * **Live Dashboard** showing current and next events, games in progress and shouts, for big screen display
 
-### Improve Atmosphere
-* **User-generated playlists**, allowing users to request music & videos for play-out on a big screen and PA system
-
 ### Open for Integration
 * **RESTful API** with open read access and API key guarded write access to all resources
 * **Events dispatcher** allowing for hooking in of extra operations 

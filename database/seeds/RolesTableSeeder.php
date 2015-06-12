@@ -19,7 +19,6 @@ class RolesTableSeeder extends Seeder {
 			array('name' => 'Pages Admin'),
 			array('name' => 'Shouts Admin'),
 			array('name' => 'Events Admin'),
-			array('name' => 'Playlists Admin'),
 		);
 
 		foreach($roles as $role)

@@ -15,10 +15,6 @@ $navbar =
 		'link' => URL::route('application-usage.index'),
 	],
 	[
-		'title' => 'Playlists',
-		'link' => URL::route('playlists.index'),
-	],
-	[
 		'Info',
 		$info,
 	],

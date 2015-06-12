@@ -33,24 +33,6 @@ class User extends BaseModel implements UserInterface {
 	}
 
 	/**
-	 * A single user has many playlist items
-	 * @return object Illuminate\Database\Eloquent\Relations\Relation
-	 */
-	public function playlistItems()
-	{
-		return $this->hasMany('Zeropingheroes\Lanager\Domain\PlaylistItems\PlaylistItem');
-	}
-
-	/**
-	 * A single user has many playlist item (skip) votes
-	 * @return object Illuminate\Database\Eloquent\Relations\Relation
-	 */
-	public function playlistItemVotes()
-	{
-		return $this->hasMany('Zeropingheroes\Lanager\Domain\PlaylistItemVotes\PlaylistItemVote');
-	}
-
-	/**
 	 * A single user has many user achievements (aka awards)
 	 * @return object Illuminate\Database\Eloquent\Relations\Relation
 	 */

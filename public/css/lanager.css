@@ -308,32 +308,6 @@ form.event-create .bootstrap-datetimepicker-widget ul td span.active { /* light 
 }
 
 /* -------------------------------------------------------------------
-   PLAYLIST ITEMS - INDEX
-   -------------------------------------------------------------------
-*/
-form.playlist-item-create div.input-group {
-	width: 100%;
-	margin-bottom: 15px;
-}
-
-form.playlist-item-create div.input-group span.input-group-btn {
-	width: 54px;
-}
-
-/* -------------------------------------------------------------------
-   PLAYLIST - SHOW (SCREEN)
-   -------------------------------------------------------------------
-*/
-div#now-playing, div#submitter {
-	font-size: 150%;
-}
-
-div#submitter img {
-	padding-left: 5px;
-}
-
-
-/* -------------------------------------------------------------------
    DASHBOARD
    -------------------------------------------------------------------
 */

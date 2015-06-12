@@ -57,16 +57,6 @@ function()
 
 	/*
 	|--------------------------------------------------------------------------
-	| Playlists
-	|--------------------------------------------------------------------------
-	*/
-	Route::resource('playlists', 'PlaylistsController');
-	Route::resource('playlists.items', 'PlaylistItemsController', ['only' => ['index', 'store', 'update', 'destroy']]);
-	Route::resource('playlists.items.votes', 'PlaylistItemVotesController', ['only' => ['store', 'destroy']]);
-	Route::get('playlists/{playlists}/play', ['as' => 'playlists.play', 'uses' => 'PlaylistsController@play']);
-
-	/*
-	|--------------------------------------------------------------------------
 	| Achievements
 	|--------------------------------------------------------------------------
 	*/
@@ -121,9 +111,6 @@ function()
 		Route::resource('event-types',			'EventTypesController',			['except' => ['create', 'edit'] ]);
 		Route::resource('pages',				'PagesController',				['except' => ['create', 'edit'] ]);
 		Route::resource('lans',					'LansController',				['except' => ['create', 'edit'] ]);
-		Route::resource('playlists',			'PlaylistsController',			['except' => ['create', 'edit'] ]);
-		Route::resource('playlists.items',		'PlaylistItemsController',		['except' => ['create', 'edit'] ]);
-		Route::resource('playlists.items.votes','PlaylistItemVotesController',	['except' => ['create', 'edit', 'update'] ]);
 		Route::resource('shouts',				'ShoutsController',				['except' => ['create', 'edit'] ]);
 		Route::resource('roles',				'RolesController',				['except' => ['create', 'edit'] ]);
 		Route::resource('user-roles',			'UserRolesController',			['except' => ['create', 'edit', 'update'] ]);

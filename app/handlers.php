@@ -10,7 +10,6 @@
 |
 */
 
-Event::subscribe('Zeropingheroes\Lanager\Domain\PlaylistItemVotes\PlaylistItemVoteHandler');
 Event::subscribe('Zeropingheroes\Lanager\Domain\Users\UserHandler');
 
 // Log all service actions
