@@ -4,6 +4,7 @@ use Zeropingheroes\Lanager\Domain\UserRoles\UserRoleService;
 use Zeropingheroes\Lanager\Domain\Users\UserService;
 use Zeropingheroes\Lanager\Domain\Roles\RoleService;
 use View;
+use Redirect;
 
 class UserRolesController extends ResourceServiceController {
 
