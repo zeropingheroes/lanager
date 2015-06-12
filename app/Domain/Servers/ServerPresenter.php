@@ -12,11 +12,11 @@ class ServerPresenter extends Presenter {
 	public function ipAndPort()
 	{
 		// Todo: add support for default application ports
-		if( $this->address && $this->port)
+		if ( $this->address && $this->port)
 		{
 			return $this->address.':'.$this->port;
 		}
-		if( $this->address )
+		if ( $this->address )
 		{
 			return $this->address;
 		}

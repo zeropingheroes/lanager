@@ -73,6 +73,6 @@ Route::filter('permission', function($route, $request)
 	$parameters = $route->parameters();
 
 	// test if current user has permission to perform {action} on {resource} with {parameters}
-	if( Authority::cannot($action, $resource, $parameters) ) return App::abort(403);
+	if ( Authority::cannot($action, $resource, $parameters) ) return App::abort(403);
 
 });

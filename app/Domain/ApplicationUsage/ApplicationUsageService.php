@@ -43,7 +43,7 @@ class ApplicationUsageService {
 	{
 		$states = $this->states->at( $timestamp )->whereNotNull('states.application_id')->get();
 
-		if( count($states) )
+		if ( count($states) )
 		{
 			// Collect and combine states for the same application
 			foreach($states as $state)

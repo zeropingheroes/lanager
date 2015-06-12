@@ -21,7 +21,7 @@ class LocomotiveSteamApplicationRepository implements SteamApplicationContract {
 	public function getApplicationList()
 	{
 		$steamApps = $this->steamApi->ISteamApps->GetAppList();
-		if(count($steamApps) != 0)
+		if (count($steamApps) != 0)
 		{
 			foreach($steamApps->applist->apps as $app)
 			{

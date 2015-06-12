@@ -61,7 +61,7 @@ class SteamImportApps extends BaseCommand {
 				// Search for the application in the database to update it if it already exists
 				$application = Application::where( 'steam_app_id', $steamApp->id )->first();
 				
-				if( ! $application )
+				if ( ! $application )
 				{
 					$application = new Application;
 					$newApp = true;
@@ -76,7 +76,7 @@ class SteamImportApps extends BaseCommand {
 				
 				$successCount++;
 				
-				if( $newApp )
+				if ( $newApp )
 				{
 					$applicationsCreated++;
 				}
@@ -88,7 +88,7 @@ class SteamImportApps extends BaseCommand {
 			}
 		}
 		$this->info($successCount.' Steam applications successfully imported. New: '.$applicationsCreated);
-		if( $failureCount > 0 ) $this->error($failureCount.' Steam applications were not imported due to errors');
+		if ( $failureCount > 0 ) $this->error($failureCount.' Steam applications were not imported due to errors');
 	}
 
 }

@@ -49,7 +49,7 @@ class SteamImportUserStates extends BaseCommand {
 	{
 		$users = User::where('visible', 1)->get()->lists('steam_id_64');
 
-		if(count($users) == 0)
+		if (count($users) == 0)
 		{
 			$this->info('No users in database');
 			return;
@@ -58,7 +58,7 @@ class SteamImportUserStates extends BaseCommand {
 		$this->info('Requesting current status of '.count($users).' users from Steam');
 		$steamUserInterface = $this->steamUserInterface->getUsers($users);
 
-		if( count($steamUserInterface) < count($users) ) $this->error('Steam responded with '.(count($users)-count($steamUserInterface)).' fewer users than requested');
+		if ( count($steamUserInterface) < count($users) ) $this->error('Steam responded with '.(count($users)-count($steamUserInterface)).' fewer users than requested');
 
 		$successCount = 0;
 		$failureCount = 0;
@@ -75,17 +75,17 @@ class SteamImportUserStates extends BaseCommand {
 				$user = User::where('steam_id_64', $steamUser->id)->first();
 
 				// Update user details with steam details if they have changed
-				if( $user->username != $steamUser->username ) $user->username = $steamUser->username;
-				if( $user->avatar != $steamUser->avatar_url ) $user->avatar = $steamUser->avatar_url;
-				if( $user->steam_visibility != $steamUser->visibility ) $user->steam_visibility = $steamUser->visibility;
+				if ( $user->username != $steamUser->username ) $user->username = $steamUser->username;
+				if ( $user->avatar != $steamUser->avatar_url ) $user->avatar = $steamUser->avatar_url;
+				if ( $user->steam_visibility != $steamUser->visibility ) $user->steam_visibility = $steamUser->visibility;
 				$user->save();
 
 				// If the user is currently running an app
-				if( is_numeric($steamUser->current_app_id) )
+				if ( is_numeric($steamUser->current_app_id) )
 				{
 					// Find database application ID
 					$currentApplication = Application::where('steam_app_id', $steamUser->current_app_id)->first();
-					if( ! count($currentApplication) )
+					if ( ! count($currentApplication) )
 					{
 						$missingApps[] = $steamUser->current_app_id;
 						$currentApplication = NULL;
@@ -93,14 +93,14 @@ class SteamImportUserStates extends BaseCommand {
 				}
 
 				// If the user is currently running an app and connected to a server
-				if( $currentApplication && isset($steamUser->current_server_ip) )
+				if ( $currentApplication && isset($steamUser->current_server_ip) )
 				{
 					// Find database server ID
 					$currentServer = Server::where('address', $steamUser->current_server_ip)
 											->where('port', $steamUser->current_server_port)
 											->first();
 					// Create server if it does not already exist
-					if( ! count($currentServer) )
+					if ( ! count($currentServer) )
 					{
 						$currentServer = new Server;
 						$currentServer->application_id = $currentApplication->id;
@@ -114,8 +114,8 @@ class SteamImportUserStates extends BaseCommand {
 				$state = new State;
 				$state->user_id										= $user->id;
 				$state->status										= $steamUser->status;
-				if( $currentApplication )	$state->application_id	= $currentApplication->id;
-				if( $currentServer )		$state->server_id		= $currentServer->id;
+				if ( $currentApplication )	$state->application_id	= $currentApplication->id;
+				if ( $currentServer )		$state->server_id		= $currentServer->id;
 
 				$state->save();
 	
@@ -128,8 +128,8 @@ class SteamImportUserStates extends BaseCommand {
 			}
 		}
 		// Provide info on results
-		if( $successCount > 0 ) $this->info($successCount . ' Steam user states successfully imported' );
-		if( count($missingApps) > 0 ) $this->error(count($missingApps). ' ' . str_plural('application', count($missingApps)).' missing from local database - Please run "steam:import-apps"');
+		if ( $successCount > 0 ) $this->info($successCount . ' Steam user states successfully imported' );
+		if ( count($missingApps) > 0 ) $this->error(count($missingApps). ' ' . str_plural('application', count($missingApps)).' missing from local database - Please run "steam:import-apps"');
 	}
 
 }

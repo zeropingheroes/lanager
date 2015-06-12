@@ -1,4 +1,4 @@
-@if( count($applications) )
+@if ( count($applications) )
 	<table class="table states-current-usage">
 	@foreach($applications as $application)
 		<tr>

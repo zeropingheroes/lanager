@@ -5,7 +5,7 @@
 
 	<h4>{{{ $achievement->description }}}</h4>
 
-	@if( $achievement->userAchievements->count() )
+	@if ( $achievement->userAchievements->count() )
 		<table class="table">
 			<thead>
 				<tr>
@@ -15,7 +15,7 @@
 					<th colspan="2">
 						Awarded at
 					</th>
-					@if( Authority::can('manage', 'user-achievements') )
+					@if ( Authority::can('manage', 'user-achievements') )
 						<th class="text-center">{{ Icon::cog() }}</th>
 					@endif
 				</tr>
@@ -32,7 +32,7 @@
 					<td>
 						{{ (new ExpressiveDate($userAchievement->created_at))->format('D g:ia') }}
 					</td>
-					@if( Authority::can('manage', 'user-achievements') )
+					@if ( Authority::can('manage', 'user-achievements') )
 						<td class="text-center">
 							@include('buttons.edit', ['resource' => 'user-achievements', 'item' => $userAchievement, 'size' => 'extraSmall'])
 							@include('buttons.destroy', ['resource' => 'user-achievements', 'item' => $userAchievement, 'size' => 'extraSmall'])

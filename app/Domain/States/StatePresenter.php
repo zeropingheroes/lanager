@@ -13,8 +13,8 @@ class StatePresenter extends Presenter {
 		switch ($this->status)
 		{
 			case '1':
-				if(   is_null($this->application_id) ) return 'Online';
-				if( ! is_null($this->application_id) ) return 'In Game';
+				if (   is_null($this->application_id) ) return 'Online';
+				if ( ! is_null($this->application_id) ) return 'In Game';
 			case '2':
 				return 'Busy';
 			case '3':

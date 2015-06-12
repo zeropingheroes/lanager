@@ -20,10 +20,10 @@ class LocomotiveSteamUserRepository implements SteamUserContract {
 	 */
 	public function getUser($steamId64)
 	{
-		if( strlen($steamId64) != 17 ) throw new \InvalidArgumentException('SteamId64 must be 17 characters in length');
+		if ( strlen($steamId64) != 17 ) throw new \InvalidArgumentException('SteamId64 must be 17 characters in length');
 
 		$steamUsers = $this->getUsers(array($steamId64));
-		if(count($steamUsers) == 1)
+		if (count($steamUsers) == 1)
 		{
 			return $steamUsers[0];
 		}
@@ -71,7 +71,7 @@ class LocomotiveSteamUserRepository implements SteamUserContract {
 			$steamUsers[] = $steamUser;
 		}
 		
-		if(isset($steamUsers))
+		if (isset($steamUsers))
 		{
 			return $steamUsers;
 		}

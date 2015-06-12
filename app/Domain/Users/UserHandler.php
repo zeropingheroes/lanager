@@ -23,14 +23,14 @@ class UserHandler {
 	public function onStore($user)
 	{
 		// Make the first user SuperAdmin
-		if( count(User::all()) == 1 && ! $user->hasRole('Super Admin') )
+		if ( count(User::all()) == 1 && ! $user->hasRole('Super Admin') )
 		{
 			$user->roles()->attach(Role::where('name', '=', 'Super Admin')->firstOrFail());
 			Log::debug( e($user->username) . ': Assigning "Super Admin" role as first user to log in', [$user->api_key]);
 		}
 
 		// Generate an API key if the user does not have one
-		if( empty($user->api_key) )
+		if ( empty($user->api_key) )
 		{
 			$user->api_key = md5(str_random(32));
 			$user->save();

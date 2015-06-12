@@ -14,7 +14,7 @@ class ApplicationPresenter extends Presenter {
 	 */
 	private function logo($size)
 	{
-		if( is_numeric($this->steam_app_id) ) return (new Store())->getAppLogoURL($this->steam_app_id, $size);
+		if ( is_numeric($this->steam_app_id) ) return (new Store())->getAppLogoURL($this->steam_app_id, $size);
 	}
 
 	/**
@@ -50,7 +50,7 @@ class ApplicationPresenter extends Presenter {
 	 */
 	public function url()
 	{
-		if( is_numeric( $this->steam_app_id ) )
+		if ( is_numeric( $this->steam_app_id ) )
 		{
 			return SteamBrowserProtocol::viewAppInStore( $this->steam_app_id );	
 		}

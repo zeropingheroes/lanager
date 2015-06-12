@@ -18,7 +18,7 @@ class UserImport {
 		$steamUser = $this->steamUser->getUser( $steamId64 );
 
 		// Create new user if they are not found in the database
-		if( ! $user = User::where( 'steam_id_64', '=', $steamId64 )->first() ) $user = new User;
+		if ( ! $user = User::where( 'steam_id_64', '=', $steamId64 )->first() ) $user = new User;
 
 		$user->username 		= $steamUser->username;
 		$user->steam_id_64		= $steamUser->id;
@@ -27,7 +27,7 @@ class UserImport {
 		$user->avatar			= $steamUser->avatar_url;
 		$user->ip 				= Request::server( 'REMOTE_ADDR' );
 
-		if( $user->save() )
+		if ( $user->save() )
 		{
 			Event::fire( 'lanager.users.store', $user ); // todo: use service
 			return $user;

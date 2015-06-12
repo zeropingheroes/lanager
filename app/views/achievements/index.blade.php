@@ -3,14 +3,14 @@
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
 
-	@if(count($achievements))
+	@if (count($achievements))
 		<table class="table">
 			<thead>
 				<tr>
 					<th>Name</th>
 					<th>Description</th>
 					<th>Achieved By</th>
-					@if( Authority::can('manage', 'achievements') )
+					@if ( Authority::can('manage', 'achievements') )
 						<th class="text-center">{{ Icon::cog() }}</th>
 					@endif
 				</tr>
@@ -23,7 +23,7 @@
 					<td>
 						@include('plural', ['singular' => 'user', 'collection' => $achievement->userAchievements ])
 					</td>
-					@if( Authority::can('manage', 'achievements') )
+					@if ( Authority::can('manage', 'achievements') )
 						<td class="text-center">
 							@include('achievements.partials.button-award', ['achievement' => $achievement, 'size' => 'extraSmall'])
 							@include('buttons.edit', ['resource' => 'achievements', 'item' => $achievement, 'size' => 'extraSmall'])

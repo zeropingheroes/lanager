@@ -21,10 +21,10 @@ class LogsController extends ResourceServiceController {
 	 */
 	public function index()
 	{
-		if( Input::get( 'sapi' ) )
+		if ( Input::get( 'sapi' ) )
 			$this->service->filterBySapi( Input::get( 'sapi' ) );
 
-		if( Input::get( 'minLevel' ) )
+		if ( Input::get( 'minLevel' ) )
 			$this->service->filterByMinimumLevel( Input::get( 'minLevel' ) );
 
 		$logs = $this->service->all();

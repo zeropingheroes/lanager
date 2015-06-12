@@ -11,7 +11,7 @@ View::composer('layouts.default.nav', function($view)
 	$pageMenu = Cache::rememberForever('pageMenu', function()
 	{
 		$pages = Zeropingheroes\Lanager\Domain\Pages\Page::whereNull('parent_id')->where('published', true)->orderBy(DB::raw('ISNULL(position)'))->get();
-		if( $pages->count() )
+		if ( $pages->count() )
 		{
 			foreach($pages as $page)
 			{

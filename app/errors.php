@@ -10,7 +10,7 @@ App::error( function( Exception $exception, $code )
 	Log::error( 'Uncaught exception: ' . get_class( $exception ), [ $exception->__toString() ] );
 	
 	// Display pretty HTTP 500 page if we aren't in debug mode (and don't log it again)
-	if( ! Config::get('app.debug') ) return handleHttpError( 500, ['log' => false] );
+	if ( ! Config::get('app.debug') ) return handleHttpError( 500, ['log' => false] );
 });
 
 /*
@@ -129,7 +129,7 @@ function handleHttpError($httpStatusCode, $options = [])
 
 	$description = ( isset( $options['description'] ) ) ? $options['description'] : $httpDescription;
 
-	if( ! isset($options['log']) OR $options['log'] == true )
+	if ( ! isset($options['log']) OR $options['log'] == true )
 	{
 		Log::{$level}( $httpStatusCode . ' ' . $httpStatusName . ': ' . Request::fullUrl(),
 			[
@@ -141,7 +141,7 @@ function handleHttpError($httpStatusCode, $options = [])
 		);
 	}
 
-	if( ! isset($options['source']) OR $options['source'] == 'gui' )
+	if ( ! isset($options['source']) OR $options['source'] == 'gui' )
 	{
 		return Response::view( 'errors.default',
 			[
@@ -151,7 +151,7 @@ function handleHttpError($httpStatusCode, $options = [])
 			$httpStatusCode
 		);
 	}
-	elseif( isset($options['source']) && $options['source'] == 'api' )
+	elseif ( isset($options['source']) && $options['source'] == 'api' )
 	{
 		$response = Response::make(
 			[
@@ -159,7 +159,7 @@ function handleHttpError($httpStatusCode, $options = [])
 			],
 			$httpStatusCode
 		);
-		if( $httpStatusCode == 401 ) $response->header('WWW-Authenticate', 'Lanager');
+		if ( $httpStatusCode == 401 ) $response->header('WWW-Authenticate', 'Lanager');
 		return $response;
 	}
 }

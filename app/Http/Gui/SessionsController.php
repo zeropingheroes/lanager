@@ -49,14 +49,14 @@ class SessionsController extends Controller {
 	public function store()
 	{
 		// If session is from a Steam OpenID
-		if( str_contains( Input::get('openid_op_endpoint'), 'steamcommunity.com' ))
+		if ( str_contains( Input::get('openid_op_endpoint'), 'steamcommunity.com' ))
 		{
 			$openId = new LightOpenID(Request::server('HTTP_HOST'));
 			if ( $openId->validate() )
 			{
 				$user = UserImport::fromSteam( substr($openId->identity, -17) );
 				Auth::login($user);
-				if( $user->steam_visibility != 3 ) return Redirect::route('users.show', $user->id);
+				if ( $user->steam_visibility != 3 ) return Redirect::route('users.show', $user->id);
 				return Redirect::to('/');
 			}
 			Notification::danger('Unable to validate your OpenID');
@@ -72,7 +72,7 @@ class SessionsController extends Controller {
 	 */
 	public function destroy($id = '')
 	{
-		if( ! $id )
+		if ( ! $id )
 		{
 			Auth::logout();
 			return Redirect::to('/');

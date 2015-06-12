@@ -33,7 +33,7 @@ Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 // Log to the database asynchronously if available
 Log::listen(function($level, $message, $context) {
 
-	if( Config::get('lanager/config.installed') )
+	if ( Config::get('lanager/config.installed') )
 	{
 		// Save the php sapi and date, because the closure needs to be serialized
 		$apiName = php_sapi_name();

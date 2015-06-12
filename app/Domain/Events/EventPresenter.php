@@ -51,7 +51,7 @@ class EventPresenter extends Presenter {
 	 */
 	public function signupTimespanStatusLabel($prefix = '')
 	{
-		if( ! is_null($this->signup_opens) )
+		if ( ! is_null($this->signup_opens) )
 		{
 			$signupTimespanTense = Timespan::tense($this->signup_opens, $this->signup_closes);
 
@@ -76,7 +76,7 @@ class EventPresenter extends Presenter {
 	 */
 	public function signupTimespanRelativeToNow()
 	{
-		if( ! is_null($this->signup_opens) )
+		if ( ! is_null($this->signup_opens) )
 		{
 			$words = array(
 				'starting' => 'Opening',

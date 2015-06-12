@@ -44,7 +44,7 @@ class EventTransformer extends TransformerAbstract {
 	 */
 	public function includeType(Event $event)
 	{
-		if( $event->type()->count() )
+		if ( $event->type()->count() )
 		{
 			return $this->item($event->type()->first(), new EventTypeTransformer);
 		}

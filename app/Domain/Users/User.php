@@ -106,11 +106,11 @@ class User extends BaseModel implements UserInterface {
 		{
 			// If the user is assigned the "admin" role, let them do everything
 			// except things that require superadmin acccess
-			if( $assignedRole->name == 'Admin' AND $requiredRoleName != 'Super Admin' )
+			if ( $assignedRole->name == 'Admin' AND $requiredRoleName != 'Super Admin' )
 				return true;
 
 			// If the user is assigned the "super admin" role, let them do everything
-			if( $assignedRole->name == 'Super Admin' )
+			if ( $assignedRole->name == 'Super Admin' )
 				return true;
 
 			// Otherwise just check if they have the role
@@ -127,7 +127,7 @@ class User extends BaseModel implements UserInterface {
 	{
 		foreach($this->roles as $role)
 		{
-			if(str_contains(strtolower($role->name), 'admin'))
+			if (str_contains(strtolower($role->name), 'admin'))
 			{
 				return true;
 			}

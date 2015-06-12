@@ -39,7 +39,7 @@ class Event extends BaseModel {
 	 */
 	public function isOpenForSignups()
 	{
-		if( is_null( $this->signup_opens ) ) return false;
+		if ( is_null( $this->signup_opens ) ) return false;
 		return ( time() < strtotime($this->signup_closes) && time() > strtotime($this->signup_opens) );
 	}
 

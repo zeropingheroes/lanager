@@ -1,6 +1,6 @@
 <?php
 
-if( isset($application) )
+if ( isset($application) )
 {
 	$size = ( isset($size) ? $size : '');
 

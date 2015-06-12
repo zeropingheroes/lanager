@@ -44,7 +44,7 @@ class Install extends BaseCommand {
 	 */
 	public function fire()
 	{
-		if( Config::get('lanager/config.installed') )
+		if ( Config::get('lanager/config.installed') )
 		{
 			if (!$this->confirm('Installation already marked as completed - are you sure you want to continue? [yes|no]')) exit();
 		}
@@ -89,44 +89,44 @@ class Install extends BaseCommand {
 	{
 		$this->info('Creating database structure...');
 		$migrate = Artisan::call('migrate', array('--path' => 'database/migrations', '--force' => true));
-		if( $migrate != 0 ) $this->abort('Database structure creation failure', $this->criticalMessage);
+		if ( $migrate != 0 ) $this->abort('Database structure creation failure', $this->criticalMessage);
 
-		if( Config::get('lanager/config.installed') )
+		if ( Config::get('lanager/config.installed') )
 		{
-			if( $this->confirm('Would you like to empty the database before inserting default data? [yes|no]') )
+			if ( $this->confirm('Would you like to empty the database before inserting default data? [yes|no]') )
 			{
 				$this->emptyDatabase();
 			}
 		}
 		$this->info('Seeding database with example data...');
 		$seed = Artisan::call('db:seed', array('--class' => 'DatabaseSeeder', '--force' => true));
-		if( $seed != 0 ) $this->abort('Database seeding failure', $this->criticalMessage);
+		if ( $seed != 0 ) $this->abort('Database seeding failure', $this->criticalMessage);
 
 		$this->info('Publishing package assets...');
 		$publish = Artisan::call('asset:publish');
-		if( $publish != 0 ) $this->abort('Asset publishing failure', $this->criticalMessage);
+		if ( $publish != 0 ) $this->abort('Asset publishing failure', $this->criticalMessage);
 
 		$this->info('Importing Steam applications... (this will take up to 5 minutes)');
 		$import = Artisan::call('steam:import-apps');
-		if( $import != 0 ) $this->abort('Steam app import error', $this->criticalMessage);
+		if ( $import != 0 ) $this->abort('Steam app import error', $this->criticalMessage);
 
 		$this->info('Changing session driver to database in config file...');
 		$sessionConfig = $this->editConfigFile('app/config/session.php', "'driver' => 'array'", "'driver' => 'database'");
-		if( ! $sessionConfig ) $this->abort('Unable to change session driver', $this->criticalMessage);
+		if ( ! $sessionConfig ) $this->abort('Unable to change session driver', $this->criticalMessage);
 
 		$this->info('Setting application key...');
 		$appKey = Artisan::call('key:generate');
-		if( $appKey != 0 ) $this->abort('Unable to set application key', $this->criticalMessage);
+		if ( $appKey != 0 ) $this->abort('Unable to set application key', $this->criticalMessage);
 
 		$this->info('Marking LANager as installed in config file...');
 		$lanagerConfig = $this->editConfigFile('app/config/lanager/config.php', "'installed'	=> false","'installed'	=> true");
-		if( ! $lanagerConfig ) $this->abort('Unable to mark installation as completed', $this->criticalMessage);
+		if ( ! $lanagerConfig ) $this->abort('Unable to mark installation as completed', $this->criticalMessage);
 
 		$this->info('');
 		$this->info('Installation completed!');
 		$this->info('');
 		$this->info('IMPORTANT: Please schedule "SteamImportUserStates" to run every minute before continuing.');
-		if( strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' )
+		if ( strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' )
 		{
 			$this->info('Add a task for "SteamImportUserStates.bat" in Windows task scheduler');
 			$this->info('More info: http://support.microsoft.com/kb/226795');
@@ -151,7 +151,7 @@ class Install extends BaseCommand {
 	private function checkRequirement($checkDescription, $check, $messageOnFailure)
 	{
 		$this->info('Checking ' . $checkDescription );
-		if( $check )
+		if ( $check )
 		{
 			$this->info('Passed');
 		}
@@ -212,7 +212,7 @@ class Install extends BaseCommand {
 	private function checkInternetConnection()
 	{
 		$connectionTest = @fsockopen("www.google.com", 80); //website and port
-		if($connectionTest)
+		if ($connectionTest)
 		{
 			fclose($connectionTest);
 			return true;
@@ -256,11 +256,11 @@ class Install extends BaseCommand {
 		$fileContents = file_get_contents($path);
 		$fileContents = str_replace($find, $replace, $fileContents, $replacementsMade);
 		
-		if( $replacementsMade == 0 )
+		if ( $replacementsMade == 0 )
 		{
 			// Check if replacement has already been made
 			str_replace($replace, $replace, $fileContents, $replacementsMade);
-			if( $replacementsMade == 0 )
+			if ( $replacementsMade == 0 )
 			{
 				$this->abort('Could not find text "' . $find . '" in "' . $path . '"', $this->criticalMessage);
 			}
