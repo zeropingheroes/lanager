@@ -3,11 +3,17 @@
 use Zeropingheroes\Lanager\Domain\ResourceService;
 use Zeropingheroes\Lanager\Domain\Events\EventService;
 use Zeropingheroes\Lanager\Domain\AuthorisationException;
+use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByCreatedAt;
+use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByUser;
 use DomainException;
 
 class EventSignupService extends ResourceService {
 
 	protected $eagerLoad = [ 'user.state.application' ];
+
+	use FilterableByCreatedAt;
+
+	use FilterableByUser;
 
 	public function __construct()
 	{
@@ -32,18 +38,6 @@ class EventSignupService extends ResourceService {
 	public function filterByEvent( $eventId )
 	{
 		$this->model = $this->model->where( 'event_id', $eventId );
-
-		return $this;
-	}
-
-	/**
-	 * Filter by a given user
-	 * @param  integer $userId  user's ID
-	 * @return self
-	 */
-	public function filterByUser( $userId )
-	{
-		$this->model = $this->model->where( 'user_id', $userId );
 
 		return $this;
 	}
