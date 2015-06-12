@@ -47,7 +47,7 @@ class User extends BaseModel implements UserInterface {
 	 */
 	public function roles()
 	{
-		return $this->belongsToMany('Zeropingheroes\Lanager\Domain\Roles\Role', 'user_roles');
+		return $this->belongsToMany('Zeropingheroes\Lanager\Domain\Roles\Role', 'user_roles')->withTimestamps();
 	}
 
 	/**
