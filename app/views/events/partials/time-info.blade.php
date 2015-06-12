@@ -7,7 +7,7 @@
 	</div>
 	<div class="col-md-4">
 		<h4 class="pull-right">
-		@if( ! empty( $event->signup_opens) )
+		@if ( ! empty( $event->signup_opens) )
 			{{ $event->present()->signupTimespanStatusLabel('Signups ') }}
 		@endif
 		</h4>

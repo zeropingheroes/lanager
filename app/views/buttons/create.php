@@ -1,7 +1,7 @@
 <?php
 
 // Check the current user is allowed to create a resource of this type
-if( Authority::can('create', $resource) )
+if ( Authority::can('create', $resource) )
 {
 	// If an array of route parameters is specified use it, otherwise set to null
 	$parameters = ( isset($parameters) && is_array($parameters) ) ? $parameters : null;

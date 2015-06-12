@@ -13,12 +13,12 @@ class RolesTableSeeder extends Seeder {
 	{
 		if( DB::table('roles')->count()) return; // don't seed if table is not empty
 
-		$roles = array(
-			array('name' => 'Super Admin'),
-			array('name' => 'Admin'),
-			array('name' => 'Pages Admin'),
-			array('name' => 'Shouts Admin'),
-			array('name' => 'Events Admin'),
+		$roles = [
+			['name' => 'Super Admin'],
+			['name' => 'Admin'],
+			['name' => 'Pages Admin'],
+			['name' => 'Shouts Admin'],
+			['name' => 'Events Admin'],
 		);
 
 		foreach($roles as $role)

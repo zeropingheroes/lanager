@@ -3,7 +3,7 @@
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
 
-	@if(count($lans))
+	@if (count($lans))
 		<table class="table">
 			<thead>
 				<tr>
@@ -12,7 +12,7 @@
 					<th>Times</th>
 					<th>Duration</th>
 					<th>Achievements</th>
-					@if( Authority::can('manage', 'lans') )
+					@if ( Authority::can('manage', 'lans') )
 						<th class="text-center">{{ Icon::cog() }}</th>
 					@endif
 				</tr>
@@ -27,7 +27,7 @@
 					<td>
 						@include('plural', ['singular' => 'award', 'collection' => $lan->userAchievements])
 					</td>
-					@if( Authority::can('manage', 'lans') )
+					@if ( Authority::can('manage', 'lans') )
 						<td class="text-center">
 							@include('buttons.edit', ['resource' => 'lans', 'item' => $lan, 'size' => 'extraSmall'])
 							@include('buttons.destroy', ['resource' => 'lans', 'item' => $lan, 'size' => 'extraSmall'])

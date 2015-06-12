@@ -10,7 +10,7 @@
 
 	<hr>
 
-	@if( $event->allowsSignups() )
+	@if ( $event->allowsSignups() )
 		@include('event-signups.partials.title')
 		@include('event-signups.partials.list', ['eventSignups' => $event->eventSignups] )
 		@include('event-signups.partials.signup-button')

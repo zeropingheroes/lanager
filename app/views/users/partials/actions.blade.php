@@ -34,7 +34,7 @@ $links = [
 							],
 ];
 ?>
-@if( Auth::check() AND $user->id == Auth::user()->id )
+@if ( Auth::check() AND $user->id == Auth::user()->id )
 	@include('buttons.url', $links['editProfile'])
 @else
 	@include('buttons.url', $links['addFriend'])

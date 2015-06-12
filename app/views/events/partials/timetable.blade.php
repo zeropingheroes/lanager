@@ -31,7 +31,7 @@
 				right: ' agendaDay agendaWeek today prev,next'
 			},
 			viewRender: function(view) {              
-				if(typeof(timelineInterval) != 'undefined'){
+				if (typeof(timelineInterval) != 'undefined'){
 					window.clearInterval(timelineInterval); 
 				}
 					timelineInterval = window.setInterval(setTimeline, 300000);

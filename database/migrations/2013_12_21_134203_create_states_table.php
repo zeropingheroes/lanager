@@ -53,7 +53,7 @@ class CreateStatesTable extends Migration {
 				->onDelete('set null');
 
 			// Indexes
-			$table->index(array('user_id', 'created_at'));
+			$table->index(['user_id', 'created_at']);
 		});
 	}
 

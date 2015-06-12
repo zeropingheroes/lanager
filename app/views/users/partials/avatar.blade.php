@@ -13,20 +13,20 @@
 		default: 		$url = $user->present()->avatarSmall;
 	}
 
-	if( isset($classes) && ! is_array($classes) ) $classes = array($classes);
+	if ( isset($classes) && ! is_array($classes) ) $classes = [$classes];
 	$classes[] = 'avatar';
 	$classes[] = 'avatar-'.$size;
 		
 	$state = $user->state;
 	
-	if( $state )
+	if ( $state )
 	{
-		if( isset($state->application_id) )
+		if ( isset($state->application_id) )
 		{
 			$classes[] = 'avatar-in-game';
 			$title = 'In-Game: ' . $state->application->name;
 		}
-		elseif( $state->status )
+		elseif ( $state->status )
 		{
 			$classes[] = 'avatar-online';
 			$title = $state->present()->statusText;

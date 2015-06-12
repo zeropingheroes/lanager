@@ -11,9 +11,7 @@
 |
 */
 
-ClassLoader::addDirectories(array(
-
-));
+ClassLoader::addDirectories([]);
 
 /*
 |--------------------------------------------------------------------------

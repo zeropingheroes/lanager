@@ -1,7 +1,7 @@
 <?php
 
 // Check the current user is allowed to edit this particular item (pass the Model object as $item)
-if( Authority::can('edit', $resource, $item) )
+if ( Authority::can('edit', $resource, $item) )
 {
 	// If an array of route parameters is specified use it, otherwise default to the singular resource id
 	$parameters = ( isset($parameters) && is_array($parameters) ) ? $parameters : $item->id;

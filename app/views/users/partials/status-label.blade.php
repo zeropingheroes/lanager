@@ -1,11 +1,11 @@
 <?php
-if( isset($state) )
+if ( isset($state) )
 {
 	switch ($state->status)
 	{
 		case 1:
-			if(   is_null($state->application_id) ) $labelType = 'info';
-			if( ! is_null($state->application_id) ) $labelType = 'success';
+			if (   is_null($state->application_id) ) $labelType = 'info';
+			if ( ! is_null($state->application_id) ) $labelType = 'success';
 			break;
 		case 2:
 			$labelType = 'warning';

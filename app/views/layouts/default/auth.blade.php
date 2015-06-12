@@ -1,5 +1,5 @@
 <ul class="nav navbar-nav navbar-right">
-	@if(Auth::check())
+	@if (Auth::check())
 		@include('layouts.default.admin')
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle navbar-user" data-toggle="dropdown" title="{{{ Auth::user()->username }}}">

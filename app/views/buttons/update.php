@@ -1,7 +1,7 @@
 <?php
 
 // Check the current user is allowed to update this particular item (pass the Model object)
-if( Authority::can('update', $resource, $item) )
+if ( Authority::can('update', $resource, $item) )
 {
 	// If an array of parameters is specified use it, otherwise default to the singular resource id
 	$parameters = ( isset($parameters) && is_array($parameters) ) ? $parameters : $item->id;

@@ -1,4 +1,4 @@
-@if(count($eventSignups))
+@if (count($eventSignups))
 	<table class="table">
 		<thead>
 			<tr>
@@ -19,7 +19,7 @@
 					</span>
 				</td>
 				<td class="text-right">
-					@if( Authority::can('manage', 'events.signups') )
+					@if ( Authority::can('manage', 'events.signups') )
 						@include(
 							'buttons.destroy',
 							[

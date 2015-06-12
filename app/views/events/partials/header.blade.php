@@ -2,7 +2,7 @@
 	<div class="col-md-8">
 		<h1 class="pull-left">
 			{{ $event->name }}
-			@if( isset( $event->type->name ) )
+			@if ( isset( $event->type->name ) )
 				<small>
 					{{{ $event->type->name }}}
 					@include('permalink', ['url' => URL::route('events.show', $event->id)] )

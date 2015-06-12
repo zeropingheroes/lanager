@@ -3,13 +3,13 @@
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
 
-	@if(count($roles))
+	@if (count($roles))
 		<table class="table">
 			<thead>
 				<tr>
 					<th>Name</th>
 					<th>Assigned To</th>
-					@if( Authority::can('manage', 'roles') )
+					@if ( Authority::can('manage', 'roles') )
 						<th class="text-center">{{ Icon::cog() }}</th>
 					@endif
 				</tr>
@@ -21,7 +21,7 @@
 					<td>
 						@include('plural', ['singular' => 'user', 'collection' => $role->users, 'hover' => $role->users->lists('username') ])
 					</td>
-					@if( Authority::can('manage', 'roles') )
+					@if ( Authority::can('manage', 'roles') )
 						<td class="text-center">
 							@include(
 								'buttons.create',

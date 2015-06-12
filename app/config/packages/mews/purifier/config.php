@@ -8,20 +8,20 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
 	'encoding' => 'UTF-8',
 	'finalize' => true,
 	'preload'  => false,
-	'settings' => array(
-		'default' => array(
+	'settings' => [
+		'default' => [
 			'HTML.Doctype'				=> 'XHTML 1.0 Strict',
 			'HTML.Allowed'				=> 'div,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]',
 			'CSS.AllowedProperties'		=> 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
 			'AutoFormat.AutoParagraph'	=> true,
 			'AutoFormat.RemoveEmpty'	=> true,
 			'Cache.SerializerPath'		=> storage_path().'/purifier',
-		),
-		'markdown' => array(
+		],
+		'markdown' => [
 			'HTML.Doctype'				=> 'XHTML 1.0 Strict',
 			'HTML.Allowed'				=> 'div,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src],*[style|class],pre,code,h1,h2,h3,h4,h5,h6,blockquote',
 			'CSS.AllowedProperties'		=> 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
@@ -29,8 +29,8 @@ return array(
 			'AutoFormat.RemoveEmpty'	=> true,
 			'Cache.SerializerPath'		=> storage_path().'/purifier',
 			'URI.AllowedSchemes'		=> ['http', 'https', 'steam'],
-		),
-		'shout' => array(
+		],
+		'shout' => [
 			'HTML.Doctype'				=> 'XHTML 1.0 Strict',
 			'HTML.Allowed'				=> 'b,strong,i,em,a[href|title]',
 			'CSS.AllowedProperties'		=> '',
@@ -39,6 +39,6 @@ return array(
 			'AutoFormat.Linkify'		=> true,
 			'Cache.SerializerPath'		=> storage_path().'/purifier',
 			'URI.AllowedSchemes'		=> ['http', 'https', 'steam'],
-		),
-	),
-);
+		],
+	],
+];

@@ -1,4 +1,4 @@
-@if( Authority::can('create', 'shouts') )
+@if ( Authority::can('create', 'shouts') )
 	{{ Form::horizontal( ['route' => 'shouts.store', 'class' => 'form-inline shout-create']) }}
 		{{
 			InputGroup::withContents(

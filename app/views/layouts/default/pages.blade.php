@@ -1,4 +1,4 @@
-@if( isset($menuItems) )
+@if ( isset($menuItems) )
 <li class="dropdown {{ Request::is('pages*') ? 'active' : '' }}">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Info
 		<b class="caret"></b>

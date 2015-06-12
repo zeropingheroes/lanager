@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	/*
 	|--------------------------------------------------------------------------
@@ -44,9 +44,9 @@ return array(
 	|
 	*/
 
-	'connections' => array(
+	'connections' => [
 
-		'mysql' => array(
+		'mysql' => [
 			'driver'    => 'mysql',
 			'host'      => '127.0.0.1',
 			'database'  => 'lanager',
@@ -55,15 +55,15 @@ return array(
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
-		),
+		],
 
-		// 'sqlite' => array(
+		// 'sqlite' => [
 		// 	'driver'   => 'sqlite',
 		// 	'database' => __DIR__.'/../database/production.sqlite',
 		// 	'prefix'   => '',
-		// ),
+		// ],
 
-		// 'pgsql' => array(
+		// 'pgsql' => [
 		// 	'driver'   => 'pgsql',
 		// 	'host'     => 'localhost',
 		// 	'database' => 'database',
@@ -72,18 +72,18 @@ return array(
 		// 	'charset'  => 'utf8',
 		// 	'prefix'   => '',
 		// 	'schema'   => 'public',
-		// ),
+		// ],
 
-		// 'sqlsrv' => array(
+		// 'sqlsrv' => [
 		// 	'driver'   => 'sqlsrv',
 		// 	'host'     => 'localhost',
 		// 	'database' => 'database',
 		// 	'username' => 'root',
 		// 	'password' => '',
 		// 	'prefix'   => '',
-		// ),
+		// ],
 
-	),
+	],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -109,16 +109,16 @@ return array(
 	|
 	*/
 
-	'redis' => array(
+	'redis' => [
 
 		'cluster' => true,
 
-		'default' => array(
+		'default' => [
 			'host'     => '127.0.0.1',
 			'port'     => 6379,
 			'database' => 0,
-		),
+		],
 
-	),
+	],
 
-);
+];

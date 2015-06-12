@@ -32,7 +32,7 @@
 					Shouts {{ View::make('badge', ['collection' => $user->shouts] ) }}
 				</a>
 			</li>
-			@if( Auth::check() AND $user->id == Auth::user()->id )
+			@if ( Auth::check() AND $user->id == Auth::user()->id )
 				<li role="presentation" class="<?php if (Input::get('tab') == 'api') echo 'active'; ?>">
 					<a href="{{ route('users.show', ['user' => $user->id, 'tab' => 'api'] ) }}">
 						API
@@ -44,7 +44,7 @@
 	<div class="profile-content">
 		@include('layouts.default.alerts')
 
-		@if( Input::get('tab') == 'status' OR empty(Input::get('tab')) )
+		@if ( Input::get('tab') == 'status' OR empty(Input::get('tab')) )
 
 			@include('users.partials.status', ['state' => $user->state] )
 
@@ -53,15 +53,15 @@
 				@include('users.partials.status-history', ['states' => $user->states()] )
 			--}}
 
-		@elseif( Input::get('tab') == 'achievements' )
+		@elseif ( Input::get('tab') == 'achievements' )
 
 			@include('user-achievements.partials.list', ['userAchievements' => $user->userAchievements()->orderBy('lan_id','desc')->get()] )
 
-		@elseif( Input::get('tab') == 'shouts' )
+		@elseif ( Input::get('tab') == 'shouts' )
 
 			@include('shouts.partials.list', ['shouts' => $user->shouts()->orderBy('created_at','desc')->get()] )
 
-		@elseif( Input::get('tab') == 'api' AND Auth::check() AND $user->id == Auth::user()->id )
+		@elseif ( Input::get('tab') == 'api' AND Auth::check() AND $user->id == Auth::user()->id )
 
 			@include('users.partials.api', ['user' => $user])
 

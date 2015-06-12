@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -9,7 +9,7 @@ return array(
     | Based on $app['path'] value.
     */
 
-    'paths' => array('/markdown'),
+    'paths' => ['/markdown'],
 
     /*
     |--------------------------------------------------------------------------
@@ -17,9 +17,9 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'routes' => array(
+    'routes' => [
         '',
-    ),
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -27,7 +27,7 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'extensions' => array('markdown', 'md'),
+    //'extensions' => ['markdown', 'md'],
 
     /*
     |--------------------------------------------------------------------------
@@ -43,13 +43,13 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'options' => array(
+    'options' => [
         'empty_element_suffix' => ' />',
         'tab_width' => 4,
         'no_markup' => true,
         'no_entities' => true,
-        'predef_urls' => array(),
-        'predef_titles' => array(),
+        'predef_urls' => [],
+        'predef_titles' => [],
 
         // Use PHP Markdown with extra.
         'use_extra' => true,
@@ -61,7 +61,7 @@ return array(
         'fn_backlink_class' => 'footnote-backref',
         'code_class_prefix' => '',
         'code_attr_on_pre' => false,
-        'predef_abbr' => array(),
-    ),
+        'predef_abbr' => [],
+    ],
 
 );

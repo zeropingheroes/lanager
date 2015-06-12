@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -35,11 +35,11 @@ return array(
     | :message - message text.
     |
     */
-    'default_format'                        => array(
+    'default_format'                        => [
 
         'default'               => '<div class="alert alert-:type"><a href="#" class="close" data-dismiss="alert">×</a>:message</div>',
 
-    ),
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -49,8 +49,8 @@ return array(
     | These formats can override default format for each type of message (error, warning, info, success).
     | You can set formats for each container by using this syntax:
     |
-    | 'default_formats'         => array(
-    |       'myContainer'   => array(
+    | 'default_formats'         => [
+    |       'myContainer'   => [
     |           'info'  => ':key - :message'
     |       )
     |   )
@@ -61,13 +61,13 @@ return array(
     | :message - message text.
     |
     */
-    'default_formats'                       => array(
+    'default_formats'                       => [
 
-        'default'               => array(
+        'default'               => [
 
-        ),
+        ],
 
-    ),
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -77,10 +77,10 @@ return array(
     | Specify available types for each container.
     |
     */
-    'default_types'                         => array(
+    'default_types'                         => [
 
-        'default'               => array('info', 'success', 'warning', 'danger'),
+        'default'               => ['info', 'success', 'warning', 'danger'],
 
-    ),
+    ],
 
-);
+];

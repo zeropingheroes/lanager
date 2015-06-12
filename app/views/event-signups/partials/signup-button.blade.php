@@ -1,5 +1,5 @@
-@if( isset(Auth::user()->id) )
-	@if( ! $event->hasSignupFromUser(Auth::user()->id) AND $event->isOpenForSignups() )
+@if ( isset(Auth::user()->id) )
+	@if ( ! $event->hasSignupFromUser(Auth::user()->id) AND $event->isOpenForSignups() )
 		@include(
 			'buttons.store',
 			[

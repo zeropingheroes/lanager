@@ -20,9 +20,9 @@
 		}}
 	</div>
 
-	@if( Input::get('tab') == 'timetable' OR empty(Input::get('tab')) )
+	@if ( Input::get('tab') == 'timetable' OR empty(Input::get('tab')) )
 		@include('events.partials.timetable' )
-	@elseif( Input::get('tab') == 'list' )
+	@elseif ( Input::get('tab') == 'list' )
 		@include('events.partials.list', ['events' => $events] )
 	@endif
 	@include('buttons.create', ['resource' => 'events'])

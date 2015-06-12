@@ -1,4 +1,4 @@
-@if(count($logs))
+@if (count($logs))
 	<table class="table logs-index">
 		<thead>
 			<tr>

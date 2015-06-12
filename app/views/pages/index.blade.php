@@ -3,13 +3,13 @@
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
 
-	@if(count($pages))
+	@if (count($pages))
 		<table class="table">
 			<thead>
 				<tr>
 					<th>Title</th>
 					<th>Last Updated</th>
-					@if( Authority::can('manage', 'pages') )
+					@if ( Authority::can('manage', 'pages') )
 						<th class="text-center">Published</th>
 						<th class="text-center">{{ Icon::cog() }}</th>
 					@endif
@@ -21,11 +21,11 @@
 					<td>{{ link_to_route('pages.show', $page->title, $page->id) }}</td>
 					<td>{{ $page->updated_at->diffForHumans() }}</td>
 					<td class="text-center">
-						@if( $page->published )
+						@if ( $page->published )
 							{{ Icon::ok() }}
 						@endif
 					</td>
-					@if( Authority::can('manage', 'pages') )
+					@if ( Authority::can('manage', 'pages') )
 						<td class="text-center">
 							@include('buttons.edit', ['resource' => 'pages', 'item' => $page, 'size' => 'extraSmall'])
 							@include('buttons.destroy', ['resource' => 'pages', 'item' => $page, 'size' => 'extraSmall'])

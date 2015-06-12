@@ -1,7 +1,7 @@
 <?php
 
 // Check the current user is allowed to destroy this particular item (pass the Model object)
-if( Authority::can('destroy', $resource, $item) )
+if ( Authority::can('destroy', $resource, $item) )
 {
 	// If an array of parameters is specified use it, otherwise default to the singular resource id
 	$parameters = ( isset($parameters) && is_array($parameters) ) ? $parameters : $item->id;

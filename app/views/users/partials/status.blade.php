@@ -1,10 +1,10 @@
-@if( ! count($state) )
+@if ( ! count($state) )
 	<p>Status unknown!</p>
 @else
 
 	<h3>@include('users.partials.status-label', ['state' => $state])</h3>
 	
-	@if( isset( $state->application->steam_app_id) )
+	@if ( isset( $state->application->steam_app_id) )
 
 		<table class="table user-status">
 			<thead>

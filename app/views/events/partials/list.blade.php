@@ -1,4 +1,4 @@
-@if(count($events))
+@if (count($events))
 	<table class="table">
 		<thead>
 			<tr>
@@ -7,7 +7,7 @@
 				<th>Time</th>
 				<th colspan="2">Signups</th>
 				<th>Type</th>
-				@if( Authority::can('manage', 'events') )
+				@if ( Authority::can('manage', 'events') )
 					<th class="text-center">Published</th>
 					<th class="text-center">{{ Icon::cog() }}</th>
 				@endif
@@ -32,13 +32,13 @@
 					@include('plural', ['singular' => 'signup', 'collection' => $event->eventSignups ])
 				</td>
 				<td>
-					@if( $event->event_type_id )
+					@if ( $event->event_type_id )
 						{{ $event->type->present()->colouredType }}
 					@endif
 				</td>
-				@if( Authority::can('manage', 'events') )
+				@if ( Authority::can('manage', 'events') )
 					<td class="text-center">
-						@if( $event->published )
+						@if ( $event->published )
 							{{ Icon::ok() }}
 						@endif
 					</td>

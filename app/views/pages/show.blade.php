@@ -5,7 +5,7 @@
 
 	{{ Purifier::clean(Markdown::string($page->content), 'markdown') }}
 
-	@if(!empty($page->children))
+	@if (!empty($page->children))
 		<?php $children = $page->children()->orderBy(DB::raw('ISNULL(position)'))->get(); ?>
 		<ul>
 			@foreach($children as $child)

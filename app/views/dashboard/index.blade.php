@@ -28,17 +28,17 @@
 						event.start = moment(event.start);
 						event.end = moment(event.end);
 
-						if( event.start.isBefore( now ) && event.end.isAfter( now ) )
+						if ( event.start.isBefore( now ) && event.end.isAfter( now ) )
 						{
 							event.status = '<span class="label label-success">Now</span>';
 							event.timer = 'Ending ' + event.end.fromNow();
 
 						}
-						else if( event.start.isAfter( now ) && event.end.isAfter( now ))
+						else if ( event.start.isAfter( now ) && event.end.isAfter( now ))
 						{
 							event.status = '<span class="label label-info">Next</span>';
 							event.timer = 'Starting ' + event.start.fromNow();
-							if( futureEventCount == 1 ) return true; // only display 1 future event
+							if ( futureEventCount == 1 ) return true; // only display 1 future event
 							futureEventCount++;
 						}
 						else
@@ -55,7 +55,7 @@
 						'</tr>';
 
 					});
-					if( tbody === '' )
+					if ( tbody === '' )
 					{
 						tbody = '<tr><td class="text-muted">No events to show!</td></tr>';
 					}
@@ -70,7 +70,7 @@
 				console.log('Polling application usage');
 				$.getJSON( dashboard.applicationUsage.feedUrl, function( applicationUsage )
 				{
-					if( applicationUsage.length != 0 )
+					if ( applicationUsage.length != 0 )
 					{
 						var tbody = '';
 						$.each(applicationUsage, function(i, applicationInUse)
@@ -104,12 +104,12 @@
 				console.log('Polling shouts');
 				$.getJSON( dashboard.shouts.feedUrl, function( shouts )
 				{
-					if( shouts.data.length != 0 )
+					if ( shouts.data.length != 0 )
 					{
 						var tbody = $('<tbody>');
 
 						$.each(shouts.data, function(idx, shout) {
-							if( shout.pinned )
+							if ( shout.pinned )
 							{
 								var row = $('<tr class="bg-info shout-pinned">');
 							}

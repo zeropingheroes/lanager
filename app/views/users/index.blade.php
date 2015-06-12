@@ -3,7 +3,7 @@
 	@include('layouts.default.title')
 	@include('layouts.default.alerts')
 
-	@if(count($users))
+	@if (count($users))
 		<table class="table users-index">
 			<thead>
 				<tr>
@@ -11,7 +11,7 @@
 					<th>Status</th>
 					<th>Currently Playing</th>
 					<th>Achievements</th>
-					@if( Authority::can('delete', 'users') OR Authority::can('manage', 'user-roles') )
+					@if ( Authority::can('delete', 'users') OR Authority::can('manage', 'user-roles') )
 						<th class="text-center">{{ Icon::cog() }}</th>
 					@endif
 				</tr>
@@ -25,19 +25,19 @@
 						@include('roles.partials.badges', ['roles' => $user->roles])
 					</td>
 					<td>
-						@if( $state )
+						@if ( $state )
 							@include('users.partials.status-label', ['state' => $state])
 						@endif
 					</td>
 					<td>
-						@if( isset($state->application) )
+						@if ( isset($state->application) )
 							@include('applications.partials.link', ['application' => $state->application])
 						@endif
 					</td>
 					<td>
 						@include('plural', ['singular' => 'award', 'collection' => $user->userAchievements] )
 					</td>
-					@if( Authority::can('delete', 'users') OR Authority::can('manage', 'user-roles') )
+					@if ( Authority::can('delete', 'users') OR Authority::can('manage', 'user-roles') )
 						<td class="text-center">
 							@include('buttons.create',
 								[

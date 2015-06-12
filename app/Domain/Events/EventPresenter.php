@@ -78,12 +78,12 @@ class EventPresenter extends Presenter {
 	{
 		if ( ! is_null($this->signup_opens) )
 		{
-			$words = array(
+			$words = [
 				'starting' => 'Opening',
 				'started' => 'Opened',
 				'ending' => 'Closing',
 				'ended' => 'Closed'
-				);
+				];
 			return Timespan::relativeToNow($this->signup_opens, $this->signup_closes, $words);
 		}
 	}

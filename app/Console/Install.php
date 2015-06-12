@@ -88,7 +88,7 @@ class Install extends BaseCommand {
 	private function runInstaller()
 	{
 		$this->info('Creating database structure...');
-		$migrate = Artisan::call('migrate', array('--path' => 'database/migrations', '--force' => true));
+		$migrate = Artisan::call('migrate', ['--path' => 'database/migrations', '--force' => true]);
 		if ( $migrate != 0 ) $this->abort('Database structure creation failure', $this->criticalMessage);
 
 		if ( Config::get('lanager/config.installed') )
@@ -99,7 +99,7 @@ class Install extends BaseCommand {
 			}
 		}
 		$this->info('Seeding database with example data...');
-		$seed = Artisan::call('db:seed', array('--class' => 'DatabaseSeeder', '--force' => true));
+		$seed = Artisan::call('db:seed', ['--class' => 'DatabaseSeeder', '--force' => true]);
 		if ( $seed != 0 ) $this->abort('Database seeding failure', $this->criticalMessage);
 
 		$this->info('Publishing package assets...');
@@ -230,7 +230,7 @@ class Install extends BaseCommand {
 		$steamApi = new Locomotive(Config::get('lanager/steam.apikey'));
 		try
 		{
-			$steamApi->ISteamUser->GetPlayerSummaries(array('1234'));
+			$steamApi->ISteamUser->GetPlayerSummaries(['1234']);
 		}
 		catch (\Guzzle\Http\Exception\ClientErrorResponseException $error)
 		{
@@ -275,7 +275,7 @@ class Install extends BaseCommand {
 	private function emptyDatabase()
 	{
 		$this->info('Emptying database tables...');
-		$tables = array(
+		$tables = [
 			'achievements',
 			'applications',
 			'events',
@@ -292,7 +292,7 @@ class Install extends BaseCommand {
 			'users',
 			'user_achievements',
 			'user_roles',
-			);
+		];
 		foreach($tables as $table)
 		{
 			DB::table($table)->delete();
