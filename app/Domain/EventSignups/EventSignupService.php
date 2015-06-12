@@ -27,7 +27,7 @@ class EventSignupService extends ResourceService {
 	/**
 	 * Filter by a given event
 	 * @param  integer $eventId  event's ID
-	 * @return Collection       Collection of items
+	 * @return self
 	 */
 	public function filterByEvent( $eventId )
 	{
