@@ -36,6 +36,18 @@ class EventSignupService extends ResourceService {
 		return $this;
 	}
 
+	/**
+	 * Filter by a given user
+	 * @param  integer $userId  user's ID
+	 * @return self
+	 */
+	public function filterByUser( $userId )
+	{
+		$this->model = $this->model->where( 'user_id', $userId );
+
+		return $this;
+	}
+
 	protected function readAuthorised()
 	{
 		return true;

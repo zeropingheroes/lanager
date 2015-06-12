@@ -117,7 +117,7 @@ function()
 		Route::resource('achievements',			'AchievementsController',		['except' => ['create', 'edit'] ]);
 		Route::resource('user-achievements',	'UserAchievementsController',	['except' => ['create', 'edit'] ]);
 		Route::resource('events',				'EventsController',				['except' => ['create', 'edit'] ]);
-		Route::resource('events.signups',		'EventSignupsController',		['except' => ['create', 'edit', 'update'] ]);
+		Route::resource('event-signups',		'EventSignupsController',		['except' => ['create', 'edit', 'update'] ]);
 		Route::resource('event-types',			'EventTypesController',			['except' => ['create', 'edit'] ]);
 		Route::resource('pages',				'PagesController',				['except' => ['create', 'edit'] ]);
 		Route::resource('lans',					'LansController',				['except' => ['create', 'edit'] ]);

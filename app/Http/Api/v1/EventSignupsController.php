@@ -2,6 +2,7 @@
 
 use Zeropingheroes\Lanager\Domain\EventSignups\EventSignupService;
 use	Zeropingheroes\Lanager\Domain\EventSignups\EventSignupTransformer;
+use Input;
 
 class EventSignupsController extends ResourceServiceController {
 
@@ -15,16 +16,22 @@ class EventSignupsController extends ResourceServiceController {
 		$this->transformer = new EventSignupTransformer;
 	}
 
-	public function index( $eventId )
+	public function index()
 	{
-		$items = $this->service->filterByEvent( $eventId )->all();
+		if ( Input::has('event_id') )
+			$this->service->filterByEvent( Input::get('event_id') );
+		
+		if ( Input::has('user_id') )
+			$this->service->filterByUser( Input::get('user_id') );
+
+		$items = $this->service->all();
 
 		return $this->response->collection( $items, $this->transformer );
 	}
 
-	public function show( $eventId, $eventSignupId )
+	public function show( $id )
 	{
-		$item = $this->service->filterByEvent( $eventId )->single( $eventSignupId );
+		$item = $this->service->single( $id );
 
 		return $this->response->item( $item, $this->transformer );
 	}
