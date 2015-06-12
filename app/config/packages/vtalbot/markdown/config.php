@@ -64,4 +64,4 @@ return [
         'predef_abbr' => [],
     ],
 
-);
+];
