@@ -20,12 +20,12 @@
 				<tr>
 					<td>{{ link_to_route('pages.show', $page->title, $page->id) }}</td>
 					<td>{{ $page->updated_at->diffForHumans() }}</td>
-					<td class="text-center">
-						@if ( $page->published )
-							{{ Icon::ok() }}
-						@endif
-					</td>
 					@if ( Authority::can('manage', 'pages') )
+						<td class="text-center">
+							@if ( $page->published )
+								{{ Icon::ok() }}
+							@endif
+						</td>
 						<td class="text-center">
 							@include('buttons.edit', ['resource' => 'pages', 'item' => $page, 'size' => 'extraSmall'])
 							@include('buttons.destroy', ['resource' => 'pages', 'item' => $page, 'size' => 'extraSmall'])
