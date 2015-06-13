@@ -3,18 +3,16 @@
 use Zeropingheroes\Lanager\Domain\ResourceService;
 use Zeropingheroes\Lanager\Domain\Users\UserService;
 use Zeropingheroes\Lanager\Domain\Roles\RoleService;
+use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByTimestamps;
 use DomainException;
 
 class UserRoleService extends ResourceService {
 
-	protected $eagerLoad = [ 'role', 'user.state.application' ];
+	use FilterableByTimestamps;
 
-	public function __construct()
-	{
-		parent::__construct(
-			new UserRole
-		);
-	}
+	protected $model = 'Zeropingheroes\Lanager\Domain\UserRoles\UserRole';
+
+	protected $eagerLoad = [ 'role', 'user.state.application' ];
 
 	public function store( $input )
 	{
@@ -57,7 +55,7 @@ class UserRoleService extends ResourceService {
 		$role = ( new RoleService )->single( $input['role_id'] );
 
 		if ( $user->hasRole( $role->name ) )
-			throw new DomainException( 'User already has this role assigned to them' );
+			throw new DomainException( 'User already has this role (or above) assigned to them' );
 	}
 
 }

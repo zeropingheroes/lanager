@@ -8,8 +8,8 @@ use DomainException;
 abstract class ResourceService {
 
 	/**
-	 * The resource's model object that the service will use
-	 * @var object BaseModel
+	 * The resource's model that the service will use
+	 * @var string
 	 */
 	protected $model;
 
@@ -26,6 +26,12 @@ abstract class ResourceService {
 	protected $orderBy = [ 'created_at' ];
 
 	/**
+	 * Filters to apply to read queries
+	 * @var array
+	 */
+	protected $filters = [ ];
+
+	/**
 	 * Related resources to eager load
 	 * @var array
 	 */
@@ -33,13 +39,14 @@ abstract class ResourceService {
 
 	/**
 	 * Set the resource's model
-	 * @param BaseModel   $model           Resource's model
 	 */
-	public function __construct(
-		BaseModel $model
-	) {
-		$this->model = $model;
+	public function __construct() {
 		$this->user = new EloquentServiceUserAdapter( Auth::user() ); // TODO: extract out
+	}
+
+	private function newModelInstance()
+	{
+		return ( new $this->model );
 	}
 
 	/**
@@ -50,9 +57,7 @@ abstract class ResourceService {
 	{
 		$this->runChecks( 'read' );
 
-		$this->order();
-
-		return $this->get();
+		return $this->get( $this->newModelInstance() );
 	}
 
 	/**
@@ -64,7 +69,7 @@ abstract class ResourceService {
 	{
 		$this->runChecks( 'read' );
 
-		return $this->get( $id );
+		return $this->get( $this->newModelInstance(), $id );
 	}
 
 	/**
@@ -72,34 +77,64 @@ abstract class ResourceService {
 	 * @param  integer                 $id   Item ID
 	 * @return BaseModel|Collection    Query results
 	 */
-	protected function get( $id = null )
+	protected function get( $model, $id = null )
 	{
-		$this->filter();
+		if ( $this->filters )
+			$model = $this->filter( $model );
 
 		if ( $this->eagerLoad )
-			$this->model = $this->model->with( $this->eagerLoad );
+			$model = $model->with( $this->eagerLoad );
 
 		if ( $id )
-			return $this->model->where( 'id', $id )->firstOrFail();
+			return $model->where( 'id', $id )->firstOrFail();
 		
-		return $this->model->get();
+		return $this->order( $model )->get();
 	}
 
 	/**
-	 * Apply order by property to query
+	 * Apply order by property to model
 	 */
-	protected function order()
+	protected function order( $model )
 	{
 		foreach ( $this->orderBy as $orderBy )
 		{
 			// only field name specified
 			if ( count( $orderBy ) == 1 )
-				$this->model = $this->model->orderBy( $orderBy );
+				$model = $model->orderBy( $orderBy );
 			
 			// field name and direction specified
 			if ( count( $orderBy ) == 2 )
-				$this->model = $this->model->orderBy( $orderBy[0], $orderBy[1] );
+				$model = $model->orderBy( $orderBy[0], $orderBy[1] );
 		}
+		return $model;
+	}
+
+	public function addFilter()
+	{
+		$filter = func_get_args();
+		$this->filters[] = $filter;
+	}
+
+	/**
+	 * Apply filters to model
+	 */
+	protected function filter( $model )
+	{
+		foreach ( $this->filters as $filter )
+		{
+			if ( $filter[0] == 'where' AND count( $filter ) == 3 )
+				$model = $model->where( $filter[1], $filter[2] );
+
+			if ( $filter[0] == 'where' AND count( $filter ) == 4 )
+				$model = $model->where( $filter[1], $filter[2], $filter[3] );
+
+			if ( $filter[0] == 'whereIn' AND is_array( $filter[2] ) )
+				$model = $model->whereIn( $filter[1], $filter[2] );
+
+			if ( $filter[0] == 'whereBetween' AND is_array( $filter[2] ) )
+				$model = $model->whereBetween( $filter[1], $filter[2] );
+		}
+		return $model;
 	}
 
 	/**
@@ -109,11 +144,15 @@ abstract class ResourceService {
 	 */
 	public function store( $input )
 	{
-		$this->model = $this->model->fill( $input );
+		$model = $this->newModelInstance();
 
-		$this->runChecks( 'store', $this->model->toArray() );
+		$model = $model->fill( $input );
 
-		return $this->model->save();
+		$this->runChecks( 'store', $model->toArray() );
+
+		$model->save();
+
+		return $model->toArray();
 	}
 
 	/**
@@ -124,13 +163,15 @@ abstract class ResourceService {
 	 */
 	public function update( $id, $input )
 	{
-		$this->model = $this->get( $id );
+		$model = $this->get( $this->newModelInstance(), $id );
 		
-		$this->model = $this->model->fill( $input );
+		$model = $model->fill( $input );
 
-		$this->runChecks( 'update', $this->model->toArray(), $this->model->getOriginal() );
+		$this->runChecks( 'update', $model->toArray(), $model->getOriginal() );
 
-		return $this->model->save();
+		$model->save();
+
+		return $model->toArray();
 	}
 
 	/**
@@ -140,12 +181,11 @@ abstract class ResourceService {
 	 */
 	public function destroy( $id )
 	{
-		$this->model = $this->get( $id );
+		$model = $this->get( $this->newModelInstance(), $id );
 
-		$this->runChecks( 'destroy', $this->model->toArray() );
+		$this->runChecks( 'destroy', $model->toArray() );
 
-		return $this->model->delete();
-	}
+		$model->delete();
 
 	/**
 	 * Get id of resource
@@ -155,11 +195,12 @@ abstract class ResourceService {
 	{
 		// By default just return this resource's id
 		if ( isset($this->model->id) ) return $this->model->id;
+		return $model->toArray();
 	}
 
 	/**
 	 * Check if the service permits a given action by calling
-	 * authorisation, validation and business rule checking methods
+	 * authorisation, validation and domain rule checking methods
 	 * @param  string  $action  Requested action to check
 	 * @param  array   $input   Input data relevant to checks
 	 * @return boolean          True for operation permitted, otherwise false
@@ -199,15 +240,12 @@ abstract class ResourceService {
 		// to be performed on this resource
 		$this->checkAuthorisation( $action );
 
-		// If input data is given
-		if ( ! empty( $input ) )
-		{
-			// Run input validation on the input data
-			$this->applyValidationRules( $action, $input );
+		// Run input validation on the input data
+		$this->applyValidationRules( $action, $input );
 
-			// Run business rule validation on the input data
-			$this->applyDomainRules( $action, $input, $original );
-		}
+		// Run domain rule validation on the input data
+		$this->applyDomainRules( $action, $input, $original );
+
 	}
 
 	/**
@@ -217,9 +255,9 @@ abstract class ResourceService {
 	 */
 	protected function checkAuthorisation( $action )
 	{
-		$authCheckMethod = $action . 'Authorised'; // e.g. readAuthorised
+		$authorisationCheckMethod = $action . 'Authorised'; // e.g. readAuthorised
 
-		if ( ! $this->{ $authCheckMethod }() )
+		if ( ! $this->{ $authorisationCheckMethod }() )
 			throw new AuthorisationException( 'You are not authorised to perform this action' );
 	}
 
@@ -251,16 +289,16 @@ abstract class ResourceService {
 	 */
 	protected function applyDomainRules( $action, $input = [], $original = [] )
 	{
-		$ruleMethod = 'domainRulesOn' . ucfirst($action);
+		$domainRulesMethod = 'domainRulesOn' . ucfirst($action);
 
 		// Pass in original model if we are updating
 		if ( $action = 'update' )
 		{
-			$this->{ $ruleMethod }( $input, $original );
+			$this->{ $domainRulesMethod }( $input, $original );
 		}
 		else
 		{
-			$this->{ $ruleMethod }( $input );
+			$this->{ $domainRulesMethod }( $input );
 		}
 	}
 
@@ -336,10 +374,5 @@ abstract class ResourceService {
 	 * @throws DomainException	when a rule is broken
 	 */
 	protected function domainRulesOnDestroy( $input ) { }
-
-	/**
-	 * Filters to enforce during resource read
-	 */
-	protected function filter() {}
 
 }

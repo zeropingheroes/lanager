@@ -3,24 +3,19 @@
 use Zeropingheroes\Lanager\Domain\ResourceService;
 use Zeropingheroes\Lanager\Domain\Events\EventService;
 use Zeropingheroes\Lanager\Domain\AuthorisationException;
-use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByCreatedAt;
+use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByTimestamps;
 use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByUser;
 use DomainException;
 
 class EventSignupService extends ResourceService {
 
-	protected $eagerLoad = [ 'user.state.application' ];
-
-	use FilterableByCreatedAt;
+	use FilterableByTimestamps;
 
 	use FilterableByUser;
 
-	public function __construct()
-	{
-		parent::__construct(
-			new EventSignup
-		);
-	}
+	protected $model = 'Zeropingheroes\Lanager\Domain\EventSignups\EventSignup';
+
+	protected $eagerLoad = [ 'user.state.application' ];
 
 	public function store( $input )
 	{
@@ -36,7 +31,7 @@ class EventSignupService extends ResourceService {
 	 */
 	public function filterByEvent( $eventId )
 	{
-		$this->model = $this->model->where( 'event_id', $eventId );
+		$this->addFilter( 'where', 'event_id', $eventId );
 
 		return $this;
 	}
@@ -54,6 +49,19 @@ class EventSignupService extends ResourceService {
 	protected function destroyAuthorised()
 	{
 		return $this->user->isAuthenticated();
+	}
+
+	protected function validationRulesOnStore( $input )
+	{
+		return [
+			'event_id'		=> [ 'required', 'exists:events,id' ],
+			'user_id'		=> [ 'required', 'exists:users,id' ],
+		];
+	}
+
+	protected function validationRulesOnUpdate( $input )
+	{
+		return $this->validationRulesOnStore( $input );
 	}
 
 	protected function domainRulesOnStore( $input )
@@ -83,19 +91,6 @@ class EventSignupService extends ResourceService {
 			if ( $input['user_id'] != $this->user->id() )
 				throw new AuthorisationException( 'You may only delete your own event signups' );
 		}
-	}
-
-	protected function validationRulesOnStore( $input )
-	{
-		return [
-			'event_id'		=> [ 'required', 'exists:events,id' ],
-			'user_id'		=> [ 'required', 'exists:users,id' ],
-		];
-	}
-
-	protected function validationRulesOnUpdate( $input )
-	{
-		return $this->validationRulesOnStore( $input );
 	}
 
 }

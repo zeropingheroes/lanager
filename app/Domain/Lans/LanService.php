@@ -4,16 +4,11 @@ use Zeropingheroes\Lanager\Domain\ResourceService;
 
 class LanService extends ResourceService  {
 
+	protected $model = 'Zeropingheroes\Lanager\Domain\Lans\Lan';
+
 	protected $orderBy = [ 'start' ];
 
 	protected $eagerLoad = [ 'userAchievements.achievement', 'userAchievements.user.state.application' ];
-
-	public function __construct()
-	{
-		parent::__construct(
-			new Lan
-		);
-	}
 
 	protected function readAuthorised()
 	{

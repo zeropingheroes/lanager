@@ -1,7 +1,7 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Shouts;
 
 use Zeropingheroes\Lanager\Domain\ResourceService;
-use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByCreatedAt;
+use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByTimestamps;
 use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByUser;
 use Zeropingheroes\Lanager\Domain\AuthorisationException;
 use DomainException;
@@ -9,20 +9,15 @@ use Carbon\Carbon;
 
 class ShoutService extends ResourceService {
 
-	protected $orderBy = [ [ 'pinned', 'desc' ], [ 'created_at', 'desc' ] ];
-
-	protected $eagerLoad = [ 'user.roles', 'user.state.application' ];
-
-	use FilterableByCreatedAt;
+	use FilterableByTimestamps;
 
 	use FilterableByUser;
 
-	public function __construct()
-	{
-		parent::__construct(
-			new Shout
-		);
-	}
+	protected $model = 'Zeropingheroes\Lanager\Domain\Shouts\Shout';
+
+	protected $orderBy = [ [ 'pinned', 'desc' ], [ 'created_at', 'desc' ] ];
+
+	protected $eagerLoad = [ 'user.roles', 'user.state.application' ];
 
 	public function store( $input )
 	{

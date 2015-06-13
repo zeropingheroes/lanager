@@ -4,16 +4,11 @@ use Zeropingheroes\Lanager\Domain\ResourceService;
 
 class UserAchievementService extends ResourceService {
 
+	protected $model = 'Zeropingheroes\Lanager\Domain\UserAchievements\UserAchievement';
+
 	protected $orderBy = [ [ 'lan_id', 'desc' ], [ 'user_id', 'desc' ] ];
 
 	protected $eagerLoad = [ 'achievement', 'lan', 'user.state.application' ];
-
-	public function __construct()
-	{
-		parent::__construct(
-			new UserAchievement
-		);
-	}
 
 	protected function readAuthorised()
 	{

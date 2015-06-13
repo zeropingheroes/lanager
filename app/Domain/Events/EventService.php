@@ -4,16 +4,11 @@ use Zeropingheroes\Lanager\Domain\ResourceService;
 
 class EventService extends ResourceService {
 
+	protected $model = 'Zeropingheroes\Lanager\Domain\Events\Event';
+
 	protected $orderBy = [ 'start' ];
 
 	protected $eagerLoad = [ 'type', 'eventSignups', 'eventSignups.user.state.application' ];
-
-	public function __construct()
-	{
-		parent::__construct(
-			new Event
-		);
-	}
 
 	protected function readAuthorised()
 	{
@@ -33,12 +28,6 @@ class EventService extends ResourceService {
 	protected function destroyAuthorised()
 	{
 		return $this->user->hasRole('Events Admin');
-	}
-
-	protected function filter()
-	{
-		if ( ! $this->user->hasRole( 'Events Admin' ) )
-			$this->model = $this->model->where( 'published', true );
 	}
 
 	protected function validationRulesOnStore( $input )
@@ -64,4 +53,9 @@ class EventService extends ResourceService {
 		return $rules;
 	}
 
+	protected function domainRulesOnRead( $input )
+	{
+		if ( ! $this->user->hasRole( 'Events Admin' ) )
+			$this->addFilter('where', 'published', true );
+	}
 }

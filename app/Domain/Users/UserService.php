@@ -1,19 +1,17 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Users;
 
 use Zeropingheroes\Lanager\Domain\ResourceService;
+use Zeropingheroes\Lanager\Domain\ServiceFilters\FilterableByTimestamps;
 
 class UserService extends ResourceService {
+
+	use FilterableByTimestamps;
+
+	protected $model = 'Zeropingheroes\Lanager\Domain\Users\User';
 
 	protected $orderBy = [ 'username' ];
 
 	protected $eagerLoad = [ 'state.application', 'userAchievements', 'roles' ];
-
-	public function __construct()
-	{
-		parent::__construct(
-			new User
-		);
-	}
 
 	protected function readAuthorised()
 	{
@@ -42,10 +40,10 @@ class UserService extends ResourceService {
 		return $this->validationRulesOnStore( $input );
 	}
 
-	protected function filter()
+	protected function domainRulesOnRead( $input )
 	{
 		if ( ! $this->user->hasRole( 'Super Admin' ) )
-			$this->model = $this->model->where( 'visible', true );
+			$this->addFilter('where', 'visible', true );
 	}
 
 }

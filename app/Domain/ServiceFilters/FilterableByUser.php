@@ -9,7 +9,7 @@ trait FilterableByUser {
 	 */
 	public function filterByUser( $userId )
 	{
-		$this->model = $this->model->where( 'user_id', $userId );
+		$this->addFilter( 'where', 'user_id', $userId );
 
 		return $this;
 	}

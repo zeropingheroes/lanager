@@ -2,7 +2,7 @@
 
 use DateTime;
 
-trait FilterableByCreatedAt {
+trait FilterableByTimestamps {
 
 	/**
 	 * Filter created date between two times
@@ -12,7 +12,7 @@ trait FilterableByCreatedAt {
 	 */
 	public function filterCreatedBetween( $start, $end )
 	{
-		$this->model = $this->model->whereBetween( 'created_at', [ $start, $end ] );
+		$this->addFilter( 'whereBetween', 'created_at', [ $start, $end ] );
 		
 		return $this;
 	}

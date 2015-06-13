@@ -4,14 +4,9 @@ use Zeropingheroes\Lanager\Domain\ResourceService;
 
 class EventTypeService extends ResourceService {
 
-	protected $orderBy = [ 'name' ];
+	protected $model = 'Zeropingheroes\Lanager\Domain\EventTypes\EventType';
 
-	public function __construct()
-	{
-		parent::__construct(
-			new EventType
-		);
-	}
+	protected $orderBy = [ 'name' ];
 
 	protected function readAuthorised()
 	{
@@ -36,8 +31,8 @@ class EventTypeService extends ResourceService {
 	protected function validationRulesOnStore( $input )
 	{
 		return [
-			'name'			=> 'required|max:255|unique:event_types,name',
-			'colour'		=> 'max:255',
+			'name'			=> [ 'required', 'max:255', 'unique:event_types,name' ],
+			'colour'		=> [ 'max:255' ],
 		];
 	}
 

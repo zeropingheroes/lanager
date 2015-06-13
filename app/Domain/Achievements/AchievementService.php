@@ -8,12 +8,7 @@ class AchievementService extends ResourceService {
 
 	protected $eagerLoad = [ 'userAchievements', 'userAchievements.lan', 'userAchievements.user.state.application' ];
 
-	public function __construct()
-	{
-		parent::__construct(
-			new Achievement
-		);
-	}
+	protected $model = 'Zeropingheroes\Lanager\Domain\Achievements\Achievement';
 
 	protected function readAuthorised()
 	{
@@ -53,11 +48,10 @@ class AchievementService extends ResourceService {
 		return $rules;
 	}
 
-	protected function filter()
+	protected function domainRulesOnRead( $input )
 	{
-		// Todo: re-implement hidden achievements
-		// if ( ! $this->user->hasRole( 'Achievements Admin' ) )
-		// 	$this->model = $this->model->where( 'visible', true );
+		// Todo: re-add visible field to achievements table
+		//if ( ! $this->user->hasRole( 'Achievements Admin' ) )
+			//$this->addFilter( 'where', 'visible', true );
 	}
-
 }

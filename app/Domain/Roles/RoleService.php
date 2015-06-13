@@ -4,16 +4,11 @@ use Zeropingheroes\Lanager\Domain\ResourceService;
 
 class RoleService extends ResourceService {
 
+	protected $model = 'Zeropingheroes\Lanager\Domain\Roles\Role';
+
 	protected $orderBy = [ 'name' ];
 
 	protected $eagerLoad = [ 'userRoles.role', 'userRoles.user.state.application' ];
-
-	public function __construct()
-	{
-		parent::__construct(
-			new Role
-		);
-	}
 
 	protected function readAuthorised()
 	{
@@ -38,7 +33,7 @@ class RoleService extends ResourceService {
 	protected function validationRulesOnStore( $input )
 	{
 		return [
-			'name' => [ 'required', 'max:255', 'unique:roles,name' ]
+			'name' => [ 'required', 'max:255', 'unique:roles,name' ],
 		];
 	}
 
