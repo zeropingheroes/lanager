@@ -67,19 +67,19 @@ class UserAchievementsController extends ResourceServiceController {
 					->with( 'lans', $this->lans );
 	}
 
-	protected function redirectAfterStore()
+	protected function redirectAfterStore( $resource )
 	{
 		return Redirect::route('user-achievements.index' );
 	}
 
-	protected function redirectAfterUpdate()
+	protected function redirectAfterUpdate( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 
-	protected function redirectAfterDestroy()
+	protected function redirectAfterDestroy( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 
 }

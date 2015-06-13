@@ -187,14 +187,6 @@ abstract class ResourceService {
 
 		$model->delete();
 
-	/**
-	 * Get id of resource
-	 * @return mixed
-	 */
-	public function id()
-	{
-		// By default just return this resource's id
-		if ( isset($this->model->id) ) return $this->model->id;
 		return $model->toArray();
 	}
 

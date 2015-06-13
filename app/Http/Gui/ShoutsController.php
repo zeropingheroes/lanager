@@ -28,18 +28,18 @@ class ShoutsController extends ResourceServiceController {
 					->with( 'shouts', $shouts );
 	}
 
-	protected function redirectAfterStore()
+	protected function redirectAfterStore( $resource )
 	{
 		return Redirect::route('shouts.index' );
 	}
 
-	protected function redirectAfterUpdate()
+	protected function redirectAfterUpdate( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 
-	protected function redirectAfterDestroy()
+	protected function redirectAfterDestroy( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 }

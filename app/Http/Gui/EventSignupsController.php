@@ -56,19 +56,19 @@ class EventSignupsController extends ResourceServiceController {
 		return parent::processDestroy( func_get_arg(1) );
 	}
 
-	protected function redirectAfterStore()
+	protected function redirectAfterStore( $resource )
 	{
 		return Redirect::route('events.signups.index', $this->currentRouteParameters() );
 	}
 
-	protected function redirectAfterUpdate()
+	protected function redirectAfterUpdate( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 
-	protected function redirectAfterDestroy()
+	protected function redirectAfterDestroy( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 
 }

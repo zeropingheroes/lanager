@@ -70,17 +70,17 @@ class LansController extends ResourceServiceController {
 					->with( 'lan', $lan );
 	}
 
-	protected function redirectAfterStore()
+	protected function redirectAfterStore( $resource )
 	{
-		return Redirect::route( 'lans.show', $this->service->id() );
+		return Redirect::route( 'lans.show', $resource['id'] );
 	}
 
-	protected function redirectAfterUpdate()
+	protected function redirectAfterUpdate( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 
-	protected function redirectAfterDestroy()
+	protected function redirectAfterDestroy( $resource )
 	{
 		return Redirect::route( 'lans.index' );
 	}

@@ -56,8 +56,8 @@ abstract class ResourceServiceController extends Controller {
 	{
 		try
 		{
-			$this->service->store( $input );
-			return $this->redirectAfterStore();
+			$resource = $this->service->store( $input );
+			return $this->redirectAfterStore( $resource );
 		}
 		catch ( ValidationException $e )
 		{
@@ -83,8 +83,8 @@ abstract class ResourceServiceController extends Controller {
 	{
 		try
 		{
-			$this->service->update( $id, $input );
-			return $this->redirectAfterUpdate();
+			$resource = $this->service->update( $id, $input );
+			return $this->redirectAfterUpdate( $resource );
 		}
 		catch ( ValidationException $e )
 		{
@@ -109,8 +109,8 @@ abstract class ResourceServiceController extends Controller {
 	{
 		try
 		{
-			$this->service->destroy( $id );
-			return $this->redirectAfterDestroy();
+			$resource = $this->service->destroy( $id );
+			return $this->redirectAfterDestroy( $resource );
 		}
 		catch ( ValidationException $e )
 		{
@@ -128,7 +128,7 @@ abstract class ResourceServiceController extends Controller {
 	 * Generate response for redirect after successful store
 	 * @return Response
 	 */
-	protected function redirectAfterStore()
+	protected function redirectAfterStore( $resource )
 	{
 		return Redirect::to('/');
 	}
@@ -137,7 +137,7 @@ abstract class ResourceServiceController extends Controller {
 	 * Generate response for redirect after successful update
 	 * @return Response
 	 */
-	protected function redirectAfterUpdate()
+	protected function redirectAfterUpdate( $resource )
 	{
 		return Redirect::to('/');
 	}
@@ -146,7 +146,7 @@ abstract class ResourceServiceController extends Controller {
 	 * Generate response for redirect after successful destroy
 	 * @return Response
 	 */
-	protected function redirectAfterDestroy()
+	protected function redirectAfterDestroy( $resource )
 	{
 		return Redirect::to('/');
 	}

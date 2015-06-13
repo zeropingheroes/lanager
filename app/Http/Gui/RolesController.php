@@ -69,17 +69,17 @@ class RolesController extends ResourceServiceController {
 					->with( 'role', $this->service->single( $id ) );
 	}
 
-	protected function redirectAfterStore()
+	protected function redirectAfterStore( $resource )
 	{
-		return Redirect::route('roles.show', $this->service->id() );
+		return Redirect::route('roles.show', $resource['id'] );
 	}
 
-	protected function redirectAfterUpdate()
+	protected function redirectAfterUpdate( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 
-	protected function redirectAfterDestroy()
+	protected function redirectAfterDestroy( $resource )
 	{
 		return Redirect::route('roles.index');
 	}

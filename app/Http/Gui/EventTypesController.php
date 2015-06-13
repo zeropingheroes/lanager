@@ -37,7 +37,7 @@ class EventTypesController extends ResourceServiceController {
 	{
 		return View::make( 'event-types.create' )
 					->with( 'title', 'Create Event Type' )
-					->with( 'eventType',null);
+					->with( 'eventType', null );
 	}
 
 	/**
@@ -52,21 +52,21 @@ class EventTypesController extends ResourceServiceController {
 
 		return View::make( 'event-types.edit' )
 					->with( 'title', 'Edit Event Type' )
-					->with( 'eventType', $eventType);
+					->with( 'eventType', $eventType );
 	}
 
-	protected function redirectAfterStore()
+	protected function redirectAfterStore( $resource )
 	{
 		return Redirect::route('event-types.index', $this->currentRouteParameters() );
 	}
 
-	protected function redirectAfterUpdate()
+	protected function redirectAfterUpdate( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 
-	protected function redirectAfterDestroy()
+	protected function redirectAfterDestroy( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 }

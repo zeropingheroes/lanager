@@ -74,17 +74,17 @@ class PagesController extends ResourceServiceController {
 					->with( 'page', $this->service->single( $id ) );
 	}
 
-	protected function redirectAfterStore()
+	protected function redirectAfterStore( $resource )
 	{
-		return Redirect::route( 'pages.show', $this->service->id() );
+		return Redirect::route( 'pages.show', $resource['id'] );
 	}
 
-	protected function redirectAfterUpdate()
+	protected function redirectAfterUpdate( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 
-	protected function redirectAfterDestroy()
+	protected function redirectAfterDestroy( $resource )
 	{
 		return Redirect::route( 'pages.index' );
 	}

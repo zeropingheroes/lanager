@@ -78,17 +78,17 @@ class EventsController extends ResourceServiceController {
 					->with( 'event', $event );
 	}
 
-	protected function redirectAfterStore()
+	protected function redirectAfterStore( $resource )
 	{
-		return Redirect::route('events.show', $this->service->id() );
+		return Redirect::route('events.show', $resource['id'] );
 	}
 
-	protected function redirectAfterUpdate()
+	protected function redirectAfterUpdate( $resource )
 	{
-		return $this->redirectAfterStore();
+		return $this->redirectAfterStore( $resource );
 	}
 
-	protected function redirectAfterDestroy()
+	protected function redirectAfterDestroy( $resource )
 	{
 		return Redirect::route('events.index');
 	}
