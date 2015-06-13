@@ -47,11 +47,11 @@ abstract class ResourceServiceController extends Controller {
 		}
 		catch ( ValidationException $e )
 		{
-			throw new StoreResourceFailedException('Store failed', $e->getValidationErrors() );
+			throw new StoreResourceFailedException( 'Store failed', $e->getValidationErrors() );
 		}
 		catch ( DomainException $e )
 		{
-			throw new StoreResourceFailedException('Store failed', [ $e->getMessage() ] );
+			throw new StoreResourceFailedException( 'Store failed', [ $e->getMessage() ] );
 		}
 	}
 
@@ -71,11 +71,11 @@ abstract class ResourceServiceController extends Controller {
 		}
 		catch ( ValidationException $e )
 		{
-			throw new UpdateResourceFailedException('Update failed', $e->getValidationErrors() );
+			throw new UpdateResourceFailedException( 'Update failed', $e->getValidationErrors() );
 		}
 		catch ( DomainException $e )
 		{
-			throw new UpdateResourceFailedException('Update failed', [ $e->getMessage() ] );
+			throw new UpdateResourceFailedException( 'Update failed', [ $e->getMessage() ] );
 		}
 	}
 
@@ -95,11 +95,11 @@ abstract class ResourceServiceController extends Controller {
 		}
 		catch ( ValidationException $e )
 		{
-			throw new DeleteResourceFailedException('Delete failed', $e->getValidationErrors() );
+			throw new DeleteResourceFailedException( 'Delete failed', $e->getValidationErrors() );
 		}
 		catch ( DomainException $e )
 		{
-			throw new DeleteResourceFailedException('Delete failed', [ $e->getMessage() ] );
+			throw new DeleteResourceFailedException( 'Delete failed', [ $e->getMessage() ] );
 		}
 	}
 

@@ -18,7 +18,7 @@ class LogsController extends ResourceServiceController {
 		$this->transformer = new LogTransformer;
 
 		// require API auth for reading logs
-		$this->protect(['index']);
+		$this->protect( ['index'] );
 	}
 
 }
