@@ -122,7 +122,7 @@ return array(
 		'Mews\Purifier\PurifierServiceProvider',
 		'Dingo\Api\Provider\ApiServiceProvider',
 		// 'Barryvdh\Debugbar\ServiceProvider',
-	),
+	],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -148,7 +148,7 @@ return array(
 	|
 	*/
 
-	'aliases' => array(
+	'aliases' => [
 
 		'App'             => 'Illuminate\Support\Facades\App',
 		'Artisan'         => 'Illuminate\Support\Facades\Artisan',
@@ -226,6 +226,6 @@ return array(
 		'Purifier'				=> 'Mews\Purifier\Facades\Purifier',
 		'API'					=> 'Dingo\Api\Facade\API',
 		// 'Debugbar'				=> 'Barryvdh\Debugbar\Facade',
-	),
+	],
 
-);
+];
