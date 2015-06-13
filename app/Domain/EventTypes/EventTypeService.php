@@ -9,8 +9,7 @@ class EventTypeService extends ResourceService {
 	public function __construct()
 	{
 		parent::__construct(
-			new EventType,
-			new EventTypeValidator
+			new EventType
 		);
 	}
 
@@ -34,4 +33,21 @@ class EventTypeService extends ResourceService {
 		return $this->user->hasRole('Events Admin');
 	}
 
+	protected function validationRulesOnStore( $input )
+	{
+		return [
+			'name'			=> 'required|max:255|unique:event_types,name',
+			'colour'		=> 'max:255',
+		];
+	}
+
+	protected function validationRulesOnUpdate( $input )
+	{
+		$rules = $this->validationRulesOnStore( $input );
+
+		// Exclude current event type from uniqueness test
+		$rules['name'] = [ 'required', 'max:255', 'unique:event_types,name,' . $input['id'] ];
+
+		return $rules;
+	}
 }

@@ -11,8 +11,7 @@ class LanService extends ResourceService  {
 	public function __construct()
 	{
 		parent::__construct(
-			new Lan,
-			new LanValidator
+			new Lan
 		);
 	}
 
@@ -34,6 +33,25 @@ class LanService extends ResourceService  {
 	protected function destroyAuthorised()
 	{
 		return $this->user->hasRole('LANs Admin');
+	}
+
+	protected function validationRulesOnStore( $input )
+	{
+		return [
+			'name'		=> [ 'required', 'max:255', 'unique:lans,name' ],
+			'start'		=> [ 'required', 'date_format:Y-m-d H:i:s', 'before:end' ],
+			'end'		=> [ 'required', 'date_format:Y-m-d H:i:s', 'after:start' ],
+		];
+	}
+
+	protected function validationRulesOnUpdate( $input )
+	{
+		$rules = $this->validationRulesOnStore( $input );
+
+		// Exclude current event type from uniqueness test
+		$rules['name'] = [ 'required', 'max:255', 'unique:lans,name,' . $input['id'] ];
+
+		return $rules;
 	}
 
 }

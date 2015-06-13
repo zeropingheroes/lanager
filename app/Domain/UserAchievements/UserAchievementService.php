@@ -11,8 +11,7 @@ class UserAchievementService extends ResourceService {
 	public function __construct()
 	{
 		parent::__construct(
-			new UserAchievement,
-			new UserAchievementValidator
+			new UserAchievement
 		);
 	}
 
@@ -34,6 +33,20 @@ class UserAchievementService extends ResourceService {
 	protected function destroyAuthorised()
 	{
 		return $this->user->hasRole( 'Achievements Admin' );
+	}
+
+	protected function validationRulesOnStore( $input )
+	{
+		return [
+			'user_id'			=> [ 'required', 'exists:users,id' ],
+			'achievement_id'	=> [ 'required', 'exists:achievements,id' ],
+			'lan_id'			=> [ 'required', 'exists:lans,id' ],
+		];
+	}
+
+	protected function validationRulesOnUpdate( $input )
+	{
+		return $this->validationRulesOnStore( $input );
 	}
 
 }

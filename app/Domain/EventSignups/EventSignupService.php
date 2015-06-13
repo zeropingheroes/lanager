@@ -18,8 +18,7 @@ class EventSignupService extends ResourceService {
 	public function __construct()
 	{
 		parent::__construct(
-			new EventSignup,
-			new EventSignupValidator
+			new EventSignup
 		);
 	}
 
@@ -57,7 +56,7 @@ class EventSignupService extends ResourceService {
 		return $this->user->isAuthenticated();
 	}
 
-	protected function rulesOnStore( $input )
+	protected function domainRulesOnStore( $input )
 	{
 		$event = ( new EventService )->single( $input['event_id'] );
 
@@ -77,13 +76,26 @@ class EventSignupService extends ResourceService {
 			throw new DomainException( 'User already signed up to event' );
 	}
 
-	protected function rulesOnDestroy( $input )
+	protected function domainRulesOnDestroy( $input )
 	{
 		if ( ! $this->user->hasRole('Events Admin') )
 		{
 			if ( $input['user_id'] != $this->user->id() )
 				throw new AuthorisationException( 'You may only delete your own event signups' );
 		}
+	}
+
+	protected function validationRulesOnStore( $input )
+	{
+		return [
+			'event_id'		=> [ 'required', 'exists:events,id' ],
+			'user_id'		=> [ 'required', 'exists:users,id' ],
+		];
+	}
+
+	protected function validationRulesOnUpdate( $input )
+	{
+		return $this->validationRulesOnStore( $input );
 	}
 
 }

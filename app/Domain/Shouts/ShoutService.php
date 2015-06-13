@@ -20,8 +20,7 @@ class ShoutService extends ResourceService {
 	public function __construct()
 	{
 		parent::__construct(
-			new Shout,
-			new ShoutValidator
+			new Shout
 		);
 	}
 
@@ -52,7 +51,21 @@ class ShoutService extends ResourceService {
 		return $this->user->isAuthenticated();
 	}
 
-	protected function rulesOnStore( $input )
+	protected function validationRulesOnStore( $input )
+	{
+		return [
+			'user_id'		=> [ 'required', 'exists:users,id' ],
+			'content'		=> [ 'required', 'max:140' ],
+			'pinned'		=> [ 'boolean' ],
+		];
+	}
+
+	protected function validationRulesOnUpdate( $input )
+	{
+		return $this->validationRulesOnStore( $input );
+	}
+
+	protected function domainRulesOnStore( $input )
 	{
 		if ( ! $this->user->hasRole( 'Shouts Admin' ) )
 		{
@@ -68,7 +81,7 @@ class ShoutService extends ResourceService {
 			throw new DomainException( 'You have posted too recently - please wait a while and try again' );
 	}
 
-	protected function rulesOnUpdate( $input, $original )
+	protected function domainRulesOnUpdate( $input, $original )
 	{
 		if ( ! $this->user->hasRole( 'Shouts Admin' ) )
 		{
@@ -80,7 +93,7 @@ class ShoutService extends ResourceService {
 		}
 	}
 
-	protected function rulesOnDestroy( $input )
+	protected function domainRulesOnDestroy( $input )
 	{
 		if ( ! $this->user->hasRole( 'Shouts Admin' ) )
 		{

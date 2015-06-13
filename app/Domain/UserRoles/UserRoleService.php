@@ -12,8 +12,7 @@ class UserRoleService extends ResourceService {
 	public function __construct()
 	{
 		parent::__construct(
-			new UserRole,
-			new UserRoleValidator
+			new UserRole
 		);
 	}
 
@@ -39,7 +38,20 @@ class UserRoleService extends ResourceService {
 		return $this->user->hasRole( 'Super Admin' );
 	}
 
-	protected function rulesOnStore( $input )
+	protected function validationRulesOnStore( $input )
+	{
+		return [
+			'user_id'			=> [ 'required', 'exists:users,id' ],
+			'role_id'			=> [ 'required', 'exists:roles,id' ],
+		];
+	}
+
+	protected function validationRulesOnUpdate( $input )
+	{
+		return $this->validationRulesOnStore( $input );
+	}
+
+	protected function domainRulesOnStore( $input )
 	{
 		$user = ( new UserService )->single( $input['user_id'] );
 		$role = ( new RoleService )->single( $input['role_id'] );

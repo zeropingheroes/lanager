@@ -2,6 +2,7 @@
 
 use Zeropingheroes\Lanager\Domain\Users\EloquentServiceUserAdapter;
 use Auth;
+use Validator;
 use DomainException;
 
 abstract class ResourceService {
@@ -11,12 +12,6 @@ abstract class ResourceService {
 	 * @var object BaseModel
 	 */
 	protected $model;
-
-	/**
-	 * Validator class for the resource
-	 * @var object ValidatorContract
-	 */
-	protected $inputValidator;
 
 	/**
 	 * User of the service
@@ -37,16 +32,13 @@ abstract class ResourceService {
 	protected $eagerLoad = [ ];
 
 	/**
-	 * Set the resource's model and validator
-	 * @param BaseModel                         $model           Resource's model
-	 * @param InputValidatorContract            $inputValidator  Resource's input validator
+	 * Set the resource's model
+	 * @param BaseModel   $model           Resource's model
 	 */
 	public function __construct(
-		BaseModel $model,
-		InputValidatorContract $inputValidator = null
+		BaseModel $model
 	) {
 		$this->model = $model;
-		$this->inputValidator = $inputValidator;
 		$this->user = new EloquentServiceUserAdapter( Auth::user() ); // TODO: extract out
 	}
 
@@ -211,10 +203,10 @@ abstract class ResourceService {
 		if ( ! empty( $input ) )
 		{
 			// Run input validation on the input data
-			$this->checkInputValidation( $action, $input );
+			$this->applyValidationRules( $action, $input );
 
 			// Run business rule validation on the input data
-			$this->checkRules( $action, $input, $original );
+			$this->applyDomainRules( $action, $input, $original );
 		}
 	}
 
@@ -232,35 +224,34 @@ abstract class ResourceService {
 	}
 
 	/**
-	 * Run input validation using service input validator class
+	 * Apply validation rules
 	 * @param  string  $action      Requested action to check
 	 * @param  array   $input       Input data
 	 * @throws ValidationException  If input validation fails
 	 */
-	protected function checkInputValidation( $action, $input = [] )
+	protected function applyValidationRules( $action, $input = [] )
 	{
 		if ( $action == 'read' OR $action == 'destroy' ) return;
 
-		$validation = $this->inputValidator->make( $input );
-		$validation->scope( [ $action ] );
-		
-		// Remove eager loaded data
-		$input = array_filter($input, function($inputVal) { return ! is_array($inputVal); });
+		$validationRulesMethod = 'validationRulesOn' . $action;
 
-		$validation->bind( $input ); // provide all input data for use in rule definitions
+		$rules = $this->{ $validationRulesMethod }( $input );
+		
+		$validation = Validator::make( $input, $rules );
 
 		if ( $validation->fails() )
 			throw new ValidationException( 'Validation failed', $validation->errors()->all() );
 	}
 
 	/**
-	 * Check business rules will not be violated
+	 * Apply domain rules
 	 * @param  string  $action      Requested action to check
 	 * @param  array   $input       Input data
+	 * @param  array   $original    Original item before modification
 	 */
-	protected function checkRules( $action, $input = [], $original = [] )
+	protected function applyDomainRules( $action, $input = [], $original = [] )
 	{
-		$ruleMethod = 'rulesOn' . ucfirst($action);
+		$ruleMethod = 'domainRulesOn' . ucfirst($action);
 
 		// Pass in original model if we are updating
 		if ( $action = 'update' )
@@ -271,7 +262,6 @@ abstract class ResourceService {
 		{
 			$this->{ $ruleMethod }( $input );
 		}
-
 	}
 
 	/**
@@ -320,7 +310,7 @@ abstract class ResourceService {
 	 * @param  array $input     Input data to be used when evaluating rules
 	 * @throws DomainException	when a rule is broken
 	 */
-	protected function rulesOnRead( $input ) { }
+	protected function domainRulesOnRead( $input ) { }
 
 	/**
 	 * Run rule checks that apply during resource read
@@ -328,7 +318,7 @@ abstract class ResourceService {
 	 * @param  array $input     Input data to be used when evaluating rules
 	 * @throws DomainException	when a rule is broken
 	 */
-	protected function rulesOnStore( $input ) { }
+	protected function domainRulesOnStore( $input ) { }
 
 	/**
 	 * Run rule checks that apply during resource read
@@ -337,7 +327,7 @@ abstract class ResourceService {
 	 * @param  array $original  Original item data to be used when evaluating rules
 	 * @throws DomainException	when a rule is broken
 	 */
-	protected function rulesOnUpdate( $input, $original ) { }
+	protected function domainRulesOnUpdate( $input, $original ) { }
 
 	/**
 	 * Run rule checks that apply during resource read
@@ -345,7 +335,7 @@ abstract class ResourceService {
 	 * @param  array $input     Input data to be used when evaluating rules
 	 * @throws DomainException	when a rule is broken
 	 */
-	protected function rulesOnDestroy( $input ) { }
+	protected function domainRulesOnDestroy( $input ) { }
 
 	/**
 	 * Filters to enforce during resource read

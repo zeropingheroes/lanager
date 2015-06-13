@@ -9,8 +9,7 @@ class PageService extends ResourceService {
 	public function __construct()
 	{
 		parent::__construct(
-			new Page,
-			new PageValidator
+			new Page
 		);
 	}
 
@@ -38,6 +37,21 @@ class PageService extends ResourceService {
 	{
 		if ( ! $this->user->hasRole( 'Pages Admin' ) )
 			$this->model = $this->model->where( 'published', true );
+	}
+
+	protected function validationRulesOnStore( $input )
+	{
+		return [
+			'title'		=> [ 'required', 'max:255' ]
+			'parent_id'	=> [ 'numeric', 'exists:pages,id' ]
+			'position'	=> [ 'numeric', 'min:0' ]
+			'published'	=> [ 'boolean' ]
+		];
+	}
+
+	protected function validationRulesOnUpdate( $input )
+	{
+		return $this->validationRulesOnStore( $input );
 	}
 
 }

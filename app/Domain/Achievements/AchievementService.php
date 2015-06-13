@@ -11,8 +11,7 @@ class AchievementService extends ResourceService {
 	public function __construct()
 	{
 		parent::__construct(
-			new Achievement,
-			new AchievementValidator
+			new Achievement
 		);
 	}
 
@@ -34,6 +33,24 @@ class AchievementService extends ResourceService {
 	protected function destroyAuthorised()
 	{
 		return $this->user->hasRole('Achievements Admin');
+	}
+
+	protected function validationRulesOnStore( $input )
+	{
+		return [
+			'name'			=> [ 'required', 'max:255', 'unique:achievements,name' ],
+			'description'	=> [ 'required', 'max:255' ],
+		];
+	}
+
+	protected function validationRulesOnUpdate( $input )
+	{
+		$rules = $this->validationRulesOnStore( $input );
+
+		// Exclude current achievement from uniqueness test
+		$rules['name'] = [ 'required', 'max:255', 'unique:achievements,name,' . $input['id'] ];
+
+		return $rules;
 	}
 
 	protected function filter()

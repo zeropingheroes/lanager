@@ -11,8 +11,7 @@ class RoleService extends ResourceService {
 	public function __construct()
 	{
 		parent::__construct(
-			new Role,
-			new RoleValidator
+			new Role
 		);
 	}
 
@@ -34,6 +33,23 @@ class RoleService extends ResourceService {
 	protected function destroyAuthorised()
 	{
 		return $this->user->hasRole( 'Super Admin' );
+	}
+
+	protected function validationRulesOnStore( $input )
+	{
+		return [
+			'name' => [ 'required', 'max:255', 'unique:roles,name' ]
+		];
+	}
+
+	protected function validationRulesOnUpdate( $input )
+	{
+		$rules = $this->validationRulesOnStore( $input );
+
+		// Exclude current event type from uniqueness test
+		$rules['name'] = [ 'required', 'max:255', 'unique:roles,name,' . $input['id'] ];
+
+		return $rules;
 	}
 
 }
