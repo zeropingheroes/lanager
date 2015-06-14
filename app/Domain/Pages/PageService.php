@@ -1,12 +1,34 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Pages;
 
 use Zeropingheroes\Lanager\Domain\ResourceService;
+use Cache;
 
 class PageService extends ResourceService {
 
 	protected $model = 'Zeropingheroes\Lanager\Domain\Pages\Page';
 
 	protected $orderBy = [ 'position' ];
+
+	public function store( $input )
+	{
+		Cache::forget('pageMenu');
+		
+		return parent::store( $input );
+	}
+
+	public function update( $id, $input )
+	{
+		Cache::forget('pageMenu');
+		
+		return parent::update( $id, $input );
+	}
+
+	public function destroy( $id )
+	{
+		Cache::forget('pageMenu');
+		
+		return parent::destroy( $id );
+	}
 
 	protected function readAuthorised()
 	{
