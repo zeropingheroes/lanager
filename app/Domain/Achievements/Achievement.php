@@ -11,12 +11,6 @@ class Achievement extends BaseModel {
 	protected $fillable = ['name', 'description'];
 
 	/**
-	 * Validator class responsible for validating this model
-	 * @var string
-	 */
-	public $validator = 'Zeropingheroes\Lanager\Domain\Achievements\AchievementValidator';
-
-	/**
 	 * A single achievement has many user achievements (aka awards)
 	 * @return object Illuminate\Database\Eloquent\Relations\Relation
 	 */
