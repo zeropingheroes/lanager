@@ -16,6 +16,8 @@ class UserRoleService extends ResourceService {
 
 	public function store( $input )
 	{
+		$this->setUser();
+
 		$input['assigned_by'] = $this->user->id();
 
 		parent::store( $input );

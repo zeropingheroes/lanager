@@ -47,7 +47,7 @@ abstract class ResourceService {
 	/**
 	 * Set the user of the resource
 	 */
-	private function setUser() {
+	protected function setUser() {
 		$this->user = new EloquentServiceUserAdapter( Auth::user() );
 	}
 

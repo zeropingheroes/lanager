@@ -21,6 +21,8 @@ class ShoutService extends ResourceService {
 
 	public function store( $input )
 	{
+		$this->setUser();
+
 		$input['user_id'] = $this->user->id();
 
 		return parent::store( $input );
