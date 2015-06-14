@@ -20,7 +20,7 @@ class UserRoleService extends ResourceService {
 
 		$input['assigned_by'] = $this->user->id();
 
-		parent::store( $input );
+		return parent::store( $input );
 	}
 
 	protected function readAuthorised()

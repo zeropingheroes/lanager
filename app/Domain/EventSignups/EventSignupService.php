@@ -23,7 +23,7 @@ class EventSignupService extends ResourceService {
 
 		if ( ! isset( $input['user_id'] ) ) $input['user_id'] = $this->user->id();
 
-		parent::store( $input );
+		return parent::store( $input );
 	}
 
 	/**
