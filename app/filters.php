@@ -57,8 +57,11 @@ Route::filter('csrf', function()
 */
 Route::filter('permission', function($route, $request)
 {
+	$routeName = $route->getName();
+
 	// remove "api" prefix if present
-	$routeName	= str_replace('api.', '', $route->getName());
+	if ( $routeName != 'api.index' )
+		$routeName = str_replace('api.', '', $routeName );
 
 	// convert dotted route name into array
 	$routeName	= explode('.', $routeName); 
