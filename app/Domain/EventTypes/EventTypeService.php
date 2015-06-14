@@ -1,6 +1,8 @@
 <?php namespace Zeropingheroes\Lanager\Domain\EventTypes;
 
 use Zeropingheroes\Lanager\Domain\ResourceService;
+use Zeropingheroes\Lanager\Domain\Events\EventService;
+use \DomainException;
 
 class EventTypeService extends ResourceService {
 
@@ -45,4 +47,12 @@ class EventTypeService extends ResourceService {
 
 		return $rules;
 	}
+
+	protected function domainRulesOnDestroy( $input )
+	{
+		$events = ( new EventService )->filterByEventType( $input['id'] )->all();
+			if ( $events->count() > 0 )
+				throw new DomainException( 'This event type is in use by events - please edit them before deleting this event type' );
+	}
+
 }
