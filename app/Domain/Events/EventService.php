@@ -30,6 +30,19 @@ class EventService extends ResourceService {
 		return $this->user->hasRole('Events Admin');
 	}
 
+	/**
+	 * Filter created date between two times
+	 * @param  DateTime   $start
+	 * @param  DateTime   $end  
+	 * @return self
+	 */
+	public function filterByEventType( $eventTypeId )
+	{
+		$this->addFilter( 'where', 'event_type_id', $eventTypeId );
+		
+		return $this;
+	}
+
 	protected function validationRulesOnStore( $input )
 	{
 		return [
