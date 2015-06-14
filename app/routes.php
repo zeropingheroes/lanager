@@ -99,7 +99,6 @@ function()
 Route::group(
 [
 	'namespace' => 'Zeropingheroes\Lanager\Http\Api\v1',
-	'before' => 'permission',
 ],
 function()
 {

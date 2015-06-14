@@ -38,10 +38,17 @@ abstract class ResourceService {
 	protected $eagerLoad = [ ];
 
 	/**
-	 * Set the resource's model
+	 * Set the user of the resource to no user initially
 	 */
 	public function __construct() {
-		$this->user = new EloquentServiceUserAdapter( Auth::user() ); // TODO: extract out
+		$this->user = new EloquentServiceUserAdapter( null );
+	}
+
+	/**
+	 * Set the user of the resource
+	 */
+	private function setUser() {
+		$this->user = new EloquentServiceUserAdapter( Auth::user() );
 	}
 
 	private function newModelInstance()
@@ -55,6 +62,8 @@ abstract class ResourceService {
 	 */
 	public function all()
 	{
+		$this->setUser();
+
 		$this->runChecks( 'read' );
 
 		return $this->get( $this->newModelInstance() );
@@ -67,6 +76,7 @@ abstract class ResourceService {
 	 */
 	public function single( $id )
 	{
+		$this->setUser();
 		$this->runChecks( 'read' );
 
 		return $this->get( $this->newModelInstance(), $id );
@@ -144,6 +154,8 @@ abstract class ResourceService {
 	 */
 	public function store( $input )
 	{
+		$this->setUser();
+
 		$model = $this->newModelInstance();
 
 		$model = $model->fill( $input );
@@ -163,6 +175,8 @@ abstract class ResourceService {
 	 */
 	public function update( $id, $input )
 	{
+		$this->setUser();
+
 		$model = $this->get( $this->newModelInstance(), $id );
 		
 		$model = $model->fill( $input );
@@ -181,6 +195,8 @@ abstract class ResourceService {
 	 */
 	public function destroy( $id )
 	{
+		$this->setUser();
+
 		$model = $this->get( $this->newModelInstance(), $id );
 
 		$this->runChecks( 'destroy', $model->toArray() );
@@ -199,6 +215,8 @@ abstract class ResourceService {
 	 */
 	public function permits( $action, $input = [] )
 	{
+		$this->setUser();
+
 		try
 		{
 			$this->runChecks( $action, $input );
