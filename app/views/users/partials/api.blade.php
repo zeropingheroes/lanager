@@ -12,8 +12,7 @@
 </div>
 <h2>Authentication</h2>
 <ul>
-	<li>Your API key will be required to authenticate you when storing, updating or deleting resources</li>
-	<li>Reading resources requires no API key.</li>
+	<li>Your API key will be required to authenticate you when interacting the API</li>
 	<li>Depending on your assigned role(s), some resources will be read-only.</li>
 </ul>
 <p>
