@@ -180,26 +180,34 @@
 	</tbody>
 </table>
 
-<h1>Games</h1>
-<table class="table table-valign-middle" id="applicationUsage">
-	<tbody>
-		<tr>
-			<td>
-				{{ ProgressBar::normal(100)->animated() }}
-			</td>
-		</tr>
-	</tbody>
-</table>
 
-<h1>Shouts</h1>
-<table class="table table-valign-middle" id="shouts">
-	<tbody>
-		<tr>
-			<td>
-				{{ ProgressBar::normal(100)->animated() }}
-			</td>
-		</tr>
-	</tbody>
-</table>
+<div id="carousel" class="carousel slide" data-ride="carousel" data-interval="15000">
+	<div class="carousel-inner" role="listbox">
+		<div class="item active">
+			<h1>Games</h1>
+			<table class="table table-valign-middle" id="applicationUsage">
+				<tbody>
+					<tr>
+						<td>
+							{{ ProgressBar::normal(100)->animated() }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="item">
+			<h1>Shouts</h1>
+			<table class="table table-valign-middle" id="shouts">
+				<tbody>
+					<tr>
+						<td>
+							{{ ProgressBar::normal(100)->animated() }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 
 @endsection
