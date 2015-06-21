@@ -13,7 +13,7 @@
 		},
 
 		events: {
-			feedUrl: '{{ url() }}/api/events/?orderBy=start',
+			feedUrl: '{{ url() }}/api/events/',
 			poll: function()
 			{
 				console.log('Polling events');
@@ -98,7 +98,7 @@
 			},
 		},
 		shouts: {
-			feedUrl: '{{ url() }}/api/shouts/?orderBy=-pinned,-created_at&take=3',
+			feedUrl: '{{ url() }}/api/shouts/',
 			poll: function()
 			{
 				console.log('Polling shouts');
