@@ -82,7 +82,7 @@ class EventSignupService extends ResourceService {
 		if ( ! $event->allowsSignups() )
 			throw new DomainException( 'Event does not allow signups' );
 
-		if ( $event->hasSignupFromUser( $this->model->user_id ) )
+		if ( $event->hasSignupFromUser( $this->input['user_id'] ) )
 			throw new DomainException( 'User already signed up to event' );
 	}
 
