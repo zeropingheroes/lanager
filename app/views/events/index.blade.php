@@ -7,23 +7,25 @@
 		{{
 			Navigation::tabs([
 			[
-				'title' => 'Timetable',
-				'link' => route('events.index', ['tab' => 'timetable']),
-				'active' => (Input::get('tab') == 'timetable' OR empty(Input::get('tab')) ),
-			],
-			[
 				'title' => 'List',
 				'link' => route('events.index', ['tab' => 'list']),
-				'active' => Input::get('tab') == 'list',
+				'active' => (Input::get('tab') == 'list' OR empty(Input::get('tab')) ),
 			],
+			[
+				'title' => 'Timetable',
+				'link' => route('events.index', ['tab' => 'timetable']),
+				'active' => Input::get('tab') == 'timetable',
+			],
+
 			])
 		}}
 	</div>
 
-	@if ( Input::get('tab') == 'timetable' OR empty(Input::get('tab')) )
-		@include('events.partials.timetable' )
-	@elseif ( Input::get('tab') == 'list' )
+	@if ( Input::get('tab') == 'list' OR empty(Input::get('tab')) )
 		@include('events.partials.list', ['events' => $events] )
+	@elseif ( Input::get('tab') == 'timetable' )
+		@include('events.partials.timetable' )
+		
 	@endif
 	@include('buttons.create', ['resource' => 'events'])
 
