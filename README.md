@@ -39,41 +39,59 @@ And much more planned - check the [issue tracker](https://github.com/zeropingher
 * An Internet connection
 * Shell access to the server - **basic web hosting alone will not work!** 
 
-## Installation on [Ubuntu Server 14.04](http://www.ubuntu.com/download/server)
+## Installation
+The installation guide is now split into several sections
+1. The Base OS
+2. Webserver Configuration
+3. Lanager Configuration
 
+### Base OS Installation
 *Advanced users will be able to deploy LANager to Windows and OS X, though LANager has not been fully tested on these OSes.*
+#### Installation on [Debian 8](https://www.debian.org/CD/http-ftp/)
+1. Install the project's packaged dependencies:
+  a) For apache:
+  `sudo apt-get install git php5-common php5-cli php5-mcrypt php5-curl php5-mysql libapache2-mod-php5 mysql-server apache2 curl`
+  b) For nginx:
+  `sudo apt-get install git php5-common php5-cli php5-mcrypt php5-curl php5-mysql php5-fpm mysql-server nginx curl`
+
+
+#### Installation on [Ubuntu Server 14.04](http://www.ubuntu.com/download/server)
+
 
 1. Install the project's packaged dependencies:
-
+  a) For apache:
 	`sudo apt-get install git php5-common php5-cli php5-mcrypt php5-curl php5-mysql libapache2-mod-php5 mysql-server apache2`
 
-2. Enable Apache and PHP modules:
+### Webserver Configuration
+
+#### Apache
+1. Enable Apache and PHP modules:
 
 	`sudo a2enmod rewrite`
 
 	`sudo php5enmod mcrypt curl`
 
-3. Install Composer:
+2. Install Composer:
 
 	`sudo curl -sS https://getcomposer.org/installer | php`
 
 	`sudo mv composer.phar /usr/bin/composer`
 
-4. Clone the project:
+3. Clone the project:
 
 	`sudo git clone https://github.com/zeropingheroes/lanager.git`
 
-5. Move the project to Apache's web root directory:
+4. Move the project to Apache's web root directory:
 
 	`sudo mv lanager /var/www/lanager`
 
-6. Install the project's dependencies:
+5. Install the project's dependencies:
 
 	`cd /var/www/lanager`
 	
 	`sudo composer update`
 
-7. Configure Apache to use the LANager's public directory as the web root:
+6. Configure Apache to use the LANager's public directory as the web root:
 
 	1. Edit the default site configuration:
 
@@ -91,11 +109,91 @@ And much more planned - check the [issue tracker](https://github.com/zeropingher
 		</Directory>
 		```
 
-8. Allow full read and write access on the app's storage directory:
+7. Allow full read and write access on the app's storage directory:
 
 	`sudo chmod -R 777 /var/www/lanager/app/storage`
+
+#### Nginx
+1. Enable PHP modules:
+
+	`sudo php5enmod mcrypt curl`
+
+2. Install Composer:
+
+	`sudo curl -sS https://getcomposer.org/installer | php`
+
+	`sudo mv composer.phar /usr/bin/composer`
+
+3. Clone the project:
+
+	`git clone https://github.com/zeropingheroes/lanager.git`
+
+4. Move the project to Nginx's web root directory:
+
+	`sudo mv lanager /var/www/lanager`
+
+5. Configure Nginx to use the LANager's public directory as the web root:
+
+	1. Edit the default site configuration:
+
+		`sudo nano /etc/nginx/sites-available/default`
+
+	2. Change the root line to:
 	
-9. Create a MySQL user and database and grant the required privileges:
+		`root /var/www/lanager/public`
+
+	3. Add index.php to the default file types
+	
+		`index index.html index.htm index.nginx-debian.html index.php;`
+  
+	4. Nginx doesn't support .htaccess files so we shall enable [pretty URLs](http://laravel.com/docs/4.2/installation#pretty-urls) here instead
+
+		```
+		location / {
+			try_files $uri $uri/ /index.php?$query_string;
+		}
+		```
+		
+	5. Enable php script processing
+
+		```
+		# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000 
+		#                                                                    
+		location ~ \.php$ {                                                  
+			include snippets/fastcgi-php.conf;                                 
+		#                                                                    
+		# # With php5-cgi alone:                                             
+		# fastcgi_pass 127.0.0.1:9000;                                       
+		# # With php5-fpm:                                                   
+			fastcgi_pass unix:/var/run/php5-fpm.sock;                          
+		}
+		```
+		
+	6. Lanagers document root is an apache folder, we should deny access to .htaccess files
+
+		```
+		location ~ /\.ht {
+			deny all;
+		}
+		```
+
+7. Reload the nginx config engine
+	
+	`sudo systemctl reload nginx`
+
+6. Allow full read and write access on the app's storage directory:
+
+	`sudo chmod -R 777 /var/www/lanager/app/storage`
+
+### Lanager Install
+
+1. Install the project's dependencies
+
+	`cd /var/www/lanager`
+	
+	`sudo composer update`
+
+2. Create a MySQL user and database and grant the required privileges:
     
 	1. Run `mysql -u root -p`
 	2. Type your MySQL root user password you chose during MySQL package installation
@@ -106,26 +204,28 @@ And much more planned - check the [issue tracker](https://github.com/zeropingher
 		4. `FLUSH PRIVILEGES;`
 		5. `quit;`
 
-10. Set the database password in the database config file:
+3. Set the database password in the database config file:
 
 	1. `sudo nano /var/www/lanager/app/config/database.php`
 	2. Change the `password` line to your chosen password in the previous step
 
-11. Set your [Steam Web API key](http://steamcommunity.com/dev/apikey) in the steam config file:
+4. Set your [Steam Web API key](http://steamcommunity.com/dev/apikey) in the steam config file:
 
 	`sudo nano /var/www/lanager/app/config/lanager/steam.php`
 
-12. Set the correct time zone for your location in the app config file:
+5. Setup your app config file:
 	1. `sudo nano /var/www/lanager/app/config/app.php`
 	2. Change the `timezone` value to a [valid PHP timezone](http://php.net/manual/en/timezones.php)  
+  3. Change the `key` value to a random 32 character string
 
-12. Run the LANager installation command:
+
+6. Run the LANager installation command:
 
 	`cd /var/www/lanager`
 	
 	`sudo php artisan lanager:install`
 
-13. Schedule the LANager Steam state import command to run at 1 minute intervals:
+7. Schedule the LANager Steam state import command to run at 1 minute intervals:
 
 	1. Make the script file executable
 		
