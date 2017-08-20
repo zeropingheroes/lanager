@@ -67,7 +67,7 @@ return [
 	|
 	*/
 
-	'key' => '',
+	'key' => 'YourSecretKey',
 	'cipher' => MCRYPT_RIJNDAEL_256,
 
 	/*
