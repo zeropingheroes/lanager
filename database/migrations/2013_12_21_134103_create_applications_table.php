@@ -1,39 +1,38 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApplicationsTable extends Migration {
+class CreateApplicationsTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('applications', function($table)
-		{
-			// Fields
-			$table->increments('id');
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('applications', function ($table) {
+            // Fields
+            $table->increments('id');
 
-			$table->string('name');
+            $table->string('name');
 
-			$table->integer('steam_app_id')->unique();
+            $table->integer('steam_app_id')->unique();
 
-			$table->timestamps();
+            $table->timestamps();
 
-		});
-	}
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('applications');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('applications');
+    }
 
 }

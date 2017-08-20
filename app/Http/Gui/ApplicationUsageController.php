@@ -1,33 +1,34 @@
 <?php namespace Zeropingheroes\Lanager\Http\Gui;
 
-use Zeropingheroes\Lanager\Domain\BaseResourceService;
-use Zeropingheroes\Lanager\Domain\ApplicationUsage\ApplicationUsageService;
 use View;
+use Zeropingheroes\Lanager\Domain\ApplicationUsage\ApplicationUsageService;
+use Zeropingheroes\Lanager\Domain\BaseResourceService;
 
-class ApplicationUsageController extends ResourceServiceController {
+class ApplicationUsageController extends ResourceServiceController
+{
 
-	protected $applicationUsage;
+    protected $applicationUsage;
 
-	/**
-	 * Set the controller's service
-	 */
-	public function __construct()
-	{
-		$this->applicationUsage = new ApplicationUsageService;
-	}
+    /**
+     * Set the controller's service
+     */
+    public function __construct()
+    {
+        $this->applicationUsage = new ApplicationUsageService;
+    }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$applications = $this->applicationUsage->userTotalsAt( time() );
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $applications = $this->applicationUsage->userTotalsAt(time());
 
-		return View::make('application-usage.index')
-					->with('title', 'Games Being Played')
-					->with('applications', $applications);
-	}
+        return View::make('application-usage.index')
+            ->with('title', 'Games Being Played')
+            ->with('applications', $applications);
+    }
 
 }

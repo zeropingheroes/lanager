@@ -2,4 +2,6 @@
 
 use Exception;
 
-class SteamUserNotFoundException extends Exception { }
+class SteamUserNotFoundException extends Exception
+{
+}

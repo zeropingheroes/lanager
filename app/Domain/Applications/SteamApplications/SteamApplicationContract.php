@@ -1,12 +1,13 @@
 <?php namespace Zeropingheroes\Lanager\Domain\Applications\SteamApplications;
 
-interface SteamApplicationContract {
+interface SteamApplicationContract
+{
 
-	/**
-	 * Get all Steam Applications
-	 *
-	 * @return object SteamApplication|null
-	 */
-	public function getApplicationList();
+    /**
+     * Get all Steam Applications
+     *
+     * @return object SteamApplication|null
+     */
+    public function getApplicationList();
 
 }

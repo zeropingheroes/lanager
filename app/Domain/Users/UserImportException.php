@@ -2,4 +2,6 @@
 
 use Exception;
 
-class UserImportException extends Exception { } 
+class UserImportException extends Exception
+{
+}

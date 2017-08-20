@@ -1,54 +1,53 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventsTable extends Migration {
+class CreateEventsTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('events', function($table)
-		{
-			// Fields
-			$table->increments('id');
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('events', function ($table) {
+            // Fields
+            $table->increments('id');
 
-			$table->string('name');
+            $table->string('name');
 
-			$table->text('description')
-				->nullable();
+            $table->text('description')
+                ->nullable();
 
-			$table->timestamp('start');
+            $table->timestamp('start');
 
-			$table->timestamp('end');
+            $table->timestamp('end');
 
-			$table->integer('event_type_id')
-				->unsigned()
-				->nullable();
+            $table->integer('event_type_id')
+                ->unsigned()
+                ->nullable();
 
-			$table->timestamps();
+            $table->timestamps();
 
-			// Relationships
-			$table->foreign('event_type_id')
-				->references('id')
-				->on('event_types')
-				->onUpdate('cascade')
-				->onDelete('set null');
-		});
-	}
+            // Relationships
+            $table->foreign('event_type_id')
+                ->references('id')
+                ->on('event_types')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('events');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('events');
+    }
 
 }

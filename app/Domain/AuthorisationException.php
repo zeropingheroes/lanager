@@ -2,4 +2,6 @@
 
 use Exception;
 
-class AuthorisationException extends Exception { }
+class AuthorisationException extends Exception
+{
+}

@@ -29,28 +29,27 @@ $logFile = 'log-'.php_sapi_name().'.txt';
 Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 
 // Log to the database asynchronously if available
-Log::listen(function($level, $message, $context) {
+Log::listen(function ($level, $message, $context) {
 
-	if ( Config::get('lanager/config.installed') )
-	{
-		// Save the php sapi and date, because the closure needs to be serialized
-		$apiName = php_sapi_name();
-		$date = new DateTime;
+    if (Config::get('lanager/config.installed')) {
+        // Save the php sapi and date, because the closure needs to be serialized
+        $apiName = php_sapi_name();
+        $date = new DateTime;
 
-		Queue::push(function() use ($level, $message, $context, $apiName, $date) {
-			DB::insert(
-				'INSERT INTO logs (php_sapi_name, level, message, context, created_at)
+        Queue::push(function () use ($level, $message, $context, $apiName, $date) {
+            DB::insert(
+                'INSERT INTO logs (php_sapi_name, level, message, context, created_at)
 				VALUES (?, ?, ?, ?, ?)',
-				[
-					$apiName,
-					$level,
-					$message,
-					json_encode($context),
-					$date
-				]
-			);
-		});	
-	}
+                [
+                    $apiName,
+                    $level,
+                    $message,
+                    json_encode($context),
+                    $date,
+                ]
+            );
+        });
+    }
 
 });
 
@@ -80,9 +79,8 @@ require app_path().'/errors.php';
 |
 */
 
-App::down(function()
-{
-	return Response::make("Be right back!", 503);
+App::down(function () {
+    return Response::make("Be right back!", 503);
 });
 
 /*
@@ -115,17 +113,15 @@ require app_path().'/composers.php';
 require app_path().'/handlers.php';
 
 
-
 // TODO: move to library
-if ( ! function_exists('lists') ) 
-{
-	function lists( $items, $key, $value )
-	{
-		$list = [];
-		foreach( $items as $item )
-		{
-			$list[$item->$key] = $item->$value;
-		}
-		return $list;
-	}
+if (!function_exists('lists')) {
+    function lists($items, $key, $value)
+    {
+        $list = [];
+        foreach ($items as $item) {
+            $list[$item->$key] = $item->$value;
+        }
+
+        return $list;
+    }
 }

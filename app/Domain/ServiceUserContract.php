@@ -1,11 +1,11 @@
 <?php namespace Zeropingheroes\Lanager\Domain;
 
-interface ServiceUserContract {
-	
-	public function id( );
+interface ServiceUserContract
+{
+    public function id();
 
-	public function hasRole( $role );
+    public function hasRole($role);
 
-	public function isAuthenticated();
+    public function isAuthenticated();
 
 }

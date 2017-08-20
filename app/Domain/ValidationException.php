@@ -4,17 +4,19 @@ use Exception;
 
 class ValidationException extends Exception
 {
+    private $validationErrors;
 
-	private $validationErrors;
+    public function __construct(
+        $message,
+        $validationErrors = []
+    ) {
+        parent::__construct($message);
 
-	public function __construct(
-		$message, 
-		$validationErrors = []
-	) {
-		parent::__construct($message);
+        $this->validationErrors = $validationErrors;
+    }
 
-		$this->validationErrors = $validationErrors; 
-	}
-
-	public function getValidationErrors() { return $this->validationErrors; }
+    public function getValidationErrors()
+    {
+        return $this->validationErrors;
+    }
 }

@@ -1,388 +1,402 @@
 <?php namespace Zeropingheroes\Lanager\Domain;
 
-use Zeropingheroes\Lanager\Domain\Users\EloquentServiceUserAdapter;
 use Auth;
-use Validator;
 use DomainException;
+use Validator;
+use Zeropingheroes\Lanager\Domain\Users\EloquentServiceUserAdapter;
 
-abstract class ResourceService {
+abstract class ResourceService
+{
+    /**
+     * The resource's model that the service will use
+     * @var string
+     */
+    protected $model;
 
-	/**
-	 * The resource's model that the service will use
-	 * @var string
-	 */
-	protected $model;
+    /**
+     * User of the service
+     * @var object ServiceUserContract
+     */
+    protected $user;
 
-	/**
-	 * User of the service
-	 * @var object ServiceUserContract
-	 */
-	protected $user;
+    /**
+     * Field to order results by
+     * @var array
+     */
+    protected $orderBy = ['created_at'];
 
-	/**
-	 * Field to order results by
-	 * @var array
-	 */
-	protected $orderBy = [ 'created_at' ];
+    /**
+     * Filters to apply to read queries
+     * @var array
+     */
+    protected $filters = [];
 
-	/**
-	 * Filters to apply to read queries
-	 * @var array
-	 */
-	protected $filters = [ ];
+    /**
+     * Related resources to eager load
+     * @var array
+     */
+    protected $eagerLoad = [];
 
-	/**
-	 * Related resources to eager load
-	 * @var array
-	 */
-	protected $eagerLoad = [ ];
+    /**
+     * Set the user of the resource to no user initially
+     */
+    public function __construct()
+    {
+        $this->user = new EloquentServiceUserAdapter(null);
+    }
 
-	/**
-	 * Set the user of the resource to no user initially
-	 */
-	public function __construct() {
-		$this->user = new EloquentServiceUserAdapter( null );
-	}
+    /**
+     * Set the user of the resource
+     */
+    protected function setUser()
+    {
+        $this->user = new EloquentServiceUserAdapter(Auth::user());
+    }
 
-	/**
-	 * Set the user of the resource
-	 */
-	protected function setUser() {
-		$this->user = new EloquentServiceUserAdapter( Auth::user() );
-	}
+    private function newModelInstance()
+    {
+        return (new $this->model);
+    }
 
-	private function newModelInstance()
-	{
-		return ( new $this->model );
-	}
+    /**
+     * Get all items of this resource
+     * @return Collection       Collection of items
+     */
+    public function all()
+    {
+        $this->setUser();
 
-	/**
-	 * Get all items of this resource
-	 * @return Collection       Collection of items
-	 */
-	public function all()
-	{
-		$this->setUser();
+        $this->runChecks('read');
 
-		$this->runChecks( 'read' );
+        return $this->get($this->newModelInstance());
+    }
 
-		return $this->get( $this->newModelInstance() );
-	}
+    /**
+     * Get a single resource item by its ID
+     * @param  integer $id Item ID
+     * @return BaseModel       Model of the item
+     */
+    public function single($id)
+    {
+        $this->setUser();
+        $this->runChecks('read');
 
-	/**
-	 * Get a single resource item by its ID
-	 * @param  integer   $id   Item ID
-	 * @return BaseModel       Model of the item
-	 */
-	public function single( $id )
-	{
-		$this->setUser();
-		$this->runChecks( 'read' );
+        return $this->get($this->newModelInstance(), $id);
+    }
 
-		return $this->get( $this->newModelInstance(), $id );
-	}
+    /**
+     * Run query including eager load
+     * @param  integer $id Item ID
+     * @return BaseModel|Collection    Query results
+     */
+    protected function get($model, $id = null)
+    {
+        if ($this->filters) {
+            $model = $this->filter($model);
+        }
 
-	/**
-	 * Run query including eager load
-	 * @param  integer                 $id   Item ID
-	 * @return BaseModel|Collection    Query results
-	 */
-	protected function get( $model, $id = null )
-	{
-		if ( $this->filters )
-			$model = $this->filter( $model );
+        if ($this->eagerLoad) {
+            $model = $model->with($this->eagerLoad);
+        }
 
-		if ( $this->eagerLoad )
-			$model = $model->with( $this->eagerLoad );
+        if ($id) {
+            return $model->where('id', $id)->firstOrFail();
+        }
 
-		if ( $id )
-			return $model->where( 'id', $id )->firstOrFail();
-		
-		return $this->order( $model )->get();
-	}
+        return $this->order($model)->get();
+    }
 
-	/**
-	 * Apply order by property to model
-	 */
-	protected function order( $model )
-	{
-		foreach ( $this->orderBy as $orderBy )
-		{
-			// only field name specified
-			if ( count( $orderBy ) == 1 )
-				$model = $model->orderBy( $orderBy );
-			
-			// field name and direction specified
-			if ( count( $orderBy ) == 2 )
-				$model = $model->orderBy( $orderBy[0], $orderBy[1] );
-		}
-		return $model;
-	}
+    /**
+     * Apply order by property to model
+     */
+    protected function order($model)
+    {
+        foreach ($this->orderBy as $orderBy) {
+            // only field name specified
+            if (count($orderBy) == 1) {
+                $model = $model->orderBy($orderBy);
+            }
 
-	public function addFilter()
-	{
-		$filter = func_get_args();
-		$this->filters[] = $filter;
-	}
+            // field name and direction specified
+            if (count($orderBy) == 2) {
+                $model = $model->orderBy($orderBy[0], $orderBy[1]);
+            }
+        }
 
-	/**
-	 * Apply filters to model
-	 */
-	protected function filter( $model )
-	{
-		foreach ( $this->filters as $filter )
-		{
-			if ( $filter[0] == 'where' AND count( $filter ) == 3 )
-				$model = $model->where( $filter[1], $filter[2] );
+        return $model;
+    }
 
-			if ( $filter[0] == 'where' AND count( $filter ) == 4 )
-				$model = $model->where( $filter[1], $filter[2], $filter[3] );
+    public function addFilter()
+    {
+        $filter = func_get_args();
+        $this->filters[] = $filter;
+    }
 
-			if ( $filter[0] == 'whereIn' AND is_array( $filter[2] ) )
-				$model = $model->whereIn( $filter[1], $filter[2] );
+    /**
+     * Apply filters to model
+     */
+    protected function filter($model)
+    {
+        foreach ($this->filters as $filter) {
+            if ($filter[0] == 'where' AND count($filter) == 3) {
+                $model = $model->where($filter[1], $filter[2]);
+            }
 
-			if ( $filter[0] == 'whereBetween' AND is_array( $filter[2] ) )
-				$model = $model->whereBetween( $filter[1], $filter[2] );
-		}
-		return $model;
-	}
+            if ($filter[0] == 'where' AND count($filter) == 4) {
+                $model = $model->where($filter[1], $filter[2], $filter[3]);
+            }
 
-	/**
-	 * Store a new resource item
-	 * @param  array $input Raw user input
-	 * @return boolean
-	 */
-	public function store( $input )
-	{
-		$this->setUser();
+            if ($filter[0] == 'whereIn' AND is_array($filter[2])) {
+                $model = $model->whereIn($filter[1], $filter[2]);
+            }
 
-		$model = $this->newModelInstance();
+            if ($filter[0] == 'whereBetween' AND is_array($filter[2])) {
+                $model = $model->whereBetween($filter[1], $filter[2]);
+            }
+        }
 
-		$model = $model->fill( $input );
+        return $model;
+    }
 
-		$this->runChecks( 'store', $model->toArray() );
+    /**
+     * Store a new resource item
+     * @param  array $input Raw user input
+     * @return boolean
+     */
+    public function store($input)
+    {
+        $this->setUser();
 
-		$model->save();
+        $model = $this->newModelInstance();
 
-		return $model->toArray();
-	}
+        $model = $model->fill($input);
 
-	/**
-	 * Update an existing resource item by ID
-	 * @param  integer $id    Item's ID
-	 * @param  array $input   Raw user input
-	 * @return boolean
-	 */
-	public function update( $id, $input )
-	{
-		$this->setUser();
+        $this->runChecks('store', $model->toArray());
 
-		$model = $this->get( $this->newModelInstance(), $id );
-		
-		$model = $model->fill( $input );
+        $model->save();
 
-		$this->runChecks( 'update', $model->toArray(), $model->getOriginal() );
+        return $model->toArray();
+    }
 
-		$model->save();
+    /**
+     * Update an existing resource item by ID
+     * @param  integer $id Item's ID
+     * @param  array $input Raw user input
+     * @return boolean
+     */
+    public function update($id, $input)
+    {
+        $this->setUser();
 
-		return $model->toArray();
-	}
+        $model = $this->get($this->newModelInstance(), $id);
 
-	/**
-	 * Destroy an existing resource item by ID
-	 * @param  integer $id    Item's ID
-	 * @return boolean
-	 */
-	public function destroy( $id )
-	{
-		$this->setUser();
+        $model = $model->fill($input);
 
-		$model = $this->get( $this->newModelInstance(), $id );
+        $this->runChecks('update', $model->toArray(), $model->getOriginal());
 
-		$this->runChecks( 'destroy', $model->toArray() );
+        $model->save();
 
-		$model->delete();
+        return $model->toArray();
+    }
 
-		return $model->toArray();
-	}
+    /**
+     * Destroy an existing resource item by ID
+     * @param  integer $id Item's ID
+     * @return boolean
+     */
+    public function destroy($id)
+    {
+        $this->setUser();
 
-	/**
-	 * Check if the service permits a given action by calling
-	 * authorisation, validation and domain rule checking methods
-	 * @param  string  $action  Requested action to check
-	 * @param  array   $input   Input data relevant to checks
-	 * @return boolean          True for operation permitted, otherwise false
-	 */
-	public function permits( $action, $input = [] )
-	{
-		$this->setUser();
+        $model = $this->get($this->newModelInstance(), $id);
 
-		try
-		{
-			$this->runChecks( $action, $input );
+        $this->runChecks('destroy', $model->toArray());
 
-			// If no exceptions are thrown, the action is permitted
-			return true;
-		}
-		// If an exception is thrown, the action is not permitted
-		catch ( AuthorisationException $e )
-		{
-			return false;
-		}
-		catch ( DomainException $e )
-		{
-			return false;
-		}
-		catch ( ValidationException $e )
-		{
-			return false;
-		}
-	}
+        $model->delete();
 
-	/**
-	 * Run required checks for given action
-	 * @param  string  $action  Requested action to check
-	 * @param  array   $input   Input data relevant to checks
-	 */
-	protected function runChecks( $action, $input = [], $original = [] )
-	{
-		// Perform a basic check to see if the current action is authorised
-		// to be performed on this resource
-		$this->checkAuthorisation( $action );
+        return $model->toArray();
+    }
 
-		// Run input validation on the input data
-		$this->applyValidationRules( $action, $input );
+    /**
+     * Check if the service permits a given action by calling
+     * authorisation, validation and domain rule checking methods
+     * @param  string $action Requested action to check
+     * @param  array $input Input data relevant to checks
+     * @return boolean          True for operation permitted, otherwise false
+     */
+    public function permits($action, $input = [])
+    {
+        $this->setUser();
 
-		// Run domain rule validation on the input data
-		$this->applyDomainRules( $action, $input, $original );
+        try {
+            $this->runChecks($action, $input);
 
-	}
+            // If no exceptions are thrown, the action is permitted
+            return true;
+        } // If an exception is thrown, the action is not permitted
+        catch (AuthorisationException $e) {
+            return false;
+        } catch (DomainException $e) {
+            return false;
+        } catch (ValidationException $e) {
+            return false;
+        }
+    }
 
-	/**
-	 * Check if given action is authorised on resource 
-	 * @param  string  $action   Requested action to check
-	 * @throws DomainException   If action is unathorised
-	 */
-	protected function checkAuthorisation( $action )
-	{
-		$authorisationCheckMethod = $action . 'Authorised'; // e.g. readAuthorised
+    /**
+     * Run required checks for given action
+     * @param  string $action Requested action to check
+     * @param  array $input Input data relevant to checks
+     */
+    protected function runChecks($action, $input = [], $original = [])
+    {
+        // Perform a basic check to see if the current action is authorised
+        // to be performed on this resource
+        $this->checkAuthorisation($action);
 
-		if ( ! $this->{ $authorisationCheckMethod }() )
-			throw new AuthorisationException( 'You are not authorised to perform this action' );
-	}
+        // Run input validation on the input data
+        $this->applyValidationRules($action, $input);
 
-	/**
-	 * Apply validation rules
-	 * @param  string  $action      Requested action to check
-	 * @param  array   $input       Input data
-	 * @throws ValidationException  If input validation fails
-	 */
-	protected function applyValidationRules( $action, $input = [] )
-	{
-		if ( $action == 'read' OR $action == 'destroy' ) return;
+        // Run domain rule validation on the input data
+        $this->applyDomainRules($action, $input, $original);
 
-		$validationRulesMethod = 'validationRulesOn' . $action;
+    }
 
-		$rules = $this->{ $validationRulesMethod }( $input );
-		
-		$validation = Validator::make( $input, $rules );
+    /**
+     * Check if given action is authorised on resource
+     * @param  string $action Requested action to check
+     * @throws DomainException   If action is unathorised
+     */
+    protected function checkAuthorisation($action)
+    {
+        $authorisationCheckMethod = $action.'Authorised'; // e.g. readAuthorised
 
-		if ( $validation->fails() )
-			throw new ValidationException( 'Validation failed', $validation->errors()->all() );
-	}
+        if (!$this->{$authorisationCheckMethod}()) {
+            throw new AuthorisationException('You are not authorised to perform this action');
+        }
+    }
 
-	/**
-	 * Apply domain rules
-	 * @param  string  $action      Requested action to check
-	 * @param  array   $input       Input data
-	 * @param  array   $original    Original item before modification
-	 */
-	protected function applyDomainRules( $action, $input = [], $original = [] )
-	{
-		$domainRulesMethod = 'domainRulesOn' . ucfirst($action);
+    /**
+     * Apply validation rules
+     * @param  string $action Requested action to check
+     * @param  array $input Input data
+     * @throws ValidationException  If input validation fails
+     */
+    protected function applyValidationRules($action, $input = [])
+    {
+        if ($action == 'read' OR $action == 'destroy') {
+            return;
+        }
 
-		// Pass in original model if we are updating
-		if ( $action = 'update' )
-		{
-			$this->{ $domainRulesMethod }( $input, $original );
-		}
-		else
-		{
-			$this->{ $domainRulesMethod }( $input );
-		}
-	}
+        $validationRulesMethod = 'validationRulesOn'.$action;
 
-	/**
-	 * Check if read operations are authorised on the service
-	 * Typically redifined in subclasses
-	 * @return boolean
-	 */
-	protected function readAuthorised()
-	{
-		return false;
-	}
+        $rules = $this->{$validationRulesMethod}($input);
 
-	/**
-	 * Check if store operations are authorised on the service
-	 * Typically redifined in subclasses
-	 * @return boolean
-	 */
-	protected function storeAuthorised()
-	{
-		return false;
-	}
+        $validation = Validator::make($input, $rules);
 
-	/**
-	 * Check if update operations are authorised on the service
-	 * Typically redifined in subclasses
-	 * @return boolean
-	 */
-	protected function updateAuthorised()
-	{
-		return false;
-	}
+        if ($validation->fails()) {
+            throw new ValidationException('Validation failed', $validation->errors()->all());
+        }
+    }
 
-	/**
-	 * Check if destroy operations are authorised on the service
-	 * Typically redifined in subclasses
-	 * @return boolean
-	 */
-	protected function destroyAuthorised()
-	{
-		return false;
-	}
+    /**
+     * Apply domain rules
+     * @param  string $action Requested action to check
+     * @param  array $input Input data
+     * @param  array $original Original item before modification
+     */
+    protected function applyDomainRules($action, $input = [], $original = [])
+    {
+        $domainRulesMethod = 'domainRulesOn'.ucfirst($action);
 
-	/**
-	 * Run rule checks that apply during resource read
-	 * Typically redifined in subclasses
-	 * @param  array $input     Input data to be used when evaluating rules
-	 * @throws DomainException	when a rule is broken
-	 */
-	protected function domainRulesOnRead( $input ) { }
+        // Pass in original model if we are updating
+        if ($action = 'update') {
+            $this->{$domainRulesMethod}($input, $original);
+        }
+        else {
+            $this->{$domainRulesMethod}($input);
+        }
+    }
 
-	/**
-	 * Run rule checks that apply during resource read
-	 * Typically redifined in subclasses
-	 * @param  array $input     Input data to be used when evaluating rules
-	 * @throws DomainException	when a rule is broken
-	 */
-	protected function domainRulesOnStore( $input ) { }
+    /**
+     * Check if read operations are authorised on the service
+     * Typically redifined in subclasses
+     * @return boolean
+     */
+    protected function readAuthorised()
+    {
+        return false;
+    }
 
-	/**
-	 * Run rule checks that apply during resource read
-	 * Typically redifined in subclasses
-	 * @param  array $input     Input data to be used when evaluating rules
-	 * @param  array $original  Original item data to be used when evaluating rules
-	 * @throws DomainException	when a rule is broken
-	 */
-	protected function domainRulesOnUpdate( $input, $original ) { }
+    /**
+     * Check if store operations are authorised on the service
+     * Typically redifined in subclasses
+     * @return boolean
+     */
+    protected function storeAuthorised()
+    {
+        return false;
+    }
 
-	/**
-	 * Run rule checks that apply during resource read
-	 * Typically redifined in subclasses
-	 * @param  array $input     Input data to be used when evaluating rules
-	 * @throws DomainException	when a rule is broken
-	 */
-	protected function domainRulesOnDestroy( $input ) { }
+    /**
+     * Check if update operations are authorised on the service
+     * Typically redifined in subclasses
+     * @return boolean
+     */
+    protected function updateAuthorised()
+    {
+        return false;
+    }
+
+    /**
+     * Check if destroy operations are authorised on the service
+     * Typically redifined in subclasses
+     * @return boolean
+     */
+    protected function destroyAuthorised()
+    {
+        return false;
+    }
+
+    /**
+     * Run rule checks that apply during resource read
+     * Typically redifined in subclasses
+     * @param  array $input Input data to be used when evaluating rules
+     * @throws DomainException    when a rule is broken
+     */
+    protected function domainRulesOnRead($input)
+    {
+    }
+
+    /**
+     * Run rule checks that apply during resource read
+     * Typically redifined in subclasses
+     * @param  array $input Input data to be used when evaluating rules
+     * @throws DomainException    when a rule is broken
+     */
+    protected function domainRulesOnStore($input)
+    {
+    }
+
+    /**
+     * Run rule checks that apply during resource read
+     * Typically redifined in subclasses
+     * @param  array $input Input data to be used when evaluating rules
+     * @param  array $original Original item data to be used when evaluating rules
+     * @throws DomainException    when a rule is broken
+     */
+    protected function domainRulesOnUpdate($input, $original)
+    {
+    }
+
+    /**
+     * Run rule checks that apply during resource read
+     * Typically redifined in subclasses
+     * @param  array $input Input data to be used when evaluating rules
+     * @throws DomainException    when a rule is broken
+     */
+    protected function domainRulesOnDestroy($input)
+    {
+    }
 
 }

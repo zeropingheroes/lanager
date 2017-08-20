@@ -2,13 +2,17 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class UserImport extends Facade {
+class UserImport extends Facade
+{
 
-	/**
-	* Get the registered name of the component.
-	*
-	* @return string
-	*/
-	protected static function getFacadeAccessor() { return 'UserImport'; }
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return 'UserImport';
+    }
 
 }

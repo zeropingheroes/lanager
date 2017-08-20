@@ -1,5 +1,5 @@
 @if ( count($states) )
-	<p>History here</p>
+    <p>History here</p>
 @else
-	<p>No history to show!</p>
+    <p>No history to show!</p>
 @endif

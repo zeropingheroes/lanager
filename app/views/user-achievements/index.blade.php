@@ -1,10 +1,10 @@
 @extends('layouts.default')
 @section('content')
-	@include('layouts.default.title')
-	@include('layouts.default.alerts')
+    @include('layouts.default.title')
+    @include('layouts.default.alerts')
 
-	@include('user-achievements.partials.list')
+    @include('user-achievements.partials.list')
 
-	@include('buttons.create', ['resource' => 'user-achievements'])
+    @include('buttons.create', ['resource' => 'user-achievements'])
 
 @endsection

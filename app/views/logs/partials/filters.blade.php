@@ -15,19 +15,19 @@
 	}}
 
 
-	{{ 
-		DropdownButton::normal('Min. Level')
-		->withContents(
-			[
-				['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'debug']),		'label' => 'Debug'],
-				['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'info']),		'label' => 'Info'],
-				['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'notice']),	'label' => 'Notice'],
-				['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'warning']),	'label' => 'Warning'],
-				['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'error']),		'label' => 'Error'],
-				['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'critical']),	'label' => 'Critical'],
-				['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'alert']),		'label' => 'Alert'],
-				['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'emergency']),	'label' => 'Emergency'],
-			]
-		)
-	}}
+    {{
+        DropdownButton::normal('Min. Level')
+        ->withContents(
+            [
+                ['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'debug']),		'label' => 'Debug'],
+                ['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'info']),		'label' => 'Info'],
+                ['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'notice']),	'label' => 'Notice'],
+                ['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'warning']),	'label' => 'Warning'],
+                ['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'error']),		'label' => 'Error'],
+                ['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'critical']),	'label' => 'Critical'],
+                ['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'alert']),		'label' => 'Alert'],
+                ['url' => route('logs.index', Input::except('minLevel') + ['minLevel' => 'emergency']),	'label' => 'Emergency'],
+            ]
+        )
+    }}
 </span>

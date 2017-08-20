@@ -2,26 +2,27 @@
 
 use Zeropingheroes\Lanager\Domain\BaseModel;
 
-class Role extends BaseModel {
+class Role extends BaseModel
+{
 
-	protected $fillable = [ 'name' ];
+    protected $fillable = ['name'];
 
-	/**
-	 * A single role belongs to many users
-	 * @return object Illuminate\Database\Eloquent\Relations\Relation
-	 */
-	public function users()
-	{
-		return $this->belongsToMany( 'Zeropingheroes\Lanager\Domain\Users\User', 'user_roles' )->withTimestamps();
-	}
+    /**
+     * A single role belongs to many users
+     * @return object Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function users()
+    {
+        return $this->belongsToMany('Zeropingheroes\Lanager\Domain\Users\User', 'user_roles')->withTimestamps();
+    }
 
-	/**
-	 * A single role has many user roles (aka role assignments)
-	 * @return object Illuminate\Database\Eloquent\Relations\Relation
-	 */
-	public function userRoles()
-	{
-		return $this->hasMany( 'Zeropingheroes\Lanager\Domain\UserRoles\UserRole' );
-	}
+    /**
+     * A single role has many user roles (aka role assignments)
+     * @return object Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function userRoles()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\Domain\UserRoles\UserRole');
+    }
 
 }

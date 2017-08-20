@@ -1,25 +1,26 @@
 <?php namespace Zeropingheroes\Lanager\Domain\EventTypes;
 
-use Zeropingheroes\Lanager\Domain\BaseModel;
 use Laracasts\Presenter\PresentableTrait;
+use Zeropingheroes\Lanager\Domain\BaseModel;
 
-class EventType extends BaseModel {
+class EventType extends BaseModel
+{
 
-	use PresentableTrait;
+    use PresentableTrait;
 
-	protected $presenter = 'Zeropingheroes\Lanager\Domain\EventTypes\EventTypePresenter';
+    protected $presenter = 'Zeropingheroes\Lanager\Domain\EventTypes\EventTypePresenter';
 
-	protected $fillable = [ 'name', 'colour' ];
+    protected $fillable = ['name', 'colour'];
 
-	protected $nullable = [ 'colour' ];
+    protected $nullable = ['colour'];
 
-	/**
-	 * A single event type has many events
-	 * @return object Illuminate\Database\Eloquent\Relations\Relation
-	 */
-	public function events()
-	{
-		return $this->hasMany('Zeropingheroes\Lanager\Domain\Events\Event');
-	}
+    /**
+     * A single event type has many events
+     * @return object Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function events()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\Domain\Events\Event');
+    }
 
 }

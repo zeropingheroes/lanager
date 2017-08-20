@@ -2,6 +2,7 @@
 
 use Zeropingheroes\Lanager\Domain\BaseModel;
 
-class Log extends BaseModel {
+class Log extends BaseModel
+{
 
 }

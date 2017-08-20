@@ -12,8 +12,8 @@
 {{ HTML::script('js/lanager.js') }}
 
 <script type="text/javascript">
-	var siteUrl = '{{ url('/') }}';
-	$(function () {
-		$('[data-toggle="tooltip"]').tooltip()
-	})
+    var siteUrl = '{{ url('/') }}';
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>

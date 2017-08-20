@@ -11,18 +11,15 @@
 |
 */
 
-App::before(function($request)
-{
-	if ( Config::get('lanager/config.installed') !== true )
-	{
-		return 'Run <pre>php artisan lanager:install</pre> from the lanager/ directory before continuing';
-	}
+App::before(function ($request) {
+    if (Config::get('lanager/config.installed') !== true) {
+        return 'Run <pre>php artisan lanager:install</pre> from the lanager/ directory before continuing';
+    }
 });
 
 
-App::after(function($request, $response)
-{
-	//
+App::after(function ($request, $response) {
+    //
 });
 
 
@@ -37,12 +34,10 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('csrf', function()
-{
-	if (Session::token() != Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
+Route::filter('csrf', function () {
+    if (Session::token() != Input::get('_token')) {
+        throw new Illuminate\Session\TokenMismatchException;
+    }
 });
 
 /*
@@ -55,21 +50,22 @@ Route::filter('csrf', function()
 | Gets resource type (e.g. User) action (e.g. delete) and item id from request.
 |
 */
-Route::filter('permission', function($route, $request)
-{
-	// convert dotted route name into array
-	$routeName	= explode('.', $route->getName()); 
-	
-	// take the last part as the action
-	$action		= array_pop($routeName);
+Route::filter('permission', function ($route, $request) {
+    // convert dotted route name into array
+    $routeName = explode('.', $route->getName());
 
-	// get the resource name (without action)
-	$resource 	= implode('.', $routeName);
+    // take the last part as the action
+    $action = array_pop($routeName);
 
-	// get resource ids as array
-	$parameters = $route->parameters();
+    // get the resource name (without action)
+    $resource = implode('.', $routeName);
 
-	// test if current user has permission to perform {action} on {resource} with {parameters}
-	if ( Authority::cannot($action, $resource, $parameters) ) return App::abort(403);
+    // get resource ids as array
+    $parameters = $route->parameters();
+
+    // test if current user has permission to perform {action} on {resource} with {parameters}
+    if (Authority::cannot($action, $resource, $parameters)) {
+        return App::abort(403);
+    }
 
 });

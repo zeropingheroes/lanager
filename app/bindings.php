@@ -11,11 +11,11 @@
 */
 
 App::bind(
-	'Zeropingheroes\Lanager\Domain\Users\SteamUsers\SteamUserContract',
-	'Zeropingheroes\Lanager\Domain\Users\SteamUsers\LocomotiveSteamUserRepository'
-	);
+    'Zeropingheroes\Lanager\Domain\Users\SteamUsers\SteamUserContract',
+    'Zeropingheroes\Lanager\Domain\Users\SteamUsers\LocomotiveSteamUserRepository'
+);
 
 App::bind(
-	'Zeropingheroes\Lanager\Domain\Applications\SteamApplications\SteamApplicationContract',
-	'Zeropingheroes\Lanager\Domain\Applications\SteamApplications\LocomotiveSteamApplicationRepository'
-	);
+    'Zeropingheroes\Lanager\Domain\Applications\SteamApplications\SteamApplicationContract',
+    'Zeropingheroes\Lanager\Domain\Applications\SteamApplications\LocomotiveSteamApplicationRepository'
+);
