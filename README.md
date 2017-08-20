@@ -32,6 +32,20 @@ And much more planned - check the [issue tracker](https://github.com/zeropingher
 # Screenshots
 
 ![Games](docs/screenshots/games.png)
+![Event - View](docs/screenshots/event-signups.png)
+![User list](docs/screenshots/people.png)
+![Profile](docs/screenshots/profile.png)
+![Servers](docs/screenshots/servers.png)
+![Timetable - Day view](docs/screenshots/lanager-timetable.png)
+![Timetable - Week view](docs/screenshots/lanager-timetable-2.png)
+![Shouts](docs/screenshots/shouts.png)
+![Info page - View](docs/screenshots/info_0.png)
+![Info page - View](docs/screenshots/info-admin.png)
+![Profile (with admin options)](docs/screenshots/profile-admin.png)
+![Shouts (with admin options)](docs/screenshots/shouts-admin.png)
+![Event - Edit](docs/screenshots/event-edit.png)
+![Info Page - Create](docs/screenshots/info-admin-2.png)
+![Custom Links](docs/screenshots/links.png)
 
 ## Requirements
 * Web server - *Apache 2.4.x recommended*
