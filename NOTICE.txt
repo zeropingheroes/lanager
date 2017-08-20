@@ -1,5 +1,5 @@
 LANager - LAN Party Administration System
-Copyright © 2015 Oliver Baker
+Copyright © 2017 Zero Ping Heroes Ltd
 
 This product includes software ("Software") developed by Oliver Baker.
 
