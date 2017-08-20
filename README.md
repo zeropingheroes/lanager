@@ -29,6 +29,10 @@ more enjoyable for attendees and organisers alike.
 
 And much more planned - check the [issue tracker](https://github.com/zeropingheroes/lanager-core/issues?labels=enhancement&milestone=&page=1&state=open) for future enhancements
 
+# Screenshots
+
+![Games](docs/screenshots/games.png)
+
 ## Requirements
 * Web server - *Apache 2.4.x recommended*
 * Database server - *MySQL 5.5.x recommended*
@@ -86,7 +90,7 @@ And much more planned - check the [issue tracker](https://github.com/zeropingher
 
 7. Allow full read and write access on the app's storage directory:
 
-	`chmod -R 777 /var/www/lanager/app/storage`
+	`chmod -R 777 /var/www/lanager/app/``````storage`
 	
 8. Create a MySQL user and database and grant the required privileges:
     
