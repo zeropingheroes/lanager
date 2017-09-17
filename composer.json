@@ -11,7 +11,6 @@
 		"vtalbot/markdown": "1.*",
 		"patricktalmadge/bootstrapper": "dev-develop",
 		"tsukanov/steam-locomotive": "dev-master",
-		"lightopenid/lightopenid": "dev-master",
 		"zeropingheroes/steam-browser-protocol": "dev-dev",
 		"machuga/authority-l4" : "dev-master",
 		"edvinaskrucas/notification": "3.*",
@@ -21,7 +20,8 @@
 		"mews/purifier": "1.0.1",
 		"dingo/api": "0.8.*",
 		"barryvdh/laravel-debugbar": "1.8.4",
-		"zeropingheroes/htmlpurifier-urischeme-steam": "dev-master"
+		"zeropingheroes/htmlpurifier-urischeme-steam": "dev-master",
+		"kounta/lightopenid": "^0.7.1"
 	},
 	"authors": [
 	{
