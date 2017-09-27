@@ -22,6 +22,12 @@ printf "${GREEN}Linking site's public directory to Apache's webroot${BLACK}\n"
 rm -R /var/www/html
 ln -s /vagrant/public /var/www/html
 
+printf "${GREEN}Enabling AllowOverride in webroot${BLACK}\n"
+FIND='DocumentRoot /var/www/html'
+INSERT='\t<Directory /var/www/html>\n\t\tAllowOverride All\n\t</Directory>'
+CONFIG_FILE='/etc/apache2/sites-enabled/000-default.conf'
+sed -i "s|$FIND|$FIND\n$INSERT|" $CONFIG_FILE
+
 printf "${GREEN}Installing Composer${BLACK}\n"
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
