@@ -49,3 +49,6 @@ mysql -u root -proot -e "FLUSH PRIVILEGES;"
 
 printf "${GREEN}Restarting Apache${BLACK}\n"
 /etc/init.d/apache2 restart
+
+printf "${GREEN}Initial installation completed! Please run the following to complete the installation:${BLACK}\n"
+printf "${GREEN}php artisan lanager:install${BLACK}\n"
