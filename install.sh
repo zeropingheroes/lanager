@@ -1,4 +1,7 @@
 #!/bin/bash
+# Exit on the first error
+set -e
+
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 GREEN='\033[0;32m'
 BLACK='\033[0m'
