@@ -4,16 +4,10 @@ GREEN='\033[0;32m'
 BLACK='\033[0m'
 
 printf "${GREEN}Installing dependencies with apt${BLACK}\n"
-apt update -y
-apt upgrade -y
-apt install -y git
-apt install -y php5-cli
-apt install -y php5-common
-apt install -y php5-mcrypt
-apt install -y php5-curl
-apt install -y php5-mysql
-apt install -y libapache2-mod-php5
-apt install -y apache2
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
+apt update -y && apt upgrade -y
+apt install -y git php5-cli php5-common php5-mcrypt php5-curl php5-mysql libapache2-mod-php5 apache2 mysql-client-5.6 mysql-server-5.6
 
 printf "${GREEN}Enabling PHP extensions${BLACK}\n"
 php5enmod mcrypt curl mysql
@@ -29,4 +23,8 @@ rm -R /var/www/html
 ln -s /vagrant/public /var/www/html
 
 printf "${GREEN}Setting permissions for app \"storage\" directory${BLACK}\n"
-chmod -R 777 /vagrant/app/storage
+chmod -R 777 /vagrant/app/storageprintf "${GREEN}Creating MySQL database and user${BLACK}\n"
+mysql -u root -proot -e "CREATE DATABASE lanager;"
+mysql -u root -proot -e "CREATE USER 'lanager'@'localhost' IDENTIFIED BY 'lanager';"
+mysql -u root -proot -e "GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'localhost';"
+mysql -u root -proot -e "FLUSH PRIVILEGES;"
