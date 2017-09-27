@@ -34,10 +34,6 @@ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/loca
 printf "${GREEN}Installing dependencies with Composer${BLACK}\n"
 cd $SCRIPT_DIR && composer install
 
-printf "${GREEN}Linking site's public directory to Apache's webroot${BLACK}\n"
-rm -R /var/www/html
-ln -s /vagrant/public /var/www/html
-
 printf "${GREEN}Setting permissions for app \"storage\" directory${BLACK}\n"
 chmod -R 777 /vagrant/app/storage
 
