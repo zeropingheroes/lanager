@@ -15,6 +15,9 @@ apt install -y git php5-cli php5-common php5-mcrypt php5-curl php5-mysql libapac
 printf "${GREEN}Enabling PHP extensions${BLACK}\n"
 php5enmod mcrypt curl mysql
 
+printf "${GREEN}Enabling Apache modules${BLACK}\n"
+a2enmod rewrite
+
 printf "${GREEN}Installing Composer${BLACK}\n"
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
