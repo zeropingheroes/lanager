@@ -18,6 +18,10 @@ php5enmod mcrypt curl mysql
 printf "${GREEN}Enabling Apache modules${BLACK}\n"
 a2enmod rewrite
 
+printf "${GREEN}Linking site's public directory to Apache's webroot${BLACK}\n"
+rm -R /var/www/html
+ln -s /vagrant/public /var/www/html
+
 printf "${GREEN}Installing Composer${BLACK}\n"
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
