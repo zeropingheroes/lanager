@@ -27,6 +27,7 @@ ln -s /vagrant/public /var/www/html
 
 printf "${GREEN}Setting permissions for app \"storage\" directory${BLACK}\n"
 chmod -R 777 /vagrant/app/storageprintf "${GREEN}Creating MySQL database and user${BLACK}\n"
+printf "${GREEN}Creating MySQL database and user${BLACK}\n"
 mysql -u root -proot -e "CREATE DATABASE lanager;"
 mysql -u root -proot -e "CREATE USER 'lanager'@'localhost' IDENTIFIED BY 'lanager';"
 mysql -u root -proot -e "GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'localhost';"
