@@ -32,4 +32,7 @@ printf "${GREEN}Creating MySQL database and user${BLACK}\n"
 mysql -u root -proot -e "CREATE DATABASE lanager;"
 mysql -u root -proot -e "CREATE USER 'lanager'@'localhost' IDENTIFIED BY 'lanager';"
 mysql -u root -proot -e "GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'localhost';"
-mysql -u root -proot -e "FLUSH PRIVILEGES;"
+mysql -u root -proot -e "FLUSH PRIVILEGES;"mysql -u root -proot -e "FLUSH PRIVILEGES;"
+
+printf "${GREEN}Restarting Apache${BLACK}\n"
+/etc/init.d/apache2 restart
