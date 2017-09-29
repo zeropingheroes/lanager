@@ -39,9 +39,15 @@ chmod -R 777 /vagrant/app/storage
 
 printf "${GREEN}Creating MySQL database and user${BLACK}\n"
 mysql -u root -proot -e "CREATE DATABASE lanager;"
-mysql -u root -proot -e "CREATE USER 'lanager'@'localhost' IDENTIFIED BY 'lanager';"
-mysql -u root -proot -e "GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'localhost';"
+mysql -u root -proot -e "CREATE USER 'lanager'@'%' IDENTIFIED BY 'lanager';"
+mysql -u root -proot -e "GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'%';"
 mysql -u root -proot -e "FLUSH PRIVILEGES;"
+
+printf "${GREEN}Configuring MySQL to listen on all network interfaces${BLACK}\n"
+FIND='bind-address            = 127.0.0.1'
+REPLACE='bind-address            = 0.0.0.0'
+CONFIG_FILE='/etc/mysql/my.cnf'
+sed -i "s|$FIND|$REPLACE|" $CONFIG_FILE
 
 printf "${GREEN}Restarting Apache${BLACK}\n"
 /etc/init.d/apache2 restart
