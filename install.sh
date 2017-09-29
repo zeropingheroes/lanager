@@ -52,5 +52,8 @@ sed -i "s|$FIND|$REPLACE|" $CONFIG_FILE
 printf "${GREEN}Restarting Apache${BLACK}\n"
 /etc/init.d/apache2 restart
 
+printf "${GREEN}Updating Cron${BLACK}\n"
+crontab -l | { cat; echo "*/1 * * * * php /vagrant/artisan steam:import-user-states 2>&1 >> logger"; } | crontab -
+
 printf "${GREEN}Initial installation completed! Please run the following to complete the installation:${BLACK}\n"
 printf "${GREEN}php artisan lanager:install${BLACK}\n"
