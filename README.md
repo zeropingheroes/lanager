@@ -146,7 +146,7 @@ And much more planned - check the [issue tracker](https://github.com/zeropingher
 		
 		1. Run `crontab -e`
 		2. Add the following to the end of the file:
-		`*/1 * * * * /var/www/lanager/SteamImportUserStates.sh >> /dev/null 2>&1`
+		`*/1 * * * * /var/www/lanager/SteamImportUserStates.sh 2>&1 | /usr/bin/logger -t lanager-steam-import-user-states`
 
 ## Usage
 
