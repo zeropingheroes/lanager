@@ -44,13 +44,16 @@ mysql -u root -proot -e "GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'%';"
 mysql -u root -proot -e "FLUSH PRIVILEGES;"
 
 printf "${GREEN}Configuring MySQL to listen on all network interfaces${BLACK}\n"
-FIND='bind-address            = 127.0.0.1'
-REPLACE='bind-address            = 0.0.0.0'
+FIND='127.0.0.1'
+REPLACE='0.0.0.0'
 CONFIG_FILE='/etc/mysql/my.cnf'
 sed -i "s|$FIND|$REPLACE|" $CONFIG_FILE
 
 printf "${GREEN}Restarting Apache${BLACK}\n"
 /etc/init.d/apache2 restart
+
+printf "${GREEN}Restarting MySQL${BLACK}\n"
+/etc/init.d/mysql restart
 
 printf "${GREEN}Updating Cron${BLACK}\n"
 crontab -l | { cat; echo "*/1 * * * * php /vagrant/artisan steam:import-user-states 2>&1 | /usr/bin/logger -t lanager-import-user-states "; } | crontab -
