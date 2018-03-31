@@ -6,6 +6,7 @@ folders:
     -
         map: 'D:\GitHub\lanager'
         to: /home/vagrant/lanager
+        type: "nfs"
 sites:
     -
         map: lanager.localhost
