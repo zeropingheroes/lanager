@@ -11,5 +11,8 @@
 		"email": "ilumos@gmail.com",
 		"role": "Developer"
 	}
-	]
+	],
+	"require-dev": {
+		"laravel/homestead": "^7.3"
+	}
 }
