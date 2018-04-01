@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Zeropingheroes\Lanager\Events\Event' => [
-            'Zeropingheroes\Lanager\Listeners\EventListener',
+        'SocialiteProviders\Manager\SocialiteWasCalled' => [
+            'SocialiteProviders\Steam\SteamExtendSocialite@handle',
         ],
     ];
 

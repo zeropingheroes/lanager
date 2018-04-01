@@ -15,7 +15,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username',
+        'provider',
+        'provider_id',
     ];
 
     /**
@@ -24,6 +26,21 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'remember_token',
     ];
+
+    /**
+     * Check if the user has the specified role(s)
+     * @param array $roles
+     * @return bool
+     * @internal param $role
+     */
+    public function hasRole(...$roles)
+    {
+        // if ($this->roles()->whereIn('name', $roles)->first()) {
+        //     return true;
+        // }
+        return false;
+    }
+
 }
