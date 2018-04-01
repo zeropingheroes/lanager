@@ -32,7 +32,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "Zeropingheroes\\Lanager\\": "app/"
         }
     },
     "autoload-dev": {
