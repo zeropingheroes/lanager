@@ -18,7 +18,6 @@
                 @guest
                     @include('layouts.partials.nav.guest')
                 @else
-                    @include('layouts.partials.nav.admin')
                     @include('layouts.partials.nav.user')
                 @endguest
             </ul>
