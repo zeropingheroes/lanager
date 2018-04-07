@@ -4,7 +4,7 @@
     </a>
 
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">@lang('title.profile')</a>
+        <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">@lang('title.profile')</a>
         <a class="dropdown-item" href="#">@lang('title.api')</a>
         <a class="dropdown-item" href="#"
            onclick="event.preventDefault();

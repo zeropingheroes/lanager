@@ -3,7 +3,7 @@
         <a class="nav-link" href="#">@lang('title.events')</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">@lang('title.users')</a>
+        <a class="nav-link" href="{{ route('users.index') }}">@lang('title.users')</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">@lang('title.games')</a>
