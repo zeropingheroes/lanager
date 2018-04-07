@@ -1,14 +1,13 @@
-
-// Fonts
+/**
+ * Imports
+ */
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,600");
-
-// Variables
 @import "variables";
-
-// Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// Custom styles
+/**
+ * Main layout
+ */
 body {
   margin-bottom: 40px;
   background-image: url('../img/bg.jpg');
@@ -38,7 +37,7 @@ body > .container {
 }
 
 /**
- * avatars
+ * Avatars
  */
 img.avatar {
   border: 1px solid;

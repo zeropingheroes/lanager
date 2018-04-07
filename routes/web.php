@@ -1,12 +1,15 @@
 <?php
 
-/* Home */
+/**
+ * Home
+ */
 Route::get('/', function () {
     return redirect()->route('users.index');
 });
 
-/* Auth */
-
+/**
+ * Login & Logout
+ */
 Route::get('login', 'AuthController@showLoginForm')
     ->name('login');
 
@@ -19,6 +22,7 @@ Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback')
 Route::post('logout', 'AuthController@logout')
     ->name('logout');
 
-/* Users */
-
+/**
+ * Users
+ */
 Route::resource('users', 'UserController', ['only' => ['index', 'show', 'destroy']]);
