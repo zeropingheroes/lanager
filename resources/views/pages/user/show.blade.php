@@ -8,7 +8,7 @@
 
     <div class="profile-header">
         <div class="profile-avatar">
-            <img src="{{ $user->avatar('large') }}" alt="Avatar for {{ $user->username }}">
+            @include('pages.user.partials.avatar',['size' => 'large', 'status' => 'offline'])
         </div>
         <h1>
             {{ $user->username }}

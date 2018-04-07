@@ -1,6 +1,8 @@
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <img class="avatar avatar-small avatar-offline" src="{{ Auth::user()->avatar('small') }}" alt="Avatar"> <span class="caret"></span>
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false">
+        @include('pages.user.partials.avatar',['user' => Auth::user(), 'size' => 'small', 'status' => 'offline'])
+        <span class="caret"></span>
     </a>
 
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
