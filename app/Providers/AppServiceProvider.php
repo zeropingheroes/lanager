@@ -3,6 +3,8 @@
 namespace Zeropingheroes\Lanager\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Zeropingheroes\Lanager\Observers\UserObserver;
+use Zeropingheroes\Lanager\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        User::observe(UserObserver::class);
     }
 
     /**

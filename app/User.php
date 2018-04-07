@@ -36,6 +36,18 @@ class User extends Authenticatable
     }
 
     /**
+     * The roles that belong to the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this
+            ->belongsToMany('Zeropingheroes\Lanager\Role', 'role_assignments')
+            ->withTimestamps();
+    }
+
+    /**
      * Check if the user has the specified role(s)
      * @param array $roles
      * @return bool
@@ -43,9 +55,9 @@ class User extends Authenticatable
      */
     public function hasRole(...$roles)
     {
-        // if ($this->roles()->whereIn('name', $roles)->first()) {
-        //     return true;
-        // }
+        if ($this->roles()->whereIn('name', $roles)->first()) {
+            return true;
+        }
         return false;
     }
 
