@@ -4,7 +4,8 @@
             <img src="/img/brand.svg" width="30" height="30" class="d-inline-block align-top" alt="">
             {{ config('app.name') }}
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="@lang('phrase.toggle-navigation')">
             <span class="navbar-toggler-icon"></span>
         </button>
 

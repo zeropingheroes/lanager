@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $users = User::all();
         return View::make('pages.user.index')
-            ->with('title', 'Users')
+            ->with('title', __('title.users'))
             ->with('users', $users);
     }
 

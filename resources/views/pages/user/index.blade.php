@@ -17,6 +17,6 @@
             </tbody>
         </table>
     @else
-        <p>No users found!</p>
+        <p>@lang('phrase.no-items-found', ['item' => 'users'])</p>
     @endif
 @endsection
