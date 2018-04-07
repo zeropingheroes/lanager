@@ -4,7 +4,7 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="#">@lang('title.activity')</a>
-        <a class="dropdown-item" href="#">@lang('title.roles')</a>
+        <a class="dropdown-item" href="{{ route('role-assignments.index') }}">@lang('title.roles')</a>
         <a class="dropdown-item" href="#">@lang('title.events')</a>
         <a class="dropdown-item" href="#">@lang('title.info')</a>
         <a class="dropdown-item" href="#">@lang('title.achievements')</a>
