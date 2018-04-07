@@ -1,12 +1,12 @@
 @extends('layouts.default')
 
 @section('title')
-    @lang('title.role-assignments')
+    @lang('title.roles')
 @endsection
 
 @section('content')
 
-    <h1>{{ $title }}</h1>
+    <h1>@lang('title.roles')</h1>
     @if(count($roleAssignments))
         <table class="table table-striped">
             <thead>
@@ -41,6 +41,6 @@
         </table>
     @else
         {{-- TODO: Create better "no items found" display --}}
-        <p>@lang('phrase.no-items-found', ['item' => __('title.role-assignments')])</p>
+        <p>@lang('phrase.no-items-found', ['item' => __('title.roles')])</p>
     @endif
 @endsection
