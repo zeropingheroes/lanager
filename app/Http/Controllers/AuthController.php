@@ -116,11 +116,14 @@ class AuthController extends Controller
             'username' => $OAuthUser->nickname
         ]);
 
-        // ... and link the OAuth account
+        // ... link the OAuth account ...
         $user->linkedAccounts()
             ->create([
                 'provider' => $OAuthProvider,
                 'provider_id' => $OAuthUser->id
             ]);
+
+        // ... and return the user
+        return $user;
     }
 }
