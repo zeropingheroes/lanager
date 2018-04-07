@@ -26,3 +26,8 @@ Route::post('logout', 'AuthController@logout')
  * Users
  */
 Route::resource('users', 'UserController', ['only' => ['index', 'show', 'destroy']]);
+
+/**
+ * Roles & Role Assignments
+ */
+Route::resource('role-assignments', 'RoleAssignmentController', ['except' => ['show', 'edit', 'update']]);

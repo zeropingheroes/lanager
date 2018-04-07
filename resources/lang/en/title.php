@@ -27,6 +27,7 @@ return [
     'edit-profile' => 'Edit Profile',
     'update-profile' => 'Update Profile',
     'roles' => 'Roles',
+    'role-assignments' => 'Role Assignments',
     'user' => 'User',
     'username' => 'Username',
     'full-name' => 'Full Name',
@@ -46,6 +47,7 @@ return [
     'admin' => 'Admin',
     'assign-a-role' => 'Assign a Role',
     'assign-role' => 'Assign Role',
+    'assigned-by' => 'Assigned By',
     'delete' => 'Delete',
 
     'create-item' => 'Create :Item',
@@ -58,5 +60,6 @@ return [
 
     'item-name' => ':Item Name',
     'name' => 'Name',
+    'unknown' => 'Unknown',
 
 ];

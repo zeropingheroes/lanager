@@ -36,6 +36,6 @@ class RoleAssignment extends Model
     public function role()
     {
         return $this
-            ->belongsTo('Zeropingheroes\Lanyard\Role');
+            ->belongsTo('Zeropingheroes\Lanager\Role');
     }
 }
