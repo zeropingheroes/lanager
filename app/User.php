@@ -61,4 +61,23 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * Get the user's avatar, in small, medium or large
+     * @param str $size
+     * @return string
+     */
+    public function avatar(string $size = 'large')
+    {
+        $avatar['medium'] = $this->OAuthAccounts()
+            ->where('provider', 'steam')
+            ->first()
+            ->avatar;
+
+        $avatar['small'] = str_replace('_medium.jpg', '.jpg', $avatar['medium']);
+
+        $avatar['large'] = str_replace('_medium.jpg', '_full.jpg', $avatar['medium']);
+
+        return $avatar[$size];
+    }
+
 }

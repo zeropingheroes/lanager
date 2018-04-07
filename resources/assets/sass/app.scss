@@ -26,3 +26,17 @@ body > .container {
   line-height: 40px; /* Vertically center the text there */
   background-color: #f5f5f5;
 }
+
+/**
+ * user.show
+ */
+div.profile-header div.profile-avatar {
+  height: 190px;
+  float: left;
+  margin-right: 10px;
+}
+
+div.profile-header h1 {
+  margin: 0px;
+  line-height: 190px;
+}

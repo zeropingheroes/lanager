@@ -8,7 +8,7 @@
 
     <div class="profile-header">
         <div class="profile-avatar">
-            Avatar
+            <img src="{{ $user->avatar('large') }}" alt="Avatar for {{ $user->username }}">
         </div>
         <h1>
             {{ $user->username }}
