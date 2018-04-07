@@ -1,9 +1,12 @@
 @extends('layouts.default')
 
-@section('title', $title)
+@section('title')
+    @lang('title.users')
+@endsection
 
 @section('content')
-    <h1>{{ $title }}</h1>
+
+    <h1>@lang('title.users')</h1>
     @if(count($users))
         <table class="table table-striped">
             <tbody>

@@ -17,7 +17,6 @@ class UserController extends Controller
     {
         $users = User::all();
         return View::make('pages.user.index')
-            ->with('title', __('title.users'))
             ->with('users', $users);
     }
 
@@ -30,7 +29,6 @@ class UserController extends Controller
     public function show(User $user)
     {
         return View::make('pages.user.show')
-            ->with('title', $user->username)
             ->with('user', $user);
     }
 

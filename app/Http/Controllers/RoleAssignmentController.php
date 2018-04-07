@@ -17,7 +17,6 @@ class RoleAssignmentController extends Controller
     {
         $roleAssignments = RoleAssignment::all();
         return View::make('pages.role-assignment.index')
-            ->with('title', __('title.role-assignments'))
             ->with('roleAssignments', $roleAssignments);
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    {{ $title }}
+    {{ $user->username }}
 @endsection
 
 @section('content')

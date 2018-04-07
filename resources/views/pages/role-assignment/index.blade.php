@@ -1,8 +1,11 @@
 @extends('layouts.default')
 
-@section('title', $title)
+@section('title')
+    @lang('title.role-assignments')
+@endsection
 
 @section('content')
+
     <h1>{{ $title }}</h1>
     @if(count($roleAssignments))
         <table class="table table-striped">
