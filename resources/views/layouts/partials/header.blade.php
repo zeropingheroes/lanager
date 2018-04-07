@@ -11,6 +11,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/open-iconic-bootstrap.css') }}" rel="stylesheet">
 </head>
 <body>
 <!-- Scripts -->
