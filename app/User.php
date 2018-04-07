@@ -30,9 +30,9 @@ class User extends Authenticatable
     /**
      * Get the user's linked accounts.
      */
-    public function linkedAccounts()
+    public function OAuthAccounts()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\LinkedAccount');
+        return $this->hasMany('Zeropingheroes\Lanager\UserOAuthAccount');
     }
 
     /**

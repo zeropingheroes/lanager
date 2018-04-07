@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLinkedAccountsTable extends Migration
+class CreateUserOAuthAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLinkedAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('linked_accounts', function (Blueprint $table) {
+        Schema::create('user_oauth_accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')
                   ->unsigned();
@@ -41,7 +41,7 @@ class CreateLinkedAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('linked_accounts');
+        Schema::dropIfExists('user_oauth_accounts');
 
         Schema::table('users', function (Blueprint $table) {
             $table->string('provider')

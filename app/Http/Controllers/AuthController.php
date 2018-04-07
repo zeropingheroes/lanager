@@ -6,7 +6,7 @@ use Illuminate\Auth\AuthenticationException;
 use Socialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Zeropingheroes\Lanager\LinkedAccount;
+use Zeropingheroes\Lanager\UserOAuthAccount;
 use Zeropingheroes\Lanager\User;
 
 /**
@@ -98,7 +98,7 @@ class AuthController extends Controller
     public function findOrCreateUser($OAuthUser, $OAuthProvider)
     {
         // Check if the given OAuth account exists
-        $linkedAccount = LinkedAccount::where(
+        $linkedAccount = UserOAuthAccount::where(
             [
                 'provider' => $OAuthProvider,
                 'provider_id' => $OAuthUser->id
@@ -117,7 +117,7 @@ class AuthController extends Controller
         ]);
 
         // ... link the OAuth account ...
-        $user->linkedAccounts()
+        $user->OAuthAccounts()
             ->create([
                 'provider' => $OAuthProvider,
                 'provider_id' => $OAuthUser->id
