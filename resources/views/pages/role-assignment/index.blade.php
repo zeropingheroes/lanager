@@ -17,7 +17,7 @@
             @foreach($roleAssignments as $roleAssignment)
                 <tr>
                     <td>
-                        <a href="{{ route('users.show', $roleAssignment->user->id) }}">{{ $roleAssignment->user->username }}</a>
+                        @include('pages.user.partials.avatar-username', ['user' => $roleAssignment->user])
                     </td>
                     <td>
                         {{ $roleAssignment->role->name }}

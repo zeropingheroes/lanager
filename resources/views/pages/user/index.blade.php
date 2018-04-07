@@ -10,7 +10,7 @@
             @foreach( $users as $user )
                 <tr>
                     <td>
-                        <a href="{{ route('users.show', $user->id) }}">{{ $user->username }}</a>
+                        @include('pages.user.partials.avatar-username', ['user' => $user])
                     </td>
                 </tr>
             @endforeach
