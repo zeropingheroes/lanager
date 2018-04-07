@@ -16,8 +16,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
-        'provider',
-        'provider_id',
     ];
 
     /**
@@ -28,6 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'remember_token',
     ];
+
+    /**
+     * Get the user's linked accounts.
+     */
+    public function linkedAccounts()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\LinkedAccount');
+    }
 
     /**
      * Check if the user has the specified role(s)

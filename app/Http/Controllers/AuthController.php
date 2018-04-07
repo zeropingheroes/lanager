@@ -6,6 +6,7 @@ use Illuminate\Auth\AuthenticationException;
 use Socialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Zeropingheroes\Lanager\LinkedAccount;
 use Zeropingheroes\Lanager\User;
 
 /**
@@ -96,19 +97,30 @@ class AuthController extends Controller
      */
     public function findOrCreateUser($OAuthUser, $OAuthProvider)
     {
-        $user = User::where('provider_id', $OAuthUser->id)->first();
-        if ($user) {
+        // Check if the given OAuth account exists
+        $linkedAccount = LinkedAccount::where(
+            [
+                'provider' => $OAuthProvider,
+                'provider_id' => $OAuthUser->id
+            ]
+        )->first();
 
-            if ($OAuthProvider == 'steam') {
-                // Update username
-                $user->username = $OAuthUser->nickname;
-            }
-            return $user;
+        // If the OAuth account exists
+        // return the user who owns the account
+        if ($linkedAccount) {
+            return $linkedAccount->user()->first();
         }
-        return User::firstOrCreate([
-            'username' => $OAuthUser->nickname,
-            'provider' => $OAuthProvider,
-            'provider_id' => $OAuthUser->id
+
+        // Otherwise create a new user ...
+        $user = User::create([
+            'username' => $OAuthUser->nickname
         ]);
+
+        // ... and link the OAuth account
+        $user->linkedAccounts()
+            ->create([
+                'provider' => $OAuthProvider,
+                'provider_id' => $OAuthUser->id
+            ]);
     }
 }
