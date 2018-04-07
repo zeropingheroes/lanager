@@ -1,6 +1,6 @@
 ip: 192.168.13.37
-memory: 2048
-cpus: 2
+memory: 4096
+cpus: 4
 provider: virtualbox
 folders:
     -
