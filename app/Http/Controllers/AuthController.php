@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Auth\AuthenticationException;
+use \InvalidArgumentException;
 use Socialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,15 +31,15 @@ class AuthController extends Controller
      *
      * @param $OAuthProvider string
      * @return Response
-     * @throws AuthenticationException
+     * @throws InvalidArgumentException
      */
     public function redirectToProvider($OAuthProvider)
     {
         if ($OAuthProvider == 'steam') {
             return Socialite::with('steam')->redirect();
         }
+        throw new InvalidArgumentException(__('phrase.provider-not-supported', ['provider' => $OAuthProvider]));
 
-        throw new AuthenticationException(lang('phrase.provider-not-supported', ['provider' => $OAuthProvider]));
     }
 
     /**
@@ -47,7 +47,7 @@ class AuthController extends Controller
      *
      * @param $OAuthProvider
      * @return Response
-     * @throws AuthenticationException
+     * @throws InvalidArgumentException
      */
     public function handleProviderCallback($OAuthProvider)
     {
@@ -60,7 +60,7 @@ class AuthController extends Controller
             return redirect()->intended('/');
         }
 
-        throw new AuthenticationException(lang('phrase.provider-not-supported', ['provider' => $OAuthProvider]));
+        throw new InvalidArgumentException(__('phrase.provider-not-supported', ['provider' => $OAuthProvider]));
     }
 
     /**
