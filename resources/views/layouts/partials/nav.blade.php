@@ -18,6 +18,9 @@
                 @guest
                     @include('layouts.partials.nav.guest')
                 @else
+                    @if (Auth::user()->hasRole('super admin', 'admin'))
+                        @include('layouts.partials.nav.admin')
+                    @endif
                     @include('layouts.partials.nav.user')
                 @endguest
             </ul>

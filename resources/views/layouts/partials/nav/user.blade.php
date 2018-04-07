@@ -7,9 +7,6 @@
 
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">@lang('title.profile')</a>
-        @if (Auth::user()->hasRole('super admin', 'admin'))
-            <a class="dropdown-item" href="#">@lang('title.admin')</a>
-        @endif
         <a class="dropdown-item" href="#">@lang('title.api')</a>
         <a class="dropdown-item" href="#"
            onclick="event.preventDefault();

@@ -26,7 +26,7 @@ return [
     'profile' => 'Profile',
     'edit-profile' => 'Edit Profile',
     'update-profile' => 'Update Profile',
-    'role-assignments' => 'Role Assignments',
+    'roles' => 'Roles',
     'user' => 'User',
     'username' => 'Username',
     'full-name' => 'Full Name',
@@ -41,7 +41,7 @@ return [
     'achievements' => 'Achievements',
     'info' => 'Info',
     'api' => 'API',
-    'logs' => 'Logs',
+    'activity' => 'Activity',
 
     'admin' => 'Admin',
     'assign-a-role' => 'Assign a Role',
