@@ -1,9 +1,9 @@
 <?php
 
 /* Home */
-
-Route::get('/', 'HomeController@index')
-    ->name('home');
+Route::get('/', function () {
+    return redirect()->route('users.index');
+});
 
 /* Auth */
 
