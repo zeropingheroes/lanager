@@ -17,9 +17,20 @@ class UserOAuthAccountsTableCreate extends Migration
             $table->increments('id');
             $table->integer('user_id')
                   ->unsigned();
+            $table->string('username')
+                ->nullable();
             $table->string('provider');
             $table->string('provider_id');
             $table->timestamps();
+            $table->string('avatar')
+                ->nullable();
+            $table->string('access_token')
+                ->nullable();
+            $table->timestamp('token_expiry')
+                ->nullable();
+            $table->string('refresh_token')
+                ->nullable();
+
 
             $table->foreign('user_id')
                 ->references('id')

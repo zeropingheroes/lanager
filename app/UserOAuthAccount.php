@@ -13,8 +13,13 @@ class UserOAuthAccount extends Model
      */
     protected $fillable = [
         'user_id',
+        'username',
+        'avatar',
         'provider',
         'provider_id',
+        'access_token',
+        'token_expiry',
+        'refresh_token',
     ];
 
     /**

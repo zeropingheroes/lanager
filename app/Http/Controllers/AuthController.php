@@ -98,7 +98,7 @@ class AuthController extends Controller
     public function findOrCreateUser($OAuthUser, $OAuthProvider)
     {
         // Check if the given OAuth account exists
-        $linkedAccount = UserOAuthAccount::where(
+        $existingOAuthAccount = UserOAuthAccount::where(
             [
                 'provider' => $OAuthProvider,
                 'provider_id' => $OAuthUser->id
@@ -107,8 +107,8 @@ class AuthController extends Controller
 
         // If the OAuth account exists
         // return the user who owns the account
-        if ($linkedAccount) {
-            return $linkedAccount->user()->first();
+        if ($existingOAuthAccount) {
+            return $existingOAuthAccount->user()->first();
         }
 
         // Otherwise create a new user ...
@@ -119,6 +119,8 @@ class AuthController extends Controller
         // ... link the OAuth account ...
         $user->OAuthAccounts()
             ->create([
+                'username' => $OAuthUser->nickname,
+                'avatar' => $OAuthUser->avatar,
                 'provider' => $OAuthProvider,
                 'provider_id' => $OAuthUser->id
             ]);
