@@ -10,6 +10,7 @@ Route::get('/', function () {
 /**
  * Login & Logout
  */
+// TODO: redirect logged in users to home
 Route::get('login', 'AuthController@showLoginForm')
     ->name('login');
 
