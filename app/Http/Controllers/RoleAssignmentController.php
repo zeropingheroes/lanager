@@ -2,7 +2,9 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Zeropingheroes\Lanager\Role;
 use Zeropingheroes\Lanager\RoleAssignment;
+use Zeropingheroes\Lanager\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -16,9 +18,7 @@ class RoleAssignmentController extends Controller
      */
     public function index()
     {
-        $roleAssignments = RoleAssignment::all();
         return View::make('pages.role-assignment.index')
-            ->with('roleAssignments', $roleAssignments);
     }
 
     /**
@@ -29,6 +29,9 @@ class RoleAssignmentController extends Controller
     public function create()
     {
         //
+            ->with('roleAssignments', RoleAssignment::all())
+            ->with('users', User::all()->pluck('username', 'id'))
+            ->with('roles', Role::all()->pluck('name', 'id'));
     }
 
     /**
