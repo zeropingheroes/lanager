@@ -4,13 +4,13 @@ LANager
 LANager is a web application designed to make [LAN Parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
 
-## `laravel-upgrade`
+## Branch: `laravel-upgrade`
 
 This unstable branch is where the work of upgrading to Laravel 5.6 is being done. Once complete this will be merged into the master branch.
 
 ## Development
 
-### Requirements
+### Requirements
 
 - [Vagrant](https://www.vagrantup.com/downloads.html)
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
