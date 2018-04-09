@@ -4,30 +4,27 @@ LANager
 LANager is a web application designed to make [LAN Parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
 
-## Features
+## `laravel-upgrade`
 
-### Enhance Participation
+This unstable branch is where the work of upgrading to Laravel 5.6 is being done. Once complete this will be merged into the master branch.
 
-* **Games in progress**, updated every minute from Steam
-* **Timetable of events**, optionally allowing users to sign up to events
-* **Achievements**, created by admins, and awardable to attendees
+## Development
 
-### Boost Social Interaction
-* **Attendee profiles** with links to add or message on Steam
-* **Attendee list** with their current status
+### Requirements
 
-### Broadcast Useful Information
-* **Info pages** for attendees to find out about the venue, rules etc, editable by admins 
-* **Links** to other sites e.g. game stats, organiser's website 
-* **Shouts** allowing attendees and admins to broadcast short messages
-* **Live Dashboard** showing current and next events, games in progress and shouts, for big screen display
+- [Vagrant](https://www.vagrantup.com/downloads.html)
+- [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+- [Composer](https://getcomposer.org/)
 
-### Open for Integration
-* **RESTful API** with open read access and API key guarded write access to all resources
-* **Events dispatcher** allowing for hooking in of extra operations 
-* **Comprehensive logging** of events allowing for debugging and auditing
+### Installation:
 
-And much more planned - check the [issue tracker](https://github.com/zeropingheroes/lanager-core/issues?labels=enhancement&milestone=&page=1&state=open) for future enhancements
+1. `git clone -b laravel-upgrade https://github.com/zeropingheroes/lanager && cd lanager`
+2. `composer install`
+3. `vagrant up`
+4. `nano .env`
+   1. `STEAM_KEY` - Enter your [Steam API Key](http://steamcommunity.com/dev/apikey)
+
+Your development environment is now available at http://lanager.localhost:8000/
 
 ## Feedback & Contributions
 
