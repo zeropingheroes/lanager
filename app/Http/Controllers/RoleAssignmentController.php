@@ -8,13 +8,6 @@ use Illuminate\Support\Facades\View;
 
 class RoleAssignmentController extends Controller
 {
-    /**
-     * RoleAssignmentController constructor.
-     */
-    public function __construct()
-    {
-        $this->authorizeResource(RoleAssignment::class, '');
-    }
 
     /**
      * Display a listing of the resource.
