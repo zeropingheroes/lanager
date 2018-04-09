@@ -19,16 +19,6 @@ class RoleAssignmentController extends Controller
     public function index()
     {
         return View::make('pages.role-assignment.index')
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
             ->with('roleAssignments', RoleAssignment::all())
             ->with('users', User::all()->pluck('username', 'id'))
             ->with('roles', Role::all()->pluck('name', 'id'));
