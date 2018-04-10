@@ -4,4 +4,5 @@
 # add any commands you wish to this file and they will
 # be run after the Homestead machine is provisioned.
 
-cd /home/vagrant/lanager/ && php artisan migrate:fresh && php artisan db:seed
+
+cd /home/vagrant/lanager/ && php artisan key:generate && php artisan migrate:fresh && php artisan db:seed
