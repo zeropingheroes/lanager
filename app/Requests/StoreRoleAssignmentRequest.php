@@ -24,11 +24,9 @@ class StoreRoleAssignmentRequest extends Request implements RequestContract
         if ($user->hasRole($role->name)) {
             $this->validator->errors()->add('user-already-has-role',
                 __('phrase.user-already-has-role', ['user' => $user->username, 'role' => $role->name]));
-            return false;
             return $this->setValid(false);
         }
 
-        return true;
         return $this->setValid(true);
     }
 }
