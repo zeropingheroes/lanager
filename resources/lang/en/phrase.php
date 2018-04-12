@@ -34,7 +34,7 @@ return [
     'provider-not-supported' => 'Unsupported authentication provider ":provider"',
 
     // Roles
-    'user-already-has-role' => 'The user has already been assigned that role',
+    'user-already-has-role' => 'User ":user" has already been assigned the role ":role"',
     'role-successfully-assigned' => 'Role successfully assigned',
 
     // General purpose

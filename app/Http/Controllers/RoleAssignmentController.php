@@ -2,7 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Zeropingheroes\Lanager\Http\Requests\StoreRoleAssignment;
+use Illuminate\Http\Request;
+use Zeropingheroes\Lanager\Requests\StoreRoleAssignmentRequest;
 use Zeropingheroes\Lanager\Role;
 use Zeropingheroes\Lanager\RoleAssignment;
 use Zeropingheroes\Lanager\User;
@@ -27,12 +28,22 @@ class RoleAssignmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request|StoreRoleAssignment $request
+     * @param Request $httpRequest
      * @return \Illuminate\Http\Response
+     * @internal param Request|StoreRoleAssignmentRequest $request
      */
-    public function store(StoreRoleAssignment $request)
+    public function store(Request $httpRequest)
     {
-        $input = $request->validated();
+        $input = $httpRequest->only(['user_id', 'role_id']);
+
+        $request = new StoreRoleAssignmentRequest($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withErrors($request->errors())
+                ->withInput();
+        }
 
         RoleAssignment::create($input);
 
