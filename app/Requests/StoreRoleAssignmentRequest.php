@@ -15,7 +15,7 @@ class StoreRoleAssignmentRequest extends Request implements RequestContract
     public function valid(): bool
     {
         if ($this->validator->fails()) {
-            return false;
+            return $this->setValid(false);
         }
 
         $user = User::find($this->input['user_id']);
@@ -25,8 +25,10 @@ class StoreRoleAssignmentRequest extends Request implements RequestContract
             $this->validator->errors()->add('user-already-has-role',
                 __('phrase.user-already-has-role', ['user' => $user->username, 'role' => $role->name]));
             return false;
+            return $this->setValid(false);
         }
 
         return true;
+        return $this->setValid(true);
     }
 }

@@ -29,6 +29,11 @@ abstract class Request implements RequestContract
     protected $rules = [];
 
     /**
+     * @var bool|null
+     */
+    protected $valid;
+
+    /**
      * Instantiate the class with the request input
      *
      * @param array $input Request input data
@@ -49,7 +54,20 @@ abstract class Request implements RequestContract
      */
     public function invalid(): bool
     {
+        if ($this->valid != null) {
+            return !$this->valid;
+        }
         return !$this->valid();
+    }
+
+    /**
+     * @param bool $valid
+     * @return bool
+     */
+    protected function setValid(bool $valid): bool
+    {
+        $this->valid = $valid;
+        return $this->valid;
     }
 
     /**
