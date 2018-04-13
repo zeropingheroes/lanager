@@ -2,7 +2,6 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
 abstract class Request implements RequestContract
@@ -15,18 +14,11 @@ abstract class Request implements RequestContract
     protected $input = [];
 
     /**
-     * Validator instance
+     * Errors
      *
-     * @var \Illuminate\Contracts\Validation\Validator
+     * @var \Illuminate\Support\MessageBag
      */
-    protected $validator;
-
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    protected $rules = [];
+    protected $errors;
 
     /**
      * @var bool|null
@@ -41,10 +33,18 @@ abstract class Request implements RequestContract
     public function __construct(array $input)
     {
         $this->input = $input;
+        $this->errors = new MessageBag();
+    }
 
-        // Create the validator instance with the input and rules
-        // but do not run validation yet - leave this to the subclass
-        $this->validator = Validator::make($this->input, $this->rules);
+    /**
+     * Whether the request is valid
+     *
+     * @return bool
+     */
+    public function valid(): bool
+    {
+        // This method will be overridden by the subclass
+        return false;
     }
 
     /**
@@ -54,9 +54,13 @@ abstract class Request implements RequestContract
      */
     public function invalid(): bool
     {
+        // If validation has already been run
+        // return the result of the validation
         if ($this->valid != null) {
             return !$this->valid;
         }
+
+        // Otherwise run validation and return the result (inverse)
         return !$this->valid();
     }
 
@@ -77,6 +81,6 @@ abstract class Request implements RequestContract
      */
     public function errors(): MessageBag
     {
-        return $this->validator->errors();
+        return $this->errors;
     }
 }

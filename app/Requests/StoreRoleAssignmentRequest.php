@@ -2,19 +2,34 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
+use Illuminate\Support\Facades\Validator;
 use Zeropingheroes\Lanager\Role;
 use Zeropingheroes\Lanager\User;
 
-class StoreRoleAssignmentRequest extends Request implements RequestContract
+class StoreRoleAssignmentRequest extends Request
 {
+    /**
+     * Validation rules for the built in validator
+     *
+     * @var array
+     */
     protected $rules = [
         'user_id' => 'exists:users,id',
         'role_id' => 'exists:roles,id',
     ];
 
+    /**
+     * Whether the request is valid
+     *
+     * @return bool
+     */
     public function valid(): bool
     {
-        if ($this->validator->fails()) {
+        // TODO: Refactor calls to Laravel validator into trait, as it will be used frequently
+        $validator = Validator::make($this->input, $this->rules);
+
+        if ($validator->fails()) {
+            $this->errors = $validator->errors();
             return $this->setValid(false);
         }
 
@@ -22,7 +37,7 @@ class StoreRoleAssignmentRequest extends Request implements RequestContract
         $role = Role::find($this->input['role_id']);
 
         if ($user->hasRole($role->name)) {
-            $this->validator->errors()->add(
+            $this->errors->add(
                 'user-already-has-role',
                 __('phrase.user-already-has-role',
                     [
