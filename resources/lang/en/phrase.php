@@ -33,7 +33,12 @@ return [
     'create-steam-account' => 'Create a Steam account for free',
     'provider-not-supported' => 'Unsupported authentication provider ":provider"',
 
+    // Roles
+    'user-already-has-role' => 'User ":user" has already been assigned the role ":role"',
+    'role-successfully-assigned' => 'Role successfully assigned',
+
     // General purpose
+    'item-created' => ':Item successfully created',
     'no-items-found' => 'No :item found',
 
 ];
