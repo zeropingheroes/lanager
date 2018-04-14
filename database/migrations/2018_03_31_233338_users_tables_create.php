@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UserOAuthAccountsTableCreate extends Migration
+class UsersTablesCreate extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,17 @@ class UserOAuthAccountsTableCreate extends Migration
      */
     public function up()
     {
+        Schema::create('users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('username');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+
         Schema::create('user_oauth_accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')
-                  ->unsigned();
+                ->unsigned();
             $table->string('username')
                 ->nullable();
             $table->string('provider');
@@ -38,11 +45,6 @@ class UserOAuthAccountsTableCreate extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
-
-        Schema::table('users', function ($table) {
-            $table->dropColumn('provider');
-            $table->dropColumn('provider_id');
-        });
     }
 
     /**
@@ -53,12 +55,6 @@ class UserOAuthAccountsTableCreate extends Migration
     public function down()
     {
         Schema::dropIfExists('user_oauth_accounts');
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('provider')
-                  ->after('username');
-            $table->string('provider_id')
-                ->after('provider');
-        });
+        Schema::dropIfExists('users');
     }
 }
