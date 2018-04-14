@@ -57,7 +57,7 @@ class AuthController extends Controller
             $user = $this->findOrCreateUser($OAuthUser, 'steam');
             Auth::login($user, true);
 
-            return redirect()->intended('/');
+            return redirect()->intended(route('users.show', ['id' => $user->id]));
         }
 
         throw new InvalidArgumentException(__('phrase.provider-not-supported', ['provider' => $OAuthProvider]));
