@@ -64,6 +64,7 @@ class SteamImportUsers extends Command
 
         $this->info(__('phrase.requesting-current-status-of-count-users-from-steam', ['count' => count($steamIds)]));
 
+        // TODO: Refactor all below behaviour into service class
         $steamUsers = Steam::user($steamIds)->GetPlayerSummaries();
 
         // Initialise counter
