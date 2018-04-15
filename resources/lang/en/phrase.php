@@ -47,6 +47,8 @@ return [
     // Steam States Import
     'no-users-found' => 'No Steam users found in database',
     'requesting-current-status-of-count-users-from-steam' => 'Requesting current status of :count users from Steam',
+    'unable-to-import-state-for-user' => 'Unable to import user state for user :id - :error',
+    'successfully-imported-states-for-x-of-y-users' => 'Successfully imported states for :x of :y users from Steam',
 
     // General purpose
     'item-created' => ':Item successfully created',
