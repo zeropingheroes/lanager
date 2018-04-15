@@ -74,74 +74,9 @@ class SteamImportUsers extends Command
         foreach ($steamUsers as $steamUser) {
 
             try {
-                // Create a new state
-                $steamUserState = new SteamUserState;
-
-                // Check if the Steam account already exists in the database
-                $userOAuthAccount = UserOAuthAccount::where('provider_id', $steamUser->steamId)->first();
-
-                if (!$userOAuthAccount) {
-                    // If this Steam account is not already in the database
-                    // Create a new LANager user account
-                    $user = User::create(['username' => $steamUser->personaName]);
-
-                } else {
-                    // If this Steam account is in the database
-                    // Get the associated user
-                    $user = $userOAuthAccount->user;
+                if ($this->importUser($steamUser)) {
+                    $successCount++;
                 }
-
-                // Update the existing Steam account
-                // or create it, if it does not yet exist
-                $userOAuthAccount = $user->OAuthAccounts()
-                    ->updateOrCreate(
-                        [
-                            'username' => $steamUser->personaName,
-                            'avatar' => $steamUser->avatarMediumUrl,
-                            'provider' => 'steam',
-                            'provider_id' => $steamUser->steamId,
-                        ]
-                    );
-
-                // Associate the state with the user
-                $steamUserState->user()->associate($userOAuthAccount->user);
-
-                // Get the app they are running, if any
-                if ($steamUser->gameDetails) {
-                    $steamApp = SteamApp::find($steamUser->gameDetails->gameId);
-
-                    // Associate the state with the app
-                    $steamUserState->app()->associate($steamApp);
-                }
-
-                // Get the server they are connected to, if any
-                if ($steamUser->gameDetails && $steamUser->gameDetails->serverIp) {
-
-                    // TODO: make this safe for IPv6 addresses
-                    $ipAndPort = explode(':', $steamUser->gameDetails->serverIp);
-                    $ip = $ipAndPort[0];
-                    $port = $ipAndPort[1];
-
-                    // Get the server
-                    // ... or if the server has not been previously recorded, create it
-                    $steamAppServer = SteamAppServer::firstOrCreate(
-                        [
-                            'steam_app_id' => $steamApp->id,
-                            'address' => $ip,
-                            'port' => $port
-                        ]
-                    );
-
-                    // Associate the state with the server
-                    $steamUserState->server()->associate($steamAppServer);
-                }
-
-                // Set the user's online status
-                $steamUserState->online_status = $steamUser->personaStateId;
-
-                $steamUserState->save();
-
-                $successCount++;
 
             } catch (Exception $e) {
                 $this->error(__('phrase.unable-to-import-state-for-user', ['id' => $steamUser->id, 'error' => $e->getMessage()]));
@@ -151,5 +86,81 @@ class SteamImportUsers extends Command
         $this->info(
             __('phrase.successfully-imported-states-for-x-of-y-users', ['x' => $successCount, 'y' => count($steamUsers)])
         );
+    }
+
+    /**
+     * Import a single Steam user
+     *
+     * @param $steamUser
+     * @return bool
+     */
+    protected function importUser($steamUser): bool
+    {
+        // Create a new state
+        $steamUserState = new SteamUserState;
+
+        // Check if the Steam account already exists in the database
+        $userOAuthAccount = UserOAuthAccount::where('provider_id', $steamUser->steamId)->first();
+
+        if (!$userOAuthAccount) {
+            // If this Steam account is not already in the database
+            // Create a new LANager user account
+            $user = User::create(['username' => $steamUser->personaName]);
+
+        } else {
+            // If this Steam account is in the database
+            // Get the associated user
+            $user = $userOAuthAccount->user;
+        }
+
+        // Update the existing Steam account
+        // or create it, if it does not yet exist
+        $userOAuthAccount = $user->OAuthAccounts()
+            ->updateOrCreate(
+                [
+                    'username' => $steamUser->personaName,
+                    'avatar' => $steamUser->avatarMediumUrl,
+                    'provider' => 'steam',
+                    'provider_id' => $steamUser->steamId,
+                ]
+            );
+
+        // Associate the state with the user
+        $steamUserState->user()->associate($userOAuthAccount->user);
+
+        // Get the app they are running, if any
+        if ($steamUser->gameDetails) {
+            $steamApp = SteamApp::find($steamUser->gameDetails->gameId);
+
+            // Associate the state with the app
+            $steamUserState->app()->associate($steamApp);
+        }
+
+        // Get the server they are connected to, if any
+        if ($steamUser->gameDetails && $steamUser->gameDetails->serverIp) {
+
+            // TODO: make this safe for IPv6 addresses
+            $ipAndPort = explode(':', $steamUser->gameDetails->serverIp);
+            $ip = $ipAndPort[0];
+            $port = $ipAndPort[1];
+
+            // Get the server
+            // ... or if the server has not been previously recorded, create it
+            $steamAppServer = SteamAppServer::firstOrCreate(
+                [
+                    'steam_app_id' => $steamApp->id,
+                    'address' => $ip,
+                    'port' => $port
+                ]
+            );
+
+            // Associate the state with the server
+            $steamUserState->server()->associate($steamAppServer);
+        }
+
+        // Set the user's online status
+        $steamUserState->online_status = $steamUser->personaStateId;
+
+        return $steamUserState->saveOrFail();
     }
 }
