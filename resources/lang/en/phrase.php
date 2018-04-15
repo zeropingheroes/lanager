@@ -44,6 +44,10 @@ return [
     'updating-apps-in-db-and-adding-new' => 'Updating :count apps already in database and adding new apps from Steam',
     'import-complete' => 'Steam App import complete',
 
+    // Steam States Import
+    'no-users-found' => 'No Steam users found in database',
+    'requesting-current-status-of-count-users-from-steam' => 'Requesting current status of :count users from Steam',
+
     // General purpose
     'item-created' => ':Item successfully created',
     'no-items-found' => 'No :item found',

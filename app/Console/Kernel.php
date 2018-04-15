@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Zeropingheroes\Lanager\Console\Commands\SteamImportApps;
+use Zeropingheroes\Lanager\Console\Commands\SteamImportUserStates;
 
 class Kernel extends ConsoleKernel
 {
@@ -25,6 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+         $schedule->command(SteamImportUserStates::class)
+                  ->everyMinute();
+
          $schedule->command(SteamImportApps::class)
                   ->dailyAt('6:00');
     }

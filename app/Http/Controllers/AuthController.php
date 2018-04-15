@@ -117,6 +117,7 @@ class AuthController extends Controller
         ]);
 
         // ... link the OAuth account ...
+        // TODO: Use same code steam:import-user-states but for a single user
         $user->OAuthAccounts()
             ->create([
                 'username' => $OAuthUser->nickname,
