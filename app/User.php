@@ -28,11 +28,23 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the user's linked accounts.
+     * Get the user's linked accounts
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function OAuthAccounts()
     {
         return $this->hasMany('Zeropingheroes\Lanager\UserOAuthAccount');
+    }
+
+    /**
+     * Get the user's Steam account
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null|object|static
+     */
+    public function SteamAccount()
+    {
+        return $this->OAuthAccounts()->where('provider', 'steam')->first();
     }
 
     /**
@@ -63,15 +75,12 @@ class User extends Authenticatable
 
     /**
      * Get the user's avatar, in small, medium or large
-     * @param str $size
+     * @param string $size
      * @return string
      */
     public function avatar(string $size = 'large')
     {
-        $avatar['medium'] = $this->OAuthAccounts()
-            ->where('provider', 'steam')
-            ->first()
-            ->avatar;
+        $avatar['medium'] = $this->SteamAccount()->avatar;
 
         $avatar['small'] = str_replace('_medium.jpg', '.jpg', $avatar['medium']);
 
