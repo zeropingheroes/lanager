@@ -11,6 +11,7 @@ sites:
     -
         map: lanager.localhost
         to: /home/vagrant/lanager/public
+        schedule: true
 databases:
     - lanager
 name: lanager

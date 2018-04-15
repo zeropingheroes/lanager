@@ -37,6 +37,13 @@ return [
     'user-already-has-role' => 'User ":user" has already been assigned the role ":role"',
     'role-successfully-assigned' => 'Role successfully assigned',
 
+    // Steam Apps Import
+    'requesting-apps-from-steam' => 'Requesting all apps from Steam',
+    'preparing-data' => 'Preparing data',
+    'importing-apps-from-steam' => 'Importing :count apps from Steam into database',
+    'updating-apps-in-db-and-adding-new' => 'Updating :count apps already in database and adding new apps from Steam',
+    'import-complete' => 'Steam App import complete',
+
     // General purpose
     'item-created' => ':Item successfully created',
     'no-items-found' => 'No :item found',

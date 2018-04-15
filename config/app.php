@@ -150,6 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Syntax\SteamApi\SteamApiServiceProvider::class,
 
         /*
          * Application Service Providers...
