@@ -57,7 +57,7 @@ class SteamImportUsers extends Command
         if ($service->errors()->isNotEmpty()) {
             $this->error(__('phrase.the-following-errors-were-encountered'));
             foreach ($service->errors()->getMessages() as $error) {
-                $this->error($error);
+                $this->error($error[0]);
             }
         }
     }
