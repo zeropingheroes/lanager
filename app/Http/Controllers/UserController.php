@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('username')->get();
         return View::make('pages.user.index')
             ->with('users', $users);
     }
