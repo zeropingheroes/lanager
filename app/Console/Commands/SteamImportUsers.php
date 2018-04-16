@@ -5,7 +5,6 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 use Illuminate\Console\Command;
 use Zeropingheroes\Lanager\Services\SteamUserImportService;
 use Zeropingheroes\Lanager\UserOAuthAccount;
-use Steam;
 
 class SteamImportUsers extends Command
 {
@@ -28,6 +27,7 @@ class SteamImportUsers extends Command
      * Execute the console command.
      *
      * @return mixed
+     * @throws \Exception
      */
     public function handle()
     {

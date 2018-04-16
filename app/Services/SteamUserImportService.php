@@ -96,6 +96,7 @@ class SteamUserImportService
     /**
      * Import Steam users
      * @return void
+     * @throws \Throwable
      */
     public function import(): void
     {
@@ -124,6 +125,7 @@ class SteamUserImportService
      *
      * @param $steamUser
      * @return bool
+     * @throws \Throwable
      */
     protected function importUser($steamUser): bool
     {
