@@ -15,7 +15,7 @@
         </h1>
     </div>
     <div class="profile-content">
-        @include('pages.user.partials.status')
+        {{ $user->state->status() }}
     </div>
 
 @endsection

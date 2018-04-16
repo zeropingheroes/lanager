@@ -117,7 +117,14 @@ class User extends Authenticatable
                     $join->on('steam_user_states.user_id', '=', 's2.user_id')
                         ->on('steam_user_states.created_at', '=', 's2.max_created_at');
                 })
-            ->orderBy('steam_user_states.user_id')->first();
+            ->orderBy('steam_user_states.user_id')
+            ->withDefault(
+                [
+                    'steam_app_id' => null,
+                    'steam_app_server_id' => null,
+                    'online_status' => 0
+                ]
+            );
     }
 
 }
