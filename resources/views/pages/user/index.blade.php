@@ -15,6 +15,9 @@
                     <td>
                         @include('pages.user.partials.avatar-username', ['user' => $user])
                     </td>
+                    <td>
+                        @include('pages.user.partials.status')
+                    </td>
                 </tr>
             @endforeach
             </tbody>

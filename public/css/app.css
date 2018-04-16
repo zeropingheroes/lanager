@@ -9105,11 +9105,16 @@ img.avatar-in-game {
   border-color: #19A601;
 }
 
-img.avatar-online {
+img.avatar-online,
+img.avatar-away,
+img.avatar-snooze,
+img.looking-to-play,
+img.looking-to-trade {
   border-color: #01ABFE;
 }
 
-img.avatar-offline {
+img.avatar-offline,
+img.avatar-unknown {
   border-color: #333;
 }
 

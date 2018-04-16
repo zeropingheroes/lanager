@@ -8,14 +8,14 @@
 
     <div class="profile-header">
         <div class="profile-avatar">
-            @include('pages.user.partials.avatar',['size' => 'large', 'status' => 'offline'])
+            @include('pages.user.partials.avatar', ['size' => 'large'])
         </div>
         <h1>
             {{ $user->username }}
         </h1>
     </div>
     <div class="profile-content">
-        {{ $user->state()->statusText() }}
+        @include('pages.user.partials.status')
     </div>
 
 @endsection

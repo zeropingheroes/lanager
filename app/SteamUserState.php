@@ -47,9 +47,9 @@ class SteamUserState extends Model
      *
      * @return string
      */
-    public function statusText()
+    public function status()
     {
-        switch ($this->status) {
+        switch ($this->online_status) {
             case '1':
                 if (is_null($this->steam_app_id)) {
                     return 'Online';
@@ -68,8 +68,10 @@ class SteamUserState extends Model
             case '6':
                 return 'Looking to play';
             case '0':
-            default:
                 return 'Offline';
+
+            default:
+                return 'Unknown';
         }
     }
 }
