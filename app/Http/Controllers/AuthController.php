@@ -2,12 +2,13 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use \InvalidArgumentException;
+use Exception;
+use InvalidArgumentException;
 use Socialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Zeropingheroes\Lanager\Services\SteamUserImportService;
 use Zeropingheroes\Lanager\UserOAuthAccount;
-use Zeropingheroes\Lanager\User;
 
 /**
  * Class AuthController
@@ -47,17 +48,28 @@ class AuthController extends Controller
      *
      * @param $OAuthProvider
      * @return Response
-     * @throws InvalidArgumentException
+     * @throws \Throwable
      */
     public function handleProviderCallback($OAuthProvider)
     {
         if ($OAuthProvider == 'steam') {
             $OAuthUser = Socialite::with('steam')->user();
 
-            $user = $this->findOrCreateUser($OAuthUser, 'steam');
-            Auth::login($user, true);
+            $service = new SteamUserImportService($OAuthUser->id);
+            $service->import();
 
-            return redirect()->intended(route('users.show', ['id' => $user->id]));
+            if (in_array($OAuthUser->id, $service->getimported())) {
+                $user = UserOAuthAccount::where('provider_id', $OAuthUser->id)
+                    ->firstOrFail()
+                    ->user;
+
+                Auth::login($user, true);
+
+                return redirect()->intended(route('users.show', ['id' => $user->id]));
+            }
+
+            throw new Exception($service->errors()->first());
+
         }
 
         throw new InvalidArgumentException(__('phrase.provider-not-supported', ['provider' => $OAuthProvider]));
@@ -86,47 +98,5 @@ class AuthController extends Controller
     protected function guard()
     {
         return Auth::guard();
-    }
-
-    /**
-     * If a user has registered before using OAuth, return the user
-     * else, create a new user object.
-     * @param  $OAuthUser Socialite user object
-     * @param $OAuthProvider OAuth provider
-     * @return  User
-     */
-    public function findOrCreateUser($OAuthUser, $OAuthProvider)
-    {
-        // Check if the given OAuth account exists
-        $existingOAuthAccount = UserOAuthAccount::where(
-            [
-                'provider' => $OAuthProvider,
-                'provider_id' => $OAuthUser->id
-            ]
-        )->first();
-
-        // If the OAuth account exists
-        // return the user who owns the account
-        if ($existingOAuthAccount) {
-            return $existingOAuthAccount->user()->first();
-        }
-
-        // Otherwise create a new user ...
-        $user = User::create([
-            'username' => $OAuthUser->nickname
-        ]);
-
-        // ... link the OAuth account ...
-        // TODO: Use same code steam:import-user-states but for a single user
-        $user->OAuthAccounts()
-            ->create([
-                'username' => $OAuthUser->nickname,
-                'avatar' => $OAuthUser->avatar,
-                'provider' => $OAuthProvider,
-                'provider_id' => $OAuthUser->id
-            ]);
-
-        // ... and return the user
-        return $user;
     }
 }
