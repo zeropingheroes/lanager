@@ -172,10 +172,9 @@ class SteamUserImportService
         // Get the server they are connected to, if any
         if ($steamUser->gameDetails && $steamUser->gameDetails->serverIp) {
 
-            // TODO: make this safe for IPv6 addresses
-            $ipAndPort = explode(':', $steamUser->gameDetails->serverIp);
-            $ip = $ipAndPort[0];
-            $port = $ipAndPort[1];
+            preg_match('/(.*)((?::))((?:[0-9]+))$/', $steamUser->gameDetails->serverIp, $matches);
+            $port = $matches[3];
+            $ip = $matches[1];
 
             // Get the server
             // ... or if the server has not been previously recorded, create it
