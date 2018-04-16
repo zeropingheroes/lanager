@@ -5,7 +5,7 @@ alias h='cd ~'
 alias c='clear'
 alias art=artisan
 
-alias cleardb='artisan migrate:fresh && artisan db:seed'
+alias cleardb='artisan migrate:fresh && artisan db:seed && artisan steam:import-apps'
 
 alias phpspec='vendor/bin/phpspec'
 alias phpunit='vendor/bin/phpunit'
