@@ -1,4 +1,3 @@
-{{-- TODO: fix footer positioning --}}
 <footer class="footer bg-dark">
     <div class="container">
         <span class="text-muted">
