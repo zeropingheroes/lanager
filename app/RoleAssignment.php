@@ -15,12 +15,13 @@ class RoleAssignment extends Model
     protected $fillable = [
         'user_id',
         'role_id',
+        'assigned_by',
     ];
 
     /**
      * The user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function user()
     {
@@ -31,11 +32,22 @@ class RoleAssignment extends Model
     /**
      * The role
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function role()
     {
         return $this
             ->belongsTo('Zeropingheroes\Lanager\Role');
+    }
+
+    /**
+     * The user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function assigner()
+    {
+        return $this
+            ->belongsTo('Zeropingheroes\Lanager\User', 'assigned_by');
     }
 }

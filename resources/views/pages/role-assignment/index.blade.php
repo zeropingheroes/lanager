@@ -27,8 +27,8 @@
                         {{ $roleAssignment->role->name }}
                     </td>
                     <td>
-                        @if(!empty($roleAssignment->assigned_by))
-                            {{ $roleAssignment->assigned_by->user->username }}
+                        @if($roleAssignment->assigner)
+                            @include('pages.user.partials.username', ['user' => $roleAssignment->assigner])
                         @else
                             @lang('title.unknown')
                         @endif

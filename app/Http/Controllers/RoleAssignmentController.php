@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Requests\StoreRoleAssignmentRequest;
 use Zeropingheroes\Lanager\Role;
 use Zeropingheroes\Lanager\RoleAssignment;
@@ -39,6 +40,7 @@ class RoleAssignmentController extends Controller
         // TODO: Store assigned_by
         $input = $httpRequest->only(['user_id', 'role_id']);
 
+
         $request = new StoreRoleAssignmentRequest($input);
 
         if ($request->invalid()) {
@@ -47,6 +49,7 @@ class RoleAssignmentController extends Controller
                 ->withErrors($request->errors())
                 ->withInput();
         }
+        $input['assigned_by'] = Auth::user()->id;
 
         RoleAssignment::create($input);
 
