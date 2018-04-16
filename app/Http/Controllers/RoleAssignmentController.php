@@ -37,9 +37,7 @@ class RoleAssignmentController extends Controller
     {
         $this->authorize('create', RoleAssignment::class);
 
-        // TODO: Store assigned_by
         $input = $httpRequest->only(['user_id', 'role_id']);
-
 
         $request = new StoreRoleAssignmentRequest($input);
 
