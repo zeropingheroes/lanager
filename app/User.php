@@ -2,8 +2,10 @@
 
 namespace Zeropingheroes\Lanager;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -61,6 +63,7 @@ class User extends Authenticatable
 
     /**
      * Check if the user has the specified role(s)
+     * 
      * @param array $roles
      * @return bool
      * @internal param $role
@@ -75,6 +78,7 @@ class User extends Authenticatable
 
     /**
      * Get the user's avatar, in small, medium or large
+     *
      * @param string $size
      * @return string
      */
@@ -87,6 +91,33 @@ class User extends Authenticatable
         $avatar['large'] = str_replace('_medium.jpg', '_full.jpg', $avatar['medium']);
 
         return $avatar[$size];
+    }
+
+    /**
+     * Pseudo-relation: A single user's most recent state
+     *
+     * @return object Illuminate\Database\Eloquent\Relations\Relation
+     */
+    public function state()
+    {
+        $start = Carbon::createFromTimeStamp(time() - (60));
+        $end = Carbon::createFromTimeStamp(time() + (60));
+
+        return $this->hasOne('Zeropingheroes\Lanager\SteamUserState')
+            ->join(
+                DB::raw('(
+								SELECT max(created_at) max_created_at, user_id
+								FROM steam_user_states
+								WHERE created_at
+									BETWEEN "'.$start.'"
+									AND 	"'.$end.'"
+								GROUP BY user_id
+								) s2'),
+                function ($join) {
+                    $join->on('steam_user_states.user_id', '=', 's2.user_id')
+                        ->on('steam_user_states.created_at', '=', 's2.max_created_at');
+                })
+            ->orderBy('steam_user_states.user_id')->first();
     }
 
 }

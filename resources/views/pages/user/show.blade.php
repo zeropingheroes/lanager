@@ -15,7 +15,7 @@
         </h1>
     </div>
     <div class="profile-content">
-        <p>Profile content</p>
+        {{ $user->state()->statusText() }}
     </div>
 
 @endsection
