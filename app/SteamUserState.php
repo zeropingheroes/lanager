@@ -31,7 +31,7 @@ class SteamUserState extends Model
      */
     public function app()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\SteamApp', 'steam_app_id');
+        return $this->belongsTo('Zeropingheroes\Lanager\SteamApp', 'steam_app_id')->withDefault();
     }
 
     /**
@@ -39,7 +39,7 @@ class SteamUserState extends Model
      */
     public function server()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\SteamAppServer', 'steam_app_server_id');
+        return $this->belongsTo('Zeropingheroes\Lanager\SteamAppServer', 'steam_app_server_id')->withDefault();
     }
 
     /**

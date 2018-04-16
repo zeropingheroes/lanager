@@ -18,6 +18,9 @@
                     <td>
                         {{ $user->state->status() }}
                     </td>
+                    <td>
+                        @include('pages.steam-app.partials.store-link', ['app' => $user->state->app])
+                    </td>
                 </tr>
             @endforeach
             </tbody>
