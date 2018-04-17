@@ -21,6 +21,7 @@
         "syntax/steam-api": "2.0.*"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "dev-master",
         "laravel/homestead": "^7.3",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
