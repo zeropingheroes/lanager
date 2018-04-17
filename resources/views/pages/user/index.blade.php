@@ -21,6 +21,9 @@
                     <td>
                         @include('pages.steam-app.partials.store-link', ['app' => $user->state->app])
                     </td>
+                    <td>
+                        @include('pages.steam-app-server.partials.connect-link', ['server' => $user->state->server])
+                    </td>
                 </tr>
             @endforeach
             </tbody>

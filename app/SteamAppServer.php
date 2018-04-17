@@ -32,4 +32,19 @@ class SteamAppServer extends Model
     {
         return $this->hasMany('Zeropingheroes\Lanager\SteamUserState');
     }
+
+    /**
+     * URL to connect to the server using Steam Browser Protocol
+     *
+     * @return string
+     */
+    public function url()
+    {
+        if ($this->address && $this->port) {
+            return 'steam://connect/'.$this->address.':'.$this->port;
+        }
+        if ($this->address) {
+            return 'steam://connect/'.$this->address;
+        }
+    }
 }
