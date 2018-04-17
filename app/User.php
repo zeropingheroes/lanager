@@ -77,23 +77,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's avatar, in small, medium or large
-     *
-     * @param string $size
-     * @return string
-     */
-    public function avatar(string $size = 'large')
-    {
-        $avatar['medium'] = $this->SteamAccount()->avatar;
-
-        $avatar['small'] = str_replace('_medium.jpg', '.jpg', $avatar['medium']);
-
-        $avatar['large'] = str_replace('_medium.jpg', '_full.jpg', $avatar['medium']);
-
-        return $avatar[$size];
-    }
-
-    /**
      * Pseudo-relation: A single user's most recent state
      *
      * @return object Illuminate\Database\Eloquent\Relations\Relation
