@@ -40,16 +40,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's Steam account
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null|object|static
-     */
-    public function SteamAccount()
-    {
-        return $this->OAuthAccounts()->where('provider', 'steam')->first();
-    }
-
-    /**
      * The roles that belong to the user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
