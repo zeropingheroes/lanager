@@ -34,8 +34,9 @@ return [
     'provider-not-supported' => 'Unsupported authentication provider ":provider"',
 
     // Roles
-    'user-already-has-role' => 'User ":user" has already been assigned the role ":role"',
-    'role-successfully-assigned' => 'Role successfully assigned',
+    'user-already-has-role' => ':user has already been given the role :role',
+    'role-successfully-assigned' => ':user has been given the role :role',
+    'role-successfully-unassigned' => ':user no longer has the role :role',
 
     // Steam Apps Import
     'requesting-apps-from-steam' => 'Requesting all apps from Steam',

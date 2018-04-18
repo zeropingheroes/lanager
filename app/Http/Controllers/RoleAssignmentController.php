@@ -49,13 +49,13 @@ class RoleAssignmentController extends Controller
         }
         $input['assigned_by'] = Auth::user()->id;
 
-        RoleAssignment::create($input);
+        $roleAssignment = RoleAssignment::create($input);
 
         return redirect()
             ->route('role-assignments.index')
             ->with('alerts', [
                 [
-                    'message' => __('phrase.role-successfully-assigned'),
+                    'message' => __('phrase.role-successfully-assigned', ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->name]),
                     'type' => 'success'
                 ]
             ]);
@@ -69,6 +69,17 @@ class RoleAssignmentController extends Controller
      */
     public function destroy(RoleAssignment $roleAssignment)
     {
-        //
+        $this->authorize('create', RoleAssignment::class);
+
+        RoleAssignment::destroy($roleAssignment->id);
+
+        return redirect()
+            ->route('role-assignments.index')
+            ->with('alerts', [
+                [
+                    'message' => __('phrase.role-successfully-unassigned', ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->name]),
+                    'type' => 'success'
+                ]
+            ]);
     }
 }

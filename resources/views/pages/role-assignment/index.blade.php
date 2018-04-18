@@ -15,6 +15,7 @@
                 <th>@lang('title.user')</th>
                 <th>@lang('title.role')</th>
                 <th colspan="2">@lang('title.assigned-by')</th>
+                <th><span class="oi oi-cog" title="Cog" aria-hidden="true"></span></th>
             </tr>
             </thead>
             <tbody>
@@ -35,6 +36,9 @@
                     </td>
                     <td>
                         @include('components.time-relative', ['datetime' => $roleAssignment->created_at])
+                    </td>
+                    <td>
+                        @include('components.delete', ['route' => route('role-assignments.destroy', $roleAssignment->id)])
                     </td>
                 </tr>
             @endforeach
