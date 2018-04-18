@@ -1,0 +1,22 @@
+Short Term
+-------------------------------------------------------
+Profile buttons to open Steam
+Checking Steam API key is set
+Fix states query so there are no gaps
+Update readme with install instructions
+API - users
+API - role assignments
+
+Long Term
+-------------------------------------------------------
+Top games display
+Info Pages
+Links
+Events
+LANs
+Achievements
+Big screen dashboard
+Importing old LANager data
+Linking other accounts (Discord, Battle.net etc)
+Customising nav bar
+[all other open issues on GitHub]
