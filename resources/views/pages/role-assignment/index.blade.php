@@ -34,7 +34,7 @@
                         @endif
                     </td>
                     <td>
-                        {{ $roleAssignment->created_at->diffForHumans() }}
+                        @include('components.time-relative', ['datetime' => $roleAssignment->created_at])
                     </td>
                 </tr>
             @endforeach

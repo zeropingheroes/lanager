@@ -22,7 +22,7 @@ class RoleAssignmentController extends Controller
     {
         return View::make('pages.role-assignment.index')
             ->with('roleAssignments', RoleAssignment::all())
-            ->with('users', User::all()->pluck('username', 'id'))
+            ->with('users', User::orderBy('username')->get()->pluck('username', 'id'))
             ->with('roles', Role::all()->pluck('name', 'id'));
     }
 
