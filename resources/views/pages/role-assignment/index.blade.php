@@ -15,7 +15,9 @@
                 <th>@lang('title.user')</th>
                 <th>@lang('title.role')</th>
                 <th colspan="2">@lang('title.assigned-by')</th>
-                <th><span class="oi oi-cog" title="Cog" aria-hidden="true"></span></th>
+                @can('delete', Zeropingheroes\Lanager\RoleAssignment::class)
+                    <th><span class="oi oi-cog" title="Cog" aria-hidden="true"></span></th>
+                @endcan
             </tr>
             </thead>
             <tbody>
@@ -38,7 +40,9 @@
                         @include('components.time-relative', ['datetime' => $roleAssignment->created_at])
                     </td>
                     <td>
-                        @include('components.delete', ['route' => route('role-assignments.destroy', $roleAssignment->id)])
+                        @can('delete', Zeropingheroes\Lanager\RoleAssignment::class)
+                            @include('components.delete', ['route' => route('role-assignments.destroy', $roleAssignment->id)])
+                        @endcan
                     </td>
                 </tr>
             @endforeach

@@ -14,7 +14,6 @@ class RoleAssignmentPolicy extends BasePolicy
      * Determine whether the user can list all roleAssignments.
      *
      * @param  \Zeropingheroes\Lanager\User $user
-     * @param  \Zeropingheroes\Lanager\RoleAssignment $roleAssignment
      * @return mixed
      */
     public function index(User $user)
@@ -37,10 +36,9 @@ class RoleAssignmentPolicy extends BasePolicy
      * Determine whether the user can delete the roleAssignment.
      *
      * @param  \Zeropingheroes\Lanager\User $user
-     * @param  \Zeropingheroes\Lanager\RoleAssignment $roleAssignment
      * @return mixed
      */
-    public function delete(User $user, RoleAssignment $roleAssignment)
+    public function delete(User $user)
     {
         return false;
     }

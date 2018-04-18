@@ -70,7 +70,7 @@ class RoleAssignmentController extends Controller
      */
     public function destroy(RoleAssignment $roleAssignment)
     {
-        $this->authorize('delete', RoleAssignment::class);
+        $this->authorize('delete', $roleAssignment);
 
         $request = new DestroyRoleAssignmentRequest(['id' => $roleAssignment->id]);
         if ($request->invalid()) {
