@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Zeropingheroes\Lanager\Requests\DestroyRoleAssignmentRequest;
 use Zeropingheroes\Lanager\Requests\StoreRoleAssignmentRequest;
 use Zeropingheroes\Lanager\Role;
 use Zeropingheroes\Lanager\RoleAssignment;
@@ -69,7 +70,15 @@ class RoleAssignmentController extends Controller
      */
     public function destroy(RoleAssignment $roleAssignment)
     {
-        $this->authorize('create', RoleAssignment::class);
+        $this->authorize('delete', RoleAssignment::class);
+
+        $request = new DestroyRoleAssignmentRequest(['id' => $roleAssignment->id]);
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withErrors($request->errors())
+                ->withInput();
+        }
 
         RoleAssignment::destroy($roleAssignment->id);
 

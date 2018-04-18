@@ -34,9 +34,12 @@ return [
     'provider-not-supported' => 'Unsupported authentication provider ":provider"',
 
     // Roles
-    'user-already-has-role' => ':user has already been given the role :role',
-    'role-successfully-assigned' => ':user has been given the role :role',
-    'role-successfully-unassigned' => ':user no longer has the role :role',
+    'user-already-has-role' => ':user has already been assigned the role :role',
+    'role-successfully-assigned' => ':user has been assigned the role :role',
+    'role-successfully-unassigned' => ':user is no longer assigned the role :role',
+    'cannot-assign-role-to-self' => 'You cannot assign roles to yourself',
+    'cannot-unassign-role-from-self' => 'You cannot unassign roles from yourself',
+    'cannot-assign-role-to-super-admin' => 'Roles cannot be assigned to Super Admins',
 
     // Steam Apps Import
     'requesting-apps-from-steam' => 'Requesting all apps from Steam',

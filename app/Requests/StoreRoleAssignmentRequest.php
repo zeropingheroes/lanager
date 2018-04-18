@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Role;
 use Zeropingheroes\Lanager\User;
 
@@ -43,6 +44,16 @@ class StoreRoleAssignmentRequest extends Request
                     ]
                 )
             );
+            return $this->setValid(false);
+        }
+
+        if ($user == Auth::user()) {
+            $this->errors->add('cannot-assign-role-to-self', __('phrase.cannot-assign-role-to-self'));
+            return $this->setValid(false);
+        }
+
+        if ($user->hasRole('Super Admin')) {
+            $this->errors->add('cannot-assign-role-to-super-admin', __('phrase.cannot-assign-role-to-super-admin'));
             return $this->setValid(false);
         }
 
