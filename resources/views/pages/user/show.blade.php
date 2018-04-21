@@ -14,8 +14,13 @@
             {{ $user->username }}
         </h1>
     </div>
-    <div class="profile-content">
-        {{ $user->state->status() }}
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 border border-secondary rounded py-2 mr-2">
+                @include('pages.user.partials.accounts.steam', ['user' => $user])
+            </div>
+        </div>
     </div>
 
 @endsection
