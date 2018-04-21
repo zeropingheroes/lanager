@@ -1,8 +1,7 @@
 Short Term
 -------------------------------------------------------
-Profile buttons to open Steam
-Checking Steam API key is set
 Fix states query so there are no gaps
+Implement way of reporting cron errors to admin UI
 Update readme with install instructions
 API - users
 API - role assignments

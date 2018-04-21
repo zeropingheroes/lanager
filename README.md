@@ -22,7 +22,7 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 2. `composer install`
 3. `vagrant up`
 4. `nano .env`
-   1. `STEAM_KEY` - Enter your [Steam API Key](http://steamcommunity.com/dev/apikey)
+   1. `STEAM_API_KEY` - Enter your [Steam API Key](http://steamcommunity.com/dev/apikey)
 
 Your development environment is now available at http://lanager.localhost:8000/
 
