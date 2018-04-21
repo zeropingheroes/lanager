@@ -152,6 +152,7 @@ return [
          */
         Syntax\SteamApi\SteamApiServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Logger\Laravel\Provider\MonologMysqlHandlerServiceProvider::class,
 
         /*
          * Application Service Providers...

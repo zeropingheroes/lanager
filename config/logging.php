@@ -32,7 +32,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['mysql', 'single'],
         ],
 
         'single' => [
@@ -64,6 +64,11 @@ return [
         'errorlog' => [
             'driver' => 'errorlog',
             'level' => 'debug',
+        ],
+
+        'mysql' => [
+            'driver' => 'custom',
+            'via' => Zeropingheroes\Lanager\Logging\CreateMySQLLogger::class,
         ],
     ],
 

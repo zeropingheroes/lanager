@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4da36a066f0a6783a5845fce865d525f",
+    "content-hash": "e27e9e647ea9501b31d7a9228cdd177e",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -365,6 +365,50 @@
                 "trusted proxy"
             ],
             "time": "2018-02-07T20:20:57+00:00"
+        },
+        {
+            "name": "gilg4mesh/monolog-mysql",
+            "version": "0.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gilg4mesh/monolog-mysql.git",
+                "reference": "f06a85b5b4498d558e8f25beaeecee96c9728a3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gilg4mesh/monolog-mysql/zipball/f06a85b5b4498d558e8f25beaeecee96c9728a3a",
+                "reference": "f06a85b5b4498d558e8f25beaeecee96c9728a3a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Logger": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Cheng",
+                    "email": "freedomtomdestiny@gmail.com"
+                }
+            ],
+            "description": "Laravel 5.5+ MySQL driver for Monolog",
+            "homepage": "https://github.com/Gilg4mesh/monolog-mysql",
+            "keywords": [
+                "laravel",
+                "laravel5.5",
+                "log",
+                "monolog",
+                "mysql"
+            ],
+            "time": "2018-01-14T17:32:26+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
