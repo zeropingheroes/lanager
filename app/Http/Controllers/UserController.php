@@ -4,7 +4,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {

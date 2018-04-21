@@ -3,7 +3,6 @@
 namespace Zeropingheroes\Lanager\Policies;
 
 use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\RoleAssignment;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RoleAssignmentPolicy extends BasePolicy

@@ -4,8 +4,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Log;
-use Illuminate\Http\Request;
-use Zeropingheroes\Lanager\RoleAssignment;
 
 class LogController extends Controller
 {
