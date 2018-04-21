@@ -19,9 +19,10 @@
                         @include('pages.log.partials.level', ['level' => $log->level_name])
                     </td>
                     <td>
-                        {{ $log->message }}
+                        {{ str_limit($log->message, 96) }}
                     </td>
                     <td>
+                        {{ str_limit(trim($log->context), 32) }}
                     </td>
                 </tr>
             @endforeach
