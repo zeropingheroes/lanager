@@ -38,3 +38,8 @@ Route::resource('users', 'UserController', ['only' => ['index', 'show', 'destroy
  * Roles & Role Assignments
  */
 Route::resource('role-assignments', 'RoleAssignmentController', ['except' => ['show', 'edit', 'update']]);
+
+/**
+ * Logs
+ */
+Route::resource('logs', 'LogController', ['only' => ['index', 'show']]);

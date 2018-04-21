@@ -1,0 +1,1 @@
+<span title="{{ $datetime->diffForHumans() }}">{{ $datetime }}</span>

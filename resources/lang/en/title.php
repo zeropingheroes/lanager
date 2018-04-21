@@ -42,7 +42,7 @@ return [
     'achievements' => 'Achievements',
     'info' => 'Info',
     'api' => 'API',
-    'activity' => 'Activity',
+    'logs' => 'Logs',
 
     'admin' => 'Admin',
     'assign-a-role' => 'Assign a Role',
