@@ -9,20 +9,32 @@
     <h1>@lang('title.logs')</h1>
     @if(count($logs))
         <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@lang('title.time')</th>
+                    <th>@lang('title.level')</th>
+                    <th>@lang('title.message')</th>
+                    <th>@lang('title.user')</th>
+                </tr>
+            </thead>
             <tbody>
             @foreach( $logs as $log )
                 <tr>
                     <td>
-                        @include('components.time-datetime', ['datetime' => $log->created_at])
+                        @include('components.time-relative', ['datetime' => $log->created_at])
                     </td>
                     <td>
                         @include('pages.log.partials.level', ['level' => $log->level_name])
                     </td>
                     <td>
+                        <a href="{{ route('logs.show', $log->id) }}">
                         {{ str_limit($log->message, 96) }}
+                        </a>
                     </td>
                     <td>
-                        {{ str_limit(trim($log->context), 32) }}
+                        @if($log->user)
+                            @include('pages.user.partials.avatar-username', ['user' => $log->user])
+                        @endif
                     </td>
                 </tr>
             @endforeach

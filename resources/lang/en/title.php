@@ -62,4 +62,8 @@ return [
     'name' => 'Name',
     'unknown' => 'Unknown',
 
+    'time' => 'Time',
+    'level' => 'Level',
+    'message' => 'Message',
+
 ];

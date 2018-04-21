@@ -17,7 +17,7 @@ class LogController extends Controller
         $this->authorize('index', Log::class);
 
         return View::make('pages.log.index')
-            ->with('logs', Log::orderBy('created_at', 'desc')->get());
+            ->with('logs', Log::with('user')->orderBy('created_at', 'desc')->get());
 
     }
 
