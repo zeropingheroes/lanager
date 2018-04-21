@@ -32,6 +32,8 @@ return [
     'no-steam-account' => 'Don\'t have a Steam account? No problem!',
     'create-steam-account' => 'Create a Steam account for free',
     'provider-not-supported' => 'Unsupported authentication provider ":provider"',
+    'user-successfully-logged-in' => 'User successfully logged in',
+    'user-successfully-logged-out' => 'User successfully logged out',
 
     // Roles
     'user-already-has-role' => ':user has already been assigned the role :role',

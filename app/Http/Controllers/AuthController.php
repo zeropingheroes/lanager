@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Exception;
+use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use Socialite;
 use Illuminate\Http\Request;
@@ -39,7 +40,9 @@ class AuthController extends Controller
         if ($OAuthProvider == 'steam') {
             return Socialite::with('steam')->redirect();
         }
-        throw new InvalidArgumentException(__('phrase.provider-not-supported', ['provider' => $OAuthProvider]));
+        $message = __('phrase.provider-not-supported', ['provider' => $OAuthProvider]);
+        Log::error($message);
+        throw new InvalidArgumentException($message);
 
     }
 
@@ -64,6 +67,7 @@ class AuthController extends Controller
                     ->user;
 
                 Auth::login($user, true);
+                Log::info(__('phrase.user-successfully-logged-in'), $user->toArray());
 
                 return redirect()->intended(route('users.show', ['id' => $user->id]));
             }
@@ -83,10 +87,10 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
+        $user =  Auth::user();
         $this->guard()->logout();
-
         $request->session()->invalidate();
-
+        Log::info(__('phrase.user-successfully-logged-out'), $user->toArray());
         return redirect('/');
     }
 

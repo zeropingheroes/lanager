@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\Services\SteamUserImportService;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
@@ -52,11 +53,14 @@ class SteamImportUsers extends Command
         $service = new SteamUserImportService($steamIds);
         $service->import();
 
-        $this->info(__('phrase.successfully-imported-states-for-x-of-y-users', ['x' => count($service->getImported()), 'y' => count($steamIds)]));
+        $message = __('phrase.successfully-imported-states-for-x-of-y-users', ['x' => count($service->getImported()), 'y' => count($steamIds)]);
+        Log::info($message);
+        $this->info($message);
 
         if ($service->errors()->isNotEmpty()) {
             $this->error(__('phrase.the-following-errors-were-encountered'));
             foreach ($service->errors()->getMessages() as $error) {
+                Log::error($error[0]);
                 $this->error($error[0]);
             }
         }

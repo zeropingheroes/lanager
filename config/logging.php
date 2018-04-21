@@ -69,6 +69,7 @@ return [
         'mysql' => [
             'driver' => 'custom',
             'via' => Zeropingheroes\Lanager\Logging\CreateMySQLLogger::class,
+            'level' => 'info',
         ],
     ],
 
