@@ -162,6 +162,7 @@ return [
         // Zeropingheroes\Lanager\Providers\BroadcastServiceProvider::class,
         Zeropingheroes\Lanager\Providers\EventServiceProvider::class,
         Zeropingheroes\Lanager\Providers\RouteServiceProvider::class,
+        Zeropingheroes\Lanager\Providers\ViewComposerServiceProvider::class,
 
     ],
 
