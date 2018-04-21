@@ -14,6 +14,10 @@ alias serve=serve-laravel
 alias xoff='sudo phpdismod -s cli xdebug'
 alias xon='sudo phpenmod -s cli xdebug'
 
+function resource() {
+    php artisan make:controller --no-interaction --model "$1" --resource "$1"Controller
+}
+
 function artisan() {
     php artisan "$@"
 }
