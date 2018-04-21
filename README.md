@@ -19,12 +19,13 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 ### Installation:
 
 1. `git clone -b laravel-upgrade https://github.com/zeropingheroes/lanager && cd lanager`
-2. `composer install`
-3. `vagrant up`
-4. `nano .env`
+2. `cp .env.example .env`
+3. `nano .env`
    1. `STEAM_API_KEY` - Enter your [Steam API Key](http://steamcommunity.com/dev/apikey)
+4. `composer install`
+5. `vagrant up`
 
-Your development environment is now available at http://lanager.localhost:8000/
+Your development environment will now be available available at [lanager.localhost:8000](http://lanager.localhost:8000/)
 
 ## Feedback & Contributions
 
