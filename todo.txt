@@ -1,6 +1,7 @@
 Short Term
 -------------------------------------------------------
-Implement way of reporting cron errors to admin UI
+Dismissing of logs
+Reporting of logs
 Filtering of logs
 Exporting of logs
 Steam private profiles - record and alert
@@ -19,4 +20,5 @@ Big screen dashboard
 Importing old LANager data
 Linking other accounts (Discord, Battle.net etc)
 Customising nav bar
+Command to make user super admin
 [all other open issues on GitHub]
