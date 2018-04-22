@@ -43,3 +43,5 @@ Route::resource('role-assignments', 'RoleAssignmentController', ['except' => ['s
  * Logs
  */
 Route::resource('logs', 'LogController', ['only' => ['index', 'show']]);
+Route::patch('logs', 'LogController@patch')
+    ->name('logs.patch');

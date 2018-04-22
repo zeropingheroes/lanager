@@ -14,8 +14,7 @@ class LogFilter extends ModelFilter
 
     public function setup()
     {
-        if (! $this->input('minimum-level'))
-        {
+        if (!$this->input('minimum-level')) {
             return $this->minimumLevel('250');
         }
     }

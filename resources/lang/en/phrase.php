@@ -63,5 +63,7 @@ return [
 
     // Logs
     'minimum-level' => 'Minimum level',
+    'mark-as-read' => 'Mark as Read',
+    'log-entries-marked-as-read' => 'Log entries successfully marked as read',
 
 ];

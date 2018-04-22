@@ -10,6 +10,15 @@ class Log extends Model
     use Filterable;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'read',
+    ];
+
+    /**
      * Get the user who caused the log entry
      * @return mixed
      */

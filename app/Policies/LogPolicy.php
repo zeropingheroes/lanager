@@ -19,4 +19,15 @@ class LogPolicy extends BasePolicy
     {
         return false;
     }
+
+    /**
+     * Determine whether the user can list all log entries.
+     *
+     * @param  \Zeropingheroes\Lanager\User $user
+     * @return mixed
+     */
+    public function update(User $user)
+    {
+        return false;
+    }
 }

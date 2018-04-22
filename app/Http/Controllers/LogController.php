@@ -21,7 +21,7 @@ class LogController extends Controller
         $logs = Log::with('user')
             ->filter($request->all())
             ->orderBy('created_at', 'desc')
-            ->paginateFilter(50);
+            ->paginateFilter(15);
 
         return View::make('pages.log.index')
             ->with('logs', $logs);
@@ -31,12 +31,42 @@ class LogController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\Log  $log
+     * @param  \Zeropingheroes\Lanager\Log $log
      * @return \Illuminate\Http\Response
      */
     public function show(Log $log)
     {
+        $log->read = true;
+        $log->save();
         return View::make('pages.log.show')
             ->with('log', $log);
+    }
+
+    /**
+     * Update a collection of log items
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function patch(Request $request)
+    {
+        $this->authorize('update', Log::class);
+
+        $logs = $request->input('logs');
+        foreach ($logs as $logId => $input) {
+            Log::findOrFail($logId)->update($input);
+        }
+        return redirect()
+            ->route('logs.index')
+            ->with(
+                'alerts',
+                [
+                    [
+                        'message' => __('phrase.log-entries-marked-as-read'),
+                        'type' => 'success'
+                    ]
+                ]
+            );
+
     }
 }
