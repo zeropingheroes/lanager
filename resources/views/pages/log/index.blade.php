@@ -7,10 +7,8 @@
 @section('content')
 
     <h1>@lang('title.logs')</h1>
+    @include('pages.log.partials.filter')
     @if(count($logs))
-
-        @include('pages.log.partials.filter')
-
         <table class="table table-striped">
             <thead>
                 <tr>

@@ -21,7 +21,7 @@ class LogController extends Controller
         $logs = Log::with('user')
             ->filter($request->all())
             ->orderBy('created_at', 'desc')
-            ->paginate(50);
+            ->paginateFilter(50);
 
         return View::make('pages.log.index')
             ->with('logs', $logs);

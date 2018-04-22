@@ -12,8 +12,16 @@ class LogFilter extends ModelFilter
      */
     public $relations = [];
 
-    public function level($level)
+    public function setup()
     {
-        return $this->where('level', $level);
+        if (! $this->input('minimum-level'))
+        {
+            return $this->minimumLevel('250');
+        }
+    }
+
+    public function minimumLevel($level)
+    {
+        return $this->where('level', '>=', $level);
     }
 }

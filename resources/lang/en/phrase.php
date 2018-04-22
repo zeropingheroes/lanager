@@ -61,4 +61,7 @@ return [
     'no-items-found' => 'No :item found',
     'the-following-errors-were-encountered' => 'The following errors were encountered',
 
+    // Logs
+    'minimum-level' => 'Minimum level',
+
 ];

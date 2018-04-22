@@ -16,7 +16,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('layouts.partials.nav.admin', function ($view) {
-            $view->with('errorCount', Log::where('level', '>', 200)->count());
+            $view->with('errorCount', Log::where('level', '>=', 250)->count()); // Notice and above
         });
     }
 

@@ -1,31 +1,18 @@
-<div class="mb-2">
-    <div class="custom-control custom-checkbox custom-control-inline">
-        <input class="custom-control-input" type="checkbox" id="emergency" value="emergency">
-        <label class="custom-control-label" for="emergency">@include('pages.log.partials.level', ['level' => 'EMERGENCY'])</label>
-    </div>
-    <div class="custom-control custom-checkbox custom-control-inline">
-        <input class="custom-control-input" type="checkbox" id="alert" value="alert">
-        <label class="custom-control-label" for="alert">@include('pages.log.partials.level', ['level' => 'ALERT'])</label>
-    </div>
-    <div class="custom-control custom-checkbox custom-control-inline">
-        <input class="custom-control-input" type="checkbox" id="critical" value="critical">
-        <label class="custom-control-label" for="critical">@include('pages.log.partials.level', ['level' => 'CRITICAL'])</label>
-    </div>
-    <div class="custom-control custom-checkbox custom-control-inline">
-        <input class="custom-control-input" type="checkbox" id="error" value="error">
-        <label class="custom-control-label" for="error">@include('pages.log.partials.level', ['level' => 'ERROR'])</label>
-    </div>
-    <div class="custom-control custom-checkbox custom-control-inline">
-        <input class="custom-control-input" type="checkbox" id="warning" value="warning">
-        <label class="custom-control-label" for="warning">@include('pages.log.partials.level', ['level' => 'WARNING'])</label>
-    </div>
-    <div class="custom-control custom-checkbox custom-control-inline">
-        <input class="custom-control-input" type="checkbox" id="notice" value="notice">
-        <label class="custom-control-label" for="notice">@include('pages.log.partials.level', ['level' => 'NOTICE'])</label>
-    </div>
-    <div class="custom-control custom-checkbox custom-control-inline">
-        <input class="custom-control-input" type="checkbox" id="info" value="info">
-        <label class="custom-control-label" for="info">@include('pages.log.partials.level', ['level' => 'INFO'])</label>
-    </div>
-    <button class="btn btn-primary" type="submit">Filter</button>
-</div>
+@php
+    $levels = [
+        '700' => 'Emergency',
+        '600' => 'Alert',
+        '500' => 'Critical',
+        '400' => 'Error',
+        '300' => 'Warning',
+        '250' => 'Notice',
+        '200' => 'Info',
+        '100' => 'Debug',
+    ];
+@endphp
+<form class="form-inline mb-1" method="get" action="{{ route('logs.index') }}">
+    <label class="my-1 mr-2" for="minimum-level">@lang('phrase.minimum-level')</label>
+    {{  Form::select('minimum-level', $levels, old('minimum-level', 250), ['class' => 'custom-select my-1 mr-sm-2 col-2']) }}
+
+    <button type="submit" class="btn btn-primary my-1">Submit</button>
+</form>
