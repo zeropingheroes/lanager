@@ -19,7 +19,8 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.6.0",
         "socialiteproviders/steam": "^1.0",
-        "syntax/steam-api": "2.0.*"
+        "syntax/steam-api": "2.0.*",
+        "tucker-eric/eloquentfilter": "^1.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "dev-master",

@@ -1,8 +1,8 @@
 Short Term
 -------------------------------------------------------
-Dismissing of logs
-Reporting of logs
 Filtering of logs
+Dismissing of logs
+Reporting of logs to Github
 Exporting of logs
 Steam private profiles - record and alert
 API - users

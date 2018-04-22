@@ -8,6 +8,9 @@
 
     <h1>@lang('title.logs')</h1>
     @if(count($logs))
+
+        @include('pages.log.partials.filter')
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -40,6 +43,8 @@
             @endforeach
             </tbody>
         </table>
+
+        {{ $logs->links() }}
     @else
         <p>@lang('phrase.no-items-found', ['item' => __('title.logs')])</p>
     @endif
