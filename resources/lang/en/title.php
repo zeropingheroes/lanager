@@ -62,8 +62,10 @@ return [
     'name' => 'Name',
     'unknown' => 'Unknown',
 
+    'log-entry' => 'Log Entry',
     'time' => 'Time',
     'level' => 'Level',
     'message' => 'Message',
+    'context' => 'Context',
 
 ];

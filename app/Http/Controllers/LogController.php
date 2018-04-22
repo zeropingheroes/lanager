@@ -29,6 +29,7 @@ class LogController extends Controller
      */
     public function show(Log $log)
     {
-        //
+        return View::make('pages.log.show')
+            ->with('log', $log);
     }
 }
