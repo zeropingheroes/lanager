@@ -1,7 +1,9 @@
 Short Term
 -------------------------------------------------------
-Fix database logging memory errors
 Implement way of reporting cron errors to admin UI
+Filtering of logs
+Exporting of logs
+Steam private profiles - record and alert
 API - users
 API - role assignments
 
