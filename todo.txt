@@ -1,7 +1,6 @@
 Short Term
 -------------------------------------------------------
-Reporting of logs to Github
-Exporting of logs
+Reporting of logs to Github - show frame with JSON of error log entry, without slashes escaped
 Steam private profiles - record and alert
 API - users
 API - role assignments

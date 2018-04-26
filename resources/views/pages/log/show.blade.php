@@ -23,7 +23,7 @@
 
     <h2>@lang('title.message')</h2>
     <div>
-        @dump($log->message)
+        <code>{{ $log->message }}</code>
     </div>
 
     @if($log->context != "[]")
@@ -35,5 +35,6 @@
             @endforeach
         </div>
     @endif
+    {{--@include('pages.log.partials.github', ['log' => $log])--}}
 
 @endsection
