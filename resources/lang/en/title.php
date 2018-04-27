@@ -62,7 +62,7 @@ return [
     'name' => 'Name',
     'unknown' => 'Unknown',
 
-    'log-entry' => 'Log Entry',
+    'log' => 'Log',
     'time' => 'Time',
     'level' => 'Level',
     'message' => 'Message',
