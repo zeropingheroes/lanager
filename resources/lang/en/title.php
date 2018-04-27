@@ -68,5 +68,7 @@ return [
     'level' => 'Level',
     'message' => 'Message',
     'context' => 'Context',
+    'html' => 'HTML',
+    'markdown' => 'Markdown',
 
 ];

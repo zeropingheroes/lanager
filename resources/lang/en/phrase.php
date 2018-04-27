@@ -65,5 +65,6 @@ return [
     'minimum-level' => 'Minimum level',
     'mark-as-read' => 'Mark as Read',
     'log-entries-marked-as-read' => 'Log entries successfully marked as read',
+    'paste-below-into-github-issue' => 'Paste the below into a GitHub issue',
 
 ];
