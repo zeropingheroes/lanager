@@ -63,6 +63,7 @@ return [
     'unknown' => 'Unknown',
 
     'log' => 'Log',
+    'data' => 'Data',
     'time' => 'Time',
     'level' => 'Level',
     'message' => 'Message',

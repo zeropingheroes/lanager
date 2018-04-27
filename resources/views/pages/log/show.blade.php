@@ -6,8 +6,15 @@
 
 @section('content')
 
-    <h1>@lang('title.log') #{{ $log->id }}</h1>
+    <h1>@lang('title.log') #{{ $log->id }} @include('pages.log.partials.level', ['level' => $log->level_name])</h1>
 
+    <h2>@lang('title.message')</h2>
+    <code>{{ $log->message }}</code>
+
+    <h2>@lang('title.time')</h2>
+    <code>@include('components.time-datetime', ['datetime' => $log->created_at])</code>
+
+    <h2>@lang('title.data')</h2>
     <code>
         <pre>{{ var_export_short([
     'level' => $log->level_name,
