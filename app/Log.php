@@ -24,6 +24,7 @@ class Log extends Model
      */
     public function user()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\User', 'created_by');
+        return $this->belongsTo('Zeropingheroes\Lanager\User', 'created_by')
+            ->withDefault();
     }
 }
