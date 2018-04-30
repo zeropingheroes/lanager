@@ -3,6 +3,7 @@ Short Term
 Steam private profiles - record and alert
 API - users
 API - role assignments
+GDPR compliant terms and conditions page
 
 Long Term
 -------------------------------------------------------
@@ -17,4 +18,5 @@ Importing old LANager data
 Linking other accounts (Discord, Battle.net etc)
 Customising nav bar
 Command to make user super admin
+Pruning logs and states
 [all other open issues on GitHub]

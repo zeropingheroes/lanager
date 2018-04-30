@@ -193,6 +193,9 @@ class SteamUserImportService
         // Set the user's online status
         $steamUserState->online_status = $steamUser->personaStateId;
 
+        // Set the user's community visibility status
+        $steamUserState->visibility_status = $steamUser->communityVisibilityState;
+
         return $steamUserState->saveOrFail();
     }
 }

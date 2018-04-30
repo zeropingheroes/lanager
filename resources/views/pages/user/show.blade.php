@@ -6,6 +6,8 @@
 
 @section('content')
 
+    @include('pages.user.partials.private-profile-warning', ['user' => $user])
+
     <div class="profile-header">
         <div class="profile-avatar">
             @include('pages.user.partials.avatar', ['size' => 'large'])

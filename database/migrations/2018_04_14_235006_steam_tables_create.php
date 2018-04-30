@@ -62,6 +62,9 @@ class SteamTablesCreate extends Migration
             $table->smallInteger('online_status')
                 ->unsigned();
 
+            $table->smallInteger('visibility_status')
+                ->unsigned();
+
             $table->timestamps();
 
             // Relationships

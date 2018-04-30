@@ -60,11 +60,16 @@ return [
     'item-created' => ':Item successfully created',
     'no-items-found' => 'No :item found',
     'the-following-errors-were-encountered' => 'The following errors were encountered',
+    'oh-no' => 'Oh no!',
 
     // Logs
     'minimum-level' => 'Minimum level',
     'mark-as-read' => 'Mark as Read',
     'log-entries-marked-as-read' => 'Log entries successfully marked as read',
     'paste-below-into-github-issue' => 'Paste the below into a GitHub issue',
+
+    // User profile
+    'steam-profile-private' => 'Your Steam Profile is set to private or friends only - this means what you\'re playing won\'t show on the "Popular Games" page with everyone else.',
+    'please-consider-public-visibility' => 'Please consider changing your profile\'s visibility and game details to public, even if it\'s just for the event. Thanks!',
 
 ];
