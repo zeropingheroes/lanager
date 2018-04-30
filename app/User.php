@@ -93,8 +93,6 @@ class User extends Authenticatable
             ->orderBy('steam_user_states.user_id')
             ->withDefault(
                 [
-                    'steam_app_id' => null,
-                    'steam_app_server_id' => null,
                     'online_status' => 0
                 ]
             );
