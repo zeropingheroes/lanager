@@ -47,7 +47,9 @@
 ## @lang('title.message')
 
 
-`{{ $log->message }}`
+```
+{{ $log->message }}
+```
 
 
 ## @lang('title.data')
