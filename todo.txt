@@ -1,6 +1,7 @@
 Short Term
 -------------------------------------------------------
-Steam private profiles - record and alert
+Collect user game info every 15 minutes
+Change private profile check to see if a user owns zero games
 API - users
 API - role assignments
 GDPR compliant terms and conditions page

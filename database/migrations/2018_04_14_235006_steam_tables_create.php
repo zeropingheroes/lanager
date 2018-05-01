@@ -89,6 +89,41 @@ class SteamTablesCreate extends Migration
             // Indexes
             $table->index(['user_id', 'created_at']);
         });
+
+        Schema::create('steam_user_apps', function ($table) {
+
+            $table->increments('id');
+
+            $table->integer('user_id')
+                ->unsigned();
+
+            $table->integer('steam_app_id')
+                ->unsigned()
+                ->nullable(); // nullable to prevent circular dependencies
+
+            $table->integer('playtime_two_weeks')
+                ->unsigned()
+                ->default(0);
+
+            $table->integer('playtime_forever')
+                ->unsigned()
+                ->default(0);
+
+            $table->timestamps();
+
+            // Relationships
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('steam_app_id')
+                ->references('id')
+                ->on('steam_apps')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+        });
     }
 
     /**
@@ -99,6 +134,7 @@ class SteamTablesCreate extends Migration
     public function down()
     {
         Schema::drop('steam_user_states');
+        Schema::drop('steam_user_apps');
         Schema::drop('steam_app_servers');
         Schema::drop('steam_apps');
     }
