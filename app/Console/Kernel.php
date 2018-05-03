@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Zeropingheroes\Lanager\Console\Commands\SteamImportApps;
+use Zeropingheroes\Lanager\Console\Commands\SteamImportUserApps;
 use Zeropingheroes\Lanager\Console\Commands\SteamImportUsers;
 
 class Kernel extends ConsoleKernel
