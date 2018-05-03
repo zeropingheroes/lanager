@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Services;
 
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\MessageBag;
 use Steam;
 use Zeropingheroes\Lanager\UserOAuthAccount;
@@ -15,6 +16,20 @@ class SteamUserAppImportService
      * @var array
      */
     protected $userIds = [];
+
+    /**
+     * Users whose apps were successfully imported
+     *
+     * @var Collection
+     */
+    protected $imported = [];
+
+    /**
+     * Users whose apps were not imported due to errors
+     *
+     * @var Collection
+     */
+    protected $failed = [];
 
     /**
      * Errors
@@ -35,6 +50,8 @@ class SteamUserAppImportService
 
         $this->userIds = $userIds;
         $this->errors = new MessageBag();
+        $this->imported = new Collection();
+        $this->failed = new Collection();
     }
 
     /**
@@ -45,6 +62,22 @@ class SteamUserAppImportService
     public function errors(): MessageBag
     {
         return $this->errors;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getImported(): Collection
+    {
+        return $this->imported;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getFailed(): Collection
+    {
+        return $this->failed;
     }
 
     /**
@@ -74,6 +107,9 @@ class SteamUserAppImportService
                         );
                 }
 
+                // Add the user to the imported collection
+                $this->imported->push($steamAccount->user);
+
             } catch (Exception $e) {
                 $this->errors->add(
                     $steamAccount->provider_id,
@@ -82,6 +118,8 @@ class SteamUserAppImportService
                         ['username' => $steamAccount->user->username, 'error' => $e->getMessage()]
                     )
                 );
+                // Add the user to the failed collection
+                $this->failed->push($steamAccount->user);
             }
         }
     }

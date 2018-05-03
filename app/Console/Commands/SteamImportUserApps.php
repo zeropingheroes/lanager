@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\Services\SteamUserAppImportService;
 use Zeropingheroes\Lanager\User;
 
@@ -38,17 +39,18 @@ class SteamImportUserApps extends Command
         $service = new SteamUserAppImportService($userIds->toArray());
         $service->import();
 
-//        $message = __('phrase.successfully-imported-apps-for-x-of-y-users', ['x' => count($service->getImported()), 'y' => count($userIds)]);
-//        Log::info($message);
-//        $this->info($message);
-//
-//        if ($service->errors()->isNotEmpty()) {
-//            $this->error(__('phrase.the-following-errors-were-encountered'));
-//            foreach ($service->errors()->getMessages() as $error) {
-//                Log::error($error[0]);
-//                $this->error($error[0]);
-//            }
-//        }
+        $message = __('phrase.successfully-imported-apps-for-x-of-y-users', ['x' => count($service->getImported()), 'y' => count($userIds)]);
+        Log::info($message);
+        $this->info($message);
+
+        if ($service->errors()->isNotEmpty()) {
+            $this->error(__('phrase.the-following-errors-were-encountered'));
+            foreach ($service->errors()->getMessages() as $error) {
+                // TODO: find way of adding context to error
+                Log::error($error[0]);
+                $this->error($error[0]);
+            }
+        }
     }
 
 }
