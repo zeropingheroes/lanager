@@ -1,9 +1,10 @@
 Short Term
 -------------------------------------------------------
-Change private profile check to see if a user owns zero games
 API - users
 API - role assignments
 GDPR compliant terms and conditions page
+Log an error when no Steam states have been imported for 5 minutes
+Gracefully deal with no Steam states
 
 Long Term
 -------------------------------------------------------
