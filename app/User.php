@@ -40,6 +40,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's Steam apps
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function SteamApps()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\SteamUserApp');
+    }
+
+    /**
      * The roles that belong to the user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

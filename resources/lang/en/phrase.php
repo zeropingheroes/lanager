@@ -53,8 +53,11 @@ return [
     // Steam States Import
     'no-steam-users-to-import' => 'No Steam users to import',
     'requesting-current-status-of-count-users-from-steam' => 'Requesting current status of :count users from Steam',
+    'requesting-games-owned-by-count-users-from-steam' => 'Requesting games owned by :count users from Steam',
     'unable-to-import-state-for-user' => 'Unable to import user state for user :id - :error',
     'successfully-imported-states-for-x-of-y-users' => 'Successfully imported states for :x of :y users from Steam',
+    'successfully-imported-apps-for-x-of-y-users' => 'Successfully imported apps for :x of :y users from Steam',
+    'unable-to-import-apps-for-user' => 'Unable to import apps for user :username - :error',
 
     // General purpose
     'item-created' => ':Item successfully created',
