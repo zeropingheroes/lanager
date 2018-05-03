@@ -1,6 +1,5 @@
 Short Term
 -------------------------------------------------------
-Collect user game info every 15 minutes
 Change private profile check to see if a user owns zero games
 API - users
 API - role assignments
@@ -20,4 +19,5 @@ Linking other accounts (Discord, Battle.net etc)
 Customising nav bar
 Command to make user super admin
 Pruning logs and states
+Counting of API calls to Steam
 [all other open issues on GitHub]

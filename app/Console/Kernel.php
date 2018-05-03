@@ -31,6 +31,9 @@ class Kernel extends ConsoleKernel
 
          $schedule->command(SteamImportApps::class)
                   ->dailyAt('6:00');
+
+         $schedule->command(SteamImportUserApps::class)
+                  ->everyFifteenMinutes();
     }
 
     /**
