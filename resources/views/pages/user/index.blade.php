@@ -16,13 +16,16 @@
                         @include('pages.user.partials.avatar-username', ['user' => $user])
                     </td>
                     <td>
-                        {{ $user->state->status() }}
+                        @include('pages.user.partials.online-status-badge', ['user' => $user])
                     </td>
                     <td>
-                        @include('pages.steam-app.partials.store-link', ['app' => $user->state->app])
+                        @include('pages.user.partials.private-profile-badge', ['user' => $user])
                     </td>
                     <td>
-                        @include('pages.steam-app-server.partials.connect-link', ['server' => $user->state->server])
+                    @include('pages.steam-app.partials.store-link', ['app' => $user->state->app])
+                    </td>
+                    <td>
+                    @include('pages.steam-app-server.partials.connect-link', ['server' => $user->state->server])
                     </td>
                 </tr>
             @endforeach
