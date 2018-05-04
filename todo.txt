@@ -1,10 +1,9 @@
 Short Term
 -------------------------------------------------------
-Log an error when no Steam states have been imported for 5 minutes
+Top games display
 
 Long Term
 -------------------------------------------------------
-Top games display
 Info Pages
 Links
 Events
