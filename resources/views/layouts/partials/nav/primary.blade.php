@@ -6,7 +6,7 @@
         <a class="nav-link" href="{{ route('users.index') }}">@lang('title.users')</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">@lang('title.games')</a>
+        <a class="nav-link" href="{{ route('games.index') }}">@lang('title.games')</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">@lang('title.achievements')</a>

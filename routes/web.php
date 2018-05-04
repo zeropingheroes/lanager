@@ -45,3 +45,9 @@ Route::resource('role-assignments', 'RoleAssignmentController', ['except' => ['s
 Route::resource('logs', 'LogController', ['only' => ['index', 'show']]);
 Route::patch('logs', 'LogController@patch')
     ->name('logs.patch');
+
+/**
+ * Games
+ */
+Route::get('games', 'GamesController@index')
+    ->name('games.index');

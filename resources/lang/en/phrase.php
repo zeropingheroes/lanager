@@ -78,4 +78,9 @@ return [
         ) . ' with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
     'edit-steam-profile' => 'Edit Steam Profile',
 
+    // Games
+    'x-in-game' => ':x In Game',
+    'view-game-in-steam-store' => 'View :game in the Steam Store',
+    'logo-for-game' => 'Logo for :game',
+
 ];

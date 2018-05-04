@@ -71,4 +71,8 @@ return [
     'html' => 'HTML',
     'markdown' => 'Markdown',
 
+    'live' => 'Live',
+    'recently-played' => 'Recently Played',
+    'owned' => 'Owned',
+
 ];
