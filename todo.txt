@@ -1,10 +1,6 @@
 Short Term
 -------------------------------------------------------
-API - users
-API - role assignments
-GDPR compliant terms and conditions page
 Log an error when no Steam states have been imported for 5 minutes
-Gracefully deal with no Steam states
 
 Long Term
 -------------------------------------------------------
@@ -21,4 +17,5 @@ Customising nav bar
 Command to make user super admin
 Pruning logs and states
 Counting of API calls to Steam
+GDPR compliant terms and conditions page
 [all other open issues on GitHub]
