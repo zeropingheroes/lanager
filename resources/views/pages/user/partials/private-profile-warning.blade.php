@@ -4,6 +4,9 @@
         @lang('phrase.steam-profile-private')
         <br>
         <br>
-        <a href="steam://url/SteamIDEditPage" class="alert-link">@lang('phrase.please-consider-public-visibility')</a>
+        @lang('phrase.please-consider-public-visibility')
+        <br>
+        <br>
+        <a href="steam://url/SteamIDEditPage" class="alert-link">@lang('phrase.edit-steam-profile')</a>
     </div>
 @endif

@@ -72,7 +72,10 @@ return [
     'paste-below-into-github-issue' => 'Paste the below into a GitHub issue',
 
     // User profile
-    'steam-profile-private' => 'Your Steam Profile is set to private or friends only - this means what you\'re playing won\'t show on the "Popular Games" page with everyone else.',
-    'please-consider-public-visibility' => 'Please consider changing your profile\'s visibility and game details to public, even if it\'s just for the event. Thanks!',
+    'steam-profile-private' => 'Your Steam game details are currently private.',
+    'please-consider-public-visibility' => 'This means games you play won\'t show in ' . config(
+            'app.name'
+        ) . ' with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
+    'edit-steam-profile' => 'Edit Steam Profile',
 
 ];
