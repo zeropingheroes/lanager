@@ -5,9 +5,10 @@
 @endsection
 
 @section('content')
-    <h1>@lang('title.live')</h1>
 
-    @include('pages.game.partials.live', ['games' => $games])
+    <h1>@lang('title.live')</h1>
+    @include('pages.game.partials.live', ['liveGameUsage' => $liveGameUsage])
+
 
     {{--<h1>@lang('title.recently-played')</h1>--}}
     {{--<p>Recently played games</p>--}}

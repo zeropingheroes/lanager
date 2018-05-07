@@ -1,16 +1,17 @@
 <table class="table">
-    @foreach($games as $game)
+    @foreach($liveGameUsage as $gameUsage)
+        {{--<pre>{{print_r($game)}}</pre>--}}
         <tr>
             <td>
-                <a href="{{ $game->steamStoreURL() }}" title="@lang('phrase.view-game-in-steam-store', ['game' => $game->name])">
-                    <img src="{{ $game->image() }}" alt="@lang('phrase.logo-for-game', ['game' => $game->name])">
+                <a href="{{ $gameUsage['game']->steamStoreURL() }}" title="@lang('phrase.view-game-in-steam-store', ['game' => $gameUsage['game']->name])">
+                    <img src="{{ $gameUsage['game']->image() }}" alt="@lang('phrase.logo-for-game', ['game' => $gameUsage['game']->name])">
                 </a>
             </td>
             <td>
-                @lang('phrase.x-in-game', ['x' => count($game['users'])])
+                @lang('phrase.x-in-game', ['x' => count($gameUsage['users'])])
             </td>
             <td>
-                @foreach($game['users'] as $user)
+                @foreach($gameUsage['users'] as $user)
                     <a href="{{ route('users.show', $user->id) }}">
                         @include('pages.user.partials.avatar', ['user' => $user])
                     </a>
