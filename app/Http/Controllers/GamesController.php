@@ -17,10 +17,20 @@ class GamesController extends Controller
      */
     public function index()
     {
+        return View::make('pages.game.index')
+            ->with('games', $this->liveGames());
+    }
+
+    /**
+     * Get the games that are currently in progress
+     *
+     * @return array
+     */
+    private function liveGames(): array {
         $start = Carbon::createFromTimeStamp(time() - (60));
         $end = Carbon::createFromTimeStamp(time() + (60));
 
-        $states = SteamUserState::select('steam_user_states.*')
+        $states = SteamUserState::select(['steam_user_states.user_id', 'steam_user_states.steam_app_id', 'steam_user_states.steam_app_server_id'])
             ->join(
                 DB::raw('(
 										SELECT max(created_at) max_created_at, user_id
@@ -65,9 +75,7 @@ class GamesController extends Controller
         } else {
             $games = [];
         }
-
-        return View::make('pages.game.index')
-            ->with('games', $games);
+        return $games;
     }
 
 }
