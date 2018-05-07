@@ -16,5 +16,6 @@ Customising nav bar
 Command to make user super admin
 Pruning logs and states
 Counting of API calls to Steam
+Scale down API calls based on users in database
 GDPR compliant terms and conditions page
 [all other open issues on GitHub]
