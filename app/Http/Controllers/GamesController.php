@@ -47,7 +47,7 @@ class GamesController extends Controller
                 }
             )
             ->orderBy('steam_user_states.user_id')
-            ->with('user', 'app')
+            ->with('user', 'app', 'user.OAuthAccounts', 'user.state')
             ->get();
 
         if (count($states)) {
