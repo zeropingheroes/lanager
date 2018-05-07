@@ -99,10 +99,10 @@ class SteamUserAppImportService
                     $steamAccount->user
                         ->SteamApps()
                         ->updateOrCreate(
+                            ['steam_app_id' => $app->appId],
                             [
-                                'steam_app_id' => $app->appId,
                                 'playtime_two_weeks' => $app->playtimeTwoWeeks,
-                                'playtime_forever' => $app->playtimeForever,
+                                'playtime_forever' => $app->playtimeForever
                             ]
                         );
                 }
