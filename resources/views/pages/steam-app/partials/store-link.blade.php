@@ -1,3 +1,3 @@
-<a href="http://store.steampowered.com/app/312610/{{ $app->id }}" title="View in Steam Store" target="_blank">
+<a href="{{ $app->steamStoreURL() }}" title="@lang('phrase.view-game-in-steam-store', ['game' => $app->name])" target="_blank">
     {{ $app->name }}
 </a>

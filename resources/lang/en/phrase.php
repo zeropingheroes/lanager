@@ -77,6 +77,18 @@ return [
             'app.name'
         ) . ' with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
     'edit-steam-profile' => 'Edit Steam Profile',
+    'avatar-for-username' => 'Avatar for :username',
+
+    // Steam Statuses
+    'status-online' => 'Online',
+    'status-in-game' => 'In Game',
+    'status-busy' => 'Busy',
+    'status-away' => 'Away',
+    'status-snooze' => 'Snooze',
+    'status-looking-to-trade' => 'Looking to trade',
+    'status-looking-to-play' => 'Looking to play',
+    'status-offline' => 'Offline',
+    'status-unknown' => 'Unknown',
 
     // Games
     'x-in-game' => ':x In Game',
