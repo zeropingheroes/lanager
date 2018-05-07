@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('state.app', 'state.server', 'OAuthAccounts')->orderBy('username')->get();
+        $users = User::with('state.app', 'state.server', 'OAuthAccounts', 'SteamApps')->orderBy('username')->get();
         return View::make('pages.user.index')
             ->with('users', $users);
     }
