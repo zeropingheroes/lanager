@@ -1,13 +1,13 @@
-<table class="table">
+<table class="table recent-games">
     @foreach($recentGames as $game)
         <tr>
-            <td>
-                <a href="{{ $game->steamStoreURL() }}" title="@lang('phrase.view-game-in-steam-store', ['game' => $game->name])">
-                    <img src="{{ $game->image() }}" alt="@lang('phrase.logo-for-game', ['game' => $game->name])">
+            <td class="game">
+                <a href="{{ $game['game']->steamStoreURL() }}" title="@lang('phrase.view-game-in-steam-store', ['game' => $game['game']->name])">
+                    <img src="{{ $game['game']->image() }}" alt="@lang('phrase.logo-for-game', ['game' => $game['game']->name])">
                 </a>
             </td>
-            <td>
-                @lang('phrase.x-in-game', ['x' => count($game['users'])])
+            <td class="user-count">
+                @lang('phrase.x-played-recently', ['x' => count($game['users'])])
             </td>
             <td>
                 @foreach($game['users'] as $user)
