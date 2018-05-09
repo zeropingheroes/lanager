@@ -75,7 +75,7 @@ class GamesController extends Controller
 
 
     /**
-     * Get the games that are currently in progress
+     * Get the games that users have played in the last 2 weeks
      *
      * @return array
      */
@@ -89,7 +89,7 @@ class GamesController extends Controller
             return [];
         }
 
-        // Collect and combine states for the same game
+        // Collect and combine games
         $combinedUsage = [];
         foreach ($steamUserApps as $steamUserApp) {
             $combinedUsage[$steamUserApp->steam_app_id] = $combinedUsage[$steamUserApp->steam_app_id] ?? [
@@ -108,6 +108,7 @@ class GamesController extends Controller
             }
         );
 
+        // Remove any recently played games that have only been played by one user
         $combinedUsage = array_filter(
             $combinedUsage,
             function ($game) {
@@ -117,5 +118,4 @@ class GamesController extends Controller
 
         return $combinedUsage;
     }
-
 }
