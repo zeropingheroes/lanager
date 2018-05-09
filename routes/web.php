@@ -49,5 +49,6 @@ Route::patch('logs', 'LogController@patch')
 /**
  * Games
  */
-Route::get('games', 'GamesController@index')
+Route::get('games', 'GameController@index')
     ->name('games.index');
+
