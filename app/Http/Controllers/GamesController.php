@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\SteamUserState;
@@ -16,7 +17,7 @@ class GamesController extends Controller
     public function index()
     {
         return View::make('pages.game.index')
-            ->with('liveGameUsage', $this->liveGames());
+            ->with('liveGames', $this->liveGames());
     }
 
     /**
@@ -31,6 +32,9 @@ class GamesController extends Controller
                 DB::raw(
                     '(SELECT user_id, MAX(created_at) latest_date
                             FROM steam_user_states
+                            WHERE created_at
+                            BETWEEN "'.(Carbon::now()->subMinute()).'"
+                            AND 	"'.(Carbon::now()).'"
                             GROUP BY user_id
 							) latest'
                 ),

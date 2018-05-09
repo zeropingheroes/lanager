@@ -7,7 +7,7 @@
 @section('content')
 
     <h1>@lang('title.live')</h1>
-    @include('pages.game.partials.live', ['liveGameUsage' => $liveGameUsage])
+    @include('pages.game.partials.live', ['liveGames' => $liveGames])
 
     {{--<h1>@lang('title.recent')</h1>--}}
     {{--@include('pages.game.partials.recent', ['recentGames' => $recentGames])--}}

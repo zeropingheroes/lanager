@@ -9131,3 +9131,16 @@ div.profile-header h1 {
   margin: 0px;
   line-height: 190px;
 }
+
+/**
+ * games.index
+ */
+table.live-games td.user-count {
+  font-size: 200%;
+  font-weight: bold;
+  padding: 0px 30px;
+}
+
+table.live-games td.game {
+  width: 184px;
+}
