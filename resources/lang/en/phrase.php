@@ -97,4 +97,12 @@ return [
     'view-game-in-steam-store' => 'View :game in the Steam Store',
     'logo-for-game' => 'Logo for :game',
 
+    // Info Pages
+    'markdown-formatting-help-link' => 'Markdown formatting help',
+    'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Example',
+    'content-help' => 'Tip: use relative links, e.g. [Install Guide](/pages/3) to easily link to other pages',
+    'page-successfully-created' => 'Page ":title" successfully created',
+    'page-successfully-updated' => 'Page ":title" successfully updated',
+    'page-successfully-updated' => 'Page ":title" successfully deleted',
+
 ];

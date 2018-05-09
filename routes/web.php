@@ -52,3 +52,7 @@ Route::patch('logs', 'LogController@patch')
 Route::get('games', 'GameController@index')
     ->name('games.index');
 
+/**
+ * Info Pages
+ */
+Route::resource('pages', 'PageController');

@@ -43,6 +43,8 @@ return [
     'info' => 'Info',
     'api' => 'API',
     'logs' => 'Logs',
+    'info-page' => 'Info Page',
+    'pages' => 'Pages',
 
     'admin' => 'Admin',
     'assign-a-role' => 'Assign a Role',
@@ -74,5 +76,10 @@ return [
     'live' => 'Live',
     'recent' => 'Top 10 Recently Played',
     'owned' => 'Top 10 Owned',
+
+    'title' => 'Title',
+    'content' => 'Content',
+    'published' => 'Published',
+    'submit' => 'Submit',
 
 ];

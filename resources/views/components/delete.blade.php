@@ -1,5 +1,6 @@
-<form action="{{ $route }}" method="POST">
+{{--TODO: make form inline--}}
+<form action="{{ $route }}" method="POST" class="pull-left">
     <input type="hidden" name="_method" value="DELETE">
     {{ csrf_field() }}
-    <button type="submit" class="btn btn-danger btn-sm"><span class="oi oi-trash" title="Delete" aria-hidden="true"></span></button>
+    <button type="submit" class="btn btn-danger btn-sm" title="@lang('title.delete')"><span class="oi oi-trash" aria-hidden="true"></span></button>
 </form>

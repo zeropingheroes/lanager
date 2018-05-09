@@ -21,7 +21,7 @@ class LogPolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can list all log entries.
+     * Determine whether the user can update log entries.
      *
      * @param  \Zeropingheroes\Lanager\User $user
      * @return mixed

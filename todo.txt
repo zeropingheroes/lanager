@@ -1,18 +1,20 @@
 Short Term
 -------------------------------------------------------
-Top games display
+Info Pages
+Links
+Customising nav bar
 
 Long Term
 -------------------------------------------------------
-Info Pages
-Links
 Events
 LANs
 Achievements
+API
 Big screen dashboard
+Caching of data
+Validation error styles on forms
 Importing old LANager data
 Linking other accounts (Discord, Battle.net etc)
-Customising nav bar
 Command to make user super admin
 Pruning logs and states
 Counting of API calls to Steam
