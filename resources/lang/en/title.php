@@ -72,7 +72,7 @@ return [
     'markdown' => 'Markdown',
 
     'live' => 'Live',
-    'recent' => 'Recent',
-    'owned' => 'Owned',
+    'recent' => 'Top 10 Recently Played',
+    'owned' => 'Top 10 Owned',
 
 ];

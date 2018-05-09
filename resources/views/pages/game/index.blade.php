@@ -12,6 +12,6 @@
     <h1>@lang('title.recent')</h1>
     @include('pages.game.partials.recent', ['recentGames' => $recentGames])
 
-    {{--<h1>@lang('title.owned')</h1>--}}
-    {{--<p>Owned games</p>--}}
+    <h1>@lang('title.owned')</h1>
+    @include('pages.game.partials.owned', ['ownedGames' => $ownedGames])
 @endsection

@@ -93,6 +93,7 @@ return [
     // Games
     'x-in-game' => ':x In Game',
     'x-played-recently' => ':x Played Recently',
+    'x-owners' => ':x Owners',
     'view-game-in-steam-store' => 'View :game in the Steam Store',
     'logo-for-game' => 'Logo for :game',
 
