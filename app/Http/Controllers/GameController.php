@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\SteamUserApp;
 use Zeropingheroes\Lanager\SteamUserState;
 
-class GamesController extends Controller
+class GameController extends Controller
 {
     /**
      * Display a listing of the resource.
