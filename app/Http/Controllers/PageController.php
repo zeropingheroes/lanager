@@ -28,6 +28,7 @@ class PageController extends Controller
     public function create()
     {
         return View::make('pages.page.create')
+            ->with('pages', Page::all())
             ->with('page', new Page);
     }
 
@@ -93,6 +94,7 @@ class PageController extends Controller
         $this->authorize('update', $page);
 
         return View::make('pages.page.edit')
+            ->with('pages', Page::all())
             ->with('page', $page);
     }
 
@@ -108,7 +110,7 @@ class PageController extends Controller
     {
         $this->authorize('update', $page);
 
-        $input = $httpRequest->only(['title', 'content']);
+        $input = $httpRequest->only(['title', 'content', 'parent_id']);
 
         $input['published'] = $httpRequest->has('published');
 

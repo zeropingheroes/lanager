@@ -1,3 +1,6 @@
+@php
+    $parentSelect = $pages->pluck('title', 'id')->prepend('','');
+@endphp
 <div class="form-group">
     <label for="title">@lang('title.title')</label>
     <input type="text" class="form-control" id="title" name="title" placeholder="@lang('title.title')" value="{{ old('title', $page->title) }}">
@@ -9,6 +12,10 @@
         <a href="@lang('phrase.markdown-formatting-help-link-url')" target="_blank">@lang('phrase.markdown-formatting-help-link')</a>
         @lang('phrase.content-help')
     </small>
+</div>
+<div class="form-group">
+    <label for="parent_id">@lang('title.parent')</label>
+    {{ Form::select('parent_id', $parentSelect, null, ['class' => 'custom-select form-control']) }}
 </div>
 <div class="form-group">
     <div class="custom-control custom-checkbox">

@@ -81,5 +81,6 @@ return [
     'content' => 'Content',
     'published' => 'Published',
     'submit' => 'Submit',
+    'parent' => 'Parent',
 
 ];
