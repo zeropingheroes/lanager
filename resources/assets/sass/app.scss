@@ -39,6 +39,12 @@ body > .container {
   height: 40px;
   line-height: 40px; /* Vertically center the text there */
 }
+/**
+ * Utilities
+ */
+.inline {
+  display: inline;
+}
 
 /**
  * Tables

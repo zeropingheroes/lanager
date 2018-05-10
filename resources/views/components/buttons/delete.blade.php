@@ -1,6 +1,10 @@
-{{--TODO: make form inline--}}
-<form action="{{ $route }}" method="POST" class="pull-left">
-    <input type="hidden" name="_method" value="DELETE">
-    {{ csrf_field() }}
-    <button type="submit" class="btn btn-danger btn-sm" title="@lang('title.delete')"><span class="oi oi-trash" aria-hidden="true"></span></button>
-</form>
+@can('delete', $item)
+    @php
+        $route = kebab_case(str_plural(class_basename($item)));
+    @endphp
+    <form action="{{ route( $route . '.destroy', $item->id) }}" method="POST" class="inline">
+        {{ method_field('DELETE') }}
+        {{ csrf_field() }}
+        <button type="submit" class="btn btn-danger">@lang('title.delete')</button>
+    </form>
+@endcan

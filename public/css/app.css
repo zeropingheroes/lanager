@@ -9078,6 +9078,13 @@ body > .container {
 }
 
 /**
+ * Utilities
+ */
+.inline {
+  display: inline;
+}
+
+/**
  * Tables
  */
 .table td {

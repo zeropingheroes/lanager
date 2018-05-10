@@ -1,3 +1,6 @@
-<a href="{{ $route }}" class="btn btn-primary btn-sm" title="@lang('title.edit')">
-    <span class="oi oi-pencil" aria-hidden="true"></span>
-</a>
+@can('update', $item)
+    @php
+        $route = kebab_case(str_plural(class_basename($item)));
+    @endphp
+    <a href="{{ route( $route . '.edit', $item->id) }}" class="btn btn-primary">@lang('title.edit')</a>
+@endcan

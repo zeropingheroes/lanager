@@ -17,10 +17,7 @@
         </ul>
     @endif
 
-    @can('update', $page)
-        @include('components.buttons.edit', ['route' => route('pages.edit', $page->id)])
-    @endcan
-    @can('delete', $page)
-        @include('components.buttons.delete', ['route' => route('pages.destroy', $page->id)])
-    @endcan
+    @include('components.buttons.edit', ['item' => $page])
+    @include('components.buttons.delete', ['item' => $page])
+
 @endsection
