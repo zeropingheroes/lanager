@@ -1,7 +1,11 @@
 Short Term
 -------------------------------------------------------
 Info Pages
+    Better pages index
+    List of top level pages for menu bar
+Better CRUD buttons
 Links
+    Choose exactly which links go where
 Customising nav bar
 
 Long Term
