@@ -143,6 +143,7 @@ class PageController extends Controller
         $input = $httpRequest->only(['title', 'content', 'parent_id']);
 
         $input['published'] = $httpRequest->has('published');
+        $input['id'] = $page->id;
 
         $request = new StorePageRequest($input);
 

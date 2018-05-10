@@ -104,5 +104,6 @@ return [
     'page-successfully-created' => 'Page ":title" successfully created',
     'page-successfully-updated' => 'Page ":title" successfully updated',
     'page-successfully-deleted' => 'Page ":title" successfully deleted',
+    'a-page-cannot-be-its-own-parent' => 'A page cannot be its own parent',
 
 ];
