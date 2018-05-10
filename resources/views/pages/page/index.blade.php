@@ -48,5 +48,6 @@
             @endforeach
             </tbody>
         </table>
+        @include('components.buttons.create', ['item' => Zeropingheroes\Lanager\Page::class])
     @endif
 @endsection
