@@ -89,17 +89,8 @@ class PageController extends Controller
 
         return redirect()
             ->route('pages.index')
-            ->with(
-                'alerts',
-                [
-                    [
-                        'message' => __('phrase.page-successfully-created', ['title' => $page->title]),
-                        'type' => 'success'
-                    ]
-                ]
-            );
+            ->withSuccess(__('phrase.page-successfully-created', ['title' => $page->title]));
     }
-
 
     /**
      * Display the specified resource.
@@ -158,16 +149,7 @@ class PageController extends Controller
 
         return redirect()
             ->route('pages.show', $page)
-            ->with(
-                'alerts',
-                [
-                    [
-                        'message' => __('phrase.page-successfully-updated', ['title' => $page->title]),
-                        'type' => 'success'
-                    ]
-                ]
-            );
-
+            ->withSuccess(__('phrase.page-successfully-updated', ['title' => $page->title]));
     }
 
     /**
@@ -185,11 +167,6 @@ class PageController extends Controller
 
         return redirect()
             ->route('pages.index')
-            ->with('alerts', [
-                [
-                    'message' => __('phrase.page-successfully-deleted', ['title' => $page->title]),
-                    'type' => 'success'
-                ]
-            ]);
+            ->withSuccess(__('phrase.page-successfully-deleted', ['title' => $page->title]));
     }
 }

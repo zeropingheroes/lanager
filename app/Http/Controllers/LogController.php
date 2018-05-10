@@ -58,15 +58,6 @@ class LogController extends Controller
         }
         return redirect()
             ->route('logs.index')
-            ->with(
-                'alerts',
-                [
-                    [
-                        'message' => __('phrase.log-entries-marked-as-read'),
-                        'type' => 'success'
-                    ]
-                ]
-            );
-
+            ->withSuccess(__('phrase.log-entries-marked-as-read'));
     }
 }

@@ -7,7 +7,7 @@
 @section('content')
 
     <h1>@lang('title.logs')</h1>
-    @include('components.alerts')
+    @include('components.alerts.all')
 
     @include('pages.log.partials.filter')
     <form method="POST" action="{{ route('logs.patch') }}">

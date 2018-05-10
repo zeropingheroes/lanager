@@ -54,12 +54,7 @@ class RoleAssignmentController extends Controller
 
         return redirect()
             ->route('role-assignments.index')
-            ->with('alerts', [
-                [
-                    'message' => __('phrase.role-successfully-assigned', ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->name]),
-                    'type' => 'success'
-                ]
-            ]);
+            ->withSuccess(__('phrase.role-successfully-assigned', ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->name]));
     }
 
     /**
@@ -84,11 +79,6 @@ class RoleAssignmentController extends Controller
 
         return redirect()
             ->route('role-assignments.index')
-            ->with('alerts', [
-                [
-                    'message' => __('phrase.role-successfully-unassigned', ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->name]),
-                    'type' => 'success'
-                ]
-            ]);
+            ->withSuccess(__('phrase.role-successfully-unassigned', ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->name]));
     }
 }

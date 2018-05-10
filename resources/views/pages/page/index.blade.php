@@ -6,7 +6,7 @@
 
 @section('content')
     <h1>@lang('title.pages')</h1>
-    @include('components.alerts')
+    @include('components.alerts.all')
 
     @if( empty($pages))
         <p>@lang('phrase.no-items-found', ['item' => __('title.pages')])</p>

@@ -6,7 +6,7 @@
 
 @section('content')
     <h1>{{ $page->title }}</h1>
-    @include('components.alerts')
+    @include('components.alerts.all')
     {!! Markdown::convertToHtml($page->content) !!}
 
     @if (!empty($page->children))

@@ -7,7 +7,7 @@
 @section('content')
 
     <h1>@lang('title.roles')</h1>
-    @include('components.alerts')
+    @include('components.alerts.all')
     @if(count($roleAssignments))
         <table class="table table-striped">
             <thead>
