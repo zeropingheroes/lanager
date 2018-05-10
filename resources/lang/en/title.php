@@ -57,12 +57,18 @@ return [
     'update-item' => 'Update :Item',
     'delete-item' => 'Delete :Item',
 
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'update' => 'Update',
+    'delete' => 'Delete',
+
     'created' => 'Created',
     'updated' => 'Updated',
 
     'item-name' => ':Item Name',
     'name' => 'Name',
     'unknown' => 'Unknown',
+    'actions' => 'Actions',
 
     'log' => 'Log',
     'data' => 'Data',

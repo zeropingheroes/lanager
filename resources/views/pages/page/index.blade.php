@@ -21,7 +21,7 @@
                 @endcan
                 <th>
                     @can('update', Zeropingheroes\Lanager\Page::class)
-                        <span class="oi oi-cog" title="Cog" aria-hidden="true"></span>
+                        @lang('title.actions')
                     @endcan
                 </th>
             </tr>
@@ -39,12 +39,10 @@
                         <td>@include('components.tick-cross', ['value' => $page->published])</td>
                     @endcan
                     <td>
-                        @can('update', Zeropingheroes\Lanager\Page::class)
-                            @include('components.buttons.edit', ['route' => route('pages.edit', $page->id)])
-                        @endcan
-                        @can('delete', Zeropingheroes\Lanager\Page::class)
-                            @include('components.buttons.delete', ['route' => route('pages.destroy', $page->id)])
-                        @endcan
+                        @component('components.actions-dropdown')
+                            @include('components.actions-dropdown.edit', ['item' => $page])
+                            @include('components.actions-dropdown.delete', ['item' => $page])
+                        @endcomponent
                     </td>
                 </tr>
             @endforeach

@@ -40,9 +40,9 @@
                         @include('components.time-relative', ['datetime' => $roleAssignment->created_at])
                     </td>
                     <td>
-                        @can('delete', Zeropingheroes\Lanager\RoleAssignment::class)
-                            @include('components.buttons.delete', ['route' => route('role-assignments.destroy', $roleAssignment->id)])
-                        @endcan
+                        @component('components.actions-dropdown')
+                            @include('components.actions-dropdown.delete', ['item' => $roleAssignment])
+                        @endcomponent
                     </td>
                 </tr>
             @endforeach
