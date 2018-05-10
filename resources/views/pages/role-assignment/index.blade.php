@@ -41,7 +41,7 @@
                     </td>
                     <td>
                         @can('delete', Zeropingheroes\Lanager\RoleAssignment::class)
-                            @include('components.delete', ['route' => route('role-assignments.destroy', $roleAssignment->id)])
+                            @include('components.buttons.delete', ['route' => route('role-assignments.destroy', $roleAssignment->id)])
                         @endcan
                     </td>
                 </tr>

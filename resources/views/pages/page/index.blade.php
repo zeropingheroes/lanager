@@ -40,10 +40,10 @@
                     @endcan
                     <td>
                         @can('update', Zeropingheroes\Lanager\Page::class)
-                            @include('components.edit', ['route' => route('pages.edit', $page->id)])
+                            @include('components.buttons.edit', ['route' => route('pages.edit', $page->id)])
                         @endcan
                         @can('delete', Zeropingheroes\Lanager\Page::class)
-                            @include('components.delete', ['route' => route('pages.destroy', $page->id)])
+                            @include('components.buttons.delete', ['route' => route('pages.destroy', $page->id)])
                         @endcan
                     </td>
                 </tr>
