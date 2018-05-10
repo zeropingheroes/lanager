@@ -74,7 +74,8 @@ class PageController extends Controller
     {
         $this->authorize('create', Page::class);
 
-        $input = $httpRequest->only(['title', 'content', 'published']);
+        $input = $httpRequest->only(['title', 'content', 'parent_id']);
+        $input['published'] = $httpRequest->has('published');
 
         $request = new StorePageRequest($input);
 
