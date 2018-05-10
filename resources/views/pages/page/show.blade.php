@@ -7,7 +7,7 @@
 @section('content')
     <h1>{{ $page->title }}</h1>
     @include('components.alerts')
-    <p>{{ $page->content }}</p>
+    {!! Markdown::convertToHtml($page->content) !!}
     @can('update', $page)
         @include('components.edit', ['route' => route('pages.edit', $page->id)])
     @endcan
