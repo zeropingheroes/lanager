@@ -187,7 +187,7 @@ class PageController extends Controller
             ->route('pages.index')
             ->with('alerts', [
                 [
-                    'message' => __('phrase.page-successfully-updated', ['title' => $page->title]),
+                    'message' => __('phrase.page-successfully-deleted', ['title' => $page->title]),
                     'type' => 'success'
                 ]
             ]);
