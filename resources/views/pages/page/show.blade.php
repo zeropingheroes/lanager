@@ -18,9 +18,9 @@
     @endif
 
     @can('update', $page)
-        @include('components.edit', ['route' => route('pages.edit', $page->id)])
+        @include('components.buttons.edit', ['route' => route('pages.edit', $page->id)])
     @endcan
     @can('delete', $page)
-        @include('components.delete', ['route' => route('pages.destroy', $page->id)])
+        @include('components.buttons.delete', ['route' => route('pages.destroy', $page->id)])
     @endcan
 @endsection
