@@ -16,14 +16,15 @@
             <tr>
                 <th>@lang('title.title')</th>
                 <th>@lang('title.updated')</th>
-                @can('update', Zeropingheroes\Lanager\Page::class)
-                    <th>@lang('title.published')</th>
-                @endcan
-                <th>
-                    @can('update', Zeropingheroes\Lanager\Page::class)
+                @if( Gate::allows('update', Zeropingheroes\Lanager\Page::class) ||
+                     Gate::allows('destroy', Zeropingheroes\Lanager\Page::class) )
+                    <th>
+                        @lang('title.published')
+                    </th>
+                    <th>
                         @lang('title.actions')
-                    @endcan
-                </th>
+                    </th>
+                @endif
             </tr>
             </thead>
             <tbody>
@@ -38,12 +39,14 @@
                     @can('update', Zeropingheroes\Lanager\Page::class)
                         <td>@include('components.tick-cross', ['value' => $page->published])</td>
                     @endcan
-                    <td>
-                        @component('components.actions-dropdown')
-                            @include('components.actions-dropdown.edit', ['item' => $page])
-                            @include('components.actions-dropdown.delete', ['item' => $page])
-                        @endcomponent
-                    </td>
+                    @if( Gate::allows('update', $page) || Gate::allows('destroy', $page) )
+                        <td>
+                            @component('components.actions-dropdown')
+                                @include('components.actions-dropdown.edit', ['item' => $page])
+                                @include('components.actions-dropdown.delete', ['item' => $page])
+                            @endcomponent
+                        </td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>
