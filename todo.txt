@@ -12,6 +12,7 @@ Links
 
 Long Term
 -------------------------------------------------------
+Confirmation of delete action
 Events
 LANs
 Achievements
