@@ -15,7 +15,7 @@
             <thead>
             <tr>
                 <th>@lang('title.title')</th>
-                <th>@lang('title.content')</th>
+                <th>@lang('title.updated')</th>
                 @can('update', Zeropingheroes\Lanager\Page::class)
                     <th>@lang('title.published')</th>
                 @endcan
@@ -33,7 +33,7 @@
                         <a href="{{ route('pages.show', ['id' => $page->id]) }}">{{ $page->title }}</a>
                     </td>
                     <td>
-                        {{ str_limit($page->content, 96) }}
+                        @include('components.time-relative', ['datetime' => $page->updated_at])
                     </td>
                     @can('update', Zeropingheroes\Lanager\Page::class)
                         <td>@include('components.tick-cross', ['value' => $page->published])</td>
