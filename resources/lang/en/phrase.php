@@ -103,6 +103,6 @@ return [
     'content-help' => 'Tip: use relative links, e.g. [Install Guide](/pages/3) to easily link to other pages',
     'page-successfully-created' => 'Page ":title" successfully created',
     'page-successfully-updated' => 'Page ":title" successfully updated',
-    'page-successfully-updated' => 'Page ":title" successfully deleted',
+    'page-successfully-deleted' => 'Page ":title" successfully deleted',
 
 ];
