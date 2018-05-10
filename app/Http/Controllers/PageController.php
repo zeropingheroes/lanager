@@ -10,12 +10,32 @@ use Zeropingheroes\Lanager\Requests\StorePageRequest;
 
 class PageController extends Controller
 {
-    private function pages()
+    /**
+     * Get all pages
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|Page[]
+     */
+    protected function pages()
     {
         if (Auth::user() && Auth::user()->can('update', new Page)) {
             return Page::all();
         } else {
             return Page::published()->get();
+        }
+    }
+
+    /**
+     * Get a page by ID
+     *
+     * @param int $id
+     * @return \Illuminate\Database\Eloquent\Collection|Page[]
+     */
+    protected function page(int $id)
+    {
+        if (Auth::user() && Auth::user()->can('update', new Page)) {
+            return Page::findOrFail($id);
+        } else {
+            return Page::published()->findOrFail($id);
         }
     }
 
@@ -26,7 +46,6 @@ class PageController extends Controller
      */
     public function index()
     {
-
         return View::make('pages.page.index')
             ->with('pages', $this->pages());
     }
@@ -90,7 +109,7 @@ class PageController extends Controller
     public function show(Page $page)
     {
         return View::make('pages.page.show')
-            ->with('page', $page);
+            ->with('page', $this->page($page->id));
     }
 
     /**

@@ -1,7 +1,6 @@
 Short Term
 -------------------------------------------------------
 Info Pages
-    Hiding unpublished pages from standard users
     Pages cannot be their own parent
     List of top level pages for menu bar
 Better CRUD buttons
