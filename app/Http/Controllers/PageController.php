@@ -12,7 +12,7 @@ class PageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -23,7 +23,7 @@ class PageController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -36,6 +36,7 @@ class PageController extends Controller
      * @param Request $httpRequest
      * @return \Illuminate\Http\Response
      * @internal param Request|StoreRoleAssignmentRequest $request
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $httpRequest)
     {
@@ -71,7 +72,7 @@ class PageController extends Controller
      * Display the specified resource.
      *
      * @param  \Zeropingheroes\Lanager\Page $page
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(Page $page)
     {
@@ -83,7 +84,8 @@ class PageController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \Zeropingheroes\Lanager\Page $page
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Page $page)
     {
@@ -99,6 +101,7 @@ class PageController extends Controller
      * @param  \Illuminate\Http\Request $httpRequest
      * @param  \Zeropingheroes\Lanager\Page $page
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $httpRequest, Page $page)
     {
@@ -137,6 +140,7 @@ class PageController extends Controller
      *
      * @param  \Zeropingheroes\Lanager\Page $page
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Page $page)
     {
