@@ -2,8 +2,6 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Illuminate\Support\MessageBag;
-
 abstract class Request implements RequestContract
 {
     /**
@@ -16,9 +14,9 @@ abstract class Request implements RequestContract
     /**
      * Errors
      *
-     * @var \Illuminate\Support\MessageBag
+     * @var array
      */
-    protected $errors;
+    protected $errors = [];
 
     /**
      * @var bool|null
@@ -33,7 +31,6 @@ abstract class Request implements RequestContract
     public function __construct(array $input)
     {
         $this->input = $input;
-        $this->errors = new MessageBag();
     }
 
     /**
@@ -75,11 +72,18 @@ abstract class Request implements RequestContract
     }
 
     /**
-     * Request errors
-     *
-     * @return MessageBag
+     * @param $error
      */
-    public function errors(): MessageBag
+    protected function addError($error): void
+    {
+        array_push($this->errors, $error);
+    }
+
+    /**
+     * Request errors
+     * @return array
+     */
+    public function errors(): array
     {
         return $this->errors;
     }

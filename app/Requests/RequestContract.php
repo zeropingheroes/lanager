@@ -2,8 +2,6 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Illuminate\Support\MessageBag;
-
 interface RequestContract
 {
     /**
@@ -30,8 +28,8 @@ interface RequestContract
     /**
      * Request errors
      *
-     * @return MessageBag
+     * @return array
      */
-    public function errors(): MessageBag;
+    public function errors(): array;
 
 }

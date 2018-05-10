@@ -21,7 +21,10 @@ trait LaravelValidation
         $this->validator = Validator::make($this->input, $this->laravelValidationRules);
 
         if ($this->validator->fails()) {
-            $this->errors = $this->validator->errors();
+            foreach($this->validator->errors()->all() as $error)
+            {
+                $this->addError($error);
+            }
             return false;
         }
         return true;

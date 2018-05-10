@@ -17,7 +17,7 @@ class DestroyRoleAssignmentRequest extends Request
         $roleAssignment = RoleAssignment::find($this->input['id']);
 
         if ($roleAssignment->user == Auth::user()) {
-            $this->errors->add('cannot-unassign-role-from-self', __('phrase.cannot-unassign-role-from-self'));
+            $this->addError(__('phrase.cannot-unassign-role-from-self'));
             return $this->setValid(false);
         }
 

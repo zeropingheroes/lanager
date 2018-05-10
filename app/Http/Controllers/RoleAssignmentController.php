@@ -45,7 +45,7 @@ class RoleAssignmentController extends Controller
         if ($request->invalid()) {
             return redirect()
                 ->back()
-                ->withErrors($request->errors())
+                ->withError($request->errors())
                 ->withInput();
         }
         $input['assigned_by'] = Auth::user()->id;
@@ -71,7 +71,7 @@ class RoleAssignmentController extends Controller
         if ($request->invalid()) {
             return redirect()
                 ->back()
-                ->withErrors($request->errors())
+                ->withError($request->errors())
                 ->withInput();
         }
 

@@ -35,25 +35,17 @@ class StoreRoleAssignmentRequest extends Request
         $role = Role::find($this->input['role_id']);
 
         if ($user->hasRole($role->name)) {
-            $this->errors->add(
-                'user-already-has-role',
-                __('phrase.user-already-has-role',
-                    [
-                        'user' => $user->username,
-                        'role' => $role->name,
-                    ]
-                )
-            );
+            $this->addError(__('phrase.user-already-has-role',['user' => $user->username,'role' => $role->name,]));
             return $this->setValid(false);
         }
 
         if ($user == Auth::user()) {
-            $this->errors->add('cannot-assign-role-to-self', __('phrase.cannot-assign-role-to-self'));
+            $this->addError(__('phrase.cannot-assign-role-to-self'));
             return $this->setValid(false);
         }
 
         if ($user->hasRole('Super Admin')) {
-            $this->errors->add('cannot-assign-role-to-super-admin', __('phrase.cannot-assign-role-to-super-admin'));
+            $this->addError(__('phrase.cannot-assign-role-to-super-admin'));
             return $this->setValid(false);
         }
 

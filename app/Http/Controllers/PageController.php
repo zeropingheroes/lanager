@@ -82,7 +82,7 @@ class PageController extends Controller
         if ($request->invalid()) {
             return redirect()
                 ->back()
-                ->withErrors($request->errors())
+                ->withError($request->errors())
                 ->withInput();
         }
         $page = Page::create($input);
@@ -142,7 +142,7 @@ class PageController extends Controller
         if ($request->invalid()) {
             return redirect()
                 ->back()
-                ->withErrors($request->errors())
+                ->withError($request->errors())
                 ->withInput();
         }
         $page->update($input);
