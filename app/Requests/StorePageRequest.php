@@ -28,7 +28,7 @@ class StorePageRequest extends Request
             return $this->setValid(false);
         }
 
-        if (!empty($this->input['parent_id']) && $this->input['id'] == $this->input['parent_id']) {
+        if (!empty($this->input['parent_id']) && isset($this->input['id']) && $this->input['id'] == $this->input['parent_id']) {
             $this->errors->add('page-cannot-be-its-own-parent', __('phrase.a-page-cannot-be-its-own-parent'));
             return $this->setValid(false);
         }
