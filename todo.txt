@@ -2,11 +2,16 @@ Short Term
 -------------------------------------------------------
 Info Pages
     Pages cannot be their own parent
-    List of top level pages for menu bar
+    Fix dropdown select when editing - move to view partial?
+    Show children at bottom of parent page
 Better CRUD buttons
+Move form helper to view partial?
+Better way of passing input data to request class
+Better keys for error messages in request class
 Links
     Choose exactly which links go where
-Customising nav bar
+    Info page menu for displaying dropdown of pages with no parent
+    Pick individual info pages for top menu bar - if they have children, make a dropdown
 
 Long Term
 -------------------------------------------------------
