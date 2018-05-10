@@ -27,7 +27,8 @@ class PageController extends Controller
      */
     public function create()
     {
-        return View::make('pages.page.create');
+        return View::make('pages.page.create')
+            ->with('page', new Page);
     }
 
     /**
