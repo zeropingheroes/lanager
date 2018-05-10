@@ -1,9 +1,6 @@
 Short Term
 -------------------------------------------------------
 Info Pages
-    Pages cannot be their own parent
-    Fix dropdown select when editing - move to view partial?
-    Show children at bottom of parent page
 Better CRUD buttons
 Move form helper to view partial?
 Better way of passing input data to request class

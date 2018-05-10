@@ -15,7 +15,7 @@
 </div>
 <div class="form-group">
     <label for="parent_id">@lang('title.parent')</label>
-    {{ Form::select('parent_id', $parentSelect, null, ['class' => 'custom-select form-control']) }}
+    @include('components.form.select', ['name' => 'parent_id', 'options' => $parentSelect, 'selected' => old('parent_id', $page->parent_id)])
 </div>
 <div class="form-group">
     <div class="custom-control custom-checkbox">
