@@ -36,4 +36,15 @@ class Page extends Model
     {
         return $this->hasMany('Zeropingheroes\Lanager\Page', 'parent_id');
     }
+
+    /**
+     * Scope a query to only include published pages.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePublished($query)
+    {
+        return $query->where('published', '=', 1);
+    }
 }

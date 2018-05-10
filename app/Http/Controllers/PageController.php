@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Page;
 use Illuminate\Http\Request;
@@ -9,6 +10,15 @@ use Zeropingheroes\Lanager\Requests\StorePageRequest;
 
 class PageController extends Controller
 {
+    private function pages()
+    {
+        if (Auth::user() && Auth::user()->can('update', new Page)) {
+            return Page::all();
+        } else {
+            return Page::published()->get();
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +26,9 @@ class PageController extends Controller
      */
     public function index()
     {
+
         return View::make('pages.page.index')
-            ->with('pages', Page::all());
+            ->with('pages', $this->pages());
     }
 
     /**
@@ -28,7 +39,7 @@ class PageController extends Controller
     public function create()
     {
         return View::make('pages.page.create')
-            ->with('pages', Page::all())
+            ->with('pages', $this->pages())
             ->with('page', new Page);
     }
 
@@ -94,7 +105,7 @@ class PageController extends Controller
         $this->authorize('update', $page);
 
         return View::make('pages.page.edit')
-            ->with('pages', Page::all())
+            ->with('pages', $this->pages())
             ->with('page', $page);
     }
 
