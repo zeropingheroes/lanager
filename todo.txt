@@ -1,30 +1,33 @@
 Short Term
 -------------------------------------------------------
-Info Pages
-Better CRUD buttons
-Move form helper to view partial?
-Better way of passing input data to request class
-Better keys for error messages in request class
 Links
-    Choose exactly which links go where
-    Info page menu for displaying dropdown of pages with no parent
-    Pick individual info pages for top menu bar - if they have children, make a dropdown
+    Position - left to right, or position in dropdown if child
+    Title - user entered so no need for i18n
+    URL - absolute
+    Parent - ID of parent, to appear in dropdown under. only one level of nesting
+Links - Caching to reduce queries
+Fix:
+    steam_user_apps import
+    extra queries when checking permissions - caching?
+Profile - games in common
 
 Long Term
 -------------------------------------------------------
-Confirmation of delete action
 Events
+    CRUD
+    Timetable
 LANs
 Achievements
+Uploads
 API
-Big screen dashboard
-Caching of data
-Validation error styles on forms
+Dashboard (big screen)
 Importing old LANager data
+Confirmation of delete action
+Validation error styles on forms
 Linking other accounts (Discord, Battle.net etc)
 Command to make user super admin
 Pruning logs and states
 Counting of API calls to Steam
-Scale down API calls based on users in database
+Scale up/down API calls based on users in database
 GDPR compliant terms and conditions page
 [all other open issues on GitHub]
