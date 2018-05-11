@@ -1,6 +1,7 @@
 Short Term
 -------------------------------------------------------
 Info Pages
+    Auto-generated slugs from titles
 Better CRUD buttons
 Move form helper to view partial?
 Better way of passing input data to request class
