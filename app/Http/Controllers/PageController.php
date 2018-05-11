@@ -45,8 +45,12 @@ class PageController extends Controller
     {
         $this->authorize('create', Page::class);
 
-        $input = $httpRequest->only(['title', 'content', 'parent_id']);
-        $input['published'] = $httpRequest->has('published');
+        $input = [
+            'title' => $httpRequest->input('title'),
+            'content' => $httpRequest->input('content'),
+            'parent_id' => $httpRequest->input('parent_id'),
+            'published' => $httpRequest->has('published'),
+        ];
 
         $request = new StorePageRequest($input);
 
@@ -105,10 +109,13 @@ class PageController extends Controller
     {
         $this->authorize('update', $page);
 
-        $input = $httpRequest->only(['title', 'content', 'parent_id']);
-
-        $input['published'] = $httpRequest->has('published');
-        $input['id'] = $page->id;
+        $input = [
+            'title' => $httpRequest->input('title'),
+            'content' => $httpRequest->input('content'),
+            'parent_id' => $httpRequest->input('parent_id'),
+            'published' => $httpRequest->has('published'),
+            'id' => $page->id,
+        ];
 
         $request = new StorePageRequest($input);
 
