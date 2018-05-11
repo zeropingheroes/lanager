@@ -40,9 +40,11 @@
                         @include('components.time-relative', ['datetime' => $roleAssignment->created_at])
                     </td>
                     <td>
-                        @component('components.actions-dropdown')
-                            @include('components.actions-dropdown.delete', ['item' => $roleAssignment])
-                        @endcomponent
+                        @if(Auth::user() && Auth::user()->id != $roleAssignment->user->id)
+                            @component('components.actions-dropdown')
+                                @include('components.actions-dropdown.delete', ['item' => $roleAssignment])
+                            @endcomponent
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -54,20 +56,30 @@
     @endif
     @can('create', Zeropingheroes\Lanager\RoleAssignment::class)
         <h5>@lang('title.assign-a-role')</h5>
-        {{ Form::model(Zeropingheroes\Lanager\RoleAssignment::class, ['route' => 'role-assignments.store']) }}
+        @include('components.form.create', ['route' => route('role-assignments.store')])
         <div class="form-inline">
             <div class="form-group">
-                {{ Form::label('user_id', 'User', ['class' => 'custom-control-label mr-sm-2']) }}
-                {{ Form::select('user_id', $users, null, ['class' => 'custom-select custom-control-inline form-control']) }}
+                <label for="user_id" class="custom-control-label mr-sm-2">@lang('title.user')</label>
+                @include('components.form.select', [
+                    'name' => 'user_id',
+                    'items' => $users,
+                    'labelField' => 'username',
+                    'classes' => 'custom-select custom-control-inline form-control'
+                ])
             </div>
             <div class="form-group">
-                {{ Form::label('role_id', 'Role', ['class' => 'custom-control-label mr-sm-2']) }}
-                {{ Form::select('role_id', $roles,  null, ['class' => 'custom-select custom-control-inline form-control']) }}
+                <label for="role_id" class="custom-control-label mr-sm-2">@lang('title.role')</label>
+                @include('components.form.select', [
+                    'name' => 'role_id',
+                    'items' => $roles,
+                    'labelField' => 'name',
+                    'classes' => 'custom-select custom-control-inline form-control'
+                ])
             </div>
             <div class="form-group">
-                {{ Form::submit(__('title.assign-role'), ['class' => 'btn btn-primary']) }}
+                <button type="submit" class="btn btn-primary">@lang('title.assign-role')</button>
             </div>
         </div>
-        {{ Form::close() }}
+        @include('components.form.close')
     @endcan
 @endsection

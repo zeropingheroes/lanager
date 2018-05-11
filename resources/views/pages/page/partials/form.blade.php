@@ -14,7 +14,7 @@
 </div>
 <div class="form-group">
     <label for="parent_id">@lang('title.parent')</label>
-    @include('components.form.select', ['name' => 'parent_id', 'item' => $page, 'items' => $pages, 'labelField' => 'title'])
+    @include('components.form.select', ['name' => 'parent_id', 'item' => $page, 'items' => $pages, 'labelField' => 'title', 'blank' => true])
 </div>
 <div class="form-group">
     <div class="custom-control custom-checkbox">
