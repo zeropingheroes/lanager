@@ -55,4 +55,6 @@ Route::get('games', 'GameController@index')
 /**
  * Info Pages
  */
-Route::resource('pages', 'PageController');
+Route::resource('pages', 'PageController', ['except' => 'show']);
+Route::get('pages/{page}/{slug?}', 'PageController@show')
+    ->name('pages.show');

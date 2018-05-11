@@ -31,7 +31,7 @@
             @foreach($pages as $page)
                 <tr>
                     <td>
-                        <a href="{{ route('pages.show', ['id' => $page->id]) }}">{{ $page->title }}</a>
+                        <a href="{{ route('pages.show', ['id' => $page->id, 'slug' => str_slug($page->title) ]) }}">{{ $page->title }}</a>
                     </td>
                     <td>
                         @include('components.time-relative', ['datetime' => $page->updated_at])

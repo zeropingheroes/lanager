@@ -70,12 +70,21 @@ class PageController extends Controller
      * Display the specified resource.
      *
      * @param  \Zeropingheroes\Lanager\Page $page
+     * @param string $slug
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Page $page)
+    public function show(Page $page, $slug = '')
     {
+        $page = Page::visible()->findOrFail($page->id);
+
+        // If the page is accessed without the URL slug
+        // redirect to it
+        if (!$slug) {
+            return redirect()->route('pages.show', ['id' => $page->id, 'slug' => str_slug($page->title)]);
+        }
+
         return View::make('pages.page.show')
-            ->with('page', Page::visible()->findOrFail($page->id));
+            ->with('page', $page);
     }
 
     /**
