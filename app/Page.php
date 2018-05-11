@@ -13,30 +13,10 @@ class Page extends Model
      * @var array
      */
     protected $fillable = [
-        'parent_id',
         'title',
         'content',
         'published'
     ];
-
-    /**
-     * A single page may optionally have a single parent
-     * @return object Illuminate\Database\Eloquent\Relations\Relation
-     */
-    public function parent()
-    {
-        return $this->belongsTo('Zeropingheroes\Lanager\Page', 'parent_id')
-            ->withDefault();
-    }
-
-    /**
-     * Pseudo-relation: A single page may optionally have many children
-     * @return object Illuminate\Database\Eloquent\Relations\Relation
-     */
-    public function children()
-    {
-        return $this->hasMany('Zeropingheroes\Lanager\Page', 'parent_id');
-    }
 
     /**
      * Scope a query to only show pages visible to the user.

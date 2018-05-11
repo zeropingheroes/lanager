@@ -13,10 +13,6 @@
     </small>
 </div>
 <div class="form-group">
-    <label for="parent_id">@lang('title.parent')</label>
-    @include('components.form.select', ['name' => 'parent_id', 'item' => $page, 'items' => $pages, 'labelField' => 'title', 'blank' => true])
-</div>
-<div class="form-group">
     <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id="published" name="published"
                value="1" {{ old('published', $page->published) ? 'checked' : null}}>

@@ -29,7 +29,6 @@ class PageController extends Controller
     public function create()
     {
         return View::make('pages.page.create')
-            ->with('pages', Page::visible()->get())
             ->with('page', new Page);
     }
 
@@ -93,7 +92,6 @@ class PageController extends Controller
         $pages = Page::visible()->where('id', '<>', $page->id)->get();
 
         return View::make('pages.page.edit')
-            ->with('pages', $pages)
             ->with('page', $page);
     }
 

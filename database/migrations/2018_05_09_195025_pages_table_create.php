@@ -18,10 +18,6 @@ class PagesTableCreate extends Migration
                 // Fields
                 $table->increments('id');
 
-                $table->integer('parent_id')
-                    ->nullable()
-                    ->unsigned();
-
                 $table->string('title');
 
                 $table->text('content')
@@ -31,13 +27,6 @@ class PagesTableCreate extends Migration
                     ->default(false);
 
                 $table->timestamps();
-
-                // Relationships
-                $table->foreign('parent_id')
-                    ->references('id')
-                    ->on('pages')
-                    ->onUpdate('cascade')
-                    ->onDelete('set null');
             }
         );
     }
