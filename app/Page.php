@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Page extends Model
 {
@@ -38,13 +39,17 @@ class Page extends Model
     }
 
     /**
-     * Scope a query to only include published pages.
+     * Scope a query to only show pages visible to the user.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopePublished($query)
+    public function scopeVisible($query)
     {
-        return $query->where('published', '=', 1);
+        if (Auth::user() && Auth::user()->can('update', new Page)) {
+            return $query;
+        } else {
+            return $query->where('published', '=', 1);
+        }
     }
 }

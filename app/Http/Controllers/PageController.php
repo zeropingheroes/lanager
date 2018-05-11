@@ -11,35 +11,6 @@ use Zeropingheroes\Lanager\Requests\StorePageRequest;
 class PageController extends Controller
 {
     /**
-     * Get all pages
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|Page[]
-     */
-    protected function pages()
-    {
-        if (Auth::user() && Auth::user()->can('update', new Page)) {
-            return Page::all();
-        } else {
-            return Page::published()->get();
-        }
-    }
-
-    /**
-     * Get a page by ID
-     *
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Collection|Page[]
-     */
-    protected function page(int $id)
-    {
-        if (Auth::user() && Auth::user()->can('update', new Page)) {
-            return Page::findOrFail($id);
-        } else {
-            return Page::published()->findOrFail($id);
-        }
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\View
@@ -47,7 +18,7 @@ class PageController extends Controller
     public function index()
     {
         return View::make('pages.page.index')
-            ->with('pages', $this->pages());
+            ->with('pages', Page::visible()->get());
     }
 
     /**
@@ -58,7 +29,7 @@ class PageController extends Controller
     public function create()
     {
         return View::make('pages.page.create')
-            ->with('pages', $this->pages())
+            ->with('pages', Page::visible()->get())
             ->with('page', new Page);
     }
 
@@ -101,7 +72,7 @@ class PageController extends Controller
     public function show(Page $page)
     {
         return View::make('pages.page.show')
-            ->with('page', $this->page($page->id));
+            ->with('page', Page::visible()->findOrFail($page->id));
     }
 
     /**
@@ -116,7 +87,7 @@ class PageController extends Controller
         $this->authorize('update', $page);
 
         return View::make('pages.page.edit')
-            ->with('pages', $this->pages())
+            ->with('pages', Page::visible()->get())
             ->with('page', $page);
     }
 
