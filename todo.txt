@@ -1,7 +1,6 @@
 Short Term
 -------------------------------------------------------
 Info Pages
-    Hide current page from parent dropdown
 Better CRUD buttons
 Move form helper to view partial?
 Better way of passing input data to request class

@@ -86,8 +86,10 @@ class PageController extends Controller
     {
         $this->authorize('update', $page);
 
+        $pages = Page::visible()->where('id', '<>', $page->id)->get();
+
         return View::make('pages.page.edit')
-            ->with('pages', Page::visible()->get())
+            ->with('pages', $pages)
             ->with('page', $page);
     }
 
