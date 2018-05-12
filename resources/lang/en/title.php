@@ -89,6 +89,7 @@ return [
     'submit' => 'Submit',
 
     'navigation-links' => 'Navigation Links',
+    'navigation-link' => 'Navigation Link',
     'url' => 'URL',
     'position' => 'Position',
 

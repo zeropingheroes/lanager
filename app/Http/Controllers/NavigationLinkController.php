@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\NavigationLink;
 use Illuminate\Http\Request;
+use Zeropingheroes\Lanager\Requests\StoreNavigationLinkRequest;
 
 class NavigationLinkController extends Controller
 {
@@ -43,17 +44,6 @@ class NavigationLinkController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\NavigationLink  $navigationLink
-     * @return \Illuminate\Http\Response
-     */
-    public function show(NavigationLink $navigationLink)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \Zeropingheroes\Lanager\NavigationLink  $navigationLink
@@ -61,20 +51,50 @@ class NavigationLinkController extends Controller
      */
     public function edit(NavigationLink $navigationLink)
     {
-        //
+        $this->authorize('update', $navigationLink);
+
+        $navigationLinks = NavigationLink::where('id', '<>', $navigationLink->id)->get();
+
+        return View::make('pages.navigation-link.edit')
+            ->with('navigationLinks', $navigationLinks)
+            ->with('navigationLink', $navigationLink);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Zeropingheroes\Lanager\NavigationLink  $navigationLink
+     * @param Request $httpRequest
+     * @param  \Zeropingheroes\Lanager\NavigationLink $navigationLink
      * @return \Illuminate\Http\Response
+     * @internal param Request $request
      */
-    public function update(Request $request, NavigationLink $navigationLink)
+    public function update(Request $httpRequest, NavigationLink $navigationLink)
     {
-        //
+        $this->authorize('update', $navigationLink);
+
+        $input = [
+            'title' => $httpRequest->input('title'),
+            'url' => $httpRequest->input('url'),
+            'position' => $httpRequest->input('position'),
+            'parent_id' => $httpRequest->input('parent_id'),
+            'id' => $navigationLink->id,
+        ];
+
+        $request = new StoreNavigationLinkRequest($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withError($request->errors())
+                ->withInput();
+        }
+        $navigationLink->update($input);
+
+        return redirect()
+            ->route('navigation-links.index')
+            ->withSuccess(__('phrase.navigation-link-successfully-updated', ['title' => $navigationLink->title]));
     }
+
 
     /**
      * Remove the specified resource from storage.

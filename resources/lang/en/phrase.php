@@ -105,4 +105,9 @@ return [
     'page-successfully-updated' => 'Page ":title" successfully updated',
     'page-successfully-deleted' => 'Page ":title" successfully deleted',
 
+    // Navigation Links
+    'navigation-link-successfully-created' => 'Navigation link ":title" successfully created',
+    'navigation-link-successfully-updated' => 'Navigation link ":title" successfully updated',
+    'navigation-link-successfully-deleted' => 'Navigation link ":title" successfully deleted',
+
 ];

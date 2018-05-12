@@ -4,8 +4,10 @@ namespace Zeropingheroes\Lanager\Providers;
 
 use Exception;
 use Illuminate\Support\ServiceProvider;
-use Zeropingheroes\Lanager\Observers\UserObserver;
 use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Observers\UserObserver;
+use Zeropingheroes\Lanager\NavigationLink;
+use Zeropingheroes\Lanager\Observers\NavigationLinkObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         User::observe(UserObserver::class);
+        NavigationLink::observe(NavigationLinkObserver::class);
     }
 
     /**

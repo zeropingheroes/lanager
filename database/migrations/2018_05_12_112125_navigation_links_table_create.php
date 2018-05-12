@@ -23,7 +23,8 @@ class NavigationLinksTableCreate extends Migration
 
                 $table->tinyInteger('position');
 
-                $table->text('url');
+                $table->text('url')
+                    ->nullable();
 
                 $table->integer('parent_id')
                     ->nullable()
