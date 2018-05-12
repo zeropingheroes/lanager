@@ -1,11 +1,8 @@
 Short Term
 -------------------------------------------------------
 Links
-    Position - left to right, or position in dropdown if child
-    Title - user entered so no need for i18n
-    URL - absolute
-    Parent - ID of parent, to appear in dropdown under. only one level of nesting
-Links - Caching to reduce queries
+    Order by position
+    Cache to reduce queries
 Fix:
     steam_user_apps import
     extra queries when checking permissions - caching?
