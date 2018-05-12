@@ -47,7 +47,6 @@ class PageController extends Controller
         $input = [
             'title' => $httpRequest->input('title'),
             'content' => $httpRequest->input('content'),
-            'parent_id' => $httpRequest->input('parent_id'),
             'published' => $httpRequest->has('published'),
         ];
 
@@ -98,8 +97,6 @@ class PageController extends Controller
     {
         $this->authorize('update', $page);
 
-        $pages = Page::visible()->where('id', '<>', $page->id)->get();
-
         return View::make('pages.page.edit')
             ->with('page', $page);
     }
@@ -119,7 +116,6 @@ class PageController extends Controller
         $input = [
             'title' => $httpRequest->input('title'),
             'content' => $httpRequest->input('content'),
-            'parent_id' => $httpRequest->input('parent_id'),
             'published' => $httpRequest->has('published'),
             'id' => $page->id,
         ];
