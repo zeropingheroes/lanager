@@ -58,3 +58,8 @@ Route::get('games', 'GameController@index')
 Route::resource('pages', 'PageController', ['except' => 'show']);
 Route::get('pages/{page}/{slug?}', 'PageController@show')
     ->name('pages.show');
+
+/**
+ * Navigation Links
+ */
+Route::resource('navigation-links', 'NavigationLinkController', ['except' => 'show']);

@@ -88,4 +88,8 @@ return [
     'published' => 'Published',
     'submit' => 'Submit',
 
+    'navigation-links' => 'Navigation Links',
+    'url' => 'URL',
+    'position' => 'Position',
+
 ];

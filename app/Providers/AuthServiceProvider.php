@@ -9,6 +9,8 @@ use Zeropingheroes\Lanager\Log;
 use Zeropingheroes\Lanager\Policies\LogPolicy;
 use Zeropingheroes\Lanager\Page;
 use Zeropingheroes\Lanager\Policies\PagePolicy;
+use Zeropingheroes\Lanager\NavigationLink;
+use Zeropingheroes\Lanager\Policies\NavigationLinkPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
         RoleAssignment::class   => RoleAssignmentPolicy::class,
         Log::class              => LogPolicy::class,
         Page::class             => PagePolicy::class,
+        NavigationLink::class   => NavigationLinkPolicy::class,
     ];
 
     /**
