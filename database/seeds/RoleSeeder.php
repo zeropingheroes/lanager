@@ -12,6 +12,11 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
+        // don't seed if table is not empty
+        if (Role::count()) {
+            return;
+        }
+
         $roles = [
             ['name' => 'Super Admin'],
             ['name' => 'Admin'],
