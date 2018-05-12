@@ -13,7 +13,11 @@
             </li>
         @else
             <li class="nav-item">
-                <a class="nav-link" href="{{ $navigationLink->url }}">{{ $navigationLink->title }}</a>
+                @if(filter_var($navigationLink->url, FILTER_VALIDATE_URL))
+                    <a class="nav-link" target="_blank" href="{{ $navigationLink->url }}">{{ $navigationLink->title }}</a>
+                @else
+                    <a class="nav-link" href="{{ $navigationLink->url }}">{{ $navigationLink->title }}</a>
+                @endif
             </li>
         @endif
     @endforeach
