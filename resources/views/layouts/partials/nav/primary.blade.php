@@ -6,7 +6,7 @@
                     {{ $navigationLink->title }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @foreach($navigationLink->children as $child)
+                    @foreach($navigationLink->children()->orderBy('position')->get() as $child)
                         <a class="dropdown-item" href="{{ $child->url }}">{{ $child->title }}</a>
                     @endforeach
                 </div>
