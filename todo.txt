@@ -1,11 +1,12 @@
 Short Term
 -------------------------------------------------------
 Links
+    CRUD
     Order by position
-    Cache to reduce queries
 Fix:
     steam_user_apps import
     extra queries when checking permissions - caching?
+    duplicate users in live usage
 Profile - games in common
 
 Long Term
