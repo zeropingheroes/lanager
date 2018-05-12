@@ -8,6 +8,7 @@ Fix:
     duplicate users in live usage
 Make view folders plural
 Profile - games in common
+Clear logs / mark as read
 
 Long Term
 -------------------------------------------------------
