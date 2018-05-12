@@ -31,13 +31,6 @@ class NavigationLinksTableCreate extends Migration
                     ->unsigned();
 
                 $table->timestamps();
-
-                // Relationships
-                $table->foreign('parent_id')
-                    ->references('id')
-                    ->on('pages')
-                    ->onUpdate('cascade')
-                    ->onDelete('set null');
             }
         );
     }
