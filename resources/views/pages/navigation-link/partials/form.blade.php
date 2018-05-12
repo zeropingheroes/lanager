@@ -4,12 +4,12 @@
            value="{{ old('title', $navigationLink->title) }}">
 </div>
 <div class="form-group">
-    <label for="title">@lang('title.url')</label>
+    <label for="url">@lang('title.url')</label>
     <input type="text" class="form-control" id="url" name="url" placeholder="@lang('title.url')"
            value="{{ old('url', $navigationLink->url) }}">
 </div>
 <div class="form-group">
-    <label for="title">@lang('title.position')</label>
+    <label for="position">@lang('title.position')</label>
     <input type="text" class="form-control" id="position" name="position" placeholder="@lang('title.position')"
            value="{{ old('position', $navigationLink->position) }}">
 </div>
