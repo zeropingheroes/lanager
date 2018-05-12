@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Zeropingheroes\Lanager\Log;
+use Zeropingheroes\Lanager\NavigationLink;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,9 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         View::composer('layouts.partials.nav.admin', function ($view) {
             $view->with('errorCount', Log::where('read',0)->where('level', '>=', 250)->count()); // Notice and above
+        });
+        View::composer('layouts.partials.nav.primary', function ($view) {
+            $view->with('navigationLinks',  NavigationLink::whereNull('parent_id')->with('children')->get());
         });
     }
 

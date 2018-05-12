@@ -1,17 +1,20 @@
 <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-        <a class="nav-link" href="#">@lang('title.events')</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('users.index') }}">@lang('title.users')</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('games.index') }}">@lang('title.games')</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">@lang('title.achievements')</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('pages.index') }}">@lang('title.info')</a>
-    </li>
+    @foreach($navigationLinks as $navigationLink)
+        @if($navigationLink->children->count())
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ $navigationLink->title }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @foreach($navigationLink->children as $child)
+                        <a class="dropdown-item" href="{{ $child->url }}">{{ $child->title }}</a>
+                    @endforeach
+                </div>
+            </li>
+        @else
+            <li class="nav-item">
+                <a class="nav-link" href="{{ $navigationLink->url }}">{{ $navigationLink->title }}</a>
+            </li>
+        @endif
+    @endforeach
 </ul>
