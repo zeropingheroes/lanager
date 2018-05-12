@@ -14,6 +14,7 @@ class StorePageRequest extends Request
     protected $laravelValidationRules = [
         'title' => 'required|max:255',
         'content' => 'nullable',
+        'published' => 'nullable|boolean',
     ];
 
     /**
