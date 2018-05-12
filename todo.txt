@@ -1,7 +1,5 @@
 Short Term
 -------------------------------------------------------
-Links
-    CRUD
 Fix:
     steam_user_apps import
     extra queries when checking permissions - caching?

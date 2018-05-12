@@ -23,23 +23,13 @@
             </thead>
             <tbody>
             @foreach($navigationLinks as $navigationLink)
-                <tr>
-                    <td>
-                        {{ $navigationLink->title }}
-                    </td>
-                    <td>
-                        <a href="{{ $navigationLink->url }}" target="_blank">{{ $navigationLink->url }}</a>
-                    </td>
-                    <td>
-                        {{ $navigationLink->position }}
-                    </td>
-                    <td>
-                        @component('components.actions-dropdown')
-                            @include('components.actions-dropdown.edit', ['item' => $navigationLink])
-                            @include('components.actions-dropdown.delete', ['item' => $navigationLink])
-                        @endcomponent
-                    </td>
-                </tr>
+                @include('pages.navigation-link.partials.row', ['navigationLink' => $navigationLink])
+
+                @if($navigationLink->children()->count())
+                    @foreach($navigationLink->children()->orderBy('position')->get() as $childNavigationLink)
+                        @include('pages.navigation-link.partials.row', ['navigationLink' => $childNavigationLink])
+                    @endforeach
+                @endif
             @endforeach
             </tbody>
         </table>
