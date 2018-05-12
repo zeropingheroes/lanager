@@ -13,5 +13,9 @@
     <input type="text" class="form-control" id="position" name="position" placeholder="@lang('title.position')"
            value="{{ old('position', $navigationLink->position) }}">
 </div>
+<div class="form-group">
+    <label for="parent_id">@lang('title.parent')</label>
+    @include('components.form.select', ['name' => 'parent_id', 'item' => $navigationLink, 'items' => $navigationLinks, 'labelField' => 'title', 'blank' => true])
+</div>
 
 <button type="submit" class="btn btn-primary">@lang('title.submit')</button>

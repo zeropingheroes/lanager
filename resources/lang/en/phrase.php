@@ -109,5 +109,7 @@ return [
     'navigation-link-successfully-created' => 'Navigation link ":title" successfully created',
     'navigation-link-successfully-updated' => 'Navigation link ":title" successfully updated',
     'navigation-link-successfully-deleted' => 'Navigation link ":title" successfully deleted',
+    'navigation-links-can-only-be-nested-one-level-deep' => 'Navigation links can only be nested one level deep',
+    'a-navigation-link-cannot-be-its-own-parent' => 'A navigation link cannot be its own parent',
 
 ];

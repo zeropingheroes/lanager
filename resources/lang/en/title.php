@@ -92,5 +92,6 @@ return [
     'navigation-link' => 'Navigation Link',
     'url' => 'URL',
     'position' => 'Position',
+    'parent' => 'Parent',
 
 ];

@@ -29,18 +29,45 @@ class NavigationLinkController extends Controller
      */
     public function create()
     {
-        //
+        $navigationLinks = NavigationLink::whereNull('parent_id')->get();
+
+        return View::make('pages.navigation-link.create')
+            ->with('navigationLinks', $navigationLinks)
+            ->with('navigationLink', new NavigationLink());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $httpRequest
      * @return \Illuminate\Http\Response
+     * @internal param Request $request
      */
-    public function store(Request $request)
+    public function store(Request $httpRequest)
     {
-        //
+        $this->authorize('create', new NavigationLink());
+
+        $input = [
+            'title' => $httpRequest->input('title'),
+            'url' => $httpRequest->input('url'),
+            'position' => $httpRequest->input('position'),
+            'parent_id' => $httpRequest->input('parent_id'),
+        ];
+
+        $request = new StoreNavigationLinkRequest($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withError($request->errors())
+                ->withInput();
+        }
+        $navigationLink = NavigationLink::create($input);
+
+        return redirect()
+            ->route('navigation-links.index')
+            ->withSuccess(__('phrase.navigation-link-successfully-created', ['title' => $navigationLink->title]));
+
     }
 
     /**
@@ -53,7 +80,9 @@ class NavigationLinkController extends Controller
     {
         $this->authorize('update', $navigationLink);
 
-        $navigationLinks = NavigationLink::where('id', '<>', $navigationLink->id)->get();
+        $navigationLinks = NavigationLink::whereNull('parent_id')
+            ->where('id', '<>', $navigationLink->id)
+            ->get();
 
         return View::make('pages.navigation-link.edit')
             ->with('navigationLinks', $navigationLinks)
