@@ -44,8 +44,15 @@ class UserController extends Controller
             $gamesInCommon = [];
         }
 
+        $gamesOwned = $user->SteamApps()
+            ->with('app')
+            ->where('playtime_forever', '<>', 0)
+            ->orderBy('playtime_forever', 'desc')
+            ->paginate(5);
+
         return View::make('pages.users.show')
             ->with('user', $user)
+            ->with('gamesOwned', $gamesOwned)
             ->with('gamesInCommon', $gamesInCommon);
     }
 

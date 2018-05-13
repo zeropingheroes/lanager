@@ -1,6 +1,6 @@
 @if ($gamesInCommon)
-    <table class="table games-in-common">
-        @foreach($gamesInCommon as $userGame)
+    <table class="table games-owned">
+        @foreach($gamesOwned as $userGame)
             <tr>
                 <td class="game">
                     <a href="{{ $userGame->app->steamStoreURL() }}" title="@lang('phrase.view-game-in-steam-store', ['game' => $userGame->app->name])">
@@ -16,5 +16,5 @@
             </tr>
         @endforeach
     </table>
-    {{ $gamesInCommon->links() }}
+    {{ $gamesOwned->links() }}
 @endif

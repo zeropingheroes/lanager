@@ -29,7 +29,7 @@
     <h2>@lang('title.games-in-common')</h2>
     @include('pages.users.partials.games-in-common', ['gamesInCommon' => $gamesInCommon])
 
-    {{--<h2>@lang('title.recent')</h2>--}}
-    {{--<h2>@lang('title.owned')</h2>--}}
+    <h2>@lang('title.owned')</h2>
+    @include('pages.users.partials.games-owned', ['gamesOwned' => $gamesOwned])
 
 @endsection

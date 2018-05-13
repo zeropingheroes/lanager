@@ -1,6 +1,6 @@
 Short Term
 -------------------------------------------------------
-Profile - games in common
+Fix pagination links on profile page
 Clear logs / mark as read
 
 Long Term
