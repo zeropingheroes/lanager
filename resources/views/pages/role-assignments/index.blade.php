@@ -24,14 +24,14 @@
             @foreach($roleAssignments as $roleAssignment)
                 <tr>
                     <td>
-                        @include('pages.user.partials.avatar-username', ['user' => $roleAssignment->user])
+                        @include('pages.users.partials.avatar-username', ['user' => $roleAssignment->user])
                     </td>
                     <td>
                         {{ $roleAssignment->role->name }}
                     </td>
                     <td>
                         @if($roleAssignment->assigner)
-                            @include('pages.user.partials.username', ['user' => $roleAssignment->assigner])
+                            @include('pages.users.partials.username', ['user' => $roleAssignment->assigner])
                         @else
                             @lang('title.unknown')
                         @endif

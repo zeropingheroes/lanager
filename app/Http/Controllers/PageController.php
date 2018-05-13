@@ -17,7 +17,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        return View::make('pages.page.index')
+        return View::make('pages.pages.index')
             ->with('pages', Page::visible()->get());
     }
 
@@ -28,7 +28,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        return View::make('pages.page.create')
+        return View::make('pages.pages.create')
             ->with('page', new Page);
     }
 
@@ -82,7 +82,7 @@ class PageController extends Controller
             return redirect()->route('pages.show', ['id' => $page->id, 'slug' => str_slug($page->title)]);
         }
 
-        return View::make('pages.page.show')
+        return View::make('pages.pages.show')
             ->with('page', $page);
     }
 
@@ -97,7 +97,7 @@ class PageController extends Controller
     {
         $this->authorize('update', $page);
 
-        return View::make('pages.page.edit')
+        return View::make('pages.pages.edit')
             ->with('page', $page);
     }
 

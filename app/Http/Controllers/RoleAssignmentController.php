@@ -21,7 +21,7 @@ class RoleAssignmentController extends Controller
      */
     public function index()
     {
-        return View::make('pages.role-assignment.index')
+        return View::make('pages.role-assignments.index')
             ->with('roleAssignments', RoleAssignment::with('user', 'user.state', 'role')->get())
             ->with('users', User::orderBy('username')->get())
             ->with('roles', Role::all());

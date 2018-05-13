@@ -1,7 +1,7 @@
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
        aria-expanded="false">
-        @include('pages.user.partials.avatar',['user' => Auth::user(), 'size' => 'small', 'status' => 'offline'])
+        @include('pages.users.partials.avatar',['user' => Auth::user(), 'size' => 'small', 'status' => 'offline'])
         <span class="caret"></span>
     </a>
 

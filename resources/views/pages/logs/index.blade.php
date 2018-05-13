@@ -9,7 +9,7 @@
     <h1>@lang('title.logs')</h1>
     @include('components.alerts.all')
 
-    @include('pages.log.partials.filter')
+    @include('pages.logs.partials.filter')
     <form method="POST" action="{{ route('logs.patch') }}">
         @method('PATCH')
         {{ csrf_field() }}
@@ -31,7 +31,7 @@
                             @include('components.time-relative', ['datetime' => $log->created_at])
                         </td>
                         <td>
-                            @include('pages.log.partials.level', ['level' => $log->level_name])
+                            @include('pages.logs.partials.level', ['level' => $log->level_name])
                         </td>
                         <td>
                             <a href="{{ route('logs.show', $log->id) }}">
@@ -40,7 +40,7 @@
                         </td>
                         <td>
                             @if($log->user)
-                                @include('pages.user.partials.avatar-username', ['user' => $log->user])
+                                @include('pages.users.partials.avatar-username', ['user' => $log->user])
                             @endif
                         </td>
                         <td>

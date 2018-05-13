@@ -18,7 +18,7 @@ class NavigationLinkController extends Controller
     {
         $this->authorize('index', NavigationLink::class);
 
-        return View::make('pages.navigation-link.index')
+        return View::make('pages.navigation-links.index')
             ->with('navigationLinks', NavigationLink::whereNull('parent_id')->with('children')->orderBy('position')->get());
     }
 
@@ -31,7 +31,7 @@ class NavigationLinkController extends Controller
     {
         $navigationLinks = NavigationLink::whereNull('parent_id')->get();
 
-        return View::make('pages.navigation-link.create')
+        return View::make('pages.navigation-links.create')
             ->with('navigationLinks', $navigationLinks)
             ->with('navigationLink', new NavigationLink());
     }
@@ -84,7 +84,7 @@ class NavigationLinkController extends Controller
             ->where('id', '<>', $navigationLink->id)
             ->get();
 
-        return View::make('pages.navigation-link.edit')
+        return View::make('pages.navigation-links.edit')
             ->with('navigationLinks', $navigationLinks)
             ->with('navigationLink', $navigationLink);
     }

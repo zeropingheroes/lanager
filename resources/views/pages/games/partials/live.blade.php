@@ -13,7 +13,7 @@
             <td>
                 @foreach($liveGame['users'] as $user)
                     <a href="{{ route('users.show', $user->id) }}">
-                        @include('pages.user.partials.avatar', ['user' => $user])
+                        @include('pages.users.partials.avatar', ['user' => $user])
                     </a>
                 @endforeach
             </td>

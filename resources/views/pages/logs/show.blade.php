@@ -16,7 +16,7 @@
     ];
     @endphp
 
-    <h1>@lang('title.log') #{{ $log->id }} @include('pages.log.partials.level', ['level' => $log->level_name])</h1>
+    <h1>@lang('title.log') #{{ $log->id }} @include('pages.logs.partials.level', ['level' => $log->level_name])</h1>
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">

@@ -23,7 +23,7 @@ class LogController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginateFilter(15);
 
-        return View::make('pages.log.index')
+        return View::make('pages.logs.index')
             ->with('logs', $logs);
 
     }
@@ -38,7 +38,7 @@ class LogController extends Controller
     {
         $log->read = true;
         $log->save();
-        return View::make('pages.log.show')
+        return View::make('pages.logs.show')
             ->with('log', $log);
     }
 

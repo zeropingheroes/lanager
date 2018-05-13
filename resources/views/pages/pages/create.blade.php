@@ -8,6 +8,6 @@
     <h1>@lang('title.create-item', ['item' => __('title.info-page')])</h1>
     @include('components.alerts.all')
     @include('components.form.create', ['route' => route('pages.store')])
-    @include('pages.page.partials.form')
+    @include('pages.pages.partials.form')
     @include('components.form.close')
 @endsection

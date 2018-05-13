@@ -17,7 +17,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        return View::make('pages.game.index')
+        return View::make('pages.games.index')
             ->with('liveGames', $this->liveGames())
             ->with('recentGames', $this->recentGames())
             ->with('ownedGames', $this->ownedGames());

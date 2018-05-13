@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('state.app', 'state.server', 'OAuthAccounts', 'SteamApps')->orderBy('username')->get();
-        return View::make('pages.user.index')
+        return View::make('pages.users.index')
             ->with('users', $users);
     }
 
@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return View::make('pages.user.show')
+        return View::make('pages.users.show')
             ->with('user', $user);
     }
 

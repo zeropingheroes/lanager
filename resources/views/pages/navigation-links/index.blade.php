@@ -23,11 +23,11 @@
             </thead>
             <tbody>
             @foreach($navigationLinks as $navigationLink)
-                @include('pages.navigation-link.partials.row', ['navigationLink' => $navigationLink])
+                @include('pages.navigation-links.partials.row', ['navigationLink' => $navigationLink])
 
                 @if($navigationLink->children()->count())
                     @foreach($navigationLink->children()->orderBy('position')->get() as $childNavigationLink)
-                        @include('pages.navigation-link.partials.row', ['navigationLink' => $childNavigationLink])
+                        @include('pages.navigation-links.partials.row', ['navigationLink' => $childNavigationLink])
                     @endforeach
                 @endif
             @endforeach
