@@ -1,9 +1,5 @@
 Short Term
 -------------------------------------------------------
-Fix:
-    steam_user_apps import
-    extra queries when checking permissions - caching?
-    duplicate users in live usage
 Make view folders plural
 Profile - games in common
 Clear logs / mark as read

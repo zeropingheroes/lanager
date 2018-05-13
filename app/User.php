@@ -30,6 +30,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * The relationships that should always be eager loaded
+     *
+     * @var array
+     */
+    protected $with = ['roles'];
+
+    /**
      * Get the user's linked accounts
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -64,16 +71,13 @@ class User extends Authenticatable
     /**
      * Check if the user has the specified role(s)
      * 
-     * @param array $roles
+     * @param string $role
      * @return bool
      * @internal param $role
      */
-    public function hasRole(...$roles)
+    public function hasRole(string $role)
     {
-        if ($this->roles()->whereIn('name', $roles)->first()) {
-            return true;
-        }
-        return false;
+        return in_array($role, $this->roles->pluck('name')->toArray());
     }
 
     /**
