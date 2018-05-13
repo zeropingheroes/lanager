@@ -42,6 +42,7 @@
                 </tr>
             @endforeach
         </table>
+        {{ $gamesInCommon->links() }}
     @endif
     {{--<h2>@lang('title.recent')</h2>--}}
     {{--<h2>@lang('title.owned')</h2>--}}
