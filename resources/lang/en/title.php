@@ -80,8 +80,9 @@ return [
     'markdown' => 'Markdown',
 
     'live' => 'Live',
-    'recent' => 'Top 10 Recently Played',
-    'owned' => 'Top 10 Owned',
+    'recent' => 'Recently Played',
+    'owned' => 'Owned',
+    'games-in-common' => 'Games In Common',
 
     'title' => 'Title',
     'content' => 'Content',
@@ -93,5 +94,7 @@ return [
     'url' => 'URL',
     'position' => 'Position',
     'parent' => 'Parent',
+
+    'linked-accounts' => 'Linked Accounts',
 
 ];

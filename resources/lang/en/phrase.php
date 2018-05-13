@@ -78,6 +78,7 @@ return [
         ) . ' with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
     'edit-steam-profile' => 'Edit Steam Profile',
     'avatar-for-username' => 'Avatar for :username',
+    'hours-played' => 'hours played',
 
     // Steam Statuses
     'status-online' => 'Online',

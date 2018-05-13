@@ -1,6 +1,5 @@
 Short Term
 -------------------------------------------------------
-Make view folders plural
 Profile - games in common
 Clear logs / mark as read
 
