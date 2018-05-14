@@ -39,7 +39,7 @@ class UserController extends Controller
                 ->where('playtime_forever', '<>', 0)
                 ->whereIn('steam_app_id', $authUserGames)
                 ->orderBy('playtime_forever', 'desc')
-                ->paginate(5);
+                ->paginate(5, ['*'], 'gamesInCommon');
         } else {
             $gamesInCommon = [];
         }
@@ -48,7 +48,7 @@ class UserController extends Controller
             ->with('app')
             ->where('playtime_forever', '<>', 0)
             ->orderBy('playtime_forever', 'desc')
-            ->paginate(5);
+            ->paginate(5, ['*'], 'gamesOwned');
 
         return View::make('pages.users.show')
             ->with('user', $user)

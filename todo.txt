@@ -1,6 +1,5 @@
 Short Term
 -------------------------------------------------------
-Fix pagination links on profile page
 Clear logs / mark as read
 
 Long Term
