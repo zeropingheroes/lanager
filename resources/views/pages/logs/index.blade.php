@@ -10,6 +10,15 @@
     @include('components.alerts.all')
 
     @include('pages.logs.partials.filter')
+
+    <script type="text/javascript">
+        $(function () {
+            $("#checkAll").click(function () {
+                $('input:checkbox').not(this).prop('checked', this.checked);
+            });
+        });
+    </script>
+
     <form method="POST" action="{{ route('logs.patch') }}">
         @method('PATCH')
         {{ csrf_field() }}
@@ -20,7 +29,12 @@
                 <th>@lang('title.level')</th>
                 <th>@lang('title.message')</th>
                 <th>@lang('title.user')</th>
-                <th></th>
+                <th>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="checkAll">
+                        <label class="custom-control-label" for="checkAll"></label>
+                    </div>
+                </th>
             </tr>
             </thead>
             @if(count($logs))
