@@ -117,7 +117,6 @@ class PageController extends Controller
             'title' => $httpRequest->input('title'),
             'content' => $httpRequest->input('content'),
             'published' => $httpRequest->has('published'),
-            'id' => $page->id,
         ];
 
         $request = new StorePageRequest($input);
