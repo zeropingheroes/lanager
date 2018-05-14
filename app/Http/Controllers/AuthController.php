@@ -67,7 +67,7 @@ class AuthController extends Controller
                     ->user;
 
                 Auth::login($user, true);
-                Log::info(__('phrase.user-successfully-logged-in', ['username' => $user->username]), $user->toArray());
+                Log::info(__('phrase.user-successfully-logged-in', ['username' => $user->username]));
 
                 return redirect()->intended(route('users.show', ['id' => $user->id]));
             }
@@ -90,7 +90,7 @@ class AuthController extends Controller
         $user =  Auth::user();
         $this->guard()->logout();
         $request->session()->invalidate();
-        Log::info(__('phrase.user-successfully-logged-out', ['username' => $user->username]), $user->toArray());
+        Log::info(__('phrase.user-successfully-logged-out', ['username' => $user->username]));
         return redirect('/');
     }
 
