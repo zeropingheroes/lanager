@@ -26,8 +26,10 @@
         </div>
     </div>
     <hr>
-    <h2>@lang('title.games-in-common')</h2>
-    @include('pages.users.partials.games-in-common', ['gamesInCommon' => $gamesInCommon])
+    @if( (! Auth::user()) || ( Auth::user() != $user))
+        <h2>@lang('title.games-in-common')</h2>
+        @include('pages.users.partials.games-in-common', ['gamesInCommon' => $gamesInCommon])
+    @endif
 
     <h2>@lang('title.owned')</h2>
     @include('pages.users.partials.games-owned', ['gamesOwned' => $gamesOwned])

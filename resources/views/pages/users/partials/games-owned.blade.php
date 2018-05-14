@@ -1,4 +1,6 @@
-@if ($gamesInCommon)
+@if ($gamesOwned->isEmpty())
+    @lang('phrase.username-does-not-own-any-games', ['username' => $user->username])
+@else
     <table class="table games-owned">
         @foreach($gamesOwned as $userGame)
             <tr>

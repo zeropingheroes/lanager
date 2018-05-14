@@ -1,4 +1,8 @@
-@if ($gamesInCommon)
+@if (! Auth::user())
+    @lang('phrase.sign-in-to-see-the-games-you-have-in-common-with-username', ['username' => $user->username])
+@elseif ($gamesInCommon->isEmpty())
+    @lang('phrase.you-have-no-games-in-common-with-username', ['username' => $user->username])
+@else
     <table class="table games-in-common">
         @foreach($gamesInCommon as $userGame)
             <tr>

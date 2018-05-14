@@ -80,6 +80,9 @@ return [
     'avatar-for-username' => 'Avatar for :username',
     'hours-played-total' => 'hours total',
     'hours-played-two-weeks' => 'hours in last 2 weeks',
+    'sign-in-to-see-the-games-you-have-in-common-with-username' => 'Sign in to see the games you have in common with :username',
+    'you-have-no-games-in-common-with-username' => 'You have no games in common with :username',
+    'username-does-not-own-any-games' => ':username does not own any games',
 
     // Steam Statuses
     'status-online' => 'Online',
