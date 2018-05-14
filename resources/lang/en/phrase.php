@@ -117,4 +117,9 @@ return [
     'navigation-links-can-only-be-nested-one-level-deep' => 'Navigation links can only be nested one level deep',
     'a-navigation-link-cannot-be-its-own-parent' => 'A navigation link cannot be its own parent',
 
+    // LANs
+    'lan-successfully-created' => 'LAN :name successfully created',
+    'lan-successfully-updated' => 'LAN :name successfully updated',
+    'lan-successfully-deleted' => 'LAN :name successfully deleted',
+
 ];

@@ -1,16 +1,20 @@
 Short Term
 -------------------------------------------------------
-
-Long Term
--------------------------------------------------------
+LANs
+    CRUD
+    Date time picker
+    LAN attendance - add when user signs in inside of LAN time
 Events
     CRUD
     Timetable
-LANs
+
+Long Term
+-------------------------------------------------------
 Achievements
 Uploads
 API
 Dashboard (big screen)
+Admin getting started guide page
 Importing old LANager data
 Confirmation of delete action
 Validation error styles on forms

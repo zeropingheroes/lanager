@@ -63,3 +63,8 @@ Route::get('pages/{page}/{slug?}', 'PageController@show')
  * Navigation Links
  */
 Route::resource('navigation-links', 'NavigationLinkController', ['except' => 'show']);
+
+/**
+ * LANs
+ */
+Route::resource('lans', 'LanController');

@@ -97,4 +97,13 @@ return [
 
     'linked-accounts' => 'Linked Accounts',
 
+    'lans' => 'LANs',
+    'lan' => 'LAN',
+    'dates' => 'Dates',
+    'start' => 'Start',
+    'end' => 'End',
+    'times' => 'Times',
+    'duration' => 'Duration',
+    'x-hours' => ':x hours',
+
 ];

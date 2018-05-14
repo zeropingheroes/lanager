@@ -7,5 +7,6 @@
         <a class="dropdown-item" href="{{ route('logs.index') }}">@lang('title.logs') @if($errorCount) <span class="badge badge-danger">{{ $errorCount }}</span>@endif</a>
         <a class="dropdown-item" href="{{ route('role-assignments.index') }}">@lang('title.roles')</a>
         <a class="dropdown-item" href="{{ route('navigation-links.index') }}">@lang('title.navigation-links')</a>
+        <a class="dropdown-item" href="{{ route('lans.index') }}">@lang('title.lans')</a>
     </div>
 </li>
