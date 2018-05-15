@@ -26,7 +26,7 @@
         </div>
     </div>
     <hr>
-    @if( (! Auth::user()) || ( Auth::user() != $user))
+    @if( (! Auth::user()) || ( Auth::user()->id != $user->id))
         <h2>@lang('title.games-in-common')</h2>
         @include('pages.users.partials.games-in-common', ['gamesInCommon' => $gamesInCommon])
     @endif

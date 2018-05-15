@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\User;
@@ -41,7 +42,7 @@ class UserController extends Controller
                 ->orderBy('playtime_forever', 'desc')
                 ->paginate(5, ['*'], 'gamesInCommon');
         } else {
-            $gamesInCommon = [];
+            $gamesInCommon = new Collection();
         }
 
         $gamesOwned = $user->SteamApps()
