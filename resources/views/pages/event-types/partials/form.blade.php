@@ -5,7 +5,7 @@
 </div>
 <div class="form-group">
     <label for="colour">@lang('title.colour')</label>
-    <input type="text" class="form-control" id="colour" colour="colour" placeholder="@lang('title.colour')"
+    <input type="text" class="form-control" id="colour" name="colour" placeholder="@lang('title.colour')"
            value="{{ old('colour', $eventType->colour) }}">
 </div>
 <button type="submit" class="btn btn-primary">@lang('title.submit')</button>

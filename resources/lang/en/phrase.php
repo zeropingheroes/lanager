@@ -122,4 +122,9 @@ return [
     'lan-successfully-updated' => 'LAN :name successfully updated',
     'lan-successfully-deleted' => 'LAN :name successfully deleted',
 
+    // LANs
+    'event-type-successfully-created' => 'Event type :name successfully created',
+    'event-type-successfully-updated' => 'Event type :name successfully updated',
+    'event-type-successfully-deleted' => 'Event type :name successfully deleted',
+
 ];
