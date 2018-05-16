@@ -1,7 +1,6 @@
 Short Term
 -------------------------------------------------------
 LANs
-    CRUD
     Date time picker
     LAN attendance - add when user signs in inside of LAN time
 Events

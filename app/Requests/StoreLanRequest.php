@@ -12,10 +12,10 @@ class StoreLanRequest extends Request
      * @var array
      */
     protected $laravelValidationRules = [
-        'name' => 'required|max:255',
-        'start' => 'date_format:"Y-m-d H:i:s"',
-        'end' => 'date_format:"Y-m-d H:i:s"',
-        'published' => 'nullable|boolean',
+        'name' => ['required', 'max:255'],
+        'start' => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
+        'end' => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
+        'published' => ['nullable','boolean']
     ];
 
     /**
@@ -28,8 +28,6 @@ class StoreLanRequest extends Request
         if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
-
-        // TODO: check if LAN start date is before end date
 
         return $this->setValid(true);
     }
