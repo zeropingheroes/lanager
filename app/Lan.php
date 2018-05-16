@@ -20,14 +20,14 @@ class Lan extends Model
     ];
 
     /**
-     * Scope a query to only show pages visible to the user.
+     * Scope a query to only show items visible to the user.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeVisible($query)
     {
-        if (Auth::user() && Auth::user()->can('update', new Lan)) {
+        if (Auth::user() && Auth::user()->can('update', $this)) {
             return $query;
         } else {
             return $query->where('published', '=', 1);
