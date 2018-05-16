@@ -35,6 +35,7 @@ return [
     'role-assignment' => 'Role Assignment',
     'event' => 'Event',
     'events' => 'Events',
+    'event-types' => 'Event Types',
     'start' => 'Start',
     'end' => 'End',
     'users' => 'Users',
@@ -105,5 +106,8 @@ return [
     'times' => 'Times',
     'duration' => 'Duration',
     'x-hours' => ':x hours',
+
+    'event-type' => 'Event Type',
+    'colour' =>  'Colour',
 
 ];

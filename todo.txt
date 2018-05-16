@@ -16,6 +16,7 @@ Dashboard (big screen)
 Admin getting started guide page
 Importing old LANager data
 Confirmation of delete action
+Checking all docblocks
 Publish / un-publish button for actions dropdown
 Validation error styles on forms
 Linking other accounts (Discord, Battle.net etc)

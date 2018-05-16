@@ -8,5 +8,6 @@
         <a class="dropdown-item" href="{{ route('role-assignments.index') }}">@lang('title.roles')</a>
         <a class="dropdown-item" href="{{ route('navigation-links.index') }}">@lang('title.navigation-links')</a>
         <a class="dropdown-item" href="{{ route('lans.index') }}">@lang('title.lans')</a>
+        <a class="dropdown-item" href="{{ route('event-types.index') }}">@lang('title.event-types')</a>
     </div>
 </li>

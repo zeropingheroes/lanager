@@ -68,3 +68,8 @@ Route::resource('navigation-links', 'NavigationLinkController', ['except' => 'sh
  * LANs
  */
 Route::resource('lans', 'LanController');
+
+/**
+ * Events & Event Types
+ */
+Route::resource('event-types', 'EventTypeController');

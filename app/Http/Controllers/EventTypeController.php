@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\EventType;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class EventTypeController extends Controller
      */
     public function index()
     {
-        //
+        return View::make('pages.event-types.index')
+            ->with('eventTypes', EventType::all());
     }
 
     /**
@@ -24,7 +26,8 @@ class EventTypeController extends Controller
      */
     public function create()
     {
-        //
+        return View::make('pages.event-types.create')
+            ->with('eventType', new EventType);
     }
 
     /**
@@ -39,25 +42,18 @@ class EventTypeController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\EventType  $eventType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(EventType $eventType)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\EventType  $eventType
-     * @return \Illuminate\Http\Response
+     * @param  \Zeropingheroes\Lanager\EventType $eventType
+     * @return \Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(EventType $eventType)
     {
-        //
+        $this->authorize('update', $eventType);
+
+        return View::make('pages.event-types.edit')
+            ->with('eventType', $eventType);
     }
 
     /**
