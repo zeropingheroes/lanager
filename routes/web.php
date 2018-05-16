@@ -73,3 +73,4 @@ Route::resource('lans', 'LanController');
  * Events & Event Types
  */
 Route::resource('event-types', 'EventTypeController');
+Route::resource('events', 'EventController');

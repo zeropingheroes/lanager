@@ -15,6 +15,8 @@ use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Policies\LanPolicy;
 use Zeropingheroes\Lanager\EventType;
 use Zeropingheroes\Lanager\Policies\EventTypePolicy;
+use Zeropingheroes\Lanager\Event;
+use Zeropingheroes\Lanager\Policies\EventPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         NavigationLink::class   => NavigationLinkPolicy::class,
         Lan::class              => LanPolicy::class,
         EventType::class        => EventTypePolicy::class,
+        Event::class            => EventPolicy::class,
     ];
 
     /**

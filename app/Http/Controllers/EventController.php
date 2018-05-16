@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Event;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        return View::make('pages.events.index')
+            ->with('events', Event::visible()->get());
     }
 
     /**
