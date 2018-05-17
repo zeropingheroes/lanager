@@ -19,6 +19,7 @@ Admin getting started guide page
 Importing old LANager data
 Confirmation of delete action
 Checking all docblocks
+LAN "show" page containing stats about the LAN, e.g. which users attended, gameplay etc
 If all user imports fail then only log 1 error message
 Move "published" form item into partial
 Move "start" and "end" form items into partials

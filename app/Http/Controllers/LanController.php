@@ -65,20 +65,6 @@ class LanController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Lan  $lan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Lan $lan)
-    {
-        $lan = Page::visible()->findOrFail($lan->id);
-
-        return View::make('pages.lans.show')
-            ->with('lan', $lan);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \Zeropingheroes\Lanager\Lan  $lan
