@@ -128,6 +128,11 @@ return [
     'event-type-successfully-updated' => 'Event type :name successfully updated',
     'event-type-successfully-deleted' => 'Event type :name successfully deleted',
 
+    // Events
+    'event-successfully-created' => 'Event :name successfully created',
+    'event-successfully-updated' => 'Event :name successfully updated',
+    'event-successfully-deleted' => 'Event :name successfully deleted',
+
     // Events, dates and times
     'timespan-to' => 'to',
     'upcoming' => 'Upcoming',
@@ -136,6 +141,5 @@ return [
     'starting' => 'Starting',
     'ending' => 'Ending',
     'ended' => 'Ended',
-    'description' => 'Description'
 
 ];

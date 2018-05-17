@@ -1,4 +1,8 @@
 <div class="form-group">
+    <label for="lan_id">@lang('title.lan')</label>
+    @include('components.form.select', ['name' => 'lan_id', 'item' => $event, 'items' => $lans, 'labelField' => 'name'])
+</div>
+<div class="form-group">
     <label for="name">@lang('title.name')</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="@lang('title.name')"
            value="{{ old('name', $event->name) }}">
@@ -10,6 +14,22 @@
     <small id="descriptionHelp" class="form-text text-muted">
         <a href="@lang('phrase.markdown-formatting-help-link-url')" target="_blank">@lang('phrase.markdown-formatting-help-link')</a>
     </small>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="start">@lang('title.start')</label>
+        <input type="text" class="form-control" id="start" name="start" placeholder="YYYY-MM-DD HH:MM:SS"
+               value="{{ old('start', $event->start) }}">
+    </div>
+    <div class="form-group col-md-6">
+        <label for="end">@lang('title.end')</label>
+        <input type="text" class="form-control" id="end" name="end" placeholder="YYYY-MM-DD HH:MM:SS"
+               value="{{ old('end', $event->end) }}">
+    </div>
+</div>
+<div class="form-group">
+    <label for="event_type_id">@lang('title.event-type')</label>
+    @include('components.form.select', ['name' => 'event_type_id', 'item' => $event, 'items' => $eventTypes, 'labelField' => 'name'])
 </div>
 <div class="form-group">
     <div class="custom-control custom-checkbox">

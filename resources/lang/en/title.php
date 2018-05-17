@@ -111,5 +111,6 @@ return [
     'colour' =>  'Colour',
     'status' => 'Status',
     'type' => 'Type',
+    'description' => 'Description'
 
 ];
