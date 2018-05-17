@@ -18,6 +18,7 @@ Importing old LANager data
 Confirmation of delete action
 Checking all docblocks
 If all user imports fail then only log 1 error message
+Move "published" form item into partial
 Review language files
 Publish / un-publish button for actions dropdown
 Validation error styles on forms
