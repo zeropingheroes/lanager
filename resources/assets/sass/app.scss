@@ -113,3 +113,18 @@ table.live-games td.user-count, table.recent-games td.user-count, table.owned-ga
 table.live-games td.game, table.recent-games td.game, table.owned-games td.game {
   width: 184px;
 }
+
+/**
+ * events.*
+ */
+span.badge-past {
+  background-color: #d74c47;
+}
+
+span.badge-present {
+  background-color: #439e4c;
+}
+
+span.badge-future {
+  background-color: #6bafd9;
+}
