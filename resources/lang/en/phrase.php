@@ -133,5 +133,8 @@ return [
     'upcoming' => 'Upcoming',
     'happening-now' => 'Happening Now',
     'ended' => 'Ended',
+    'starting' => 'Starting',
+    'ending' => 'Ending',
+    'ended' => 'Ended',
 
 ];
