@@ -46,7 +46,7 @@ class Event extends Model
      */
     public function type()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\EventType');
+        return $this->belongsTo('Zeropingheroes\Lanager\EventType', 'event_type_id');
     }
 
     /**

@@ -1,0 +1,1 @@
+<span style="color: {{ $eventType->colour }}">{{ $eventType->name }}</span>

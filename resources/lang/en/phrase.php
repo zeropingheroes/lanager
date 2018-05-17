@@ -94,6 +94,7 @@ return [
     'status-looking-to-play' => 'Looking to play',
     'status-offline' => 'Offline',
     'status-unknown' => 'Unknown',
+    'unknown' => 'Unknown',
 
     // Games
     'x-in-game' => ':x In Game',
@@ -122,9 +123,15 @@ return [
     'lan-successfully-updated' => 'LAN :name successfully updated',
     'lan-successfully-deleted' => 'LAN :name successfully deleted',
 
-    // LANs
+    // Event Types
     'event-type-successfully-created' => 'Event type :name successfully created',
     'event-type-successfully-updated' => 'Event type :name successfully updated',
     'event-type-successfully-deleted' => 'Event type :name successfully deleted',
+
+    // Events, dates and times
+    'timespan-to' => 'to',
+    'upcoming' => 'Upcoming',
+    'happening-now' => 'Happening Now',
+    'ended' => 'Ended',
 
 ];

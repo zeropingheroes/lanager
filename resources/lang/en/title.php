@@ -109,5 +109,7 @@ return [
 
     'event-type' => 'Event Type',
     'colour' =>  'Colour',
+    'status' => 'Status',
+    'type' => 'Type',
 
 ];
