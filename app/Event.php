@@ -42,7 +42,7 @@ class Event extends Model
     /**
      * The event type
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function type()
     {

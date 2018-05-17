@@ -136,5 +136,6 @@ return [
     'starting' => 'Starting',
     'ending' => 'Ending',
     'ended' => 'Ended',
+    'description' => 'Description'
 
 ];

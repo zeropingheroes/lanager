@@ -26,7 +26,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return View::make('pages.events.create')
+            ->with('event', new Event);
     }
 
     /**
