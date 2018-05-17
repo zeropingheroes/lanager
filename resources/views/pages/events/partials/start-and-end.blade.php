@@ -27,4 +27,6 @@ if ( $start->day != $end->day )
     $endFormat = 'D '.$endFormat;
 }
 @endphp
-{{ $start->format($startFormat) }} @lang('phrase.timespan-to') {{  $end->format($endFormat) }}
+<span title="{{ $start }} @lang('phrase.timespan-to') {{ $end }}">
+    {{ $start->format($startFormat) }} @lang('phrase.timespan-to') {{  $end->format($endFormat) }}
+</span>
