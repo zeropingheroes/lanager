@@ -79,7 +79,10 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        $event = Event::visible()->findOrFail($event->id);
+
+        return View::make('pages.events.show')
+            ->with('event', $event);
     }
 
     /**
