@@ -8,29 +8,38 @@ Events
     Date time picker
     Only show events that belong to current or next LAN
     Timetable
+States
+    Automatically prune states older than 5 mins unless:
+        - there is a LAN happening
+        - debug mode is turned on
 
 Long Term
 -------------------------------------------------------
-Achievements
-Uploads
-API
-Dashboard (big screen)
-Admin getting started guide page
-Importing old LANager data
-Confirmation of delete action
-Checking all docblocks
-LAN "show" page containing stats about the LAN, e.g. which users attended, gameplay etc
-If all user imports fail then only log 1 error message
-Move "published" form item into partial
-Move "start" and "end" form items into partials
-Override date format validation error message
-Review language files
-Publish / un-publish button for actions dropdown
-Validation error styles on forms
-Linking other accounts (Discord, Battle.net etc)
-Command to make user super admin
-Pruning logs and states
-Counting of API calls to Steam
-Scale up/down API calls based on users in database
-GDPR compliant terms and conditions page
-[all other open issues on GitHub]
+Entities
+    Achievements
+    Uploads
+Features
+    API
+    Dashboard (big screen)
+    Old version data import
+    Linking other accounts (Discord, Battle.net etc)
+    LAN "show" page containing stats about the LAN, e.g.
+        Which users attended
+        Gameplay stats
+    Steam API call accounting
+        Counting of calls made
+        Scaling frequency of API calls based on user count
+Misc
+    Admin getting started guide page
+    Confirmation of delete action
+    Checking all docblocks
+    If all user imports fail then only log 1 error message
+    Move "published" form item into partial
+    Move "start" and "end" form items into partials
+    Override date format validation error message
+    Review language files
+    Publish / un-publish button for actions dropdown
+    Validation error styles on forms
+    Command to make user super admin
+    GDPR compliant terms and conditions page
+    [all other open issues on GitHub]
