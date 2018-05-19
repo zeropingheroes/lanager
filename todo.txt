@@ -3,8 +3,8 @@ Short Term
 LANs
     LAN attendance - add when user signs in inside of LAN time
 Events
-    CRUD
-    Only show events that belong to current or next LAN
+    Default to showing events for current/next LAN only
+    Dropdown for showing events from past events
     Timetable
 States
     Automatically prune states older than 5 mins unless:
@@ -28,6 +28,8 @@ Features
         Counting of calls made
         Scaling frequency of API calls based on user count
 Misc
+    If a LAN is not published, all of its events should be treated as unpublished
+    When creating event, disable dates outside of selected LAN
     Admin getting started guide page
     Confirmation of delete action
     Checking all docblocks
