@@ -12,6 +12,9 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+
+    window.moment = require('moment');
+    require('tempusdominus-bootstrap-4');
 } catch (e) {}
 
 /**

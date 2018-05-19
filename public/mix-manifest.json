@@ -1,5 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/css/open-iconic-bootstrap.css": "/css/open-iconic-bootstrap.css"
+    "/css/open-iconic-bootstrap.css": "/css/open-iconic-bootstrap.css",
+    "/css/font-awesome.css": "/css/font-awesome.css",
+    "/css/tempusdominus-bootstrap-4.css": "/css/tempusdominus-bootstrap-4.css"
 }

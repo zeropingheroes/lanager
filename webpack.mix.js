@@ -13,8 +13,9 @@ let mix = require('laravel-mix');
 mix.options({ uglify: { compress: false }, });
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css').options({
-      processCssUrls: false
-   })
+    .sass('resources/assets/sass/app.scss', 'public/css').options({processCssUrls: false})
+    .copy('node_modules/open-iconic/font/fonts', 'public/fonts')
     .sass('node_modules/open-iconic/font/css/open-iconic-bootstrap.scss', 'public/css')
-    .copy('node_modules/open-iconic/font/fonts', 'public/fonts');
+    .sass('node_modules/font-awesome/scss/font-awesome.scss', 'public/css')
+    .copy('node_modules/font-awesome/fonts', 'public/fonts')
+    .copy('node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.css', 'public/css');

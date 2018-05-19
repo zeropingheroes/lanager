@@ -18,6 +18,11 @@
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
         "vue": "^2.5.7",
-        "open-iconic": "^1.1.1"
+        "open-iconic": "^1.1.1",
+        "fullcalendar": "^3.9.0",
+        "tempusdominus-bootstrap-4": "^5.0.0-alpha18",
+        "moment": "^2.22.1",
+        "moment-timezone": "^0.5.17",
+        "font-awesome": "^4.7.0"
     }
 }
