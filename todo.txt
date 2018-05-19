@@ -1,11 +1,9 @@
 Short Term
 -------------------------------------------------------
 LANs
-    Date time picker
     LAN attendance - add when user signs in inside of LAN time
 Events
     CRUD
-    Date time picker
     Only show events that belong to current or next LAN
     Timetable
 States
