@@ -33,7 +33,7 @@
             @foreach($lans as $lan)
                 <tr>
                     <td>
-                        <a href="{{ route('lans.show', ['id' => $lan->id]) }}">{{ $lan->name }}</a>
+                        {{ $lan->name }}
                     </td>
                     <td>
                         @include('pages.lans.partials.dates', ['lan' => $lan])
