@@ -28,6 +28,7 @@ Features
         Counting of calls made
         Scaling frequency of API calls based on user count
 Misc
+    Redirect first user to create a new LAN as the first thing they should do
     If a LAN is not published, all of its events should be treated as unpublished
     When creating event, disable dates outside of selected LAN
     Admin getting started guide page
