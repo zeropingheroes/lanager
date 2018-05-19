@@ -129,6 +129,7 @@ return [
     'event-type-successfully-deleted' => 'Event type :name successfully deleted',
 
     // Events
+    'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',
     'event-successfully-created' => 'Event :name successfully created',
     'event-successfully-updated' => 'Event :name successfully updated',
     'event-successfully-deleted' => 'Event :name successfully deleted',

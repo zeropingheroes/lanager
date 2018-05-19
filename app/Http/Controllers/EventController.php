@@ -29,8 +29,15 @@ class EventController extends Controller
      */
     public function create()
     {
+        $lans = Lan::orderBy('start')->get();
+
+        if (! $lans->count()) {
+            return redirect()
+                ->route('lans.create')
+                ->withError([__('phrase.you-must-create-a-lan-before-creating-events')]);
+        }
         return View::make('pages.events.create')
-            ->with('lans', Lan::orderBy('start')->get())
+            ->with('lans', $lans)
             ->with('eventTypes', EventType::orderBy('name')->get())
             ->with('event', new Event);
     }
