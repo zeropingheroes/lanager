@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'SocialiteProviders\Manager\SocialiteWasCalled' => [
             'SocialiteProviders\Steam\SteamExtendSocialite@handle',
         ],
+        'Illuminate\Auth\Events\Login' => [
+            'Zeropingheroes\Lanager\Listeners\UpdateLanAttendeesTable'
+        ],
     ];
 
     /**
