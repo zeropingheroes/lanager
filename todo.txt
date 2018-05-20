@@ -1,15 +1,21 @@
 Short Term
 -------------------------------------------------------
-LANs
-    Attendee list
+Users
+    User list should only show users who have signed in at the current/last LAN
+    Button to show all users
 Events
     Default to showing events for current/next LAN only
     Dropdown for showing events from past events
     Timetable
 States
+    Only query states for users who have signed in at the current/last LAN
+    For all other users just update avatar/username once a day
     Automatically prune states older than 5 mins unless:
         - there is a LAN happening
         - debug mode is turned on
+User Apps
+    Only update user apps for users who have signed in at the current/last LAN
+    For all other users update user apps once a day
 
 Long Term
 -------------------------------------------------------
@@ -28,6 +34,7 @@ Features
         Counting of calls made
         Scaling frequency of API calls based on user count
 Misc
+    Optimise avatar queries
     Redirect first user to create a new LAN as the first thing they should do
     If a LAN is not published, all of its events should be treated as unpublished
     When creating event, disable dates outside of selected LAN
