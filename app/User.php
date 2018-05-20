@@ -112,4 +112,15 @@ class User extends Authenticatable
             );
     }
 
+    /**
+     * The roles that belong to the user.
+     */
+    public function lans()
+    {
+        return $this->belongsToMany('Zeropingheroes\Lanager\Lans', 'lan_attendees')
+            ->using('Zeropingheroes\Lanager\LanAttendee')
+            ->as('attendance')
+            ->withTimestamps();
+    }
+
 }

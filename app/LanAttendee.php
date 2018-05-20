@@ -2,10 +2,18 @@
 
 namespace Zeropingheroes\Lanager;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class LanAttendee extends Model
+class LanAttendee extends Pivot
 {
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'lan_attendees';
+
     /**
      * The attributes that are mass assignable.
      *

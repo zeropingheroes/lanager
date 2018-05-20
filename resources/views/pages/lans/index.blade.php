@@ -17,7 +17,7 @@
                 <th>@lang('title.name')</th>
                 <th>@lang('title.dates')</th>
                 <th>@lang('title.times')</th>
-                <th>@lang('title.duration')</th>
+                <th>@lang('title.attendees')</th>
                 @if( Gate::allows('update', Zeropingheroes\Lanager\Lan::class) ||
                      Gate::allows('destroy', Zeropingheroes\Lanager\Lan::class) )
                     <th>
@@ -33,16 +33,19 @@
             @foreach($lans as $lan)
                 <tr>
                     <td>
-                        {{ $lan->name }}
+                        <a href="{{ route('lans.show', $lan->id) }}">{{ $lan->name }}</a>
                     </td>
                     <td>
                         @include('pages.lans.partials.dates', ['lan' => $lan])
                     </td>
                     <td>
                         @include('pages.lans.partials.timespan', ['lan' => $lan])
+                        <small class="text-muted">
+                            @include('pages.lans.partials.duration', ['lan' => $lan])
+                        </small>
                     </td>
                     <td>
-                        @include('pages.lans.partials.duration', ['lan' => $lan])
+                        {{ $lan->users->count() }}
                     </td>
                     @can('update', Zeropingheroes\Lanager\Lan::class)
                         <td>@include('components.tick-cross', ['value' => $lan->published])</td>

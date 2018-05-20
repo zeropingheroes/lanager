@@ -43,4 +43,15 @@ class Lan extends Model
     {
         return $this->hasMany('Zeropingheroes\Lanager\Event');
     }
+
+    /**
+     * The users that belong to the role.
+     */
+    public function users()
+    {
+        return $this->belongsToMany('Zeropingheroes\Lanager\User', 'lan_attendees')
+            ->using('Zeropingheroes\Lanager\LanAttendee')
+            ->as('attendance')
+            ->withTimestamps();
+    }
 }

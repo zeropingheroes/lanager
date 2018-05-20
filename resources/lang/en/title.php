@@ -106,6 +106,9 @@ return [
     'times' => 'Times',
     'duration' => 'Duration',
     'x-hours' => ':x hours',
+    'attendees' => 'Attendees',
+    'attendee' => 'Attendee',
+    'logged-in' => 'Logged In',
 
     'event-type' => 'Event Type',
     'colour' =>  'Colour',

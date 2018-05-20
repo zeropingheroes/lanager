@@ -32,6 +32,28 @@ class LanController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param Lan $lan
+     * @return \Illuminate\Http\Response
+     * @internal param \Zeropingheroes\Lanager\Log $log
+     */
+    public function show(Lan $lan)
+    {
+        $lan->load(
+            [
+                'users' => function ($query) {
+                    $query->orderBy('lan_attendees.created_at');
+                },
+                'users.state',
+            ]
+        );
+
+        return View::make('pages.lans.show')
+            ->with('lan', $lan);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param Request $httpRequest
