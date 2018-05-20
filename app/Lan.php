@@ -35,6 +35,30 @@ class Lan extends Model
     }
 
     /**
+     * Scope a query to only show LANs happening now.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeHappeningNow($query)
+    {
+        return $query->where('start', '<', now())
+            ->where('end', '>', now());
+    }
+
+    /**
+     * Scope a query to only show past LANs.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePast($query)
+    {
+        return $query->where('start', '<', now())
+            ->orderBy('start');
+    }
+
+    /**
      * The events for the LAN
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
