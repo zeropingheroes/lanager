@@ -1,8 +1,5 @@
 Short Term
 -------------------------------------------------------
-Users
-    User list should only show users who have signed in at the current/last LAN
-    Button to show all users
 Events
     Default to showing events for current/next LAN only
     Dropdown for showing events from past events
