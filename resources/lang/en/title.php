@@ -114,6 +114,9 @@ return [
     'colour' =>  'Colour',
     'status' => 'Status',
     'type' => 'Type',
-    'description' => 'Description'
+    'description' => 'Description',
+
+    'show-historic-users' => 'Show Historic Users',
+    'hide-historic-users' => 'Hide Historic Users',
 
 ];

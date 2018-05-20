@@ -2,11 +2,11 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\LanAttendee;
 use Zeropingheroes\Lanager\User;
 
 class UserController extends Controller
@@ -14,14 +14,15 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // If there are no LANs, show all users
-        if (Lan::count() == 0) {
-            $users = User::orderBy('username')
-                ->get();
+        // If the user has requested to see historic users,
+        // or there are no LANs, get all users
+        if ($request->has('historic') || Lan::count() == 0) {
+            $users = User::orderBy('username')->get();
         } else {
             // If there's a LAN happening now, get it
             $lan = Lan::happeningNow()->first();
