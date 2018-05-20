@@ -36,7 +36,7 @@ class UpdateLanAttendeesTable
                     'user_id' => $login->user->id,
                     'lan_id' => $currentLan->id,
                 ]
-            );
+            )->touch();
         }
     }
 }

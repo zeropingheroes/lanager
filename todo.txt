@@ -1,7 +1,7 @@
 Short Term
 -------------------------------------------------------
 LANs
-    LAN attendance - add when user signs in inside of LAN time
+    Attendee list
 Events
     Default to showing events for current/next LAN only
     Dropdown for showing events from past events
