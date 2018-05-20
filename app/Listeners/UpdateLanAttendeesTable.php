@@ -8,15 +8,6 @@ use Zeropingheroes\Lanager\LanAttendee;
 
 class UpdateLanAttendeesTable
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Handle the event.
