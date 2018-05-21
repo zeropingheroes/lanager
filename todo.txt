@@ -48,3 +48,31 @@ Misc
     Command to make user super admin
     GDPR compliant terms and conditions page
     [all other open issues on GitHub]
+
+Command notes
+
+steam:import-users
+steam:import-user-apps
+steam:import-apps
+steam:purge???
+
+Command requirements and use cases
+- import apps from steam
+    - at first install
+    - periodically update
+- import details from steam for a list of users (one time)
+    - e.g. from a system that collects steam IDs
+    - not many people will need to do this, as there aren't many systems that collect steam IDs
+    - could be done using the GUI or API (would need to be a queued job)
+        - paste in one or more profile URLs / Steam ID64s etc
+    - trigger initial import of game library
+- periodically get the status and game libraries of steam users
+    - period dependant on:
+        - number of users in database
+        - capacity as defined by LAN
+        - whether the user has signed in to the most recent LAN
+    - game libraries do not need to be updated as often as user statuses
+- periodically purge historical steam user status information
+    - outside of LANs
+    - but keep last X minutes when outside a LAN (where X is the period that the command runs)
+
