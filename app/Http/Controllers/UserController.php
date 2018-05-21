@@ -28,7 +28,7 @@ class UserController extends Controller
             $lan = Lan::happeningNow()->first();
 
             // Otherwise, get the most recent past LAN
-            if ($lan->count() == 0) {
+            if (! $lan) {
                 $lan = Lan::past()->first();
             }
 

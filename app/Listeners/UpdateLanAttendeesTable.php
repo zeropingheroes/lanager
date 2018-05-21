@@ -21,7 +21,7 @@ class UpdateLanAttendeesTable
         $currentLan = Lan::where('start', '<', now())
             ->where('end', '>', now())->first();
 
-        if ($currentLan->count()) {
+        if ($currentLan) {
             LanAttendee::firstOrCreate(
                 [
                     'user_id' => $login->user->id,
