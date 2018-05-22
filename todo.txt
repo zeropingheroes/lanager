@@ -102,8 +102,8 @@ last (successfully) queried X minutes ago
     - ... other status info in future
 
 user table
-- steam_profile_updated_at
-- steam_library_updated_at
+- steam_state_updated_at
+- steam_apps_updated_at
 
 steam_api_calls table
 - id
