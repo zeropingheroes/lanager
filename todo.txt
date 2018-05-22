@@ -51,15 +51,15 @@ Misc
 
 Command notes
 
-steam:import-users
-steam:import-user-apps
-steam:import-apps
-steam:purge???
+steam:update-apps
+steam:update-users
+steam:update-user-apps
+steam:prune-user-history
 
 Command requirements and use cases
 - import apps from steam
     - at first install
-    - periodically update
+    - periodically update at a fixed period
 - import details from steam for a list of users (one time)
     - e.g. from a system that collects steam IDs
     - not many people will need to do this, as there aren't many systems that collect steam IDs
@@ -76,3 +76,36 @@ Command requirements and use cases
     - outside of LANs
     - but keep last X minutes when outside a LAN (where X is the period that the command runs)
 
+log API calls in database to
+    - ensure we aren't checking too often
+    - work out when to check again
+last (successfully) queried X minutes ago
+
+
+- add fields to user table and update services
+- change user update command
+    when no users given:
+    - update all users at current lan who have not been updated in last minute
+    - for all other users who have not been updated in last day
+        - update username and avatar but create no states
+- change user app update command
+    - update all users at current lan who have not been updated in last hour
+    - update all other users who have not been updated in last day
+- extract app update command into service
+- add api call logging code into services
+- create status page to display
+    - total api calls made / remaining in rolling 24h period
+    - X users signed in this LAN
+    - X of Y users state updated in last minute (colour green/red depending on result)
+    - X of Y users game library updated in last hour
+    - Steam app library updated in last 24 hours
+    - ... other status info in future
+
+user table
+- steam_profile_updated_at
+- steam_library_updated_at
+
+steam_api_calls table
+- id
+- interface
+- date
