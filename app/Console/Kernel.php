@@ -22,19 +22,31 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command(SteamImportUsers::class)
-                  ->everyMinute();
+        // Commands that query Steam API.
+        // Steam limit API calls to 100,000 per day
+        // and the below schedules will not exceed this limit
+        // for a LAN party of ~1,000 users.
 
-         $schedule->command(SteamImportApps::class)
-                  ->dailyAt('6:00');
+        // 1 Steam API call per 100 users
+        // e.g. for 1000 users:
+        // 10 calls each minute * 1440 minutes in a day = 14,400 daily API calls
+        $schedule->command(SteamImportUsers::class)
+            ->everyMinute();
 
-         $schedule->command(SteamImportUserApps::class)
-                  ->everyFifteenMinutes();
+        // 1 Steam API call total
+        $schedule->command(SteamImportApps::class)
+            ->dailyAt('6:00');
+
+        // 1 Steam API call per user
+        // e.g. for 1000 users:
+        // 1000 calls * 48 half-ours in a day = 48,000 daily API calls
+        $schedule->command(SteamImportUserApps::class)
+            ->everyThirtyMinutes();
     }
 
     /**
@@ -44,7 +56,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
