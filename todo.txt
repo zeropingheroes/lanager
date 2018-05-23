@@ -1,14 +1,28 @@
 Short Term
 -------------------------------------------------------
-User Apps
-    Only update user apps for users who have signed in at the current/last LAN
-    For all other users update user apps once a day
-States
-    Only query states for users who have signed in at the current/last LAN
-    For all other users just update avatar/username once a day
-    Automatically prune states older than 5 mins unless:
-        - there is a LAN happening
-        - debug mode is turned on
+Add new field to steam_user_states - app_visibility_status
+Update user list
+    Change private profile status to check new field app_visibility_status
+Update user states command
+    If no users given
+        If there's a LAN occurring
+            update users who are active at the current LAN
+            and all other users who have not been updated in last day
+        If there's not a LAN occurring
+            update all users?
+Update user apps command
+    Only update apps for users at the current LAN
+    Schedule for every 30 minutes
+Add comments to schedule referencing API call limits
+Update avatars
+    If LAN happening and user not attending, show "status unknown - not at this LAN"
+    Otherwise show status as normal
+Update profiles
+    Only show games library if user is at current / most recent LAN
+Add prune user history command (clear data collected outside of LANs)
+    If a lan is occurring
+        Clear all states who were created outside of current / previous LANs
+    Otherwise, keep last X minutes
 Events
     Default to showing events for current/next LAN only
     Dropdown for showing events from past LANs
@@ -27,9 +41,6 @@ Features
     LAN "show" page containing stats about the LAN, e.g.
         Which users attended
         Gameplay stats
-    Steam API call accounting
-        Counting of calls made
-        Scaling frequency of API calls based on user count
 Misc
     Optimise avatar queries
     Redirect first user to create a new LAN as the first thing they should do
@@ -46,66 +57,5 @@ Misc
     Publish / un-publish button for actions dropdown
     Validation error styles on forms
     Command to make user super admin
-    GDPR compliant terms and conditions page
+    GDPR compliant terms and conditions and privacy policy page
     [all other open issues on GitHub]
-
-Command notes
-
-steam:update-apps
-steam:update-users
-steam:update-user-apps
-steam:prune-user-history
-
-Command requirements and use cases
-- import apps from steam
-    - at first install
-    - periodically update at a fixed period
-- import details from steam for a list of users (one time)
-    - e.g. from a system that collects steam IDs
-    - not many people will need to do this, as there aren't many systems that collect steam IDs
-    - could be done using the GUI or API (would need to be a queued job)
-        - paste in one or more profile URLs / Steam ID64s etc
-    - trigger initial import of game library
-- periodically get the status and game libraries of steam users
-    - period dependant on:
-        - number of users in database
-        - capacity as defined by LAN
-        - whether the user has signed in to the most recent LAN
-    - game libraries do not need to be updated as often as user statuses
-- periodically purge historical steam user status information
-    - outside of LANs
-    - but keep last X minutes when outside a LAN (where X is the period that the command runs)
-
-log API calls in database to
-    - ensure we aren't checking too often
-    - work out when to check again
-last (successfully) queried X minutes ago
-
-
-- add fields to user table and update services
-- change user update command
-    when no users given:
-    - update all users at current lan who have not been updated in last minute
-    - for all other users who have not been updated in last day
-        - update username and avatar but create no states
-- change user app update command
-    - update all users at current lan who have not been updated in last hour
-    - update all other users who have not been updated in last day
-- extract app update command into service
-- add api call logging code into services
-- create status page to display
-    - total api calls made / remaining in rolling 24h period
-    - X users signed in this LAN
-    - X of Y users state updated in last minute (colour green/red depending on result)
-    - X of Y users game library updated in last hour
-    - Steam app library updated in last 24 hours
-    - ... other status info in future
-
-user table
-- steam_state_updated_at
-- steam_apps_updated_at
-
-steam_api_calls table
-- id
-- interface
-- date
