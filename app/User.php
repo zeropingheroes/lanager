@@ -124,7 +124,9 @@ class User extends Authenticatable
     }
 
     /**
-     * The roles that belong to the user.
+     * The LANs the user has attended
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function lans()
     {
