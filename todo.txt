@@ -5,6 +5,8 @@ Update user states command
         If there's a LAN occurring
             update users who are active at the current LAN
             and all other users who have not been updated in last day
+                username
+                avatar
         If there's not a LAN occurring
             update all users?
 Update user apps command
@@ -39,6 +41,7 @@ Features
         Which users attended
         Gameplay stats
 Misc
+    Only show historic users button if some users are hidden
     Optimise avatar queries
     Redirect first user to create a new LAN as the first thing they should do
     If a LAN is not published, all of its events should be treated as unpublished
@@ -47,6 +50,7 @@ Misc
     Confirmation of delete action
     Checking all docblocks
     If all user imports fail then only log 1 error message
+    Counting API calls
     Move "published" form item into partial
     Move "start" and "end" form items into partials
     Override date format validation error message
