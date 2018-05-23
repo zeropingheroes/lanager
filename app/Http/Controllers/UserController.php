@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Services\CurrentLanAttendeesService;
 use Zeropingheroes\Lanager\User;
 
 class UserController extends Controller
@@ -24,16 +25,8 @@ class UserController extends Controller
         if ($request->has('historic') || Lan::count() == 0) {
             $users = User::orderBy('username')->get();
         } else {
-            // If there's a LAN happening now, get it
-            $lan = Lan::happeningNow()->first();
-
-            // Otherwise, get the most recent past LAN
-            if (! $lan) {
-                $lan = Lan::past()->first();
-            }
-
-            // Get all of the LAN's attendees
-            $users = $lan->users()->get();
+            // Otherwise get users who are attending the current LAN
+            $users = (new CurrentLanAttendeesService)->get();
         }
 
         $users->load('state.app', 'state.server', 'OAuthAccounts', 'SteamApps', 'SteamMetadata');
