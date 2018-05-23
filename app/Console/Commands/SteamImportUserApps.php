@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Zeropingheroes\Lanager\Services\CurrentLanAttendeesService;
 use Zeropingheroes\Lanager\Services\SteamUserAppImportService;
 use Zeropingheroes\Lanager\User;
 
@@ -32,7 +33,9 @@ class SteamImportUserApps extends Command
      */
     public function handle()
     {
-        $userIds = User::all()->pluck('id');
+        // Get the attendees for the current LAN
+        $users = (new CurrentLanAttendeesService)->get();
+        $userIds = $users->pluck('id');
 
         $this->info(__('phrase.requesting-games-owned-by-count-users-from-steam', ['count' => count($userIds)]));
 

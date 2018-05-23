@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Zeropingheroes\Lanager\Services\CurrentLanAttendeesService;
 use Zeropingheroes\Lanager\Services\SteamUserImportService;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
@@ -43,9 +44,14 @@ class SteamImportUsers extends Command
                 $steamIds = explode("\n", trim($steamIds));
             }
         } else {
-            // If no Steam IDs are given as a command argument
-            // Get existing Steam IDs from database
-            $steamIds = UserOAuthAccount::where('provider', 'steam')->get()->pluck('provider_id')->toArray();
+            // If no Steam IDs are given as a command argument, update users in database
+
+            // Get the attendees for the current LAN
+            $users = (new CurrentLanAttendeesService)->get();
+            $userIds = $users->pluck('id');
+
+            // Get their Steam IDs
+            $steamIds = UserOAuthAccount::whereIn('user_id', $userIds)->get()->pluck('provider_id')->toArray();
         }
 
         $this->info(__('phrase.requesting-current-status-of-count-users-from-steam', ['count' => count($steamIds)]));
