@@ -158,6 +158,10 @@ class SteamUserImportService
                 ]
             );
 
+        $profileVisible = ($steamUser->communityVisibilityState == 3);
+
+        $user->SteamVisibility()->updateOrCreate([], ['profile_visible' => $profileVisible]);
+
         // Associate the state with the user
         $steamUserState->user()->associate($userOAuthAccount->user);
 
@@ -192,9 +196,6 @@ class SteamUserImportService
 
         // Set the user's online status
         $steamUserState->online_status = $steamUser->personaStateId;
-
-        // Set the user's community visibility status
-        $steamUserState->visibility_status = $steamUser->communityVisibilityState;
 
         return $steamUserState->saveOrFail();
     }

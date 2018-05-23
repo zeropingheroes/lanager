@@ -1,8 +1,5 @@
 Short Term
 -------------------------------------------------------
-Add new field to steam_user_states - app_visibility_status
-Update user list
-    Change private profile status to check new field app_visibility_status
 Update user states command
     If no users given
         If there's a LAN occurring

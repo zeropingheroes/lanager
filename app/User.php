@@ -57,6 +57,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's Steam visibility
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function SteamVisibility()
+    {
+        return $this->hasOne('Zeropingheroes\Lanager\SteamUserVisibility')
+            ->withDefault();
+    }
+
+    /**
      * The roles that belong to the user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

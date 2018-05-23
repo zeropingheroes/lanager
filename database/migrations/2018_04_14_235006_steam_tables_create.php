@@ -62,9 +62,6 @@ class SteamTablesCreate extends Migration
             $table->smallInteger('online_status')
                 ->unsigned();
 
-            $table->smallInteger('visibility_status')
-                ->unsigned();
-
             $table->timestamps();
 
             // Relationships
@@ -124,6 +121,29 @@ class SteamTablesCreate extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('set null');
         });
+
+        Schema::create('steam_user_visibilities', function ($table) {
+
+            $table->increments('id');
+
+            $table->integer('user_id')
+                ->unsigned();
+
+            $table->boolean('profile_visible')
+                ->nullable();
+
+            $table->boolean('apps_visible')
+                ->nullable();
+
+            $table->timestamps();
+
+            // Relationships
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
     }
 
     /**
@@ -133,6 +153,7 @@ class SteamTablesCreate extends Migration
      */
     public function down()
     {
+        Schema::drop('steam_user_visibilities');
         Schema::drop('steam_user_states');
         Schema::drop('steam_user_apps');
         Schema::drop('steam_app_servers');
