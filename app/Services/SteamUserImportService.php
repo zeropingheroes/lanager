@@ -160,7 +160,13 @@ class SteamUserImportService
 
         $profileVisible = ($steamUser->communityVisibilityState == 3);
 
-        $user->SteamVisibility()->updateOrCreate([], ['profile_visible' => $profileVisible]);
+        $user->SteamMetadata()->updateOrCreate(
+            [],
+            [
+                'profile_visible' => $profileVisible,
+                'profile_updated_at' => now()
+            ]
+        );
 
         // Associate the state with the user
         $steamUserState->user()->associate($userOAuthAccount->user);

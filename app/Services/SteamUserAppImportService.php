@@ -96,7 +96,14 @@ class SteamUserAppImportService
                 $apps = Steam::player($steamAccount->provider_id)->GetOwnedGames();
 
                 $appsVisible = (count($apps) != 0);
-                $steamAccount->user->SteamVisibility()->updateOrCreate([], ['apps_visible' => $appsVisible]);
+
+                $steamAccount->user->SteamMetadata()->updateOrCreate(
+                    [],
+                    [
+                        'apps_visible' => $appsVisible,
+                        'apps_updated_at' => now()
+                    ]
+                );
 
                 foreach ($apps as $app) {
                     $steamAccount->user->SteamApps()

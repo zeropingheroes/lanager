@@ -122,7 +122,7 @@ class SteamTablesCreate extends Migration
                 ->onDelete('set null');
         });
 
-        Schema::create('steam_user_visibilities', function ($table) {
+        Schema::create('steam_user_metadata', function ($table) {
 
             $table->increments('id');
 
@@ -135,7 +135,11 @@ class SteamTablesCreate extends Migration
             $table->boolean('apps_visible')
                 ->nullable();
 
-            $table->timestamps();
+            $table->timestamp('profile_updated_at')
+                ->nullable();
+
+            $table->timestamp('apps_updated_at')
+                ->nullable();
 
             // Relationships
             $table->foreign('user_id')

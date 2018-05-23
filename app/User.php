@@ -61,9 +61,9 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function SteamVisibility()
+    public function SteamMetadata()
     {
-        return $this->hasOne('Zeropingheroes\Lanager\SteamUserVisibility')
+        return $this->hasOne('Zeropingheroes\Lanager\SteamUserMetadata')
             ->withDefault();
     }
 
