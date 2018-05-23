@@ -1,5 +1,8 @@
 Short Term
 -------------------------------------------------------
+Update avatars
+    If LAN happening and user not attending, show "status unknown - not at this LAN"
+    Otherwise show status as normal
 Update user states command
     If no users given
         If there's a LAN occurring
@@ -12,10 +15,6 @@ Update user states command
 Update user apps command
     Only update apps for users at the current LAN
     Schedule for every 30 minutes
-Add comments to schedule referencing API call limits
-Update avatars
-    If LAN happening and user not attending, show "status unknown - not at this LAN"
-    Otherwise show status as normal
 Update profiles
     Only show games library if user is at current / most recent LAN
 Add prune user history command (clear data collected outside of LANs)
@@ -45,6 +44,7 @@ Misc
     Optimise avatar queries
     Redirect first user to create a new LAN as the first thing they should do
     If a LAN is not published, all of its events should be treated as unpublished
+    Spreading out game update queries over 30 minutes
     When creating event, disable dates outside of selected LAN
     Admin getting started guide page
     Confirmation of delete action
