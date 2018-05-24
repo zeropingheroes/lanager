@@ -23,9 +23,11 @@
                     </td>
                     <td>
                     @include('pages.steam-apps.partials.store-link', ['app' => $user->state->app])
+                        {{-- TODO: prevent extra queries whe user has no states--}}
                     </td>
                     <td>
                     @include('pages.steam-app-servers.partials.connect-link', ['server' => $user->state->server])
+                        {{-- TODO: prevent extra queries whe user has no states--}}
                     </td>
                 </tr>
             @endforeach
