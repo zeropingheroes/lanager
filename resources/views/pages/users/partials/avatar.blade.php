@@ -25,7 +25,13 @@
         } else {
             $avatar = '';
         }
-        $status = str_replace(' ', '-', strtolower($user->state->status()));
+
+        if($user->state) {
+            $status = str_replace(' ', '-', strtolower($user->state->status()));
+        } else {
+            $status = 'unknown';
+        }
+
     @endphp
     <img class="avatar avatar-{{ $size }} avatar-{{ $status }}"
          src="{{ $avatar }}"

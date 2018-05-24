@@ -93,7 +93,7 @@ return [
     'status-looking-to-trade' => 'Looking to trade',
     'status-looking-to-play' => 'Looking to play',
     'status-offline' => 'Offline',
-    'status-unknown' => 'Unknown',
+    'status-unknown' => 'Status unknown',
     'unknown' => 'Unknown',
 
     // Games

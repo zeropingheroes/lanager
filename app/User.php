@@ -116,11 +116,7 @@ class User extends Authenticatable
                         ->on('steam_user_states.created_at', '=', 's2.max_created_at');
                 })
             ->orderBy('steam_user_states.user_id')
-            ->withDefault(
-                [
-                    'online_status' => 0
-                ]
-            );
+            ->withDefault();
     }
 
     /**

@@ -9121,7 +9121,8 @@ img.looking-to-trade {
   border-color: #01ABFE;
 }
 
-img.avatar-offline {
+img.avatar-offline,
+img.avatar-unknown {
   border-color: #333;
 }
 

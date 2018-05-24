@@ -30,7 +30,7 @@ class UserController extends Controller
             $users = Cache::get('currentLan')->users()->orderBy('username')->get();
         }
 
-        $users->load('state.app', 'state.server', 'OAuthAccounts', 'SteamApps', 'SteamMetadata');
+        $users->load('state', 'state.app', 'state.server', 'OAuthAccounts', 'SteamApps', 'SteamMetadata', 'lans');
 
         return View::make('pages.users.index')
             ->with('users', $users);
