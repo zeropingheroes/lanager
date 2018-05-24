@@ -3,9 +3,10 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Zeropingheroes\Lanager\Services\CurrentLanAttendeesService;
 use Zeropingheroes\Lanager\Services\SteamUserImportService;
+use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
 class SteamImportUsers extends Command
@@ -47,7 +48,12 @@ class SteamImportUsers extends Command
             // If no Steam IDs are given as a command argument, update users in database
 
             // Get the attendees for the current LAN
-            $users = (new CurrentLanAttendeesService)->get();
+            if(Cache::get('currentLan')) {
+                $users = Cache::get('currentLan')->users()->get();
+            } else {
+                // Or if there isn't a LAN, get all users
+                $users = User::all();
+            }
             $userIds = $users->pluck('id');
 
             // Get their Steam IDs

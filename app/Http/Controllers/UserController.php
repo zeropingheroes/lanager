@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Services\CurrentLanAttendeesService;
@@ -26,7 +27,7 @@ class UserController extends Controller
             $users = User::orderBy('username')->get();
         } else {
             // Otherwise get users who are attending the current LAN
-            $users = (new CurrentLanAttendeesService)->get();
+            $users = Cache::get('currentLan')->users()->orderBy('username')->get();
         }
 
         $users->load('state.app', 'state.server', 'OAuthAccounts', 'SteamApps', 'SteamMetadata');

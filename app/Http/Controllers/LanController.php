@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Lan;
 use Illuminate\Http\Request;
@@ -80,6 +81,7 @@ class LanController extends Controller
                 ->withInput();
         }
         $lan = Lan::create($input);
+        Cache::forget('currentLan');
 
         return redirect()
             ->route('lans.index')
@@ -128,6 +130,7 @@ class LanController extends Controller
                 ->withInput();
         }
         $lan->update($input);
+        Cache::forget('currentLan');
 
         return redirect()
             ->route('lans.index')
@@ -145,6 +148,7 @@ class LanController extends Controller
         $this->authorize('delete', $lan);
 
         Lan::destroy($lan->id);
+        Cache::forget('currentLan');
 
         return redirect()
             ->route('lans.index')
