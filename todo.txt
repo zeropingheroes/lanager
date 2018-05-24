@@ -1,8 +1,5 @@
 Short Term
 -------------------------------------------------------
-Update avatars
-    If LAN happening and user not attending, show "status unknown - not at this LAN"
-    Otherwise show status as normal
 Update user states command
     If no users given
         If there's a LAN occurring
