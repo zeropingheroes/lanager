@@ -3,9 +3,9 @@
 namespace Zeropingheroes\Lanager\Providers;
 
 use Exception;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Observers\LanObserver;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\Observers\UserObserver;
 use Zeropingheroes\Lanager\NavigationLink;
@@ -31,20 +31,7 @@ class AppServiceProvider extends ServiceProvider
 
         User::observe(UserObserver::class);
         NavigationLink::observe(NavigationLinkObserver::class);
-
-        // TODO: find better place for this
-
-        // If there's a LAN happening now
-        // get it and cache it until the end of the LAN
-        $lan = Lan::happeningNow()->first();
-        if ($lan) {
-            Cache::put('currentLan', $lan, new \DateTime($lan->end));
-        } else {
-            // Otherwise, cache the most recent past event forever,
-            // which is safe to do, as when a LAN is created, edited
-            // or deleted, this cache item will be invalidated
-            Cache::forever('currentLan', Lan::past()->first());
-        }
+        Lan::observe(LanObserver::class);
     }
 
     /**
