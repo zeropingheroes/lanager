@@ -27,7 +27,7 @@
         }
 
         if($user->state) {
-            $status = str_replace(' ', '-', strtolower($user->state->status()));
+            $status = kebab_case($user->state->status->name);
         } else {
             $status = 'unknown';
         }

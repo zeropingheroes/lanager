@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(SteamUserStatusCodeSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(NavigationLinkSeeder::class);
         $this->call(EventTypeSeeder::class);

@@ -34,7 +34,9 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $with = ['roles'];
+    protected $with = [
+        'roles',
+    ];
 
     /**
      * Get the user's linked accounts
@@ -115,8 +117,7 @@ class User extends Authenticatable
                     $join->on('steam_user_states.user_id', '=', 's2.user_id')
                         ->on('steam_user_states.created_at', '=', 's2.max_created_at');
                 })
-            ->orderBy('steam_user_states.user_id')
-            ->withDefault();
+            ->orderBy('steam_user_states.user_id');
     }
 
     /**

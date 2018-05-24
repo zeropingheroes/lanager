@@ -201,7 +201,7 @@ class SteamUserImportService
         }
 
         // Set the user's online status
-        $steamUserState->online_status = $steamUser->personaStateId;
+        $steamUserState->steam_user_status_code_id = $steamUser->personaStateId;
 
         return $steamUserState->saveOrFail();
     }

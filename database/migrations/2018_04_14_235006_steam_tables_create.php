@@ -44,6 +44,15 @@ class SteamTablesCreate extends Migration
                 ->onDelete('cascade');
         });
 
+        Schema::create('steam_user_status_codes', function ($table) {
+            $table->smallInteger('id')
+                ->unsigned()
+                ->unique();
+
+            $table->string('name');
+            $table->primary('id');
+        });
+
         Schema::create('steam_user_states', function ($table) {
 
             $table->increments('id');
@@ -59,7 +68,7 @@ class SteamTablesCreate extends Migration
                 ->unsigned()
                 ->nullable();  // nullable to prevent circular dependencies
 
-            $table->smallInteger('online_status')
+            $table->smallInteger('steam_user_status_code_id')
                 ->unsigned();
 
             $table->timestamps();
@@ -82,6 +91,12 @@ class SteamTablesCreate extends Migration
                 ->on('steam_app_servers')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
+
+            $table->foreign('steam_user_status_code_id')
+                ->references('id')
+                ->on('steam_user_status_codes')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             // Indexes
             $table->index(['user_id', 'created_at']);
@@ -157,9 +172,10 @@ class SteamTablesCreate extends Migration
      */
     public function down()
     {
-        Schema::drop('steam_user_visibilities');
-        Schema::drop('steam_user_states');
+        Schema::drop('steam_user_metadata');
         Schema::drop('steam_user_apps');
+        Schema::drop('steam_user_states');
+        Schema::drop('steam_user_status_codes');
         Schema::drop('steam_app_servers');
         Schema::drop('steam_apps');
     }

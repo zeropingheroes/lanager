@@ -22,12 +22,14 @@
                         @include('pages.users.partials.private-profile-badge', ['user' => $user])
                     </td>
                     <td>
-                    @include('pages.steam-apps.partials.store-link', ['app' => $user->state->app])
-                        {{-- TODO: prevent extra queries whe user has no states--}}
+                        @if($user->state)
+                            @include('pages.steam-apps.partials.store-link', ['app' => $user->state->app])
+                        @endif
                     </td>
                     <td>
-                    @include('pages.steam-app-servers.partials.connect-link', ['server' => $user->state->server])
-                        {{-- TODO: prevent extra queries whe user has no states--}}
+                        @if($user->state)
+                            @include('pages.steam-app-servers.partials.connect-link', ['server' => $user->state->server])
+                        @endif
                     </td>
                 </tr>
             @endforeach

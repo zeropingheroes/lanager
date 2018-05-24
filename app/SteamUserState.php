@@ -15,7 +15,16 @@ class SteamUserState extends Model
         'user_id',
         'steam_app_id',
         'steam_app_server_id',
-        'online_status',
+        'steam_user_status_code_id',
+    ];
+
+    /**
+     * The relationships that should always be eager loaded
+     *
+     * @var array
+     */
+    protected $with = [
+        'status',
     ];
 
     /**
@@ -49,29 +58,6 @@ class SteamUserState extends Model
      */
     public function status()
     {
-        switch ($this->online_status) {
-            case '1':
-                if (is_null($this->steam_app_id)) {
-                    return 'Online';
-                }
-                if (!is_null($this->steam_app_id)) {
-                    return 'In Game';
-                }
-            case '2':
-                return 'Busy';
-            case '3':
-                return 'Away';
-            case '4':
-                return 'Snooze';
-            case '5':
-                return 'Looking to trade';
-            case '6':
-                return 'Looking to play';
-            case '0':
-                return 'Offline';
-
-            default:
-                return 'Unknown';
-        }
+        return $this->belongsTo('Zeropingheroes\Lanager\SteamUserStatusCode','steam_user_status_code_id');
     }
 }

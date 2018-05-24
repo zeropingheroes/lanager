@@ -1,33 +1,30 @@
-@php
-    $statusText = __('phrase.status-'.str_replace(' ', '-', strtolower($user->state->status())));
-@endphp
-@switch(strtoupper($user->state->status()))
-    @case('ONLINE')
-    <span class="badge badge-info">{{ $statusText }}</span>
-    @break
+@if($user->state)
+    @if($user->state->steam_app_id)
+        <span class="badge badge-success">@lang('phrase.status-in-game')</span>
+    @else
+        @php
+            $status = __('phrase.status-'.kebab_case($user->state->status->name));
+        @endphp
+        @switch(kebab_case($user->state->status->name))
+            @case('online')
+            @case('looking-to-trade')
+            @case('looking-to-play')
+                <span class="badge badge-info">{{ $status }}</span>
+            @break
 
-    @case('IN GAME')
-    <span class="badge badge-success">{{ $statusText }}</span>
-    @break
+            @case('busy')
+                <span class="badge badge-danger">{{ $status }}</span>
+            @break
 
-    @case('BUSY')
-    <span class="badge badge-danger">{{ $statusText }}</span>
-    @break
+            @case('away')
+            @case('snooze')
+                <span class="badge badge-warning">{{ $status }}</span>
+            @break
 
-    @case('AWAY')
-    @case('SNOOZE')
-    <span class="badge badge-warning">{{ $statusText }}</span>
-    @break
-
-    @case('LOOKING TO TRADE')
-    @case('LOOKING TO PLAY')
-    <span class="badge badge-info">{{ $statusText }}</span>
-    @break
-
-    @case('OFFLINE')
-    <span class="badge badge-secondary">{{ $statusText }}</span>
-    @break
-
-    @default
-    <span class="badge badge-secondary">{{ $statusText }}</span>
-@endswitch
+            @default
+                <span class="badge badge-secondary">{{ $status }}</span>
+        @endswitch
+    @endif
+@else
+    <span class="badge badge-secondary">@lang('phrase.status-unknown')</span>
+@endif
