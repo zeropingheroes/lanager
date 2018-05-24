@@ -21,9 +21,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        // If the user has requested to see historic users,
-        // or there are no LANs, get all users
-        if ($request->has('historic') || Lan::count() == 0) {
+        // If there is not a current LAN,
+        // or the user has requested to see historic users
+        if (! Cache::get('currentLan') || $request->has('historic')) {
+            // Get all users
             $users = User::orderBy('username')->get();
         } else {
             // Otherwise get users who are attending the current LAN
