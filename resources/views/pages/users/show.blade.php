@@ -26,12 +26,10 @@
         </div>
     </div>
     <hr>
-    @if( (! Auth::user()) || ( Auth::user()->id != $user->id))
-        <h2>@lang('title.games-in-common')</h2>
+    @if($lansAttended->contains('id',cache('currentLan')->id))
         @include('pages.users.partials.games-in-common', ['gamesInCommon' => $gamesInCommon])
+        <h2>@lang('title.owned')</h2>
+        @include('pages.users.partials.games-owned', ['gamesOwned' => $gamesOwned])
     @endif
-
-    <h2>@lang('title.owned')</h2>
-    @include('pages.users.partials.games-owned', ['gamesOwned' => $gamesOwned])
 
 @endsection

@@ -40,36 +40,44 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  \Zeropingheroes\Lanager\User $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(User $user)
     {
-        if (Auth::check() && $user->id != Auth::user()->id) {
-            $authUserGames = Auth::user()
-                ->SteamApps()
-                ->where('playtime_forever', '<>', 0)
-                ->pluck('steam_app_id')->toArray();
+        $lansAttended = $user->lans;
+        $gamesOwned = new Collection();
+        $gamesInCommon = new Collection();
 
-            $gamesInCommon = $user->SteamApps()
+        if ($lansAttended->contains('id', Cache::get('currentLan')->id)) {
+            // Get games in common so long as the logged
+            // in user is not viewing their own profile
+            if (Auth::check() && $user->id != Auth::user()->id) {
+                $authUserGames = Auth::user()
+                    ->SteamApps()
+                    ->where('playtime_forever', '<>', 0)
+                    ->pluck('steam_app_id')->toArray();
+
+                $gamesInCommon = $user->SteamApps()
+                    ->with('app')
+                    ->where('playtime_forever', '<>', 0)
+                    ->whereIn('steam_app_id', $authUserGames)
+                    ->orderBy('playtime_forever', 'desc')
+                    ->paginate(5, ['*'], 'gamesInCommon');
+            }
+
+            // Get games owned by the user
+            $gamesOwned = $user->SteamApps()
                 ->with('app')
                 ->where('playtime_forever', '<>', 0)
-                ->whereIn('steam_app_id', $authUserGames)
                 ->orderBy('playtime_forever', 'desc')
-                ->paginate(5, ['*'], 'gamesInCommon');
-        } else {
-            $gamesInCommon = new Collection();
+                ->paginate(5, ['*'], 'gamesOwned');
         }
-
-        $gamesOwned = $user->SteamApps()
-            ->with('app')
-            ->where('playtime_forever', '<>', 0)
-            ->orderBy('playtime_forever', 'desc')
-            ->paginate(5, ['*'], 'gamesOwned');
 
         return View::make('pages.users.show')
             ->with('user', $user)
             ->with('gamesOwned', $gamesOwned)
-            ->with('gamesInCommon', $gamesInCommon);
+            ->with('gamesInCommon', $gamesInCommon)
+            ->with('lansAttended', $lansAttended);
     }
 
     /**
