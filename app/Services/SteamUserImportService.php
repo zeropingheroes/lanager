@@ -109,7 +109,9 @@ class SteamUserImportService
     public function import(): void
     {
         $steamUsers = Steam::user($this->steamIds)->GetPlayerSummaries();
-        $this->currentLanAttendees = Cache::get('currentLan')->users;
+        if (Cache::get('currentLan') != null) {
+            $this->currentLanAttendees = Cache::get('currentLan')->users;
+        }
 
         // Import state for each user in turn
         foreach ($steamUsers as $steamUser) {
@@ -177,9 +179,8 @@ class SteamUserImportService
             ]
         );
 
-        // If the user is not attending the current LAN
-        // do not create a state for them
-        if (! $this->currentLanAttendees->contains('id', $user->id)) {
+        // If there is a current LAN, and the user is not attending it, do not create a state for them
+        if (Cache::get('currentLan') && !$this->currentLanAttendees->contains('id', $user->id)) {
             return true;
         }
 
