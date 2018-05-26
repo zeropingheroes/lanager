@@ -122,6 +122,7 @@ return [
     'lan-successfully-created' => 'LAN :name successfully created',
     'lan-successfully-updated' => 'LAN :name successfully updated',
     'lan-successfully-deleted' => 'LAN :name successfully deleted',
+    'lans-cannot-overlap' => 'LANs cannot overlap',
 
     // Event Types
     'event-type-successfully-created' => 'Event type :name successfully created',

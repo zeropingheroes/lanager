@@ -2,6 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
+use Zeropingheroes\Lanager\Lan;
+
 class StoreLanRequest extends Request
 {
     use LaravelValidation;
@@ -26,6 +28,15 @@ class StoreLanRequest extends Request
     public function valid(): bool
     {
         if (!$this->laravelValidationPasses()) {
+            return $this->setValid(false);
+        }
+
+        $overlappingLans = Lan::where('start', '<=', $this->input['end'])
+                              ->where('end', '>=', $this->input['start'])
+                              ->count();
+
+        if ($overlappingLans) {
+            $this->addError(__('phrase.lans-cannot-overlap'));
             return $this->setValid(false);
         }
 
