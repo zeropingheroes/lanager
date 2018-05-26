@@ -11,11 +11,11 @@ use Zeropingheroes\Lanager\UserOAuthAccount;
 class SteamUserAppImportService
 {
     /**
-     * LANager user ID(s) to be imported
+     * LANager users to be imported
      *
-     * @var array
+     * @var Collection
      */
-    protected $userIds = [];
+    protected $users = [];
 
     /**
      * Users whose apps were successfully imported
@@ -39,16 +39,17 @@ class SteamUserAppImportService
     protected $errors;
 
     /**
-     * @param array $userIds
+     * @param Collection $users
      * @throws Exception
+     * @internal param array $users
      */
-    public function __construct(array $userIds)
+    public function __construct(Collection $users)
     {
-        if (empty($userIds)) {
+        if ($users->isEmpty()) {
             throw new Exception(__('phrase.no-steam-users-to-import'));
         }
 
-        $this->userIds = $userIds;
+        $this->users = $users;
         $this->errors = new MessageBag();
         $this->imported = new Collection();
         $this->failed = new Collection();
@@ -88,7 +89,7 @@ class SteamUserAppImportService
     public function import(): void
     {
         $steamAccounts = UserOAuthAccount::where('provider', 'steam')
-            ->whereIn('user_id', $this->userIds)->get();
+            ->whereIn('user_id', $this->users->pluck('id'))->get();
 
         // Import games for each user in turn
         foreach ($steamAccounts as $steamAccount) {

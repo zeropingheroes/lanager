@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Listeners;
 
 use Illuminate\Auth\Events\Login;
+use Illuminate\Support\Collection;
 use Zeropingheroes\Lanager\Services\SteamUserAppImportService;
 
 class CheckAndUpdateSteamUserApps
@@ -28,7 +29,7 @@ class CheckAndUpdateSteamUserApps
         if ($steamMetadata->apps_updated_at == null || $steamMetadata->apps_updated_at < now()->subHour()) {
 
             // Update their apps
-            $service = new SteamUserAppImportService([$login->user->id]);
+            $service = new SteamUserAppImportService((new Collection($login->user)));
             $service->import();
         }
     }
