@@ -48,7 +48,10 @@ class UserController extends Controller
         $gamesOwned = new Collection();
         $gamesInCommon = new Collection();
 
-        if ($lansAttended->contains('id', Cache::get('currentLan')->id)) {
+        // If there isn't a current LAN, or there is a current LAN
+        // and the user whose profile is being viewed is attending it
+        if ( ! Cache::get('currentLan') || $lansAttended->contains('id', Cache::get('currentLan')->id)) {
+
             // Get games in common so long as the logged
             // in user is not viewing their own profile
             if (Auth::check() && $user->id != Auth::user()->id) {

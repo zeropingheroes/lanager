@@ -26,7 +26,7 @@
         </div>
     </div>
     <hr>
-    @if($lansAttended->contains('id',cache('currentLan')->id))
+    @if(!cache('currentLan') || $lansAttended->contains('id',cache('currentLan')->id))
         @include('pages.users.partials.games-in-common', ['gamesInCommon' => $gamesInCommon])
         <h2>@lang('title.owned')</h2>
         @include('pages.users.partials.games-owned', ['gamesOwned' => $gamesOwned])
