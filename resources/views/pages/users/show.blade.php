@@ -6,8 +6,6 @@
 
 @section('content')
 
-    @include('pages.users.partials.private-profile-warning', ['user' => $user])
-
     <div class="profile-header">
         <div class="profile-avatar">
             @include('pages.users.partials.avatar', ['size' => 'large'])
@@ -27,9 +25,15 @@
     </div>
     <hr>
     @if(!cache('currentLan') || $lansAttended->contains('id',cache('currentLan')->id))
-        @include('pages.users.partials.games-in-common', ['gamesInCommon' => $gamesInCommon])
-        <h2>@lang('title.owned')</h2>
-        @include('pages.users.partials.games-owned', ['gamesOwned' => $gamesOwned])
+        @if($user->SteamMetadata && $user->SteamMetadata->apps_visible == 1)
+            @include('pages.users.partials.games-in-common', ['gamesInCommon' => $gamesInCommon])
+
+            <h2>@lang('title.games')</h2>
+            @include('pages.users.partials.games-owned', ['gamesOwned' => $gamesOwned])
+        @else
+            <h2>@lang('title.games')</h2>
+            @include('pages.users.partials.private-profile-warning', ['user' => $user])
+        @endif
     @endif
 
 @endsection

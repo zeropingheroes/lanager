@@ -48,9 +48,9 @@ class UserController extends Controller
         $gamesOwned = new Collection();
         $gamesInCommon = new Collection();
 
-        // If there isn't a current LAN, or there is a current LAN
-        // and the user whose profile is being viewed is attending it
-        if ( ! Cache::get('currentLan') || $lansAttended->contains('id', Cache::get('currentLan')->id)) {
+        // If the user's apps are visible, and they're attending the current LAN (or there isn't a current LAN)
+        if (($user->SteamMetadata && $user->SteamMetadata->apps_visible == 1) &&
+            (!Cache::get('currentLan') || $lansAttended->contains('id', Cache::get('currentLan')->id))) {
 
             // Get games in common so long as the logged
             // in user is not viewing their own profile

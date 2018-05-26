@@ -72,7 +72,7 @@ return [
     'paste-below-into-github-issue' => 'Paste the below into a GitHub issue',
 
     // User profile
-    'steam-profile-private' => 'Your Steam game details are currently private.',
+    'your-steam-game-details-are-private' => 'Your Steam game details are currently private.',
     'please-consider-public-visibility' => 'This means games you play won\'t show in ' . config(
             'app.name'
         ) . ' with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
@@ -83,6 +83,8 @@ return [
     'sign-in-to-see-the-games-you-have-in-common-with-username' => 'Sign in to see the games you have in common with :username',
     'you-have-no-games-in-common-with-username' => 'You have no games in common with :username',
     'username-does-not-own-any-games' => ':username does not own any games',
+    'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or'
+                                          . ' have in common with you.',
 
     // Steam Statuses
     'status-online' => 'Online',
