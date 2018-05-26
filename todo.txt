@@ -1,13 +1,11 @@
 Short Term
 -------------------------------------------------------
-Update profiles
-    Only show games library if user is at current / most recent LAN
 Add prune user history command (clear data collected outside of LANs)
     If a lan is occurring
         Clear all states who were created outside of current / previous LANs
     Otherwise, keep last X minutes
 Events
-    Default to showing events for current/next LAN only
+    Default to showing events for current / last LAN only
     Dropdown for showing events from past LANs
     Timetable
 
@@ -37,6 +35,7 @@ Misc
     Admin getting started guide page
     Confirmation of delete action
     Checking all docblocks
+    Use queues/jobs for asynchronous tasks, e.g updating user apps
     If all user imports fail then only log 1 error message
     Counting API calls
     Importing Steam users via GUI
