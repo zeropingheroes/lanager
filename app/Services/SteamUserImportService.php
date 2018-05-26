@@ -3,6 +3,8 @@
 namespace Zeropingheroes\Lanager\Services;
 
 use Exception;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\MessageBag;
 use Steam;
 use Zeropingheroes\Lanager\UserOAuthAccount;
@@ -41,6 +43,12 @@ class SteamUserImportService
      * @var array
      */
     protected $failed = [];
+
+    /**
+     * User IDs who are attending the current LAN
+     * @var Collection
+     */
+    private $currentLanAttendees;
 
     /**
      * @param array|int $steamIds
@@ -101,6 +109,7 @@ class SteamUserImportService
     public function import(): void
     {
         $steamUsers = Steam::user($this->steamIds)->GetPlayerSummaries();
+        $this->currentLanAttendees = Cache::get('currentLan')->users;
 
         // Import state for each user in turn
         foreach ($steamUsers as $steamUser) {
@@ -167,6 +176,12 @@ class SteamUserImportService
                 'profile_updated_at' => now()
             ]
         );
+
+        // If the user is not attending the current LAN
+        // do not create a state for them
+        if ($this->currentLanAttendees->contains('user_id', $user->id)) {
+            return true;
+        }
 
         // Associate the state with the user
         $steamUserState->user()->associate($userOAuthAccount->user);
