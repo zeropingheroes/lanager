@@ -179,7 +179,7 @@ class SteamUserImportService
 
         // If the user is not attending the current LAN
         // do not create a state for them
-        if ($this->currentLanAttendees->contains('user_id', $user->id)) {
+        if (! $this->currentLanAttendees->contains('id', $user->id)) {
             return true;
         }
 
