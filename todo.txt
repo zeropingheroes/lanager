@@ -1,5 +1,11 @@
 Short Term
 -------------------------------------------------------
+Refactor commands
+    lanager:update-steam-apps
+    lanager:import-steam-users
+    lanager:update-steam-users
+    lanager:update-steam-user-apps
+    lanager:prune-steam-user-history
 Add prune user history command (clear data collected outside of LANs)
     If a lan is occurring
         Clear all states who were created outside of current / previous LANs
