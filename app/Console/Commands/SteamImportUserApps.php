@@ -33,21 +33,22 @@ class SteamImportUserApps extends Command
      */
     public function handle()
     {
-        // Get the attendees for the current LAN
+        // If there's a current LAN set
         if(Cache::get('currentLan')) {
-            $users = Cache::get('currentLan')->users()->get();
+
+            // Get the attendees for the current LAN
+            $users = Cache::get('currentLan')->users()->get()->pluck('id');
         } else {
-            // Or if there isn't a LAN, get all users
-            $users = User::all();
+            // Or if there isn't a current LAN set, get all users
+            $users = User::all()->pluck('user_id');
         }
-        $userIds = $users->pluck('id');
 
-        $this->info(__('phrase.requesting-games-owned-by-count-users-from-steam', ['count' => count($userIds)]));
+        $this->info(__('phrase.requesting-games-owned-by-count-users-from-steam', ['count' => count($users)]));
 
-        $service = new SteamUserAppImportService($userIds->toArray());
+        $service = new SteamUserAppImportService($users->toArray());
         $service->import();
 
-        $message = __('phrase.successfully-imported-apps-for-x-of-y-users', ['x' => count($service->getImported()), 'y' => count($userIds)]);
+        $message = __('phrase.successfully-imported-apps-for-x-of-y-users', ['x' => count($service->getImported()), 'y' => count($users)]);
         Log::info($message);
         $this->info($message);
 
