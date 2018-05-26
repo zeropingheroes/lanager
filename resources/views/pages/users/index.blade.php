@@ -38,9 +38,4 @@
     @else
         <p>@lang('phrase.no-items-found', ['item' => 'users'])</p>
     @endif
-    @if(request('historic'))
-        <a href="{{ request()->fullUrlWithQuery(['historic' => false]) }}" class="btn btn-primary" role="button" aria-pressed="true">@lang('title.hide-historic-users')</a>
-    @else
-        <a href="{{ request()->fullUrlWithQuery(['historic' => true]) }}" class="btn btn-primary" role="button" aria-pressed="true">@lang('title.show-historic-users')</a>
-    @endif
 @endsection

@@ -43,6 +43,7 @@ Misc
     If a LAN is not published, all of its events should be treated as unpublished
     Spreading out game update queries over 30 minutes
     When creating event, disable dates outside of selected LAN
+    Manually add attendees to a LAN
     Admin getting started guide page
     Confirmation of delete action
     Checking all docblocks
