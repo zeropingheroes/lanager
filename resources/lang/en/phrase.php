@@ -70,6 +70,10 @@ return [
     'requesting-app-ownership-data-for-x-users-from-steam' => 'Requesting app ownership data for :x users from Steam',
     'successfully-updated-app-ownership-data-for-x-of-y-users' => 'Successfully updated app ownership data for :x of :y users',
 
+    // lanager:prune-steam-user-history
+    'pruning-historical-steam-data' => 'Pruning historical Steam user status and gameplay data',
+    'x-entries-deleted-and-y-entries-retained' => ':x entries deleted, and :y entries retained',
+
     // General purpose
     'item-created' => ':Item successfully created',
     'no-items-found' => 'No :item found',

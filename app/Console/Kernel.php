@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Zeropingheroes\Lanager\Console\Commands\PruneSteamUserHistory;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamApps;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUserApps;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUsers;
@@ -27,6 +28,10 @@ class Kernel extends ConsoleKernel
         // e.g. for 1000 users:
         // 10 calls each minute * 1440 minutes in a day = 14,400 daily API calls
         $schedule->command(UpdateSteamUsers::class)
+            ->everyMinute();
+
+        // No Steam API calls
+        $schedule->command(PruneSteamUserHistory::class)
             ->everyMinute();
 
         // 1 Steam API call per user
