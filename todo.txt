@@ -4,15 +4,15 @@ LANs
         LAN description
         Events list
         Attendees
+            Change "signed in" to "last signed in" with info from session
         Gameplay stats
+            Most popular games by users
     Manually add one or more attendees to a LAN
-    Remove "signed in" column in LAN attendees table
 Events
     * Default to showing events for current / last LAN only
     * Timetable
     * If a LAN is not published, all of its events should be treated as unpublished
     When creating event, disable dates outside of selected LAN
-    Dropdown for showing events from past LANs
 Achievements
     CRUD
 Uploads
