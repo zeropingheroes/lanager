@@ -13,11 +13,11 @@ use Zeropingheroes\Lanager\SteamAppServer;
 use Zeropingheroes\Lanager\SteamUserState;
 use Zeropingheroes\Lanager\User;
 
-class SteamUserImportService
+class UpdateSteamUsersService
 {
 
     /**
-     * Steam ID(s) to be imported
+     * Steam ID(s) to be updated
      *
      * @var array
      */
@@ -31,14 +31,14 @@ class SteamUserImportService
     protected $errors;
 
     /**
-     * Successfully imported Steam IDs
+     * Successfully updated Steam IDs
      *
      * @var array
      */
-    protected $imported = [];
+    protected $updated = [];
 
     /**
-     * Steam IDs that were not imported due to failures
+     * Steam IDs that were not updated due to failures
      *
      * @var array
      */
@@ -57,7 +57,7 @@ class SteamUserImportService
     public function __construct($steamIds)
     {
         if (empty($steamIds)) {
-            throw new Exception(__('phrase.no-steam-users-to-import'));
+            throw new Exception(__('phrase.one-or-more-steam-ids-must-be-provided'));
         }
 
         // Ensure we have an array, even if only one ID is given
@@ -78,9 +78,9 @@ class SteamUserImportService
     /**
      * @return array
      */
-    public function getImported(): array
+    public function getUpdated(): array
     {
-        return $this->imported;
+        return $this->updated;
     }
 
     /**
@@ -92,8 +92,6 @@ class SteamUserImportService
     }
 
     /**
-     * Import errors
-     *
      * @return MessageBag
      */
     public function errors(): MessageBag
@@ -102,43 +100,44 @@ class SteamUserImportService
     }
 
     /**
-     * Import Steam users
+     * Update Steam users
      * @return void
      * @throws \Throwable
      */
-    public function import(): void
+    public function update(): void
     {
         $steamUsers = Steam::user($this->steamIds)->GetPlayerSummaries();
         if (Cache::get('currentLan') != null) {
             $this->currentLanAttendees = Cache::get('currentLan')->users;
         }
 
-        // Import state for each user in turn
+        // Update state for each user in turn
         foreach ($steamUsers as $steamUser) {
 
             try {
-                if ($this->importUser($steamUser)) {
-                    $this->imported[] = $steamUser->steamId;
+                if ($this->updateUser($steamUser)) {
+                    $this->updated[$steamUser->steamId] = $steamUser->personaName;
+
                 }
 
             } catch (Exception $e) {
-                $this->failed[] = $steamUser->steamId;
+                $this->failed[$steamUser->steamId] = $steamUser->personaName;
                 $this->errors->add(
                     $steamUser->steamId,
-                    __('phrase.unable-to-import-state-for-user', ['id' => $steamUser->steamId, 'error' => $e->getMessage()])
+                    __('phrase.unable-to-update-data-for-user-x', ['x' => $steamUser->personaName, 'error' => $e->getMessage()])
                 );
             }
         }
     }
 
     /**
-     * Import a single Steam user
+     * Update a single Steam user
      *
      * @param $steamUser
      * @return bool
      * @throws \Throwable
      */
-    protected function importUser($steamUser): bool
+    protected function updateUser($steamUser): bool
     {
         // Create a new state
         $steamUserState = new SteamUserState;

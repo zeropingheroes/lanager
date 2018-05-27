@@ -8,7 +8,7 @@ use InvalidArgumentException;
 use Socialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Zeropingheroes\Lanager\Services\SteamUserImportService;
+use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
 /**
@@ -58,21 +58,29 @@ class AuthController extends Controller
         if ($OAuthProvider == 'steam') {
             $OAuthUser = Socialite::with('steam')->user();
 
-            $service = new SteamUserImportService($OAuthUser->id);
-            $service->import();
+            $service = new UpdateSteamUsersService($OAuthUser->id);
+            $service->update();
 
-            if (in_array($OAuthUser->id, $service->getimported())) {
-                $user = UserOAuthAccount::where('provider_id', $OAuthUser->id)
-                    ->firstOrFail()
-                    ->user;
+            // Check if the user wasn't updated, or if there are errors
+            if (!array_key_exists($OAuthUser->id, $service->getUpdated()) ||
+                $service->errors()->isNotEmpty()) {
+                Log::error($service->errors()->first());
 
-                Auth::login($user, true);
-                Log::info(__('phrase.user-successfully-logged-in', ['username' => $user->username]));
-
-                return redirect()->intended(route('users.show', ['id' => $user->id]));
+                return redirect()
+                    ->route('login')
+                    ->withError($service->errors()->first());
             }
 
-            throw new Exception($service->errors()->first());
+            // Get the newly updated user
+            $user = UserOAuthAccount::where('provider_id', $OAuthUser->id)
+                ->firstOrFail()
+                ->user;
+
+            // Log them in
+            Auth::login($user, true);
+            Log::info(__('phrase.user-successfully-logged-in', ['username' => $user->username]));
+
+            return redirect()->intended(route('users.show', ['id' => $user->id]));
 
         }
 
@@ -87,7 +95,7 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        $user =  Auth::user();
+        $user = Auth::user();
         $this->guard()->logout();
         $request->session()->invalidate();
         Log::info(__('phrase.user-successfully-logged-out', ['username' => $user->username]));

@@ -18,7 +18,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Illuminate\Auth\Events\Login' => [
             'Zeropingheroes\Lanager\Listeners\UpdateLanAttendeesTable',
-            'Zeropingheroes\Lanager\Listeners\CheckAndUpdateSteamUserApps',
+            'Zeropingheroes\Lanager\Listeners\UpdateOutdatedUserAppsAfterSuccessfulAuth',
         ],
     ];
 

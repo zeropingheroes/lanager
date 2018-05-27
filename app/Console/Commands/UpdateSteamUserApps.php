@@ -5,24 +5,24 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
-use Zeropingheroes\Lanager\Services\SteamUserAppImportService;
+use Zeropingheroes\Lanager\Services\UpdateSteamUserAppsService;
 use Zeropingheroes\Lanager\User;
 
-class SteamImportUserApps extends Command
+class UpdateSteamUserApps extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'steam:import-user-apps';
+    protected $signature = 'lanager:update-steam-user-apps';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import Steam apps owned by existing LANager users';
+    protected $description = 'Update existing LANager users\' app ownership data with the latest information from their Steam profile';
 
     /**
      * Execute the console command.
@@ -42,13 +42,13 @@ class SteamImportUserApps extends Command
             $users = User::all();
         }
 
-        $this->info(__('phrase.requesting-games-owned-by-count-users-from-steam', ['count' => $users->count()]));
+        $this->info(__('phrase.requesting-app-ownership-data-for-x-users-from-steam', ['x' => $users->count()]));
 
-        $service = new SteamUserAppImportService($users);
-        $service->import();
+        $service = new UpdateSteamUserAppsService($users);
+        $service->update();
 
-        $message = __('phrase.successfully-imported-apps-for-x-of-y-users', ['x' => $service->getImported()->count(), 'y' => $users->count()]);
-        Log::info($message);
+        $message = __('phrase.successfully-updated-app-ownership-data-for-x-of-y-users', ['x' => count($service->getUpdated()), 'y' => $users->count()]);
+        Log::info($message, $service->getUpdated());
         $this->info($message);
 
         if ($service->errors()->isNotEmpty()) {

@@ -43,21 +43,32 @@ return [
     'cannot-unassign-role-from-self' => 'You cannot unassign roles from yourself',
     'cannot-assign-role-to-super-admin' => 'Roles cannot be assigned to Super Admins',
 
-    // Steam Apps Import
-    'requesting-apps-from-steam' => 'Requesting all apps from Steam',
-    'preparing-data' => 'Preparing data',
-    'importing-apps-from-steam' => 'Importing :count apps from Steam into database',
-    'updating-apps-in-db-and-adding-new' => 'Updating :count apps already in database and adding new apps from Steam',
-    'import-complete' => 'Steam App import complete',
+    // UpdateSteamUserService
+    // UpdateSteamUserAppsService
+    'one-or-more-steam-ids-must-be-provided' => 'One or more Steam IDs must be provided',
+    'one-or-more-users-must-be-provided' => 'One or more users must be provided',
+    'unable-to-update-data-for-user-x' => 'Unable to update data for user :x - :error',
 
-    // Steam States Import
+    // lanager:update-steam-apps
+    'requesting-details-of-all-apps-from-steam' => 'Requesting details of all apps from Steam',
+    'adding-x-steam-apps-to-db' => 'Adding :x apps to the database',
+    'updating-x-steam-apps-already-in-db-and-adding-y-new' => 'Updating :x existing apps, and adding :y new apps',
+    'steam-app-update-complete-x-added' => 'Steam app update complete - :x apps added',
+    'steam-app-update-complete-x-updates-y-new' => 'Steam app update complete - :x updates, of which :y were new apps',
+
+    // lanager:import-steam-users
     'no-steam-users-to-import' => 'No Steam users to import',
-    'requesting-current-status-of-count-users-from-steam' => 'Requesting current status of :count users from Steam',
-    'requesting-games-owned-by-count-users-from-steam' => 'Requesting games owned by :count users from Steam',
-    'unable-to-import-state-for-user' => 'Unable to import user state for user :id - :error',
-    'successfully-imported-states-for-x-of-y-users' => 'Successfully imported states for :x of :y users from Steam',
-    'successfully-imported-apps-for-x-of-y-users' => 'Successfully imported apps for :x of :y users from Steam',
-    'unable-to-import-apps-for-user' => 'Unable to import apps for user :username - :error',
+    'importing-x-users-from-steam' => 'Importing :x users from Steam',
+    'successfully-updated-x-of-y-users' => 'Successfully updated :x of :y users',
+
+    // lanager:update-steam-users
+    'no-steam-users-to-update' => 'No Steam users to update',
+    'updating-profiles-and-online-status-for-x-users-from-steam' => 'Updating profiles and online status for :x users from Steam',
+    'successfully-updated-profiles-and-online-status-for-x-of-y-users' => 'Successfully updated profiles and online status for :x of :y users',
+
+    // lanager:update-steam-user-apps
+    'requesting-app-ownership-data-for-x-users-from-steam' => 'Requesting app ownership data for :x users from Steam',
+    'successfully-updated-app-ownership-data-for-x-of-y-users' => 'Successfully updated app ownership data for :x of :y users',
 
     // General purpose
     'item-created' => ':Item successfully created',
@@ -84,7 +95,7 @@ return [
     'you-have-no-games-in-common-with-username' => 'You have no games in common with :username',
     'username-does-not-own-any-games' => ':username does not own any games',
     'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or'
-                                          . ' have in common with you.',
+        . ' have in common with you.',
 
     // Steam Statuses
     'status-online' => 'Online',

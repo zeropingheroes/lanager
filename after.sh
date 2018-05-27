@@ -11,7 +11,7 @@ composer install
 php artisan key:generate
 php artisan migrate:fresh
 php artisan db:seed
-php artisan steam:import-apps
+php artisan lanager:update-steam-apps
 
 npm install
 npm run dev

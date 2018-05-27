@@ -6,6 +6,8 @@
 
 @section('content')
 
+    @include('components.alerts.all')
+
     <div class="text-center">
       <h1 class="h3 mt-3 mb-3 font-weight-normal">@lang('title.login')</h1>
 

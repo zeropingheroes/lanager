@@ -4,21 +4,12 @@ namespace Zeropingheroes\Lanager\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Zeropingheroes\Lanager\Console\Commands\SteamImportApps;
-use Zeropingheroes\Lanager\Console\Commands\SteamImportUserApps;
-use Zeropingheroes\Lanager\Console\Commands\SteamImportUsers;
+use Zeropingheroes\Lanager\Console\Commands\UpdateSteamApps;
+use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUserApps;
+use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUsers;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * The Artisan commands provided by your application.
-     *
-     * @var array
-     */
-    protected $commands = [
-        //
-    ];
-
     /**
      * Define the application's command schedule.
      *
@@ -35,18 +26,18 @@ class Kernel extends ConsoleKernel
         // 1 Steam API call per 100 users
         // e.g. for 1000 users:
         // 10 calls each minute * 1440 minutes in a day = 14,400 daily API calls
-        $schedule->command(SteamImportUsers::class)
+        $schedule->command(UpdateSteamUsers::class)
             ->everyMinute();
-
-        // 1 Steam API call total
-        $schedule->command(SteamImportApps::class)
-            ->dailyAt('6:00');
 
         // 1 Steam API call per user
         // e.g. for 1000 users:
         // 1000 calls * 48 half-ours in a day = 48,000 daily API calls
-        $schedule->command(SteamImportUserApps::class)
+        $schedule->command(UpdateSteamUserApps::class)
             ->everyThirtyMinutes();
+
+        // 1 Steam API call total
+        $schedule->command(UpdateSteamApps::class)
+            ->dailyAt('6:00');
     }
 
     /**

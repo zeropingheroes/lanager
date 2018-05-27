@@ -1,13 +1,8 @@
 Short Term
 -------------------------------------------------------
-Refactor commands
-    lanager:update-steam-apps
-    lanager:import-steam-users
-    lanager:update-steam-users
-    lanager:update-steam-user-apps
-    lanager:prune-steam-user-history
-Add prune user history command (clear data collected outside of LANs)
-    If a lan is occurring
+Add lanager:prune-steam-user-history
+    Clear data collected outside of LANs
+    If a LAN is occurring
         Clear all states who were created outside of current / previous LANs
     Otherwise, keep last X minutes
 Events
@@ -31,7 +26,9 @@ Features
         Attendees
         Gameplay stats
 Misc
-    Only show historic users button if some users are hidden
+    Cache logged in user details in session to reduce queries
+    Checkbox for only showing unread log items
+    Comparing Steam IDs requested from Steam vs what was returned by Steam
     Optimise avatar queries
     Redirect first user to create a new LAN as the first thing they should do
     If a LAN is not published, all of its events should be treated as unpublished

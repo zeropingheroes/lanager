@@ -3,31 +3,31 @@
 namespace Zeropingheroes\Lanager\Services;
 
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
 use Steam;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
-class SteamUserAppImportService
+class UpdateSteamUserAppsService
 {
     /**
-     * LANager users to be imported
+     * LANager users to be updated
      *
      * @var Collection
      */
     protected $users = [];
 
     /**
-     * Users whose apps were successfully imported
+     * Users whose apps were successfully updated
      *
-     * @var Collection
+     * @var array
      */
-    protected $imported = [];
+    protected $updated = [];
 
     /**
-     * Users whose apps were not imported due to errors
+     * Users whose apps were not updated due to errors
      *
-     * @var Collection
+     * @var array
      */
     protected $failed = [];
 
@@ -46,18 +46,14 @@ class SteamUserAppImportService
     public function __construct(Collection $users)
     {
         if ($users->isEmpty()) {
-            throw new Exception(__('phrase.no-steam-users-to-import'));
+            throw new Exception(__('phrase.one-or-more-users-must-be-provided'));
         }
 
         $this->users = $users;
         $this->errors = new MessageBag();
-        $this->imported = new Collection();
-        $this->failed = new Collection();
     }
 
     /**
-     * Import errors
-     *
      * @return MessageBag
      */
     public function errors(): MessageBag
@@ -66,32 +62,32 @@ class SteamUserAppImportService
     }
 
     /**
-     * @return Collection
+     * @return array
      */
-    public function getImported(): Collection
+    public function getUpdated(): array
     {
-        return $this->imported;
+        return $this->updated;
     }
 
     /**
-     * @return Collection
+     * @return array
      */
-    public function getFailed(): Collection
+    public function getFailed(): array
     {
         return $this->failed;
     }
 
     /**
-     * Import Steam users apps
+     * Update Steam users apps
      * @return void
      * @throws \Throwable
      */
-    public function import(): void
+    public function update(): void
     {
         $steamAccounts = UserOAuthAccount::where('provider', 'steam')
             ->whereIn('user_id', $this->users->pluck('id'))->get();
 
-        // Import games for each user in turn
+        // Update games for each user in turn
         foreach ($steamAccounts as $steamAccount) {
             try {
                 $apps = Steam::player($steamAccount->provider_id)->GetOwnedGames();
@@ -117,19 +113,19 @@ class SteamUserAppImportService
                         );
                 }
 
-                // Add the user to the imported collection
-                $this->imported->push($steamAccount->user);
+                // Add the user to the updated array
+                $this->updated[$steamAccount->provider_id] = $steamAccount->user->username;
 
             } catch (Exception $e) {
                 $this->errors->add(
                     $steamAccount->provider_id,
                     __(
-                        'phrase.unable-to-import-apps-for-user',
-                        ['username' => $steamAccount->user->username, 'error' => $e->getMessage()]
+                        'phrase.unable-to-update-data-for-user-x',
+                        ['x' => $steamAccount->user->username, 'error' => $e->getMessage()]
                     )
                 );
-                // Add the user to the failed collection
-                $this->failed->push($steamAccount->user);
+                // Add the user to the failed array
+                $this->failed[$steamAccount->provider_id] = $steamAccount->user->username;
             }
         }
     }
