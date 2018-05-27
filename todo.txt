@@ -1,5 +1,5 @@
 LANs
-    * Fix current LAN caching - can become null
+    * Stop caching LAN and use query instead
     * Make LAN "show" page homepage
         LAN description
         Events list
