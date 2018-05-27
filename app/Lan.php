@@ -54,8 +54,8 @@ class Lan extends Model
      */
     public function scopePast($query)
     {
-        return $query->where('start', '<', now())
-            ->orderBy('start');
+        return $query->where('end', '<', now())
+            ->orderBy('end', 'desc');
     }
 
     /**
