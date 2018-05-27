@@ -42,6 +42,13 @@ class UpdateSteamUserApps extends Command
             $users = User::all();
         }
 
+        if (!$users) {
+            $message = __('phrase.no-steam-users-to-update');
+            Log::info($message);
+            $this->info($message);
+            return;
+        }
+
         $this->info(__('phrase.requesting-app-ownership-data-for-x-users-from-steam', ['x' => $users->count()]));
 
         $service = new UpdateSteamUserAppsService($users);
