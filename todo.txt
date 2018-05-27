@@ -1,55 +1,54 @@
-Short Term
--------------------------------------------------------
-Add lanager:prune-steam-user-history
-    Clear data collected outside of LANs
-    If a LAN is occurring
-        Clear all states who were created outside of current / previous LANs
-    Otherwise, keep last X minutes
-Events
-    Default to showing events for current / last LAN only
-    Dropdown for showing events from past LANs
-    Timetable
-
-Long Term
--------------------------------------------------------
-Entities
-    Achievements
-    Uploads
-Features
-    API
-    Dashboard (big screen)
-    Old version data import
-    Linking other accounts (Discord, Battle.net etc)
-    Make LAN "show" page homepage
+LANs
+    * Fix current LAN caching - can become null
+    * Make LAN "show" page homepage
         LAN description
         Events list
         Attendees
         Gameplay stats
-Misc
-    If there are LANs in the database, and the current LAN is null, update the current LAN
-    Cache logged in user details in session to reduce queries
-    Checkbox for only showing unread log items
-    Comparing Steam IDs requested from Steam vs what was returned by Steam
-    Optimise avatar queries
-    Redirect first user to create a new LAN as the first thing they should do
-    If a LAN is not published, all of its events should be treated as unpublished
-    Spreading out game update queries over 30 minutes
+    Manually add one or more attendees to a LAN
+    Remove "signed in" column in LAN attendees table
+Events
+    * Default to showing events for current / last LAN only
+    * Timetable
+    * If a LAN is not published, all of its events should be treated as unpublished
     When creating event, disable dates outside of selected LAN
-    Manually add attendees to a LAN (also remove "signed in" column in LAN attendees table)
-    Admin getting started guide page
-    Confirmation of delete action
+    Dropdown for showing events from past LANs
+Achievements
+    CRUD
+Uploads
+    CRUD
+API
+Dashboard (big screen)
+Users
+    Linking other accounts (Discord, Battle.net etc)
+
+Low Priority
+-------------------------------------------------------------------------------
+Code
     Checking all docblocks
-    Use queues/jobs for asynchronous tasks, e.g updating user apps
-    If all user imports fail then only log 1 error message
-    Counting API calls
-    Importing Steam users via GUI
-    Customisable maintenance page
     Move "published" form item into partial
     Move "start" and "end" form items into partials
+    [all other open issues on GitHub]
+Steam commands
+    Comparing Steam IDs requested from Steam vs what was returned by Steam
+Admin
+    Old version data import
+    Importing Steam users via GUI
+    Counting API calls
+    Customisable maintenance page
+Optimisations
+    Store logged in user details in session to reduce queries
+    Optimise avatar queries
+    Use queues/jobs for asynchronous tasks, e.g updating user apps
+Ease of use
+    Redirect first user to create a new LAN as the first thing they should do
+    Admin getting started guide page
+    If all user imports fail then only log 1 error message
     Override date format validation error message
     Review language files
     Publish / un-publish button for actions dropdown
     Validation error styles on forms
     Command to make user super admin
     GDPR compliant terms and conditions and privacy policy page
-    [all other open issues on GitHub]
+    Checkbox for only showing unread log items
+    Confirmation of delete action
