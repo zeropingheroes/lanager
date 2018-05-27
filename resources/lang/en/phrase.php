@@ -72,7 +72,7 @@ return [
 
     // lanager:prune-steam-user-history
     'pruning-historical-steam-data' => 'Pruning historical Steam user status and gameplay data',
-    'x-entries-deleted-and-y-entries-retained' => ':x entries deleted, and :y entries retained',
+    'x-entries-deleted-and-y-entries-retained' => 'Deleted :x and retained :y historical entries of Steam user status and gameplay',
 
     // General purpose
     'item-created' => ':Item successfully created',
