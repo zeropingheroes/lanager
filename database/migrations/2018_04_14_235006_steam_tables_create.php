@@ -84,13 +84,13 @@ class SteamTablesCreate extends Migration
                 ->references('id')
                 ->on('steam_apps')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
 
             $table->foreign('steam_app_server_id')
                 ->references('id')
                 ->on('steam_app_servers')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
 
             $table->foreign('steam_user_status_code_id')
                 ->references('id')
@@ -134,7 +134,7 @@ class SteamTablesCreate extends Migration
                 ->references('id')
                 ->on('steam_apps')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
         });
 
         Schema::create('steam_user_metadata', function ($table) {
