@@ -36,13 +36,13 @@ class UpdateSteamUserApps extends Command
         // If there's a current LAN set
         if(Cache::get('currentLan')) {
             // Get the attendees for the current LAN
-            $users = Cache::get('currentLan')->users()->get()->pluck('id');
+            $users = Cache::get('currentLan')->users()->get();
         } else {
             // Or if there isn't a current LAN set, get all users
             $users = User::all();
         }
 
-        if (!$users) {
+        if ($users->isEmpty()) {
             $message = __('phrase.no-steam-users-to-update');
             Log::info($message);
             $this->info($message);
