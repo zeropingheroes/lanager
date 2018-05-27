@@ -118,6 +118,7 @@ class LanController extends Controller
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
             'published' => $httpRequest->has('published'),
+            'id' => $lan->id,
         ];
 
         $request = new StoreLanRequest($input);

@@ -32,10 +32,14 @@ class StoreLanRequest extends Request
         }
 
         $overlappingLans = Lan::where('start', '<=', $this->input['end'])
-                              ->where('end', '>=', $this->input['start'])
-                              ->count();
+                              ->where('end', '>=', $this->input['start']);
 
-        if ($overlappingLans) {
+        // Exclude the current LAN from the overlap check
+        if($this->input['id']) {
+            $overlappingLans->whereNotIn('id', [$this->input['id']]);
+        }
+
+        if ($overlappingLans->count()) {
             $this->addError(__('phrase.lans-cannot-overlap'));
             return $this->setValid(false);
         }
