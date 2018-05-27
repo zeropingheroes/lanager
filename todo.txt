@@ -26,6 +26,7 @@ Features
         Attendees
         Gameplay stats
 Misc
+    If there are LANs in the database, and the current LAN is null, update the current LAN
     Cache logged in user details in session to reduce queries
     Checkbox for only showing unread log items
     Comparing Steam IDs requested from Steam vs what was returned by Steam

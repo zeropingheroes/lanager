@@ -12,15 +12,15 @@ class LanObserver
      */
     private function cacheCurrentLan()
     {
-
         // Clear the previously cached current LAN (if present)
         Cache::forget('currentLan');
 
         // If there's a LAN happening now
-        // get it and cache it until the end of the LAN
+        // get it and cache it until the start of the next LAN
         $lan = Lan::happeningNow()->first();
         if ($lan) {
-            Cache::put('currentLan', $lan, new \DateTime($lan->end));
+            $nextLan = Lan::future()->orderBy('start')->first();
+            Cache::put('currentLan', $lan, new \DateTime($nextLan->start));
         } else {
             // Otherwise, cache the most recent past event forever,
             // which is safe to do, as when a LAN is created, edited
