@@ -2,7 +2,9 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\SteamUserState;
 
@@ -33,29 +35,37 @@ class PruneSteamUserHistory extends Command
     {
         $this->info(__('phrase.pruning-historical-steam-data'));
 
-        // For speed, only select the state's ID
-        $statesToKeep = SteamUserState::select('*');
+        $periodsToDelete = [];
 
-        // States created in the last 5 minutes
-        $statesToKeep->where('created_at', '>=', now()->subMinutes(5));
+        // Get all past LANs, oldest to newest
+        $lans = Lan::past()->orderBy('end')->get();
 
-        // States created during each LAN
-        foreach (Lan::all() as $lan) {
-            $statesToKeep->orWhere(
-                function ($query) use ($lan) {
-                    $query->where('created_at', '>', $lan->start);
-                    $query->where('created_at', '<', $lan->end);
+        // Build an array of timestamps
+        $previous = Carbon::createFromTimestampUTC(0)->toDateTimeString();
+
+        foreach ($lans as $lan) {
+            $periodsToDelete[] = ['start' => $previous, 'end' => $lan->start];
+            $previous = $lan->end;
+        }
+        $periodsToDelete[] = ['start' => $previous, 'end' => now()->subMinutes(5)->toDateTimeString()];
+
+        $statesToDelete = SteamUserState::make();
+
+        foreach($periodsToDelete as $period) {
+            $statesToDelete = $statesToDelete->orWhere(
+                function ($query) use ($period) {
+                    $query->where('created_at', '>', $period['start']);
+                    $query->where('created_at', '<', $period['end']);
                 }
             );
         }
 
-        $statesToKeep = $statesToKeep->get()->pluck('id')->toArray();
-
-        $quantityDeleted = SteamUserState::whereNotIn('id', $statesToKeep)
-            ->delete();
+        $quantityDeleted = $statesToDelete->delete();
 
         $quantityRemaining = SteamUserState::count();
 
-        $this->info(__('phrase.x-entries-deleted-and-y-entries-retained', ['x' => $quantityDeleted, 'y' => $quantityRemaining]));
+        $message = __('phrase.x-entries-deleted-and-y-entries-retained', ['x' => $quantityDeleted, 'y' => $quantityRemaining]);
+        $this->info($message);
+        Log::info($message);
     }
 }
