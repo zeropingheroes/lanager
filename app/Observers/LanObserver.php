@@ -2,39 +2,24 @@
 
 namespace Zeropingheroes\Lanager\Observers;
 
-use Illuminate\Support\Facades\Cache;
 use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Services\CurrentLanService;
 
 class LanObserver
 {
+
     /**
-     * Find and cache the current LAN
+     * @var CurrentLanService
      */
-    private function cacheCurrentLan()
+    private $currentLanService;
+
+    /**
+     * LanObserver constructor.
+     */
+    public function __construct()
     {
-        // Clear the previously cached current LAN (if present)
-        Cache::forget('currentLan');
-
-        // If there's a LAN happening now
-        // get it and cache it until the start of the next LAN
-        $lan = Lan::happeningNow()->first();
-        if ($lan) {
-            $nextLan = Lan::future()->orderBy('start')->first();
-            Cache::put('currentLan', $lan, new \DateTime($nextLan->start));
-        } else {
-            // Otherwise, cache the most recent past event forever,
-            // which is safe to do, as when a LAN is created, edited
-            // or deleted, this cache item will be invalidated.
-            // Note: if there is no LAN, null will be cached
-            Cache::forever(
-                'currentLan',
-                Lan::past()
-                    ->orderBy('end', 'desc')
-                    ->first()
-            );
-        }
+        $this->currentLanService = new CurrentLanService();
     }
-
     /**
      * Listen to the Lan saved event.
      *
@@ -43,7 +28,7 @@ class LanObserver
      */
     public function saved(Lan $lan)
     {
-        $this->cacheCurrentLan();
+        $this->currentLanService->update();
     }
 
     /**
@@ -54,6 +39,6 @@ class LanObserver
      */
     public function deleted(Lan $lan)
     {
-        $this->cacheCurrentLan();
+        $this->currentLanService->update();
     }
 }
