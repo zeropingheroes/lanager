@@ -53,7 +53,10 @@ class UpdateSteamUsers extends Command
         }
 
         // Get the Steam IDs belonging to the users who are to be updated
-        $steamIds = UserOAuthAccount::whereIn('user_id', $users)->get()->pluck('provider_id')->toArray();
+        $steamIds = UserOAuthAccount::whereIn('user_id', $users)
+            ->get()
+            ->pluck('provider_id')
+            ->toArray();
 
         if (!$steamIds) {
             $message = __('phrase.no-steam-users-to-update');
