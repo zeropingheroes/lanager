@@ -18,7 +18,7 @@ class LanController extends Controller
     public function index()
     {
         return View::make('pages.lans.index')
-            ->with('lans', Lan::visible()->get());
+            ->with('lans', Lan::visible()->orderBy('start', 'desc')->get());
     }
 
     /**
