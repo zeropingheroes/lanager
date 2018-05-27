@@ -178,8 +178,11 @@ class UpdateSteamUsersService
             ]
         );
 
-        // If there is a current LAN, and the user is not attending it, do not create a state for them
-        if (Cache::get('currentLan') && !$this->currentLanAttendees->contains('id', $user->id)) {
+        // If there is a current LAN, and the LAN has attendees, and the user is among them
+        // do not create a state for them
+        if (Cache::get('currentLan') &&
+            $this->currentLanAttendees &&
+            ! $this->currentLanAttendees->contains('id', $user->id)) {
             return true;
         }
 
