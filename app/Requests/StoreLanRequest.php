@@ -35,7 +35,7 @@ class StoreLanRequest extends Request
                               ->where('end', '>=', $this->input['start']);
 
         // Exclude the current LAN from the overlap check
-        if($this->input['id']) {
+        if(isset($this->input['id'])) {
             $overlappingLans->whereNotIn('id', [$this->input['id']]);
         }
 
