@@ -10,7 +10,8 @@ class LanObserver
     /**
      * Find and cache the current LAN
      */
-    private function cacheCurrentLan() {
+    private function cacheCurrentLan()
+    {
 
         // Clear the previously cached current LAN (if present)
         Cache::forget('currentLan');
@@ -25,9 +26,15 @@ class LanObserver
             // which is safe to do, as when a LAN is created, edited
             // or deleted, this cache item will be invalidated.
             // Note: if there is no LAN, null will be cached
-            Cache::forever('currentLan', Lan::past()->first());
+            Cache::forever(
+                'currentLan',
+                Lan::past()
+                    ->orderBy('end', 'desc')
+                    ->first()
+            );
         }
     }
+
     /**
      * Listen to the Lan saved event.
      *
@@ -38,6 +45,7 @@ class LanObserver
     {
         $this->cacheCurrentLan();
     }
+
     /**
      * Listen to the Lan deleted event.
      *
