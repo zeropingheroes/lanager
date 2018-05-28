@@ -18,14 +18,14 @@ class UpdateLanAttendeesTable
      */
     public function handle(Login $login)
     {
-        $currentLan = Lan::where('start', '<', now())
+        $lanHappeningNow = Lan::where('start', '<', now())
             ->where('end', '>', now())->first();
 
-        if ($currentLan) {
+        if ($lanHappeningNow) {
             LanAttendee::firstOrCreate(
                 [
                     'user_id' => $login->user->id,
-                    'lan_id' => $currentLan->id,
+                    'lan_id' => $lanHappeningNow->id,
                 ]
             )->touch();
         }

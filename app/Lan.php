@@ -69,6 +69,17 @@ class Lan extends Model
     }
 
     /**
+     * Scope a query to only show present and past LANs.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePresentAndPast($query)
+    {
+        return $query->where('start', '<', now());
+    }
+
+    /**
      * The events for the LAN
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

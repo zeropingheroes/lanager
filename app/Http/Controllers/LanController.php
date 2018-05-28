@@ -17,8 +17,16 @@ class LanController extends Controller
      */
     public function index()
     {
+        $lans = Lan::visible()->orderBy('start', 'desc')->get();
+
+        // Get the LAN happening now, or the most recently ended LAN
+        $currentLan = Lan::presentAndPast()
+            ->orderBy('start', 'desc')
+            ->first();
+
         return View::make('pages.lans.index')
-            ->with('lans', Lan::visible()->orderBy('start', 'desc')->get());
+            ->with('lans', $lans)
+            ->with('currentLan', $currentLan);
     }
 
     /**
@@ -90,7 +98,7 @@ class LanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\Lan  $lan
+     * @param  \Zeropingheroes\Lanager\Lan $lan
      * @return \Illuminate\Http\Response
      */
     public function edit(Lan $lan)
@@ -139,7 +147,7 @@ class LanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\Lan  $lan
+     * @param  \Zeropingheroes\Lanager\Lan $lan
      * @return \Illuminate\Http\Response
      */
     public function destroy(Lan $lan)

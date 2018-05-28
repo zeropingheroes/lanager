@@ -4,9 +4,9 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Cache;
 use Zeropingheroes\Lanager\Services\UpdateSteamUserAppsService;
 use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Lan;
 
 class UpdateSteamUserApps extends Command
 {
@@ -33,10 +33,14 @@ class UpdateSteamUserApps extends Command
      */
     public function handle()
     {
-        // If there's a current LAN set
-        if(Cache::get('currentLan')) {
-            // Get the attendees for the current LAN
-            $users = Cache::get('currentLan')->users()->get();
+        // Get the LAN happening now, or the most recently ended LAN
+        $lan = Lan::presentAndPast()
+            ->orderBy('start', 'desc')
+            ->first();
+
+        if ($lan) {
+            // Get the attendees for the LAN
+            $users = $lan->users()->get();
         } else {
             // Or if there isn't a current LAN set, get all users
             $users = User::all();
@@ -54,7 +58,10 @@ class UpdateSteamUserApps extends Command
         $service = new UpdateSteamUserAppsService($users);
         $service->update();
 
-        $message = __('phrase.successfully-updated-app-ownership-data-for-x-of-y-users', ['x' => count($service->getUpdated()), 'y' => $users->count()]);
+        $message = __(
+            'phrase.successfully-updated-app-ownership-data-for-x-of-y-users',
+            ['x' => count($service->getUpdated()), 'y' => $users->count()]
+        );
         Log::info($message, $service->getUpdated());
         $this->info($message);
 

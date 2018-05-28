@@ -24,7 +24,8 @@
         </div>
     </div>
     <hr>
-    @if(!cache('currentLan') || $lansAttended->contains('id',cache('currentLan')->id))
+    {{-- Show game info if the user is attending the current or most recent LAN (or there isn't a LAN) --}}
+    @if( !$currentLan || $lansAttended->contains('id',$currentLan->id))
         @if($user->SteamMetadata && $user->SteamMetadata->apps_visible == 1)
             @include('pages.users.partials.games-in-common', ['gamesInCommon' => $gamesInCommon])
 

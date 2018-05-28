@@ -5,10 +5,8 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\Services\CurrentLanAttendeesService;
 use Zeropingheroes\Lanager\User;
 
 class UserController extends Controller
@@ -21,13 +19,18 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        // Get the LAN happening now, or the most recently ended LAN
+        $lan = Lan::presentAndPast()
+            ->orderBy('start', 'desc')
+            ->first();
+
         // If there is not a current LAN
-        if (! Cache::get('currentLan')) {
+        if ( ! $lan) {
             // Show all users
             $users = User::orderBy('username')->get();
         } else {
             // Otherwise show users who are attending the current LAN
-            $users = Cache::get('currentLan')->users()->orderBy('username')->get();
+            $users = $lan->users()->orderBy('username')->get();
         }
 
         $users->load('state', 'state.app', 'state.server', 'OAuthAccounts', 'SteamApps', 'SteamMetadata', 'lans');
@@ -48,9 +51,14 @@ class UserController extends Controller
         $gamesOwned = new Collection();
         $gamesInCommon = new Collection();
 
+        // Get the LAN happening now, or the most recently ended LAN
+        $lan = Lan::presentAndPast()
+            ->orderBy('start', 'desc')
+            ->first();
+
         // If the user's apps are visible, and they're attending the current LAN (or there isn't a current LAN)
         if (($user->SteamMetadata && $user->SteamMetadata->apps_visible == 1) &&
-            (!Cache::get('currentLan') || $lansAttended->contains('id', Cache::get('currentLan')->id))) {
+            (! $lan || $lansAttended->contains('id', $lan->id))) {
 
             // Get games in common so long as the logged
             // in user is not viewing their own profile
@@ -80,7 +88,8 @@ class UserController extends Controller
             ->with('user', $user)
             ->with('gamesOwned', $gamesOwned)
             ->with('gamesInCommon', $gamesInCommon)
-            ->with('lansAttended', $lansAttended);
+            ->with('lansAttended', $lansAttended)
+            ->with('currentLan', $lan);
     }
 
     /**

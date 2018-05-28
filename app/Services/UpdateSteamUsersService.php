@@ -4,7 +4,6 @@ namespace Zeropingheroes\Lanager\Services;
 
 use Exception;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\MessageBag;
 use Steam;
 use Zeropingheroes\Lanager\UserOAuthAccount;
@@ -12,6 +11,7 @@ use Zeropingheroes\Lanager\SteamApp;
 use Zeropingheroes\Lanager\SteamAppServer;
 use Zeropingheroes\Lanager\SteamUserState;
 use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Lan;
 
 class UpdateSteamUsersService
 {
@@ -107,8 +107,14 @@ class UpdateSteamUsersService
     public function update(): void
     {
         $steamUsers = Steam::user($this->steamIds)->GetPlayerSummaries();
-        if (Cache::get('currentLan') != null) {
-            $this->currentLanAttendees = Cache::get('currentLan')->users;
+
+        // Get the LAN happening now, or the most recently ended LAN
+        $lan = Lan::presentAndPast()
+            ->orderBy('start', 'desc')
+            ->first();
+
+        if ($lan) {
+            $this->currentLanAttendees = $lan->users;
         }
 
         // Update state for each user in turn
@@ -180,8 +186,7 @@ class UpdateSteamUsersService
 
         // If there is a current LAN, and the LAN has attendees, and the user is among them
         // do not create a state for them
-        if (Cache::get('currentLan') &&
-            $this->currentLanAttendees &&
+        if ($this->currentLanAttendees->isNotEmpty() &&
             ! $this->currentLanAttendees->contains('id', $user->id)) {
             return true;
         }

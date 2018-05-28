@@ -3,8 +3,8 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 use Zeropingheroes\Lanager\SteamUserMetadata;
 use Zeropingheroes\Lanager\User;
@@ -34,11 +34,14 @@ class UpdateSteamUsers extends Command
      */
     public function handle()
     {
-        // If there's a current LAN set
-        if (Cache::get('currentLan')) {
+        // Get the LAN happening now, or the most recently ended LAN
+        $lan = Lan::presentAndPast()
+            ->orderBy('start', 'desc')
+            ->first();
 
-            // Get the attendees for the current LAN
-            $attendees = Cache::get('currentLan')->users()->get()->pluck('id');
+        if ($lan) {
+            // Get the attendees for the LAN
+            $attendees = $lan->users()->get()->pluck('id');
 
             // Also get any users who have not been updated in the last day
             $staleUsers = SteamUserMetadata::whereNotIn('user_id', $attendees)

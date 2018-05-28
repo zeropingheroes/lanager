@@ -34,7 +34,7 @@
                 <tr>
                     <td>
                         <a href="{{ route('lans.show', $lan->id) }}">{{ $lan->name }}</a>
-                        @if(cache('currentLan') && $lan->id == cache('currentLan')->id)
+                        @if($currentLan && $lan->id == $currentLan->id)
                             <span class="oi oi-star"></span>
                         @endif
                     </td>
