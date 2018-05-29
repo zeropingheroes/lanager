@@ -186,7 +186,7 @@ class UpdateSteamUsersService
 
         // If there is a current LAN, and the LAN has attendees, and the user is among them
         // do not create a state for them
-        if ($this->currentLanAttendees->isNotEmpty() &&
+        if ($this->currentLanAttendees &&
             ! $this->currentLanAttendees->contains('id', $user->id)) {
             return true;
         }
