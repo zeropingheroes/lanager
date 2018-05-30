@@ -26,6 +26,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $user->load('OAuthAccounts');
         return new UserResource($user);
     }
 }
