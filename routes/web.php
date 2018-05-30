@@ -74,3 +74,10 @@ Route::resource('lans', 'LanController');
  */
 Route::resource('event-types', 'EventTypeController');
 Route::resource('events', 'EventController');
+
+/**
+ * Dashboard
+ */
+Route::get('/dashboard', function () {
+    return view('pages.dashboard.index');
+})->name('dashboard');
