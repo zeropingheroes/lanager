@@ -131,7 +131,7 @@ class Install extends BaseCommand
         }
 
         $this->info('Marking LANager as installed in config file...');
-        $lanagerConfig = $this->editConfigFile('app/config/lanager/config.php', "'installed'	=> false", "'installed'	=> true");
+        $lanagerConfig = $this->editConfigFile('app/config/lanager/config.php', "'installed' => false", "'installed' => true");
         if (!$lanagerConfig) {
             $this->abort('Unable to mark installation as completed', $this->criticalMessage);
         }
