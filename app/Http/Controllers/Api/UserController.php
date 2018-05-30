@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
-use Zeropingheroes\Lanager\Http\Resources\UserResource;
+use Zeropingheroes\Lanager\Http\Resources\User as UserResource;
 use Zeropingheroes\Lanager\User;
 
 class UserController extends Controller

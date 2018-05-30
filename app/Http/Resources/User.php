@@ -4,7 +4,7 @@ namespace Zeropingheroes\Lanager\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class User extends JsonResource
 {
     /**
      * Transform the resource into an array.
