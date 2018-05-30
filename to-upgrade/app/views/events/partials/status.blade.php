@@ -1,1 +1,0 @@
-<span class="label label-status-{{ $class }}" title="{{ $hover }}">{{ $status }}</span>
