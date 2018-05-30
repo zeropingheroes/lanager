@@ -91,15 +91,4 @@ class UserController extends Controller
             ->with('lansAttended', $lansAttended)
             ->with('currentLan', $lan);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \Zeropingheroes\Lanager\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
-    }
 }

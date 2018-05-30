@@ -11,7 +11,7 @@
 |
 */
 
-Route::resource('users', 'Api\UserController', ['only' => ['index', 'show', 'destroy']]);
+Route::resource('users', 'Api\UserController', ['only' => ['index', 'show']]);
 
 Route::fallback(function () {
     return response()->json(['error' => ['message' => __('http-status-codes.404-title')]],404);
