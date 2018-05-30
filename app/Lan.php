@@ -20,6 +20,16 @@ class Lan extends Model
     ];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'start',
+        'end',
+    ];
+
+    /**
      * Scope a query to only show items visible to the user.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
