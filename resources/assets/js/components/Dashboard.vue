@@ -10,11 +10,11 @@
         </div>
         <table class="table">
             <tbody>
-            <tr>
-                <td class="event-status"><span class="badge badge-primary">Now</span></td>
-                <td class="event-name"><a href="http://lanager.localhost:8080/events/1">Testing 1234</a></td>
-                <td class="event-type">Ceremony</td>
-                <td class="event-timer">Ending in 16 minutes</td>
+            <tr v-for="event in events">
+                <td><span class="badge badge-primary">Now</span></td>
+                <td>{{ event.name }}</td>
+                <td>{{ event.type.name }}</td>
+                <td>Ending in 16 minutes</td>
             </tr>
             </tbody>
         </table>
@@ -26,12 +26,21 @@
         data() {
             return {
                 time: new moment().format("h:mma"),
+                events: []
             };
         },
         mounted() {
             var self = this;
             setInterval(function () {
-                self.$data.time = new moment().format("h:mma")
+                self.$data.time = new moment().format("h:mma");
+                self.$data.loading = true;
+                axios.get("http://lanager.localhost:8000/api/events")
+                    .then((response)  =>  {
+                        self.$data.loading = false;
+                        self.$data.events = response.data.data;
+                    }, (error)  =>  {
+                        self.$data.loading = false;
+                    })
             }, 1000)
         }
     }

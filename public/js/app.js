@@ -66685,13 +66685,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            time: new moment().format("h:mma")
+            time: new moment().format("h:mma"),
+            events: []
         };
     },
     mounted: function mounted() {
         var self = this;
         setInterval(function () {
             self.$data.time = new moment().format("h:mma");
+            self.$data.loading = true;
+            axios.get("http://lanager.localhost:8000/api/events").then(function (response) {
+                self.$data.loading = false;
+                self.$data.events = response.data.data;
+            }, function (error) {
+                self.$data.loading = false;
+            });
         }, 1000);
     }
 });
@@ -66713,7 +66721,22 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(1)
+    _c("table", { staticClass: "table" }, [
+      _c(
+        "tbody",
+        _vm._l(_vm.events, function(event) {
+          return _c("tr", [
+            _vm._m(1, true),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(event.name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(event.type.name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v("Ending in 16 minutes")])
+          ])
+        })
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -66729,28 +66752,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table" }, [
-      _c("tbody", [
-        _c("tr", [
-          _c("td", { staticClass: "event-status" }, [
-            _c("span", { staticClass: "badge badge-primary" }, [_vm._v("Now")])
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "event-name" }, [
-            _c(
-              "a",
-              { attrs: { href: "http://lanager.localhost:8080/events/1" } },
-              [_vm._v("Testing 1234")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "event-type" }, [_vm._v("Ceremony")]),
-          _vm._v(" "),
-          _c("td", { staticClass: "event-timer" }, [
-            _vm._v("Ending in 16 minutes")
-          ])
-        ])
-      ])
+    return _c("td", [
+      _c("span", { staticClass: "badge badge-primary" }, [_vm._v("Now")])
     ])
   }
 ]
