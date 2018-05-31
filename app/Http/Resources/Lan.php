@@ -15,6 +15,7 @@ class Lan extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'start' => $this->start->toIso8601String(),
             'end' => $this->end->toIso8601String()

@@ -15,6 +15,7 @@ class Event extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'description' => $this->name,
             'start' => $this->start->toIso8601String(),
