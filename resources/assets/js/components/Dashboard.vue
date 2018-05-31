@@ -25,7 +25,7 @@
     export default {
         data() {
             return {
-                time: 0,
+                time: new moment().format("h:mma"),
             };
         },
         mounted() {

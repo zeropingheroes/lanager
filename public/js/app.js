@@ -30272,10 +30272,6 @@ window.Vue = __webpack_require__(162);
 
 Vue.component('dashboard', __webpack_require__(165));
 
-var app = new Vue({
-  el: '#app'
-});
-
 /***/ }),
 /* 138 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -66689,14 +66685,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            time: 0
+            time: new moment().format("h:mma")
         };
     },
     mounted: function mounted() {
-        console.log('Component mounted.');
         var self = this;
         setInterval(function () {
-            console.log('updating ticker');
             self.$data.time = new moment().format("h:mma");
         }, 1000);
     }

@@ -16,7 +16,3 @@ window.Vue = require('vue');
  */
 
 Vue.component('dashboard', require('./components/Dashboard.vue'));
-
-const app = new Vue({
-    el: '#app'
-});
