@@ -48,6 +48,12 @@ class NavigationLinkSeeder extends Seeder
                 'url' => '/pages',
                 'parent_id' => null,
             ],
+            [
+                'title' => 'Dashboard',
+                'position' => '6',
+                'url' => '/dashboard',
+                'parent_id' => null,
+            ],
         ];
 
         foreach ($navigationLinks as $navigationLink) {
