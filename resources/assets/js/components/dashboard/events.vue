@@ -10,12 +10,11 @@
         </div>
         <table class="table">
             <tbody>
-            <tr v-for="event in events">
-                <td><span class="badge badge-primary">Now</span></td>
-                <td>{{ event.name }}</td>
-                <td>{{ event.type.name }}</td>
-                <td>Ending in 16 minutes</td>
-            </tr>
+                <event v-for="event in events"
+                       v-bind:key="event.id"
+                       v-bind:name="event.name"
+                       v-bind:type="event.type.name"
+                ></event>
             </tbody>
         </table>
     </div>

@@ -13,6 +13,6 @@
         }
     </script>
     <div id="app">
-        <dashboard></dashboard>
+        <events></events>
     </div>
 @endsection

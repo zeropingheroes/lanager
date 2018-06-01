@@ -30253,7 +30253,6 @@ module.exports = __webpack_require__(171);
 /* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -30270,7 +30269,16 @@ window.Vue = __webpack_require__(162);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('dashboard', __webpack_require__(165));
+Vue.component('events', __webpack_require__(165));
+// Vue.component('event', {
+//         props: ['name', 'type'],
+//         template: require('./components/dashboard/event.vue')
+//     }
+// );
+Vue.component('event', {
+  props: ['name', 'type'],
+  template: '<tr>\n            <td><span class="badge badge-primary">Now</span></td>\n            <td>{{ name }}</td>\n            <td>{{ type }}</td>\n            <td>Ending in 16 minutes</td>\n        </tr>'
+});
 
 /***/ }),
 /* 138 */
@@ -66522,7 +66530,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Dashboard.vue"
+Component.options.__file = "resources/assets/js/components/dashboard/events.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -66531,9 +66539,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1f65406d", Component.options)
+    hotAPI.createRecord("data-v-b23db5ea", Component.options)
   } else {
-    hotAPI.reload("data-v-1f65406d", Component.options)
+    hotAPI.reload("data-v-b23db5ea", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -66680,7 +66688,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -66725,15 +66732,10 @@ var render = function() {
       _c(
         "tbody",
         _vm._l(_vm.events, function(event) {
-          return _c("tr", [
-            _vm._m(1, true),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(event.name))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(event.type.name))]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Ending in 16 minutes")])
-          ])
+          return _c("event", {
+            key: event.id,
+            attrs: { name: event.name, type: event.type.name }
+          })
         })
       )
     ])
@@ -66747,14 +66749,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-8" }, [
       _c("h1", { staticClass: "pull-left" }, [_vm._v("Events")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("span", { staticClass: "badge badge-primary" }, [_vm._v("Now")])
-    ])
   }
 ]
 render._withStripped = true
@@ -66762,7 +66756,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1f65406d", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-b23db5ea", module.exports)
   }
 }
 

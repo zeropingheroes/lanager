@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -15,4 +14,14 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('dashboard', require('./components/Dashboard.vue'));
+Vue.component('events', require('./components/dashboard/events.vue'));
+Vue.component('event', {
+        props: ['name', 'type'],
+        template: `<tr>
+            <td><span class="badge badge-primary">Now</span></td>
+            <td>{{ name }}</td>
+            <td>{{ type }}</td>
+            <td>Ending in 16 minutes</td>
+        </tr>`,
+    }
+);
