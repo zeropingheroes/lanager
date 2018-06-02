@@ -46,6 +46,7 @@ return [
     'logs' => 'Logs',
     'info-page' => 'Info Page',
     'pages' => 'Pages',
+    'dashboard' => 'Dashboard',
 
     'admin' => 'Admin',
     'assign-a-role' => 'Assign a Role',

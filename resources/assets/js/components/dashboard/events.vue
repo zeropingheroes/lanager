@@ -10,11 +10,7 @@
         </div>
         <table class="table">
             <tbody>
-                <event v-for="event in events"
-                       v-bind:key="event.id"
-                       v-bind:name="event.name"
-                       v-bind:type="event.type.name"
-                ></event>
+            <event v-for="event in events" :key="event.id" v-bind="event" v-bind:now="now"></event>
             </tbody>
         </table>
     </div>
@@ -25,22 +21,28 @@
         data() {
             return {
                 time: new moment().format("h:mma"),
+                now: new moment(),
                 events: []
             };
         },
-        mounted() {
+        created() {
             var self = this;
+            self.update();
             setInterval(function () {
-                self.$data.time = new moment().format("h:mma");
-                self.$data.loading = true;
-                axios.get("http://lanager.localhost:8000/api/events")
-                    .then((response)  =>  {
-                        self.$data.loading = false;
-                        self.$data.events = response.data.data;
-                    }, (error)  =>  {
-                        self.$data.loading = false;
-                    })
+                self.update()
             }, 1000)
+        },
+        methods: {
+            update() {
+                this.$data.time = new moment().format("h:mma");
+                this.$data.now = new moment();
+                axios.get("http://lanager.localhost:8000/api/events")
+                    .then((response) => {
+                        this.$data.events = response.data.data;
+                    }, (error) => {
+                        console.log('Error getting events')
+                    })
+            }
         }
     }
 </script>
