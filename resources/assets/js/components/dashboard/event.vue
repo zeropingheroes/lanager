@@ -1,11 +1,11 @@
 <template>
     <tr>
-        <td>
+        <td class="event-status">
             <status v-bind:status="status()"></status>
         </td>
-        <td>{{ name }}</td>
-        <td>{{ type.name }}</td>
-        <td>
+        <td class="event-name">{{ name }}</td>
+        <td class="event-type">{{ type.name }}</td>
+        <td class="event-relative-time">
             <relative-time v-bind:status="status()"
                            v-bind:start="start"
                            v-bind:end="end"

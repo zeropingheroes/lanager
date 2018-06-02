@@ -129,3 +129,33 @@ span.badge-present {
 span.badge-future {
   background-color: #6bafd9;
 }
+
+/**
+ * dashboard.events
+ */
+table.dashboard-table {
+  font-size: 30px;
+  margin: 0px;
+}
+
+table.dashboard-table td.event-relative-time {
+  text-align: right;
+  font-size: 80%;
+}
+
+/**
+ * dashboard.games
+ */
+table.dashboard-table td.game-user-count { /* easy to read user count */
+  font-weight: bold;
+  padding: 0px 30px;
+  width: 220px;
+}
+
+table.dashboard-table td.game-user-list {
+  text-align: right;
+}
+
+table.dashboard-table td.game-logo { /* easy to read user count */
+  width: 184px;
+}

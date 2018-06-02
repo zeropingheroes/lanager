@@ -8,7 +8,7 @@
                 <h1 class="pull-right">{{ time }}</h1>
             </div>
         </div>
-        <table class="table">
+        <table class="table dashboard-table">
             <tbody>
             <event v-for="event in events" :key="event.id" v-bind="event" v-bind:now="now"></event>
             </tbody>

@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.fullscreen')
 
 @section('title')
     @lang('title.dashboard')
