@@ -36,7 +36,7 @@
             update() {
                 this.$data.time = new moment().format("h:mma");
                 this.$data.now = new moment();
-                axios.get('http://lanager.localhost:8000/api/events?after=' + this.$data.now.format() + '&limit=2')
+                axios.get('events?after=' + this.$data.now.format() + '&limit=5')
                     .then((response) => {
                         this.$data.events = response.data.data;
                     }, (error) => {

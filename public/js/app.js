@@ -30415,6 +30415,7 @@ try {
 window.axios = __webpack_require__(144);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.baseURL = document.head.querySelector('meta[name="api-base-url"]').content;
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -66701,7 +66702,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$data.time = new moment().format("h:mma");
             this.$data.now = new moment();
-            axios.get('http://lanager.localhost:8000/api/events?after=' + this.$data.now.format() + '&limit=2').then(function (response) {
+            axios.get('events?after=' + this.$data.now.format() + '&limit=5').then(function (response) {
                 _this.$data.events = response.data.data;
             }, function (error) {
                 console.log('Error getting events');

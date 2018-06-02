@@ -4,12 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="api-base-url" content="{{ url('/api') }}" />
 
     <title>@yield('title') | {{ config('app.name') }}</title>
 
-    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/open-iconic-bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/tempusdominus-bootstrap-4.css') }}" rel="stylesheet">
