@@ -66701,7 +66701,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$data.time = new moment().format("h:mma");
             this.$data.now = new moment();
-            axios.get("http://lanager.localhost:8000/api/events").then(function (response) {
+            axios.get('http://lanager.localhost:8000/api/events?after=' + this.$data.now.format() + '&limit=2').then(function (response) {
                 _this.$data.events = response.data.data;
             }, function (error) {
                 console.log('Error getting events');

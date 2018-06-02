@@ -9169,7 +9169,7 @@ span.badge-future {
 }
 
 /**
- * dashboard
+ * dashboard.events
  */
 table.dashboard-table {
   font-size: 30px;
@@ -9181,6 +9181,9 @@ table.dashboard-table td.event-relative-time {
   font-size: 80%;
 }
 
+/**
+ * dashboard.games
+ */
 table.dashboard-table td.game-user-count {
   /* easy to read user count */
   font-weight: bold;
