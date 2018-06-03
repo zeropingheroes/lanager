@@ -21,9 +21,9 @@ class Game extends JsonResource
                 'name' => $this->name,
                 'url' => $this->steamStoreURL(),
                 'logo' => [
-                    'large' => $this->image('large'),
-                    'medium' => $this->image('medium'),
                     'small' => $this->image('small'),
+                    'medium' => $this->image('medium'),
+                    'large' => $this->image('large'),
                 ],
             ];
         }
