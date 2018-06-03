@@ -1,6 +1,5 @@
 <table class="table live-games">
     @foreach($liveGames as $liveGame)
-        {{--<pre>{{print_r($game)}}</pre>--}}
         <tr>
             <td class="game">
                 <a href="{{ $liveGame['game']->steamStoreURL() }}" title="@lang('phrase.view-game-in-steam-store', ['game' => $liveGame['game']->name])">
