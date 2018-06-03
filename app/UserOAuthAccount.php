@@ -38,4 +38,34 @@ class UserOAuthAccount extends Model
         return $this->belongsTo('Zeropingheroes\Lanager\User');
     }
 
+    /**
+     * Get the small avatar URL
+     */
+    public function avatarSmall(): string {
+        if ($this->provider == 'steam') {
+            return str_replace('_medium.jpg', '.jpg', $this->avatar);
+        }
+        return '';
+    }
+
+    /**
+     * Get the medium avatar URL
+     */
+    public function avatarMedium(): string {
+       if ($this->provider == 'steam') {
+            return $this->avatar;
+        }
+        return '';
+    }
+
+    /**
+     * Get the large avatar URL
+     */
+    public function avatarLarge(): string {
+        if ($this->provider == 'steam') {
+            return str_replace('_medium.jpg', '_full.jpg', $this->avatar);
+        }
+        return '';
+    }
+
 }

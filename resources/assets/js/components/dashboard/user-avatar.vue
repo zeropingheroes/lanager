@@ -1,5 +1,5 @@
 <template>
-    <img :src="user.oauth_accounts[0].avatar" v-bind:title="user.username" />
+    <img :src="user.oauth_accounts[0].avatar.small" v-bind:title="user.username" />
 </template>
 
 <script>

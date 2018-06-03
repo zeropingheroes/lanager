@@ -86180,7 +86180,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("img", {
-    attrs: { src: _vm.user.oauth_accounts[0].avatar, title: _vm.user.username }
+    attrs: {
+      src: _vm.user.oauth_accounts[0].avatar.small,
+      title: _vm.user.username
+    }
   })
 }
 var staticRenderFns = []
