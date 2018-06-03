@@ -5,15 +5,16 @@ namespace Zeropingheroes\Lanager\Services;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Zeropingheroes\Lanager\SteamUserState;
+use Illuminate\Support\Collection;
 
-class GetGamesBeingPlayedService
+class GetActiveGamesService
 {
     /**
      * Get the games that are currently being played
      *
-     * @return array
+     * @return Collection
      */
-    public function get(): array
+    public function get(): Collection
     {
         $states = SteamUserState::select('*')
             ->join(
@@ -37,11 +38,10 @@ class GetGamesBeingPlayedService
             ->get();
 
         if (empty($states)) {
-            return [];
+            return new Collection();
         }
 
         // Collect and combine states for the same game
-        // TODO: build collection instead of array
         $combinedUsage = [];
         foreach ($states as $state) {
             $combinedUsage[$state->steam_app_id] = $combinedUsage[$state->steam_app_id] ?? ['game' => null, 'users' => []];
@@ -49,14 +49,13 @@ class GetGamesBeingPlayedService
             $combinedUsage[$state->steam_app_id]['users'][] = $state->user;
         }
 
-        // Sort games array by user count, in descending order
+        // Sort games array by user count, in descending order (removing key)
         usort(
             $combinedUsage,
             function ($a, $b) {
                 return count($b['users']) - count($a['users']);
             }
         );
-
-        return $combinedUsage;
+        return collect($combinedUsage);
     }
 }
