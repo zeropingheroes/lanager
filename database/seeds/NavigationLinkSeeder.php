@@ -19,9 +19,9 @@ class NavigationLinkSeeder extends Seeder
 
         $navigationLinks = [
             [
-                'title' => 'Events',
+                'title' => 'Schedule',
                 'position' => '1',
-                'url' => '/events',
+                'url' => '/schedule',
                 'parent_id' => null,
             ],
             [
