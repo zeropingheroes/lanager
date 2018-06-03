@@ -34,7 +34,7 @@
                     slotEventOverlap: false,
                     editable: false,
                     selectable: false,
-                    allDaySlot: false, // TODO: implement all day events in database
+                    allDaySlot: false,
                     defaultView: 'agendaDay',
                     nowIndicator: true,
                     firstDay: 1,
@@ -47,6 +47,7 @@
                             start: event.start,
                             end: event.end,
                             color: event.type.colour,
+                            url: event.links.selfGui,
                         }
                     }
                 }

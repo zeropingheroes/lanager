@@ -22,6 +22,10 @@ class Event extends JsonResource
             'end' => $this->end->toIso8601String(),
             'type' => new EventType($this->type),
             'lan' => new Lan($this->whenLoaded('lan')),
+            'links' => [
+                'self' => route('api.events.show', $this->id),
+                'selfGui' => route('events.show', $this->id),
+            ],
         ];
     }
 }

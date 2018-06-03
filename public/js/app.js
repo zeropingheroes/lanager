@@ -85768,7 +85768,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 slotEventOverlap: false,
                 editable: false,
                 selectable: false,
-                allDaySlot: false, // TODO: implement all day events in database
+                allDaySlot: false,
                 defaultView: 'agendaDay',
                 nowIndicator: true,
                 firstDay: 1,
@@ -85780,7 +85780,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         title: event.name,
                         start: event.start,
                         end: event.end,
-                        color: event.type.colour
+                        color: event.type.colour,
+                        url: event.links.selfGui
                     };
                 }
             }
