@@ -86081,7 +86081,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("tr", [
     _c("td", { staticClass: "game-image" }, [
-      _c("img", { attrs: { src: _vm.game.images.small } })
+      _c("img", { attrs: { src: _vm.game.logo.small } })
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "game-name" }, [_vm._v(_vm._s(_vm.game.name))]),
