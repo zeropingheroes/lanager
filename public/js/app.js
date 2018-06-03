@@ -85773,7 +85773,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         update: function update() {
             var _this = this;
 
-            axios.get('active-games').then(function (response) {
+            axios.get('active-games?limit=5').then(function (response) {
                 _this.$data.activeGames = response.data.data;
             }, function (error) {
                 console.log('Error getting active games');

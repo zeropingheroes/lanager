@@ -29,7 +29,7 @@
         },
         methods: {
             update() {
-                axios.get('active-games')
+                axios.get('active-games?limit=5')
                     .then((response) => {
                         this.$data.activeGames = response.data.data;
                     }, (error) => {
