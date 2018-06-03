@@ -13,8 +13,8 @@
 Route::name('api.')->group(function () {
     Route::resource('users', 'Api\UserController', ['only' => ['index', 'show']]);
     Route::resource('events', 'Api\EventController', ['only' => ['index', 'show']]);
+    Route::resource('active-games', 'Api\ActiveGamesController', ['only' => ['index']]);
 });
-
 
 Route::fallback(function () {
     return response()->json(['error' => ['message' => __('http-status-codes.404-title')]],404);
