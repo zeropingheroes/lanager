@@ -85739,6 +85739,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -85754,7 +85758,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 title: 'event3',
                 start: '2010-01-09T12:30:00',
                 allDay: false
-            }]
+            }],
+            header: {
+                left: '',
+                center: '',
+                right: ' agendaDay agendaWeek today prev,next'
+            },
+            config: {
+                slotEventOverlap: false,
+                editable: false,
+                selectable: false,
+                allDaySlot: false, // TODO: implement all day events in database
+                defaultView: 'agendaDay',
+                nowIndicator: true,
+                firstDay: 1,
+                theme: false,
+                height: "auto",
+                eventColor: "#0f6c00"
+            }
         };
     }
 });
@@ -85767,7 +85788,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("full-calendar", { attrs: { events: _vm.events } })
+  return _c(
+    "div",
+    { attrs: { id: "schedule" } },
+    [
+      _c("full-calendar", {
+        attrs: { events: _vm.events, config: _vm.config, header: _vm.header }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
