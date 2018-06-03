@@ -1,1 +1,3 @@
-<span title="{{ $datetime->toDayDateTimeString() }}">{{ $datetime->diffForHumans() }}</span>
+@if($datetime)
+    <span title="{{ $datetime->toDayDateTimeString() }}">{{ $datetime->diffForHumans() }}</span>
+@endif
