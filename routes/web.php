@@ -74,6 +74,9 @@ Route::resource('lans', 'LanController');
  */
 Route::resource('event-types', 'EventTypeController');
 Route::resource('events', 'EventController');
+Route::get('/schedule', function () {
+    return view('pages.events.schedule');
+})->name('schedule');
 
 /**
  * Dashboard

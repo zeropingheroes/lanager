@@ -11,18 +11,20 @@
     },
     "devDependencies": {
         "axios": "^0.18",
+        "babel-preset-stage-2": "^6.24.1",
         "bootstrap": "^4.0.0",
-        "popper.js": "^1.12",
         "cross-env": "^5.1",
+        "font-awesome": "^4.7.0",
+        "fullcalendar": "^3.9.0",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
-        "vue": "^2.5.7",
-        "open-iconic": "^1.1.1",
-        "fullcalendar": "^3.9.0",
-        "tempusdominus-bootstrap-4": "^5.0.0-alpha18",
         "moment": "^2.22.1",
         "moment-timezone": "^0.5.17",
-        "font-awesome": "^4.7.0"
+        "open-iconic": "^1.1.1",
+        "popper.js": "^1.12",
+        "tempusdominus-bootstrap-4": "^5.0.0-alpha18",
+        "vue": "^2.5.7",
+        "vue-full-calendar": "^2.5.4"
     }
 }
