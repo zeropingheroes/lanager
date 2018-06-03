@@ -14,5 +14,6 @@
     </script>
     <div id="app">
         <events></events>
+        <active-games></active-games>
     </div>
 @endsection

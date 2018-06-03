@@ -4888,50 +4888,6 @@ module.exports = {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var store = __webpack_require__(158)('wks');
-var uid = __webpack_require__(159);
-var Symbol = __webpack_require__(5).Symbol;
-var USE_SYMBOL = typeof Symbol == 'function';
-
-var $exports = module.exports = function (name) {
-  return store[name] || (store[name] =
-    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
-};
-
-$exports.store = store;
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -5037,6 +4993,50 @@ module.exports = function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var store = __webpack_require__(158)('wks');
+var uid = __webpack_require__(159);
+var Symbol = __webpack_require__(5).Symbol;
+var USE_SYMBOL = typeof Symbol == 'function';
+
+var $exports = module.exports = function (name) {
+  return store[name] || (store[name] =
+    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+};
+
+$exports.store = store;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
@@ -18211,7 +18211,7 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
 /* 22 */
@@ -30710,7 +30710,7 @@ module.exports = (
 
 var def = __webpack_require__(8).f;
 var has = __webpack_require__(11);
-var TAG = __webpack_require__(2)('toStringTag');
+var TAG = __webpack_require__(3)('toStringTag');
 
 module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
@@ -30733,9 +30733,9 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(164);
-__webpack_require__(241);
-__webpack_require__(242);
-module.exports = __webpack_require__(243);
+__webpack_require__(244);
+__webpack_require__(245);
+module.exports = __webpack_require__(246);
 
 
 /***/ }),
@@ -30760,7 +30760,11 @@ Vue.component('events', __webpack_require__(226));
 Vue.component('event', __webpack_require__(229));
 Vue.component('status', __webpack_require__(232));
 Vue.component('relative-time', __webpack_require__(235));
-Vue.component('schedule', __webpack_require__(238));
+Vue.component('active-games', __webpack_require__(238));
+Vue.component('active-game', __webpack_require__(254));
+Vue.component('user-avatar', __webpack_require__(257));
+
+Vue.component('schedule', __webpack_require__(241));
 
 /***/ }),
 /* 165 */
@@ -47936,7 +47940,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(12)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(12)(module)))
 
 /***/ }),
 /* 167 */
@@ -66731,7 +66735,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(190).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(190).setImmediate))
 
 /***/ }),
 /* 190 */
@@ -66798,7 +66802,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 /* 191 */
@@ -66991,7 +66995,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(146)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(146)))
 
 /***/ }),
 /* 192 */
@@ -67016,7 +67020,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(194)
 /* template */
@@ -67391,7 +67395,7 @@ var Iterators = __webpack_require__(19);
 var $iterCreate = __webpack_require__(206);
 var setToStringTag = __webpack_require__(161);
 var getPrototypeOf = __webpack_require__(215);
-var ITERATOR = __webpack_require__(2)('iterator');
+var ITERATOR = __webpack_require__(3)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
 var FF_ITERATOR = '@@iterator';
 var KEYS = 'keys';
@@ -67516,7 +67520,7 @@ var setToStringTag = __webpack_require__(161);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__webpack_require__(7)(IteratorPrototype, __webpack_require__(2)('iterator'), function () { return this; });
+__webpack_require__(7)(IteratorPrototype, __webpack_require__(3)('iterator'), function () { return this; });
 
 module.exports = function (Constructor, NAME, next) {
   Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
@@ -67775,7 +67779,7 @@ module.exports = function (iterator, fn, value, entries) {
 
 // check on default Array iterator
 var Iterators = __webpack_require__(19);
-var ITERATOR = __webpack_require__(2)('iterator');
+var ITERATOR = __webpack_require__(3)('iterator');
 var ArrayProto = Array.prototype;
 
 module.exports = function (it) {
@@ -67803,7 +67807,7 @@ module.exports = function (object, index, value) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(221);
-var ITERATOR = __webpack_require__(2)('iterator');
+var ITERATOR = __webpack_require__(3)('iterator');
 var Iterators = __webpack_require__(19);
 module.exports = __webpack_require__(16).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
@@ -67818,7 +67822,7 @@ module.exports = __webpack_require__(16).getIteratorMethod = function (it) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
 var cof = __webpack_require__(156);
-var TAG = __webpack_require__(2)('toStringTag');
+var TAG = __webpack_require__(3)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
 
@@ -67845,7 +67849,7 @@ module.exports = function (it) {
 /* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ITERATOR = __webpack_require__(2)('iterator');
+var ITERATOR = __webpack_require__(3)('iterator');
 var SAFE_CLOSING = false;
 
 try {
@@ -70128,7 +70132,7 @@ function stubFalse() {
 
 module.exports = defaultsDeep;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(12)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(12)(module)))
 
 /***/ }),
 /* 224 */
@@ -85170,7 +85174,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(227)
 /* template */
@@ -85327,7 +85331,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(230)
 /* template */
@@ -85465,7 +85469,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(233)
 /* template */
@@ -85573,7 +85577,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(236)
 /* template */
@@ -85687,11 +85691,152 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(4)
+var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(239)
 /* template */
 var __vue_template__ = __webpack_require__(240)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\dashboard\\active-games.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2e5d26ce", Component.options)
+  } else {
+    hotAPI.reload("data-v-2e5d26ce", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 239 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            activeGames: []
+        };
+    },
+    created: function created() {
+        var self = this;
+        self.update();
+        setInterval(function () {
+            self.update();
+        }, 30000);
+    },
+
+    methods: {
+        update: function update() {
+            var _this = this;
+
+            axios.get('active-games').then(function (response) {
+                _this.$data.activeGames = response.data.data;
+            }, function (error) {
+                console.log('Error getting active games');
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("table", { staticClass: "table dashboard-table" }, [
+      _c(
+        "tbody",
+        _vm._l(_vm.activeGames, function(activeGame) {
+          return _c(
+            "active-game",
+            _vm._b({ key: activeGame.id }, "active-game", activeGame, false)
+          )
+        })
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("h1", { staticClass: "pull-left" }, [_vm._v("Games")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2e5d26ce", module.exports)
+  }
+}
+
+/***/ }),
+/* 241 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(242)
+/* template */
+var __vue_template__ = __webpack_require__(243)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -85730,7 +85875,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 239 */
+/* 242 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -85790,7 +85935,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 240 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -85824,22 +85969,229 @@ if (false) {
 }
 
 /***/ }),
-/* 241 */
+/* 244 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 242 */
+/* 245 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 243 */
+/* 246 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(255)
+/* template */
+var __vue_template__ = __webpack_require__(256)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\dashboard\\active-game.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5450246c", Component.options)
+  } else {
+    hotAPI.reload("data-v-5450246c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 255 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['game', 'users'],
+    computed: {
+        userCount: function userCount() {
+            return _.size(this.users);
+        }
+    }
+});
+
+/***/ }),
+/* 256 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("tr", [
+    _c("td", { staticClass: "game-image" }, [
+      _c("img", { attrs: { src: _vm.game.images.small } })
+    ]),
+    _vm._v(" "),
+    _c("td", { staticClass: "game-name" }, [_vm._v(_vm._s(_vm.game.name))]),
+    _vm._v(" "),
+    _c("td", { staticClass: "game-user-count" }, [
+      _vm._v(_vm._s(_vm.userCount) + " In Game")
+    ]),
+    _vm._v(" "),
+    _c(
+      "td",
+      { staticClass: "game-user-list" },
+      _vm._l(_vm.users, function(user) {
+        return _c("user-avatar", { key: user.id, attrs: { user: user } })
+      })
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5450246c", module.exports)
+  }
+}
+
+/***/ }),
+/* 257 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(258)
+/* template */
+var __vue_template__ = __webpack_require__(259)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\dashboard\\user-avatar.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a0c4dfe8", Component.options)
+  } else {
+    hotAPI.reload("data-v-a0c4dfe8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 258 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['user']
+});
+
+/***/ }),
+/* 259 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("img", {
+    attrs: { src: _vm.user.oauth_accounts[0].avatar, title: _vm.user.username }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a0c4dfe8", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
