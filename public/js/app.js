@@ -85743,21 +85743,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            events: [{
-                title: 'event1',
-                start: '2010-01-01'
-            }, {
-                title: 'event2',
-                start: '2010-01-05',
-                end: '2010-01-07'
-            }, {
-                title: 'event3',
-                start: '2010-01-09T12:30:00',
-                allDay: false
+            events: [],
+            eventSources: [{
+                events: function events(start, end, timezone, callback) {
+                    axios.get('events').then(function (response) {
+                        callback(response.data.data);
+                    }, function (error) {
+                        console.log('Error getting events');
+                    });
+                }
             }],
             header: {
                 left: '',
@@ -85774,7 +85774,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 firstDay: 1,
                 theme: false,
                 height: "auto",
-                eventColor: "#0f6c00"
+                eventDataTransform: function eventDataTransform(event) {
+                    return {
+                        id: event.id,
+                        title: event.name,
+                        start: event.start,
+                        end: event.end,
+                        color: event.type.colour
+                    };
+                }
             }
         };
     }
@@ -85793,7 +85801,12 @@ var render = function() {
     { attrs: { id: "schedule" } },
     [
       _c("full-calendar", {
-        attrs: { events: _vm.events, config: _vm.config, header: _vm.header }
+        attrs: {
+          events: _vm.events,
+          config: _vm.config,
+          header: _vm.header,
+          "event-sources": _vm.eventSources
+        }
       })
     ],
     1

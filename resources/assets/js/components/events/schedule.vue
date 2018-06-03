@@ -2,7 +2,9 @@
     <div id="schedule">
         <full-calendar :events="events"
                        :config="config"
-                       :header="header"></full-calendar>
+                       :header="header"
+                       :event-sources="eventSources">
+        </full-calendar>
     </div>
 </template>
 
@@ -10,21 +12,18 @@
     export default {
         data() {
             return {
-                events: [
+                events: [],
+                eventSources: [
                     {
-                        title  : 'event1',
-                        start  : '2010-01-01',
-                    },
-                    {
-                        title  : 'event2',
-                        start  : '2010-01-05',
-                        end    : '2010-01-07',
-                    },
-                    {
-                        title  : 'event3',
-                        start  : '2010-01-09T12:30:00',
-                        allDay : false,
-                    },
+                        events(start, end, timezone, callback) {
+                            axios.get('events')
+                                .then((response) => {
+                                    callback(response.data.data);
+                                }, (error) => {
+                                    console.log('Error getting events')
+                                })
+                        }
+                    }
                 ],
                 header: {
                     left: '',
@@ -41,7 +40,15 @@
                     firstDay: 1,
                     theme: false,
                     height: "auto",
-                    eventColor: "#0f6c00",
+                    eventDataTransform(event) {
+                        return {
+                            id: event.id,
+                            title: event.name,
+                            start: event.start,
+                            end: event.end,
+                            color: event.type.colour,
+                        }
+                    }
                 }
             }
         }
