@@ -85781,7 +85781,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         start: event.start,
                         end: event.end,
                         color: event.type.colour,
-                        url: event.links.selfGui
+                        url: event.links.self_gui
                     };
                 }
             }

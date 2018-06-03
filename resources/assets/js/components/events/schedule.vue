@@ -47,7 +47,7 @@
                             start: event.start,
                             end: event.end,
                             color: event.type.colour,
-                            url: event.links.selfGui,
+                            url: event.links.self_gui,
                         }
                     }
                 }
