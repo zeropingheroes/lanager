@@ -8,6 +8,83 @@ more enjoyable for attendees and organisers alike.
 
 This unstable branch is where the work of upgrading to Laravel 5.6 is being done. Once complete this will be merged into the master branch.
 
+## Installation
+
+### Requirements
+ - Ubuntu 18.04
+ - PHP 7.1+
+ - MySQL 5.7+
+ - Nginx 1.14+
+
+### Steps
+
+- Install required packages:
+
+    ```
+    apt update && apt install php7.2 \
+                               php7.2-mysql \
+                               php7.2-mbstring \
+                               php7.2-xml \
+                               php7.2-fpm \
+                               composer \
+                               mysql-server \
+    ```
+
+- Clone a copy of LANager:
+
+    `git clone -b laravel-upgrade https://github.com/zeropingheroes/lanager /var/www/lanager/`
+    
+- Install LANager's dependencies:
+
+    `composer install --working-dir=/var/www/lanager`
+
+- Create a Nginx site configuration:
+
+    `nano /etc/nginx/sites-available/lanager`
+    
+    ```
+    server {
+            listen 80;
+    
+            root /var/www/lanager/public;
+    
+            index index.html index.htm index.php;
+    
+            server_name lanager.example.com;
+    
+            location / {
+                try_files $uri $uri/ /index.php?$query_string;
+            }
+    
+            location ~ \.php$ {
+                    include snippets/fastcgi-php.conf;
+    
+                    fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+            }
+    }
+    ```
+- Enable the site:
+
+    `ln -s /etc/nginx/sites-available/lanager /etc/nginx/sites-enabled/lanager`
+    
+- Reload Nginx:
+
+    `systemctl reload nginx`
+    
+- Configure MySQL
+
+    - *todo*
+
+- Configure LANager
+    
+    `cd cd /var/www/lanager/ && cp .env.example .env && nano .env`
+    
+    - `STEAM_API_KEY` - Enter your [Steam API Key](http://steamcommunity.com/dev/apikey)
+    - `APP_DEBUG` - Set to `false` once installed
+    - `APP_URL` - Set to the full URL
+    - *todo*
+
+
 ## Development
 
 ### Requirements
