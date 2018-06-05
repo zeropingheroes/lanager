@@ -21,23 +21,17 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 - Install required packages:
 
     ```
-    apt update && apt install php7.2 \
+    apt update && apt install php7.2-common \
+                               php7.2-fpm \
                                php7.2-mysql \
                                php7.2-mbstring \
+                               php7.2-bcmath \
                                php7.2-xml \
-                               php7.2-fpm \
                                php7.2-zip \
                                composer \
-                               mysql-server
+                               mysql-server \
+                               nginx
     ```
-
-- Clone a copy of LANager:
-
-    `git clone -b laravel-upgrade https://github.com/zeropingheroes/lanager /var/www/lanager/`
-    
-- Install LANager's dependencies:
-
-    `composer install --working-dir=/var/www/lanager`
 
 - Create a Nginx site configuration:
 
@@ -74,17 +68,74 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
     
 - Configure MySQL
 
-    - *todo*
+    `mysql`
+    
+    ```
+    mysql> CREATE USER 'lanager'@'%' IDENTIFIED BY 'YOUR-PASSWORD-HERE';
+    mysql> GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'%';
+    mysql> FLUSH PRIVILEGES;
+    mysql> QUIT;
+    ```
+
+- Clone a copy of LANager:
+
+    `git clone -b laravel-upgrade https://github.com/zeropingheroes/lanager /var/www/lanager/`
+    
+- Grant permissions:
+
+    `chgrp www-data -R /var/www/lanager/`
+    `chmod 777 -R /var/www/lanager/storage`
+    
+- Install LANager's dependencies:
+
+    `composer install --working-dir=/var/www/lanager`
 
 - Configure LANager
     
-    `cd cd /var/www/lanager/ && cp .env.example .env && nano .env`
+    `cd /var/www/lanager/ && cp .env.example .env && nano .env`
     
-    - `STEAM_API_KEY` - Enter your [Steam API Key](http://steamcommunity.com/dev/apikey)
-    - `APP_DEBUG` - Set to `false` once installed
-    - `APP_URL` - Set to the full URL
-    - *todo*
+    - `APP_URL` - The full URL
+    - `APP_TIMEZONE` - Your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
+    - `STEAM_API_KEY` - Your [Steam API Key](http://steamcommunity.com/dev/apikey)
+    - `DB_PASSWORD` - The password you chose for the `lanager` MySQL user above
 
+- Run first-time setup commands
+
+    ```
+    php artisan key:generate
+    php artisan migrate:fresh
+    php artisan db:seed
+    php artisan lanager:update-steam-apps
+    ```
+
+- Visit the app URL to check that the installation was successful
+
+- Enable the scheduler
+
+    - `crontab -e`
+
+    ```
+    * * * * * php /var/www/lanager/artisan schedule:run >> /dev/null 2>&1
+    ```
+
+- Disable debugging and set the site environment to *production*
+
+    `nano /var/www/lanager/.env`
+    
+    - `APP_DEBUG=false`
+    - `APP_ENV=production`
+    
+The first user to sign in will be assigned the "Super Admin" role.
+    
+## Troubleshooting
+
+- Enable debugging in your `.env` file
+
+- [Create an issue](https://github.com/zeropingheroes/lanager/issues) with the error message(s) you see
+
+- If you don't see an error message, in your `.env` file:
+    - set `LOG_CHANNEL=stack` 
+    - check for errors in `/var/www/lanager/storage/logs/laravel.log`
 
 ## Development
 
