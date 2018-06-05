@@ -18,14 +18,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (!$this->app->configurationIsCached()) {
-            if (! env('STEAM_API_KEY')) {
-                throw new Exception('STEAM_API_KEY not set in .env file');
-            }
-            if (! ctype_xdigit(env('STEAM_API_KEY')) || strlen(env('STEAM_API_KEY')) != 32) {
-                throw new Exception('Invalid STEAM_API_KEY set in .env file');
-            }
-        }
 
         User::observe(UserObserver::class);
         NavigationLink::observe(NavigationLinkObserver::class);
@@ -33,11 +25,22 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
      * @return void
+     * @throws Exception
      */
     public function register()
     {
-        //
+        $command = array_get(request()->server(), 'argv.1');
+
+        // Check required environment variables are set
+        // unless the config has been cached, or the package:discover command is being run
+        if (!$this->app->configurationIsCached() && $command != 'package:discover') {
+            if (! env('STEAM_API_KEY')) {
+                throw new Exception('STEAM_API_KEY not set in .env file');
+            }
+            if (! ctype_xdigit(env('STEAM_API_KEY')) || strlen(env('STEAM_API_KEY')) != 32) {
+                throw new Exception('Invalid STEAM_API_KEY set in .env file');
+            }
+        }
     }
 }
