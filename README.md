@@ -26,8 +26,9 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
                                php7.2-mbstring \
                                php7.2-xml \
                                php7.2-fpm \
+                               php7.2-zip \
                                composer \
-                               mysql-server \
+                               mysql-server
     ```
 
 - Clone a copy of LANager:
