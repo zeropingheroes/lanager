@@ -76,11 +76,11 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
     `mysql`
     
     ```
-    mysql> CREATE DATABASE lanager;
-    mysql> CREATE USER 'lanager'@'%' IDENTIFIED BY 'YOUR-PASSWORD-HERE';
-    mysql> GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'%';
-    mysql> FLUSH PRIVILEGES;
-    mysql> QUIT;
+    CREATE DATABASE lanager;
+    CREATE USER 'lanager'@'%' IDENTIFIED BY 'YOUR-PASSWORD-HERE';
+    GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'%';
+    FLUSH PRIVILEGES;
+    QUIT;
     ```
 
 - Clone a copy of LANager:
