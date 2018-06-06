@@ -22,15 +22,16 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 
     ```
     apt update && apt install php7.2-common \
-                               php7.2-fpm \
-                               php7.2-mysql \
-                               php7.2-mbstring \
-                               php7.2-bcmath \
-                               php7.2-xml \
-                               php7.2-zip \
-                               composer \
-                               mysql-server \
-                               nginx
+                              php7.2-fpm \
+                              php7.2-mysql \
+                              php7.2-mbstring \
+                              php7.2-bcmath \
+                              php7.2-xml \
+                              php7.2-zip \
+                              composer \
+                              mysql-server \
+                              nginx
+
     ```
 
 - Create a Nginx site configuration:
@@ -61,16 +62,21 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 - Enable the site:
 
     `ln -s /etc/nginx/sites-available/lanager /etc/nginx/sites-enabled/lanager`
-    
+
+- Disable the default site:
+
+    `rm /etc/nginx/sites-enabled/default`
+
 - Reload Nginx:
 
     `systemctl reload nginx`
     
-- Configure MySQL
+- Configure MySQL:
 
     `mysql`
     
     ```
+    mysql> CREATE DATABASE lanager;
     mysql> CREATE USER 'lanager'@'%' IDENTIFIED BY 'YOUR-PASSWORD-HERE';
     mysql> GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'%';
     mysql> FLUSH PRIVILEGES;
@@ -79,18 +85,20 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 
 - Clone a copy of LANager:
 
-    `git clone -b laravel-upgrade https://github.com/zeropingheroes/lanager /var/www/lanager/`
-    
+    `git clone -b laravel-upgrade https://github.com/zeropingheroes/lanager /var/www/lanager/` 
+
 - Grant permissions:
 
-    `chgrp www-data -R /var/www/lanager/`
-    `chmod 777 -R /var/www/lanager/storage`
-    
+    ```
+    chgrp www-data -R /var/www/lanager/
+    chmod 777 -R /var/www/lanager/storage
+    ```
+
 - Install LANager's dependencies:
 
     `composer install --working-dir=/var/www/lanager`
 
-- Configure LANager
+- Configure LANager:
     
     `cd /var/www/lanager/ && cp .env.example .env && nano .env`
     
@@ -99,7 +107,7 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
     - `STEAM_API_KEY` - Your [Steam API Key](http://steamcommunity.com/dev/apikey)
     - `DB_PASSWORD` - The password you chose for the `lanager` MySQL user above
 
-- Run first-time setup commands
+- Run first-time setup commands:
 
     ```
     php artisan key:generate
@@ -110,7 +118,7 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 
 - Visit the app URL to check that the installation was successful
 
-- Enable the scheduler
+- Enable the scheduled commands:
 
     - `crontab -e`
 
@@ -118,13 +126,14 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
     * * * * * php /var/www/lanager/artisan schedule:run >> /dev/null 2>&1
     ```
 
-- Disable debugging and set the site environment to *production*
+- Disable debugging, set the site's environment to *production*, and enable MySQL logging:
 
     `nano /var/www/lanager/.env`
-    
+
     - `APP_DEBUG=false`
     - `APP_ENV=production`
-    
+    - `LOG_CHANNEL=stack`
+
 The first user to sign in will be assigned the "Super Admin" role.
     
 ## Troubleshooting
