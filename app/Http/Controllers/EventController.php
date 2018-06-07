@@ -29,7 +29,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        $lans = Lan::orderBy('start')->get();
+        $lans = Lan::orderBy('start', 'desc')->get();
+        $eventTypes = EventType::orderBy('name')->get();
 
         if (! $lans->count()) {
             return redirect()
@@ -38,7 +39,7 @@ class EventController extends Controller
         }
         return View::make('pages.events.create')
             ->with('lans', $lans)
-            ->with('eventTypes', EventType::orderBy('name')->get())
+            ->with('eventTypes', $eventTypes)
             ->with('event', new Event);
     }
 
@@ -100,9 +101,12 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
+        $lans = Lan::orderBy('start', 'desc')->get();
+        $eventTypes = EventType::orderBy('name')->get();
+
         return View::make('pages.events.edit')
-            ->with('lans', Lan::orderBy('start')->get())
-            ->with('eventTypes', EventType::orderBy('name')->get())
+            ->with('lans', $lans)
+            ->with('eventTypes', $eventTypes)
             ->with('event', $event);
     }
 
