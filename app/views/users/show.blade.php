@@ -2,7 +2,6 @@
 @section('content')
 
     @include('users.partials.private-profile-warning')
-
     <div class="profile-header">
         <div class="profile-avatar">
             @include('users.partials.avatar', ['user' => $user, 'size' => 'large'] )
@@ -11,6 +10,7 @@
             {{{ $user->username }}}
             @include('roles.partials.badges', ['roles' => $user->roles])
         </h1>
+        @include('users.partials.ip', ['user' => $user] )
     </div>
     <div class="profile-actions">
         @include('users.partials.actions', ['user' => $user] )

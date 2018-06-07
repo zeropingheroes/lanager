@@ -154,20 +154,25 @@ div.profile-header div.profile-avatar {
 
 div.profile-header h1 {
     margin: 0px;
-    line-height: 190px;
-}
-
-@media (max-width: 1200px) {
-    /* move profile name under avatar for small screens*/
-    div.profile-header h1 {
-        line-height: inherit;
-        clear: both;
-    }
+	padding-top: 60px;
 }
 
 div.profile-actions {
-    text-align: center;
-    width: 190px;
+	text-align: center;
+	width: 190px;
+	margin-top: 75px;
+}
+
+@media (max-width: 1200px) { /* move profile name under avatar for small screens*/
+    div.profile-header h1 {
+        line-height: inherit;
+        clear: both;
+        padding-top: 0px;
+    }
+
+    div.profile-actions {
+        margin-top:5px;
+    }
 }
 
 div.profile-nav {
