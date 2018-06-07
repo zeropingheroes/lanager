@@ -74,7 +74,7 @@ class EventSignupService extends ResourceService
         $event = (new EventService)->single($input['event_id']);
 
         if (!$this->user->hasRole('Events Admin')) {
-            if ($this->input['user_id'] != $this->user->id()) {
+            if ($input['user_id'] != $this->user->id()) {
                 throw new AuthorisationException('You may only sign yourself up to events');
             }
 
@@ -100,5 +100,4 @@ class EventSignupService extends ResourceService
             }
         }
     }
-
 }
