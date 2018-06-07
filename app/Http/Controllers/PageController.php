@@ -25,8 +25,11 @@ class PageController extends Controller
 
         // If there isn't a LAN, or the logged in user is a super admin
         if (! $lan || (Auth::check() && Auth::user()->hasRole('Super Admin'))) {
-            // Get all pages
-            $pages = Page::all();
+
+            // Get all pages, ordered by LAN and title
+            $pages = Page::orderBy('lan_id', 'desc')
+                            ->orderBy('title', 'asc')
+                            ->get();
         } else {
             // Otherwise only get this LAN's visible pages
             $pages = $lan->pages()->visible()->get();
