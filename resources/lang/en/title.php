@@ -45,6 +45,7 @@ return [
     'api' => 'API',
     'logs' => 'Logs',
     'info-page' => 'Info Page',
+    'info-pages' => 'Info Pages',
     'pages' => 'Pages',
     'dashboard' => 'Dashboard',
 
