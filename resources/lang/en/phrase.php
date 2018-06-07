@@ -124,6 +124,8 @@ return [
     'markdown-formatting-help-link' => 'Markdown formatting help',
     'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Example',
     'content-help' => 'Tip: use relative links, e.g. [Install Guide](/pages/3) to easily link to other pages',
+    'viewing-page-from-past-lan' => 'You\'re viewing a page from a past LAN, so information may be outdated',
+    'page-not-published' => 'This page has not been published, so only you and other administrators can access it',
     'page-successfully-created' => 'Page ":title" successfully created',
     'page-successfully-updated' => 'Page ":title" successfully updated',
     'page-successfully-deleted' => 'Page ":title" successfully deleted',

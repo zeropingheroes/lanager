@@ -14,9 +14,13 @@ class PagesTableCreate extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function ($table) {
+        Schema::create('pages',
+            function ($table) {
                 // Fields
                 $table->increments('id');
+
+                $table->integer('lan_id')
+                    ->unsigned();
 
                 $table->string('title');
 
@@ -27,6 +31,13 @@ class PagesTableCreate extends Migration
                     ->default(false);
 
                 $table->timestamps();
+
+                // Relationships
+                $table->foreign('lan_id')
+                    ->references('id')
+                    ->on('lans')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
             }
         );
     }

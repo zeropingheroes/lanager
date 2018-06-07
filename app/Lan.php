@@ -100,6 +100,16 @@ class Lan extends Model
     }
 
     /**
+     * The pages for the LAN
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pages()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\Page');
+    }
+
+    /**
      * The users that belong to the role.
      */
     public function users()

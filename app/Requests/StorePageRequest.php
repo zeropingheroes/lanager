@@ -12,9 +12,10 @@ class StorePageRequest extends Request
      * @var array
      */
     protected $laravelValidationRules = [
-        'title' => 'required|max:255',
-        'content' => 'nullable',
-        'published' => 'nullable|boolean',
+        'lan_id' => ['required', 'numeric', 'exists:lans,id'],
+        'title' => ['required', 'max:255'],
+        'content' => ['nullable'],
+        'published' => ['nullable','boolean'],
     ];
 
     /**

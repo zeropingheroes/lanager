@@ -13,6 +13,7 @@ class Page extends Model
      * @var array
      */
     protected $fillable = [
+        'lan_id',
         'title',
         'content',
         'published'
@@ -31,5 +32,15 @@ class Page extends Model
         } else {
             return $query->where('published', '=', 1);
         }
+    }
+
+    /**
+     * The LAN
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function lan()
+    {
+        return $this->belongsTo('Zeropingheroes\Lanager\Lan');
     }
 }

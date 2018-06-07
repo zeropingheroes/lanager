@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Page;
 use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Requests\StorePageRequest;
@@ -17,8 +18,21 @@ class PageController extends Controller
      */
     public function index()
     {
+        // Get the LAN happening now, or the most recently ended LAN
+        $lan = Lan::presentAndPast()
+            ->orderBy('start', 'desc')
+            ->first();
+
+        // If there isn't a LAN, or the logged in user is a super admin
+        if (! $lan || (Auth::check() && Auth::user()->hasRole('Super Admin'))) {
+            // Get all pages
+            $pages = Page::all();
+        } else {
+            // Otherwise only get this LAN's visible pages
+            $pages = $lan->pages()->visible()->get();
+        }
         return View::make('pages.pages.index')
-            ->with('pages', Page::visible()->get());
+            ->with('pages', $pages);
     }
 
     /**
@@ -28,7 +42,10 @@ class PageController extends Controller
      */
     public function create()
     {
+        $lans = Lan::orderBy('start', 'desc')->get();
+
         return View::make('pages.pages.create')
+            ->with('lans', $lans)
             ->with('page', new Page);
     }
 
@@ -45,6 +62,7 @@ class PageController extends Controller
         $this->authorize('create', Page::class);
 
         $input = [
+            'lan_id' => $httpRequest->input('lan_id'),
             'title' => $httpRequest->input('title'),
             'content' => $httpRequest->input('content'),
             'published' => $httpRequest->has('published'),
@@ -74,15 +92,22 @@ class PageController extends Controller
      */
     public function show(Page $page, $slug = '')
     {
+        // Get the LAN happening now, or the most recently ended LAN
+        $lan = Lan::presentAndPast()
+            ->orderBy('start', 'desc')
+            ->first();
+
         $page = Page::visible()->findOrFail($page->id);
 
         // If the page is accessed without the URL slug
-        // redirect to it
-        if (!$slug) {
+        // or an incorrect slug
+        // redirect to the page with the right slug
+        if (!$slug || $slug != str_slug($page->title)) {
             return redirect()->route('pages.show', ['id' => $page->id, 'slug' => str_slug($page->title)]);
         }
 
         return View::make('pages.pages.show')
+            ->with('lan', $lan)
             ->with('page', $page);
     }
 
@@ -97,7 +122,10 @@ class PageController extends Controller
     {
         $this->authorize('update', $page);
 
+        $lans = Lan::orderBy('start', 'desc')->get();
+
         return View::make('pages.pages.edit')
+            ->with('lans', $lans)
             ->with('page', $page);
     }
 
@@ -114,6 +142,7 @@ class PageController extends Controller
         $this->authorize('update', $page);
 
         $input = [
+            'lan_id' => $httpRequest->input('lan_id'),
             'title' => $httpRequest->input('title'),
             'content' => $httpRequest->input('content'),
             'published' => $httpRequest->has('published'),

@@ -19,6 +19,9 @@
                 @if( Gate::allows('update', Zeropingheroes\Lanager\Page::class) ||
                      Gate::allows('destroy', Zeropingheroes\Lanager\Page::class) )
                     <th>
+                        @lang('title.lan')
+                    </th>
+                    <th>
                         @lang('title.published')
                     </th>
                     <th>
@@ -36,10 +39,13 @@
                     <td>
                         @include('components.time-relative', ['datetime' => $page->updated_at])
                     </td>
-                    @can('update', Zeropingheroes\Lanager\Page::class)
-                        <td>@include('components.tick-cross', ['value' => $page->published])</td>
-                    @endcan
                     @if( Gate::allows('update', $page) || Gate::allows('destroy', $page) )
+                        <td>
+                            {{ $page->lan->name }}
+                        </td>
+                        <td>
+                            @include('components.tick-cross', ['value' => $page->published])
+                        </td>
                         <td>
                             @component('components.actions-dropdown')
                                 @include('components.actions-dropdown.edit', ['item' => $page])
