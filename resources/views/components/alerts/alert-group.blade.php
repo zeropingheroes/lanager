@@ -3,8 +3,6 @@
         $messages = (is_array($messages) ? $messages : (array) $messages)
     @endphp
     @foreach($messages as $message)
-        <div class="alert alert-{{ $type }}">
-            {{ $message }}
-        </div>
+        @include('components.alerts.alert-single', ['type' => $type, 'message' => $message])
     @endforeach
 @endif
