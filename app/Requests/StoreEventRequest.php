@@ -16,6 +16,7 @@ class StoreEventRequest extends Request
         'start' => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
         'end' => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
         'event_type_id' => ['required', 'numeric', 'exists:event_types,id'],
+        'lan_id' => ['required', 'numeric', 'exists:lans,id'],
         'published' => ['boolean'],
     ];
 
