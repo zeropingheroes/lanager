@@ -39,6 +39,7 @@ return [
     'start' => 'Start',
     'end' => 'End',
     'users' => 'Users',
+    'users-at-lan-name' => 'Users at :lanName',
     'games' => 'Games',
     'achievements' => 'Achievements',
     'info' => 'Info',

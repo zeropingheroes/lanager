@@ -36,6 +36,7 @@ class UserController extends Controller
         $users->load('state', 'state.app', 'state.server', 'OAuthAccounts', 'SteamApps', 'SteamMetadata', 'lans');
 
         return View::make('pages.users.index')
+            ->with('currentLan', $lan)
             ->with('users', $users);
     }
 
