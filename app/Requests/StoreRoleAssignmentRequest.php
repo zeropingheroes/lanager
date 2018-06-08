@@ -16,8 +16,8 @@ class StoreRoleAssignmentRequest extends Request
      * @var array
      */
     protected $laravelValidationRules = [
-        'user_id' => 'exists:users,id',
-        'role_id' => 'exists:roles,id',
+        'user_id' => ['exists:users,id'],
+        'role_id' => ['exists:roles,id'],
     ];
 
     /**

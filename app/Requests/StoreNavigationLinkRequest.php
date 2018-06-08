@@ -14,10 +14,10 @@ class StoreNavigationLinkRequest extends Request
      * @var array
      */
     protected $laravelValidationRules = [
-        'title' => 'required|max:255',
-        'url' => 'nullable|max:2000',
-        'position' => 'integer',
-        'parent_id' => 'nullable|exists:navigation_links,id',
+        'title' => ['required','max:255'],
+        'url' => ['nullable','max:2000'],
+        'position' => ['integer'],
+        'parent_id' => ['nullable','exists:navigation_links,id'],
     ];
 
     /**
