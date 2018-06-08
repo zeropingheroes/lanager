@@ -35,6 +35,8 @@
             <h2>@lang('title.games')</h2>
             @include('pages.users.partials.private-profile-warning', ['user' => $user])
         @endif
+    @else
+        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.viewing-user-from-another-lan')])
     @endif
     @if($user->lans)
         <h2>@lang('title.lans-attended')</h2>

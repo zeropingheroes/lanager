@@ -100,6 +100,7 @@ return [
     'username-does-not-own-any-games' => ':username does not own any games',
     'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or'
         . ' have in common with you.',
+    'viewing-user-from-another-lan' => 'This user is not attending the current LAN.',
 
     // Steam Statuses
     'status-online' => 'Online',
