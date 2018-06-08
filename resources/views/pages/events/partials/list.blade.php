@@ -5,8 +5,10 @@
         <th>@lang('title.status')</th>
         <th>@lang('title.time')</th>
         <th>@lang('title.type')</th>
-        
-        <th>@lang('title.actions')</th>
+        @if( Gate::allows('update', Zeropingheroes\Lanager\Event::class) ||
+             Gate::allows('destroy', Zeropingheroes\Lanager\Event::class) )
+            <th>@lang('title.actions')</th>
+        @endif
     </tr>
     </thead>
     <tbody>
@@ -24,12 +26,15 @@
             <td>
                 @include('pages.event-types.partials.label', ['eventType' => $event->type])
             </td>
-            <td>
-                @component('components.actions-dropdown')
-                    @include('components.actions-dropdown.edit', ['item' => $event])
-                    @include('components.actions-dropdown.delete', ['item' => $event])
-                @endcomponent
-            </td>
+            @if( Gate::allows('update', Zeropingheroes\Lanager\Event::class) ||
+                 Gate::allows('destroy', Zeropingheroes\Lanager\Event::class) )
+                <td>
+                    @component('components.actions-dropdown')
+                        @include('components.actions-dropdown.edit', ['item' => $event])
+                        @include('components.actions-dropdown.delete', ['item' => $event])
+                    @endcomponent
+                </td>
+            @endif
         </tr>
     @endforeach
     </tbody>
