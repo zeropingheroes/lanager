@@ -47,8 +47,13 @@ class LanController extends Controller
      * @return \Illuminate\Http\Response
      * @internal param \Zeropingheroes\Lanager\Log $log
      */
-    public function show(Lan $lan)
+    public function show(Lan $lan = null)
     {
+        if (!$lan) {
+            $lan = Lan::presentAndPast()
+                ->orderBy('start', 'desc')
+                ->first();
+        }
         $lan->load(
             [
                 'users' => function ($query) {

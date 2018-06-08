@@ -3,9 +3,7 @@
 /**
  * Home
  */
-Route::get('/', function () {
-    return redirect()->route('users.index');
-})->name('home');
+Route::get('/', 'LanController@show')->name('home');
 
 /**
  * Login
