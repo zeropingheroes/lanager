@@ -36,5 +36,13 @@
             @include('pages.users.partials.private-profile-warning', ['user' => $user])
         @endif
     @endif
+    @if($user->lans)
+        <h2>@lang('title.lans-attended')</h2>
+        @foreach($user->lans()->orderBy('start', 'desc')->get() as $lan)
+            <a href="{{ route('lans.show', $lan->id) }}">
+                <span class="badge badge-primary">{{ $lan->name }}</span>
+            </a>
+        @endforeach
+    @endif
 
 @endsection

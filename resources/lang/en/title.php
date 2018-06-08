@@ -87,6 +87,7 @@ return [
     'recent' => 'Recently Played',
     'owned' => 'Owned',
     'games-in-common' => 'Games In Common',
+    'lans-attended' => 'LANs Attended',
 
     'title' => 'Title',
     'content' => 'Content',
