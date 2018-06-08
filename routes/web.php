@@ -84,3 +84,7 @@ Route::get('/schedule', function () {
 Route::get('/dashboard', function () {
     return view('pages.dashboard.index');
 })->name('dashboard');
+
+Route::fallback(function () {
+    return view('errors.404');
+})->name('fallback');
