@@ -165,4 +165,6 @@ return [
     'ending' => 'Ending',
     'ended' => 'Ended',
 
+    'select-files' => 'Select files',
+
 ];

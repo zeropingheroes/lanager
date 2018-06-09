@@ -125,7 +125,9 @@ return [
     'hide-historic-users' => 'Hide Historic Users',
 
     'images' => 'Images',
+    'upload-images' => 'Upload Images',
     'file-size' => 'File Size',
     'folder' => 'Folder',
+    'upload' => 'Upload',
 
 ];

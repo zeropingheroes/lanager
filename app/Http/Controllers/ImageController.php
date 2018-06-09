@@ -49,11 +49,14 @@ class ImageController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        $folders = $this->imageDirectories();
+
+        return View::make('pages.images.create')
+            ->with('folders', $folders);
     }
 
     /**
@@ -96,5 +99,14 @@ class ImageController extends Controller
     public function destroy()
     {
         //
+    }
+
+    /**
+     * @return mixed
+     */
+    private function imageDirectories()
+    {
+        $folders = Storage::allDirectories($this::imagePath);
+        return $folders;
     }
 }
