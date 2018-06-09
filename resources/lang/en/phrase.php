@@ -165,6 +165,8 @@ return [
     'ending' => 'Ending',
     'ended' => 'Ended',
 
+    // Images
     'select-files' => 'Select files',
+    'images-successfully-uploaded' => 'Image(s) successfully uploaded',
 
 ];

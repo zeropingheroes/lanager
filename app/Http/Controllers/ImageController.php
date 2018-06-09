@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
+use Zeropingheroes\Lanager\Requests\StoreImageRequest;
 
 class ImageController extends Controller
 {
@@ -31,7 +32,7 @@ class ImageController extends Controller
 
         // Only show image files
         $images = $files->filter(function ($value) {
-                return in_array(File::extension($value), $this::permittedExtensions);
+                return in_array(strtolower(File::extension($value)), $this::permittedExtensions);
             }
         );
 
@@ -59,22 +60,59 @@ class ImageController extends Controller
      */
     public function create()
     {
-        $folders = $this->imageDirectories();
+        $folders = collect($this->imageDirectories());
+
+        $folders = $folders->map(function ($item) {
+            return str_replace_first('/','',str_after($item, $this::imagePath));
+        });
 
         return View::make('pages.images.create')
             ->with('folders', $folders);
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $httpRequest
      * @return \Illuminate\Http\Response
+     * @internal param Request|StoreRoleAssignmentRequest $request
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(Request $request)
+    public function store(Request $httpRequest)
     {
-        //
+        $input = [
+            'images' => $httpRequest->images,
+            'folder' => $httpRequest->input('folder'),
+        ];
+
+        $request = new StoreImageRequest($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withError($request->errors())
+                ->withInput();
+        }
+
+        // Store each file
+        foreach($httpRequest->images as $image) {
+            $fileNameWithExtension = $image->getClientOriginalName();
+            $extension = $image->getClientOriginalExtension();
+
+            $fileName = str_replace($extension,'', $fileNameWithExtension);
+
+            $newFileName = str_slug($fileName).'.'.strtolower($extension);
+            $folder = $this::imagePath.'/'.$httpRequest->folder;
+
+            $image->storeAs($folder, $newFileName);
+        }
+
+        return redirect()
+            ->route('images.index')
+            ->withSuccess(__('phrase.images-successfully-uploaded'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
