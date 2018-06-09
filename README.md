@@ -113,6 +113,7 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
     php artisan key:generate
     php artisan migrate:fresh
     php artisan db:seed
+    php artisan storage:link
     php artisan lanager:update-steam-apps
     ```
 

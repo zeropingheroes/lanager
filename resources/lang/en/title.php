@@ -124,4 +124,8 @@ return [
     'show-historic-users' => 'Show Historic Users',
     'hide-historic-users' => 'Hide Historic Users',
 
+    'images' => 'Images',
+    'file-size' => 'File Size',
+    'folder' => 'Folder',
+
 ];

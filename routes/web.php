@@ -86,3 +86,8 @@ Route::get('/dashboard', function () {
 Route::fallback(function () {
     return view('errors.404');
 })->name('fallback');
+
+/**
+ * Images
+ */
+Route::resource('images', 'ImageController');
