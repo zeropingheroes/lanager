@@ -4,7 +4,7 @@
         @if($errorCount)<span class="badge badge-danger align-text-top">{{ $errorCount }}</span>@endif
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="{{ route('events.create') }}">@lang('title.events')</a>
+        <a class="dropdown-item" href="{{ route('events.index') }}">@lang('title.events')</a>
         <a class="dropdown-item" href="{{ route('pages.index') }}">@lang('title.info-pages')</a>
         <a class="dropdown-item" href="{{ route('images.index') }}">@lang('title.images')</a>
         <a class="dropdown-item" href="{{ route('role-assignments.index') }}">@lang('title.roles')</a>
