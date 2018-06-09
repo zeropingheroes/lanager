@@ -27,6 +27,8 @@ class ImageController extends Controller
      */
     public function index()
     {
+        $this->authorize('images.view');
+
         // Get all files in image path
         $files = collect(Storage::files($this::directory));
 
@@ -56,6 +58,8 @@ class ImageController extends Controller
      */
     public function create()
     {
+        $this->authorize('images.create');
+
         return View::make('pages.images.create');
     }
 
@@ -70,6 +74,8 @@ class ImageController extends Controller
      */
     public function store(Request $httpRequest)
     {
+        $this->authorize('images.create');
+
         $input = [
             'images' => $httpRequest->images,
         ];
@@ -129,6 +135,8 @@ class ImageController extends Controller
      */
     public function destroy(string $filename)
     {
+        $this->authorize('images.delete');
+
         $file = $this::directory.'/'.$filename;
         if (!Storage::exists($file)) {
             abort(404);

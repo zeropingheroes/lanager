@@ -3,6 +3,8 @@
 namespace Zeropingheroes\Lanager\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use Zeropingheroes\Lanager\Policies\ImagePolicy;
 use Zeropingheroes\Lanager\RoleAssignment;
 use Zeropingheroes\Lanager\Policies\RoleAssignmentPolicy;
 use Zeropingheroes\Lanager\Log;
@@ -49,6 +51,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::resource('images', ImagePolicy::class);
     }
 }
