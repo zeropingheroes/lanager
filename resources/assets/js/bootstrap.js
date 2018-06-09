@@ -10,11 +10,11 @@ window.Popper = require('popper.js').default;
 
 try {
     window.$ = window.jQuery = require('jquery');
-
-    require('bootstrap');
-
     window.moment = require('moment');
+    window.Clipboard = require('clipboard');
+
     require('tempusdominus-bootstrap-4');
+    require('bootstrap');
 } catch (e) {}
 
 /**
