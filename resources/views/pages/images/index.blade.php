@@ -25,7 +25,7 @@
                 <td>
                     <button class="btn btn-secondary btn-sm btn-copy-markdown"
                             type="button"
-                            data-clipboard-text="![@lang('title.description')]({{$image['url']}})">
+                            data-clipboard-text="![{{ ucwords(str_replace('-', ' ', $image['filename'])) }}]({{$image['url']}})">
                         @lang('title.copy')
                     </button>
                 </td>
