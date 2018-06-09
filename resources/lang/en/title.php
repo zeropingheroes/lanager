@@ -126,10 +126,8 @@ return [
 
     'images' => 'Images',
     'upload-images' => 'Upload Images',
-    'folder' => 'Folder',
     'upload' => 'Upload',
-    'existing' => 'Existing',
-    'new' => 'New',
+    'filename' => 'Filename',
     'files' => 'File(s)',
 
 ];

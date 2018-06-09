@@ -16,9 +16,9 @@ class ImageController extends Controller
     const permittedExtensions = ['gif', 'jpg', 'jpeg', 'png', 'bmp'];
 
     /**
-     * Relative image storage location
+     * Uploaded image storage location
      */
-    const imagePath = 'public/images';
+    const directory = 'public/images';
 
     /**
      * Display a listing of the resource.
@@ -27,8 +27,8 @@ class ImageController extends Controller
      */
     public function index()
     {
-        // Get all files in image path (and its subfolders)
-        $files = collect(Storage::allFiles($this::imagePath));
+        // Get all files in image path
+        $files = collect(Storage::files($this::directory));
 
         // Only show image files
         $images = $files->filter(function ($value) {
@@ -41,13 +41,9 @@ class ImageController extends Controller
                 return [
                     'url' => Storage::url($item),
                     'filename' => File::basename($item),
-                    'folder' => str_replace_first('/','',str_after(File::dirname($item), $this::imagePath)),
                 ];
             }
         );
-
-        // Sort collection by folder
-        $images = $images->sortBy('folder');
 
         return View::make('pages.images.index')
             ->with('images', $images);
@@ -60,14 +56,7 @@ class ImageController extends Controller
      */
     public function create()
     {
-        $folders = collect($this->imageDirectories());
-
-        $folders = $folders->map(function ($item) {
-            return str_replace_first('/','',str_after($item, $this::imagePath));
-        });
-
-        return View::make('pages.images.create')
-            ->with('folders', $folders);
+        return View::make('pages.images.create');
     }
 
 
@@ -83,7 +72,6 @@ class ImageController extends Controller
     {
         $input = [
             'images' => $httpRequest->images,
-            'folder' => $httpRequest->input('folder'),
         ];
 
         $request = new StoreImageRequest($input);
@@ -103,9 +91,8 @@ class ImageController extends Controller
             $fileName = str_replace($extension,'', $fileNameWithExtension);
 
             $newFileName = str_slug($fileName).'.'.strtolower($extension);
-            $folder = $this::imagePath.'/'.$httpRequest->folder;
 
-            $image->storeAs($folder, $newFileName);
+            $image->storeAs($this::directory, $newFileName);
         }
 
         return redirect()
@@ -143,14 +130,5 @@ class ImageController extends Controller
     public function destroy()
     {
         //
-    }
-
-    /**
-     * @return mixed
-     */
-    private function imageDirectories()
-    {
-        $folders = Storage::directories($this::imagePath);
-        return $folders;
     }
 }

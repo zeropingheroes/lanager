@@ -11,8 +11,7 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>@lang('title.title')</th>
-            <th>@lang('title.folder')</th>
+            <th>@lang('title.filename')</th>
             <th>@lang('title.markdown')</th>
         </tr>
         </thead>
@@ -21,9 +20,6 @@
             <tr>
                 <td>
                     <a href="{{ $image['url'] }}" target="_blank">{{ $image['filename'] }}</a>
-                </td>
-                <td>
-                    {{ $image['folder'] }}
                 </td>
                 <td>
                     <button class="btn btn-secondary btn-sm btn-copy-markdown"

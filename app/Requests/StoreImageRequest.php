@@ -14,7 +14,6 @@ class StoreImageRequest extends Request
     protected $laravelValidationRules = [
         'images' => ['required'],
         'images.*' => ['required', 'image', 'max:5000'],
-        'folder' => ['nullable', 'string', 'alpha_dash'],
     ];
 
     /**
