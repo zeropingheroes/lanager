@@ -6,6 +6,7 @@
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="{{ route('events.create') }}">@lang('title.events')</a>
         <a class="dropdown-item" href="{{ route('pages.index') }}">@lang('title.info-pages')</a>
+        <a class="dropdown-item" href="{{ route('images.index') }}">@lang('title.images')</a>
         <a class="dropdown-item" href="{{ route('role-assignments.index') }}">@lang('title.roles')</a>
         <a class="dropdown-item" href="{{ route('lans.index') }}">@lang('title.lans')</a>
         <a class="dropdown-item" href="{{ route('event-types.index') }}">@lang('title.event-types')</a>
