@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">@lang('title.upload')</button>
+    <button type="submit" class="btn btn-primary">@lang('title.submit')</button>
 
     @include('components.form.close')
 @endsection
