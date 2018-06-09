@@ -46,5 +46,9 @@
             </a>
         @endforeach
     @endif
+    @can('delete', $user)
+        <h2>@lang('title.delete-account')</h2>
+        @include('components.buttons.delete', ['item' => $user])
+    @endcan
 
 @endsection

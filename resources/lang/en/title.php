@@ -88,6 +88,7 @@ return [
     'owned' => 'Owned',
     'games-in-common' => 'Games In Common',
     'lans-attended' => 'LANs Attended',
+    'delete-account' => 'Delete Account',
 
     'title' => 'Title',
     'content' => 'Content',

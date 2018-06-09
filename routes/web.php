@@ -30,7 +30,7 @@ Route::post('logout', 'AuthController@logout')
 /**
  * Users
  */
-Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
+Route::resource('users', 'UserController', ['only' => ['index', 'show', 'destroy']]);
 
 /**
  * Roles & Role Assignments

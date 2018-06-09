@@ -92,4 +92,26 @@ class UserController extends Controller
             ->with('lansAttended', $lansAttended)
             ->with('currentLan', $lan);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Zeropingheroes\Lanager\User $user
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function destroy(User $user)
+    {
+        $this->authorize('delete', $user);
+
+        User::destroy($user->id);
+
+        if ($user->id === Auth::user()->id) {
+            Auth::logout();
+        }
+
+        return redirect()
+            ->route('users.index')
+            ->withSuccess(__('phrase.user-successfully-deleted', ['username' => $user->username]));
+    }
 }
