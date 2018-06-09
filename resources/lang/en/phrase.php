@@ -168,5 +168,6 @@ return [
     // Images
     'select-files' => 'Select files',
     'images-successfully-uploaded' => 'Image(s) successfully uploaded',
+    'image-filename-successfully-deleted' => 'Image :filename successfully deleted',
 
 ];

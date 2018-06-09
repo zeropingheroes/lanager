@@ -127,8 +127,17 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy(string $filename)
     {
-        //
+        $file = $this::directory.'/'.$filename;
+        if (!Storage::exists($file)) {
+            abort(404);
+        }
+
+        Storage::delete($file);
+
+        return redirect()
+            ->route('images.index')
+            ->withSuccess(__('phrase.image-filename-successfully-deleted', ['filename' => $filename]));
     }
 }

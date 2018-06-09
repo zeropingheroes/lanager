@@ -90,4 +90,4 @@ Route::fallback(function () {
 /**
  * Images
  */
-Route::resource('images', 'ImageController');
+Route::resource('images', 'ImageController', ['except' => 'show', 'edit', 'update']);

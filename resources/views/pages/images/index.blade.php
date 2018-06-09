@@ -13,6 +13,7 @@
         <tr>
             <th>@lang('title.filename')</th>
             <th>@lang('title.markdown')</th>
+            <th>@lang('title.actions')</th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +28,15 @@
                             data-clipboard-text="[!Image description]({{$image['url']}})">
                         Copy
                     </button>
+                </td>
+                <td>
+                    @component('components.actions-dropdown')
+                        <form action="{{ route( 'images.destroy', $image['filename']) }}" method="POST">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+                            <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
+                        </form>
+                    @endcomponent
                 </td>
             </tr>
         @endforeach
