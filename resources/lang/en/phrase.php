@@ -169,5 +169,7 @@ return [
     'select-files' => 'Select files',
     'images-successfully-uploaded' => 'Image(s) successfully uploaded',
     'image-filename-successfully-deleted' => 'Image :filename successfully deleted',
+    'submitted-file-was-invalid-image' => 'Submitted file was not a valid image',
+    'submitted-file-exceeded-max-file-size-of-x' => 'Submitted file exceeded the maximum file size of :x',
 
 ];
