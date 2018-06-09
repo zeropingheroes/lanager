@@ -26,13 +26,16 @@ class ImageController extends Controller
      */
     public function index()
     {
+        // Get all files in image path (and its subfolders)
         $files = collect(Storage::allFiles($this::imagePath));
 
+        // Only show image files
         $images = $files->filter(function ($value) {
                 return in_array(File::extension($value), $this::permittedExtensions);
             }
         );
 
+        // Add fields to collection
         $images = $images->map(function ($item) {
                 return [
                     'url' => Storage::url($item),
@@ -41,6 +44,9 @@ class ImageController extends Controller
                 ];
             }
         );
+
+        // Sort collection by folder
+        $images = $images->sortBy('folder');
 
         return View::make('pages.images.index')
             ->with('images', $images);
