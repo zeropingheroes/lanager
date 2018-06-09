@@ -75,7 +75,7 @@ class EventController extends Controller
         $event = Event::create($input);
 
         return redirect()
-            ->route('events.index')
+            ->route('events.show', $event)
             ->withSuccess(__('phrase.event-successfully-created', ['name' => $event->name]));
     }
 
@@ -143,7 +143,7 @@ class EventController extends Controller
         $event->update($input);
 
         return redirect()
-            ->route('events.index')
+            ->route('events.show', $event)
             ->withSuccess(__('phrase.event-successfully-updated', ['name' => $event->name]));
     }
 
