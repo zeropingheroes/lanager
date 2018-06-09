@@ -15,5 +15,3 @@ php artisan storage:link
 php artisan lanager:update-steam-apps
 
 npm install
-npm run dev
-
