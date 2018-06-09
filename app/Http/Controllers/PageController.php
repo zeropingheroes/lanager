@@ -32,7 +32,10 @@ class PageController extends Controller
                             ->get();
         } else {
             // Otherwise only get this LAN's visible pages
-            $pages = $lan->pages()->visible()->get();
+            $pages = $lan->pages()
+                ->visible()
+                ->orderBy('title', 'asc')
+                ->get();
         }
         return View::make('pages.pages.index')
             ->with('pages', $pages);
