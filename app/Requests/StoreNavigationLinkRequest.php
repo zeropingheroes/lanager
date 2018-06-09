@@ -9,24 +9,19 @@ class StoreNavigationLinkRequest extends Request
     use LaravelValidation;
 
     /**
-     * Validation rules for the Laravel validator
-     *
-     * @var array
-     */
-    protected $laravelValidationRules = [
-        'title' => ['required','max:255'],
-        'url' => ['nullable','max:2000'],
-        'position' => ['integer'],
-        'parent_id' => ['nullable','exists:navigation_links,id'],
-    ];
-
-    /**
      * Whether the request is valid
      *
      * @return bool
      */
     public function valid(): bool
     {
+        $this->validationRules = [
+            'title'     => ['required','max:255'],
+            'url'       => ['nullable','max:2000'],
+            'position'  => ['integer'],
+            'parent_id' => ['nullable','exists:navigation_links,id'],
+        ];
+
         if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }

@@ -7,24 +7,19 @@ class StorePageRequest extends Request
     use LaravelValidation;
 
     /**
-     * Validation rules for the Laravel validator
-     *
-     * @var array
-     */
-    protected $laravelValidationRules = [
-        'lan_id' => ['required', 'numeric', 'exists:lans,id'],
-        'title' => ['required', 'max:255'],
-        'content' => ['nullable'],
-        'published' => ['nullable','boolean'],
-    ];
-
-    /**
      * Whether the request is valid
      *
      * @return bool
      */
     public function valid(): bool
     {
+        $this->validationRules = [
+            'lan_id'    => ['required', 'numeric', 'exists:lans,id'],
+            'title'     => ['required', 'max:255'],
+            'content'   => ['nullable'],
+            'published' => ['nullable','boolean'],
+        ];
+
         if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
