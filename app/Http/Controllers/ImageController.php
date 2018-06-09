@@ -150,7 +150,7 @@ class ImageController extends Controller
      */
     private function imageDirectories()
     {
-        $folders = Storage::allDirectories($this::imagePath);
+        $folders = Storage::directories($this::imagePath);
         return $folders;
     }
 }
