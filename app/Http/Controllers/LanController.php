@@ -54,6 +54,9 @@ class LanController extends Controller
                 ->orderBy('start', 'desc')
                 ->first();
         }
+        if (!$lan) {
+            return redirect()->route('login');
+        }
         $lan->load(
             [
                 'users' => function ($query) {
