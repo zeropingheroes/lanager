@@ -57,6 +57,13 @@ body > .container {
 }
 
 /**
+ * Forms
+ */
+label.custom-file-label {
+  overflow: hidden;
+}
+
+/**
  * Avatars
  */
 img.avatar,

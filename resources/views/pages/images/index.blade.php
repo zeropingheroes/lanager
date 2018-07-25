@@ -41,6 +41,7 @@
     </table>
     <script type="text/javascript">
         window.onload = function () {
+            // Copy to clipboard button
             var clipboard = new Clipboard('.copy-markdown');
             clipboard.on('success', function(e) {
                 e.trigger.innerHTML = 'Copied';
@@ -53,7 +54,32 @@
                 console.error('Trigger:', e.trigger);
                 e.trigger.innerHTML = 'Copy Error';
             });
+
+            // Show selected files in file input label
+            $("input[type=file]").change(function () {
+                var files = $(this).prop("files");
+                var fieldVal = $.map(files, function(val) { return ' ' + val.name; });
+                if (fieldVal != undefined || fieldVal != "") {
+                    $(this).next(".custom-file-label").text(fieldVal);
+                }
+            });
         }
     </script>
-    <a href="{{ route( 'images.create') }}" class="btn btn-primary">@lang('title.upload')</a>
+
+    <form method="POST" action="{{ route('images.store') }}" accept-charset="UTF-8" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="row">
+            <div class="col">
+                <div class="input-group">
+                    <div class="custom-file mr-2">
+                        <input type="file" class="custom-file-input" id="images" name="images[]" multiple>
+                        <label class="custom-file-label" for="images">@lang('phrase.select-files')</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">@lang('title.upload')</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
 @endsection

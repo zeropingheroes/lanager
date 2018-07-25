@@ -52,19 +52,6 @@ class ImageController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function create()
-    {
-        $this->authorize('images.create');
-
-        return View::make('pages.images.create');
-    }
-
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param Request $httpRequest
@@ -106,17 +93,6 @@ class ImageController extends Controller
             ->withSuccess(__('phrase.images-successfully-uploaded'));
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit()
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -131,6 +107,7 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param string $filename
      * @return \Illuminate\Http\Response
      */
     public function destroy(string $filename)

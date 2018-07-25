@@ -21,17 +21,6 @@ class ImagePolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can create pages.
-     *
-     * @param  \Zeropingheroes\Lanager\User $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        return false;
-    }
-
-    /**
      * Determine whether the user can delete the page.
      *
      * @param  \Zeropingheroes\Lanager\User $user
