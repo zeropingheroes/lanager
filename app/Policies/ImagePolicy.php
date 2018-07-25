@@ -10,7 +10,7 @@ class ImagePolicy extends BasePolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can list all pages.
+     * Determine whether the user can list all images.
      *
      * @param  \Zeropingheroes\Lanager\User $user
      * @return mixed
@@ -21,7 +21,29 @@ class ImagePolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can delete the page.
+     * Determine whether the user can create images.
+     *
+     * @param  \Zeropingheroes\Lanager\User $user
+     * @return mixed
+     */
+    public function create(User $user)
+    {
+        return false;
+    }
+
+    /**
+     * Determine whether the user can update images.
+     *
+     * @param  \Zeropingheroes\Lanager\User $user
+     * @return mixed
+     */
+    public function update(User $user)
+    {
+        return false;
+    }
+
+    /**
+     * Determine whether the user can delete images.
      *
      * @param  \Zeropingheroes\Lanager\User $user
      * @return mixed

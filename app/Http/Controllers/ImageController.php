@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Requests\StoreImageRequest;
+use Zeropingheroes\Lanager\Requests\UpdateImageRequest;
 
 class ImageController extends Controller
 {
@@ -94,14 +95,69 @@ class ImageController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param string $filename
+     * @return \Illuminate\Http\Response
+     * @internal param \Zeropingheroes\Lanager\Lan $lan
+     */
+    public function edit(string $filename)
+    {
+        $this->authorize('images.update');
+
+        $filePath = $this::directory.'/'.$filename;
+        if (!Storage::exists($filePath)) {
+            abort(404);
+        }
+
+        $image = [
+            'url' => Storage::url($filePath),
+            'filename' => File::basename($filePath),
+            'name' => File::name($filePath),
+            'extension' => File::extension($filePath),
+        ];
+
+        return View::make('pages.images.edit')
+            ->with('image', $image);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $httpRequest
+     * @param string $filename
      * @return \Illuminate\Http\Response
+     * @internal param Request $request
      */
-    public function update(Request $request)
+    public function update(Request $httpRequest, string $filename)
     {
-        //
+        $this->authorize('images.update');
+
+        $originalFilePath = $this::directory.'/'.$filename;
+        $originalFileExtension = File::extension($originalFilePath);
+        $newFilenameWithoutExtension = str_before($httpRequest->input('filename'), '.' . $originalFileExtension);
+        $newFilePath = $this::directory.'/'.$newFilenameWithoutExtension.'.'.$originalFileExtension;
+
+        $input = [
+            'original_file_path' => $originalFilePath,
+            'new_file_path' => $newFilePath,
+            'new_filename_without_extension' => $newFilenameWithoutExtension,
+        ];
+
+        $request = new UpdateImageRequest($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withError($request->errors())
+                ->withInput();
+        }
+
+        Storage::move($originalFilePath, $newFilePath);
+
+        return redirect()
+            ->route('images.index')
+            ->withSuccess(__('phrase.image-filename-successfully-updated', ['filename' => $filename]));
     }
 
     /**
@@ -114,6 +170,7 @@ class ImageController extends Controller
     {
         $this->authorize('images.delete');
 
+        // TODO: move to Request class
         $file = $this::directory.'/'.$filename;
         if (!Storage::exists($file)) {
             abort(404);

@@ -169,7 +169,9 @@ return [
     'select-files' => 'Select files',
     'images-successfully-uploaded' => 'Image(s) successfully uploaded',
     'image-filename-successfully-deleted' => 'Image :filename successfully deleted',
+    'image-filename-successfully-updated' => 'Image :filename successfully updated',
     'submitted-file-was-invalid-image' => 'Submitted file was not a valid image',
     'submitted-file-exceeded-max-file-size-of-x' => 'Submitted file exceeded the maximum file size of :x',
+    'image-already-exists' => 'An image of the same name already exists',
 
 ];
