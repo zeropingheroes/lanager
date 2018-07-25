@@ -129,6 +129,6 @@ return [
     'upload' => 'Upload',
     'filename' => 'Filename',
     'files' => 'File(s)',
-    'copy' => 'Copy',
+    'copy-markdown' => 'Copy Markdown',
 
 ];

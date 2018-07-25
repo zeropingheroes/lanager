@@ -26,7 +26,7 @@
                         <a class="dropdown-item copy-markdown"
                            href="#"
                            data-clipboard-text="![{{ ucwords(str_replace('-', ' ', $image['filename'])) }}]({{$image['url']}})">
-                            @lang('title.copy')
+                            @lang('title.copy-markdown')
                         </a>
                         <form action="{{ route( 'images.destroy', $image['filename']) }}" method="POST">
                             {{ method_field('DELETE') }}
