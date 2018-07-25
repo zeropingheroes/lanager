@@ -43,16 +43,9 @@
         window.onload = function () {
             // Copy to clipboard button
             var clipboard = new Clipboard('.copy-markdown');
-            clipboard.on('success', function(e) {
-                e.trigger.innerHTML = 'Copied';
-                setTimeout(function () {
-                    e.trigger.innerHTML = 'Copy';
-                }, 3000);
-            });
             clipboard.on('error', function(e) {
                 console.error('Action:', e.action);
                 console.error('Trigger:', e.trigger);
-                e.trigger.innerHTML = 'Copy Error';
             });
 
             // Show selected files in file input label
