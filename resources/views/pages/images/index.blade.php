@@ -11,8 +11,7 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>@lang('title.filename')</th>
-            <th>@lang('title.markdown')</th>
+            <th>@lang('title.name')</th>
             <th>@lang('title.actions')</th>
         </tr>
         </thead>
@@ -23,14 +22,12 @@
                     <a href="{{ $image['url'] }}" target="_blank">{{ $image['filename'] }}</a>
                 </td>
                 <td>
-                    <button class="btn btn-secondary btn-sm btn-copy-markdown"
-                            type="button"
-                            data-clipboard-text="![{{ ucwords(str_replace('-', ' ', $image['filename'])) }}]({{$image['url']}})">
-                        @lang('title.copy')
-                    </button>
-                </td>
-                <td>
                     @component('components.actions-dropdown')
+                        <a class="dropdown-item copy-markdown"
+                           href="#"
+                           data-clipboard-text="![{{ ucwords(str_replace('-', ' ', $image['filename'])) }}]({{$image['url']}})">
+                            @lang('title.copy')
+                        </a>
                         <form action="{{ route( 'images.destroy', $image['filename']) }}" method="POST">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
@@ -44,7 +41,7 @@
     </table>
     <script type="text/javascript">
         window.onload = function () {
-            var clipboard = new Clipboard('.btn-copy-markdown');
+            var clipboard = new Clipboard('.copy-markdown');
             clipboard.on('success', function(e) {
                 e.trigger.innerHTML = 'Copied';
                 setTimeout(function () {
