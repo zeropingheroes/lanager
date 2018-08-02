@@ -28,6 +28,7 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
                               php7.2-bcmath \
                               php7.2-xml \
                               php7.2-zip \
+                              zip \
                               composer \
                               mysql-server \
                               nginx

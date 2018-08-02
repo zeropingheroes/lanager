@@ -74,6 +74,12 @@ return [
     'pruning-historical-steam-data' => 'Pruning historical Steam user status and gameplay data',
     'x-entries-deleted-and-y-entries-retained' => 'Deleted :x and retained :y historical entries of Steam user status and gameplay',
 
+    // lanager:backup
+    'output-directory-not-writable' => 'The specified output directory is not writable',
+    'output-directory-not-empty' => 'The specified output directory is not empty',
+    'backup-created-successfully' => 'Backup created successfully',
+    'exit-code-x' => 'Process exit code: :x',
+
     // General purpose
     'item-created' => ':Item successfully created',
     'no-items-found' => 'No :item found',
