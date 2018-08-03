@@ -35,7 +35,7 @@ class Backup extends Command
         $database = env('DB_DATABASE');
         $imagesDir = base_path() . '/storage/app/public/images';
         $outputDir = $this->argument('output-dir');
-        $backupName = 'lanager-backup-' . date('Y-m-d_H-i-s');
+        $filename = 'lanager-backup-' . date('Y-m-d_H-i-s');
 
         if (!is_writable($outputDir)) {
             $this->error(__('phrase.output-directory-not-writable'));
@@ -43,13 +43,13 @@ class Backup extends Command
         }
 
         // Create a temporary directory in the output dir
-        $processes["mkdir-$backupName"] = new Process(
-            "mkdir -p $outputDir/$backupName/sql $outputDir/$backupName/images"
+        $processes["mkdir-tmp"] = new Process(
+            "mkdir -p $outputDir/tmp/sql $outputDir/tmp/images"
         );
 
         // TODO: Use Laravel's filesystem class to get the files
         $processes["cp-images"] = new Process(
-            "cp $imagesDir/* $outputDir/$backupName/images/"
+            "cp $imagesDir/* $outputDir/tmp/images/"
         );
 
         // Get all tables in database
@@ -60,18 +60,18 @@ class Backup extends Command
         // TODO: Change how password is passed to mysqldump so it doesn't output warnings
         foreach ($tables as $table) {
             $processes["mysqldump-$table"] = new Process(
-                "mysqldump -u $username --password=$password --extended-insert=FALSE --no-create-info $database $table > $outputDir/$backupName/sql/$table.sql"
+                "mysqldump -u $username --password=$password --extended-insert=FALSE --no-create-info $database $table > $outputDir/tmp/sql/$table.sql"
             );
         }
 
-        // Zip all files
-        $processes["zip"] = new Process(
-            "zip -r $outputDir/$backupName.zip $outputDir/$backupName/*"
+        // Compress all files
+        $processes["gzip"] = new Process(
+            "tar -C $outputDir/tmp/ -zcvf $outputDir/$filename.tar.gz sql images"
         );
 
         // Remove the temporary directory
         $processes["rm-tmp"] = new Process(
-            "rm -rf $outputDir/$backupName"
+            "rm -rf $outputDir/tmp"
         );
 
         // Run the defined processes in turn
@@ -86,7 +86,7 @@ class Backup extends Command
                 }
             );
             if (!$process->isSuccessful()) {
-                $this->error(__('phrase.process-exit-code', ['x' => $process->getExitCode()]));
+                $this->error(__('phrase.process-exit-code-x', ['x' => $process->getExitCode()]));
                 die();
             }
         }

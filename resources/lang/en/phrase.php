@@ -78,7 +78,7 @@ return [
     'output-directory-not-writable' => 'The specified output directory is not writable',
     'output-directory-not-empty' => 'The specified output directory is not empty',
     'backup-created-successfully' => 'Backup created successfully',
-    'exit-code-x' => 'Process exit code: :x',
+    'process-exit-code-x' => 'Process exit code: :x',
 
     // General purpose
     'item-created' => ':Item successfully created',
