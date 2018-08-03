@@ -35,8 +35,9 @@ class Backup extends Command
         $username = env('DB_USERNAME');
         $password = env('DB_PASSWORD');
         $database = env('DB_DATABASE');
+        $imagesDir = base_path().'/storage/app/public/images';
         $outputDir = $this->argument('output-dir');
-        $filename = 'lanager-backup-'.date('Y-m-d_H-i-s');
+        $backupName = 'lanager-backup-'.date('Y-m-d_H-i-s');
 
         if (!is_writable($outputDir)) {
             $this->error(__('phrase.output-directory-not-writable'));
@@ -44,8 +45,13 @@ class Backup extends Command
         }
 
         // Create a temporary directory in the output dir
-        $processes["mkdir-tmp"] = new Process(
-            "mkdir -p $outputDir/tmp/"
+        $processes["mkdir-$backupName"] = new Process(
+            "mkdir -p $outputDir/$backupName/sql $outputDir/$backupName/images"
+        );
+
+        // TODO: Use Laravel's filesystem class to get the files
+        $processes["cp-images"] = new Process(
+            "cp $imagesDir/* $outputDir/$backupName/images/"
         );
 
         // Get all tables in database
@@ -53,20 +59,21 @@ class Backup extends Command
         $tables = array_map('current', $tables);
 
         // Define process for dumping each one
+        // TODO: Change how password is passed to mysqldump so it doesn't output warnings
         foreach ($tables as $table) {
             $processes["mysqldump-$table"] = new Process(
-                "mysqldump -u $username --password=$password --extended-insert=FALSE --no-create-info $database $table > $outputDir/tmp/$table.sql"
+                "mysqldump -u $username --password=$password --extended-insert=FALSE --no-create-info $database $table > $outputDir/$backupName/sql/$table.sql"
             );
         }
 
-        // Zip all SQL files
-        $processes["zip-sql"] = new Process(
-            "zip -r $outputDir/$filename.zip $outputDir/tmp/*.sql"
+        // Zip all files
+        $processes["zip"] = new Process(
+            "zip -r $outputDir/$backupName.zip $outputDir/$backupName/*"
         );
 
         // Remove the temporary directory
         $processes["rm-sql"] = new Process(
-            "rm -rf $outputDir/tmp"
+            "rm -rf $outputDir/$backupName"
         );
 
         // Run the defined processes in turn
