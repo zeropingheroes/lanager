@@ -59,6 +59,13 @@ class Backup extends Command
         // Define process for dumping each one
         // TODO: Change how password is passed to mysqldump so it doesn't output warnings
         foreach ($tables as $table) {
+            // Do not back up tables
+            // migrations - will be created when migrations are re-run
+            // steam_apps - will be restored from Steam API
+            // logs - often very large
+            if(str_contains($table, ['migrations', 'steam_apps', 'logs'])) {
+                continue;
+            }
             $processes["mysqldump-$table"] = new Process(
                 "mysqldump -u $username --password=$password --extended-insert=FALSE --no-create-info $database $table > $outputDir/tmp/sql/$table.sql"
             );

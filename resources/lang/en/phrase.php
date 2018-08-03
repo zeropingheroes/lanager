@@ -80,6 +80,13 @@ return [
     'backup-created-successfully' => 'Backup created successfully',
     'process-exit-code-x' => 'Process exit code: :x',
 
+    // lanager:restore-backup
+    'backup-file-not-found' => 'The specified backup file was not found',
+    'this-will-delete-all-lanager-data' => 'This will delete all LANager data!',
+    'are-you-sure' => 'Are you sure you want to continue?',
+    'deleting-all-lanager-data' => 'Deleting all LANager data',
+    'backup-restored-successfully' => 'Backup restored successfully',
+
     // General purpose
     'item-created' => ':Item successfully created',
     'no-items-found' => 'No :item found',
