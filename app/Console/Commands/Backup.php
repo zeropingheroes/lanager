@@ -2,7 +2,6 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
-use FilesystemIterator;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Process\Process;
@@ -16,7 +15,6 @@ class Backup extends Command
      */
     protected $signature = 'lanager:backup
                             {output-dir : Where to store the backup file}';
-
 
     /**
      * The console command description.
@@ -35,9 +33,9 @@ class Backup extends Command
         $username = env('DB_USERNAME');
         $password = env('DB_PASSWORD');
         $database = env('DB_DATABASE');
-        $imagesDir = base_path().'/storage/app/public/images';
+        $imagesDir = base_path() . '/storage/app/public/images';
         $outputDir = $this->argument('output-dir');
-        $backupName = 'lanager-backup-'.date('Y-m-d_H-i-s');
+        $backupName = 'lanager-backup-' . date('Y-m-d_H-i-s');
 
         if (!is_writable($outputDir)) {
             $this->error(__('phrase.output-directory-not-writable'));
@@ -72,7 +70,7 @@ class Backup extends Command
         );
 
         // Remove the temporary directory
-        $processes["rm-sql"] = new Process(
+        $processes["rm-tmp"] = new Process(
             "rm -rf $outputDir/$backupName"
         );
 
