@@ -25,15 +25,15 @@ class NavigationLinkSeeder extends Seeder
                 'parent_id' => null,
             ],
             [
-                'title' => 'Users',
+                'title' => 'Games',
                 'position' => '2',
-                'url' => '/users',
+                'url' => '/games',
                 'parent_id' => null,
             ],
             [
-                'title' => 'Games',
+                'title' => 'Attendees',
                 'position' => '3',
-                'url' => '/games',
+                'url' => '/users',
                 'parent_id' => null,
             ],
             [
@@ -46,12 +46,6 @@ class NavigationLinkSeeder extends Seeder
                 'title' => 'Info',
                 'position' => '5',
                 'url' => '/pages',
-                'parent_id' => null,
-            ],
-            [
-                'title' => 'Dashboard',
-                'position' => '6',
-                'url' => '/dashboard',
                 'parent_id' => null,
             ],
         ];

@@ -13,6 +13,8 @@
               aria-describedby="descriptionHelp">{{ old('description', $event->description) }}</textarea>
     <small id="descriptionHelp" class="form-text text-muted">
         <a href="@lang('phrase.markdown-formatting-help-link-url')" target="_blank">@lang('phrase.markdown-formatting-help-link')</a>
+        <br>
+        <a href="{{ route('images.index') }}" target="_blank">@lang('title.upload-images')</a>
     </small>
 </div>
 <div class="form-row">
@@ -67,6 +69,9 @@
 <div class="form-group">
     <label for="event_type_id">@lang('title.event-type')</label>
     @include('components.form.select', ['name' => 'event_type_id', 'item' => $event, 'items' => $eventTypes, 'labelField' => 'name'])
+    <small id="descriptionHelp" class="form-text text-muted">
+        <a href="{{ route('event-types.index') }}" target="_blank">@lang('title.manage') @lang('title.event-types')</a>
+    </small>
 </div>
 <div class="form-group">
     <div class="custom-control custom-checkbox">

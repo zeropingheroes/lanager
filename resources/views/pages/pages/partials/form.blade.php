@@ -9,11 +9,12 @@
 </div>
 <div class="form-group">
     <label for="content">@lang('title.content')</label>
-    <textarea class="form-control" id="content" name="content" rows="10" placeholder="@lang('title.content')"
+    <textarea class="form-control" id="content" name="content" rows="10" placeholder="@lang('title.content'). @lang('phrase.content-help')"
               aria-describedby="contentHelp">{{ old('content', $page->content) }}</textarea>
     <small id="contentHelp" class="form-text text-muted">
         <a href="@lang('phrase.markdown-formatting-help-link-url')" target="_blank">@lang('phrase.markdown-formatting-help-link')</a>
-        @lang('phrase.content-help')
+        <br>
+        <a href="{{ route('images.index') }}" target="_blank">@lang('title.upload-images')</a>
     </small>
 </div>
 <div class="form-group">

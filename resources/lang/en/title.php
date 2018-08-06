@@ -65,6 +65,7 @@ return [
     'edit' => 'Edit',
     'update' => 'Update',
     'delete' => 'Delete',
+    'manage' => 'Manage',
 
     'created' => 'Created',
     'updated' => 'Updated',
@@ -97,6 +98,7 @@ return [
 
     'navigation-links' => 'Navigation Links',
     'navigation-link' => 'Navigation Link',
+    'navbar' => 'Navbar',
     'url' => 'URL',
     'position' => 'Position',
     'parent' => 'Parent',
