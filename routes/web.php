@@ -91,3 +91,9 @@ Route::fallback(function () {
  * Images
  */
 Route::resource('images', 'ImageController', ['only' => ['index', 'store', 'edit', 'update', 'destroy']]);
+
+/**
+ * Current LAN
+ */
+Route::get('/info', 'CurrentLanController@info')
+    ->name('info');
