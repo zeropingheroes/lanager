@@ -2,7 +2,6 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Page;
@@ -32,15 +31,13 @@ class PageController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
     public function create(Lan $lan)
     {
-        $lans = Lan::orderBy('start', 'desc')->get();
-
         return View::make('pages.pages.create')
             ->with('lan', $lan)
-            ->with('lans', $lans)
             ->with('page', new Page);
     }
 
@@ -48,16 +45,16 @@ class PageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $httpRequest
+     * @param Lan $lan
      * @return \Illuminate\Http\Response
      * @internal param Request|StoreRoleAssignmentRequest $request
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan)
     {
         $this->authorize('create', Page::class);
 
         $input = [
-            'lan_id' => $httpRequest->input('lan_id'),
+            'lan_id' => $lan->id,
             'title' => $httpRequest->input('title'),
             'content' => $httpRequest->input('content'),
             'published' => $httpRequest->has('published'),
@@ -88,12 +85,13 @@ class PageController extends Controller
      */
     public function show(Lan $lan, Page $page, $slug = '')
     {
-        // Get the LAN happening now, or the most recently ended LAN
-        $currentLan = Lan::presentAndPast()
-            ->orderBy('start', 'desc')
-            ->first();
-
+        // Show 404 if page is not published
         $page = Page::visible()->findOrFail($page->id);
+
+        // If the page is accessed via the wrong LAN ID, show 404
+        if($page->lan_id != $lan->id) {
+            abort(404);
+        }
 
         // If the page is accessed without the URL slug
         // or an incorrect slug
@@ -101,6 +99,11 @@ class PageController extends Controller
         if (!$slug || $slug != str_slug($page->title)) {
             return redirect()->route('lans.pages.show', ['lan' => $page->lan_id, 'page' => $page, 'slug' => str_slug($page->title)]);
         }
+
+        // Get the LAN happening now, or the most recently ended LAN
+        $currentLan = Lan::presentAndPast()
+            ->orderBy('start', 'desc')
+            ->first();
 
         return View::make('pages.pages.show')
             ->with('currentLan', $currentLan)
@@ -111,13 +114,18 @@ class PageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param Lan $lan
      * @param  \Zeropingheroes\Lanager\Page $page
      * @return \Illuminate\Contracts\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Lan $lan, Page $page)
     {
         $this->authorize('update', $page);
+
+        // If the page is accessed via the wrong LAN ID, show 404
+        if($page->lan_id != $lan->id) {
+            abort(404);
+        }
 
         $lans = Lan::orderBy('start', 'desc')->get();
 
@@ -139,7 +147,7 @@ class PageController extends Controller
         $this->authorize('update', $page);
 
         $input = [
-            'lan_id' => $httpRequest->input('lan_id'),
+            'lan_id' => $lan->id,
             'title' => $httpRequest->input('title'),
             'content' => $httpRequest->input('content'),
             'published' => $httpRequest->has('published'),
