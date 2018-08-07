@@ -19,9 +19,6 @@
                 @if( Gate::allows('update', Zeropingheroes\Lanager\Page::class) ||
                      Gate::allows('destroy', Zeropingheroes\Lanager\Page::class) )
                     <th>
-                        @lang('title.lan')
-                    </th>
-                    <th>
                         @lang('title.published')
                     </th>
                     <th>
@@ -40,9 +37,6 @@
                         @include('components.time-relative', ['datetime' => $page->updated_at])
                     </td>
                     @if( Gate::allows('update', $page) || Gate::allows('destroy', $page) )
-                        <td>
-                            {{ $page->lan->name }}
-                        </td>
                         <td>
                             @include('components.tick-cross', ['value' => $page->published])
                         </td>
