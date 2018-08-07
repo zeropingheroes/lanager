@@ -34,7 +34,7 @@
             @foreach($pages as $page)
                 <tr>
                     <td>
-                        <a href="{{ route('pages.show', ['id' => $page->id, 'slug' => str_slug($page->title) ]) }}">{{ $page->title }}</a>
+                        <a href="{{ route('lans.pages.show', ['lan' => $page->lan, 'page' => $page->id, 'slug' => str_slug($page->title) ]) }}">{{ $page->title }}</a>
                     </td>
                     <td>
                         @include('components.time-relative', ['datetime' => $page->updated_at])
@@ -48,8 +48,13 @@
                         </td>
                         <td>
                             @component('components.actions-dropdown')
-                                @include('components.actions-dropdown.edit', ['item' => $page])
-                                @include('components.actions-dropdown.delete', ['item' => $page])
+                                <a href="{{ route('lans.pages.edit', ['lan' => $page->lan, 'page' => $page->id]) }}" class="dropdown-item">@lang('title.edit')</a>
+                                <form action="{{ route('lans.pages.destroy', ['lan' => $page->lan, 'page' => $page->id]) }}" method="POST">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
+                                </form>
+
                             @endcomponent
                         </td>
                     @endif
@@ -57,6 +62,8 @@
             @endforeach
             </tbody>
         </table>
-        @include('components.buttons.create', ['item' => Zeropingheroes\Lanager\Page::class])
+        @can('create', Zeropingheroes\Lanager\Page::class)
+            <a href="{{ route( 'lans.pages.create', $lan->id) }}" class="btn btn-primary">@lang('title.create')</a>
+        @endcan
     @endif
 @endsection

@@ -7,7 +7,7 @@
 @section('content')
     <h1>@lang('title.edit-item', ['item' => __('title.info-page')])</h1>
     @include('components.alerts.all')
-    @include('components.form.edit', ['route' => route('pages.update', $page->id)])
+    @include('components.form.edit', ['route' => route('lans.pages.update', ['lan' => $page->lan, 'page' => $page->id])])
     @include('pages.pages.partials.form')
     @include('components.form.close')
 @endsection

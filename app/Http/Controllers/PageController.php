@@ -14,30 +14,18 @@ class PageController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Lan $lan)
     {
-        // Get the LAN happening now, or the most recently ended LAN
-        $lan = Lan::presentAndPast()
-            ->orderBy('start', 'desc')
-            ->first();
+        $pages = $lan->pages()
+            ->visible()
+            ->orderBy('title', 'asc')
+            ->get();
 
-        // If there isn't a LAN, or the logged in user is a super admin
-        if (! $lan || (Auth::check() && Auth::user()->hasRole('Super Admin'))) {
-
-            // Get all pages, ordered by LAN and title
-            $pages = Page::orderBy('lan_id', 'desc')
-                            ->orderBy('title', 'asc')
-                            ->get();
-        } else {
-            // Otherwise only get this LAN's visible pages
-            $pages = $lan->pages()
-                ->visible()
-                ->orderBy('title', 'asc')
-                ->get();
-        }
         return View::make('pages.pages.index')
+            ->with('lan', $lan)
             ->with('pages', $pages);
     }
 
@@ -46,11 +34,12 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function create()
+    public function create(Lan $lan)
     {
         $lans = Lan::orderBy('start', 'desc')->get();
 
         return View::make('pages.pages.create')
+            ->with('lan', $lan)
             ->with('lans', $lans)
             ->with('page', new Page);
     }
@@ -63,7 +52,7 @@ class PageController extends Controller
      * @internal param Request|StoreRoleAssignmentRequest $request
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(Request $httpRequest)
+    public function store(Request $httpRequest, Lan $lan)
     {
         $this->authorize('create', Page::class);
 
@@ -85,21 +74,22 @@ class PageController extends Controller
         $page = Page::create($input);
 
         return redirect()
-            ->route('pages.index')
+            ->route('lans.pages.index', ['lan' => $lan])
             ->withSuccess(__('phrase.page-successfully-created', ['title' => $page->title]));
     }
 
     /**
      * Display the specified resource.
      *
+     * @param Lan $lan
      * @param  \Zeropingheroes\Lanager\Page $page
      * @param string $slug
      * @return \Illuminate\Contracts\View\View
      */
-    public function show(Page $page, $slug = '')
+    public function show(Lan $lan, Page $page, $slug = '')
     {
         // Get the LAN happening now, or the most recently ended LAN
-        $lan = Lan::presentAndPast()
+        $currentLan = Lan::presentAndPast()
             ->orderBy('start', 'desc')
             ->first();
 
@@ -109,10 +99,11 @@ class PageController extends Controller
         // or an incorrect slug
         // redirect to the page with the right slug
         if (!$slug || $slug != str_slug($page->title)) {
-            return redirect()->route('pages.show', ['id' => $page->id, 'slug' => str_slug($page->title)]);
+            return redirect()->route('lans.pages.show', ['lan' => $page->lan_id, 'page' => $page, 'slug' => str_slug($page->title)]);
         }
 
         return View::make('pages.pages.show')
+            ->with('currentLan', $currentLan)
             ->with('lan', $lan)
             ->with('page', $page);
     }
@@ -124,7 +115,7 @@ class PageController extends Controller
      * @return \Illuminate\Contracts\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit(Page $page)
+    public function edit(Lan $lan, Page $page)
     {
         $this->authorize('update', $page);
 
@@ -139,11 +130,11 @@ class PageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $httpRequest
+     * @param Lan $lan
      * @param  \Zeropingheroes\Lanager\Page $page
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $httpRequest, Page $page)
+    public function update(Request $httpRequest, Lan $lan, Page $page)
     {
         $this->authorize('update', $page);
 
@@ -165,25 +156,25 @@ class PageController extends Controller
         $page->update($input);
 
         return redirect()
-            ->route('pages.show', $page)
+            ->route('lans.pages.show', ['lan' => $lan, 'page' => $page])
             ->withSuccess(__('phrase.page-successfully-updated', ['title' => $page->title]));
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param Lan $lan
      * @param  \Zeropingheroes\Lanager\Page $page
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy(Page $page)
+    public function destroy(Lan $lan, Page $page)
     {
         $this->authorize('delete', $page);
 
         Page::destroy($page->id);
 
         return redirect()
-            ->route('pages.index')
+            ->route('lans.pages.index', ['lan' => $lan])
             ->withSuccess(__('phrase.page-successfully-deleted', ['title' => $page->title]));
     }
 }

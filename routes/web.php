@@ -53,9 +53,9 @@ Route::get('games', 'GameController@index')
 /**
  * Info Pages
  */
-Route::resource('pages', 'PageController', ['except' => 'show']);
-Route::get('pages/{page}/{slug?}', 'PageController@show')
-    ->name('pages.show');
+Route::resource('lans.pages', 'PageController', ['except' => 'show']);
+Route::get('lans/{lan}/pages/{page}/{slug?}', 'PageController@show')
+    ->name('lans.pages.show');
 
 /**
  * Navigation Links
