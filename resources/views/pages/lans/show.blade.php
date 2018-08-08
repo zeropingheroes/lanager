@@ -18,7 +18,9 @@
             @include('pages.lans.partials.duration', ['lan' => $lan])
         </small>
     </h4>
-   <h5>@lang('title.events')</h5>
+    {{ Breadcrumbs::render('lans.show', $lan) }}
+
+    <h5>@lang('title.events')</h5>
     @include('pages.events.partials.list', ['events' => $lan->events()->orderBy('start')->get()])
 
     @if( ! $lan->users->isEmpty())

@@ -3,7 +3,8 @@
 /**
  * Home
  */
-Route::get('/', 'LanController@show')->name('home');
+Route::get('/', 'LanController@show')
+    ->name('home');
 
 /**
  * Login
@@ -51,6 +52,11 @@ Route::get('games', 'GameController@index')
     ->name('games.index');
 
 /**
+ * LANs
+ */
+Route::resource('lans', 'LanController');
+
+/**
  * Info Pages
  */
 Route::resource('lans.pages', 'PageController', ['except' => 'show']);
@@ -61,11 +67,6 @@ Route::get('lans/{lan}/pages/{page}/{slug?}', 'PageController@show')
  * Navigation Links
  */
 Route::resource('navigation-links', 'NavigationLinkController', ['except' => 'show']);
-
-/**
- * LANs
- */
-Route::resource('lans', 'LanController');
 
 /**
  * Events & Event Types

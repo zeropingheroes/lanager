@@ -6,6 +6,8 @@
 
 @section('content')
     <h1>{{ $page->title }}</h1>
+    {{ Breadcrumbs::render('lans.pages.show', $lan, $page) }}
+
     @include('components.alerts.all')
 
     @if(!$page->published)

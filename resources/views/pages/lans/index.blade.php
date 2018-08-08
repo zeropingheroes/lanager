@@ -6,6 +6,7 @@
 
 @section('content')
     <h1>@lang('title.lans')</h1>
+    {{ Breadcrumbs::render('lans.index') }}
     @include('components.alerts.all')
 
     @if( empty($lans))
