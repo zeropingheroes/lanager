@@ -99,13 +99,7 @@ class PageController extends Controller
             return redirect()->route('lans.pages.show', ['lan' => $page->lan_id, 'page' => $page, 'slug' => str_slug($page->title)]);
         }
 
-        // Get the LAN happening now, or the most recently ended LAN
-        $currentLan = Lan::presentAndPast()
-            ->orderBy('start', 'desc')
-            ->first();
-
         return View::make('pages.pages.show')
-            ->with('currentLan', $currentLan)
             ->with('lan', $lan)
             ->with('page', $page);
     }

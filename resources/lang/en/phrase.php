@@ -139,7 +139,7 @@ return [
     'markdown-formatting-help-link' => 'Markdown formatting help',
     'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Example',
     'content-help' => 'Tip: use relative links, e.g. [Install Guide](/pages/3) to easily link to other pages',
-    'viewing-page-from-past-lan' => 'This page is not from the current LAN, so information may be incorrect',
+    'viewing-page-from-past-lan' => 'This page is from a LAN that has ended, so information may be irrelevant and/or incorrect',
     'page-not-published' => 'This page has not been published, so only you and other administrators can access it',
     'page-successfully-created' => 'Page ":title" successfully created',
     'page-successfully-updated' => 'Page ":title" successfully updated',

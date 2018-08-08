@@ -14,8 +14,8 @@
         @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.page-not-published')])
     @endif
 
-    @if($page->lan_id != $currentLan->id)
-        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.viewing-page-from-past-lan')])
+    @if($page->lan->end->isPast())
+        @include('components.alerts.alert-single', ['type' => 'danger', 'message' => __('phrase.viewing-page-from-past-lan')])
     @endif
 
     {!! Markdown::convertToHtml($page->content) !!}
