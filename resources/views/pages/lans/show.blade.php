@@ -23,6 +23,9 @@
     <h5>@lang('title.events')</h5>
     @include('pages.events.partials.list', ['events' => $lan->events()->orderBy('start')->get()])
 
+    <h5>@lang('title.info-pages')</h5>
+    @include('pages.pages.partials.list', ['pages' => $lan->pages()->orderBy('title')->get()])
+
     @if( ! $lan->users->isEmpty())
         <h5>{{ $lan->users->count() }} @lang('title.attendees')</h5>
 
