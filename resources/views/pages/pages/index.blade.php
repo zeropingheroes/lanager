@@ -17,16 +17,5 @@
         @can('create', Zeropingheroes\Lanager\Page::class)
             <a href="{{ route( 'lans.pages.create', $lan->id) }}" class="btn btn-primary">@lang('title.create')</a>
         @endcan
-
-        <script type="text/javascript">
-            window.onload = function () {
-                // Copy to clipboard button
-                var clipboard = new Clipboard('.copy-markdown');
-                clipboard.on('error', function(e) {
-                    console.error('Action:', e.action);
-                    console.error('Trigger:', e.trigger);
-                });
-            }
-        </script>
     @endif
 @endsection

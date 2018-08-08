@@ -31,16 +31,16 @@
                     @component('components.actions-dropdown')
                         <a class="dropdown-item copy-markdown"
                            href="#"
-                           data-clipboard-text="[{{ $page->title }}]({{ sprintf('/lans/%s/pages/%s/%s',$page->lan_id, $page->id, str_slug($page->title)) }})">
+                           data-clipboard-text="[{{ $page->title }}]({{ route('lans.pages.show', ['lan' => $page->lan, 'page' => $page, 'slug' => str_slug($page->title)], false) }})">
                             @lang('title.copy-markdown-link')
                         </a>
-                        <a href="{{ route('lans.pages.edit', ['lan' => $page->lan, 'page' => $page->id]) }}" class="dropdown-item">@lang('title.edit')</a>
+                        <a href="{{ route('lans.pages.edit', ['lan' => $page->lan, 'page' => $page->id]) }}"
+                           class="dropdown-item">@lang('title.edit')</a>
                         <form action="{{ route('lans.pages.destroy', ['lan' => $page->lan, 'page' => $page->id]) }}" method="POST">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
                             <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
                         </form>
-
                     @endcomponent
                 </td>
             @endif
@@ -48,3 +48,13 @@
     @endforeach
     </tbody>
 </table>
+<script type="text/javascript">
+    window.onload = function () {
+        // Copy to clipboard button
+        var clipboard = new Clipboard('.copy-markdown');
+        clipboard.on('error', function(e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+    }
+</script>
