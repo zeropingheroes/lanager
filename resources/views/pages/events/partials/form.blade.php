@@ -1,8 +1,4 @@
 <div class="form-group">
-    <label for="lan_id">@lang('title.lan')</label>
-    @include('components.form.select', ['name' => 'lan_id', 'item' => $event, 'items' => $lans, 'labelField' => 'name'])
-</div>
-<div class="form-group">
     <label for="name">@lang('title.name')</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="@lang('title.name')"
            value="{{ old('name', $event->name) }}">

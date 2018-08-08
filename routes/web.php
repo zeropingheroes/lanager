@@ -64,18 +64,18 @@ Route::get('lans/{lan}/pages/{page}/{slug?}', 'PageController@show')
     ->name('lans.pages.show');
 
 /**
- * Navigation Links
- */
-Route::resource('navigation-links', 'NavigationLinkController', ['except' => 'show']);
-
-/**
  * Events & Event Types
  */
+Route::resource('lans.events', 'EventController');
 Route::resource('event-types', 'EventTypeController');
-Route::resource('events', 'EventController');
 Route::get('/schedule', function () {
     return view('pages.events.schedule');
 })->name('schedule');
+
+/**
+ * Navigation Links
+ */
+Route::resource('navigation-links', 'NavigationLinkController', ['except' => 'show']);
 
 /**
  * Dashboard
@@ -98,3 +98,5 @@ Route::resource('images', 'ImageController', ['only' => ['index', 'store', 'edit
  */
 Route::get('/info', 'CurrentLanController@info')
     ->name('info');
+Route::get('/events', 'CurrentLanController@info')
+    ->name('events');

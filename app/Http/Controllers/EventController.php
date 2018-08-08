@@ -14,31 +14,33 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Lan $lan)
     {
+        $events = $lan->events()
+            ->visible()
+            ->orderBy('start')
+            ->get();
+
         return View::make('pages.events.index')
-            ->with('events', Event::visible()->orderBy('start')->get());
+            ->with('lan', $lan)
+            ->with('events', $events);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
-    public function create()
+    public function create(Lan $lan)
     {
-        $lans = Lan::orderBy('start', 'desc')->get();
         $eventTypes = EventType::orderBy('name')->get();
 
-        if (! $lans->count()) {
-            return redirect()
-                ->route('lans.create')
-                ->withError([__('phrase.you-must-create-a-lan-before-creating-events')]);
-        }
         return View::make('pages.events.create')
-            ->with('lans', $lans)
+            ->with('lan', $lan)
             ->with('eventTypes', $eventTypes)
             ->with('event', new Event);
     }
@@ -47,15 +49,15 @@ class EventController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $httpRequest
+     * @param Lan $lan
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(Request $httpRequest)
+    public function store(Request $httpRequest, Lan $lan)
     {
         $this->authorize('create', Event::class);
 
         $input = [
-            'lan_id' => $httpRequest->input('lan_id'),
+            'lan_id' => $lan->id,
             'name' => $httpRequest->input('name'),
             'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
@@ -75,37 +77,51 @@ class EventController extends Controller
         $event = Event::create($input);
 
         return redirect()
-            ->route('events.show', $event)
+            ->route('lans.events.show', ['lan' => $lan, 'event' => $event])
             ->withSuccess(__('phrase.event-successfully-created', ['name' => $event->name]));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\Event  $event
+     * @param Lan $lan
+     * @param  \Zeropingheroes\Lanager\Event $event
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show(Lan $lan, Event $event)
     {
         $event = Event::visible()->findOrFail($event->id);
 
+        // If the event is accessed via the wrong LAN ID, show 404
+        if($event->lan_id != $lan->id) {
+            abort(404);
+        }
+
         return View::make('pages.events.show')
+            ->with('lan', $lan)
             ->with('event', $event);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\Event $event
+     * @param Lan $lan
+     * @param Event $event
      * @return \Illuminate\Contracts\View\View
      */
-    public function edit(Event $event)
+    public function edit(Lan $lan, Event $event)
     {
-        $lans = Lan::orderBy('start', 'desc')->get();
+        $this->authorize('update', $event);
+
+        // If the event is accessed via the wrong LAN ID, show 404
+        if($event->lan_id != $lan->id) {
+            abort(404);
+        }
+
         $eventTypes = EventType::orderBy('name')->get();
 
         return View::make('pages.events.edit')
-            ->with('lans', $lans)
+            ->with('lan', $lan)
             ->with('eventTypes', $eventTypes)
             ->with('event', $event);
     }
@@ -114,16 +130,16 @@ class EventController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $httpRequest
+     * @param Lan $lan
      * @param  \Zeropingheroes\Lanager\Event $event
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $httpRequest, Event $event)
+    public function update(Request $httpRequest, Lan $lan, Event $event)
     {
         $this->authorize('update', Event::class);
 
         $input = [
-            'lan_id' => $httpRequest->input('lan_id'),
+            'lan_id' => $lan->id,
             'name' => $httpRequest->input('name'),
             'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
@@ -143,7 +159,7 @@ class EventController extends Controller
         $event->update($input);
 
         return redirect()
-            ->route('events.show', $event)
+            ->route('lans.events.show', ['lan' => $lan, 'event' => $event])
             ->withSuccess(__('phrase.event-successfully-updated', ['name' => $event->name]));
     }
 
@@ -154,14 +170,14 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy(Event $event)
+    public function destroy(Lan $lan, Event $event)
     {
         $this->authorize('delete', $event);
 
         Event::destroy($event->id);
 
         return redirect()
-            ->route('events.index')
+            ->route('lans.events.index', ['lan' => $lan])
             ->withSuccess(__('phrase.event-successfully-deleted', ['name' => $event->name]));
     }
 }

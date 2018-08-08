@@ -15,7 +15,7 @@
     @foreach($events as $event)
         <tr>
             <td>
-                <a href="{{ route('events.show', $event->id) }}">{{ $event->name }}</a>
+                <a href="{{ route('lans.events.show', ['lan' => $event->lan, 'event' => $event]) }}">{{ $event->name }}</a>
             </td>
             <td>
                 @include('pages.events.partials.status', ['event' => $event])
@@ -30,8 +30,17 @@
                  Gate::allows('destroy', Zeropingheroes\Lanager\Event::class) )
                 <td>
                     @component('components.actions-dropdown')
-                        @include('components.actions-dropdown.edit', ['item' => $event])
-                        @include('components.actions-dropdown.delete', ['item' => $event])
+                        <a class="dropdown-item copy-markdown"
+                           href="#"
+                           data-clipboard-text="[{{ $event->name }}]({{ route('lans.events.show', ['lan' => $event->lan, 'event' => $event], false) }})">
+                            @lang('title.copy-markdown-link')
+                        </a>
+                        <a href="{{ route('lans.events.edit', ['lan' => $event->lan, 'event' => $event->id]) }}" class="dropdown-item">@lang('title.edit')</a>
+                        <form action="{{ route('lans.events.destroy', ['lan' => $event->lan, 'event' => $event->id]) }}" method="POST">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+                            <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
+                        </form>
                     @endcomponent
                 </td>
             @endif
@@ -39,3 +48,13 @@
     @endforeach
     </tbody>
 </table>
+<script type="text/javascript">
+    window.onload = function () {
+        // Copy to clipboard button
+        var clipboard = new Clipboard('.copy-markdown');
+        clipboard.on('error', function(e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+    }
+</script>

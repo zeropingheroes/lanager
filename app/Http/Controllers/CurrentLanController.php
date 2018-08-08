@@ -43,6 +43,16 @@ class CurrentLanController extends Controller
      */
     public function info()
     {
-        return redirect()->route('lans.pages.index', $this->currentLan->id);
+        return redirect()->route('lans.pages.index', $this->currentLan);
+    }
+
+    /**
+     * Redirect to current LAN's events index
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function events()
+    {
+        return redirect()->route('lans.events.index', $this->currentLan);
     }
 }

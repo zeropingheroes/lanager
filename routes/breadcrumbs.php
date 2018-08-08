@@ -29,4 +29,14 @@ Breadcrumbs::for('lans.pages.show', function ($trail, $lan, $page) {
     $trail->push($page->title, route('lans.pages.show', ['lan' => $lan, 'page' => $page]));
 });
 
+// Home > LANs > [LAN] > Events
+Breadcrumbs::for('lans.events.index', function ($trail, $lan) {
+    $trail->parent('lans.show', $lan);
+    $trail->push('Events', route('lans.events.index', $lan));
+});
+
+// Home > LANs > [LAN] > Events > [Event]
+Breadcrumbs::for('lans.events.show', function ($trail, $lan, $event) {
+    $trail->parent('lans.events.index', $lan);
+    $trail->push($event->name, route('lans.events.show', ['lan' => $lan, 'page' => $event]));
 });
