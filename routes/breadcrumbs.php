@@ -14,17 +14,19 @@ Breadcrumbs::for('lans.index', function ($trail) {
 // Home > LANs > [LAN]
 Breadcrumbs::for('lans.show', function ($trail, $lan) {
     $trail->parent('lans.index');
-    $trail->push($lan->name, route('lans.show', $lan->id));
+    $trail->push($lan->name, route('lans.show', $lan));
 });
 
 // Home > LANs > [LAN] > Pages
 Breadcrumbs::for('lans.pages.index', function ($trail, $lan) {
     $trail->parent('lans.show', $lan);
-    $trail->push('Pages', route('lans.pages.index', $lan->id));
+    $trail->push('Pages', route('lans.pages.index', $lan));
 });
 
 // Home > LANs > [LAN] > Pages > [Page]
 Breadcrumbs::for('lans.pages.show', function ($trail, $lan, $page) {
     $trail->parent('lans.pages.index', $lan);
-    $trail->push($page->title, route('lans.pages.show', ['lan' => $lan->id, 'page' => $page->id]));
+    $trail->push($page->title, route('lans.pages.show', ['lan' => $lan, 'page' => $page]));
+});
+
 });
