@@ -95,6 +95,7 @@ return [
     'content' => 'Content',
     'published' => 'Published',
     'submit' => 'Submit',
+    'copy-markdown-link' => 'Copy Markdown Link',
 
     'navigation-links' => 'Navigation Links',
     'navigation-link' => 'Navigation Link',

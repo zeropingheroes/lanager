@@ -42,6 +42,11 @@
                         </td>
                         <td>
                             @component('components.actions-dropdown')
+                                <a class="dropdown-item copy-markdown"
+                                   href="#"
+                                   data-clipboard-text="[{{ $page->title }}]({{ sprintf('/lans/%s/pages/%s/%s',$page->lan_id, $page->id, str_slug($page->title)) }})">
+                                    @lang('title.copy-markdown-link')
+                                </a>
                                 <a href="{{ route('lans.pages.edit', ['lan' => $page->lan, 'page' => $page->id]) }}" class="dropdown-item">@lang('title.edit')</a>
                                 <form action="{{ route('lans.pages.destroy', ['lan' => $page->lan, 'page' => $page->id]) }}" method="POST">
                                     {{ method_field('DELETE') }}
@@ -59,5 +64,16 @@
         @can('create', Zeropingheroes\Lanager\Page::class)
             <a href="{{ route( 'lans.pages.create', $lan->id) }}" class="btn btn-primary">@lang('title.create')</a>
         @endcan
+
+        <script type="text/javascript">
+            window.onload = function () {
+                // Copy to clipboard button
+                var clipboard = new Clipboard('.copy-markdown');
+                clipboard.on('error', function(e) {
+                    console.error('Action:', e.action);
+                    console.error('Trigger:', e.trigger);
+                });
+            }
+        </script>
     @endif
 @endsection
