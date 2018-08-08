@@ -47,7 +47,6 @@ class PageController extends Controller
      * @param Request $httpRequest
      * @param Lan $lan
      * @return \Illuminate\Http\Response
-     * @internal param Request|StoreRoleAssignmentRequest $request
      */
     public function store(Request $httpRequest, Lan $lan)
     {
@@ -146,6 +145,11 @@ class PageController extends Controller
     {
         $this->authorize('update', $page);
 
+        // If the page is accessed via the wrong LAN ID, show 404
+        if($page->lan_id != $lan->id) {
+            abort(404);
+        }
+
         $input = [
             'lan_id' => $lan->id,
             'title' => $httpRequest->input('title'),
@@ -178,6 +182,11 @@ class PageController extends Controller
     public function destroy(Lan $lan, Page $page)
     {
         $this->authorize('delete', $page);
+
+        // If the page is accessed via the wrong LAN ID, show 404
+        if($page->lan_id != $lan->id) {
+            abort(404);
+        }
 
         Page::destroy($page->id);
 
