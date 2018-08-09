@@ -98,7 +98,7 @@ return [
 
     'navigation-links' => 'Navigation Links',
     'navigation-link' => 'Navigation Link',
-    'navbar' => 'Navbar',
+    'navigation' => 'Navigation',
     'url' => 'URL',
     'position' => 'Position',
     'parent' => 'Parent',
