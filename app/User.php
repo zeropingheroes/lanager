@@ -128,7 +128,7 @@ class User extends Authenticatable
     public function lans()
     {
         return $this->belongsToMany('Zeropingheroes\Lanager\Lan', 'lan_attendees')
-            ->using('Zeropingheroes\Lanager\LanAttendee')
+            ->using('Zeropingheroes\Lanager\Attendee')
             ->as('attendance')
             ->withTimestamps();
     }

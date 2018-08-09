@@ -4,7 +4,7 @@ namespace Zeropingheroes\Lanager;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class LanAttendee extends Pivot
+class Attendee extends Pivot
 {
 
     /**

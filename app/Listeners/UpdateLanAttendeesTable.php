@@ -4,7 +4,7 @@ namespace Zeropingheroes\Lanager\Listeners;
 
 use Illuminate\Auth\Events\Login;
 use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\LanAttendee;
+use Zeropingheroes\Lanager\Attendee;
 
 class UpdateLanAttendeesTable
 {
@@ -22,7 +22,7 @@ class UpdateLanAttendeesTable
             ->where('end', '>', now())->first();
 
         if ($lanHappeningNow) {
-            LanAttendee::firstOrCreate(
+            Attendee::firstOrCreate(
                 [
                     'user_id' => $login->user->id,
                     'lan_id' => $lanHappeningNow->id,
