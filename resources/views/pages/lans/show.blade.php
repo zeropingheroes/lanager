@@ -20,11 +20,15 @@
     </h4>
     {{ Breadcrumbs::render('lans.show', $lan) }}
 
-    <h5>@lang('title.events')</h5>
-    @include('pages.events.partials.list', ['events' => $lan->events()->orderBy('start')->get()])
+    @if($events->count())
+        <h5>@lang('title.events')</h5>
+        @include('pages.events.partials.list', ['events' => $events])
+    @endif
 
-    <h5>@lang('title.info-pages')</h5>
-    @include('pages.pages.partials.list', ['pages' => $lan->pages()->orderBy('title')->get()])
+    @if($pages->count())
+        <h5>@lang('title.info-pages')</h5>
+        @include('pages.pages.partials.list', ['pages' => $pages])
+    @endif
 
     @if( ! $lan->users->isEmpty())
         <h5>{{ $lan->users->count() }} @lang('title.attendees')</h5>
