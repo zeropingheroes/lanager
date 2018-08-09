@@ -6,11 +6,7 @@
 
 @section('content')
 
-    @if($currentLan)
-        <h1>@lang('title.users-at-lan-name', ['lanName' => $currentLan->name])</h1>
-    @else
-        <h1>@lang('title.users')</h1>
-    @endif
+    <h1>@lang('title.attendees')</h1>
 
     @if(count($users))
         <table class="table table-striped">

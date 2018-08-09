@@ -12,35 +12,6 @@ use Zeropingheroes\Lanager\User;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        // Get the LAN happening now, or the most recently ended LAN
-        $lan = Lan::presentAndPast()
-            ->orderBy('start', 'desc')
-            ->first();
-
-        // If there is not a current LAN
-        if ( ! $lan) {
-            // Show all users
-            $users = User::orderBy('username')->get();
-        } else {
-            // Otherwise show users who are attending the current LAN
-            $users = $lan->users()->orderBy('username')->get();
-        }
-
-        $users->load('state', 'state.app', 'state.server', 'OAuthAccounts', 'SteamApps', 'SteamMetadata', 'lans');
-
-        return View::make('pages.users.index')
-            ->with('currentLan', $lan)
-            ->with('users', $users);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \Zeropingheroes\Lanager\User $user

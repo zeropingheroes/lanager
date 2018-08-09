@@ -29,11 +29,6 @@ Route::post('logout', 'AuthController@logout')
     ->name('logout');
 
 /**
- * Users
- */
-Route::resource('users', 'UserController', ['only' => ['index', 'show', 'destroy']]);
-
-/**
  * Roles & Role Assignments
  */
 Route::resource('role-assignments', 'RoleAssignmentController', ['except' => ['show', 'edit', 'update']]);
@@ -73,6 +68,12 @@ Route::get('/schedule', function () {
 })->name('schedule');
 
 /**
+ * Users & Attendeees
+ */
+Route::resource('users', 'UserController', ['only' => ['show', 'destroy']]);
+Route::resource('lans.attendees', 'AttendeeController', ['only' => ['index']]);
+
+/**
  * Navigation Links
  */
 Route::resource('navigation-links', 'NavigationLinkController', ['except' => 'show']);
@@ -100,3 +101,5 @@ Route::get('/info', 'CurrentLanController@info')
     ->name('info');
 Route::get('/events', 'CurrentLanController@events')
     ->name('events');
+Route::get('/users', 'CurrentLanController@users')
+    ->name('users');
