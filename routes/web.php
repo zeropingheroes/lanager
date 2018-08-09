@@ -98,5 +98,5 @@ Route::resource('images', 'ImageController', ['only' => ['index', 'store', 'edit
  */
 Route::get('/info', 'CurrentLanController@info')
     ->name('info');
-Route::get('/events', 'CurrentLanController@info')
+Route::get('/events', 'CurrentLanController@events')
     ->name('events');
