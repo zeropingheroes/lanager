@@ -17,7 +17,7 @@ class AttendeeController extends Controller
      */
     public function index(Request $request, Lan $lan)
     {
-        $users = $lan->users;
+        $users = $lan->users()->orderBy('username')->get();
 
         $users->load('state', 'state.app', 'state.server', 'OAuthAccounts', 'SteamApps', 'SteamMetadata', 'lans');
 

@@ -60,7 +60,7 @@ class LanController extends Controller
         $lan->load(
             [
                 'users' => function ($query) {
-                    $query->orderBy('lan_attendees.created_at', 'desc');
+                    $query->orderBy('users.username', 'asc');
                 },
                 'users.state',
             ]
