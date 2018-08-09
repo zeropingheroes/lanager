@@ -2,13 +2,13 @@
 
 // Home
 Breadcrumbs::for('home', function ($trail) {
-    $trail->push('Home', route('home'));
+    $trail->push(config('app.name'), route('home'));
 });
 
 // Home > LANs
 Breadcrumbs::for('lans.index', function ($trail) {
     $trail->parent('home');
-    $trail->push('LANs', route('lans.index'));
+    $trail->push(__('title.lans'), route('lans.index'));
 });
 
 // Home > LANs > [LAN]
@@ -20,7 +20,7 @@ Breadcrumbs::for('lans.show', function ($trail, $lan) {
 // Home > LANs > [LAN] > Pages
 Breadcrumbs::for('lans.pages.index', function ($trail, $lan) {
     $trail->parent('lans.show', $lan);
-    $trail->push('Pages', route('lans.pages.index', $lan));
+    $trail->push(__('title.pages'), route('lans.pages.index', $lan));
 });
 
 // Home > LANs > [LAN] > Pages > [Page]
@@ -32,7 +32,7 @@ Breadcrumbs::for('lans.pages.show', function ($trail, $lan, $page) {
 // Home > LANs > [LAN] > Events
 Breadcrumbs::for('lans.events.index', function ($trail, $lan) {
     $trail->parent('lans.show', $lan);
-    $trail->push('Events', route('lans.events.index', $lan));
+    $trail->push(__('title.events'), route('lans.events.index', $lan));
 });
 
 // Home > LANs > [LAN] > Events > [Event]
