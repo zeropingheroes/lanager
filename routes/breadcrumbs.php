@@ -40,3 +40,9 @@ Breadcrumbs::for('lans.events.show', function ($trail, $lan, $event) {
     $trail->parent('lans.events.index', $lan);
     $trail->push($event->name, route('lans.events.show', ['lan' => $lan, 'page' => $event]));
 });
+
+// Home > LANs > [LAN] > Attendees
+Breadcrumbs::for('lans.attendees.index', function ($trail, $lan) {
+    $trail->parent('lans.show', $lan);
+    $trail->push(__('title.attendees'), route('lans.attendees.index', $lan));
+});

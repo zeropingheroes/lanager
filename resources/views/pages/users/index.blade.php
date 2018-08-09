@@ -8,6 +8,8 @@
 
     <h1>@lang('title.attendees')</h1>
 
+    {{ Breadcrumbs::render('lans.attendees.index', $lan) }}
+
     @if(count($users))
         <table class="table table-striped">
             <tbody>
