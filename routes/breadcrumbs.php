@@ -23,6 +23,18 @@ Breadcrumbs::for('navigation-links.index', function ($trail) {
     $trail->push(__('title.navigation-links'), route('navigation-links.index'));
 });
 
+// Home > Navigation Links > Create
+Breadcrumbs::for('navigation-links.create', function ($trail) {
+    $trail->parent('navigation-links.index');
+    $trail->push(__('title.create'), route('navigation-links.create'));
+});
+
+// Home > Navigation Links > Edit
+Breadcrumbs::for('navigation-links.edit', function ($trail, $navigationLink) {
+    $trail->parent('navigation-links.index');
+    $trail->push(__('title.edit'), route('navigation-links.edit', $navigationLink));
+});
+
 // Home > Logs
 Breadcrumbs::for('logs.index', function ($trail) {
     $trail->parent('home');
