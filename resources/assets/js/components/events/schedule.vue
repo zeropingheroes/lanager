@@ -28,14 +28,14 @@
                 header: {
                     left: '',
                     center: '',
-                    right: ' agendaDay agendaWeek today prev,next'
+                    right: ' agendaDay agendaThreeDay agendaWeek today prev,next'
                 },
                 config: {
                     slotEventOverlap: false,
                     editable: false,
                     selectable: false,
                     allDaySlot: false,
-                    defaultView: 'agendaDay',
+                    defaultView: 'agendaThreeDay',
                     nowIndicator: true,
                     firstDay: 1,
                     theme: false,
@@ -48,6 +48,13 @@
                             end: event.end,
                             color: event.type.colour,
                             url: event.links.self_gui,
+                        }
+                    },
+                    views: {
+                        agendaThreeDay: {
+                            type: 'agenda',
+                            duration: { days: 3 },
+                            buttonText: '3 day'
                         }
                     }
                 }
