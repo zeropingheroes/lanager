@@ -5,12 +5,12 @@ namespace Zeropingheroes\Lanager\Policies;
 use Zeropingheroes\Lanager\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PagePolicy extends BasePolicy
+class GuidePolicy extends BasePolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can list all pages.
+     * Determine whether the user can list all items.
      *
      * @param  \Zeropingheroes\Lanager\User $user
      * @return mixed
@@ -21,7 +21,7 @@ class PagePolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can create pages.
+     * Determine whether the user can create items.
      *
      * @param  \Zeropingheroes\Lanager\User $user
      * @return mixed
@@ -32,7 +32,7 @@ class PagePolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can edit the page.
+     * Determine whether the user can edit the item.
      *
      * @param  \Zeropingheroes\Lanager\User $user
      * @return mixed
@@ -43,7 +43,7 @@ class PagePolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can delete the page.
+     * Determine whether the user can delete the item.
      *
      * @param  \Zeropingheroes\Lanager\User $user
      * @return mixed

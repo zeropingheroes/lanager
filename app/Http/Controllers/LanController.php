@@ -67,11 +67,11 @@ class LanController extends Controller
         );
 
         $events = $lan->events()->orderBy('start')->get();
-        $pages = $lan->pages()->orderBy('title')->get();
+        $guides = $lan->guides()->orderBy('title')->get();
 
         return View::make('pages.lans.show')
             ->with('events', $events)
-            ->with('pages', $pages)
+            ->with('guides', $guides)
             ->with('lan', $lan);
     }
 

@@ -43,9 +43,9 @@ class NavigationLinkSeeder extends Seeder
                 'parent_id' => null,
             ],
             [
-                'title' => 'Info',
+                'title' => 'Guides',
                 'position' => '5',
-                'url' => '/info',
+                'url' => '/guides',
                 'parent_id' => null,
             ],
         ];

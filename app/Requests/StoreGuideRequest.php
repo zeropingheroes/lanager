@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-class StorePageRequest extends Request
+class StoreGuideRequest extends Request
 {
     use LaravelValidation;
 

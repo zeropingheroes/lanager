@@ -56,11 +56,11 @@ Route::get('/games/owned', 'GameController@owned')
 Route::resource('lans', 'LanController');
 
 /**
- * Info Pages
+ * Guides
  */
-Route::resource('lans.pages', 'PageController', ['except' => 'show']);
-Route::get('lans/{lan}/pages/{page}/{slug?}', 'PageController@show')
-    ->name('lans.pages.show');
+Route::resource('lans.guides', 'GuideController', ['except' => 'show']);
+Route::get('lans/{lan}/guides/{guide}/{slug?}', 'GuideController@show')
+    ->name('lans.guides.show');
 
 /**
  * Events & Event Types
@@ -69,7 +69,7 @@ Route::resource('lans.events', 'EventController');
 Route::resource('event-types', 'EventTypeController');
 
 /**
- * Users & Attendeees
+ * Users & Attendees
  */
 Route::resource('users', 'UserController', ['only' => ['show', 'destroy']]);
 Route::resource('lans.attendees', 'AttendeeController', ['only' => ['index']]);
@@ -98,8 +98,8 @@ Route::resource('images', 'ImageController', ['only' => ['index', 'store', 'edit
 /**
  * Current LAN
  */
-Route::get('/info', 'CurrentLanController@info')
-    ->name('info');
+Route::get('/guides', 'CurrentLanController@guides')
+    ->name('guides');
 Route::get('/events', 'CurrentLanController@events')
     ->name('events');
 Route::get('/schedule', 'CurrentLanController@schedule')

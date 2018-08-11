@@ -37,13 +37,13 @@ class CurrentLanController extends Controller
     }
 
     /**
-     * Redirect to current LAN's info page index
+     * Redirect to current LAN's guides index
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function info()
+    public function guides()
     {
-        return redirect()->route('lans.pages.index', $this->currentLan);
+        return redirect()->route('lans.guides.index', $this->currentLan);
     }
 
     /**

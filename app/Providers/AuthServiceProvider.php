@@ -9,8 +9,8 @@ use Zeropingheroes\Lanager\RoleAssignment;
 use Zeropingheroes\Lanager\Policies\RoleAssignmentPolicy;
 use Zeropingheroes\Lanager\Log;
 use Zeropingheroes\Lanager\Policies\LogPolicy;
-use Zeropingheroes\Lanager\Page;
-use Zeropingheroes\Lanager\Policies\PagePolicy;
+use Zeropingheroes\Lanager\Guide;
+use Zeropingheroes\Lanager\Policies\GuidePolicy;
 use Zeropingheroes\Lanager\NavigationLink;
 use Zeropingheroes\Lanager\Policies\NavigationLinkPolicy;
 use Zeropingheroes\Lanager\Lan;
@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         // Remember to import the classes as no error will be thrown!
         RoleAssignment::class   => RoleAssignmentPolicy::class,
         Log::class              => LogPolicy::class,
-        Page::class             => PagePolicy::class,
+        Guide::class             => GuidePolicy::class,
         NavigationLink::class   => NavigationLinkPolicy::class,
         Lan::class              => LanPolicy::class,
         EventType::class        => EventTypePolicy::class,

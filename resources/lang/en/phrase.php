@@ -135,15 +135,15 @@ return [
     'view-game-in-steam-store' => 'View :game in the Steam Store',
     'logo-for-game' => 'Logo for :game',
 
-    // Info Pages
+    // Guides
     'markdown-formatting-help-link' => 'Markdown formatting help',
     'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Example',
-    'content-help' => 'Tip: use relative links, e.g. [Install Guide](/pages/3) to easily link to other pages',
-    'viewing-page-from-past-lan' => 'This page is from a LAN that has ended, so information may be irrelevant and/or incorrect',
-    'page-not-published' => 'This page has not been published, so only you and other administrators can access it',
-    'page-successfully-created' => 'Page ":title" successfully created',
-    'page-successfully-updated' => 'Page ":title" successfully updated',
-    'page-successfully-deleted' => 'Page ":title" successfully deleted',
+    'content-help' => 'Tip: use relative links, e.g. [Install Guide](/guides/3) to easily link to other guides',
+    'viewing-guide-from-past-lan' => 'This guide is from a LAN that has ended, so information may be irrelevant and/or incorrect',
+    'guide-not-published' => 'This guide has not been published, so only you and other administrators can access it',
+    'guide-successfully-created' => 'Guide ":title" successfully created',
+    'guide-successfully-updated' => 'Guide ":title" successfully updated',
+    'guide-successfully-deleted' => 'Guide ":title" successfully deleted',
 
     // Navigation Links
     'navigation-link-successfully-created' => 'Navigation link ":title" successfully created',

@@ -100,13 +100,13 @@ class Lan extends Model
     }
 
     /**
-     * The pages for the LAN
+     * The guides for the LAN
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pages()
+    public function guides()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Page');
+        return $this->hasMany('Zeropingheroes\Lanager\Guide');
     }
 
     /**

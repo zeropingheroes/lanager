@@ -71,28 +71,28 @@ Breadcrumbs::for('lans.show', function ($trail, $lan) {
     $trail->push($lan->name, route('lans.show', $lan));
 });
 
-// Home > LANs > [LAN] > Pages
-Breadcrumbs::for('lans.pages.index', function ($trail, $lan) {
+// Home > LANs > [LAN] > Guides
+Breadcrumbs::for('lans.guides.index', function ($trail, $lan) {
     $trail->parent('lans.show', $lan);
-    $trail->push(__('title.pages'), route('lans.pages.index', $lan));
+    $trail->push(__('title.guides'), route('lans.guides.index', $lan));
 });
 
-// Home > LANs > [LAN] > Pages > Create
-Breadcrumbs::for('lans.pages.create', function ($trail, $lan) {
-    $trail->parent('lans.pages.index', $lan);
-    $trail->push(__('title.create'), route('lans.pages.create', $lan));
+// Home > LANs > [LAN] > Guides > Create
+Breadcrumbs::for('lans.guides.create', function ($trail, $lan) {
+    $trail->parent('lans.guides.index', $lan);
+    $trail->push(__('title.create'), route('lans.guides.create', $lan));
 });
 
-// Home > LANs > [LAN] > Pages > [Page]
-Breadcrumbs::for('lans.pages.show', function ($trail, $lan, $page) {
-    $trail->parent('lans.pages.index', $lan);
-    $trail->push($page->title, route('lans.pages.show', ['lan' => $lan, 'page' => $page]));
+// Home > LANs > [LAN] > Guides > [Guide]
+Breadcrumbs::for('lans.guides.show', function ($trail, $lan, $guide) {
+    $trail->parent('lans.guides.index', $lan);
+    $trail->push($guide->title, route('lans.guides.show', ['lan' => $lan, 'guide' => $guide]));
 });
 
-// Home > LANs > [LAN] > Pages > [Page] > Edit
-Breadcrumbs::for('lans.pages.edit', function ($trail, $lan, $page) {
-    $trail->parent('lans.pages.show', $lan, $page);
-    $trail->push(__('title.edit'), route('lans.pages.edit', ['lan' => $lan, 'page' => $page]));
+// Home > LANs > [LAN] > Guides > [Guide] > Edit
+Breadcrumbs::for('lans.guides.edit', function ($trail, $lan, $guide) {
+    $trail->parent('lans.guides.show', $lan, $guide);
+    $trail->push(__('title.edit'), route('lans.guides.edit', ['lan' => $lan, 'guide' => $guide]));
 });
 
 // Home > LANs > [LAN] > Events
@@ -104,7 +104,7 @@ Breadcrumbs::for('lans.events.index', function ($trail, $lan) {
 // Home > LANs > [LAN] > Events > [Event]
 Breadcrumbs::for('lans.events.show', function ($trail, $lan, $event) {
     $trail->parent('lans.events.index', $lan);
-    $trail->push($event->name, route('lans.events.show', ['lan' => $lan, 'page' => $event]));
+    $trail->push($event->name, route('lans.events.show', ['lan' => $lan, 'guide' => $event]));
 });
 
 // Home > LANs > [LAN] > Attendees
