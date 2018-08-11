@@ -16,16 +16,19 @@ class GetActiveGamesService
      */
     public function get(): Collection
     {
+        $now = Carbon::now();
+        $subMinute = $now->copy()->subMinute();
+
         $states = SteamUserState::select('*')
             ->join(
                 DB::raw(
-                    '(SELECT user_id, MAX(created_at) latest_date
+                    "(SELECT user_id, MAX(created_at) latest_date
                             FROM steam_user_states
                             WHERE created_at
-                            BETWEEN "' . (Carbon::now()->subMinute()) . '"
-                            AND 	"' . (Carbon::now()) . '"
+                            BETWEEN '{$subMinute}'
+                            AND '{$now}'
                             GROUP BY user_id
-							) latest'
+							) latest"
                 ),
                 function ($join) {
                     $join->on('steam_user_states.user_id', '=', 'latest.user_id')

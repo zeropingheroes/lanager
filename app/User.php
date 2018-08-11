@@ -83,7 +83,7 @@ class User extends Authenticatable
 
     /**
      * Check if the user has the specified role(s)
-     * 
+     *
      * @param string $role
      * @return bool
      * @internal param $role
@@ -105,14 +105,14 @@ class User extends Authenticatable
 
         return $this->hasOne('Zeropingheroes\Lanager\SteamUserState')
             ->join(
-                DB::raw('(
+                DB::raw("(
 								SELECT max(created_at) max_created_at, user_id
 								FROM steam_user_states
 								WHERE created_at
-									BETWEEN "'.$start.'"
-									AND 	"'.$end.'"
+									BETWEEN '{$start}'
+									AND 	'{$end}'
 								GROUP BY user_id
-								) s2'),
+								) s2"),
                 function ($join) {
                     $join->on('steam_user_states.user_id', '=', 's2.user_id')
                         ->on('steam_user_states.created_at', '=', 's2.max_created_at');
