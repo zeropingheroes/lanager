@@ -1,12 +1,14 @@
 @extends('layouts.default')
 
 @section('title')
-    @lang('title.roles')
+    @lang('title.role-assignments')
 @endsection
 
 @section('content')
 
-    <h1>@lang('title.roles')</h1>
+    <h1>@lang('title.role-assignments')</h1>
+    {{ Breadcrumbs::render('role-assignments.index') }}
+
     @include('components.alerts.all')
     @if(count($roleAssignments))
         <table class="table table-striped">
@@ -52,7 +54,7 @@
         </table>
     @else
         {{-- TODO: Create better "no items found" display --}}
-        <p>@lang('phrase.no-items-found', ['item' => __('title.roles')])</p>
+        <p>@lang('phrase.no-items-found', ['item' => __('title.role-assignments')])</p>
     @endif
     @can('create', Zeropingheroes\Lanager\RoleAssignment::class)
         <h5>@lang('title.assign-a-role')</h5>

@@ -11,6 +11,24 @@ Breadcrumbs::for('games.index', function ($trail) {
     $trail->push(__('title.games'), route('games.in-progress'));
 });
 
+// Home > Role Assignments
+Breadcrumbs::for('role-assignments.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.role-assignments'), route('role-assignments.index'));
+});
+
+// Home > Navigation Links
+Breadcrumbs::for('navigation-links.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.navigation-links'), route('navigation-links.index'));
+});
+
+// Home > Logs
+Breadcrumbs::for('logs.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.logs'), route('logs.index'));
+});
+
 // Home > Games > Live
 Breadcrumbs::for('games.in-progress', function ($trail) {
     $trail->parent('games.index');

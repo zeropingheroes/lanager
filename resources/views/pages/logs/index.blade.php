@@ -7,6 +7,8 @@
 @section('content')
 
     <h1>@lang('title.logs')</h1>
+    {{ Breadcrumbs::render('logs.index') }}
+
     @include('components.alerts.all')
 
     @include('pages.logs.partials.filter')

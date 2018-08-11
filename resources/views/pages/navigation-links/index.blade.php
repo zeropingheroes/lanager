@@ -7,6 +7,8 @@
 @section('content')
 
     <h1>@lang('title.navigation-links')</h1>
+    {{ Breadcrumbs::render('navigation-links.index') }}
+
     @include('components.alerts.all')
 
     @if( empty($navigationLinks))
