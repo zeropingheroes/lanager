@@ -24,7 +24,7 @@ class Event extends JsonResource
             'lan' => new Lan($this->whenLoaded('lan')),
             'links' => [
                 'self' => route('api.events.show', $this->id),
-                'self_gui' => route('events.show', $this->id),
+                'self_gui' => route('lans.events.show', ['lan' => $this->lan_id, 'event' => $this->id]),
             ],
         ];
     }
