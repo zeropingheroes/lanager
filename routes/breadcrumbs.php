@@ -77,10 +77,22 @@ Breadcrumbs::for('lans.pages.index', function ($trail, $lan) {
     $trail->push(__('title.pages'), route('lans.pages.index', $lan));
 });
 
+// Home > LANs > [LAN] > Pages > Create
+Breadcrumbs::for('lans.pages.create', function ($trail, $lan) {
+    $trail->parent('lans.pages.index', $lan);
+    $trail->push(__('title.create'), route('lans.pages.create', $lan));
+});
+
 // Home > LANs > [LAN] > Pages > [Page]
 Breadcrumbs::for('lans.pages.show', function ($trail, $lan, $page) {
     $trail->parent('lans.pages.index', $lan);
     $trail->push($page->title, route('lans.pages.show', ['lan' => $lan, 'page' => $page]));
+});
+
+// Home > LANs > [LAN] > Pages > [Page] > Edit
+Breadcrumbs::for('lans.pages.edit', function ($trail, $lan, $page) {
+    $trail->parent('lans.pages.show', $lan, $page);
+    $trail->push(__('title.edit'), route('lans.pages.edit', ['lan' => $lan, 'page' => $page]));
 });
 
 // Home > LANs > [LAN] > Events
