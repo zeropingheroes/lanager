@@ -55,6 +55,16 @@ class CurrentLanController extends Controller
     {
         return redirect()->route('lans.events.index', $this->currentLan);
     }
+
+    /**
+     * Redirect to current LAN's events schedule
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function schedule()
+    {
+        return redirect()->route('lans.events.index', ['lan' => $this->currentLan, 'schedule']);
+    }
     /**
      * Redirect to current LAN's attendees index
      *

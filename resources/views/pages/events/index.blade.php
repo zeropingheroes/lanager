@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h1>@lang('title.events')</h1>
+    @include('pages.events.partials.index-header', ['active' => 'list', 'lan' => $lan])
     {{ Breadcrumbs::render('lans.events.index', $lan) }}
     @include('components.alerts.all')
 

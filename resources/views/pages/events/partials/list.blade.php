@@ -1,16 +1,4 @@
 <table class="table table-striped">
-    <thead>
-    <tr>
-        <th>@lang('title.name')</th>
-        <th>@lang('title.status')</th>
-        <th>@lang('title.time')</th>
-        <th>@lang('title.type')</th>
-        @if( Gate::allows('update', Zeropingheroes\Lanager\Event::class) ||
-             Gate::allows('destroy', Zeropingheroes\Lanager\Event::class) )
-            <th>@lang('title.actions')</th>
-        @endif
-    </tr>
-    </thead>
     <tbody>
     @foreach($events as $event)
         <tr>

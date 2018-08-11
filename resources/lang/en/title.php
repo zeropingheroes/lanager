@@ -48,6 +48,8 @@ return [
     'info-pages' => 'Info Pages',
     'pages' => 'Pages',
     'dashboard' => 'Dashboard',
+    'list' => 'List',
+    'schedule' => 'Schedule',
 
     'admin' => 'Admin',
     'assign-a-role' => 'Assign a Role',

@@ -5,7 +5,8 @@
 @endsection
 
 @section('content')
-    <h1>@lang('title.events')</h1>
+    @include('pages.events.partials.index-header', ['active' => 'schedule', 'lan' => $lan])
+    {{ Breadcrumbs::render('lans.events.index', $lan) }}
 
     <script type="text/javascript">
         window.onload = function () {

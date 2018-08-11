@@ -14,11 +14,17 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @param Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(Lan $lan)
+    public function index(Request $request, Lan $lan)
     {
+        if ($request->has('schedule')) {
+            return View::make('pages.events.schedule')
+                ->with('lan', $lan);
+        }
+
         $events = $lan->events()
             ->visible()
             ->orderBy('start')

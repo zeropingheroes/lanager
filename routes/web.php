@@ -63,9 +63,6 @@ Route::get('lans/{lan}/pages/{page}/{slug?}', 'PageController@show')
  */
 Route::resource('lans.events', 'EventController');
 Route::resource('event-types', 'EventTypeController');
-Route::get('/schedule', function () {
-    return view('pages.events.schedule');
-})->name('schedule');
 
 /**
  * Users & Attendeees
@@ -101,5 +98,7 @@ Route::get('/info', 'CurrentLanController@info')
     ->name('info');
 Route::get('/events', 'CurrentLanController@events')
     ->name('events');
+Route::get('/schedule', 'CurrentLanController@schedule')
+    ->name('schedule');
 Route::get('/users', 'CurrentLanController@users')
     ->name('users');
