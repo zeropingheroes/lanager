@@ -27,7 +27,7 @@ class NavigationLinkSeeder extends Seeder
             [
                 'title' => 'Games',
                 'position' => '2',
-                'url' => '/games',
+                'url' => '/games/in-progress',
                 'parent_id' => null,
             ],
             [

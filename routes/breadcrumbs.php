@@ -5,6 +5,30 @@ Breadcrumbs::for('home', function ($trail) {
     $trail->push(config('app.name'), route('home'));
 });
 
+// Home > Games
+Breadcrumbs::for('games.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.games'), route('games.in-progress'));
+});
+
+// Home > Games > Live
+Breadcrumbs::for('games.in-progress', function ($trail) {
+    $trail->parent('games.index');
+    $trail->push(__('title.games-in-progress'), route('games.in-progress'));
+});
+
+// Home > Games > Recent
+Breadcrumbs::for('games.recent', function ($trail) {
+    $trail->parent('games.index');
+    $trail->push(__('title.recently-played-games'), route('games.recent'));
+});
+
+// Home > Games > Owned
+Breadcrumbs::for('games.owned', function ($trail) {
+    $trail->parent('games.index');
+    $trail->push(__('title.games-owned'), route('games.owned'));
+});
+
 // Home > LANs
 Breadcrumbs::for('lans.index', function ($trail) {
     $trail->parent('home');

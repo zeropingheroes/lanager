@@ -10,20 +10,42 @@ use Zeropingheroes\Lanager\Services\GetGamesPlayedRecentlyService;
 class GameController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display games in progress
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function inProgress()
     {
-        $gamesBeingPlayed = (new GetActiveGamesService())->get();
-        $gamesPlayedRecently = (new GetGamesPlayedRecentlyService())->get();
-        $gamesOwned = (new GetGamesOwnedService())->get();
+        $games = (new GetActiveGamesService())->get();
 
-        return View::make('pages.games.index')
-            ->with('liveGames', $gamesBeingPlayed)
-            ->with('recentGames', $gamesPlayedRecently)
-            ->with('ownedGames', $gamesOwned);
+        return View::make('pages.games.in-progress')
+            ->with('games', $games);
+    }
+
+    /**
+     * Display recently played games
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function recent()
+    {
+        $games = (new GetGamesPlayedRecentlyService())->get();
+
+        return View::make('pages.games.recent')
+            ->with('games', $games);
+    }
+
+    /**
+     * Display games owned
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function owned()
+    {
+        $games = (new GetGamesOwnedService())->get();
+
+        return View::make('pages.games.owned')
+            ->with('games', $games);
     }
 
 }

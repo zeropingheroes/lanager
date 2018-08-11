@@ -43,8 +43,12 @@ Route::patch('logs', 'LogController@patch')
 /**
  * Games
  */
-Route::get('games', 'GameController@index')
-    ->name('games.index');
+Route::get('/games/in-progress', 'GameController@inProgress')
+    ->name('games.in-progress');
+Route::get('/games/recent', 'GameController@recent')
+    ->name('games.recent');
+Route::get('/games/owned', 'GameController@owned')
+    ->name('games.owned');
 
 /**
  * LANs
