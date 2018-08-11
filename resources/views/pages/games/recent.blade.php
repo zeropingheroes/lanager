@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <h1>@lang('title.recently-played-games')</h1>
+    @include('pages.games.partials.navigation-dropdown', ['active' => 'recent'])
 
     {{ Breadcrumbs::render('games.recent') }}
 

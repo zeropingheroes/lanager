@@ -86,8 +86,11 @@ return [
     'markdown' => 'Markdown',
 
     'games-in-progress' => 'Games In Progress',
+    'in-progress' => 'In Progress',
     'recently-played-games' => 'Recently Played Games',
+    'recent' => 'Recent',
     'games-owned' => 'Games Owned',
+    'owned' => 'Owned',
     'games-in-common' => 'Games In Common',
     'lans-attended' => 'LANs Attended',
     'delete-account' => 'Delete Account',

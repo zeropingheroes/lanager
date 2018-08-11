@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <h1>@lang('title.games-owned')</h1>
+    @include('pages.games.partials.navigation-dropdown', ['active' => 'owned'])
 
     {{ Breadcrumbs::render('games.owned') }}
 

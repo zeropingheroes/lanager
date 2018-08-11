@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <h1>@lang('title.games-in-progress')</h1>
+    @include('pages.games.partials.navigation-dropdown', ['active' => 'in-progress'])
 
     {{ Breadcrumbs::render('games.in-progress') }}
 
