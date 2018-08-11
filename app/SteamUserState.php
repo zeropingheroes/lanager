@@ -58,6 +58,6 @@ class SteamUserState extends Model
      */
     public function status()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\SteamUserStatusCode','steam_user_status_code_id');
+        return $this->belongsTo('Zeropingheroes\Lanager\SteamUserStatusCode', 'steam_user_status_code_id');
     }
 }

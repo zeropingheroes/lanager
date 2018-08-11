@@ -34,13 +34,15 @@ class ImageController extends Controller
         $files = collect(Storage::files($this::directory));
 
         // Only show image files
-        $images = $files->filter(function ($value) {
+        $images = $files->filter(
+            function ($value) {
                 return in_array(strtolower(File::extension($value)), $this::permittedExtensions);
             }
         );
 
         // Add fields to collection
-        $images = $images->map(function ($item) {
+        $images = $images->map(
+            function ($item) {
                 return [
                     'url' => Storage::url($item),
                     'filename' => File::basename($item),
@@ -78,13 +80,13 @@ class ImageController extends Controller
         }
 
         // Store each file
-        foreach($httpRequest->images as $image) {
+        foreach ($httpRequest->images as $image) {
             $fileNameWithExtension = $image->getClientOriginalName();
             $extension = $image->getClientOriginalExtension();
 
-            $fileName = str_replace($extension,'', $fileNameWithExtension);
+            $fileName = str_replace($extension, '', $fileNameWithExtension);
 
-            $newFileName = str_slug($fileName).'.'.strtolower($extension);
+            $newFileName = str_slug($fileName) . '.' . strtolower($extension);
 
             $image->storeAs($this::directory, $newFileName);
         }
@@ -105,7 +107,7 @@ class ImageController extends Controller
     {
         $this->authorize('images.update');
 
-        $filePath = $this::directory.'/'.$filename;
+        $filePath = $this::directory . '/' . $filename;
         if (!Storage::exists($filePath)) {
             abort(404);
         }
@@ -133,10 +135,10 @@ class ImageController extends Controller
     {
         $this->authorize('images.update');
 
-        $originalFilePath = $this::directory.'/'.$filename;
+        $originalFilePath = $this::directory . '/' . $filename;
         $originalFileExtension = File::extension($originalFilePath);
         $newFilenameWithoutExtension = str_before($httpRequest->input('filename'), '.' . $originalFileExtension);
-        $newFilePath = $this::directory.'/'.$newFilenameWithoutExtension.'.'.$originalFileExtension;
+        $newFilePath = $this::directory . '/' . $newFilenameWithoutExtension . '.' . $originalFileExtension;
 
         $input = [
             'original_file_path' => $originalFilePath,
@@ -171,7 +173,7 @@ class ImageController extends Controller
         $this->authorize('images.delete');
 
         // TODO: move to Request class
-        $file = $this::directory.'/'.$filename;
+        $file = $this::directory . '/' . $filename;
         if (!Storage::exists($file)) {
             abort(404);
         }

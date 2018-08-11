@@ -25,13 +25,13 @@ class CurrentLanController extends Controller
         // If there isn't a LAN happening now
         // nor a LAN that has recently ended
         // get the nearest future LAN
-        if ( ! $this->currentLan) {
+        if (!$this->currentLan) {
             $this->currentLan = Lan::orderBy('start', 'asc')
                 ->first();
         }
 
         // If there are no LANs, go to a 404 page
-        if ( ! $this->currentLan ) {
+        if (!$this->currentLan) {
             abort(404);
         }
     }
@@ -65,6 +65,7 @@ class CurrentLanController extends Controller
     {
         return redirect()->route('lans.events.index', ['lan' => $this->currentLan, 'schedule']);
     }
+
     /**
      * Redirect to current LAN's attendees index
      *

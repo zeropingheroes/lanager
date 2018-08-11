@@ -41,10 +41,10 @@ class SteamAppServer extends Model
     public function url()
     {
         if ($this->address && $this->port) {
-            return 'steam://connect/'.$this->address.':'.$this->port;
+            return 'steam://connect/' . $this->address . ':' . $this->port;
         }
         if ($this->address) {
-            return 'steam://connect/'.$this->address;
+            return 'steam://connect/' . $this->address;
         }
     }
 }

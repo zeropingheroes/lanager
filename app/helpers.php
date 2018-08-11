@@ -9,7 +9,8 @@ if (!function_exists('var_export_short')) {
      * @param bool $return
      * @return mixed|null|string|string[]
      */
-    function var_export_short($data, $return = true) {
+    function var_export_short($data, $return = true)
+    {
         $dump = var_export($data, true);
 
         $dump = preg_replace('#(?:\A|\n)([ ]*)array \(#i', '[', $dump); // Starts

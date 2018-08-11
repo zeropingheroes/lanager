@@ -30,7 +30,7 @@ class UserController extends Controller
 
         // If the user's apps are visible, and they're attending the current LAN (or there isn't a current LAN)
         if (($user->SteamMetadata && $user->SteamMetadata->apps_visible == 1) &&
-            (! $lan || $lansAttended->contains('id', $lan->id))) {
+            (!$lan || $lansAttended->contains('id', $lan->id))) {
 
             // Get games in common so long as the logged
             // in user is not viewing their own profile

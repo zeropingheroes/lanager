@@ -99,7 +99,7 @@ class EventController extends Controller
         $event = Event::visible()->findOrFail($event->id);
 
         // If the event is accessed via the wrong LAN ID, show 404
-        if($event->lan_id != $lan->id) {
+        if ($event->lan_id != $lan->id) {
             abort(404);
         }
 
@@ -120,7 +120,7 @@ class EventController extends Controller
         $this->authorize('update', $event);
 
         // If the event is accessed via the wrong LAN ID, show 404
-        if($event->lan_id != $lan->id) {
+        if ($event->lan_id != $lan->id) {
             abort(404);
         }
 

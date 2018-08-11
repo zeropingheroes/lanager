@@ -17,18 +17,27 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('layouts.partials.nav.admin', function ($view) {
-            // Count of unread errors of level "notice" and above
-            $view->with('errorCount', Log::where('read',0)->where('level', '>=', 250)->count()); // Notice and above
-        });
+        View::composer(
+            'layouts.partials.nav.admin',
+            function ($view) {
+                // Count of unread errors of level "notice" and above
+                $view->with('errorCount', Log::where('read', 0)->where('level', '>=', 250)->count()); // Notice and above
+            }
+        );
 
-        View::composer('layouts.partials.nav.primary', function ($view) {
-            // Cached collection of top-level navigation links, and their children
-            $navigationLinks = Cache::rememberForever('navigationLinks', function () {
-                return NavigationLink::whereNull('parent_id')->with('children')->orderBy('position')->get();
-            });
-            $view->with('navigationLinks', $navigationLinks);
-        });
+        View::composer(
+            'layouts.partials.nav.primary',
+            function ($view) {
+                // Cached collection of top-level navigation links, and their children
+                $navigationLinks = Cache::rememberForever(
+                    'navigationLinks',
+                    function () {
+                        return NavigationLink::whereNull('parent_id')->with('children')->orderBy('position')->get();
+                    }
+                );
+                $view->with('navigationLinks', $navigationLinks);
+            }
+        );
     }
 
     /**

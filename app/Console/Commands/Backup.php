@@ -36,7 +36,7 @@ class Backup extends Command
         $imagesDir = base_path() . '/storage/app/public/images';
         $outputDir = $this->argument('output-dir');
         $commitHash = trim(exec('git log --pretty="%h" -n1 HEAD'));
-        $filename = 'lanager-backup-' . date('Y-m-d_H-i-s') .'-git-hash-'.$commitHash;
+        $filename = 'lanager-backup-' . date('Y-m-d_H-i-s') . '-git-hash-' . $commitHash;
 
         if (!is_writable($outputDir)) {
             $this->error(__('phrase.output-directory-not-writable'));
@@ -64,7 +64,7 @@ class Backup extends Command
             // migrations - will be created when migrations are re-run
             // steam_apps - will be restored from Steam API
             // logs - often very large
-            if(str_contains($table, ['migrations', 'steam_apps', 'logs'])) {
+            if (str_contains($table, ['migrations', 'steam_apps', 'logs'])) {
                 continue;
             }
             $processes["mysqldump-$table"] = new Process(

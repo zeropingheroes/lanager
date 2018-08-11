@@ -30,6 +30,7 @@ class NavigationLinkObserver
         // Clear the cache whenever a navigation link is created
         Cache::forget('navigationLinks');
     }
+
     /**
      * Listen to the NavigationLink deleted event.
      *

@@ -73,7 +73,7 @@ class NavigationLinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\NavigationLink  $navigationLink
+     * @param  \Zeropingheroes\Lanager\NavigationLink $navigationLink
      * @return \Illuminate\Http\Response
      */
     public function edit(NavigationLink $navigationLink)
@@ -128,7 +128,7 @@ class NavigationLinkController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\NavigationLink  $navigationLink
+     * @param  \Zeropingheroes\Lanager\NavigationLink $navigationLink
      * @return \Illuminate\Http\Response
      */
     public function destroy(NavigationLink $navigationLink)

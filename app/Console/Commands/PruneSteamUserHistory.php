@@ -51,7 +51,7 @@ class PruneSteamUserHistory extends Command
 
         $statesToDelete = SteamUserState::make();
 
-        foreach($periodsToDelete as $period) {
+        foreach ($periodsToDelete as $period) {
             $statesToDelete = $statesToDelete->orWhere(
                 function ($query) use ($period) {
                     $query->where('created_at', '>', $period['start']);

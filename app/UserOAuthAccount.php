@@ -41,7 +41,8 @@ class UserOAuthAccount extends Model
     /**
      * Get the small avatar URL
      */
-    public function avatarSmall(): string {
+    public function avatarSmall(): string
+    {
         if ($this->provider == 'steam') {
             return str_replace('_medium.jpg', '.jpg', $this->avatar);
         }
@@ -51,8 +52,9 @@ class UserOAuthAccount extends Model
     /**
      * Get the medium avatar URL
      */
-    public function avatarMedium(): string {
-       if ($this->provider == 'steam') {
+    public function avatarMedium(): string
+    {
+        if ($this->provider == 'steam') {
             return $this->avatar;
         }
         return '';
@@ -61,7 +63,8 @@ class UserOAuthAccount extends Model
     /**
      * Get the large avatar URL
      */
-    public function avatarLarge(): string {
+    public function avatarLarge(): string
+    {
         if ($this->provider == 'steam') {
             return str_replace('_medium.jpg', '_full.jpg', $this->avatar);
         }

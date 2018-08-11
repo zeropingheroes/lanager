@@ -54,7 +54,7 @@ class UpdateSteamApps extends Command
                     ['id' => $app->appid],
                     ['name' => $app->name]
                 );
-                if($databaseApp->wasChanged()) {
+                if ($databaseApp->wasChanged()) {
                     $changedCount++;
                 }
                 $progress->advance();

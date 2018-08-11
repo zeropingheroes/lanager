@@ -88,7 +88,7 @@ class PageController extends Controller
         $page = Page::visible()->findOrFail($page->id);
 
         // If the page is accessed via the wrong LAN ID, show 404
-        if($page->lan_id != $lan->id) {
+        if ($page->lan_id != $lan->id) {
             abort(404);
         }
 
@@ -116,7 +116,7 @@ class PageController extends Controller
         $this->authorize('update', $page);
 
         // If the page is accessed via the wrong LAN ID, show 404
-        if($page->lan_id != $lan->id) {
+        if ($page->lan_id != $lan->id) {
             abort(404);
         }
 
@@ -140,7 +140,7 @@ class PageController extends Controller
         $this->authorize('update', $page);
 
         // If the page is accessed via the wrong LAN ID, show 404
-        if($page->lan_id != $lan->id) {
+        if ($page->lan_id != $lan->id) {
             abort(404);
         }
 
@@ -178,7 +178,7 @@ class PageController extends Controller
         $this->authorize('delete', $page);
 
         // If the page is accessed via the wrong LAN ID, show 404
-        if($page->lan_id != $lan->id) {
+        if ($page->lan_id != $lan->id) {
             abort(404);
         }
 
