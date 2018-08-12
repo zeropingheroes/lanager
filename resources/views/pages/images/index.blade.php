@@ -25,7 +25,7 @@
                     @component('components.actions-dropdown')
                         <a class="dropdown-item copy-markdown"
                            href="#"
-                           data-clipboard-text="![{{ ucwords(str_replace('-', ' ', $image['filename'])) }}]({{$image['url']}})">
+                           data-clipboard-text="![{{ ucwords(str_replace('-', ' ', pathinfo($image['filename'], PATHINFO_FILENAME))) }}]({{$image['url']}})">
                             @lang('title.copy-markdown')
                         </a>
                         <a href="{{ route( 'images.edit', $image['filename']) }}" class="dropdown-item">@lang('title.edit')</a>
