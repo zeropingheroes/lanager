@@ -5,7 +5,7 @@
 </div>
 <div class="form-group">
     <label for="content">@lang('title.content')</label>
-    <textarea class="form-control" id="content" name="content" rows="10" placeholder="@lang('title.content'). @lang('phrase.content-help')"
+    <textarea class="form-control" id="content" name="content" rows="10" placeholder="@lang('phrase.markdown-help')"
               aria-describedby="contentHelp">{{ old('content', $guide->content) }}</textarea>
     <small id="contentHelp" class="form-text text-muted">
         <a href="@lang('phrase.markdown-formatting-help-link-url')" target="_blank">@lang('phrase.markdown-formatting-help-link')</a>

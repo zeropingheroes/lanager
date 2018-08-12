@@ -138,7 +138,7 @@ return [
     // Guides
     'markdown-formatting-help-link' => 'Markdown formatting help',
     'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Example',
-    'content-help' => 'Tip: use relative links, e.g. [Install Guide](/guides/3) to easily link to other guides',
+    'markdown-help' => 'Tip: use relative links, e.g. [Install Guide](/guides/3) to easily link to other pages',
     'viewing-guide-from-past-lan' => 'This guide is from a LAN that has ended, so information may be irrelevant and/or incorrect',
     'guide-not-published' => 'This guide has not been published, so only you and other administrators can access it',
     'guide-successfully-created' => 'Guide ":title" successfully created',
