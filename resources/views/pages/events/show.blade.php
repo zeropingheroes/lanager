@@ -6,10 +6,10 @@
 
 @section('content')
     @include('pages.events.partials.header', ['event' => $event])
+    @include('pages.events.partials.time-info', ['event' => $event])
     {{ Breadcrumbs::render('lans.events.show', $lan, $event) }}
     @include('components.alerts.all')
 
-    @include('pages.events.partials.time-info', ['event' => $event])
 
     {!! Markdown::convertToHtml($event->description) !!}
 
