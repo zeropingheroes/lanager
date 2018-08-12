@@ -20,6 +20,10 @@
     </h4>
     {{ Breadcrumbs::render('lans.show', $lan) }}
 
+    @if($lan->description)
+        {!! Markdown::convertToHtml($lan->description) !!}
+    @endif
+
     @if($events->count())
         <h5>@lang('title.events')</h5>
         @include('pages.events.partials.list', ['events' => $events])

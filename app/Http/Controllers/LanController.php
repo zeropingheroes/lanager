@@ -88,6 +88,7 @@ class LanController extends Controller
 
         $input = [
             'name' => $httpRequest->input('name'),
+            'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
             'published' => $httpRequest->has('published'),
@@ -136,6 +137,7 @@ class LanController extends Controller
 
         $input = [
             'name' => $httpRequest->input('name'),
+            'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
             'published' => $httpRequest->has('published'),

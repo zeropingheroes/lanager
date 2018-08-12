@@ -14,6 +14,7 @@ class Lan extends Model
      */
     protected $fillable = [
         'name',
+        'description',
         'start',
         'end',
         'published',
