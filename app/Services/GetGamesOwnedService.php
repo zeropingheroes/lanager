@@ -2,7 +2,9 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\SteamUserApp;
+use Zeropingheroes\Lanager\User;
 
 class GetGamesOwnedService
 {
@@ -13,8 +15,23 @@ class GetGamesOwnedService
      */
     public function get(): array
     {
+        // Get the LAN happening now, or the most recently ended LAN
+        $lan = Lan::presentAndPast()
+            ->orderBy('start', 'desc')
+            ->first();
+
+        if ($lan) {
+            // Get the attendees for the LAN
+            $users = $lan->users()->get();
+        } else {
+            // Or if there isn't a current LAN set, get all users
+            $users = User::all();
+        }
+
         $steamUserApps = SteamUserApp::with('user', 'app', 'user.state', 'user.OAuthAccounts')
-            ->where('playtime_forever', '>', 60)->get();
+            ->where('playtime_forever', '>', 60)
+            ->whereIn('user_id', $users->pluck('id'))
+            ->get();
 
         if (empty($steamUserApps)) {
             return [];
