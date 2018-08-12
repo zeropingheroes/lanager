@@ -1,1 +1,1 @@
-<span style="color: {{ $eventType->colour }}">{{ $eventType->name }}</span>
+<span style="background-color: {{ $eventType->colour }}" class="badge">{{ $eventType->name }}</span>
