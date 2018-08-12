@@ -1,8 +1,20 @@
 <div class="row align-items-center">
     <div class="col">
-        <h1>@lang('title.'.$active)</h1>
+        <h1>
+        @switch($active)
+            @case('in-progress')
+                @lang('title.games-in-progress')
+                @break
+            @case('recent')
+                @lang('title.recently-played-games')
+                @break
+            @case('owned')
+                @lang('title.games-owned')
+                @break
+        @endswitch
+        </h1>
     </div>
-    <div class="col text-right">
+    <div class="col col-md-2 text-right">
         <div class="dropdown show">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="gamesDisplayDropdown" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
