@@ -14,7 +14,7 @@ class ImagePolicy extends BasePolicy
      */
     public function view(User $user)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -25,7 +25,7 @@ class ImagePolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -36,7 +36,7 @@ class ImagePolicy extends BasePolicy
      */
     public function update(User $user)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -47,6 +47,6 @@ class ImagePolicy extends BasePolicy
      */
     public function delete(User $user)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 }

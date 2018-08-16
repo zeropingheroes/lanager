@@ -10,15 +10,15 @@ class BasePolicy
     use HandlesAuthorization;
 
     /**
-     * Allow super admins to perform any action
+     * Run checks before calling the individual policies
      *
      * @param $user
      * @return bool
      */
     public function before(User $user)
     {
-        if ($user->hasRole('Super Admin')) {
-            return true;
-        }
+        // Allow users with the Super Admin role
+        // to perform any action
+        return $user->hasRole('Super Admin');
     }
 }

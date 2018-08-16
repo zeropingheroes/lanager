@@ -15,6 +15,11 @@ class EventPolicy extends BasePolicy
      */
     public function view(?User $user, Event $event)
     {
+        // Admins can view any event
+        if($user && $user->hasRole('Admin')) {
+            return true;
+        }
+        // Non-admins can view published events
         return $event->published;
     }
 
@@ -26,7 +31,7 @@ class EventPolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -38,7 +43,7 @@ class EventPolicy extends BasePolicy
      */
     public function update(User $user, Event $event)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -50,6 +55,6 @@ class EventPolicy extends BasePolicy
      */
     public function delete(User $user, Event $event)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 }

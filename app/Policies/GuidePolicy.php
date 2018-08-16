@@ -16,6 +16,11 @@ class GuidePolicy extends BasePolicy
      */
     public function view(?User $user, Guide $guide)
     {
+        // Admins can view any guide
+        if($user && $user->hasRole('Admin')) {
+            return true;
+        }
+        // Non-admins can view published guides
         return $guide->published;
     }
 
@@ -27,7 +32,7 @@ class GuidePolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -39,7 +44,7 @@ class GuidePolicy extends BasePolicy
      */
     public function update(User $user, Guide $guide)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -51,6 +56,6 @@ class GuidePolicy extends BasePolicy
      */
     public function delete(User $user, Guide $guide)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 }

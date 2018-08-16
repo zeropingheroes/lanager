@@ -15,7 +15,7 @@ class RoleAssignmentPolicy extends BasePolicy
      */
     public function index(User $user)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -27,6 +27,7 @@ class RoleAssignmentPolicy extends BasePolicy
      */
     public function view(?User $user, RoleAssignment $roleAssignment)
     {
+        // Anyone can view a single role assignment
         return true;
     }
 
@@ -38,6 +39,7 @@ class RoleAssignmentPolicy extends BasePolicy
      */
     public function create(User $user)
     {
+        // Only Super Admins can assign / unassign roles (defined in BasePolicy)
         return false;
     }
 
@@ -50,6 +52,7 @@ class RoleAssignmentPolicy extends BasePolicy
      */
     public function delete(User $user, RoleAssignment $roleAssignment)
     {
+        // Only Super Admins can assign / unassign roles (defined in BasePolicy)
         return false;
     }
 }

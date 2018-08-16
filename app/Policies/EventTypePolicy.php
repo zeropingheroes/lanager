@@ -16,6 +16,7 @@ class EventTypePolicy extends BasePolicy
      */
     public function view(?User $user, EventType $eventType)
     {
+        // Anyone can view event types
         return true;
     }
 
@@ -27,7 +28,7 @@ class EventTypePolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -39,7 +40,7 @@ class EventTypePolicy extends BasePolicy
      */
     public function update(User $user, EventType $eventType)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -51,6 +52,6 @@ class EventTypePolicy extends BasePolicy
      */
     public function delete(User $user, EventType $eventType)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 }

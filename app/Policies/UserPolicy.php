@@ -15,6 +15,7 @@ class UserPolicy extends BasePolicy
      */
     public function view(?User $authUser, User $requestedUser)
     {
+        // Anyone can view users
         return true;
     }
 
@@ -27,6 +28,7 @@ class UserPolicy extends BasePolicy
      */
     public function delete(User $authUser, User $requestedUser)
     {
+        // Non-super admins can only delete their own account
         return $authUser->id === $requestedUser->id;
     }
 }

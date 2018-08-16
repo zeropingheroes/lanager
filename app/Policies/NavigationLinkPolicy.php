@@ -16,6 +16,7 @@ class NavigationLinkPolicy extends BasePolicy
      */
     public function view(?User $user, NavigationLink $navigationLink)
     {
+        // Anyone can view a single navigation link
         return true;
     }
 
@@ -28,7 +29,7 @@ class NavigationLinkPolicy extends BasePolicy
      */
     public function index(User $user, NavigationLink $navigationLink)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -39,7 +40,7 @@ class NavigationLinkPolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -51,7 +52,7 @@ class NavigationLinkPolicy extends BasePolicy
      */
     public function update(User $user, NavigationLink $navigationLink)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
@@ -63,6 +64,6 @@ class NavigationLinkPolicy extends BasePolicy
      */
     public function delete(User $user, NavigationLink $navigationLink)
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 }
