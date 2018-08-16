@@ -42,6 +42,8 @@ class EventController extends Controller
      */
     public function create(Lan $lan)
     {
+        $this->authorize('create', Event::class);
+
         $eventTypes = EventType::orderBy('name')->get();
 
         return View::make('pages.events.create')
@@ -95,6 +97,8 @@ class EventController extends Controller
      */
     public function show(Lan $lan, Event $event)
     {
+        $this->authorize('view', $event);
+
         $event = Event::visible()->findOrFail($event->id);
 
         // If the event is accessed via the wrong LAN ID, show 404
@@ -141,7 +145,7 @@ class EventController extends Controller
      */
     public function update(Request $httpRequest, Lan $lan, Event $event)
     {
-        $this->authorize('update', Event::class);
+        $this->authorize('update', $event);
 
         $input = [
             'lan_id' => $lan->id,
