@@ -1,38 +1,43 @@
 <table class="table table-striped">
     <tbody>
     @foreach($events as $event)
-        <tr>
-            <td>
-                <a href="{{ route('lans.events.show', ['lan' => $event->lan, 'event' => $event]) }}">{{ $event->name }}</a>
-            </td>
-            <td>
-                @include('pages.events.partials.status', ['event' => $event])
-            </td>
-            <td>
-                @include('pages.events.partials.start-and-end', ['event' => $event])
-            </td>
-            <td>
-                @include('pages.event-types.partials.label', ['eventType' => $event->type])
-            </td>
-            @if( Gate::allows('update', Zeropingheroes\Lanager\Event::class) ||
-                 Gate::allows('destroy', Zeropingheroes\Lanager\Event::class) )
+        @can('view', $event)
+            <tr>
                 <td>
-                    @component('components.actions-dropdown')
-                        <a class="dropdown-item copy-markdown"
-                           href="#"
-                           data-clipboard-text="[{{ $event->name }}]({{ route('lans.events.show', ['lan' => $event->lan, 'event' => $event], false) }})">
-                            @lang('title.copy-markdown-link')
-                        </a>
-                        <a href="{{ route('lans.events.edit', ['lan' => $event->lan, 'event' => $event->id]) }}" class="dropdown-item">@lang('title.edit')</a>
-                        <form action="{{ route('lans.events.destroy', ['lan' => $event->lan, 'event' => $event->id]) }}" method="POST">
-                            {{ method_field('DELETE') }}
-                            {{ csrf_field() }}
-                            <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
-                        </form>
-                    @endcomponent
+                    <a href="{{ route('lans.events.show', ['lan' => $event->lan, 'event' => $event]) }}">{{ $event->name }}</a>
                 </td>
-            @endif
-        </tr>
+                <td>
+                    @include('pages.events.partials.status', ['event' => $event])
+                </td>
+                <td>
+                    @include('pages.events.partials.start-and-end', ['event' => $event])
+                </td>
+                <td>
+                    @include('pages.event-types.partials.label', ['eventType' => $event->type])
+                </td>
+                @canany(['update', 'delete'], $event)
+                    <td>
+                        @component('components.actions-dropdown')
+                            @can('update', $event)
+                                <a class="dropdown-item copy-markdown"
+                                   href="#"
+                                   data-clipboard-text="[{{ $event->name }}]({{ route('lans.events.show', ['lan' => $event->lan, 'event' => $event], false) }})">
+                                    @lang('title.copy-markdown-link')
+                                </a>
+                                <a href="{{ route('lans.events.edit', ['lan' => $event->lan, 'event' => $event->id]) }}" class="dropdown-item">@lang('title.edit')</a>
+                            @endcan
+                            @can('delete', $event)
+                                <form action="{{ route('lans.events.destroy', ['lan' => $event->lan, 'event' => $event->id]) }}" method="POST">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
+                                </form>
+                            @endcan
+                        @endcomponent
+                    </td>
+                @endcanany
+            </tr>
+        @endcan
     @endforeach
     </tbody>
 </table>

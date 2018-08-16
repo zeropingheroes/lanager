@@ -26,7 +26,6 @@ class EventController extends Controller
         }
 
         $events = $lan->events()
-            ->visible()
             ->orderBy('start')
             ->get();
 

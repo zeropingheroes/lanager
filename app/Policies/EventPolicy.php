@@ -2,28 +2,29 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
+use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class EventPolicy extends BasePolicy
 {
-    use HandlesAuthorization;
 
     /**
-     * Determine whether the user can list all items.
+     * Determine whether the user can view a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
+     * @param Event $event
      * @return mixed
      */
-    public function index(User $user)
+    public function view(?User $user, Event $event)
     {
-        return false;
+        return $event->published;
     }
 
     /**
-     * Determine whether the user can create the item.
+     * Determine whether the user can create an item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
      * @return mixed
      */
     public function create(User $user)
@@ -32,23 +33,25 @@ class EventPolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can edit the item.
+     * Determine whether the user can edit a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
+     * @param Event $event
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, Event $event)
     {
         return false;
     }
 
     /**
-     * Determine whether the user can delete the item.
+     * Determine whether the user can delete a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param  User $user
+     * @param Event $event
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, Event $event)
     {
         return false;
     }
