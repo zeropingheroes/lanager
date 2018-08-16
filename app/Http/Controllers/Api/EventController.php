@@ -17,7 +17,7 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        $events = Event::visible();
+        $events = Event::where('published', 1);
 
         if ($request->filled('after')) {
             $events->where('start', '>', $request->after);
