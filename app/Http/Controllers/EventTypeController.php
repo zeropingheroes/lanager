@@ -27,6 +27,8 @@ class EventTypeController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', EventType::class);
+
         return View::make('pages.event-types.create')
             ->with('eventType', new EventType);
     }
@@ -65,7 +67,7 @@ class EventTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\EventType $eventType
+     * @param EventType $eventType
      * @return \Illuminate\Contracts\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -81,13 +83,13 @@ class EventTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $httpRequest
-     * @param  \Zeropingheroes\Lanager\EventType $eventType
+     * @param EventType $eventType
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $httpRequest, EventType $eventType)
     {
-        $this->authorize('update', EventType::class);
+        $this->authorize('update', $eventType);
 
         $input = [
             'name' => $httpRequest->input('name'),
@@ -113,7 +115,7 @@ class EventTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\EventType $eventType
+     * @param  EventType $eventType
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
