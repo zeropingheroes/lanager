@@ -2,28 +2,31 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
+use Zeropingheroes\Lanager\Log;
 use Zeropingheroes\Lanager\User;
 
 class LogPolicy extends BasePolicy
 {
     /**
-     * Determine whether the user can list all log entries.
+     * Determine whether the user can view a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
+     * @param Log $log
      * @return mixed
      */
-    public function index(User $user)
+    public function view(User $user, Log $log)
     {
         return false;
     }
 
     /**
-     * Determine whether the user can update log entries.
+     * Determine whether the user can edit a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
+     * @param Log $log
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, Log $log)
     {
         return false;
     }

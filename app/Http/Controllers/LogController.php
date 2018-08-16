@@ -16,7 +16,7 @@ class LogController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('index', Log::class);
+        $this->authorize('view', Log::class);
 
         $logs = Log::with('user')
             ->filter($request->all())
@@ -36,6 +36,8 @@ class LogController extends Controller
      */
     public function show(Log $log)
     {
+        $this->authorize('view', $log);
+
         $log->read = true;
         $log->save();
         return View::make('pages.logs.show')
@@ -50,11 +52,11 @@ class LogController extends Controller
      */
     public function patch(Request $request)
     {
-        $this->authorize('update', Log::class);
-
         $logs = $request->input('logs');
         foreach ($logs as $logId => $input) {
-            Log::findOrFail($logId)->update($input);
+            $log = Log::findOrFail($logId);
+            $this->authorize('update', $log);
+            $log->update($input);
         }
         return redirect()
             ->route('logs.index')
