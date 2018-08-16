@@ -99,8 +99,6 @@ class EventController extends Controller
     {
         $this->authorize('view', $event);
 
-        $event = Event::visible()->findOrFail($event->id);
-
         // If the event is accessed via the wrong LAN ID, show 404
         if ($event->lan_id != $lan->id) {
             abort(404);
