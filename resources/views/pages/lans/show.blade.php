@@ -24,14 +24,14 @@
         {!! Markdown::convertToHtml($lan->description) !!}
     @endif
 
-    @if($events->count())
-        <h5>@lang('title.events')</h5>
-        @include('pages.events.partials.list', ['events' => $events])
+    <h5>@lang('title.events')</h5>
+    @if(! $lan->events->isEmpty())
+        @include('pages.events.partials.list', ['events' => $lan->events])
     @endif
 
-    @if($guides->count())
-        <h5>@lang('title.guides')</h5>
-        @include('pages.guides.partials.list', ['guides' => $guides])
+    <h5>@lang('title.guides')</h5>
+    @if(! $lan->guides->isEmpty())
+        @include('pages.guides.partials.list', ['guides' => $lan->guides])
     @endif
 
     @if( ! $lan->users->isEmpty())

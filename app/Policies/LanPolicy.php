@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -10,20 +11,21 @@ class LanPolicy extends BasePolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can list all items.
+     * Determine whether the user can view a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
+     * @param Lan $lan
      * @return mixed
      */
-    public function index(User $user)
+    public function view(?User $user, Lan $lan)
     {
-        return true;
+        return $lan->published;
     }
 
     /**
-     * Determine whether the user can create items.
+     * Determine whether the user can create an item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
      * @return mixed
      */
     public function create(User $user)
@@ -32,23 +34,25 @@ class LanPolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can edit the item.
+     * Determine whether the user can edit a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
+     * @param Lan $lan
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, Lan $lan)
     {
         return false;
     }
 
     /**
-     * Determine whether the user can delete the item.
+     * Determine whether the user can delete a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param  User $user
+     * @param Lan $lan
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, Lan $lan)
     {
         return false;
     }

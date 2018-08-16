@@ -2,7 +2,6 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Lan;
 use Illuminate\Http\Request;
@@ -17,7 +16,8 @@ class LanController extends Controller
      */
     public function index()
     {
-        $lans = Lan::visible()->orderBy('start', 'desc')->get();
+        $lans = Lan::orderBy('start', 'desc')
+            ->get();
 
         // Get the LAN happening now, or the most recently ended LAN
         $currentLan = Lan::presentAndPast()
@@ -36,6 +36,8 @@ class LanController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Lan::class);
+
         return View::make('pages.lans.create')
             ->with('lan', new Lan);
     }
@@ -47,31 +49,24 @@ class LanController extends Controller
      * @return \Illuminate\Http\Response
      * @internal param \Zeropingheroes\Lanager\Log $log
      */
-    public function show(Lan $lan = null)
+    public function show(Lan $lan)
     {
-        if (!$lan) {
-            $lan = Lan::presentAndPast()
-                ->orderBy('start', 'desc')
-                ->first();
-        }
-        if (!$lan) {
-            return redirect()->route('login');
-        }
-        $lan->load(
-            [
-                'users' => function ($query) {
-                    $query->orderBy('users.username', 'asc');
-                },
-                'users.state',
-            ]
-        );
+        $this->authorize('view', $lan);
 
-        $events = $lan->events()->orderBy('start')->get();
-        $guides = $lan->guides()->orderBy('title')->get();
+        $lan->load([
+            'users' => function ($query) {
+                $query->orderBy('users.username', 'asc');
+            },
+            'events' => function ($query) {
+                $query->orderBy('events.start', 'asc');
+            },
+            'guides' => function ($query) {
+                $query->orderBy('guides.title', 'asc');
+            },
+            'users.state',
+        ]);
 
         return View::make('pages.lans.show')
-            ->with('events', $events)
-            ->with('guides', $guides)
             ->with('lan', $lan);
     }
 
