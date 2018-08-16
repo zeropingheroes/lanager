@@ -3,12 +3,9 @@
 namespace Zeropingheroes\Lanager\Policies;
 
 use Zeropingheroes\Lanager\NavigationLink;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class NavigationLinkPolicy extends BasePolicy
 {
-    use HandlesAuthorization;
-
     /**
      * Determine whether the user can list all navigation links.
      *

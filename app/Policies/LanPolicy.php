@@ -4,12 +4,9 @@ namespace Zeropingheroes\Lanager\Policies;
 
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class LanPolicy extends BasePolicy
 {
-    use HandlesAuthorization;
-
     /**
      * Determine whether the user can view a given item.
      *

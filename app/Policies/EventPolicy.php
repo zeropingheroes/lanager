@@ -4,11 +4,8 @@ namespace Zeropingheroes\Lanager\Policies;
 
 use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
-
 class EventPolicy extends BasePolicy
 {
-
     /**
      * Determine whether the user can view a given item.
      *

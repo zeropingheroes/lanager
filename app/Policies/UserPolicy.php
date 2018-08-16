@@ -4,12 +4,9 @@ namespace Zeropingheroes\Lanager\Policies;
 
 use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy extends BasePolicy
 {
-    use HandlesAuthorization;
-
     /**
      * Determine whether the user can delete the page.
      *

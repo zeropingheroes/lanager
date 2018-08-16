@@ -3,12 +3,9 @@
 namespace Zeropingheroes\Lanager\Policies;
 
 use Zeropingheroes\Lanager\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ImagePolicy extends BasePolicy
 {
-    use HandlesAuthorization;
-
     /**
      * Determine whether the user can list all images.
      *
