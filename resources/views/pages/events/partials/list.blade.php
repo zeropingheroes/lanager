@@ -5,6 +5,11 @@
             <tr>
                 <td>
                     <a href="{{ route('lans.events.show', ['lan' => $event->lan, 'event' => $event]) }}">{{ $event->name }}</a>
+                    @canany(['update', 'delete'], $event)
+                    @if(!$event->published)
+                        <small>&mdash; @lang('title.unpublished')</small>
+                    @endif
+                    @endcanany
                 </td>
                 <td>
                     @include('pages.events.partials.status', ['event' => $event])
