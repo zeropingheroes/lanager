@@ -10,20 +10,10 @@
     {{ Breadcrumbs::render('role-assignments.index') }}
 
     @include('components.alerts.all')
-    @if(count($roleAssignments))
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>@lang('title.user')</th>
-                <th>@lang('title.role')</th>
-                <th colspan="2">@lang('title.assigned-by')</th>
-                @can('delete', Zeropingheroes\Lanager\RoleAssignment::class)
-                    <th><span class="oi oi-cog" title="Cog" aria-hidden="true"></span></th>
-                @endcan
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($roleAssignments as $roleAssignment)
+    <table class="table table-striped">
+        <tbody>
+        @foreach($roleAssignments as $roleAssignment)
+            @can('view', $roleAssignment)
                 <tr>
                     <td>
                         @include('pages.users.partials.avatar-username', ['user' => $roleAssignment->user])
@@ -37,25 +27,22 @@
                         @else
                             @lang('title.unknown')
                         @endif
-                    </td>
-                    <td>
+                        @lang('phrase.assigned')
                         @include('components.time-relative', ['datetime' => $roleAssignment->created_at])
                     </td>
                     <td>
-                        @if(Auth::user() && Auth::user()->id != $roleAssignment->user->id)
+                        @can('delete', $roleAssignment)
                             @component('components.actions-dropdown')
                                 @include('components.actions-dropdown.delete', ['item' => $roleAssignment])
                             @endcomponent
-                        @endif
+                        @endcan
                     </td>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
-    @else
-        {{-- TODO: Create better "no items found" display --}}
-        <p>@lang('phrase.no-items-found', ['item' => __('title.role-assignments')])</p>
-    @endif
+            @endcan
+        @endforeach
+        </tbody>
+    </table>
+
     @can('create', Zeropingheroes\Lanager\RoleAssignment::class)
         <h5>@lang('title.assign-a-role')</h5>
         @include('components.form.create', ['route' => route('role-assignments.store')])

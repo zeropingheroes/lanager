@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\View;
 
 class RoleAssignmentController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -21,10 +20,16 @@ class RoleAssignmentController extends Controller
      */
     public function index()
     {
+        $this->authorize('index', RoleAssignment::class);
+
+        $roleAssignments = RoleAssignment::with('user', 'user.state', 'role')->get();
+        $users = User::orderBy('username')->get();
+        $roles = Role::all();
+
         return View::make('pages.role-assignments.index')
-            ->with('roleAssignments', RoleAssignment::with('user', 'user.state', 'role')->get())
-            ->with('users', User::orderBy('username')->get())
-            ->with('roles', Role::all());
+            ->with('roleAssignments', $roleAssignments)
+            ->with('users', $users)
+            ->with('roles', $roles);
     }
 
     /**

@@ -42,6 +42,7 @@ return [
     'cannot-assign-role-to-self' => 'You cannot assign roles to yourself',
     'cannot-unassign-role-from-self' => 'You cannot unassign roles from yourself',
     'cannot-assign-role-to-super-admin' => 'Roles cannot be assigned to Super Admins',
+    'assigned' => 'assigned',
 
     // UpdateSteamUserService
     // UpdateSteamUserAppsService

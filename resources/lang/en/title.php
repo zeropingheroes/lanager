@@ -54,7 +54,6 @@ return [
     'admin' => 'Admin',
     'assign-a-role' => 'Assign a Role',
     'assign-role' => 'Assign Role',
-    'assigned-by' => 'Assigned By',
     'delete' => 'Delete',
 
     'create-item' => 'Create :Item',
