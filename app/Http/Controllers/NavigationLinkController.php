@@ -18,8 +18,13 @@ class NavigationLinkController extends Controller
     {
         $this->authorize('index', NavigationLink::class);
 
+        $navigationLinks = NavigationLink::whereNull('parent_id')
+            ->with('children')
+            ->orderBy('position')
+            ->get();
+
         return View::make('pages.navigation-links.index')
-            ->with('navigationLinks', NavigationLink::whereNull('parent_id')->with('children')->orderBy('position')->get());
+            ->with('navigationLinks', $navigationLinks);
     }
 
     /**
@@ -29,7 +34,10 @@ class NavigationLinkController extends Controller
      */
     public function create()
     {
-        $navigationLinks = NavigationLink::whereNull('parent_id')->get();
+        $this->authorize('create', NavigationLink::class);
+
+        $navigationLinks = NavigationLink::whereNull('parent_id')
+            ->get();
 
         return View::make('pages.navigation-links.create')
             ->with('navigationLinks', $navigationLinks)
@@ -45,7 +53,7 @@ class NavigationLinkController extends Controller
      */
     public function store(Request $httpRequest)
     {
-        $this->authorize('create', new NavigationLink());
+        $this->authorize('create', NavigationLink::class);
 
         $input = [
             'title' => $httpRequest->input('title'),
@@ -124,7 +132,6 @@ class NavigationLinkController extends Controller
             ->withSuccess(__('phrase.navigation-link-successfully-updated', ['title' => $navigationLink->title]));
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -133,6 +140,12 @@ class NavigationLinkController extends Controller
      */
     public function destroy(NavigationLink $navigationLink)
     {
-        //
+        $this->authorize('delete', $navigationLink);
+
+        NavigationLink::destroy($navigationLink->id);
+
+        return redirect()
+            ->route('navigation-links.index')
+            ->withSuccess(__('phrase.guide-successfully-deleted', ['title' => $navigationLink->title]));
     }
 }
