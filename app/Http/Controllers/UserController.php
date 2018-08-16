@@ -82,7 +82,7 @@ class UserController extends Controller
         }
 
         return redirect()
-            ->route('users.index')
+            ->route('users')
             ->withSuccess(__('phrase.user-successfully-deleted', ['username' => $user->username]));
     }
 }

@@ -2,19 +2,31 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\User;
 
 class UserPolicy extends BasePolicy
 {
     /**
-     * Determine whether the user can delete the page.
+     * Determine whether the user can view a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param null|User $authUser
+     * @param User $requestedUser
      * @return mixed
      */
-    public function delete(User $user)
+    public function view(?User $authUser, User $requestedUser)
     {
-        return Auth::user()->id === $user->id;
+        return true;
+    }
+
+    /**
+     * Determine whether the user can delete the page.
+     *
+     * @param User $authUser
+     * @param User $requestedUser
+     * @return mixed
+     */
+    public function delete(User $authUser, User $requestedUser)
+    {
+        return $authUser->id === $requestedUser->id;
     }
 }
