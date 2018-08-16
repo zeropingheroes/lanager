@@ -46,6 +46,7 @@ return [
     'logs' => 'Logs',
     'guide' => 'Guide',
     'guides' => 'Guides',
+    'unpublished' => 'Unpublished',
     'dashboard' => 'Dashboard',
     'list' => 'List',
     'schedule' => 'Schedule',

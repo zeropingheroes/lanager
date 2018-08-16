@@ -19,7 +19,6 @@ class GuideController extends Controller
     public function index(Lan $lan)
     {
         $guides = $lan->guides()
-            ->visible()
             ->orderBy('title', 'asc')
             ->get();
 
@@ -84,8 +83,7 @@ class GuideController extends Controller
      */
     public function show(Lan $lan, Guide $guide, $slug = '')
     {
-        // Show 404 if guide is not published
-        $guide = Guide::visible()->findOrFail($guide->id);
+        $this->authorize('view', $guide);
 
         // If the guide is accessed via the wrong LAN ID, show 404
         if ($guide->lan_id != $lan->id) {

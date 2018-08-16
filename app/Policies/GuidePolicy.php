@@ -2,25 +2,27 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
+use Zeropingheroes\Lanager\Guide;
 use Zeropingheroes\Lanager\User;
 
 class GuidePolicy extends BasePolicy
 {
     /**
-     * Determine whether the user can list all items.
+     * Determine whether the user can view a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
+     * @param Guide $guide
      * @return mixed
      */
-    public function index(User $user)
+    public function view(?User $user, Guide $guide)
     {
-        return true;
+        return $guide->published;
     }
 
     /**
-     * Determine whether the user can create items.
+     * Determine whether the user can create an item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
      * @return mixed
      */
     public function create(User $user)
@@ -29,23 +31,25 @@ class GuidePolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can edit the item.
+     * Determine whether the user can edit a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
+     * @param Guide $guide
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, Guide $guide)
     {
         return false;
     }
 
     /**
-     * Determine whether the user can delete the item.
+     * Determine whether the user can delete a given item.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
+     * @param Guide $guide
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, Guide $guide)
     {
         return false;
     }
