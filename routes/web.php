@@ -1,10 +1,18 @@
 <?php
 
 /**
- * Home
+ * Current LAN
  */
-Route::get('/', 'LanController@show')
+Route::get('/', 'CurrentLanController@show')
     ->name('home');
+Route::get('/guides', 'CurrentLanController@guides')
+    ->name('guides');
+Route::get('/events', 'CurrentLanController@events')
+    ->name('events');
+Route::get('/schedule', 'CurrentLanController@schedule')
+    ->name('schedule');
+Route::get('/users', 'CurrentLanController@users')
+    ->name('users');
 
 /**
  * Login
@@ -94,15 +102,3 @@ Route::fallback(function () {
  * Images
  */
 Route::resource('images', 'ImageController', ['only' => ['index', 'store', 'edit', 'update', 'destroy']]);
-
-/**
- * Current LAN
- */
-Route::get('/guides', 'CurrentLanController@guides')
-    ->name('guides');
-Route::get('/events', 'CurrentLanController@events')
-    ->name('events');
-Route::get('/schedule', 'CurrentLanController@schedule')
-    ->name('schedule');
-Route::get('/users', 'CurrentLanController@users')
-    ->name('users');
