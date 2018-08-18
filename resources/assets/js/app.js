@@ -20,7 +20,7 @@ window.addEventListener('load', function() {
 
     // Confirm deletion for any elements with that class
     $('.confirm-deletion').on('submit', function(){
-        return confirm('Are you sure?');
+        return confirm(window.lang.get('phrase.are-you-sure-delete'));
     });
 })
 

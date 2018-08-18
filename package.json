@@ -13,10 +13,13 @@
         "axios": "^0.18",
         "babel-preset-stage-2": "^6.24.1",
         "bootstrap": "^4.0.0",
+        "clipboard": "^2.0.1",
         "cross-env": "^5.1",
         "font-awesome": "^4.7.0",
         "fullcalendar": "^3.9.0",
         "jquery": "^3.2",
+        "lang.js": "^1.1.12",
+        "laravel-localization-loader": "^1.0.5",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
         "moment": "^2.22.1",
@@ -25,7 +28,6 @@
         "popper.js": "^1.12",
         "tempusdominus-bootstrap-4": "^5.0.0-alpha18",
         "vue": "^2.5.7",
-        "vue-full-calendar": "^2.5.4",
-        "clipboard": "^2.0.1"
+        "vue-full-calendar": "^2.5.4"
     }
 }

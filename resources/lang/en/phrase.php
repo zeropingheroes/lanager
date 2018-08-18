@@ -48,6 +48,7 @@ return [
     'item-unpublished' => 'This :item is unpublished and only visible administrators',
     'oh-no' => 'Oh no!',
     'item-name-deleted' => ':Item ":name" deleted',
+    'are-you-sure-delete' => 'Are you sure?',
 
     /**
      * Resources
@@ -60,9 +61,7 @@ return [
 
     // Users
     'your-steam-game-details-are-private' => 'Your Steam game details are currently private',
-    'please-consider-public-visibility' => 'This means games you play won\'t show in ' . config(
-            'app.name'
-        ) . ' with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
+    'please-consider-public-visibility' => 'This means games you play won\'t show in LANager with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
     'edit-steam-profile' => 'Edit Steam Profile',
     'avatar-for-username' => 'Avatar for :username',
     'hours-played-total' => 'hours total',
@@ -70,8 +69,7 @@ return [
     'sign-in-to-see-the-games-you-have-in-common-with-username' => 'Sign in to see the games you have in common with :username',
     'you-have-no-games-in-common-with-username' => 'You have no games in common with :username',
     'username-does-not-own-any-games' => ':username does not own any games',
-    'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or'
-        . ' have in common with you',
+    'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or have in common with you',
     'viewing-user-from-another-lan' => 'This user is not attending the current LAN',
 
     // Steam Statuses
