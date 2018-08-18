@@ -5,7 +5,19 @@
 @endsection
 
 @section('content-header')
-    <h1>@lang('title.event-types')</h1>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <h1>@lang('title.event-types')</h1>
+        </div>
+        @can('create', \Zeropingheroes\Lanager\EventType::class)
+            <div class="col text-right">
+                <a href="{{ route( 'event-types.create') }}" class="btn btn-primary" title="@lang('title.create')">
+                    <span class="oi oi-plus"></span>
+                </a>
+            </div>
+        @endcan
+    </div>
+    {{ Breadcrumbs::render('event-types.index') }}
 @endsection
 
 @section('content')
@@ -33,5 +45,4 @@
         @endforeach
         </tbody>
     </table>
-    @include('components.buttons.create', ['item' => Zeropingheroes\Lanager\EventType::class])
 @endsection

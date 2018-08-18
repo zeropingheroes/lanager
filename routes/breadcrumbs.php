@@ -35,6 +35,24 @@ Breadcrumbs::for('navigation-links.edit', function ($trail, $navigationLink) {
     $trail->push(__('title.edit'), route('navigation-links.edit', $navigationLink));
 });
 
+// Home > Event Types
+Breadcrumbs::for('event-types.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.event-types'), route('event-types.index'));
+});
+
+// Home > Event Types > Create
+Breadcrumbs::for('event-types.create', function ($trail) {
+    $trail->parent('event-types.index');
+    $trail->push(__('title.create'), route('event-types.create'));
+});
+
+// Home > Event Types > Edit
+Breadcrumbs::for('event-types.edit', function ($trail, $eventType) {
+    $trail->parent('event-types.index');
+    $trail->push(__('title.edit'), route('event-types.edit', $eventType));
+});
+
 // Home > Logs
 Breadcrumbs::for('logs.index', function ($trail) {
     $trail->parent('home');

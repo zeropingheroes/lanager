@@ -6,6 +6,7 @@
 
 @section('content-header')
     <h1>@lang('title.create-item', ['item' => __('title.event-type')])</h1>
+    {{ Breadcrumbs::render('event-types.create') }}
 @endsection
 
 @section('content')
