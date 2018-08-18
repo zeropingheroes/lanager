@@ -4,9 +4,11 @@
     @lang('title.create-item', ['item' => __('title.event-type')])
 @endsection
 
-@section('content')
+@section('content-header')
     <h1>@lang('title.create-item', ['item' => __('title.event-type')])</h1>
-    @include('components.alerts.all')
+@endsection
+
+@section('content')
     @include('components.form.create', ['route' => route('event-types.store')])
     @include('pages.event-types.partials.form')
     @include('components.form.close')

@@ -4,12 +4,12 @@
     @lang('title.role-assignments')
 @endsection
 
-@section('content')
-
+@section('content-header')
     <h1>@lang('title.role-assignments')</h1>
     {{ Breadcrumbs::render('role-assignments.index') }}
+@endsection
 
-    @include('components.alerts.all')
+@section('content')
     <table class="table table-striped">
         <tbody>
         @foreach($roleAssignments as $roleAssignment)

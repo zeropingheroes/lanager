@@ -4,7 +4,7 @@
     @lang('title.lans')
 @endsection
 
-@section('content')
+@section('content-header')
     <div class="row align-items-center">
         <div class="col-auto">
             <h1>@lang('title.lans')</h1>
@@ -17,11 +17,10 @@
             </div>
         @endcan
     </div>
-
-
     {{ Breadcrumbs::render('lans.index') }}
-    @include('components.alerts.all')
+@endsection
 
+@section('content')
     @if( empty($lans))
         <p>@lang('phrase.no-items-found', ['item' => __('title.lans')])</p>
     @else

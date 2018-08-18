@@ -4,8 +4,7 @@
     {{ $user->username }}
 @endsection
 
-@section('content')
-
+@section('content-header')
     <div class="profile-header">
         <div class="profile-avatar">
             @include('pages.users.partials.avatar', ['size' => 'large'])
@@ -23,6 +22,9 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('content')
     <hr>
     {{-- Show game info if the user is attending the current or most recent LAN (or there isn't a LAN) --}}
     @if( !$currentLan || $lansAttended->contains('id',$currentLan->id))

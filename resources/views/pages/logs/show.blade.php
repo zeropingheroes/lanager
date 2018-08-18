@@ -4,20 +4,11 @@
     @lang('title.log') #{{ $log->id }}
 @endsection
 
-@section('content')
-
-    @php
-        $data = [
-        'level' => $log->level_name,
-        'message' => $log->message,
-        'time' => (string) $log->created_at,
-        'user' => $log->user->username,
-        'context' => json_decode($log->context,true)
-    ];
-    @endphp
-
+@section('content-header')
     <h1>@lang('title.log') #{{ $log->id }} @include('pages.logs.partials.level', ['level' => $log->level_name])</h1>
+@endsection
 
+@section('content')
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#html" role="tab" aria-controls="html" aria-selected="true">@lang('title.html')</a>
@@ -35,6 +26,15 @@
             <code>@include('components.time-datetime', ['datetime' => $log->created_at])</code>
 
             <h2>@lang('title.data')</h2>
+            @php
+                $data = [
+                'level' => $log->level_name,
+                'message' => $log->message,
+                'time' => (string) $log->created_at,
+                'user' => $log->user->username,
+                'context' => json_decode($log->context,true)
+            ];
+            @endphp
             <code>
                 <pre>{{ var_export_short($data) }}</pre>
             </code>

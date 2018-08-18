@@ -4,7 +4,7 @@
     {{ $guide->title }}
 @endsection
 
-@section('content')
+@section('content-header')
     <div class="row align-items-center">
         <div class="col-md-auto">
             <h1>{{ $guide->title }}</h1>
@@ -16,22 +16,21 @@
         @endcanany
     </div>
 
-
     {{ Breadcrumbs::render('lans.guides.show', $lan, $guide) }}
+@endsection
 
-    @include('components.alerts.all')
-
+@section('content-alerts')
+    @parent
     @canany(['update', 'delete'], $guide)
     @if(!$guide->published)
         @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.resource-not-published', ['resource' => strtolower(__('title.guide'))])])
     @endif
     @endcanany
-
-
     @if($guide->lan->end->isPast())
         @include('components.alerts.alert-single', ['type' => 'danger', 'message' => __('phrase.viewing-guide-from-past-lan')])
     @endif
+@endsection
 
+@section('content')
     {!! Markdown::convertToHtml($guide->content) !!}
-
 @endsection

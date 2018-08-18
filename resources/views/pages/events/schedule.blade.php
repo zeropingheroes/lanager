@@ -4,10 +4,12 @@
     @lang('title.events')
 @endsection
 
-@section('content')
+@section('content-header')
     @include('pages.events.partials.header-index', ['active' => 'schedule', 'lan' => $lan])
     {{ Breadcrumbs::render('lans.events.index', $lan) }}
+@endsection
 
+@section('content')
     <script>
         window.onload = function () {
             const app = new Vue({

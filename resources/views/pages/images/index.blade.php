@@ -4,10 +4,11 @@
     @lang('title.images')
 @endsection
 
-@section('content')
+@section('content-header')
     <h1>@lang('title.images')</h1>
-    @include('components.alerts.all')
+@endsection
 
+@section('content')
     <table class="table table-striped">
         <thead>
         <tr>

@@ -4,12 +4,12 @@
     @lang('title.recently-played-games')
 @endsection
 
-@section('content')
-
+@section('content-header')
     @include('pages.games.partials.navigation-dropdown', ['active' => 'recent'])
-
     {{ Breadcrumbs::render('games.recent') }}
+@endsection
 
+@section('content')
     <table class="table recent-games">
         @foreach($games as $game)
             <tr>

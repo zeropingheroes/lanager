@@ -4,12 +4,12 @@
     @lang('title.games-owned')
 @endsection
 
-@section('content')
-
+@section('content-header')
     @include('pages.games.partials.navigation-dropdown', ['active' => 'owned'])
-
     {{ Breadcrumbs::render('games.owned') }}
+@endsection
 
+@section('content')
     <table class="table owned-games">
         @foreach($games as $game)
             <tr>

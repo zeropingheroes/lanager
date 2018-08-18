@@ -4,12 +4,12 @@
     @lang('title.games-in-progress')
 @endsection
 
-@section('content')
-
+@section('content-header')
     @include('pages.games.partials.navigation-dropdown', ['active' => 'in-progress'])
-
     {{ Breadcrumbs::render('games.in-progress') }}
+@endsection
 
+@section('content')
     <table class="table live-games">
         @foreach($games as $game)
             <tr>

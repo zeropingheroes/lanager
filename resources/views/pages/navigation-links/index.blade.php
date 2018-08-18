@@ -4,13 +4,12 @@
     @lang('title.navigation-links')
 @endsection
 
-@section('content')
-
+@section('content-header')
     <h1>@lang('title.navigation-links')</h1>
     {{ Breadcrumbs::render('navigation-links.index') }}
+@endsection
 
-    @include('components.alerts.all')
-
+@section('content')
     @if( empty($navigationLinks))
         <p>@lang('phrase.no-items-found', ['item' => __('title.navigation-links')])</p>
     @else

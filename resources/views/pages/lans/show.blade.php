@@ -4,8 +4,8 @@
     {{ $lan->name }}
 @endsection
 
-@section('content')
 
+@section('content-header')
     <div class="row align-items-center">
         <div class="col-md-auto">
             <h1>
@@ -31,10 +31,10 @@
             </h4>
         </div>
     </div>
-
     {{ Breadcrumbs::render('lans.show', $lan) }}
-    @include('components.alerts.all')
+@endsection
 
+@section('content')
     @if($lan->description)
         {!! Markdown::convertToHtml($lan->description) !!}
     @endif

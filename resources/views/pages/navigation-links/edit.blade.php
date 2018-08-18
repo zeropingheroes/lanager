@@ -4,10 +4,12 @@
     @lang('title.edit-item', ['item' => __('title.navigation-link')])
 @endsection
 
-@section('content')
+@section('content-header')
     <h1>@lang('title.edit-item', ['item' => __('title.navigation-link')])</h1>
     {{ Breadcrumbs::render('navigation-links.edit', $navigationLink) }}
-    @include('components.alerts.all')
+@endsection
+
+@section('content')
     @include('components.form.edit', ['route' => route('navigation-links.update', $navigationLink->id)])
     @include('pages.navigation-links.partials.form')
     @include('components.form.close')

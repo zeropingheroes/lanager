@@ -4,13 +4,12 @@
     @lang('title.logs')
 @endsection
 
-@section('content')
-
+@section('content-header')
     <h1>@lang('title.logs')</h1>
     {{ Breadcrumbs::render('logs.index') }}
+@endsection
 
-    @include('components.alerts.all')
-
+@section('content')
     @include('pages.logs.partials.filter')
 
     <script>

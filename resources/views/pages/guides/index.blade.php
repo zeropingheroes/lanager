@@ -4,7 +4,7 @@
     @lang('title.guides')
 @endsection
 
-@section('content')
+@section('content-header')
     <div class="row align-items-center">
         <div class="col">
             <h1>@lang('title.guides')</h1>
@@ -15,14 +15,9 @@
             </div>
         @endcan
     </div>
-
     {{ Breadcrumbs::render('lans.guides.index', $lan) }}
+@endsection
 
-    @include('components.alerts.all')
-
+@section('content')
     @include('pages.guides.partials.list', ['guides' => $guides])
-
-    @can('create', Zeropingheroes\Lanager\Guide::class)
-        <a href="{{ route( 'lans.guides.create', $lan->id) }}" class="btn btn-primary">@lang('title.create')</a>
-    @endcan
 @endsection

@@ -4,11 +4,12 @@
     {{ $event->name }}
 @endsection
 
-@section('content')
+@section('content-header')
     @include('pages.events.partials.header-show', ['event' => $event])
     {{ Breadcrumbs::render('lans.events.show', $lan, $event) }}
-    @include('components.alerts.all')
+@endsection
 
+@section('content')
     @canany(['update', 'delete'], $event)
     @if(!$event->published)
         @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.resource-not-published', ['resource' => strtolower(__('title.event'))])])

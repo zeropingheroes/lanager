@@ -4,10 +4,11 @@
     @lang('title.edit-item', ['item' => __('title.image')])
 @endsection
 
-@section('content')
+@section('content-header')
     <h1>@lang('title.edit-item', ['item' => __('title.image')])</h1>
-    @include('components.alerts.all')
+@endsection
 
+@section('content')
     @include('components.form.edit', ['route' => route('images.update', $image['filename'])])
     <div class="form-group">
         <label for="filename">@lang('title.filename')</label>
