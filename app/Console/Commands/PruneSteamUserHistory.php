@@ -11,20 +11,15 @@ use Zeropingheroes\Lanager\SteamUserState;
 class PruneSteamUserHistory extends Command
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
+     * Set command signature and description
      */
-    protected $signature = 'lanager:prune-steam-user-history';
+    public function __construct()
+    {
+        $this->signature = 'lanager:prune-steam-user-history';
+        $this->description = __('phrase.delete-steam-user-history-outside-lans-and-last-5-mins');
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Delete historical Steam user status and gameplay data that did not occur:
-    - during any of the LANs in the database, or
-    - within the last five minutes';
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.

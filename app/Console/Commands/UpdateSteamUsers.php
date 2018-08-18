@@ -13,18 +13,15 @@ use Zeropingheroes\Lanager\UserOAuthAccount;
 class UpdateSteamUsers extends Command
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
+     * Set command signature and description
      */
-    protected $signature = 'lanager:update-steam-users';
+    public function __construct()
+    {
+        $this->signature = 'lanager:update-steam-users';
+        $this->description = __('phrase.update-existing-users-profiles-from-steam');
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Update existing LANager users\' profiles with the latest information from their Steam profile';
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.

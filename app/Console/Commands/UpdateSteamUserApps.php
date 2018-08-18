@@ -11,18 +11,15 @@ use Zeropingheroes\Lanager\Lan;
 class UpdateSteamUserApps extends Command
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
+     * Set command signature and description
      */
-    protected $signature = 'lanager:update-steam-user-apps';
+    public function __construct()
+    {
+        $this->signature = 'lanager:update-steam-user-apps';
+        $this->description = __('phrase.update-existing-user-app-ownership');
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Update existing LANager users\' app ownership data with the latest information from their Steam profile';
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.

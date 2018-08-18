@@ -9,19 +9,15 @@ use Symfony\Component\Process\Process;
 class Backup extends Command
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
+     * Set command signature and description
      */
-    protected $signature = 'lanager:backup
-                            {output-dir : Where to store the backup file}';
+    public function __construct()
+    {
+        $this->signature = 'lanager:backup {output-dir : '.__('phrase.output-dir').'}';
+        $this->description = __('phrase.backup-lanager-to-file');
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Back up LANager data to a file';
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.

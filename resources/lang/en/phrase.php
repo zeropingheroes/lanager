@@ -122,6 +122,9 @@ return [
     /**
      * Commands & Services
      */
+    // General purpose
+    'suppress-confirmations' => 'Suppress confirmations',
+
     // UpdateSteamUserService
     // UpdateSteamUserAppsService
     'one-or-more-steam-ids-must-be-provided' => 'One or more Steam IDs must be provided',
@@ -129,6 +132,7 @@ return [
     'unable-to-update-data-for-user-x' => 'Unable to update data for user :x - :error',
 
     // lanager:update-steam-apps
+    'update-database-with-apps-from-steam' => 'Update the database with the latest list of apps from Steam',
     'requesting-details-of-all-apps-from-steam' => 'Requesting details of all apps from Steam',
     'adding-x-steam-apps-to-db' => 'Adding :x apps to the database',
     'updating-x-steam-apps-already-in-db-and-adding-y-new' => 'Updating :x existing apps, and adding :y new apps',
@@ -136,30 +140,41 @@ return [
     'steam-app-update-complete-x-updates-y-new' => 'Steam app update complete - :x updates, of which :y were new apps',
 
     // lanager:import-steam-users
+    'steamids-to-import-list-or-file' => 'One or more SteamId64(s) for the user(s) to import, or a file containing a list of IDs',
+    'import-users-from-steam-into-lanager' => 'Import users from Steam into LANager',
     'no-steam-users-to-import' => 'No Steam users to import',
     'importing-x-users-from-steam' => 'Importing :x users from Steam',
     'successfully-updated-x-of-y-users' => 'Successfully updated :x of :y users',
 
     // lanager:update-steam-users
+    'update-existing-users-profiles-from-steam' => 'Update existing LANager users\' profiles with the latest information from their Steam profile',
     'no-steam-users-to-update' => 'No Steam users to update',
     'updating-profiles-and-online-status-for-x-users-from-steam' => 'Updating profiles and online status for :x users from Steam',
     'successfully-updated-profiles-and-online-status-for-x-of-y-users' => 'Successfully updated profiles and online status for :x of :y users',
 
     // lanager:update-steam-user-apps
+    'update-existing-user-app-ownership' => 'Update existing LANager users\' app ownership data with the latest information from their Steam profile',
     'requesting-app-ownership-data-for-x-users-from-steam' => 'Requesting app ownership data for :x users from Steam',
     'successfully-updated-app-ownership-data-for-x-of-y-users' => 'Successfully updated app ownership data for :x of :y users',
 
     // lanager:prune-steam-user-history
+    'delete-steam-user-history-outside-lans-and-last-5-mins' => 'Delete historical Steam user status and gameplay data that did not occur:
+    - during any of the LANs in the database, or
+    - within the last five minutes',
     'pruning-historical-steam-data' => 'Pruning historical Steam user status and gameplay data',
     'x-entries-deleted-and-y-entries-retained' => 'Deleted :x and retained :y historical entries of Steam user status and gameplay',
 
     // lanager:backup
+    'output-dir' => 'Where to store the backup file',
+    'backup-lanager-to-file' => 'Back up LANager data to a file',
     'output-directory-not-writable' => 'The specified output directory is not writable',
     'output-directory-not-empty' => 'The specified output directory is not empty',
     'backup-created-successfully' => 'Backup created successfully',
     'process-exit-code-x' => 'Process exit code: :x',
 
     // lanager:restore-backup
+    'restore-lanager-backup-from-file' => 'Restore a LANager backup from a file',
+    'backup-file' => 'Path to the backup file',
     'backup-file-not-found' => 'The specified backup file was not found',
     'this-will-delete-all-lanager-data' => 'This will delete all LANager data!',
     'are-you-sure' => 'Are you sure you want to continue?',

@@ -9,19 +9,15 @@ use Zeropingheroes\Lanager\SteamApp;
 class UpdateSteamApps extends Command
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
+     * Set command signature and description
      */
-    protected $signature = 'lanager:update-steam-apps';
+    public function __construct()
+    {
+        $this->signature = 'lanager:update-steam-apps';
+        $this->description = __('phrase.update-database-with-apps-from-steam');
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Update the database with the latest list of apps from Steam';
-
+        parent::__construct();
+    }
     /**
      * Execute the console command.
      *

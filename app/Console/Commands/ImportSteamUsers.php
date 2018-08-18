@@ -9,19 +9,15 @@ use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 class ImportSteamUsers extends Command
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
+     * Set command signature and description
      */
-    protected $signature = 'lanager:import-steam-users
-                            {steamIds* : One or more SteamId64(s) for the user(s) to import, or a file containing a list of IDs}';
+    public function __construct()
+    {
+        $this->signature = 'lanager:import-steam-users {steamIds* : '.__('phrase.steamids-to-import-list-or-file').'}';
+        $this->description = __('phrase.import-users-from-steam-into-lanager');
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Import users from Steam into LANager';
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.

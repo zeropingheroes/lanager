@@ -8,20 +8,18 @@ use Symfony\Component\Process\Process;
 class RestoreBackup extends Command
 {
     /**
-     * The name and signature of the console command.
-     *
-     * @var string
+     * Set command signature and description
      */
-    protected $signature = 'lanager:restore-backup
-                            {backup-file : Path to the backup file}
-                            {--yes : Suppress confirmations}';
+    public function __construct()
+    {
+        $this->signature = 'lanager:restore-backup
+                            {backup-file : '.__('phrase.backup-file').'}
+                            {--yes : '.__('phrase.suppress-confirmations').'}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Restore a LANager back up from a file';
+        $this->description = __('phrase.restore-lanager-backup-from-file');
+
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.
