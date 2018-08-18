@@ -17,7 +17,7 @@ class LanPolicy extends BasePolicy
     public function view(?User $user, Lan $lan)
     {
         // Admins can view any LAN
-        if($user && $user->hasRole('Admin')) {
+        if($user && $user->hasRole('admin')) {
             return true;
         }
         // Non-admins can view published LANs
@@ -32,7 +32,7 @@ class LanPolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -44,7 +44,7 @@ class LanPolicy extends BasePolicy
      */
     public function update(User $user, Lan $lan)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -56,6 +56,6 @@ class LanPolicy extends BasePolicy
      */
     public function delete(User $user, Lan $lan)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 }

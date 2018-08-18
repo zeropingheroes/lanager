@@ -28,7 +28,7 @@ class EventTypePolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -40,7 +40,7 @@ class EventTypePolicy extends BasePolicy
      */
     public function update(User $user, EventType $eventType)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -52,6 +52,6 @@ class EventTypePolicy extends BasePolicy
      */
     public function delete(User $user, EventType $eventType)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 }

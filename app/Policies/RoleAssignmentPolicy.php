@@ -15,7 +15,7 @@ class RoleAssignmentPolicy extends BasePolicy
      */
     public function index(User $user)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 
     /**

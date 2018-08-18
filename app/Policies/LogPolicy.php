@@ -16,7 +16,7 @@ class LogPolicy extends BasePolicy
      */
     public function view(User $user, Log $log)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -28,6 +28,6 @@ class LogPolicy extends BasePolicy
      */
     public function update(User $user, Log $log)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 }

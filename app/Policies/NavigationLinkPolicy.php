@@ -29,7 +29,7 @@ class NavigationLinkPolicy extends BasePolicy
      */
     public function index(User $user, NavigationLink $navigationLink)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -40,7 +40,7 @@ class NavigationLinkPolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -52,7 +52,7 @@ class NavigationLinkPolicy extends BasePolicy
      */
     public function update(User $user, NavigationLink $navigationLink)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -64,6 +64,6 @@ class NavigationLinkPolicy extends BasePolicy
      */
     public function delete(User $user, NavigationLink $navigationLink)
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 }

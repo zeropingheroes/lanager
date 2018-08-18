@@ -21,4 +21,8 @@ return [
     // LANs
     'example-lan' => 'Example LAN',
 
+    // Roles
+    'super-admin' => 'Super Admin',
+    'admin' => 'Admin',
+
 ];

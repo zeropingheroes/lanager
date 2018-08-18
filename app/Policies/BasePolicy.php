@@ -19,6 +19,6 @@ class BasePolicy
     {
         // Allow users with the Super Admin role
         // to perform any action
-        return $user->hasRole('Super Admin');
+        return $user->hasRole('super-admin');
     }
 }
