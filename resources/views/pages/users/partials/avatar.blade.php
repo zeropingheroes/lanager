@@ -27,7 +27,11 @@
         }
 
         if($user->state) {
-            $status = kebab_case($user->state->status->name);
+            if($user->state->app->exists) {
+                $status = 'in-game';
+            } else {
+                $status = kebab_case($user->state->status->name);
+            }
         } else {
             $status = 'unknown';
         }
