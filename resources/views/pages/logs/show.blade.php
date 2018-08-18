@@ -6,6 +6,7 @@
 
 @section('content-header')
     <h1>@lang('title.log') #{{ $log->id }} @include('pages.logs.partials.level', ['level' => $log->level_name])</h1>
+    {{ Breadcrumbs::render('logs.show', $log) }}
 @endsection
 
 @section('content')

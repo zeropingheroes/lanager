@@ -71,6 +71,12 @@ Breadcrumbs::for('logs.index', function ($trail) {
     $trail->push(__('title.logs'), route('logs.index'));
 });
 
+// Home > Logs > [Log]
+Breadcrumbs::for('logs.show', function ($trail, $log) {
+    $trail->parent('logs.index');
+    $trail->push('#' . $log->id, route('logs.show', $log));
+});
+
 // Home > Games > Live
 Breadcrumbs::for('games.in-progress', function ($trail) {
     $trail->parent('games.index');
@@ -101,16 +107,16 @@ Breadcrumbs::for('lans.create', function ($trail) {
     $trail->push(__('title.create'), route('lans.create'));
 });
 
-// Home > LANs > [LAN] > Edit
-Breadcrumbs::for('lans.edit', function ($trail, $lan) {
-    $trail->parent('lans.show', $lan);
-    $trail->push(__('title.edit'), route('lans.edit', $lan));
-});
-
 // Home > LANs > [LAN]
 Breadcrumbs::for('lans.show', function ($trail, $lan) {
     $trail->parent('lans.index');
     $trail->push($lan->name, route('lans.show', $lan));
+});
+
+// Home > LANs > [LAN] > Edit
+Breadcrumbs::for('lans.edit', function ($trail, $lan) {
+    $trail->parent('lans.show', $lan);
+    $trail->push(__('title.edit'), route('lans.edit', $lan));
 });
 
 // Home > LANs > [LAN] > Guides
