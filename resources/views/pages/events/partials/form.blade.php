@@ -22,18 +22,25 @@
             var end = $('#end');
             var startDate = moment(start.val(), format).toDate();
             var endDate = moment(end.val(), format).toDate();
+            var lanStart = moment('{{ $lan->start }}');
+            var lanEnd = moment('{{ $lan->end }}');
 
             start.datetimepicker({
                 format: format,
-                date: moment(),
-                sideBySide: true
+                date: lanStart,
+                minDate: lanStart,
+                maxDate: lanEnd,
+                sideBySide: true,
+                useCurrent: false
             });
 
             start.datetimepicker('date', startDate);
 
             end.datetimepicker({
                 format: format,
-                date: moment(),
+                date: lanStart.add(1, 'hours'),
+                minDate: lanStart,
+                maxDate: lanEnd,
                 sideBySide: true,
                 useCurrent: false
             });
@@ -42,9 +49,6 @@
 
             $("#start").on("change.datetimepicker", function (e) {
                 $('#end').datetimepicker('minDate', e.date);
-            });
-            $("#end").on("change.datetimepicker", function (e) {
-                $('#start').datetimepicker('maxDate', e.date);
             });
         });
     </script>
