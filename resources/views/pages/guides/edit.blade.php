@@ -9,7 +9,7 @@
     {{ Breadcrumbs::render('lans.guides.edit', $guide->lan, $guide) }}
 @endsection
 
-@section('content-body')
+@section('content')
     @include('components.form.edit', ['route' => route('lans.guides.update', ['lan' => $guide->lan, 'guide' => $guide->id])])
     @include('pages.guides.partials.form')
     @include('components.form.close')
