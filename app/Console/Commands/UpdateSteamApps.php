@@ -80,5 +80,6 @@ class UpdateSteamApps extends Command
             $progress->finish();
             $this->info(PHP_EOL . __('phrase.steam-app-update-complete-x-added', ['x' => $fromSteamCount]));
         }
+        return;
     }
 }

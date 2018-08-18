@@ -57,7 +57,7 @@ class EventTypeController extends Controller
                 ->withError($request->errors())
                 ->withInput();
         }
-        $eventType = EventType::create($input);
+        EventType::create($input);
 
         return redirect()
             ->route('event-types.index');

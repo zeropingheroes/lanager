@@ -96,5 +96,6 @@ class Backup extends Command
             }
         }
         $this->info(__('phrase.backup-created-successfully'));
+        return;
     }
 }

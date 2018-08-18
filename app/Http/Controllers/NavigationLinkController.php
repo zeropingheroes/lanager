@@ -70,7 +70,7 @@ class NavigationLinkController extends Controller
                 ->withError($request->errors())
                 ->withInput();
         }
-        $navigationLink = NavigationLink::create($input);
+        NavigationLink::create($input);
 
         return redirect()
             ->route('navigation-links.index');

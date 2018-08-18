@@ -26,8 +26,8 @@ if (!function_exists('var_export_short')) {
 
         if ($return === true) {
             return $dump;
-        } else {
-            echo $dump;
         }
+        echo $dump;
+        return null;
     }
 }

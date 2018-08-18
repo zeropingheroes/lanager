@@ -62,5 +62,6 @@ class ImportSteamUsers extends Command
                 $this->error($error[0]);
             }
         }
+        return;
     }
 }

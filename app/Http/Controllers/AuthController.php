@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Exception;
+
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use Socialite;

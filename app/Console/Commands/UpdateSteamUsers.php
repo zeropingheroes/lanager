@@ -84,5 +84,6 @@ class UpdateSteamUsers extends Command
                 $this->error($error[0]);
             }
         }
+        return;
     }
 }

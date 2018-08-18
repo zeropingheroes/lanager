@@ -18,7 +18,7 @@ class SteamAppServer extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function app()
     {
@@ -43,8 +43,6 @@ class SteamAppServer extends Model
         if ($this->address && $this->port) {
             return 'steam://connect/' . $this->address . ':' . $this->port;
         }
-        if ($this->address) {
-            return 'steam://connect/' . $this->address;
-        }
+        return 'steam://connect/' . $this->address;
     }
 }

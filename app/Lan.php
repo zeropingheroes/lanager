@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
+
 
 class Lan extends Model
 {

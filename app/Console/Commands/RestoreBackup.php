@@ -102,5 +102,6 @@ class RestoreBackup extends Command
             }
         }
         $this->info(__('phrase.backup-restored-successfully'));
+        return;
     }
 }

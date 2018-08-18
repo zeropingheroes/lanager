@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;

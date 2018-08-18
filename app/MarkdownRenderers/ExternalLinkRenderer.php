@@ -36,19 +36,19 @@ class ExternalLinkRenderer implements InlineRendererInterface
             throw new \InvalidArgumentException('Incompatible inline type: ' . get_class($inline));
         }
 
-        $attrs = array();
+        $attributes = [];
 
-        $attrs['href'] = Xml::escape($inline->getUrl(), true);
+        $attributes['href'] = Xml::escape($inline->getUrl(), true);
 
         if (isset($inline->attributes['title'])) {
-            $attrs['title'] = Xml::escape($inline->data['title'], true);
+            $attributes['title'] = Xml::escape($inline->data['title'], true);
         }
 
         if ($this->isExternalUrl($inline->getUrl())) {
-            $attrs['target'] = '_blank';
+            $attributes['target'] = '_blank';
         }
 
-        return new HtmlElement('a', $attrs, $htmlRenderer->renderInlines($inline->children()));
+        return new HtmlElement('a', $attributes, $htmlRenderer->renderInlines($inline->children()));
     }
 
     /**

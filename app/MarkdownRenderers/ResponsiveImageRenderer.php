@@ -36,17 +36,17 @@ class ResponsiveImageRenderer implements InlineRendererInterface
             throw new \InvalidArgumentException('Incompatible inline type: ' . get_class($inline));
         }
 
-        $attrs = array();
+        $attributes = [];
 
-        $attrs['src'] = Xml::escape($inline->getUrl(), true);
+        $attributes['src'] = Xml::escape($inline->getUrl(), true);
 
         if ($inline->firstChild()->getContent()) {
-            $attrs['alt'] = Xml::escape($inline->firstChild()->getContent(), true);
+            $attributes['alt'] = Xml::escape($inline->firstChild()->getContent(), true);
             $inline->firstChild()->detach();
         }
 
-        $attrs['class'] = implode('', $this->classes);
+        $attributes['class'] = implode('', $this->classes);
 
-        return new HtmlElement('img', $attrs, $htmlRenderer->renderInlines($inline->children()));
+        return new HtmlElement('img', $attributes, $htmlRenderer->renderInlines($inline->children()));
     }
 }

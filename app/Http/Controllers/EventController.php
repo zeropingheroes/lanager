@@ -91,7 +91,7 @@ class EventController extends Controller
      * Display the specified resource.
      *
      * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Event $event
+     * @param Event $event
      * @return \Illuminate\Http\Response
      */
     public function show(Lan $lan, Event $event)
@@ -137,7 +137,7 @@ class EventController extends Controller
      *
      * @param Request $httpRequest
      * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Event $event
+     * @param Event $event
      * @return \Illuminate\Http\Response
      */
     public function update(Request $httpRequest, Lan $lan, Event $event)
@@ -171,9 +171,9 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\Event $event
+     * @param Lan $lan
+     * @param Event $event
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Lan $lan, Event $event)
     {

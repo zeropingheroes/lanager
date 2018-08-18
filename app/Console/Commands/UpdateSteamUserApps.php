@@ -70,6 +70,6 @@ class UpdateSteamUserApps extends Command
                 $this->error($error[0]);
             }
         }
+        return;
     }
-
 }
