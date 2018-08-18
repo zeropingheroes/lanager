@@ -19,31 +19,31 @@ class NavigationLinkSeeder extends Seeder
 
         $navigationLinks = [
             [
-                'title' => 'Schedule',
+                'title' => __('title.schedule'),
                 'position' => '1',
                 'url' => '/schedule',
                 'parent_id' => null,
             ],
             [
-                'title' => 'Games',
+                'title' => __('title.games'),
                 'position' => '2',
                 'url' => '/games/in-progress',
                 'parent_id' => null,
             ],
             [
-                'title' => 'Attendees',
+                'title' => __('title.attendees'),
                 'position' => '3',
                 'url' => '/users',
                 'parent_id' => null,
             ],
             [
-                'title' => 'Achievements',
+                'title' => __('title.achievements'),
                 'position' => '4',
                 'url' => '/achievements',
                 'parent_id' => null,
             ],
             [
-                'title' => 'Guides',
+                'title' => __('title.guides'),
                 'position' => '5',
                 'url' => '/guides',
                 'parent_id' => null,

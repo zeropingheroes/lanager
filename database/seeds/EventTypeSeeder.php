@@ -19,23 +19,23 @@ class EventTypeSeeder extends Seeder
 
         $eventTypes = [
             [
-                'name' => 'Ceremony',
+                'name' => __('seeder.ceremony'),
                 'colour' => '#04c',
             ],
             [
-                'name' => 'Big Game',
+                'name' => __('seeder.big-game'),
                 'colour' => '#19A601', // light green
             ],
             [
-                'name' => 'Tournament',
+                'name' => __('seeder.tournament'),
                 'colour' => '#A0000C', // red
             ],
             [
-                'name' => 'Food & Drink',
+                'name' => __('seeder.food-and-drink'),
                 'colour' => '#d80',
             ],
             [
-                'name' => 'Projector',
+                'name' => __('seeder.projector'),
                 'colour' => '#55f',
             ],
 

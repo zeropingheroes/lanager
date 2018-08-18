@@ -19,7 +19,7 @@ class LanSeeder extends Seeder
         }
 
         Lan::create([
-            'name' => 'Example LAN',
+            'name' => __('seeder.example-lan'),
             'start' => Carbon::parse('next Friday')->addHours(18),
             'end' => Carbon::parse('next Sunday')->addHours(18),
             'published' => true,
