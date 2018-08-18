@@ -25,4 +25,12 @@ return [
     'super-admin' => 'Super Admin',
     'admin' => 'Admin',
 
+    // Steam User Status Codes
+    'offline' => 'Offline',
+    'online' => 'Online',
+    'busy' => 'Busy',
+    'away' => 'Away',
+    'snooze' => 'Snooze',
+    'looking-to-trade' => 'Looking to trade',
+    'looking-to-play' => 'Looking to play',
 ];

@@ -1,30 +1,28 @@
 @if($user->state)
-    @if($user->state->steam_app_id)
+    @if($user->state->app->exists)
         <span class="badge badge-success">@lang('phrase.status-in-game')</span>
     @else
-        @php
-            $status = __('phrase.status-'.kebab_case($user->state->status->name));
-        @endphp
-        @switch(kebab_case($user->state->status->name))
+        @switch($user->state->status->name)
             @case('online')
             @case('looking-to-trade')
             @case('looking-to-play')
-                <span class="badge badge-info">{{ $status }}</span>
+                @php ($class = 'info')
             @break
 
             @case('busy')
-                <span class="badge badge-danger">{{ $status }}</span>
+                @php ($class = 'danger')
             @break
 
             @case('away')
             @case('snooze')
-                <span class="badge badge-warning">{{ $status }}</span>
+                @php ($class = 'warning')
             @break
 
             @default
-                <span class="badge badge-secondary">{{ $status }}</span>
+                @php ($class = 'secondary')
         @endswitch
+        <span class="badge badge-{{ $class }}">{{ $user->state->status->display_name }}</span>
     @endif
 @else
-    <span class="badge badge-secondary">@lang('phrase.status-unknown')</span>
+<span class="badge badge-secondary">@lang('phrase.status-unknown')</span>
 @endif

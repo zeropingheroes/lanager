@@ -28,20 +28,20 @@
 
         if($user->state) {
             if($user->state->app->exists) {
-                $status = 'in-game';
-                $title = __('phrase.status-'.$status) . ': ' . $user->state->app->name;
+                $statusName = 'in-game';
+                $statusDisplayName = __('phrase.status-in-game-x', ['x' => $user->state->app->name]);
             } else {
-                $status = kebab_case($user->state->status->name);
-                $title = __('phrase.status-'.$status);
+                $statusName = $user->state->status->name;
+                $statusDisplayName = $user->state->status->display_name;
             }
         } else {
-            $status = 'unknown';
-            $title = __('phrase.status-'.$status);
+            $statusName = 'unknown';
+            $statusDisplayName = __('phrase.status-unknown');
         }
 
     @endphp
-    <img class="avatar avatar-{{ $size }} avatar-{{ $status }}"
+    <img class="avatar avatar-{{ $size }} avatar-{{ $statusName }}"
          src="{{ $avatar }}"
          alt="@lang('phrase.avatar-for-username', ['username' => $user->username])"
-         title="{{ $title }}">
+         title="{{ $statusDisplayName }}">
 @endif

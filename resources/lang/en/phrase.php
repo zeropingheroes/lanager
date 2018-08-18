@@ -75,16 +75,9 @@ return [
     'viewing-user-from-another-lan' => 'This user is not attending the current LAN',
 
     // Steam Statuses
-    'status-online' => 'Online',
     'status-in-game' => 'In Game',
-    'status-busy' => 'Busy',
-    'status-away' => 'Away',
-    'status-snooze' => 'Snooze',
-    'status-looking-to-trade' => 'Looking to trade',
-    'status-looking-to-play' => 'Looking to play',
-    'status-offline' => 'Offline',
+    'status-in-game-x' => 'In Game: :x',
     'status-unknown' => 'Status unknown',
-    'unknown' => 'Unknown',
 
     // Games
     'x-in-game' => ':x In Game',
@@ -116,6 +109,7 @@ return [
     'starting' => 'Starting',
     'ending' => 'Ending',
     'ended' => 'Ended',
+    'unknown' => 'Unknown',
 
     // Images
     'select-files' => 'Select files',

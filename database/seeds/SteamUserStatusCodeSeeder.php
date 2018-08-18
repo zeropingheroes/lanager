@@ -20,33 +20,39 @@ class SteamUserStatusCodeSeeder extends Seeder
         $statusCodes = [
             [
                 'id' => 0,
-                'name' => 'Offline',
+                'name' => 'offline',
+                'display_name' => __('seeder.offline'),
             ],
             [
                 'id' => 1,
-                'name' => 'Online',
+                'name' => 'online',
+                'display_name' => __('seeder.online'),
             ],
             [
                 'id' => 2,
-                'name' => 'Busy',
+                'name' => 'busy',
+                'display_name' => __('seeder.busy'),
             ],
             [
                 'id' => 3,
-                'name' => 'Away',
+                'name' => 'away',
+                'display_name' => __('seeder.away'),
             ],
             [
                 'id' => 4,
-                'name' => 'Snooze',
+                'name' => 'snooze',
+                'display_name' => __('seeder.snooze'),
             ],
             [
                 'id' => 5,
-                'name' => 'Looking to trade',
+                'name' => 'looking-to-trade',
+                'display_name' => __('seeder.looking-to-trade'),
             ],
             [
                 'id' => 6,
-                'name' => 'Looking to play',
+                'name' => 'looking-to-play',
+                'display_name' => __('seeder.looking-to-play'),
             ],
-
         ];
 
         foreach ($statusCodes as $statusCode) {
