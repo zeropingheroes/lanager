@@ -10,9 +10,12 @@
 
     @include('components.alerts.all')
 
+    @canany(['update', 'delete'], $guide)
     @if(!$guide->published)
-        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.guide-not-published')])
+        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.resource-not-published', ['resource' => strtolower(__('title.guide'))])])
     @endif
+    @endcanany
+
 
     @if($guide->lan->end->isPast())
         @include('components.alerts.alert-single', ['type' => 'danger', 'message' => __('phrase.viewing-guide-from-past-lan')])
