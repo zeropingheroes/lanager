@@ -6,19 +6,34 @@
 
 @section('content')
 
-    <h1>
-        {{ $lan->name }}
-        <small class="text-muted">
-            @include('pages.lans.partials.dates', ['lan' => $lan])
-        </small>
-    </h1>
-    <h4>
-        @include('pages.lans.partials.timespan', ['lan' => $lan])
-        <small class="text-muted">
-            @include('pages.lans.partials.duration', ['lan' => $lan])
-        </small>
-    </h4>
+    <div class="row align-items-center">
+        <div class="col-md-auto">
+            <h1>
+                {{ $lan->name }}
+                <small class="text-muted">
+                    @include('pages.lans.partials.dates', ['lan' => $lan])
+                </small>
+            </h1>
+        </div>
+        @canany(['update', 'delete'], $lan)
+        <div class="col text-right">
+            @include('pages.lans.partials.actions-dropdown', ['lan' => $lan])
+        </div>
+        @endcanany
+    </div>
+    <div class="row">
+        <div class="col">
+            <h4>
+                @include('pages.lans.partials.timespan', ['lan' => $lan])
+                <small class="text-muted">
+                    @include('pages.lans.partials.duration', ['lan' => $lan])
+                </small>
+            </h4>
+        </div>
+    </div>
+
     {{ Breadcrumbs::render('lans.show', $lan) }}
+    @include('components.alerts.all')
 
     @if($lan->description)
         {!! Markdown::convertToHtml($lan->description) !!}
