@@ -84,8 +84,7 @@ class EventController extends Controller
         $event = Event::create($input);
 
         return redirect()
-            ->route('lans.events.show', ['lan' => $lan, 'event' => $event])
-            ->withSuccess(__('phrase.event-successfully-created', ['name' => $event->name]));
+            ->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
     }
 
     /**
@@ -166,8 +165,7 @@ class EventController extends Controller
         $event->update($input);
 
         return redirect()
-            ->route('lans.events.show', ['lan' => $lan, 'event' => $event])
-            ->withSuccess(__('phrase.event-successfully-updated', ['name' => $event->name]));
+            ->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
     }
 
     /**
@@ -185,6 +183,6 @@ class EventController extends Controller
 
         return redirect()
             ->route('lans.events.index', ['lan' => $lan])
-            ->withSuccess(__('phrase.event-successfully-deleted', ['name' => $event->name]));
+            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.event'), 'name' => $event->name]));
     }
 }

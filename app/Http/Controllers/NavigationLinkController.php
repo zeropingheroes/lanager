@@ -73,8 +73,7 @@ class NavigationLinkController extends Controller
         $navigationLink = NavigationLink::create($input);
 
         return redirect()
-            ->route('navigation-links.index')
-            ->withSuccess(__('phrase.navigation-link-successfully-created', ['title' => $navigationLink->title]));
+            ->route('navigation-links.index');
 
     }
 
@@ -128,8 +127,7 @@ class NavigationLinkController extends Controller
         $navigationLink->update($input);
 
         return redirect()
-            ->route('navigation-links.index')
-            ->withSuccess(__('phrase.navigation-link-successfully-updated', ['title' => $navigationLink->title]));
+            ->route('navigation-links.index');
     }
 
     /**
@@ -146,6 +144,6 @@ class NavigationLinkController extends Controller
 
         return redirect()
             ->route('navigation-links.index')
-            ->withSuccess(__('phrase.guide-successfully-deleted', ['title' => $navigationLink->title]));
+            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.navigation-link'), 'name' => $navigationLink->title]));
     }
 }

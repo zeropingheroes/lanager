@@ -158,8 +158,7 @@ class ImageController extends Controller
         Storage::move($originalFilePath, $newFilePath);
 
         return redirect()
-            ->route('images.index')
-            ->withSuccess(__('phrase.image-filename-successfully-updated', ['filename' => $filename]));
+            ->route('images.index');
     }
 
     /**
@@ -182,6 +181,6 @@ class ImageController extends Controller
 
         return redirect()
             ->route('images.index')
-            ->withSuccess(__('phrase.image-filename-successfully-deleted', ['filename' => $filename]));
+            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.image'), 'name' => $filename]));
     }
 }

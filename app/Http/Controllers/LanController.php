@@ -100,8 +100,7 @@ class LanController extends Controller
         $lan = Lan::create($input);
 
         return redirect()
-            ->route('lans.show', $lan)
-            ->withSuccess(__('phrase.lan-successfully-created', ['name' => $lan->name]));
+            ->route('lans.show', $lan);
     }
 
     /**
@@ -150,8 +149,7 @@ class LanController extends Controller
         $lan->update($input);
 
         return redirect()
-            ->route('lans.show', $lan)
-            ->withSuccess(__('phrase.lan-successfully-updated', ['name' => $lan->name]));
+            ->route('lans.show', $lan);
     }
 
     /**
@@ -168,7 +166,7 @@ class LanController extends Controller
 
         return redirect()
             ->route('lans.index')
-            ->withSuccess(__('phrase.lan-successfully-deleted', ['name' => $lan->name]));
+            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.lan'), 'name' => $lan->name]));
 
     }
 }

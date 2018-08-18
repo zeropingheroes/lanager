@@ -12,12 +12,12 @@
 @section('content')
     @canany(['update', 'delete'], $event)
         @if(!$event->published)
-            @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.resource-not-published', ['resource' => strtolower(__('title.event'))])])
+            @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.item-unpublished', ['item' => strtolower(__('title.event'))])])
         @endif
     @endcanany
     @canany(['update', 'delete'], $event->lan)
         @if(!$event->lan->published)
-            @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.resource-not-published', ['resource' => __('title.lan')])])
+            @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.item-unpublished', ['item' => __('title.lan')])])
         @endif
     @endcanany
 

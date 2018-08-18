@@ -37,7 +37,7 @@
     @parent
     @canany(['update', 'delete'], $lan)
         @if(!$lan->published)
-            @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.resource-not-published', ['resource' => __('title.lan')])])
+            @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.item-unpublished', ['item' => __('title.lan')])])
         @endif
     @endcanany
 @endsection

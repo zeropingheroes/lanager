@@ -83,6 +83,6 @@ class UserController extends Controller
 
         return redirect()
             ->route('users')
-            ->withSuccess(__('phrase.user-successfully-deleted', ['username' => $user->username]));
+            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.user'), 'name' => $user->username]));
     }
 }

@@ -69,8 +69,7 @@ class GuideController extends Controller
         $guide = Guide::create($input);
 
         return redirect()
-            ->route('lans.guides.index', ['lan' => $lan])
-            ->withSuccess(__('phrase.guide-successfully-created', ['title' => $guide->title]));
+            ->route('lans.guides.show', ['lan' => $lan, 'guide' => $guide]);
     }
 
     /**
@@ -160,8 +159,7 @@ class GuideController extends Controller
         $guide->update($input);
 
         return redirect()
-            ->route('lans.guides.show', ['lan' => $lan, 'guide' => $guide])
-            ->withSuccess(__('phrase.guide-successfully-updated', ['title' => $guide->title]));
+            ->route('lans.guides.show', ['lan' => $lan, 'guide' => $guide]);
     }
 
     /**
@@ -184,6 +182,6 @@ class GuideController extends Controller
 
         return redirect()
             ->route('lans.guides.index', ['lan' => $lan])
-            ->withSuccess(__('phrase.guide-successfully-deleted', ['title' => $guide->title]));
+            ->withSuccess(__('phrase.title' => $guide->title]));
     }
 }

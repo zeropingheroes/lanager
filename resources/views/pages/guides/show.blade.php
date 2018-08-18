@@ -23,7 +23,7 @@
     @parent
     @canany(['update', 'delete'], $guide)
     @if(!$guide->published)
-        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.resource-not-published', ['resource' => strtolower(__('title.guide'))])])
+        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.item-unpublished', ['item' => strtolower(__('title.guide'))])])
     @endif
     @endcanany
     @if($guide->lan->end->isPast())

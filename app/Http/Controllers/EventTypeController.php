@@ -60,8 +60,7 @@ class EventTypeController extends Controller
         $eventType = EventType::create($input);
 
         return redirect()
-            ->route('event-types.index')
-            ->withSuccess(__('phrase.event-type-successfully-created', ['name' => $eventType->name]));
+            ->route('event-types.index');
     }
 
     /**
@@ -107,8 +106,7 @@ class EventTypeController extends Controller
         $eventType->update($input);
 
         return redirect()
-            ->route('event-types.index')
-            ->withSuccess(__('phrase.event-type-successfully-updated', ['name' => $eventType->name]));
+            ->route('event-types.index');
 
     }
 
@@ -127,7 +125,7 @@ class EventTypeController extends Controller
 
         return redirect()
             ->route('event-types.index')
-            ->withSuccess(__('phrase.event-type-successfully-deleted', ['name' => $eventType->name]));
+            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.event-type'), 'name' => $eventType->name]));
 
     }
 }

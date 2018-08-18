@@ -89,11 +89,11 @@ return [
     'backup-restored-successfully' => 'Backup restored successfully',
 
     // General purpose
-    'item-created' => ':Item successfully created',
     'no-items-found' => 'No :item found',
     'the-following-errors-were-encountered' => 'The following errors were encountered',
-    'resource-not-published' => 'This :resource has not been published, so only you and other administrators can access it',
+    'item-unpublished' => 'This :item is unpublished and only visible administrators',
     'oh-no' => 'Oh no!',
+    'item-name-deleted' => ':Item ":name" deleted',
 
     // Logs
     'minimum-level' => 'Minimum level',
@@ -116,7 +116,6 @@ return [
     'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or'
         . ' have in common with you.',
     'viewing-user-from-another-lan' => 'This user is not attending the current LAN.',
-    'user-successfully-deleted' => 'Account for :username successfully deleted',
 
     // Steam Statuses
     'status-online' => 'Online',
@@ -142,34 +141,18 @@ return [
     'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Example',
     'markdown-help' => 'Tip: use relative links, e.g. [Install Guide](/guides/3) to easily link to other pages',
     'viewing-guide-from-past-lan' => 'This guide is from a LAN that has ended, so information may be irrelevant and/or incorrect',
-    'guide-successfully-created' => 'Guide ":title" successfully created',
-    'guide-successfully-updated' => 'Guide ":title" successfully updated',
-    'guide-successfully-deleted' => 'Guide ":title" successfully deleted',
 
     // Navigation Links
-    'navigation-link-successfully-created' => 'Navigation link ":title" successfully created',
-    'navigation-link-successfully-updated' => 'Navigation link ":title" successfully updated',
-    'navigation-link-successfully-deleted' => 'Navigation link ":title" successfully deleted',
+
     'navigation-links-can-only-be-nested-one-level-deep' => 'Navigation links can only be nested one level deep',
     'a-navigation-link-cannot-be-its-own-parent' => 'A navigation link cannot be its own parent',
 
     // LANs
-    'lan-successfully-created' => 'LAN :name successfully created',
-    'lan-successfully-updated' => 'LAN :name successfully updated',
-    'lan-successfully-deleted' => 'LAN :name successfully deleted',
     'lans-cannot-overlap' => 'LANs cannot overlap',
-
-    // Event Types
-    'event-type-successfully-created' => 'Event type :name successfully created',
-    'event-type-successfully-updated' => 'Event type :name successfully updated',
-    'event-type-successfully-deleted' => 'Event type :name successfully deleted',
 
     // Events
     'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',
     'event-times-must-be-within-lan-times' => 'Events must start and finish within the LAN\'s start and end time',
-    'event-successfully-created' => 'Event :name successfully created',
-    'event-successfully-updated' => 'Event :name successfully updated',
-    'event-successfully-deleted' => 'Event :name successfully deleted',
 
     // Events, dates and times
     'timespan-to' => 'to',
@@ -184,7 +167,6 @@ return [
     'select-files' => 'Select files',
     'images-successfully-uploaded' => 'Image(s) successfully uploaded',
     'image-filename-successfully-deleted' => 'Image :filename successfully deleted',
-    'image-filename-successfully-updated' => 'Image :filename successfully updated',
     'submitted-file-was-invalid-image' => 'Submitted file was not a valid image',
     'submitted-file-exceeded-max-file-size-of-x' => 'Submitted file exceeded the maximum file size of :x',
     'image-already-exists' => 'An image of the same name already exists',
