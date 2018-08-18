@@ -3,19 +3,26 @@
         <h1>{{ $event->name }}</h1>
     </div>
     <div class="col text-right">
-        <h2>@include('pages.events.partials.status', ['event' => $event])</h2>
+        <h2>
+            @include('pages.events.partials.status', ['event' => $event])
+        </h2>
     </div>
 </div>
-<div class="row">
+<div class="row align-items-center">
     <div class="col-md-auto">
         <h4 class="text-muted">
             @include('pages.events.partials.start-and-end', ['event' => $event])
         </h4>
     </div>
-    @canany(['update', 'delete'], $event)
-    <div class="col text-right">
-        @include('pages.events.partials.actions-dropdown', ['event' => $event])
+    <div class="col-md-auto pl-0">
+        <h5>
+            @include('pages.event-types.partials.label', ['eventType' => $event->type])
+        </h5>
     </div>
+    @canany(['update', 'delete'], $event)
+        <div class="col text-right">
+            @include('pages.events.partials.actions-dropdown', ['event' => $event])
+        </div>
     @endcanany
     {{-- TODO: signups status display --}}
     {{--<div class="col-md-4">--}}
