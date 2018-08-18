@@ -107,13 +107,13 @@ class User extends Authenticatable
             ->join(
                 DB::raw(
                     "(
-								SELECT max(created_at) max_created_at, user_id
-								FROM steam_user_states
-								WHERE created_at
-									BETWEEN '{$start}'
-									AND 	'{$end}'
-								GROUP BY user_id
-								) s2"
+                                SELECT max(created_at) max_created_at, user_id
+                                FROM steam_user_states
+                                WHERE created_at
+                                    BETWEEN '{$start}'
+                                    AND     '{$end}'
+                                GROUP BY user_id
+                                ) s2"
                 ),
                 function ($join) {
                     $join->on('steam_user_states.user_id', '=', 's2.user_id')
@@ -134,6 +134,16 @@ class User extends Authenticatable
             ->using('Zeropingheroes\Lanager\Attendee')
             ->as('attendance')
             ->withTimestamps();
+    }
+
+    /**
+     * Get the user's sessions
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sessions()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\Session');
     }
 
 }
