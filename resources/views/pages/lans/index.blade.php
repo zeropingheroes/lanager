@@ -11,7 +11,7 @@
         </div>
         @can('create', \Zeropingheroes\Lanager\Lan::class)
             <div class="col text-right">
-                <a href="{{ route( 'lans.create') }}" class="btn btn-primary btn-sm" title="@lang('title.create')">
+                <a href="{{ route( 'lans.create') }}" class="btn btn-primary" title="@lang('title.create')">
                     <span class="oi oi-plus"></span>
                 </a>
             </div>
@@ -46,7 +46,7 @@
                             {{ $lan->users->count() }} <span class="oi oi-person" title="attendee" aria-hidden="true"></span>
                         </td>
                         @canany(['edit', 'delete'], $lan)
-                            <td>
+                            <td class="text-right pr-0">
                                 @component('components.actions-dropdown')
                                     @include('components.actions-dropdown.edit', ['item' => $lan])
                                     @include('components.actions-dropdown.delete', ['item' => $lan])
