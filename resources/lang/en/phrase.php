@@ -18,13 +18,11 @@ return [
     | - Not be terminated with a full stop (.)
     */
 
-    // Copyright & Licensing
+    // User interface
+    'toggle-navigation' => 'Toggle navigation',
     'is-copyright' => 'is ©',
     'and-licensed-under' => 'and licensed under',
     'powered-by-steam' => 'Powered by Steam',
-
-    // User interface
-    'toggle-navigation' => 'Toggle navigation',
 
     // Account Authentication
     'profile-update-required' => 'Please update your profile to continue',
@@ -44,6 +42,92 @@ return [
     'cannot-assign-role-to-super-admin' => 'Roles cannot be assigned to Super Admins',
     'assigned' => 'assigned',
 
+    // General purpose
+    'no-items-found' => 'No :item found',
+    'the-following-errors-were-encountered' => 'The following errors were encountered',
+    'item-unpublished' => 'This :item is unpublished and only visible administrators',
+    'oh-no' => 'Oh no!',
+    'item-name-deleted' => ':Item ":name" deleted',
+
+    /**
+     * Resources
+     */
+    // Logs
+    'minimum-level' => 'Minimum level',
+    'mark-as-read' => 'Mark as Read',
+    'log-entries-marked-as-read' => 'Log entries successfully marked as read',
+    'paste-below-into-github-issue' => 'Paste the below into a GitHub issue',
+
+    // Users
+    'your-steam-game-details-are-private' => 'Your Steam game details are currently private',
+    'please-consider-public-visibility' => 'This means games you play won\'t show in ' . config(
+            'app.name'
+        ) . ' with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
+    'edit-steam-profile' => 'Edit Steam Profile',
+    'avatar-for-username' => 'Avatar for :username',
+    'hours-played-total' => 'hours total',
+    'hours-played-two-weeks' => 'hours in last 2 weeks',
+    'sign-in-to-see-the-games-you-have-in-common-with-username' => 'Sign in to see the games you have in common with :username',
+    'you-have-no-games-in-common-with-username' => 'You have no games in common with :username',
+    'username-does-not-own-any-games' => ':username does not own any games',
+    'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or'
+        . ' have in common with you',
+    'viewing-user-from-another-lan' => 'This user is not attending the current LAN',
+
+    // Steam Statuses
+    'status-online' => 'Online',
+    'status-in-game' => 'In Game',
+    'status-busy' => 'Busy',
+    'status-away' => 'Away',
+    'status-snooze' => 'Snooze',
+    'status-looking-to-trade' => 'Looking to trade',
+    'status-looking-to-play' => 'Looking to play',
+    'status-offline' => 'Offline',
+    'status-unknown' => 'Status unknown',
+    'unknown' => 'Unknown',
+
+    // Games
+    'x-in-game' => ':x In Game',
+    'x-played-recently' => ':x Played Recently',
+    'x-owners' => ':x Owners',
+    'view-game-in-steam-store' => 'View :game in the Steam Store',
+    'logo-for-game' => 'Logo for :game',
+
+    // Guides
+    'markdown-formatting-help-link' => 'Markdown formatting help',
+    'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Example',
+    'markdown-help' => 'Tip: use relative links, e.g. [Install Guide](/guides/3) to easily link to other pages',
+    'viewing-guide-from-past-lan' => 'This guide is from a LAN that has ended, so information may be irrelevant and/or incorrect',
+
+    // Navigation Links
+    'navigation-links-can-only-be-nested-one-level-deep' => 'Navigation links can only be nested one level deep',
+    'a-navigation-link-cannot-be-its-own-parent' => 'A navigation link cannot be its own parent',
+
+    // LANs
+    'lans-cannot-overlap' => 'LANs cannot overlap',
+
+    // Events
+    'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',
+    'event-times-must-be-within-lan-times' => 'Events must start and finish within the LAN\'s start and end time',
+    'timespan-to' => 'to',
+    'upcoming' => 'Upcoming',
+    'happening-now' => 'Happening Now',
+    'ended' => 'Ended',
+    'starting' => 'Starting',
+    'ending' => 'Ending',
+    'ended' => 'Ended',
+
+    // Images
+    'select-files' => 'Select files',
+    'images-successfully-uploaded' => 'Image(s) successfully uploaded',
+    'image-filename-successfully-deleted' => 'Image :filename successfully deleted',
+    'submitted-file-was-invalid-image' => 'Submitted file was not a valid image',
+    'submitted-file-exceeded-max-file-size-of-x' => 'Submitted file exceeded the maximum file size of :x',
+    'image-already-exists' => 'An image of the same name already exists',
+
+    /**
+     * Commands & Services
+     */
     // UpdateSteamUserService
     // UpdateSteamUserAppsService
     'one-or-more-steam-ids-must-be-provided' => 'One or more Steam IDs must be provided',
@@ -87,88 +171,4 @@ return [
     'are-you-sure' => 'Are you sure you want to continue?',
     'deleting-all-lanager-data' => 'Deleting all LANager data',
     'backup-restored-successfully' => 'Backup restored successfully',
-
-    // General purpose
-    'no-items-found' => 'No :item found',
-    'the-following-errors-were-encountered' => 'The following errors were encountered',
-    'item-unpublished' => 'This :item is unpublished and only visible administrators',
-    'oh-no' => 'Oh no!',
-    'item-name-deleted' => ':Item ":name" deleted',
-
-    // Logs
-    'minimum-level' => 'Minimum level',
-    'mark-as-read' => 'Mark as Read',
-    'log-entries-marked-as-read' => 'Log entries successfully marked as read',
-    'paste-below-into-github-issue' => 'Paste the below into a GitHub issue',
-
-    // User profile
-    'your-steam-game-details-are-private' => 'Your Steam game details are currently private.',
-    'please-consider-public-visibility' => 'This means games you play won\'t show in ' . config(
-            'app.name'
-        ) . ' with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
-    'edit-steam-profile' => 'Edit Steam Profile',
-    'avatar-for-username' => 'Avatar for :username',
-    'hours-played-total' => 'hours total',
-    'hours-played-two-weeks' => 'hours in last 2 weeks',
-    'sign-in-to-see-the-games-you-have-in-common-with-username' => 'Sign in to see the games you have in common with :username',
-    'you-have-no-games-in-common-with-username' => 'You have no games in common with :username',
-    'username-does-not-own-any-games' => ':username does not own any games',
-    'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or'
-        . ' have in common with you.',
-    'viewing-user-from-another-lan' => 'This user is not attending the current LAN.',
-
-    // Steam Statuses
-    'status-online' => 'Online',
-    'status-in-game' => 'In Game',
-    'status-busy' => 'Busy',
-    'status-away' => 'Away',
-    'status-snooze' => 'Snooze',
-    'status-looking-to-trade' => 'Looking to trade',
-    'status-looking-to-play' => 'Looking to play',
-    'status-offline' => 'Offline',
-    'status-unknown' => 'Status unknown',
-    'unknown' => 'Unknown',
-
-    // Games
-    'x-in-game' => ':x In Game',
-    'x-played-recently' => ':x Played Recently',
-    'x-owners' => ':x Owners',
-    'view-game-in-steam-store' => 'View :game in the Steam Store',
-    'logo-for-game' => 'Logo for :game',
-
-    // Guides
-    'markdown-formatting-help-link' => 'Markdown formatting help',
-    'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Example',
-    'markdown-help' => 'Tip: use relative links, e.g. [Install Guide](/guides/3) to easily link to other pages',
-    'viewing-guide-from-past-lan' => 'This guide is from a LAN that has ended, so information may be irrelevant and/or incorrect',
-
-    // Navigation Links
-
-    'navigation-links-can-only-be-nested-one-level-deep' => 'Navigation links can only be nested one level deep',
-    'a-navigation-link-cannot-be-its-own-parent' => 'A navigation link cannot be its own parent',
-
-    // LANs
-    'lans-cannot-overlap' => 'LANs cannot overlap',
-
-    // Events
-    'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',
-    'event-times-must-be-within-lan-times' => 'Events must start and finish within the LAN\'s start and end time',
-
-    // Events, dates and times
-    'timespan-to' => 'to',
-    'upcoming' => 'Upcoming',
-    'happening-now' => 'Happening Now',
-    'ended' => 'Ended',
-    'starting' => 'Starting',
-    'ending' => 'Ending',
-    'ended' => 'Ended',
-
-    // Images
-    'select-files' => 'Select files',
-    'images-successfully-uploaded' => 'Image(s) successfully uploaded',
-    'image-filename-successfully-deleted' => 'Image :filename successfully deleted',
-    'submitted-file-was-invalid-image' => 'Submitted file was not a valid image',
-    'submitted-file-exceeded-max-file-size-of-x' => 'Submitted file exceeded the maximum file size of :x',
-    'image-already-exists' => 'An image of the same name already exists',
-
 ];
