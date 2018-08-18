@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    @include('pages.events.partials.index-header', ['active' => 'schedule', 'lan' => $lan])
+    @include('pages.events.partials.header-index', ['active' => 'schedule', 'lan' => $lan])
     {{ Breadcrumbs::render('lans.events.index', $lan) }}
 
     <script type="text/javascript">
