@@ -24,12 +24,34 @@
         {!! Markdown::convertToHtml($lan->description) !!}
     @endif
 
-    <h5>@lang('title.events')</h5>
+    <div class="row">
+        <div class="col-auto">
+            <h5>@lang('title.events')</h5>
+        </div>
+        @can('create', \Zeropingheroes\Lanager\Event::class)
+            <div class="col text-right">
+                <a href="{{ route( 'lans.events.create', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.create')">
+                    <span class="oi oi-plus"></span>
+                </a>
+            </div>
+        @endcan
+    </div>
     @if(! $lan->events->isEmpty())
         @include('pages.events.partials.list', ['events' => $lan->events])
     @endif
 
-    <h5>@lang('title.guides')</h5>
+    <div class="row">
+        <div class="col-auto">
+            <h5>@lang('title.guides')</h5>
+        </div>
+        @can('create', \Zeropingheroes\Lanager\Guide::class)
+            <div class="col text-right">
+                <a href="{{ route( 'lans.guides.create', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.create')">
+                    <span class="oi oi-plus"></span>
+                </a>
+            </div>
+        @endcan
+    </div>
     @if(! $lan->guides->isEmpty())
         @include('pages.guides.partials.list', ['guides' => $lan->guides])
     @endif

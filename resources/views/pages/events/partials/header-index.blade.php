@@ -2,7 +2,12 @@
     <div class="col">
         <h1>@lang('title.events')</h1>
     </div>
-    <div class="col text-right">
+    @can('create', \Zeropingheroes\Lanager\Event::class)
+        <div class="col-auto text-right pr-0">
+            <a href="{{ route( 'lans.events.create', $lan) }}" class="btn btn-primary" title="@lang('title.create')"><span class="oi oi-plus"></span></a>
+        </div>
+    @endcan
+    <div class="col-auto text-right">
         <div class="dropdown show">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="eventsDisplayDropdown" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">

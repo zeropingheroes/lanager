@@ -21,7 +21,7 @@
                     @include('pages.event-types.partials.label', ['eventType' => $event->type])
                 </td>
                 @canany(['update', 'delete'], $event)
-                    <td>
+                    <td class="text-right pr-0">
                         @include('pages.events.partials.actions-dropdown', ['event' => $event])
                     </td>
                 @endcanany
