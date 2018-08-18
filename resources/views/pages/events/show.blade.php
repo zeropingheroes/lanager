@@ -11,9 +11,14 @@
 
 @section('content')
     @canany(['update', 'delete'], $event)
-    @if(!$event->published)
-        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.resource-not-published', ['resource' => strtolower(__('title.event'))])])
-    @endif
+        @if(!$event->published)
+            @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.resource-not-published', ['resource' => strtolower(__('title.event'))])])
+        @endif
+    @endcanany
+    @canany(['update', 'delete'], $event->lan)
+        @if(!$event->lan->published)
+            @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.resource-not-published', ['resource' => __('title.lan')])])
+        @endif
     @endcanany
 
     {!! Markdown::convertToHtml($event->description) !!}
