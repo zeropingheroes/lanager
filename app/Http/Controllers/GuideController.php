@@ -182,6 +182,6 @@ class GuideController extends Controller
 
         return redirect()
             ->route('lans.guides.index', ['lan' => $lan])
-            ->withSuccess(__('phrase.title' => $guide->title]));
+            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.guide'), 'name' => $guide->title]));
     }
 }
