@@ -9,7 +9,7 @@
            class="dropdown-item">@lang('title.edit')</a>
     @endcan
     @can('delete', $guide)
-        <form action="{{ route('lans.guides.destroy', ['lan' => $guide->lan, 'guide' => $guide]) }}" method="POST">
+        <form action="{{ route('lans.guides.destroy', ['lan' => $guide->lan, 'guide' => $guide]) }}" method="POST" class="confirm-deletion">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
             <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>

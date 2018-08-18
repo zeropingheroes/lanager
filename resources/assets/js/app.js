@@ -17,6 +17,11 @@ window.addEventListener('load', function() {
         console.error('Action:', e.action);
         console.error('Trigger:', e.trigger);
     });
+
+    // Confirm deletion for any elements with that class
+    $('.confirm-deletion').on('submit', function(){
+        return confirm('Are you sure?');
+    });
 })
 
 /**
