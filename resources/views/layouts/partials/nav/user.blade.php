@@ -5,7 +5,7 @@
         <span class="caret"></span>
     </a>
 
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">@lang('title.profile')</a>
         <a class="dropdown-item" href="#">@lang('title.api')</a>
         <a class="dropdown-item" href="#"
