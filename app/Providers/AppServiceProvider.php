@@ -4,6 +4,8 @@ namespace Zeropingheroes\Lanager\Providers;
 
 use Exception;
 use Illuminate\Support\ServiceProvider;
+use League\CommonMark\Inline\Element\Link;
+use Zeropingheroes\Lanager\MarkdownRenderers\ExternalLinkRenderer;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\Observers\UserObserver;
 use Zeropingheroes\Lanager\NavigationLink;
@@ -21,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
 
         User::observe(UserObserver::class);
         NavigationLink::observe(NavigationLinkObserver::class);
+
+        // When rendering markdown, open external links in a new window
+        app('markdown.environment')->addInlineRenderer(
+            Link::class,
+            new ExternalLinkRenderer(request()->getHost())
+        );
     }
 
     /**
