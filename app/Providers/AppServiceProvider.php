@@ -4,8 +4,10 @@ namespace Zeropingheroes\Lanager\Providers;
 
 use Exception;
 use Illuminate\Support\ServiceProvider;
+use League\CommonMark\Inline\Element\Image;
 use League\CommonMark\Inline\Element\Link;
 use Zeropingheroes\Lanager\MarkdownRenderers\ExternalLinkRenderer;
+use Zeropingheroes\Lanager\MarkdownRenderers\ResponsiveImageRenderer;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\Observers\UserObserver;
 use Zeropingheroes\Lanager\NavigationLink;
@@ -24,10 +26,16 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         NavigationLink::observe(NavigationLinkObserver::class);
 
-        // When rendering markdown, open external links in a new window
+        // Add extended Markdown renderers
+        // Open external links in a new window
         app('markdown.environment')->addInlineRenderer(
             Link::class,
             new ExternalLinkRenderer(request()->getHost())
+        );
+        // Make images responsive using Bootstrap 4 class
+        app('markdown.environment')->addInlineRenderer(
+            Image::class,
+            new ResponsiveImageRenderer(['img-fluid'])
         );
     }
 
