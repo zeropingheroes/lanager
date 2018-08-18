@@ -97,7 +97,7 @@ class RestoreBackup extends Command
                 }
             );
             if (!$process->isSuccessful()) {
-                $this->error(__('phrase.process-exit-code', ['x' => $process->getExitCode()]));
+                $this->error(__('phrase.process-exit-code-x', ['x' => $process->getExitCode()]));
                 die();
             }
         }
