@@ -4,7 +4,6 @@
     {{ $lan->name }}
 @endsection
 
-
 @section('content-header')
     <div class="row align-items-center">
         <div class="col-md-auto">
@@ -32,6 +31,15 @@
         </div>
     </div>
     {{ Breadcrumbs::render('lans.show', $lan) }}
+@endsection
+
+@section('content-alerts')
+    @parent
+    @canany(['update', 'delete'], $lan)
+        @if(!$lan->published)
+            @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.resource-not-published', ['resource' => __('title.lan')])])
+        @endif
+    @endcanany
 @endsection
 
 @section('content')
