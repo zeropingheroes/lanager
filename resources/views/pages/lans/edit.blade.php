@@ -6,6 +6,7 @@
 
 @section('content-header')
     <h1>@lang('title.edit-item', ['item' => __('title.lan')])</h1>
+    {{ Breadcrumbs::render('lans.edit', $lan) }}
 @endsection
 
 @section('content')

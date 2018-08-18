@@ -83,6 +83,18 @@ Breadcrumbs::for('lans.index', function ($trail) {
     $trail->push(__('title.lans'), route('lans.index'));
 });
 
+// Home > LANs > Create
+Breadcrumbs::for('lans.create', function ($trail) {
+    $trail->parent('lans.index');
+    $trail->push(__('title.create'), route('lans.create'));
+});
+
+// Home > LANs > [LAN] > Edit
+Breadcrumbs::for('lans.edit', function ($trail, $lan) {
+    $trail->parent('lans.show', $lan);
+    $trail->push(__('title.edit'), route('lans.edit', $lan));
+});
+
 // Home > LANs > [LAN]
 Breadcrumbs::for('lans.show', function ($trail, $lan) {
     $trail->parent('lans.index');
