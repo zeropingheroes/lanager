@@ -36,6 +36,7 @@
             }
         } else {
             $status = 'unknown';
+            $title = __('phrase.status-'.$status);
         }
 
     @endphp
