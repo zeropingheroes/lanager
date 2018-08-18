@@ -6,6 +6,7 @@
 
 @section('content-header')
     <h1>@lang('title.edit-item', ['item' => __('title.image')])</h1>
+    {{ Breadcrumbs::render('images.edit', $image['filename']) }}
 @endsection
 
 @section('content')

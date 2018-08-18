@@ -6,6 +6,7 @@
 
 @section('content-header')
     <h1>@lang('title.images')</h1>
+    {{ Breadcrumbs::render('images.index') }}
 @endsection
 
 @section('content')

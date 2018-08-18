@@ -35,6 +35,18 @@ Breadcrumbs::for('navigation-links.edit', function ($trail, $navigationLink) {
     $trail->push(__('title.edit'), route('navigation-links.edit', $navigationLink));
 });
 
+// Home > Images
+Breadcrumbs::for('images.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.images'), route('images.index'));
+});
+
+// Home > Images > Edit
+Breadcrumbs::for('images.edit', function ($trail, $image) {
+    $trail->parent('images.index');
+    $trail->push(__('title.edit'), route('images.edit', $image));
+});
+
 // Home > Event Types
 Breadcrumbs::for('event-types.index', function ($trail) {
     $trail->parent('home');
