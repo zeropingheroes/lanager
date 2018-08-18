@@ -13,7 +13,7 @@
 
     @include('pages.logs.partials.filter')
 
-    <script type="text/javascript">
+    <script>
         $(function () {
             $("#checkAll").click(function () {
                 $('input:checkbox').not(this).prop('checked', this.checked);

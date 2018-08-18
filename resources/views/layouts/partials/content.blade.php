@@ -1,3 +1,3 @@
-<main role="main" class="container">
+<main class="container">
 	@yield('content')
 </main>

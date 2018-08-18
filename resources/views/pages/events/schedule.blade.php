@@ -8,7 +8,7 @@
     @include('pages.events.partials.header-index', ['active' => 'schedule', 'lan' => $lan])
     {{ Breadcrumbs::render('lans.events.index', $lan) }}
 
-    <script type="text/javascript">
+    <script>
         window.onload = function () {
             const app = new Vue({
                 el: '#app'

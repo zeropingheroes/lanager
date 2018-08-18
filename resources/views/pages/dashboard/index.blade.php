@@ -5,12 +5,12 @@
 @endsection
 
 @section('content')
-    <script type="text/javascript">
-        window.onload = function () {
+    <script>
+        window.addEventListener('load', function() {
             const app = new Vue({
                 el: '#app'
             });
-        }
+        });
     </script>
     <div id="app">
         <events></events>

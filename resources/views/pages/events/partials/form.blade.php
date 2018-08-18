@@ -14,7 +14,7 @@
     </small>
 </div>
 <div class="form-row">
-    <script type="text/javascript">
+    <script>
         $(function () {
             var format = 'YYYY-MM-DD HH:mm:ss';
 
