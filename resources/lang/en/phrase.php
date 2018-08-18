@@ -166,6 +166,7 @@ return [
 
     // Events
     'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',
+    'event-times-must-be-within-lan-times' => 'Events must start and finish within the LAN\'s start and end time',
     'event-successfully-created' => 'Event :name successfully created',
     'event-successfully-updated' => 'Event :name successfully updated',
     'event-successfully-deleted' => 'Event :name successfully deleted',

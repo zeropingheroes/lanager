@@ -2,6 +2,9 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
+use Carbon\Carbon;
+use Zeropingheroes\Lanager\Lan;
+
 class StoreEventRequest extends Request
 {
     use LaravelValidation;
@@ -23,6 +26,18 @@ class StoreEventRequest extends Request
         ];
 
         if (!$this->laravelValidationPasses()) {
+            return $this->setValid(false);
+        }
+
+        $lan = Lan::findOrFail($this->input['lan_id']);
+
+        $eventStart = Carbon::make($this->input['start']);
+        $eventEnd = Carbon::make($this->input['end']);
+
+        if (!$eventStart->between($lan->start, $lan->end) ||
+            !$eventEnd->between($lan->start, $lan->end)
+        ) {
+            $this->addError(__('phrase.event-times-must-be-within-lan-times'));
             return $this->setValid(false);
         }
 
