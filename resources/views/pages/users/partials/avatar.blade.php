@@ -29,8 +29,10 @@
         if($user->state) {
             if($user->state->app->exists) {
                 $status = 'in-game';
+                $title = __('phrase.status-'.$status) . ': ' . $user->state->app->name;
             } else {
                 $status = kebab_case($user->state->status->name);
+                $title = __('phrase.status-'.$status);
             }
         } else {
             $status = 'unknown';
@@ -40,5 +42,5 @@
     <img class="avatar avatar-{{ $size }} avatar-{{ $status }}"
          src="{{ $avatar }}"
          alt="@lang('phrase.avatar-for-username', ['username' => $user->username])"
-         title="@lang('phrase.status-'.$status)">
+         title="{{ $title }}">
 @endif
