@@ -92,7 +92,7 @@ class EventController extends Controller
      *
      * @param Lan $lan
      * @param Event $event
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(Lan $lan, Event $event)
     {

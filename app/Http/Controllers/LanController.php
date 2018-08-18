@@ -12,7 +12,7 @@ class LanController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -32,7 +32,7 @@ class LanController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -46,7 +46,7 @@ class LanController extends Controller
      * Display the specified resource.
      *
      * @param Lan $lan
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      * @internal param \Zeropingheroes\Lanager\Log $log
      */
     public function show(Lan $lan)
@@ -107,7 +107,7 @@ class LanController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \Zeropingheroes\Lanager\Lan $lan
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit(Lan $lan)
     {

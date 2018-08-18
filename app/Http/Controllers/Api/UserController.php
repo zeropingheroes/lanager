@@ -11,7 +11,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -22,7 +22,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  \Zeropingheroes\Lanager\User $user
-     * @return \Illuminate\Http\Response
+     * @return UserResource
      */
     public function show(User $user)
     {

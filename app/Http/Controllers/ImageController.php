@@ -24,7 +24,7 @@ class ImageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -100,7 +100,7 @@ class ImageController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param string $filename
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      * @internal param \Zeropingheroes\Lanager\Lan $lan
      */
     public function edit(string $filename)

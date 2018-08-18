@@ -12,7 +12,7 @@ class GameController extends Controller
     /**
      * Display games in progress
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function inProgress()
     {
@@ -25,7 +25,7 @@ class GameController extends Controller
     /**
      * Display recently played games
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function recent()
     {
@@ -38,7 +38,7 @@ class GameController extends Controller
     /**
      * Display games owned
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function owned()
     {

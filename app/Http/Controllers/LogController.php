@@ -12,7 +12,7 @@ class LogController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
@@ -32,7 +32,7 @@ class LogController extends Controller
      * Display the specified resource.
      *
      * @param  \Zeropingheroes\Lanager\Log $log
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(Log $log)
     {

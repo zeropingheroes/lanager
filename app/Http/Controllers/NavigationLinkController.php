@@ -12,7 +12,7 @@ class NavigationLinkController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -30,7 +30,7 @@ class NavigationLinkController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -81,7 +81,7 @@ class NavigationLinkController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \Zeropingheroes\Lanager\NavigationLink $navigationLink
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit(NavigationLink $navigationLink)
     {

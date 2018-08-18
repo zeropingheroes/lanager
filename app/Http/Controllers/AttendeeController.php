@@ -13,7 +13,7 @@ class AttendeeController extends Controller
      *
      * @param Request $request
      * @param Lan $lan
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index(Request $request, Lan $lan)
     {
