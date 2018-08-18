@@ -23,7 +23,7 @@
                 </td>
                 <td>
                     @component('components.actions-dropdown')
-                        <a class="dropdown-item copy-markdown"
+                        <a class="dropdown-item copy-to-clipboard"
                            href="#"
                            data-clipboard-text="![{{ ucwords(str_replace('-', ' ', pathinfo($image['filename'], PATHINFO_FILENAME))) }}]({{$image['url']}})">
                             @lang('title.copy-markdown')
@@ -40,15 +40,8 @@
         @endforeach
         </tbody>
     </table>
-    <script type="text/javascript">
-        window.onload = function () {
-            // Copy to clipboard button
-            var clipboard = new Clipboard('.copy-markdown');
-            clipboard.on('error', function(e) {
-                console.error('Action:', e.action);
-                console.error('Trigger:', e.trigger);
-            });
-
+    <script>
+        window.addEventListener('load', function() {
             // Show selected files in file input label
             $("input[type=file]").change(function () {
                 var files = $(this).prop("files");
@@ -57,7 +50,7 @@
                     $(this).next(".custom-file-label").text(fieldVal);
                 }
             });
-        }
+        })
     </script>
 
     <form method="POST" action="{{ route('images.store') }}" accept-charset="UTF-8" enctype="multipart/form-data">

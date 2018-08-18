@@ -30,13 +30,3 @@
     @endforeach
     </tbody>
 </table>
-<script type="text/javascript">
-    window.onload = function () {
-        // Copy to clipboard button
-        var clipboard = new Clipboard('.copy-markdown');
-        clipboard.on('error', function(e) {
-            console.error('Action:', e.action);
-            console.error('Trigger:', e.trigger);
-        });
-    }
-</script>

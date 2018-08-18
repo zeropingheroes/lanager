@@ -1,6 +1,6 @@
 @component('components.actions-dropdown')
     @can('update', $event)
-        <a class="dropdown-item copy-markdown"
+        <a class="dropdown-item copy-to-clipboard"
            href="#"
            data-clipboard-text="[{{ $event->name }}]({{ route('lans.events.show', ['lan' => $event->lan, 'event' => $event], false) }})">
             @lang('title.copy-markdown-link')
