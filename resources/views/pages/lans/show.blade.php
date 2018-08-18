@@ -36,27 +36,7 @@
 
     @if( ! $lan->users->isEmpty())
         <h5>{{ $lan->users->count() }} @lang('title.attendees')</h5>
-
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>@lang('title.attendee')</th>
-                <th>@lang('title.logged-in')</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($lan->users as $user)
-                <tr>
-                    <td>
-                        @include('pages.users.partials.avatar-username', ['user' => $user])
-                    </td>
-                    <td>
-                        @include('components.time-relative', ['datetime' => $user->attendance->created_at])
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+        @include('pages.users.partials.list', ['users' => $lan->users])
     @endif
 
     @include('components.buttons.edit', ['item' => $lan])
