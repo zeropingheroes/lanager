@@ -131,10 +131,22 @@ Breadcrumbs::for('lans.events.index', function ($trail, $lan) {
     $trail->push(__('title.events'), route('lans.events.index', $lan));
 });
 
+// Home > LANs > [LAN] > Events > Create
+Breadcrumbs::for('lans.events.create', function ($trail, $lan) {
+    $trail->parent('lans.events.index', $lan);
+    $trail->push(__('title.create'), route('lans.events.create', $lan));
+});
+
 // Home > LANs > [LAN] > Events > [Event]
 Breadcrumbs::for('lans.events.show', function ($trail, $lan, $event) {
     $trail->parent('lans.events.index', $lan);
-    $trail->push($event->name, route('lans.events.show', ['lan' => $lan, 'guide' => $event]));
+    $trail->push($event->name, route('lans.events.show', ['lan' => $lan, 'event' => $event]));
+});
+
+// Home > LANs > [LAN] > Events > [Event] > Edit
+Breadcrumbs::for('lans.events.edit', function ($trail, $lan, $event) {
+    $trail->parent('lans.events.show', $lan, $event);
+    $trail->push(__('title.edit'), route('lans.events.edit', ['lan' => $lan, 'event' => $event]));
 });
 
 // Home > LANs > [LAN] > Attendees
