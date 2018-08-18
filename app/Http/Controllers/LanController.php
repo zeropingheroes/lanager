@@ -100,7 +100,7 @@ class LanController extends Controller
         $lan = Lan::create($input);
 
         return redirect()
-            ->route('lans.index')
+            ->route('lans.show', $lan)
             ->withSuccess(__('phrase.lan-successfully-created', ['name' => $lan->name]));
     }
 
@@ -150,7 +150,7 @@ class LanController extends Controller
         $lan->update($input);
 
         return redirect()
-            ->route('lans.index')
+            ->route('lans.show', $lan)
             ->withSuccess(__('phrase.lan-successfully-updated', ['name' => $lan->name]));
     }
 
