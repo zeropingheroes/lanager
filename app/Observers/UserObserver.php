@@ -17,7 +17,7 @@ class UserObserver
     {
         // The first user to log in should be assigned the super admin role
         if (User::count() == 1) {
-            $role = Role::where('name', 'Super Admin')->first();
+            $role = Role::where('name', 'super-admin')->first();
             $user->roles()->attach($role->id, ['assigned_by' => $user->id]);
         }
     }
