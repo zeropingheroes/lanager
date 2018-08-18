@@ -9,9 +9,11 @@
         <div class="col-md-auto">
             <h1>{{ $guide->title }}</h1>
         </div>
-        <div class="col text-right">
-            @include('pages.guides.partials.actions-dropdown', ['guide' => $guide])
-        </div>
+        @canany(['update', 'delete'], $guide)
+            <div class="col text-right">
+                @include('pages.guides.partials.actions-dropdown', ['guide' => $guide])
+            </div>
+        @endcanany
     </div>
 
 
