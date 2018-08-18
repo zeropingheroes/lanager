@@ -5,7 +5,20 @@
 @endsection
 
 @section('content')
-    <h1>@lang('title.lans')</h1>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <h1>@lang('title.lans')</h1>
+        </div>
+        @can('create', \Zeropingheroes\Lanager\Lan::class)
+            <div class="col text-right">
+                <a href="{{ route( 'lans.create') }}" class="btn btn-primary btn-sm" title="@lang('title.create')">
+                    <span class="oi oi-plus"></span>
+                </a>
+            </div>
+        @endcan
+    </div>
+
+
     {{ Breadcrumbs::render('lans.index') }}
     @include('components.alerts.all')
 
@@ -45,6 +58,5 @@
             @endforeach
             </tbody>
         </table>
-        @include('components.buttons.create', ['item' => Zeropingheroes\Lanager\Lan::class])
     @endif
 @endsection

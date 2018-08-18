@@ -76,7 +76,4 @@
         @include('pages.users.partials.list', ['users' => $lan->users])
     @endif
 
-    @include('components.buttons.edit', ['item' => $lan])
-    @include('components.buttons.delete', ['item' => $lan])
-
 @endsection
