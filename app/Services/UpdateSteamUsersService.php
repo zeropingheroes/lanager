@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Services;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
-use Steam;
+use Syntax\SteamApi\Facades\SteamApi as Steam;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 use Zeropingheroes\Lanager\SteamApp;
 use Zeropingheroes\Lanager\SteamAppServer;
@@ -200,27 +200,27 @@ class UpdateSteamUsersService
 
             // Associate the state with the app
             $steamUserState->app()->associate($steamApp);
-        }
 
-        // Get the server they are connected to, if any
-        if ($steamUser->gameDetails && $steamUser->gameDetails->serverIp) {
+            // Get the server they are connected to, if any
+            if ($steamUser->gameDetails->serverIp) {
 
-            preg_match('/(.*)((?::))((?:[0-9]+))$/', $steamUser->gameDetails->serverIp, $matches);
-            $port = $matches[3];
-            $ip = $matches[1];
+                preg_match('/(.*)((?::))((?:[0-9]+))$/', $steamUser->gameDetails->serverIp, $matches);
+                $port = $matches[3];
+                $ip = $matches[1];
 
-            // Get the server
-            // ... or if the server has not been previously recorded, create it
-            $steamAppServer = SteamAppServer::firstOrCreate(
-                [
-                    'steam_app_id' => $steamApp->id,
-                    'address' => $ip,
-                    'port' => $port
-                ]
-            );
+                // Get the server
+                // ... or if the server has not been previously recorded, create it
+                $steamAppServer = SteamAppServer::firstOrCreate(
+                    [
+                        'steam_app_id' => $steamApp->id,
+                        'address' => $ip,
+                        'port' => $port
+                    ]
+                );
 
-            // Associate the state with the server
-            $steamUserState->server()->associate($steamAppServer);
+                // Associate the state with the server
+                $steamUserState->server()->associate($steamAppServer);
+            }
         }
 
         // Set the user's online status

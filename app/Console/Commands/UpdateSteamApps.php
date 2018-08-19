@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
-use Steam;
+use Syntax\SteamApi\Facades\SteamApi as Steam;
 use Zeropingheroes\Lanager\SteamApp;
 
 class UpdateSteamApps extends Command

@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
-use Socialite;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
@@ -32,7 +32,6 @@ class AuthController extends Controller
      * Redirect the user to the external authentication provider.
      *
      * @param $OAuthProvider string
-     * @return Response
      * @throws InvalidArgumentException
      */
     public function redirectToProvider($OAuthProvider)
@@ -50,7 +49,7 @@ class AuthController extends Controller
      * Obtain the user information from the external authentication provider.
      *
      * @param $OAuthProvider
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Throwable
      */
     public function handleProviderCallback($OAuthProvider)

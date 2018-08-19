@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Services;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
-use Steam;
+use Syntax\SteamApi\Facades\SteamApi as Steam;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
 class UpdateSteamUserAppsService
