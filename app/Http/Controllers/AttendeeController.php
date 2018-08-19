@@ -11,11 +11,11 @@ class AttendeeController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @param Lan $lan
      * @return \Illuminate\Contracts\View\View
+     * @internal param Request $request
      */
-    public function index(Request $request, Lan $lan)
+    public function index(Lan $lan)
     {
         $users = $lan->users()->orderBy('username')->get();
 
