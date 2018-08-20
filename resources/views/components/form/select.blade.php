@@ -4,10 +4,7 @@
     $valueField = $valueField ?? 'id';
     $options = $options ?? $items->pluck($labelField, $valueField);
 
-    // Set which item is selected in preference order:
-    // none / the passed in item / the old input
-    $defaultSelected = $item->{$name} ?? null;
-    $selected = $selected ?? old($name, $defaultSelected);
+    $selected = $selected ?? old($name, $item->{$name}) ?? null;
 
     // Whether to include a blank option
     if (isset($blank) && $blank) {
