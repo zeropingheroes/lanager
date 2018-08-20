@@ -64,7 +64,7 @@ class EventController extends Controller
         $this->authorize('create', Event::class);
 
         $input = [
-            'lan_id' => $lan->id,
+            'lan_id' => $httpRequest->input('lan_id') ?? $lan->id,
             'name' => $httpRequest->input('name'),
             'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
