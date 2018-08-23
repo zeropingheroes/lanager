@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
@@ -9,7 +10,7 @@ use Syntax\SteamApi\Facades\SteamApi as Steam;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 use Zeropingheroes\Lanager\SteamApp;
 use Zeropingheroes\Lanager\SteamAppServer;
-use Zeropingheroes\Lanager\SteamUserState;
+use Zeropingheroes\Lanager\SteamUserAppSession;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\Lan;
 
@@ -106,6 +107,8 @@ class UpdateSteamUsersService
      */
     public function update(): void
     {
+        $this->endStaleAppSessions();
+
         $steamUsers = Steam::user($this->steamIds)->GetPlayerSummaries();
 
         // Get the LAN happening now, or the most recently ended LAN
@@ -123,7 +126,6 @@ class UpdateSteamUsersService
             try {
                 if ($this->updateUser($steamUser)) {
                     $this->updated[$steamUser->steamId] = $steamUser->personaName;
-
                 }
 
             } catch (Exception $e) {
@@ -145,87 +147,93 @@ class UpdateSteamUsersService
      */
     protected function updateUser($steamUser): bool
     {
-        // Create a new state
-        $steamUserState = new SteamUserState;
-
         // Check if the Steam account already exists in the database
         $userOAuthAccount = UserOAuthAccount::where('provider_id', $steamUser->steamId)->first();
 
+        // If this Steam account is not already in the database
         if (!$userOAuthAccount) {
-            // If this Steam account is not already in the database
             // Create a new LANager user account
             $user = User::create(['username' => $steamUser->personaName]);
 
+            // Otherwise just get the associated user
         } else {
-            // If this Steam account is in the database
-            // Get the associated user
             $user = $userOAuthAccount->user;
         }
 
-        // Update the existing Steam account
-        // or create it, if it does not yet exist
-        $userOAuthAccount = $user->OAuthAccounts()
+        // Create or update the user's existing linked OAuth account for Steam
+        $user->OAuthAccounts()
             ->updateOrCreate(
+                [
+                    'provider' => 'steam',
+                    'provider_id' => $steamUser->steamId,
+                ],
                 [
                     'username' => $steamUser->personaName,
                     'avatar' => $steamUser->avatarMediumUrl,
-                    'provider' => 'steam',
-                    'provider_id' => $steamUser->steamId,
                 ]
             );
 
-        $profileVisible = ($steamUser->communityVisibilityState == 3);
-
+        // Update the user's Steam account metadata
         $user->SteamMetadata()->updateOrCreate(
             [],
             [
-                'profile_visible' => $profileVisible,
-                'profile_updated_at' => now()
+                'steam_user_status_code_id' => $steamUser->personaStateId,
+                'profile_visible' => ($steamUser->communityVisibilityState == 3),
+                'profile_updated_at' => now(),
             ]
         );
 
-        // If there is a current LAN, and the LAN has attendees, and the user is among them
-        // do not create a state for them
+        // If there is a current LAN, and the LAN has attendees, and the user is not among them
+        // do not record if they are playing a game or not
         if ($this->currentLanAttendees &&
             !$this->currentLanAttendees->contains('id', $user->id)) {
             return true;
         }
 
-        // Associate the state with the user
-        $steamUserState->user()->associate($userOAuthAccount->user);
-
-        // Get the app they are running, if any
+        // If the user is running an app/game
         if ($steamUser->gameDetails) {
-            $steamApp = SteamApp::find($steamUser->gameDetails->gameId);
 
-            // Associate the state with the app
-            $steamUserState->app()->associate($steamApp);
+            // Get existing ongoing session for the game
+            // or if none exists instantiate a new
+            $session = $user->steamAppSessions()->firstOrNew(
+                [
+                    'end' => null,
+                    'steam_app_id' => $steamUser->gameDetails->gameId,
+                ]
+            );
 
-            // Get the server they are connected to, if any
-            if ($steamUser->gameDetails->serverIp) {
+            // If no existing ongoing session was found
+            if (!$session->exists) {
+                // Create one starting now
+                $session->start = Carbon::now();
+                return $session->saveOrFail();
 
-                preg_match('/(.*)((?::))((?:[0-9]+))$/', $steamUser->gameDetails->serverIp, $matches);
-                $port = $matches[3];
-                $ip = $matches[1];
-
-                // Get the server
-                // ... or if the server has not been previously recorded, create it
-                $steamAppServer = SteamAppServer::firstOrCreate(
-                    [
-                        'steam_app_id' => $steamApp->id,
-                        'address' => $ip,
-                        'port' => $port
-                    ]
-                );
-
-                // Associate the state with the server
-                $steamUserState->server()->associate($steamAppServer);
+                // If an existing ongoing session was found
+            } else {
+                // Update its updated_at timestamp field
+                return $session->touch();
             }
+
+            // If the user is not running an app/game
+        } else {
+            // Add an end time to any sessions without one
+            $user->steamAppSessions()
+                ->whereNull('end')
+                ->update(['end' => Carbon::now()]);
         }
+        return true;
+    }
 
-        // Set the user's online status
-        $steamUserState->steam_user_status_code_id = $steamUser->personaStateId;
-
-        return $steamUserState->saveOrFail();
+    /**
+     * End any unfinished sessions that have
+     * not been updated in the last X minutes
+     *
+     * @return mixed
+     */
+    private function endStaleAppSessions()
+    {
+        return SteamUserAppSession::where('updated_at', '<', Carbon::now()->subMinutes(10))
+            ->whereNull('end')
+            ->update(['end' => Carbon::now()]);
     }
 }

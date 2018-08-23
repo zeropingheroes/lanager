@@ -26,14 +26,14 @@
             $avatar = '';
         }
 
-        if($user->state) {
-            if($user->state->app->exists) {
-                $statusName = 'in-game';
-                $statusDisplayName = __('phrase.status-in-game-x', ['x' => $user->state->app->name]);
-            } else {
-                $statusName = $user->state->status->name;
-                $statusDisplayName = $user->state->status->display_name;
-            }
+        $activeSession = $user->steamAppSessions()->active()->first();
+
+        if($activeSession) {
+            $statusName = 'in-game';
+            $statusDisplayName = __('phrase.status-in-game-x', ['x' => $activeSession->app->name]);
+        } elseif($user->SteamMetadata) {
+            $statusName = $user->SteamMetadata->status->name;
+            $statusDisplayName = $user->SteamMetadata->status->display_name;
         } else {
             $statusName = 'unknown';
             $statusDisplayName = __('phrase.status-unknown');

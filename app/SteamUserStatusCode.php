@@ -14,6 +14,7 @@ class SteamUserStatusCode extends Model
     protected $fillable = [
         'id',
         'name',
+        'display_name',
     ];
 
     /**
@@ -26,8 +27,8 @@ class SteamUserStatusCode extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function states()
+    public function SteamUserMetadata()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\SteamUserState');
+        return $this->hasMany('Zeropingheroes\Lanager\SteamUserMetadata');
     }
 }

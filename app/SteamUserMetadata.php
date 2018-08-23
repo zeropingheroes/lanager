@@ -13,6 +13,7 @@ class SteamUserMetadata extends Model
      */
     protected $fillable = [
         'user_id',
+        'steam_user_status_code_id',
         'profile_visible',
         'apps_visible',
         'profile_updated_at',
@@ -39,5 +40,15 @@ class SteamUserMetadata extends Model
     public function user()
     {
         return $this->belongsTo('Zeropingheroes\Lanager\User');
+    }
+
+    /**
+     * Get the state's status text based on the status code
+     *
+     * @return string
+     */
+    public function status()
+    {
+        return $this->belongsTo('Zeropingheroes\Lanager\SteamUserStatusCode', 'steam_user_status_code_id');
     }
 }

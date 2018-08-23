@@ -53,18 +53,19 @@ class LanController extends Controller
     {
         $this->authorize('view', $lan);
 
-        $lan->load([
-            'users' => function ($query) {
-                $query->orderBy('users.username', 'asc');
-            },
-            'events' => function ($query) {
-                $query->orderBy('events.start', 'asc');
-            },
-            'guides' => function ($query) {
-                $query->orderBy('guides.title', 'asc');
-            },
-            'users.state',
-        ]);
+        $lan->load(
+            [
+                'users' => function ($query) {
+                    $query->orderBy('users.username', 'asc');
+                },
+                'events' => function ($query) {
+                    $query->orderBy('events.start', 'asc');
+                },
+                'guides' => function ($query) {
+                    $query->orderBy('guides.title', 'asc');
+                },
+            ]
+        );
 
         return View::make('pages.lans.show')
             ->with('lan', $lan);

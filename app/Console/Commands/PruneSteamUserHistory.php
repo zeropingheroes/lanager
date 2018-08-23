@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\SteamUserState;
+use Zeropingheroes\Lanager\SteamUserAppSession;
 
 class PruneSteamUserHistory extends Command
 {
@@ -44,20 +44,20 @@ class PruneSteamUserHistory extends Command
         }
         $periodsToDelete[] = ['start' => $previous, 'end' => now()->subMinutes(5)->toDateTimeString()];
 
-        $statesToDelete = SteamUserState::make();
+        $statesToDelete = SteamUserAppSession::make();
 
         foreach ($periodsToDelete as $period) {
             $statesToDelete = $statesToDelete->orWhere(
                 function ($query) use ($period) {
-                    $query->where('created_at', '>', $period['start']);
-                    $query->where('created_at', '<', $period['end']);
+                    $query->where('updated_at', '>', $period['start']);
+                    $query->where('updated_at', '<', $period['end']);
                 }
             );
         }
 
         $quantityDeleted = $statesToDelete->delete();
 
-        $quantityRemaining = SteamUserState::count();
+        $quantityRemaining = SteamUserAppSession::count();
 
         $message = __('phrase.x-entries-deleted-and-y-entries-retained', ['x' => $quantityDeleted, 'y' => $quantityRemaining]);
         $this->info($message);

@@ -1,28 +1,28 @@
-@if($user->state)
-    @if($user->state->app->exists)
-        <span class="badge badge-success">@lang('phrase.status-in-game')</span>
-    @else
-        @switch($user->state->status->name)
-            @case('online')
-            @case('looking-to-trade')
-            @case('looking-to-play')
-                @php ($class = 'info')
-            @break
+@php($activeSession = $user->steamAppSessions()->active()->first())
 
-            @case('busy')
-                @php ($class = 'danger')
-            @break
+@if($activeSession && $activeSession->app->exists)
+    <span class="badge badge-success">@lang('phrase.status-in-game')</span>
+@elseif($user->SteamMetadata)
+    @switch($user->SteamMetadata->status->name)
+        @case('online')
+        @case('looking-to-trade')
+        @case('looking-to-play')
+            @php ($class = 'info')
+        @break
 
-            @case('away')
-            @case('snooze')
-                @php ($class = 'warning')
-            @break
+        @case('busy')
+            @php ($class = 'danger')
+        @break
 
-            @default
-                @php ($class = 'secondary')
-        @endswitch
-        <span class="badge badge-{{ $class }}">{{ $user->state->status->display_name }}</span>
-    @endif
+        @case('away')
+        @case('snooze')
+            @php ($class = 'warning')
+        @break
+
+        @default
+            @php ($class = 'secondary')
+    @endswitch
+    <span class="badge badge-{{ $class }}">{{ $user->SteamMetadata->status->display_name }}</span>
 @else
-<span class="badge badge-secondary">@lang('phrase.status-unknown')</span>
+    <span class="badge badge-secondary">@lang('phrase.status-unknown')</span>
 @endif

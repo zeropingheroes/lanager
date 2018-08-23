@@ -36,6 +36,8 @@ class User extends Authenticatable
      */
     protected $with = [
         'roles',
+        'SteamMetadata',
+        'SteamMetadata.status',
     ];
 
     /**
@@ -94,36 +96,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Pseudo-relation: A single user's most recent state
-     *
-     * @return object Illuminate\Database\Eloquent\Relations\Relation
-     */
-    public function state()
-    {
-        $start = Carbon::createFromTimeStamp(time() - (60));
-        $end = Carbon::createFromTimeStamp(time() + (60));
-
-        return $this->hasOne('Zeropingheroes\Lanager\SteamUserState')
-            ->join(
-                DB::raw(
-                    "(
-                                SELECT max(created_at) max_created_at, user_id
-                                FROM steam_user_states
-                                WHERE created_at
-                                    BETWEEN '{$start}'
-                                    AND     '{$end}'
-                                GROUP BY user_id
-                                ) s2"
-                ),
-                function ($join) {
-                    $join->on('steam_user_states.user_id', '=', 's2.user_id')
-                        ->on('steam_user_states.created_at', '=', 's2.max_created_at');
-                }
-            )
-            ->orderBy('steam_user_states.user_id');
-    }
-
-    /**
      * The LANs the user has attended
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -141,9 +113,9 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function sessions()
+    public function steamAppSessions()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Session');
+        return $this->hasMany('Zeropingheroes\Lanager\SteamUserAppSession');
     }
 
 }
