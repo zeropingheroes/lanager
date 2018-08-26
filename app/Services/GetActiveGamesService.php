@@ -2,8 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use Zeropingheroes\Lanager\SteamUserAppSession;
 use Zeropingheroes\Lanager\SteamUserState;
 use Illuminate\Support\Collection;
 
@@ -16,40 +15,20 @@ class GetActiveGamesService
      */
     public function get(): Collection
     {
-        $now = Carbon::now();
-        $subMinute = $now->copy()->subMinute();
-
-        $states = SteamUserState::select('*')
-            ->join(
-                DB::raw(
-                    "(SELECT user_id, MAX(created_at) latest_date
-                            FROM steam_user_states
-                            WHERE created_at
-                            BETWEEN '{$subMinute}'
-                            AND '{$now}'
-                            GROUP BY user_id
-							) latest"
-                ),
-                function ($join) {
-                    $join->on('steam_user_states.user_id', '=', 'latest.user_id')
-                        ->on('steam_user_states.created_at', '=', 'latest.latest_date');
-                }
-            )
-            ->whereNotNull('steam_app_id')
-            ->orderBy('steam_user_states.user_id')
-            ->with('user', 'app', 'user.OAuthAccounts', 'user.state')
+        $sessions = SteamUserAppSession::whereNull('end')
+            ->with('user', 'app', 'user.OAuthAccounts', 'user.steamMetadata')
             ->get();
 
-        if (empty($states)) {
+        if (empty($sessions)) {
             return new Collection();
         }
 
         // Collect and combine states for the same game
         $combinedUsage = [];
-        foreach ($states as $state) {
-            $combinedUsage[$state->steam_app_id] = $combinedUsage[$state->steam_app_id] ?? ['game' => null, 'users' => []];
-            $combinedUsage[$state->steam_app_id]['game'] = $combinedUsage[$state->steam_app_id]['game'] ?? $state->app;
-            $combinedUsage[$state->steam_app_id]['users'][] = $state->user;
+        foreach ($sessions as $session) {
+            $combinedUsage[$session->steam_app_id] = $combinedUsage[$session->steam_app_id] ?? ['game' => null, 'users' => []];
+            $combinedUsage[$session->steam_app_id]['game'] = $combinedUsage[$session->steam_app_id]['game'] ?? $session->app;
+            $combinedUsage[$session->steam_app_id]['users'][] = $session->user;
         }
 
         // Sort games array by user count, in descending order (removing key)
