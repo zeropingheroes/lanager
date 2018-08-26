@@ -30,10 +30,6 @@ class Kernel extends ConsoleKernel
         $schedule->command(UpdateSteamUsers::class)
             ->everyMinute();
 
-        // No Steam API calls
-        $schedule->command(PruneSteamUserHistory::class)
-            ->everyMinute();
-
         // 1 Steam API call per user
         // e.g. for 1000 users:
         // 1000 calls * 48 half-ours in a day = 48,000 daily API calls

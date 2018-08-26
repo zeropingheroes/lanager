@@ -183,10 +183,13 @@ class UpdateSteamUsersService
             ]
         );
 
-        // If there is a current LAN, and the LAN has attendees, and the user is not among them
-        // do not record if they are playing a game or not
-        if ($this->currentLanAttendees &&
-            !$this->currentLanAttendees->contains('id', $user->id)) {
+        // Do not record gameplay info, unless a LAN is in progress
+        if( !$this->currentLanAttendees ) {
+            return true;
+        }
+
+        // Do not record gameplay info if the user is not at the LAN in progress
+        if (!$this->currentLanAttendees->contains('id', $user->id)) {
             return true;
         }
 

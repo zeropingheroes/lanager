@@ -16,7 +16,7 @@ class PruneSteamUserHistory extends Command
     public function __construct()
     {
         $this->signature = 'lanager:prune-steam-user-history';
-        $this->description = __('phrase.delete-steam-user-history-outside-lans-and-last-5-mins');
+        $this->description = __('phrase.delete-steam-user-history-outside-lans');
 
         parent::__construct();
     }
@@ -33,7 +33,7 @@ class PruneSteamUserHistory extends Command
         $periodsToDelete = [];
 
         // Get all past LANs, oldest to newest
-        $lans = Lan::past()->orderBy('end')->get();
+        $lans = Lan::orderBy('end')->get();
 
         // Build an array of timestamps
         $previous = Carbon::createFromTimestampUTC(0)->toDateTimeString();
@@ -42,7 +42,7 @@ class PruneSteamUserHistory extends Command
             $periodsToDelete[] = ['start' => $previous, 'end' => $lan->start];
             $previous = $lan->end;
         }
-        $periodsToDelete[] = ['start' => $previous, 'end' => now()->subMinutes(5)->toDateTimeString()];
+        $periodsToDelete[] = ['start' => $previous, 'end' => Carbon::maxValue()];
 
         $statesToDelete = SteamUserAppSession::make();
 
