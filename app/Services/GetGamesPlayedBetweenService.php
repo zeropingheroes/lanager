@@ -64,7 +64,8 @@ class GetGamesPlayedBetweenService
             $combinedUsage[$session->steam_app_id]['users'][$session->user->id] = $session->user;
 
             // Add the session's playtime to the total for this game
-            $combinedUsage[$session->steam_app_id]['playtime']->add($session->start->diffAsCarbonInterval($session->end));
+            $end = $session->end ?? now();
+            $combinedUsage[$session->steam_app_id]['playtime']->add($session->start->diffAsCarbonInterval($end));
         }
 
         // Obtain a list of columns
