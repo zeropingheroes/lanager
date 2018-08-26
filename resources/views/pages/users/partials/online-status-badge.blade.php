@@ -2,7 +2,7 @@
 
 @if($activeSession && $activeSession->app->exists)
     <span class="badge badge-success">@lang('phrase.status-in-game')</span>
-@elseif($user->SteamMetadata)
+@elseif($user->SteamMetadata->exists)
     @switch($user->SteamMetadata->status->name)
         @case('online')
         @case('looking-to-trade')

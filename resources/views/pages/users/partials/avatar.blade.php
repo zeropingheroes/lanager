@@ -31,7 +31,7 @@
         if($activeSession) {
             $statusName = 'in-game';
             $statusDisplayName = __('phrase.status-in-game-x', ['x' => $activeSession->app->name]);
-        } elseif($user->SteamMetadata) {
+        } elseif($user->SteamMetadata->exists) {
             $statusName = $user->SteamMetadata->status->name;
             $statusDisplayName = $user->SteamMetadata->status->display_name;
         } else {
