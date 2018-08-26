@@ -69,6 +69,11 @@ class RestoreBackup extends Command
             "tar -zxvf $backupFile -C $restoreDir"
         );
 
+        // Create the images directory
+        $processes["mkdir-$imagesDir"] = new Process(
+            "mkdir -p $imagesDir"
+        );
+
         // Restore images
         $processes["cp-images"] = new Process(
             "cp $restoreDir/images/* $imagesDir"
