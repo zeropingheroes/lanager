@@ -32,7 +32,7 @@ return [
      |
      */
     'storage' => [
-        'enabled'    => true,
+        'enabled'    => false,
         'driver'     => 'file', // redis, file, pdo, custom
         'path'       => storage_path('debugbar'), // For file driver
         'connection' => null,   // Leave null for default connection (Redis/PDO)
@@ -101,27 +101,27 @@ return [
      */
 
     'collectors' => [
-        'phpinfo'         => true,  // Php version
-        'messages'        => true,  // Messages
         'time'            => true,  // Time Datalogger
-        'memory'          => true,  // Memory usage
-        'exceptions'      => true,  // Exception displayer
-        'log'             => true,  // Logs from Monolog (merged in messages if enabled)
         'db'              => true,  // Show database (PDO) queries and bindings
         'views'           => true,  // Views with their data
         'route'           => true,  // Current route information
-        'auth'            => true, // Display Laravel authentication status
-//        'gate'            => true, // Display Laravel Gate checks
-        'session'         => true,  // Display session data
         'symfony_request' => true,  // Only one can be enabled..
-        'mail'            => true,  // Catch mail messages
-        'laravel'         => false, // Laravel version and environment
-        'events'          => false, // All events fired
-        'default_request' => false, // Regular or special Symfony request logger
-        'logs'            => false, // Add the latest log messages
-        'files'           => false, // Show the included files
-        'config'          => false, // Display config settings
-        'cache'           => false, // Display cache events
+         'phpinfo'         => false,  // Php version
+         'messages'        => false,  // Messages
+         'memory'          => false,  // Memory usage
+         'exceptions'      => false,  // Exception displayer
+         'log'             => false,  // Logs from Monolog (merged in messages if enabled)
+         'auth'            => false, // Display Laravel authentication status
+         'gate'            => false, // Display Laravel Gate checks
+         'session'         => false,  // Display session data
+         'mail'            => false,  // Catch mail messages
+         'laravel'         => false, // Laravel version and environment
+         'events'          => false, // All events fired
+         'default_request' => false, // Regular or special Symfony request logger
+         'logs'            => false, // Add the latest log messages
+         'files'           => false, // Show the included files
+         'config'          => false, // Display config settings
+         'cache'           => false, // Display cache events
     ],
 
     /*
