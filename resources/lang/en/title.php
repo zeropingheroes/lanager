@@ -109,7 +109,9 @@ return [
     'recent' => 'Recent',
     'games-owned' => 'Games Owned',
     'owned' => 'Owned',
+    'games-library' => 'Games Library',
     'games-in-common' => 'Games In Common',
+    'games-history' => 'Games History',
 
     // Navigation Links
     'navigation-link' => 'Navigation Link',

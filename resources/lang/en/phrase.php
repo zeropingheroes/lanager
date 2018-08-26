@@ -71,6 +71,9 @@ return [
     'username-does-not-own-any-games' => ':username does not own any games',
     'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or have in common with you',
     'viewing-user-from-another-lan' => 'This user is not attending the current LAN',
+    'username-has-not-played-any-games-this-lan' => ':username has not played any games this LAN',
+    'played-for-x' => 'Played for :x',
+    'in-game-for-the-past-x' => 'In game for the past :x',
 
     // Steam Statuses
     'status-in-game' => 'In Game',
@@ -156,9 +159,7 @@ return [
     'successfully-updated-app-ownership-data-for-x-of-y-users' => 'Successfully updated app ownership data for :x of :y users',
 
     // lanager:prune-steam-user-history
-    'delete-steam-user-history-outside-lans-and-last-5-mins' => 'Delete historical Steam user status and gameplay data that did not occur:
-    - during any of the LANs in the database, or
-    - within the last five minutes',
+    'delete-steam-user-history-outside-lans' => 'Delete historical Steam user status and gameplay data that did not occur during any of the LANs in the database',
     'pruning-historical-steam-data' => 'Pruning historical Steam user status and gameplay data',
     'x-entries-deleted-and-y-entries-retained' => 'Deleted :x and retained :y historical entries of Steam user status and gameplay',
 

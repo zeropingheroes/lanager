@@ -26,20 +26,6 @@
 
 @section('content')
     <hr>
-    {{-- Show game info if the user is attending the current or most recent LAN (or there isn't a LAN) --}}
-    @if( !$currentLan || $lansAttended->contains('id',$currentLan->id))
-        @if($user->SteamMetadata && $user->SteamMetadata->apps_visible == 1)
-            @include('pages.users.partials.games-in-common', ['gamesInCommon' => $gamesInCommon])
-
-            <h2>@lang('title.games')</h2>
-            @include('pages.users.partials.games-owned', ['gamesOwned' => $gamesOwned])
-        @else
-            <h2>@lang('title.games')</h2>
-            @include('pages.users.partials.private-profile-warning', ['user' => $user])
-        @endif
-    @else
-        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.viewing-user-from-another-lan')])
-    @endif
     @if($user->lans)
         <h2>@lang('title.lans-attended')</h2>
         @foreach($user->lans()->orderBy('start', 'desc')->get() as $lan)
@@ -47,6 +33,26 @@
                 <span class="badge badge-primary">{{ $lan->name }}</span>
             </a>
         @endforeach
+    @endif
+    {{-- Show game info if the user is attending the current or most recent LAN (or there isn't a LAN) --}}
+    @if( !$currentLan || $lansAttended->contains('id',$currentLan->id))
+        @if($user->SteamMetadata && $user->SteamMetadata->apps_visible == 1)
+            <h2>@lang('title.games-history')</h2>
+            @include('pages.users.partials.games-history', ['user' => $user])
+
+            @if( (! Auth::user()) || ( Auth::user()->id != $user->id))
+                <h2>@lang('title.games-in-common')</h2>
+                @include('pages.users.partials.games-in-common', ['gamesInCommon' => $gamesInCommon])
+            @endif
+
+            <h2>@lang('title.games-library')</h2>
+            @include('pages.users.partials.games-owned', ['gamesOwned' => $gamesOwned])
+        @else
+            <h2>@lang('title.games')</h2>
+            @include('pages.users.partials.private-profile-warning', ['user' => $user])
+        @endif
+    @else
+        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.viewing-user-from-another-lan')])
     @endif
     @can('delete', $user)
         <h2>@lang('title.delete-account')</h2>

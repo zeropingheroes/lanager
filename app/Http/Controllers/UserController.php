@@ -22,6 +22,7 @@ class UserController extends Controller
         $lansAttended = $user->lans;
         $gamesOwned = new Collection();
         $gamesInCommon = new Collection();
+        $gameSessions = new Collection();
 
         // Get the LAN happening now, or the most recently ended LAN
         $lan = Lan::presentAndPast()
@@ -54,6 +55,11 @@ class UserController extends Controller
                 ->where('playtime_forever', '<>', 0)
                 ->orderBy('playtime_forever', 'desc')
                 ->paginate(5, ['*'], 'gamesOwned');
+
+            // Get game sessions
+            $gameSessions = $user->steamAppSessions()
+                ->orderBy('start', 'desc')
+                ->paginate(5, ['*'], 'gameSessions');
         }
 
         return View::make('pages.users.show')
@@ -61,6 +67,7 @@ class UserController extends Controller
             ->with('gamesOwned', $gamesOwned)
             ->with('gamesInCommon', $gamesInCommon)
             ->with('lansAttended', $lansAttended)
+            ->with('gameSessions', $gameSessions)
             ->with('currentLan', $lan);
     }
 
