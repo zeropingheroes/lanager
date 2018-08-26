@@ -2,7 +2,6 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -56,10 +55,14 @@ class UserController extends Controller
                 ->orderBy('playtime_forever', 'desc')
                 ->paginate(5, ['*'], 'gamesOwned');
 
-            // Get game sessions
-            $gameSessions = $user->steamAppSessions()
-                ->orderBy('start', 'desc')
-                ->paginate(5, ['*'], 'gameSessions');
+            // If there's a LAN, get the games the user
+            // has played during the LAN
+            if ($lan) {
+                $gameSessions = $user->steamAppSessions()
+                    ->orderBy('start', 'desc')
+                    ->where('start', '>', $lan->start)
+                    ->paginate(5, ['*'], 'gameSessions');
+            }
         }
 
         return View::make('pages.users.show')

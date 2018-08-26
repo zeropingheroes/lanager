@@ -1,4 +1,3 @@
-{{-- TODO: constrain session to current LAN only--}}
 @if ($gameSessions->isEmpty())
     @lang('phrase.username-has-not-played-any-games-this-lan', ['username' => $user->username])
 @else
