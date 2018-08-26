@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Lan;
 use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Requests\StoreLanRequest;
+use Zeropingheroes\Lanager\Services\GetGamesPlayedBetweenService;
 
 class LanController extends Controller
 {
@@ -67,7 +68,10 @@ class LanController extends Controller
             ]
         );
 
+        $games = (new GetGamesPlayedBetweenService($lan->start, $lan->end))->get()->take(10);
+
         return View::make('pages.lans.show')
+            ->with('games', $games)
             ->with('lan', $lan);
     }
 

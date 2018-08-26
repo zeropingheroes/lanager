@@ -79,6 +79,29 @@
         @include('pages.guides.partials.list', ['guides' => $lan->guides])
     @endif
 
+    @if( ! $games->isEmpty())
+        <h5>@lang('title.popular-games')</h5>
+        <table class="table table-striped popular-games">
+            @foreach($games as $game)
+                <tr>
+                    <td class="game">
+                        @include('pages.games.partials.game-image-link', ['game' => $game['game']])
+                    </td>
+                    <td class="playtime">
+                        {{ $game['playtime']->seconds(0)->cascade()->forHumans() }}
+                    </td>
+                    <td class="players">
+                        @foreach($game['users'] as $user)
+                            <a href="{{ route('users.show', $user->id) }}">
+                                @include('pages.users.partials.avatar', ['user' => $user])
+                            </a>
+                        @endforeach
+                    </td>
+                </tr>
+            @endforeach
+        </table>
+    @endif
+
     @if( ! $lan->users->isEmpty())
         <h5>{{ $lan->users->count() }} @lang('title.attendees')</h5>
         @include('pages.users.partials.list', ['users' => $lan->users])

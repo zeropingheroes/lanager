@@ -112,6 +112,7 @@ return [
     'games-library' => 'Games Library',
     'games-in-common' => 'Games In Common',
     'games-history' => 'Games History',
+    'popular-games' => 'Popular Games',
 
     // Navigation Links
     'navigation-link' => 'Navigation Link',

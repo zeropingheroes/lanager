@@ -114,14 +114,31 @@ div.profile-header h1 {
 /**
  * games.index
  */
-table.live-games td.user-count, table.recent-games td.user-count, table.owned-games td.user-count  {
+table.live-games td.user-count,
+table.recent-games td.user-count,
+table.owned-games td.user-count {
   font-size: 200%;
   font-weight: bold;
   padding: 0px 30px;
 }
 
-table.live-games td.game, table.recent-games td.game, table.owned-games td.game {
+table.live-games td.game,
+table.recent-games td.game,
+table.owned-games td.game {
   width: 184px;
+}
+
+/**
+ * lan.show
+ */
+table.popular-games td.game {
+  width: 184px;
+}
+
+table.popular-games td.playtime {
+  font-size: 150%;
+  font-weight: bold;
+  padding: 0px 30px;
 }
 
 /**
