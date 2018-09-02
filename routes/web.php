@@ -74,6 +74,7 @@ Route::get('lans/{lan}/guides/{guide}/{slug?}', 'GuideController@show')
  * Events & Event Types
  */
 Route::resource('lans.events', 'EventController');
+Route::resource('lans.events.signups', 'EventSignupController', ['only' => ['store', 'destroy']]);
 Route::resource('event-types', 'EventTypeController');
 
 /**

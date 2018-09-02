@@ -24,12 +24,4 @@
             @include('pages.events.partials.actions-dropdown', ['event' => $event])
         </div>
     @endcanany
-    {{-- TODO: signups status display --}}
-    {{--<div class="col-md-4">--}}
-    {{--<h4 class="pull-right">--}}
-    {{--@if ( ! empty( $event->signup_opens) )--}}
-    {{--@include('pages.events.partials.signups-status-relative', ['event' => $event])--}}
-    {{--@endif--}}
-    {{--</h4>--}}
-    {{--</div>--}}
 </div>

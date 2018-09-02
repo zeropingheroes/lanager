@@ -118,4 +118,9 @@ class User extends Authenticatable
         return $this->hasMany('Zeropingheroes\Lanager\SteamUserAppSession');
     }
 
+    public function eventSignups()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\EventSignup');
+    }
+
 }

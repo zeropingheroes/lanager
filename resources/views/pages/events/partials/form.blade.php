@@ -20,10 +20,20 @@
 
             var start = $('#start');
             var end = $('#end');
+            var signups_open = $('#signups_open');
+            var signups_close = $('#signups_close');
             var startDate = moment(start.val(), format).toDate();
             var endDate = moment(end.val(), format).toDate();
             var lanStart = moment('{{ $lan->start }}');
             var lanEnd = moment('{{ $lan->end }}');
+
+            if(signups_open.val()) {
+                var signups_open_old = moment(signups_open.val(), format).toDate();
+            }
+
+            if(signups_close.val()) {
+                var signups_close_old = moment(signups_close.val(), format).toDate();
+            }
 
             start.datetimepicker({
                 format: format,
@@ -50,6 +60,36 @@
             $("#start").on("change.datetimepicker", function (e) {
                 $('#end').datetimepicker('minDate', e.date);
             });
+
+            signups_open.datetimepicker({
+                format: format,
+                defaultDate: lanStart,
+                minDate: lanStart,
+                maxDate: lanEnd,
+                sideBySide: true,
+                useCurrent: false
+            });
+
+            if(signups_open_old) {
+                signups_open.datetimepicker('date', signups_open_old);
+            }
+
+            signups_close.datetimepicker({
+                format: format,
+                defaultDate: lanStart,
+                minDate: lanStart,
+                maxDate: lanEnd,
+                sideBySide: true,
+                useCurrent: false
+            });
+
+            if(signups_close_old) {
+                signups_close.datetimepicker('date', signups_close_old);
+            }
+
+            $("#signups_open").on("change.datetimepicker", function (e) {
+                $('#signups_close').datetimepicker('minDate', e.date);
+            });
         });
     </script>
     <div class="form-group col-md-6">
@@ -66,6 +106,23 @@
                data-toggle="datetimepicker" data-target="#end">
     </div>
 </div>
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="signups_open">@lang('title.signups-open')</label>
+        <input type="text" class="form-control datetimepicker-input" id="signups_open" name="signups_open"
+               placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('signups_open', $event->signups_open) }}"
+               data-toggle="datetimepicker" data-target="#signups_open">
+    </div>
+
+    <div class="form-group col-md-6">
+        <label for="signups_close">@lang('title.signups-close')</label>
+        <input type="text" class="form-control datetimepicker-input" id="signups_close" name="signups_close"
+               placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('signups_close', $event->signups_close) }}"
+               data-toggle="datetimepicker" data-target="#signups_close">
+    </div>
+</div>
+
 <div class="form-group">
     <label for="event_type_id">@lang('title.event-type')</label>
     @include('components.form.select', ['name' => 'event_type_id', 'item' => $event, 'items' => $eventTypes, 'labelField' => 'name'])

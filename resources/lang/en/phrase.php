@@ -103,6 +103,8 @@ return [
     // Events
     'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',
     'event-times-must-be-within-lan-times' => 'Events must start and finish within the LAN\'s start and end time',
+    'event-is-not-open-for-signups' => 'Event is not open for signups',
+    'you-can-only-sign-yourself-up-to-event' => 'You can only sign yourself up to an event',
     'timespan-to' => 'to',
     'upcoming' => 'Upcoming',
     'happening-now' => 'Happening Now',
@@ -111,6 +113,13 @@ return [
     'ending' => 'Ending',
     'ended' => 'Ended',
     'unknown' => 'Unknown',
+    'signups' => 'Signups',
+    'not-yet-open' => 'Not Yet Open',
+    'open' => 'Open',
+    'closed' => 'Closed',
+    'opening' => 'Opening',
+    'closing' => 'Closing',
+    'closed' => 'Closed',
 
     // Images
     'select-files' => 'Select files',

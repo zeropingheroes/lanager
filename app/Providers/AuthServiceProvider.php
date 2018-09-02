@@ -4,6 +4,8 @@ namespace Zeropingheroes\Lanager\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Zeropingheroes\Lanager\EventSignup;
+use Zeropingheroes\Lanager\Policies\EventSignupPolicy;
 use Zeropingheroes\Lanager\Policies\ImagePolicy;
 use Zeropingheroes\Lanager\RoleAssignment;
 use Zeropingheroes\Lanager\Policies\RoleAssignmentPolicy;
@@ -31,15 +33,16 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
 
-        // Remember to import the classes as no error will be thrown!
+        // Remember to import the classes, as no error will be thrown if you don't!
         RoleAssignment::class   => RoleAssignmentPolicy::class,
         Log::class              => LogPolicy::class,
-        Guide::class             => GuidePolicy::class,
+        Guide::class            => GuidePolicy::class,
         NavigationLink::class   => NavigationLinkPolicy::class,
         Lan::class              => LanPolicy::class,
         EventType::class        => EventTypePolicy::class,
         Event::class            => EventPolicy::class,
         User::class             => UserPolicy::class,
+        EventSignup::class      => EventSignupPolicy::class,
     ];
 
     /**

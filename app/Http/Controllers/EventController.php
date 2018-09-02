@@ -69,6 +69,8 @@ class EventController extends Controller
             'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
+            'signups_open' => $httpRequest->input('signups_open'),
+            'signups_close' => $httpRequest->input('signups_close'),
             'event_type_id' => $httpRequest->input('event_type_id'),
             'published' => $httpRequest->has('published'),
         ];

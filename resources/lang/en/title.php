@@ -85,6 +85,9 @@ return [
     'event-types' => 'Event Types',
     'list' => 'List',
     'schedule' => 'Schedule',
+    'signups-open' => 'Signups Open',
+    'signups-close' => 'Signups Close',
+    'sign-up' => 'Sign up',
 
     // Guides
     'guide' => 'Guide',

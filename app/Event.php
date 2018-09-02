@@ -19,8 +19,8 @@ class Event extends Model
         'published',
         'start',
         'end',
-        'signup_opens',
-        'signup_closes',
+        'signups_open',
+        'signups_close',
     ];
 
     /**
@@ -31,6 +31,8 @@ class Event extends Model
     protected $dates = [
         'start',
         'end',
+        'signups_open',
+        'signups_close',
     ];
 
     /**
@@ -51,5 +53,15 @@ class Event extends Model
     public function lan()
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Lan');
+    }
+
+    /**
+     * The event's signups
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function signups()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\EventSignup');
     }
 }
