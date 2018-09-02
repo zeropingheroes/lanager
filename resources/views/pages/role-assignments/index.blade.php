@@ -61,7 +61,7 @@
                 @include('components.form.select', [
                     'name' => 'role_id',
                     'items' => $roles,
-                    'labelField' => 'name',
+                    'labelField' => 'display_name',
                     'classes' => 'custom-select custom-control-inline form-control'
                 ])
             </div>
