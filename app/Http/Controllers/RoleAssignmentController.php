@@ -22,7 +22,7 @@ class RoleAssignmentController extends Controller
     {
         $this->authorize('index', RoleAssignment::class);
 
-        $roleAssignments = RoleAssignment::with('user', 'user.state', 'role')->get();
+        $roleAssignments = RoleAssignment::with('user', 'role')->get();
         $users = User::orderBy('username')->get();
         $roles = Role::all();
 
