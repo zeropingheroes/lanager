@@ -4,7 +4,7 @@
     $valueField = $valueField ?? 'id';
     $options = $options ?? $items->pluck($labelField, $valueField);
 
-    $selected = $selected ?? old($name, $item->{$name}) ?? null;
+    $selected = $selected ?? old($name) ?? $item->{$name} ?? null;
 
     // Whether to include a blank option
     if (isset($blank) && $blank) {
