@@ -19,7 +19,7 @@
                         @include('pages.users.partials.avatar-username', ['user' => $roleAssignment->user])
                     </td>
                     <td>
-                        {{ $roleAssignment->role->name }}
+                        {{ $roleAssignment->role->display_name }}
                     </td>
                     <td>
                         @if($roleAssignment->assigner)
