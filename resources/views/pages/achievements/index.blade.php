@@ -16,7 +16,7 @@
             </div>
         @endcan
     </div>
-    {{--{{ Breadcrumbs::render('achievements.index', $achievements) }}--}}
+    {{ Breadcrumbs::render('achievements.index', $achievements) }}
 @endsection
 
 @section('content')
