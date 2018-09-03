@@ -5,12 +5,6 @@ Breadcrumbs::for('home', function ($trail) {
     $trail->push(config('app.name'), route('home'));
 });
 
-// Home > Games
-Breadcrumbs::for('games.index', function ($trail) {
-    $trail->parent('home');
-    $trail->push(__('title.games'), route('games.in-progress'));
-});
-
 // Home > Role Assignments
 Breadcrumbs::for('role-assignments.index', function ($trail) {
     $trail->parent('home');
@@ -75,6 +69,12 @@ Breadcrumbs::for('logs.index', function ($trail) {
 Breadcrumbs::for('logs.show', function ($trail, $log) {
     $trail->parent('logs.index');
     $trail->push('#' . $log->id, route('logs.show', $log));
+});
+
+// Home > Games
+Breadcrumbs::for('games.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.games'), route('games.in-progress'));
 });
 
 // Home > Games > Live
