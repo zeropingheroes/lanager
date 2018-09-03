@@ -146,5 +146,6 @@ return [
 
     // Achievements
     'achievements' => 'Achievements',
+    'achievement' => 'Achievement',
 
 ];

@@ -101,6 +101,18 @@ Breadcrumbs::for('achievements.index', function ($trail) {
     $trail->push(__('title.achievements'), route('achievements.index'));
 });
 
+// Home > Achievements > [Achievement]
+Breadcrumbs::for('achievements.show', function ($trail, $achievement) {
+    $trail->parent('achievements.index');
+    $trail->push($achievement->name, route('achievements.show', $achievement));
+});
+
+// Home > Achievements > Create
+Breadcrumbs::for('achievements.create', function ($trail) {
+    $trail->parent('achievements.index');
+    $trail->push(__('title.create'), route('achievements.create'));
+});
+
 // Home > LANs
 Breadcrumbs::for('lans.index', function ($trail) {
     $trail->parent('home');
