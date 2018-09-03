@@ -15,10 +15,12 @@ class BasePolicy
      * @param $user
      * @return bool
      */
-    public function before(User $user)
+    public function before(?User $user)
     {
         // Allow users with the Super Admin role
         // to perform any action
-        return $user->hasRole('super-admin');
+        if ($user && $user->hasRole('super-admin')) {
+            return true;
+        }
     }
 }
