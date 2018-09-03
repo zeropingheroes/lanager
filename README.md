@@ -18,6 +18,8 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 
 ### Steps
 
+- Enable the Ubuntu 18.04 universe repository: `sudo add-apt-repository universe`
+
 - Install required packages:
 
     ```
