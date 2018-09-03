@@ -4,6 +4,8 @@ namespace Zeropingheroes\Lanager\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Zeropingheroes\Lanager\Achievement;
+use Zeropingheroes\Lanager\Policies\AchievementPolicy;
 use Zeropingheroes\Lanager\EventSignup;
 use Zeropingheroes\Lanager\Policies\EventSignupPolicy;
 use Zeropingheroes\Lanager\Policies\ImagePolicy;
@@ -43,6 +45,7 @@ class AuthServiceProvider extends ServiceProvider
         Event::class            => EventPolicy::class,
         User::class             => UserPolicy::class,
         EventSignup::class      => EventSignupPolicy::class,
+        Achievement::class      => AchievementPolicy::class,
     ];
 
     /**

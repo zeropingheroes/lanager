@@ -118,9 +118,21 @@ class User extends Authenticatable
         return $this->hasMany('Zeropingheroes\Lanager\SteamUserAppSession');
     }
 
+    /**
+     * Get the user's event signups
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function eventSignups()
     {
         return $this->hasMany('Zeropingheroes\Lanager\EventSignup');
     }
 
+    /**
+     * The achievements that the user has attained
+     */
+    public function achievements()
+    {
+        return $this->belongsToMany('Zeropingheroes\Lanager\Achievement', 'user_achievements');
+    }
 }
