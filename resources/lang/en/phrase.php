@@ -34,34 +34,34 @@ return [
     'user-successfully-logged-out' => 'User :username successfully logged out',
 
     // Roles
-    'user-already-has-role' => ':user has already been assigned the role :role',
-    'role-successfully-assigned' => ':user has been assigned the role :role',
+    'user-already-has-role' => ':user is already assigned the :role role',
+    'role-successfully-assigned' => 'You have assigned :user the role :role',
     'role-successfully-unassigned' => ':user is no longer assigned the role :role',
     'cannot-assign-role-to-self' => 'You cannot assign roles to yourself',
     'cannot-unassign-role-from-self' => 'You cannot unassign roles from yourself',
-    'cannot-assign-role-to-super-admin' => 'Roles cannot be assigned to Super Admins',
+    'cannot-assign-role-to-super-admin' => 'Super Admins cannot change roles',
     'assigned' => 'assigned',
 
     // General purpose
     'no-items-found' => 'No :item found',
-    'the-following-errors-were-encountered' => 'The following errors were encountered',
-    'item-unpublished' => 'This :item is unpublished and only visible administrators',
+    'the-following-errors-were-encountered' => 'LANager has encountered the following errors:',
+    'item-unpublished' => 'This :item is unpublished and only visible to administrators',
     'oh-no' => 'Oh no!',
     'item-name-deleted' => ':Item ":name" deleted',
-    'are-you-sure-delete' => 'Are you sure?',
+    'are-you-sure-delete' => 'Are you sure you want to delete this?',
 
     /**
      * Resources
      */
     // Logs
     'minimum-level' => 'Minimum level',
-    'mark-as-read' => 'Mark as Read',
+    'mark-as-read' => 'Mark as read',
     'log-entries-marked-as-read' => 'Log entries successfully marked as read',
-    'paste-below-into-github-issue' => 'Paste the below into a GitHub issue',
+    'paste-below-into-github-issue' => 'Paste the content below into a GitHub issue',
 
     // Users
     'your-steam-game-details-are-private' => 'Your Steam game details are currently private',
-    'please-consider-public-visibility' => 'This means games you play won\'t show in LANager with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
+    'please-consider-public-visibility' => 'This means the games you\’re playing won\'t appear in LANager with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
     'edit-steam-profile' => 'Edit Steam Profile',
     'avatar-for-username' => 'Avatar for :username',
     'hours-played-total' => 'hours total',
@@ -82,7 +82,7 @@ return [
 
     // Games
     'x-in-game' => ':x In Game',
-    'x-played-recently' => ':x Played Recently',
+    'x-played-recently' => ':x Played recently',
     'x-owners' => ':x Owners',
     'view-game-in-steam-store' => 'View :game in the Steam Store',
     'logo-for-game' => 'Logo for :game',
@@ -90,11 +90,11 @@ return [
     // Guides
     'markdown-formatting-help-link' => 'Markdown formatting help',
     'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Example',
-    'markdown-help' => 'Tip: use relative links, e.g. [Install Guide](/guides/3) to easily link to other pages',
-    'viewing-guide-from-past-lan' => 'This guide is from a LAN that has ended, so information may be irrelevant and/or incorrect',
+    'markdown-help' => 'Tip: use relative links, e.g. [Install Guide](/guides/3), to easily link to other pages',
+    'viewing-guide-from-past-lan' => 'This guide is from a LAN that has ended, so information might be irrelevant and/or incorrect',
 
     // Navigation Links
-    'navigation-links-can-only-be-nested-one-level-deep' => 'Navigation links can only be nested one level deep',
+    'navigation-links-can-only-be-nested-one-level-deep' => 'You can only nest navigation links one level deep',
     'a-navigation-link-cannot-be-its-own-parent' => 'A navigation link cannot be its own parent',
 
     // LANs
@@ -103,18 +103,18 @@ return [
     // Events
     'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',
     'event-times-must-be-within-lan-times' => 'Events must start and finish within the LAN\'s start and end time',
-    'event-is-not-open-for-signups' => 'Event is not open for signups',
+    'event-is-not-open-for-signups' => 'This event is not open for signups',
     'you-can-only-sign-yourself-up-to-event' => 'You can only sign yourself up to an event',
     'timespan-to' => 'to',
     'upcoming' => 'Upcoming',
-    'happening-now' => 'Happening Now',
+    'happening-now' => 'Happening now',
     'ended' => 'Ended',
     'starting' => 'Starting',
     'ending' => 'Ending',
     'ended' => 'Ended',
     'unknown' => 'Unknown',
     'signups' => 'Signups',
-    'not-yet-open' => 'Not Yet Open',
+    'not-yet-open' => 'Not yet open',
     'open' => 'Open',
     'closed' => 'Closed',
     'opening' => 'Opening',
@@ -133,12 +133,12 @@ return [
      * Commands & Services
      */
     // General purpose
-    'suppress-confirmations' => 'Suppress confirmations',
+    'suppress-confirmations' => 'Run command without requesting confirmation',
 
     // UpdateSteamUserService
     // UpdateSteamUserAppsService
-    'one-or-more-steam-ids-must-be-provided' => 'One or more Steam IDs must be provided',
-    'one-or-more-users-must-be-provided' => 'One or more users must be provided',
+    'one-or-more-steam-ids-must-be-provided' => 'You must provide one or more steamID64s',
+    'one-or-more-users-must-be-provided' => 'You must provide one or more LANager users',
     'unable-to-update-data-for-user-x' => 'Unable to update data for user :x - :error',
 
     // lanager:update-steam-apps
@@ -169,7 +169,7 @@ return [
 
     // lanager:prune-steam-user-history
     'delete-steam-user-history-outside-lans' => 'Delete historical Steam user status and gameplay data that did not occur during any of the LANs in the database',
-    'pruning-historical-steam-data' => 'Pruning historical Steam user status and gameplay data',
+    'pruning-historical-steam-data' => 'Deleting historical Steam user status and gameplay data that did not occur during any of the LANs in the database',
     'x-entries-deleted-and-y-entries-retained' => 'Deleted :x and retained :y historical entries of Steam user status and gameplay',
 
     // lanager:backup
@@ -189,3 +189,4 @@ return [
     'deleting-all-lanager-data' => 'Deleting all LANager data',
     'backup-restored-successfully' => 'Backup restored successfully',
 ];
+
