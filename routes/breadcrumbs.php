@@ -95,6 +95,12 @@ Breadcrumbs::for('games.owned', function ($trail) {
     $trail->push(__('title.games-owned'), route('games.owned'));
 });
 
+// Home > User Achievements
+Breadcrumbs::for('user-achievements.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.achievements'), route('user-achievements.index'));
+});
+
 // Home > Achievements
 Breadcrumbs::for('achievements.index', function ($trail) {
     $trail->parent('home');

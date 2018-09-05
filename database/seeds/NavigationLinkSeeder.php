@@ -39,7 +39,7 @@ class NavigationLinkSeeder extends Seeder
             [
                 'title' => __('title.achievements'),
                 'position' => '4',
-                'url' => '/achievements',
+                'url' => '/user-achievements',
                 'parent_id' => null,
             ],
             [

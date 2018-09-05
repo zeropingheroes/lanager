@@ -18,6 +18,6 @@ class Achievement extends Model
 
     public function users()
     {
-        return $this->belongsToMany('Zeropingheroes\Lanager\User', 'user_achievements');
+        return $this->hasMany('Zeropingheroes\Lanager\UserAchievement');
     }
 }

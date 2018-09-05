@@ -87,6 +87,7 @@ Route::resource('lans.attendees', 'AttendeeController', ['only' => ['index']]);
  * Achievements
  */
 Route::resource('achievements', 'AchievementController');
+Route::resource('user-achievements', 'UserAchievementController', ['except' => ['show', 'edit', 'update']]);
 
 /**
  * Navigation Links

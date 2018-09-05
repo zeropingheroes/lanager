@@ -42,6 +42,10 @@ return [
     'cannot-assign-role-to-super-admin' => 'Super Admins cannot change roles',
     'assigned' => 'assigned',
 
+    // Achievements
+    'achievement-successfully-awarded' => 'You have awarded :user the achievement ":achievement"',
+    'achievement-successfully-revoked' => 'You have revoked the achievement ":achievement" from :user',
+
     // General purpose
     'no-items-found' => 'No :item found',
     'the-following-errors-were-encountered' => 'LANager has encountered the following errors:',

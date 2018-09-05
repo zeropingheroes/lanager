@@ -133,6 +133,6 @@ class User extends Authenticatable
      */
     public function achievements()
     {
-        return $this->belongsToMany('Zeropingheroes\Lanager\Achievement', 'user_achievements');
+        return $this->hasMany('Zeropingheroes\Lanager\UserAchievement');
     }
 }
