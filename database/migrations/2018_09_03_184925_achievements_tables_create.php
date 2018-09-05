@@ -31,6 +31,8 @@ class AchievementsTablesCreate extends Migration
                 ->unsigned();
             $table->integer('achievement_id')
                 ->unsigned();
+            $table->integer('lan_id')
+                ->unsigned();
             $table->timestamps();
 
             // Relationships
@@ -42,6 +44,11 @@ class AchievementsTablesCreate extends Migration
             $table->foreign('achievement_id')
                 ->references('id')
                 ->on('achievements')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('lan_id')
+                ->references('id')
+                ->on('lans')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

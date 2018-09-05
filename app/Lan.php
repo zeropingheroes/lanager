@@ -105,4 +105,14 @@ class Lan extends Model
             ->as('attendance')
             ->withTimestamps();
     }
+
+    /**
+     * The achievements awarded at a LAN
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userAchievements()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\UserAchievement');
+    }
 }

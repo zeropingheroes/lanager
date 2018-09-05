@@ -13,6 +13,8 @@ Route::get('/schedule', 'CurrentLanController@schedule')
     ->name('schedule');
 Route::get('/users', 'CurrentLanController@users')
     ->name('users');
+Route::get('/user-achievements', 'CurrentLanController@userAchievements')
+    ->name('users');
 
 /**
  * Login
@@ -87,7 +89,7 @@ Route::resource('lans.attendees', 'AttendeeController', ['only' => ['index']]);
  * Achievements
  */
 Route::resource('achievements', 'AchievementController');
-Route::resource('user-achievements', 'UserAchievementController', ['except' => ['show', 'edit', 'update']]);
+Route::resource('lans.user-achievements', 'UserAchievementController', ['except' => ['show', 'edit', 'update']]);
 
 /**
  * Navigation Links

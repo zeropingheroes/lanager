@@ -6,7 +6,7 @@
 
 @section('content-header')
     <h1>@lang('title.achievements')</h1>
-    {{ Breadcrumbs::render('user-achievements.index') }}
+    {{ Breadcrumbs::render('lans.user-achievements.index', $lan) }}
 @endsection
 
 @section('content')
@@ -27,7 +27,13 @@
                     <td>
                         @can('delete', $userAchievement)
                             @component('components.actions-dropdown')
-                                @include('components.actions-dropdown.delete', ['item' => $userAchievement])
+                                <form action="{{ route('lans.user-achievements.destroy', ['lan' => $userAchievement->lan, 'userAchievement' => $userAchievement]) }}"
+                                      method="POST" class="confirm-deletion">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <a class="dropdown-item" href="#"
+                                       onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
+                                </form>
                             @endcomponent
                         @endcan
                     </td>
@@ -39,7 +45,7 @@
 
     @can('create', Zeropingheroes\Lanager\RoleAssignment::class)
         <h5>@lang('title.award-an-achievement')</h5>
-        @include('components.form.create', ['route' => route('user-achievements.store')])
+        @include('components.form.create', ['route' => route('lans.user-achievements.store', $lan)])
         <div class="form-inline">
             <div class="form-group">
                 <label for="user_id" class="custom-control-label mr-sm-2">@lang('title.user')</label>

@@ -16,6 +16,7 @@ class StoreUserAchievementRequest extends Request
         $this->validationRules = [
             'user_id' => ['exists:users,id'],
             'achievement_id' => ['exists:achievements,id'],
+            'lan_id' => ['exists:lans,id'],
         ];
 
         if (!$this->laravelValidationPasses()) {

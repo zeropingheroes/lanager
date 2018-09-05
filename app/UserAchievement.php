@@ -14,6 +14,7 @@ class UserAchievement extends Model
     protected $fillable = [
         'user_id',
         'achievement_id',
+        'lan_id',
     ];
 
     /**
@@ -34,5 +35,15 @@ class UserAchievement extends Model
     public function achievement()
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Achievement');
+    }
+
+    /**
+     * The LAN
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function lan()
+    {
+        return $this->belongsTo('Zeropingheroes\Lanager\Lan');
     }
 }

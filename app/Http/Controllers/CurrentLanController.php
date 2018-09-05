@@ -85,4 +85,14 @@ class CurrentLanController extends Controller
     {
         return redirect()->route('lans.attendees.index', $this->currentLan);
     }
+
+    /**
+     * Redirect to current LAN's awarded achievements
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function userAchievements()
+    {
+        return redirect()->route('lans.user-achievements.index', $this->currentLan);
+    }
 }

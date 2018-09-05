@@ -95,12 +95,6 @@ Breadcrumbs::for('games.owned', function ($trail) {
     $trail->push(__('title.games-owned'), route('games.owned'));
 });
 
-// Home > User Achievements
-Breadcrumbs::for('user-achievements.index', function ($trail) {
-    $trail->parent('home');
-    $trail->push(__('title.achievements'), route('user-achievements.index'));
-});
-
 // Home > Achievements
 Breadcrumbs::for('achievements.index', function ($trail) {
     $trail->parent('home');
@@ -201,4 +195,10 @@ Breadcrumbs::for('lans.events.edit', function ($trail, $lan, $event) {
 Breadcrumbs::for('lans.attendees.index', function ($trail, $lan) {
     $trail->parent('lans.show', $lan);
     $trail->push(__('title.attendees'), route('lans.attendees.index', $lan));
+});
+
+// Home > LANs > [LAN] > User Achievements
+Breadcrumbs::for('lans.user-achievements.index', function ($trail, $lan) {
+    $trail->parent('lans.show', $lan);
+    $trail->push(__('title.achievements'), route('lans.user-achievements.index', $lan));
 });
