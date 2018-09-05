@@ -19,7 +19,7 @@
                         @include('pages.users.partials.avatar-username', ['user' => $userAchievement->user])
                     </td>
                     <td>
-                        {{ $userAchievement->achievement->name }}
+                        <span title="{{ $userAchievement->achievement->description }}">{{ $userAchievement->achievement->name }}</span>
                     </td>
                     <td>
                         @include('components.time-relative', ['datetime' => $userAchievement->created_at])
