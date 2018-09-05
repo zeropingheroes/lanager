@@ -107,6 +107,12 @@ Breadcrumbs::for('achievements.show', function ($trail, $achievement) {
     $trail->push($achievement->name, route('achievements.show', $achievement));
 });
 
+// Home > Achievements > [Achievement] > Edit
+Breadcrumbs::for('achievements.edit', function ($trail, $achievement) {
+    $trail->parent('achievements.index');
+    $trail->push($achievement->name, route('achievements.edit', $achievement));
+});
+
 // Home > Achievements > Create
 Breadcrumbs::for('achievements.create', function ($trail) {
     $trail->parent('achievements.index');

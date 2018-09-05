@@ -78,4 +78,68 @@ class AchievementController extends Controller
         return View::make('pages.achievements.show')
             ->with('achievement', $achievement);
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Achievement $achievement
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function edit(Achievement $achievement)
+    {
+        $this->authorize('update', $achievement);
+
+        return View::make('pages.achievements.edit')
+            ->with('achievement', $achievement);
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $httpRequest
+     * @param Achievement $achievement
+     * @return \Illuminate\Http\Response
+     * @internal param Request $request
+     */
+    public function update(Request $httpRequest, Achievement $achievement)
+    {
+        $this->authorize('update', $achievement);
+
+        $input = [
+            'name' => $httpRequest->input('name'),
+            'description' => $httpRequest->input('description'),
+        ];
+
+        $request = new StoreAchievementRequest($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withError($request->errors())
+                ->withInput();
+        }
+        $achievement->update($input);
+
+        return redirect()
+            ->route('achievements.show', $achievement);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Achievement $achievement
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Achievement $achievement)
+    {
+        $this->authorize('delete', $achievement);
+
+        Achievement::destroy($achievement->id);
+
+        return redirect()
+            ->route('achievements.index')
+            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.achievement'), 'name' => $achievement->name]));
+
+    }
 }
