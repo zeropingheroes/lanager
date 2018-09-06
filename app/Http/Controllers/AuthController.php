@@ -2,7 +2,6 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use Laravel\Socialite\Facades\Socialite;

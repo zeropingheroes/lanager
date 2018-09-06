@@ -31,7 +31,6 @@ class SteamApp extends Model
      */
     public function image(string $size = 'small'): string
     {
-
         switch ($size) {
             case 'large':
                 return 'http://cdn.akamai.steamstatic.com/steam/apps/' . $this->id . '/header.jpg'; // 460x215

@@ -33,5 +33,4 @@ class SteamUserApp extends Model
     {
         return $this->belongsTo('Zeropingheroes\Lanager\SteamApp', 'steam_app_id')->withDefault();
     }
-
 }

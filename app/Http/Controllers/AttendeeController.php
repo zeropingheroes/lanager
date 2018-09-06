@@ -2,7 +2,6 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Lan;
 

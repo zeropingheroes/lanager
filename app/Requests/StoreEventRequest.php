@@ -17,14 +17,24 @@ class StoreEventRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'name'          => ['required', 'max:255'],
-            'start'         => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
-            'end'           => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
-            'signups_open'  => ['date_format:Y-m-d H:i:s', 'before:signups_close', 'before_or_equal:start', 'required_with:signups_close'],
-            'signups_close' => ['date_format:Y-m-d H:i:s', 'after:signups_open', 'before_or_equal:start', 'required_with:signups_open'],
+            'name' => ['required', 'max:255'],
+            'start' => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
+            'end' => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
+            'signups_open' => [
+                'date_format:Y-m-d H:i:s',
+                'before:signups_close',
+                'before_or_equal:start',
+                'required_with:signups_close'
+            ],
+            'signups_close' => [
+                'date_format:Y-m-d H:i:s',
+                'after:signups_open',
+                'before_or_equal:start',
+                'required_with:signups_open'
+            ],
             'event_type_id' => ['required', 'numeric', 'exists:event_types,id'],
-            'lan_id'        => ['required', 'numeric', 'exists:lans,id'],
-            'published'     => ['boolean'],
+            'lan_id' => ['required', 'numeric', 'exists:lans,id'],
+            'published' => ['boolean'],
         ];
 
         if (!$this->laravelValidationPasses()) {

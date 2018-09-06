@@ -13,7 +13,7 @@ class Backup extends Command
      */
     public function __construct()
     {
-        $this->signature = 'lanager:backup {output-dir : '.__('phrase.output-dir').'}';
+        $this->signature = 'lanager:backup {output-dir : ' . __('phrase.output-dir') . '}';
         $this->description = __('phrase.backup-lanager-to-file');
 
         parent::__construct();

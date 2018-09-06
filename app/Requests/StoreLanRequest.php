@@ -16,11 +16,11 @@ class StoreLanRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'name'       => ['required', 'max:255'],
-            'description'=> ['nullable'],
-            'start'      => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
-            'end'        => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
-            'published'  => ['nullable','boolean']
+            'name' => ['required', 'max:255'],
+            'description' => ['nullable'],
+            'start' => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
+            'end' => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
+            'published' => ['nullable', 'boolean']
         ];
 
         if (!$this->laravelValidationPasses()) {
@@ -28,10 +28,10 @@ class StoreLanRequest extends Request
         }
 
         $overlappingLans = Lan::where('start', '<=', $this->input['end'])
-                              ->where('end', '>=', $this->input['start']);
+            ->where('end', '>=', $this->input['start']);
 
         // Exclude the current LAN from the overlap check
-        if(isset($this->input['id'])) {
+        if (isset($this->input['id'])) {
             $overlappingLans->whereNotIn('id', [$this->input['id']]);
         }
 

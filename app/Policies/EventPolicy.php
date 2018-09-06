@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Policies;
 
 use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\User;
+
 class EventPolicy extends BasePolicy
 {
     /**
@@ -16,7 +17,7 @@ class EventPolicy extends BasePolicy
     public function view(?User $user, Event $event)
     {
         // admins can view any event
-        if($user && $user->hasRole('admin')) {
+        if ($user && $user->hasRole('admin')) {
             return true;
         }
         // Non-admins can only view an event if the

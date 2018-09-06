@@ -93,7 +93,10 @@ class GuideController extends Controller
         // or an incorrect slug
         // redirect to the guide with the right slug
         if (!$slug || $slug != str_slug($guide->title)) {
-            return redirect()->route('lans.guides.show', ['lan' => $guide->lan_id, 'guide' => $guide, 'slug' => str_slug($guide->title)]);
+            return redirect()->route(
+                'lans.guides.show',
+                ['lan' => $guide->lan_id, 'guide' => $guide, 'slug' => str_slug($guide->title)]
+            );
         }
 
         return View::make('pages.guides.show')

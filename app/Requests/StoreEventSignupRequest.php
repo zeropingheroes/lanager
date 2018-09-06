@@ -34,7 +34,7 @@ class StoreEventSignupRequest extends Request
             return $this->setValid(false);
         }
 
-        if(Auth::user()->id != $user->id && ! Auth::user()->hasRole('super-admin')) {
+        if (Auth::user()->id != $user->id && !Auth::user()->hasRole('super-admin')) {
             $this->addError(__('phrase.you-can-only-sign-yourself-up-to-event'));
             return $this->setValid(false);
         }

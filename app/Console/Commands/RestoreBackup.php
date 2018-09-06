@@ -13,8 +13,8 @@ class RestoreBackup extends Command
     public function __construct()
     {
         $this->signature = 'lanager:restore-backup
-                            {backup-file : '.__('phrase.backup-file').'}
-                            {--yes : '.__('phrase.suppress-confirmations').'}';
+                            {backup-file : ' . __('phrase.backup-file') . '}
+                            {--yes : ' . __('phrase.suppress-confirmations') . '}';
 
         $this->description = __('phrase.restore-lanager-backup-from-file');
 

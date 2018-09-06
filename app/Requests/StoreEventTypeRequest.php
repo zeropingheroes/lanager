@@ -14,7 +14,7 @@ class StoreEventTypeRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'name'   => ['required', 'max:255'],
+            'name' => ['required', 'max:255'],
             'colour' => ['required', 'max:7'], // TODO: validate hex colour
         ];
 

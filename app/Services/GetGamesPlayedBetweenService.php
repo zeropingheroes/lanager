@@ -39,10 +39,12 @@ class GetGamesPlayedBetweenService
     public function get(): Collection
     {
         $sessions = SteamUserAppSession::where('start', '>', $this->start)
-            ->where(function ($query) {
-                $query->where('end', '<', $this->end)
-                    ->orWhere('updated_at', '<', $this->end); // include games without an end time
-            })
+            ->where(
+                function ($query) {
+                    $query->where('end', '<', $this->end)
+                        ->orWhere('updated_at', '<', $this->end); // include games without an end time
+                }
+            )
             ->with('user', 'app', 'user.accounts', 'user.steamMetadata')
             ->get();
 
@@ -70,7 +72,7 @@ class GetGamesPlayedBetweenService
 
         // Obtain a list of columns
         foreach ($combinedUsage as $key => $row) {
-            $users[$key]  = $row['users'];
+            $users[$key] = $row['users'];
             $playtime[$key] = $row['playtime'];
         }
 
