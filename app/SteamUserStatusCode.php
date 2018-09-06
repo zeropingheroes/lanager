@@ -23,12 +23,4 @@ class SteamUserStatusCode extends Model
      * @var bool
      */
     public $timestamps = false;
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function SteamUserMetadata()
-    {
-        return $this->hasMany('Zeropingheroes\Lanager\SteamUserMetadata');
-    }
 }
