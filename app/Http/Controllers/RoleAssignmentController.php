@@ -62,7 +62,7 @@ class RoleAssignmentController extends Controller
             ->withSuccess(
                 __(
                     'phrase.role-successfully-assigned',
-                    ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->name]
+                    ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->display_name]
                 )
             );
     }
@@ -92,7 +92,7 @@ class RoleAssignmentController extends Controller
             ->withSuccess(
                 __(
                     'phrase.role-successfully-unassigned',
-                    ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->name]
+                    ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->display_name]
                 )
             );
     }
