@@ -94,7 +94,7 @@ class UpdateSteamUserAppsService
 
                 $appsVisible = (count($apps) != 0);
 
-                $steamAccount->user->SteamMetadata()->updateOrCreate(
+                $steamAccount->user->steamMetadata()->updateOrCreate(
                     [],
                     [
                         'apps_visible' => $appsVisible,
@@ -103,7 +103,7 @@ class UpdateSteamUserAppsService
                 );
 
                 foreach ($apps as $app) {
-                    $steamAccount->user->SteamApps()
+                    $steamAccount->user->steamApps()
                         ->updateOrCreate(
                             ['steam_app_id' => $app->appId],
                             [

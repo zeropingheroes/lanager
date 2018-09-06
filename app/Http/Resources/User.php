@@ -17,7 +17,7 @@ class User extends JsonResource
         return [
             'id' => $this->id,
             'username' => $this->username,
-            'oauth_accounts' => OAuthAccount::collection($this->whenLoaded('OAuthAccounts')),
+            'oauth_accounts' => OAuthAccount::collection($this->whenLoaded('accounts')),
         ];
     }
 }

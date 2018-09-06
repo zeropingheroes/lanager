@@ -1,5 +1,5 @@
 @php
-    $steamAccount = $user->OAuthAccounts->where('provider','steam')->first();
+    $steamAccount = $user->accounts->where('provider','steam')->first();
 @endphp
 @if( $steamAccount->provider_id)
     <img src="/img/steam.svg" width="20" height="20" alt="Steam Logo">

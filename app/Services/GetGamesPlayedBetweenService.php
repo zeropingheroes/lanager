@@ -43,7 +43,7 @@ class GetGamesPlayedBetweenService
                 $query->where('end', '<', $this->end)
                     ->orWhere('updated_at', '<', $this->end); // include games without an end time
             })
-            ->with('user', 'app', 'user.OAuthAccounts', 'user.steamMetadata')
+            ->with('user', 'app', 'user.accounts', 'user.steamMetadata')
             ->get();
 
         if ($sessions->isEmpty()) {

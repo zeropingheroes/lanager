@@ -1,6 +1,6 @@
 @if($user->id && $user->username)
     @php
-        $steamAccount = $user->OAuthAccounts->where('provider','steam')->first();
+        $steamAccount = $user->accounts->where('provider','steam')->first();
 
         if($steamAccount) {
 
@@ -31,9 +31,9 @@
         if($activeSession) {
             $statusName = 'in-game';
             $statusDisplayName = __('phrase.status-in-game-x', ['x' => $activeSession->app->name]);
-        } elseif($user->SteamMetadata->exists) {
-            $statusName = $user->SteamMetadata->status->name;
-            $statusDisplayName = $user->SteamMetadata->status->display_name;
+        } elseif($user->steamMetadata->exists) {
+            $statusName = $user->steamMetadata->status->name;
+            $statusDisplayName = $user->steamMetadata->status->display_name;
         } else {
             $statusName = 'unknown';
             $statusDisplayName = __('phrase.status-unknown');

@@ -28,7 +28,7 @@ class GetGamesOwnedService
             $users = User::all();
         }
 
-        $steamUserApps = SteamUserApp::with('user', 'app', 'user.steamMetadata', 'user.OAuthAccounts')
+        $steamUserApps = SteamUserApp::with('user', 'app', 'user.steamMetadata', 'user.accounts')
             ->where('playtime_forever', '>', 60)
             ->whereIn('user_id', $users->pluck('id'))
             ->get();

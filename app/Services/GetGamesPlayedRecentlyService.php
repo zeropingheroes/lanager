@@ -29,7 +29,7 @@ class GetGamesPlayedRecentlyService
             $users = User::all();
         }
 
-        $steamUserApps = SteamUserApp::with('user', 'app', 'user.steamMetadata', 'user.OAuthAccounts')
+        $steamUserApps = SteamUserApp::with('user', 'app', 'user.steamMetadata', 'user.accounts')
             ->where('playtime_two_weeks', '>', 0)
             ->whereIn('user_id', $users->pluck('id'))
             ->get();

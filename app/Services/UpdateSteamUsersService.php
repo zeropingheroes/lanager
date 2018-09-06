@@ -161,7 +161,7 @@ class UpdateSteamUsersService
         }
 
         // Create or update the user's existing linked OAuth account for Steam
-        $user->OAuthAccounts()
+        $user->accounts()
             ->updateOrCreate(
                 [
                     'provider' => 'steam',
@@ -174,7 +174,7 @@ class UpdateSteamUsersService
             );
 
         // Update the user's Steam account metadata
-        $user->SteamMetadata()->updateOrCreate(
+        $user->steamMetadata()->updateOrCreate(
             [],
             [
                 'steam_user_status_code_id' => $steamUser->personaStateId,

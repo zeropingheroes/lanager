@@ -16,7 +16,7 @@ class GetActiveGamesService
     public function get(): Collection
     {
         $sessions = SteamUserAppSession::whereNull('end')
-            ->with('user', 'app', 'user.OAuthAccounts', 'user.steamMetadata')
+            ->with('user', 'app', 'user.accounts', 'user.steamMetadata')
             ->get();
 
         if (empty($sessions)) {

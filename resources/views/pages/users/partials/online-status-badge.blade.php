@@ -2,8 +2,8 @@
 
 @if($activeSession && $activeSession->app->exists)
     <span class="badge badge-success">@lang('phrase.status-in-game')</span>
-@elseif($user->SteamMetadata->exists)
-    @switch($user->SteamMetadata->status->name)
+@elseif($user->steamMetadata->exists)
+    @switch($user->steamMetadata->status->name)
         @case('online')
         @case('looking-to-trade')
         @case('looking-to-play')
@@ -22,7 +22,7 @@
         @default
             @php ($class = 'secondary')
     @endswitch
-    <span class="badge badge-{{ $class }}">{{ $user->SteamMetadata->status->display_name }}</span>
+    <span class="badge badge-{{ $class }}">{{ $user->steamMetadata->status->display_name }}</span>
 @else
     <span class="badge badge-secondary">@lang('phrase.status-unknown')</span>
 @endif

@@ -19,7 +19,7 @@ class AttendeeController extends Controller
     {
         $users = $lan->users()->orderBy('username')->get();
 
-        $users->load('steamAppSessions.app', 'OAuthAccounts', 'SteamApps', 'SteamMetadata', 'lans');
+        $users->load('steamAppSessions.app', 'accounts', 'steamApps', 'steamMetadata', 'lans');
 
         return View::make('pages.users.index')
             ->with('lan', $lan)

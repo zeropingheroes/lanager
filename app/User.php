@@ -2,10 +2,8 @@
 
 namespace Zeropingheroes\Lanager;
 
-use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -36,51 +34,18 @@ class User extends Authenticatable
      */
     protected $with = [
         'roles',
-        'SteamMetadata',
-        'SteamMetadata.status',
+        'steamMetadata',
+        'steamMetadata.status',
     ];
 
     /**
-     * Get the user's linked accounts
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function OAuthAccounts()
-    {
-        return $this->hasMany('Zeropingheroes\Lanager\UserOAuthAccount');
-    }
-
-    /**
-     * Get the user's Steam apps
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function SteamApps()
-    {
-        return $this->hasMany('Zeropingheroes\Lanager\SteamUserApp');
-    }
-
-    /**
-     * Get the user's Steam visibility
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function SteamMetadata()
-    {
-        return $this->hasOne('Zeropingheroes\Lanager\SteamUserMetadata')
-            ->withDefault();
-    }
-
-    /**
-     * The roles that belong to the user
+     * The user's roles
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles()
     {
-        return $this
-            ->belongsToMany('Zeropingheroes\Lanager\Role', 'role_assignments')
-            ->withTimestamps();
+        return $this->hasMany('Zeropingheroes\Lanager\RoleAssignment');
     }
 
     /**
@@ -93,6 +58,16 @@ class User extends Authenticatable
     public function hasRole(string $role)
     {
         return in_array($role, $this->roles->pluck('name')->toArray());
+    }
+
+    /**
+     * The user's linked accounts
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function accounts()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\UserOAuthAccount');
     }
 
     /**
@@ -109,17 +84,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's sessions
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function steamAppSessions()
-    {
-        return $this->hasMany('Zeropingheroes\Lanager\SteamUserAppSession');
-    }
-
-    /**
-     * Get the user's event signups
+     * The user's event sign-ups
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -129,10 +94,41 @@ class User extends Authenticatable
     }
 
     /**
-     * The achievements that the user has attained
+     * The achievements that the user has been awarded
      */
     public function achievements()
     {
         return $this->hasMany('Zeropingheroes\Lanager\UserAchievement');
+    }
+
+    /**
+     * The user's Steam apps
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function steamApps()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\SteamUserApp');
+    }
+
+    /**
+     * The user's Steam account metadata
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function steamMetadata()
+    {
+        return $this->hasOne('Zeropingheroes\Lanager\SteamUserMetadata')
+            ->withDefault();
+    }
+
+    /**
+     * The user's gameplay sessions
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function steamAppSessions()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\SteamUserAppSession');
     }
 }

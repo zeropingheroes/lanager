@@ -29,18 +29,18 @@ class UserController extends Controller
             ->first();
 
         // If the user's apps are visible, and they're attending the current LAN (or there isn't a current LAN)
-        if (($user->SteamMetadata && $user->SteamMetadata->apps_visible == 1) &&
+        if (($user->steamMetadata && $user->steamMetadata->apps_visible == 1) &&
             (!$lan || $lansAttended->contains('id', $lan->id))) {
 
             // Get games in common so long as the logged
             // in user is not viewing their own profile
             if (Auth::check() && $user->id != Auth::user()->id) {
                 $authUserGames = Auth::user()
-                    ->SteamApps()
+                    ->steamApps()
                     ->where('playtime_forever', '<>', 0)
                     ->pluck('steam_app_id')->toArray();
 
-                $gamesInCommon = $user->SteamApps()
+                $gamesInCommon = $user->steamApps()
                     ->with('app')
                     ->where('playtime_forever', '<>', 0)
                     ->whereIn('steam_app_id', $authUserGames)
@@ -49,7 +49,7 @@ class UserController extends Controller
             }
 
             // Get games owned by the user
-            $gamesOwned = $user->SteamApps()
+            $gamesOwned = $user->steamApps()
                 ->with('app')
                 ->where('playtime_forever', '<>', 0)
                 ->orderBy('playtime_forever', 'desc')
