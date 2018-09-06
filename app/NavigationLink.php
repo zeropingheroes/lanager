@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class NavigationLink extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'title',
         'position',
@@ -19,8 +14,7 @@ class NavigationLink extends Model
     ];
 
     /**
-     * A navigation link may optionally have one parent
-     * @return object Illuminate\Database\Eloquent\Relations\Relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent()
     {
@@ -29,8 +23,7 @@ class NavigationLink extends Model
     }
 
     /**
-     * A navigation link may optionally have many children
-     * @return object Illuminate\Database\Eloquent\Relations\Relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function children()
     {

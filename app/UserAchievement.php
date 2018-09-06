@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserAchievement extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'user_id',
         'achievement_id',
@@ -18,8 +13,6 @@ class UserAchievement extends Model
     ];
 
     /**
-     * The user
-     *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function user()
@@ -28,8 +21,6 @@ class UserAchievement extends Model
     }
 
     /**
-     * The achievement
-     *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function achievement()
@@ -38,8 +29,6 @@ class UserAchievement extends Model
     }
 
     /**
-     * The LAN
-     *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function lan()

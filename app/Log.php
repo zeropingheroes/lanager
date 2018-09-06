@@ -9,18 +9,14 @@ class Log extends Model
 {
     use Filterable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'read',
     ];
 
     /**
-     * Get the user who caused the log entry
-     * @return mixed
+     * The user who triggered the log entry
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {

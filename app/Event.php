@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'lan_id',
         'event_type_id',
@@ -23,11 +18,6 @@ class Event extends Model
         'signups_close',
     ];
 
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
     protected $dates = [
         'start',
         'end',
@@ -36,8 +26,6 @@ class Event extends Model
     ];
 
     /**
-     * The event type
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function type()
@@ -46,8 +34,6 @@ class Event extends Model
     }
 
     /**
-     * The LAN
-     *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function lan()
@@ -56,8 +42,6 @@ class Event extends Model
     }
 
     /**
-     * The event's signups
-     *
      * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
     public function signups()

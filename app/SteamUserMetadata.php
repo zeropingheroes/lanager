@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class SteamUserMetadata extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'user_id',
         'steam_user_status_code_id',
@@ -20,18 +15,8 @@ class SteamUserMetadata extends Model
         'apps_updated_at',
     ];
 
-    /**
-     * The table for this model
-     *
-     * @var string
-     */
     protected $table = 'steam_user_metadata';
 
-    /**
-     * Whether this model has timestamps
-     *
-     * @var bool
-     */
     public $timestamps = false;
 
     /**
@@ -43,9 +28,7 @@ class SteamUserMetadata extends Model
     }
 
     /**
-     * Get the state's status text based on the status code
-     *
-     * @return string
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function status()
     {

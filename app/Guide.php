@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Guide extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'lan_id',
         'title',
@@ -19,8 +14,6 @@ class Guide extends Model
     ];
 
     /**
-     * The LAN
-     *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function lan()

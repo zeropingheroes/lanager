@@ -7,11 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lan extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'description',
@@ -20,19 +15,12 @@ class Lan extends Model
         'published',
     ];
 
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
     protected $dates = [
         'start',
         'end',
     ];
 
     /**
-     * Scope a query to only show LANs happening now.
-     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -43,8 +31,6 @@ class Lan extends Model
     }
 
     /**
-     * Scope a query to only show past LANs.
-     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -54,8 +40,6 @@ class Lan extends Model
     }
 
     /**
-     * Scope a query to only show future LANs.
-     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -65,8 +49,6 @@ class Lan extends Model
     }
 
     /**
-     * Scope a query to only show present and past LANs.
-     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -76,8 +58,6 @@ class Lan extends Model
     }
 
     /**
-     * The events for the LAN
-     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function events()
@@ -86,8 +66,6 @@ class Lan extends Model
     }
 
     /**
-     * The guides for the LAN
-     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function guides()
@@ -96,7 +74,7 @@ class Lan extends Model
     }
 
     /**
-     * The users that belong to the role.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
@@ -107,8 +85,6 @@ class Lan extends Model
     }
 
     /**
-     * The achievements awarded at a LAN
-     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function userAchievements()

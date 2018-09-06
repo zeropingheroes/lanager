@@ -9,29 +9,14 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'username',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'remember_token',
     ];
 
-    /**
-     * The relationships that should always be eager loaded
-     *
-     * @var array
-     */
     protected $with = [
         'roles',
         'steamMetadata',
@@ -39,8 +24,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * The user's roles
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles()
@@ -62,8 +45,6 @@ class User extends Authenticatable
     }
 
     /**
-     * The user's linked accounts
-     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function accounts()
@@ -72,8 +53,6 @@ class User extends Authenticatable
     }
 
     /**
-     * The LANs the user has attended
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function lans()
@@ -85,8 +64,6 @@ class User extends Authenticatable
     }
 
     /**
-     * The user's event sign-ups
-     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function eventSignups()
@@ -95,7 +72,7 @@ class User extends Authenticatable
     }
 
     /**
-     * The achievements that the user has been awarded
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function achievements()
     {
@@ -103,8 +80,6 @@ class User extends Authenticatable
     }
 
     /**
-     * The user's Steam apps
-     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function steamApps()
@@ -113,8 +88,6 @@ class User extends Authenticatable
     }
 
     /**
-     * The user's Steam account metadata
-     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function steamMetadata()
@@ -124,8 +97,6 @@ class User extends Authenticatable
     }
 
     /**
-     * The user's gameplay sessions
-     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function steamAppSessions()

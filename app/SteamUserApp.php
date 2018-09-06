@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class SteamUserApp extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'user_id',
         'steam_app_id',

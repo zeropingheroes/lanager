@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserOAuthAccount extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'user_id',
         'username',
@@ -22,16 +17,10 @@ class UserOAuthAccount extends Model
         'refresh_token',
     ];
 
-    /**
-     * The table that this model uses
-     *
-     * @var array
-     */
     protected $table = 'user_oauth_accounts';
 
     /**
-     * Get the user who owns the account
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function user()
     {
@@ -39,7 +28,7 @@ class UserOAuthAccount extends Model
     }
 
     /**
-     * Get the small avatar URL
+     * @return string
      */
     public function avatarSmall(): string
     {
@@ -50,7 +39,7 @@ class UserOAuthAccount extends Model
     }
 
     /**
-     * Get the medium avatar URL
+     * @return string
      */
     public function avatarMedium(): string
     {
@@ -61,7 +50,7 @@ class UserOAuthAccount extends Model
     }
 
     /**
-     * Get the large avatar URL
+     * @return string
      */
     public function avatarLarge(): string
     {

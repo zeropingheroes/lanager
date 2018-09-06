@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class SteamUserAppSession extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'user_id',
         'steam_app_id',
@@ -18,18 +13,13 @@ class SteamUserAppSession extends Model
         'end',
     ];
 
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
     protected $dates = [
         'start',
         'end',
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -45,8 +35,6 @@ class SteamUserAppSession extends Model
     }
 
     /**
-     * Scope a query to only show active sessions.
-     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
