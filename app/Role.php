@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-
     /**
      * The users who have the role assigned
      *
@@ -14,8 +13,7 @@ class Role extends Model
      */
     public function users()
     {
-        return $this
-            ->belongsToMany('Zeropingheroes\Lanager\User', 'role_assignments')
-            ->withTimestamps();
+        return $this->belongsToMany('Zeropingheroes\Lanager\User', 'role_assignments')
+            ->using('Zeropingheroes\Lanager\RoleAssignment');
     }
 }

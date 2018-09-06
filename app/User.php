@@ -45,7 +45,8 @@ class User extends Authenticatable
      */
     public function roles()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\RoleAssignment');
+        return $this->belongsToMany('Zeropingheroes\Lanager\Role', 'role_assignments')
+            ->using('Zeropingheroes\Lanager\RoleAssignment');
     }
 
     /**
