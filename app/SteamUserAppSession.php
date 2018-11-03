@@ -18,6 +18,10 @@ class SteamUserAppSession extends Model
         'end',
     ];
 
+    protected $with = [
+        'app',
+    ];
+
     /**
      * return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

@@ -26,7 +26,7 @@
             $avatar = '';
         }
 
-        $activeSession = $user->steamAppSessions()->active()->first();
+        $activeSession = $user->steamAppSessions->first();
 
         if($activeSession) {
             $statusName = 'in-game';

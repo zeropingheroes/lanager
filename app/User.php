@@ -19,9 +19,19 @@ class User extends Authenticatable
 
     protected $with = [
         'roles',
+        'accounts',
         'steamMetadata',
         'steamMetadata.status',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->with['steamAppSessions'] = function ($query) {
+            $query->active();
+        };
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
