@@ -4,10 +4,6 @@ LANager
 LANager is a web application designed to make [LAN Parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
 
-## Branch: `laravel-upgrade`
-
-This unstable branch is where the work of upgrading to Laravel 5.6 is being done. Once complete this will be merged into the master branch.
-
 ## Installation
 
 ### Requirements
@@ -18,29 +14,26 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 
 ### Steps
 
-- Enable the Ubuntu 18.04 universe repository: `sudo add-apt-repository universe`
+- Enable the Ubuntu 18.04 universe repository:
+
+    ```
+    sudo add-apt-repository universe
+    ```
 
 - Install required packages:
 
     ```
-    apt update && apt install php7.2-common \
-                              php7.2-fpm \
-                              php7.2-mysql \
-                              php7.2-mbstring \
-                              php7.2-bcmath \
-                              php7.2-xml \
-                              php7.2-zip \
-                              zip \
-                              composer \
-                              mysql-server \
-                              nginx
-
+    sudo apt update
+    sudo apt install php7.2-common php7.2-fpm php7.2-mysql php7.2-mbstring php7.2-bcmath php7.2-xml php7.2-zip
+    sudo apt install zip composer mysql-server nginx
     ```
 
 - Create a Nginx site configuration:
 
-    `nano /etc/nginx/sites-available/lanager`
-    
+    ```
+    sudo nano /etc/nginx/sites-available/lanager
+    ```
+
     ```
     server {
             listen 80;
@@ -49,6 +42,7 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
     
             index index.html index.htm index.php;
     
+            # Change to your domain:
             server_name lanager.example.com;
     
             location / {
@@ -64,19 +58,27 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
     ```
 - Enable the site:
 
-    `ln -s /etc/nginx/sites-available/lanager /etc/nginx/sites-enabled/lanager`
+    ```
+    ln -s /etc/nginx/sites-available/lanager /etc/nginx/sites-enabled/lanager
+    ```
 
 - Disable the default site:
 
-    `rm /etc/nginx/sites-enabled/default`
+    ```
+    rm /etc/nginx/sites-enabled/default
+    ```
 
 - Reload Nginx:
 
-    `systemctl reload nginx`
+    ```
+    systemctl reload nginx
+    ```
     
 - Configure MySQL:
 
-    `mysql`
+    ```
+    mysql
+    ```
     
     ```
     CREATE DATABASE lanager;
@@ -88,7 +90,9 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 
 - Clone a copy of LANager:
 
-    `git clone -b laravel-upgrade https://github.com/zeropingheroes/lanager /var/www/lanager/` 
+    ```
+    git clone -b laravel-upgrade https://github.com/zeropingheroes/lanager /var/www/lanager/
+    ``` 
 
 - Grant permissions:
 
@@ -99,11 +103,15 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 
 - Install LANager's dependencies:
 
-    `composer install --working-dir=/var/www/lanager`
+    ```
+    composer install --working-dir=/var/www/lanager
+    ```
 
 - Configure LANager:
     
-    `cd /var/www/lanager/ && cp .env.example .env && nano .env`
+    ```
+    cd /var/www/lanager/ && cp .env.example .env && nano .env
+    ```
     
     - `APP_URL` - The full URL
     - `APP_TIMEZONE` - Your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
@@ -124,7 +132,9 @@ This unstable branch is where the work of upgrading to Laravel 5.6 is being done
 
 - Enable the scheduled commands:
 
-    - `crontab -e`
+    ```
+    crontab -e
+    ```
 
     ```
     * * * * * php /var/www/lanager/artisan schedule:run >> /dev/null 2>&1
@@ -173,9 +183,9 @@ Your development environment will now be available available at [lanager.localho
 
 * Found a bug? Got a great feature idea? Post it to the [issue tracker](https://github.com/zeropingheroes/lanager/issues)!
 * Want to contribute?
-	* [Fork the project](https://github.com/zeropingheroes/lanager/fork) and add the features you want to see
-	* Work on new features / bug fixes in the [issue tracker](https://github.com/zeropingheroes/lanager/issues)
-	* Or if you're really hardcore, request commit access
+    * [Fork the project](https://github.com/zeropingheroes/lanager/fork) and add the features you want to see
+    * Work on new features / bug fixes in the [issue tracker](https://github.com/zeropingheroes/lanager/issues)
+    * Or if you're really hardcore, request commit access
 
 If you want to support the project in a non-technical way, we'd love it if you donated to us:
 
