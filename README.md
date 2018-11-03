@@ -6,15 +6,7 @@ more enjoyable for attendees and organisers alike.
 
 ## Installation
 
-### Requirements
- - Ubuntu 18.04
- - PHP 7.1+
- - MySQL 5.7+
- - Nginx 1.14+
-
-### Steps
-
-- Enable the Ubuntu 18.04 universe repository:
+- On **Ubuntu Server 18.04**, enable the `universe` package repository:
 
     ```
     sudo add-apt-repository universe
