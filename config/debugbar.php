@@ -14,7 +14,7 @@ return [
      |
      */
 
-    'enabled' => false, //env('APP_DEBUG', false),
+    'enabled' => env('APP_DEBUG', false),
     'except' => [
         //
     ],
@@ -32,7 +32,7 @@ return [
      |
      */
     'storage' => [
-        'enabled'    => false,
+        'enabled'    => true,
         'driver'     => 'file', // redis, file, pdo, custom
         'path'       => storage_path('debugbar'), // For file driver
         'connection' => null,   // Leave null for default connection (Redis/PDO)
