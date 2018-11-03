@@ -12,6 +12,10 @@ class UserAchievement extends Model
         'lan_id',
     ];
 
+    protected $with = [
+        'lan',
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */

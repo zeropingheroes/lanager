@@ -13,6 +13,10 @@ class Guide extends Model
         'published'
     ];
 
+    protected $with = [
+        'lan',
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */

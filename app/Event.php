@@ -25,6 +25,11 @@ class Event extends Model
         'signups_close',
     ];
 
+    protected $with = [
+        'lan',
+        'type',
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
