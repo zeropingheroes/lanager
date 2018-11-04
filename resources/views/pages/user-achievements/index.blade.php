@@ -66,7 +66,7 @@
                 ])
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">@lang('title.submit')</button>
+                <button type="submit" class="btn btn-primary">@lang('title.award')</button>
             </div>
         </div>
         @include('components.form.close')

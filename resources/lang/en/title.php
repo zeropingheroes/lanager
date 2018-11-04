@@ -148,5 +148,6 @@ return [
     'achievements' => 'Achievements',
     'achievement' => 'Achievement',
     'award-an-achievement' => 'Award an Achievement',
+    'award' => 'Award',
 
 ];
