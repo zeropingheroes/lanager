@@ -20,9 +20,18 @@ more enjoyable for attendees and organisers alike.
 * **Guides** - written by you, to help attendees learn about, e.g. venue facilities, rules or gameplay guides
 * **Links** - to other websites, e.g. your organisation's website, or a game statistics page
 
+## Requirements
+
+* Server running Ubuntu Server 18.04 (_with shell access - basic web hosting is not supported_)
+* [Steam API Key](http://steamcommunity.com/dev/apikey)
+* Internet access
+
+While it's possible to run LANager on a server at your venue, only accessible internally, we recommend you cloud host, so outside of
+your events you can easily update the site and prepare for your next LAN, and your attendees can find out about it ahead of the event.
+
 ## Installation
 
-- On **Ubuntu Server 18.04**, enable the `universe` package repository:
+- Enable the `universe` package repository:
 
     ```
     sudo add-apt-repository universe
