@@ -165,8 +165,6 @@ your events you can easily update the site and prepare for your next LAN, and yo
     - `APP_ENV=production`
     - `LOG_CHANNEL=stack`
 
-The first user to sign in will be assigned the "Super Admin" role.
-    
 ## Troubleshooting
 
 - Enable debugging in your `.env` file
@@ -176,6 +174,67 @@ The first user to sign in will be assigned the "Super Admin" role.
 - If you don't see an error message, in your `.env` file:
     - set `LOG_CHANNEL=stack` 
     - check for errors in `/var/www/lanager/storage/logs/laravel.log`
+    
+## Getting Started
+
+### Become a Super Admin
+
+The first user to log in to LANager is assigned the "Super Admin" role, so ensure you log in once installation has completed.
+Super Admins can perform any action on the site, including assigning roles to other users. 
+
+### Create Your LAN Event
+
+Before you can start creating an event schedule, publishing any guides or awarding achievements, you'll need to create a LAN, which
+represents your whole event, whether it's a single-day or all week long.
+
+Once logged in, click ⚙ > LANs, and then click the + button to go to the LAN creation form. Enter your LAN's details, adding a 
+description with [markdown formatting](https://en.wikipedia.org/wiki/Markdown#Example) if desired.
+
+Anyone who signs into the LANager during the LAN you've created will be automatically added to the LAN's list of attendees, and taken
+to the LAN's page, showing the LAN's timetabled events, guides and attendees list.
+
+### Create Events & Guides
+
+With your LAN created, you can now create events that will be happening during the LAN, and any relevant guides to help attendees
+enjoy your party.
+
+From the LAN's page, click the + button next to the **Events** and **Guides** headings to go to their creation forms.
+
+#### Using Links
+
+You can use markdown formatted links in LANs, guides and events, to help attendees find relevant information. For example, you can
+write a single guide, and link to it on several event pages:
+
+    If you need any help, please contact one of our [tournament staff](/lans/4/guides/3) 
+
+It's recommended that you use relative links as above, so that if you change domain, the links continue to work.
+
+#### Using Images
+
+You can also upload images for displaying on these pages by clicking the "upload images" link below the "description" text box.
+Once uploaded, click ⚙ > **Copy Markdown** next to the image, and then paste into the guide, event or LAN's 
+**description** field.
+
+### Display the Live Dashboard
+
+To make it easy for your attendees to see at a glance which games are being played, events that are in progress, and any that are
+upcoming, on a computer connected to a TV or projector visit the dashboard page by clicking ⚙ > **Dashboard**, or if you aren't 
+logged in, simply visit:
+
+`http://(your LANager install's address)/dashboard`
+
+### Create and Award Achievements
+
+Click ⚙ > **Achievements** and then click the + button to create achievements that can then be awarded to users. 
+
+Once you've created one or more achievements, you can award them by clicking **Achievements** on the navigation bar, which will take
+you to the list of achievements awarded to attendees of the current LAN. At the bottom of the page, choose the achievement and the
+attendee to award it to, and click **Award**.
+
+### Customise the Navigation Bar
+
+Click ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager, or 3rd party
+sites, organise the links into dropdown menus, and choose the order that the links appear in the navbar or dropdown.
 
 ## Development
 
