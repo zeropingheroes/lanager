@@ -4,6 +4,22 @@ LANager
 LANager is a web application designed to make [LAN Parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
 
+## Features
+
+### Encourage Socialising & Participation
+
+* **Games being played** - by your LAN's attendees, updated every minute from Steam
+* **Events timetable** - so your attendees know what's on at the LAN
+* **Achievements** - created and awarded to attendees by you
+* **Attendee profiles** - with a link to their Steam profile, and their gameplay history at the LAN
+* **Games in common** - when viewing another attendee's profile
+* **Games recently played** - showing the top games most recently played by attendees at the LAN
+
+### Broadcast Useful Information 
+* **Live Dashboard** - showing games being played by attendees, current and upcoming events, for TVs/projectors around your venue 
+* **Guides** - written by you, to help attendees learn about, e.g. venue facilities, rules or gameplay guides
+* **Links** - to other websites, e.g. your organisation's website, or a game statistics page
+
 ## Installation
 
 - On **Ubuntu Server 18.04**, enable the `universe` package repository:
