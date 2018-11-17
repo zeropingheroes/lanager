@@ -31,23 +31,18 @@ your events you can easily update the site and prepare for your next LAN, and yo
 
 ## Installation
 
-- Enable the `universe` package repository:
+1. Install required packages:
 
-    ```
+    ```bash
     sudo add-apt-repository universe
-    ```
-
-- Install required packages:
-
-    ```
     sudo apt update
     sudo apt install php7.2-common php7.2-fpm php7.2-mysql php7.2-mbstring php7.2-bcmath php7.2-xml php7.2-zip
     sudo apt install zip composer mysql-server nginx
     ```
 
-- Create a Nginx site configuration:
+2. Create a Nginx site configuration:
 
-    ```
+    ```bash
     sudo nano /etc/nginx/sites-available/lanager
     ```
 
@@ -73,27 +68,18 @@ your events you can easily update the site and prepare for your next LAN, and yo
             }
     }
     ```
-- Enable the site:
 
-    ```
-    ln -s /etc/nginx/sites-available/lanager /etc/nginx/sites-enabled/lanager
-    ```
+3. Enable the site:
 
-- Disable the default site:
-
-    ```
+    ```bash
     rm /etc/nginx/sites-enabled/default
-    ```
-
-- Reload Nginx:
-
-    ```
+    ln -s /etc/nginx/sites-available/lanager /etc/nginx/sites-enabled/lanager
     systemctl reload nginx
     ```
-    
-- Configure MySQL:
 
-    ```
+4. Configure MySQL:
+
+    ```bash
     mysql
     ```
     
@@ -105,28 +91,28 @@ your events you can easily update the site and prepare for your next LAN, and yo
     QUIT;
     ```
 
-- Clone a copy of LANager:
+5. Clone a copy of LANager:
 
     ```
     git clone -b laravel-upgrade https://github.com/zeropingheroes/lanager /var/www/lanager/
     ``` 
 
-- Grant permissions:
+6. Grant permissions:
 
     ```
     chgrp www-data -R /var/www/lanager/
     chmod 777 -R /var/www/lanager/storage
     ```
 
-- Install LANager's dependencies:
+7. Install LANager's dependencies:
 
     ```
     composer install --working-dir=/var/www/lanager
     ```
 
-- Configure LANager:
+8. Configure LANager:
     
-    ```
+    ```bash
     cd /var/www/lanager/ && cp .env.example .env && nano .env
     ```
     
@@ -135,9 +121,9 @@ your events you can easily update the site and prepare for your next LAN, and yo
     - `STEAM_API_KEY` - Your [Steam API Key](http://steamcommunity.com/dev/apikey)
     - `DB_PASSWORD` - The password you chose for the `lanager` MySQL user above
 
-- Run first-time setup commands:
+9. Run first-time setup commands:
 
-    ```
+    ```bash
     php artisan key:generate
     php artisan migrate:fresh
     php artisan db:seed
@@ -145,11 +131,11 @@ your events you can easily update the site and prepare for your next LAN, and yo
     php artisan lanager:update-steam-apps
     ```
 
-- Visit the app URL to check that the installation was successful
+10. Visit the app URL to check that the installation was successful
 
-- Enable the scheduled commands:
+11. Enable the scheduled commands:
 
-    ```
+    ```bash
     crontab -e
     ```
 
@@ -157,13 +143,17 @@ your events you can easily update the site and prepare for your next LAN, and yo
     * * * * * php /var/www/lanager/artisan schedule:run >> /dev/null 2>&1
     ```
 
-- Disable debugging, set the site's environment to *production*, and enable MySQL logging:
+12. Disable debugging, set the site's environment to *production*, and enable MySQL logging:
 
-    `nano /var/www/lanager/.env`
+    ```bash
+    nano /var/www/lanager/.env
+    ```
 
-    - `APP_DEBUG=false`
-    - `APP_ENV=production`
-    - `LOG_CHANNEL=stack`
+    ```
+    APP_DEBUG=false
+    APP_ENV=production
+    LOG_CHANNEL=stack
+    ```
 
 ## Troubleshooting
 
@@ -235,6 +225,31 @@ attendee to award it to, and click **Award**.
 
 Click ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager, or 3rd party
 sites, organise the links into dropdown menus, and choose the order that the links appear in the navbar or dropdown.
+
+## Upgrading from v0.5.x
+
+1. Back up the database and site files
+
+    ```bash
+    mysqldump -u lanager --extended-insert=FALSE lanager > lanager-backup.sql
+    tar -zcvf ~/lanager-backup.tar.gz /var/www/lanager
+    ```
+
+2. Delete any local changes and get the latest version from GitHub
+
+    ```bash
+    cd /var/www/lanager
+    git checkout .
+    git pull
+    ```
+
+3. Remove Apache and PHP5
+
+    ```bash
+    sudo apt remove php5-common php5-cli php5-mcrypt php5-curl php5-mysql libapache2-mod-php5 apache2
+    ```
+
+4. Follow the normal [installation instructions](#installation), skipping steps 4 and 5
 
 ## Development
 
