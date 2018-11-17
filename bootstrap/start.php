@@ -24,11 +24,13 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
-
-    'local' => array('lanager.localhost'),
-
-));
+$env = $app->detectEnvironment(function () {
+    $fqdn = gethostbyaddr(gethostbyname(gethostname()));
+    if ($fqdn == 'lanager.localhost') {
+        return 'local';
+    }
+    return 'production';
+});
 
 /*
 |--------------------------------------------------------------------------
