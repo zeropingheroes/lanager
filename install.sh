@@ -10,7 +10,7 @@ printf "${GREEN}Installing dependencies with apt${BLACK}\n"
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
 apt update -y && apt upgrade -y
-apt install -y git php5-cli php5-common php5-mcrypt php5-curl php5-mysql libapache2-mod-php5 apache2 mysql-client-5.6 mysql-server-5.6
+apt install -y git php5-cli php5-common php5-mcrypt php5-curl php5-mysql libapache2-mod-php5 apache2 mysql-client-5.6 mysql-server-5.6 zip
 
 printf "${GREEN}Enabling PHP extensions${BLACK}\n"
 php5enmod mcrypt curl mysql
