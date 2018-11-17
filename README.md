@@ -74,7 +74,7 @@ your events you can easily update the site and prepare for your next LAN, and yo
     ```bash
     rm /etc/nginx/sites-enabled/default
     ln -s /etc/nginx/sites-available/lanager /etc/nginx/sites-enabled/lanager
-    systemctl reload nginx
+    nginx -s reload
     ```
 
 4. Configure MySQL:
@@ -226,12 +226,12 @@ attendee to award it to, and click **Award**.
 Click ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager, or 3rd party
 sites, organise the links into dropdown menus, and choose the order that the links appear in the navbar or dropdown.
 
-## Upgrading from v0.5.x
+## Upgrading from v0.5.x on Ubuntu 14.04
 
 1. Back up the database and site files
 
     ```bash
-    mysqldump -u lanager --extended-insert=FALSE lanager > lanager-backup.sql
+    mysqldump -u lanager -p --extended-insert=FALSE lanager > ~/lanager-backup.sql
     tar -zcvf ~/lanager-backup.tar.gz /var/www/lanager
     ```
 
@@ -248,8 +248,17 @@ sites, organise the links into dropdown menus, and choose the order that the lin
     ```bash
     sudo apt remove php5-common php5-cli php5-mcrypt php5-curl php5-mysql libapache2-mod-php5 apache2
     ```
+    
+4. Install NGINX and PHP7.2
 
-4. Follow the normal [installation instructions](#installation), skipping steps 4 and 5
+    ```bash
+    sudo add-apt-repository ppa:ondrej/php
+    sudo add-apt-repository ppa:ondrej/nginx-mainline
+    sudo apt update
+    sudo apt install php7.2-common php7.2-fpm php7.2-mysql php7.2-mbstring php7.2-bcmath php7.2-xml php7.2-zip zip nginx
+    ```
+
+4. Follow the normal [installation instructions](#installation), skipping steps 1, 4 and 5
 
 ## Development
 
