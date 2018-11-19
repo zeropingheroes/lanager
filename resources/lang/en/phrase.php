@@ -193,5 +193,18 @@ return [
     'are-you-sure' => 'Are you sure you want to continue?',
     'deleting-all-lanager-data' => 'Deleting all LANager data',
     'backup-restored-successfully' => 'Backup restored successfully',
+
+    // lanager:upgrade-database
+    'upgrade-database' => 'Upgrade the LANager database from v0.5.x, retaining existing data',
+    'manually-backup-before-continuing' => 'Manually backup your LANager database before continuing',
+    'database-structure-already-up-to-date' => 'Database structure is already up to date',
+    'database-structure-does-not-match-table-x-missing' => 'Database structure does not match v0.5.x - table :x missing',
+    'deleting-x' => 'Deleting :x',
+    'upgrading-x' => 'Upgrading :x',
+    'fixing-timestamp-columns' => 'Fixing timestamp columns',
+    'creating-new-tables' => 'Creating new tables',
+    'spoofing-initial-migration' => 'Spoofing initial migration',
+    'confirm-get-app-ownership-data' => 'Would you like to get each user\'s app ownership data? (~1 minute per 50 users)',
+    'successfully-upgraded-database' => 'Successfully upgraded database from v0.5.x to v1.0.x',
 ];
 

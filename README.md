@@ -258,7 +258,17 @@ sites, organise the links into dropdown menus, and choose the order that the lin
     sudo apt install php7.2-common php7.2-fpm php7.2-mysql php7.2-mbstring php7.2-bcmath php7.2-xml php7.2-zip zip nginx
     ```
 
-4. Follow the normal [installation instructions](#installation), skipping steps 1, 4 and 5
+4. Follow steps 2, 3, 6, 7 and 8 from the normal [installation instructions](#installation)
+
+5. Run the following commands
+
+    ```bash
+    php artisan key:generate
+    php artisan storage:link
+    php artisan lanager:upgrade-database
+    ```
+    
+6. Follow steps 10, 11 and 12 from the normal [installation instructions](#installation)
 
 ## Development
 
