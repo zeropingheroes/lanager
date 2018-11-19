@@ -214,7 +214,8 @@ class ReleaseV100 extends Migration
             $table->increments('id')
                 ->unsigned();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')
+                ->nullable();
             $table->dateTime('start');
             $table->dateTime('end');
             $table->boolean('published')
