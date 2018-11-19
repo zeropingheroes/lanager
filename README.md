@@ -249,20 +249,26 @@ sites, organise the links into dropdown menus, and choose the order that the lin
     sudo apt remove php5-common php5-cli php5-mcrypt php5-curl php5-mysql libapache2-mod-php5 apache2
     ```
     
-4. Install NGINX and PHP7.2
+4. Install NGINX, PHP7.2 and MySQL 5.7
 
     ```bash
+    cd ~
     sudo add-apt-repository ppa:ondrej/php
     sudo add-apt-repository ppa:ondrej/nginx-mainline
+    wget http://dev.mysql.com/get/mysql-apt-config_0.6.0-1_all.deb
+    sudo dpkg -i mysql-apt-config_0.6.0-1_all.deb
+    rm -f mysql-apt-config_0.6.0-1_all.deb
     sudo apt update
-    sudo apt install php7.2-common php7.2-fpm php7.2-mysql php7.2-mbstring php7.2-bcmath php7.2-xml php7.2-zip zip nginx
+    sudo apt install php7.2-common php7.2-fpm php7.2-mysql php7.2-mbstring php7.2-bcmath php7.2-xml php7.2-zip zip nginx mysql-server
+    mysql_upgrade -u root -p
     ```
 
-4. Follow steps 2, 3, 6, 7 and 8 from the normal [installation instructions](#installation)
+5. Follow steps 2, 3, 6, 7 and 8 from the normal [installation instructions](#installation)
 
-5. Run the following commands
+6. Run the following commands
 
     ```bash
+    cd /varr/www/lanager
     php artisan key:generate
     php artisan storage:link
     php artisan lanager:upgrade-database
