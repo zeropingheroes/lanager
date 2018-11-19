@@ -15,7 +15,8 @@ class UpdateSteamUserApps extends Command
      */
     public function __construct()
     {
-        $this->signature = 'lanager:update-steam-user-apps';
+        $this->signature = 'lanager:update-steam-user-apps
+                            {--all : ' . __('phrase.update-all-users') . '}';
         $this->description = __('phrase.update-existing-user-app-ownership');
 
         parent::__construct();
@@ -35,11 +36,13 @@ class UpdateSteamUserApps extends Command
             ->orderBy('start', 'desc')
             ->first();
 
-        if ($lan) {
+        // If there is a current LAN, and the "update all users" option is not set
+        if ($lan && ! $this->option('all')) {
             // Get the attendees for the LAN
             $users = $lan->users()->get();
+
+        // Otherwise, get all users
         } else {
-            // Or if there isn't a current LAN set, get all users
             $users = User::all();
         }
 
@@ -52,6 +55,7 @@ class UpdateSteamUserApps extends Command
 
         $this->info(__('phrase.requesting-app-ownership-data-for-x-users-from-steam', ['x' => $users->count()]));
 
+        // TODO: Add progress bar
         $service = new UpdateSteamUserAppsService($users);
         $service->update();
 

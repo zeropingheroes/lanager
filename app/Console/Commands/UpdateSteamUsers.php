@@ -17,7 +17,8 @@ class UpdateSteamUsers extends Command
      */
     public function __construct()
     {
-        $this->signature = 'lanager:update-steam-users';
+        $this->signature = 'lanager:update-steam-users
+                            {--all : ' . __('phrase.update-all-users') . '}';
         $this->description = __('phrase.update-existing-users-profiles-from-steam');
 
         parent::__construct();
@@ -36,7 +37,8 @@ class UpdateSteamUsers extends Command
             ->orderBy('start', 'desc')
             ->first();
 
-        if ($lan) {
+        // If there is a current LAN, and the "update all users" option is not set
+        if ($lan && ! $this->option('all')) {
             // Get the attendees for the LAN
             $attendees = $lan->users()->get()->pluck('id');
 
@@ -47,8 +49,9 @@ class UpdateSteamUsers extends Command
                 ->pluck('user_id');
 
             $users = $attendees->merge($staleUsers);
+
+        // Otherwise, get all users
         } else {
-            // Or if there isn't a current LAN set, get all users
             $users = User::all()->pluck('id');
         }
 
@@ -67,6 +70,7 @@ class UpdateSteamUsers extends Command
 
         $this->info(__('phrase.updating-profiles-and-online-status-for-x-users-from-steam', ['x' => count($steamIds)]));
 
+        // TODO: Add progress bar
         $service = new UpdateSteamUsersService($steamIds);
         $service->update();
 

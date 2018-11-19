@@ -162,13 +162,14 @@ return [
 
     // lanager:update-steam-users
     'update-existing-users-profiles-from-steam' => 'Update existing LANager users\' profiles with the latest information from their Steam profile',
+    'update-all-users' => 'Update all users, not just those at the current LAN',
     'no-steam-users-to-update' => 'No Steam users to update',
     'updating-profiles-and-online-status-for-x-users-from-steam' => 'Updating profiles and online status for :x users from Steam',
     'successfully-updated-profiles-and-online-status-for-x-of-y-users' => 'Successfully updated profiles and online status for :x of :y users',
 
     // lanager:update-steam-user-apps
     'update-existing-user-app-ownership' => 'Update existing LANager users\' app ownership data with the latest information from their Steam profile',
-    'requesting-app-ownership-data-for-x-users-from-steam' => 'Requesting app ownership data for :x users from Steam',
+    'requesting-app-ownership-data-for-x-users-from-steam' => 'Updating app ownership data for :x users from Steam',
     'successfully-updated-app-ownership-data-for-x-of-y-users' => 'Successfully updated app ownership data for :x of :y users',
 
     // lanager:prune-steam-user-history
