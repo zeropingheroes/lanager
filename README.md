@@ -286,12 +286,14 @@ sites, organise the links into dropdown menus, and choose the order that the lin
 
 ### Installation:
 
-1. `git clone -b laravel-upgrade https://github.com/zeropingheroes/lanager && cd lanager`
+1. `git clone https://github.com/zeropingheroes/lanager && cd lanager`
 2. `cp .env.example .env`
 3. `nano .env`
    1. `STEAM_API_KEY` - Enter your [Steam API Key](http://steamcommunity.com/dev/apikey)
+   2. `DB_USERNAME=homestead`
 4. `composer install`
-5. `vagrant up`
+5. `vagrant plugin install vagrant-vbguest vagrant-winnfsd`
+6. `vagrant up`
 
 Your development environment will now be available available at [lanager.localhost:8000](http://lanager.localhost:8000/)
 
