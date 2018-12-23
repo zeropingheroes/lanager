@@ -51,13 +51,43 @@ class MakeFeature extends Command
      */
     private function makePolicy($name)
     {
-        $this->call(
-            'make:policy',
-            [
-                'name' => $name . 'Policy',
-                '--model' => $name,
-                '--no-interaction' => true,
-            ]
-        );
+        $replacements = [
+            'ModelClassName' => studly_case($name),
+            'ModelClassNameCamelCase' => camel_case($name)
+        ];
+        $stubPath = __DIR__ . '/stubs/policy.stub';
+        $outputPath = app_path("Policies/{$name}Policy.php");
+
+        $this->makeClassFromStub($stubPath, $replacements, $outputPath);
+    }
+
+    /**
+     * @param $stubPath
+     * @param $replacements
+     * @param $outputPath
+     */
+    private function makeClassFromStub($stubPath, $replacements, $outputPath)
+    {
+        $classType = studly_case(basename($stubPath, '.stub'));
+
+        if (!file_exists($stubPath)) {
+            $this->error(__('phrase.item-not-found', ['item' => $classType . ' stub']));
+            return;
+        }
+
+        if (file_exists($outputPath)) {
+            $this->error(__('phrase.item-already-exists', ['item' => $classType]));
+            return;
+        }
+
+        $stub = file_get_contents($stubPath);
+
+        foreach ($replacements as $find => $replace) {
+            $stub = str_replace('{{' . $find . '}}', $replace, $stub);
+        }
+        if (file_put_contents($outputPath, $stub) !== false) {
+            $this->info(__('phrase.item-created-successfully', ['item' => $classType]) . '.');
+        }
+
     }
 }

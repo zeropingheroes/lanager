@@ -53,6 +53,9 @@ return [
     'oh-no' => 'Oh no!',
     'item-name-deleted' => ':Item ":name" deleted',
     'are-you-sure-delete' => 'Are you sure you want to delete this?',
+    'item-created-successfully' => ':Item created successfully',
+    'item-not-found' => ':item not found!',
+    'item-already-exists' => ':item already exists!',
 
     /**
      * Resources
