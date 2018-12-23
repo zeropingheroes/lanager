@@ -28,6 +28,7 @@ class MakeFeature extends Command
 
         $this->makeController($name);
         $this->makePolicy($name);
+        $this->makeStoreRequest($name);
     }
 
     /**
@@ -57,6 +58,20 @@ class MakeFeature extends Command
         ];
         $stubPath = __DIR__ . '/stubs/policy.stub';
         $outputPath = app_path("Policies/{$name}Policy.php");
+
+        $this->makeClassFromStub($stubPath, $replacements, $outputPath);
+    }
+
+    /**
+     * @param $name
+     */
+    private function makeStoreRequest($name)
+    {
+        $replacements = [
+            'ModelClassName' => studly_case($name),
+        ];
+        $stubPath = __DIR__ . '/stubs/request.stub';
+        $outputPath = app_path("Requests/Store{$name}Request.php");
 
         $this->makeClassFromStub($stubPath, $replacements, $outputPath);
     }
