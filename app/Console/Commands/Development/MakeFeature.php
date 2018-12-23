@@ -29,6 +29,7 @@ class MakeFeature extends Command
         $this->makeController($name);
         $this->makePolicy($name);
         $this->makeStoreRequest($name);
+        $this->makeViews($name);
     }
 
     /**
@@ -74,6 +75,31 @@ class MakeFeature extends Command
         $outputPath = app_path("Requests/Store{$name}Request.php");
 
         $this->makeFileFromStub($stubPath, $replacements, $outputPath);
+    }
+
+    /**
+     * @param $name
+     */
+    private function makeViews($name)
+    {
+        $viewStubs = ['create.stub', 'edit.stub', 'index.stub', 'show.stub', 'partials/form.stub', 'partials/list.stub'];
+
+        $replacements = [
+            'ModelClassName' => studly_case($name),
+            'ModelClassNameCamelCase' => camel_case($name),
+            'ModelClassNameKebabCase' => kebab_case($name),
+        ];
+
+        $viewPath = resource_path('views/pages/' . camel_case($name) . 's/');
+
+        foreach ($viewStubs as $viewStub) {
+            $outputPath = $viewPath . str_replace('.stub', '.blade.php', $viewStub);
+            if (!is_dir(dirname($outputPath))) {
+                mkdir(dirname($outputPath), 755, true);
+            }
+            $label = 'View "' . studly_case(basename($viewStub, '.stub')) . '"';
+            $this->makeFileFromStub(__DIR__ . '/stubs/views/' . $viewStub, $replacements, $outputPath, $label);
+        }
     }
 
     /**

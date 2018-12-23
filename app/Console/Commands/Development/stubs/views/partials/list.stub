@@ -1,0 +1,21 @@
+<table class="table table-striped">
+    <tbody>
+    @foreach(${{ModelClassNameCamelCase}}s as ${{ModelClassNameCamelCase}})
+        @can('view', ${{ModelClassNameCamelCase}})
+            <tr>
+                <td>
+                    <a href="{{ route('{{ModelClassNameKebabCase}}.show', ${{ModelClassNameCamelCase}}) }}">{{ ${{ModelClassNameCamelCase}}->title }}</a>
+                </td>
+                <td>
+                    {{ ${{ModelClassNameCamelCase}}->content }}</a>
+                </td>
+                <td>
+                    @lang('title.updated') @include('components.time-relative', ['datetime' => ${{ModelClassNameCamelCase}}->updated_at])
+                </td>
+                @canany(['update', 'delete'], ${{ModelClassNameCamelCase}})
+                @endcanany
+            </tr>
+        @endcan
+    @endforeach
+    </tbody>
+</table>

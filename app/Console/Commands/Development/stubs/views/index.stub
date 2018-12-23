@@ -1,0 +1,23 @@
+@extends('layouts.default')
+
+@section('title')
+    @lang('title.{{ModelClassNameKebabCase}}s')
+@endsection
+
+@section('content-header')
+    <div class="row align-items-center">
+        <div class="col">
+            <h1>@lang('title.{{ModelClassNameKebabCase}}s')</h1>
+        </div>
+        @can('create', \Zeropingheroes\Lanager\{{ModelClassName}}::class)
+            <div class="col-auto text-right">
+                <a href="{{ route( '{{ModelClassNameKebabCase}}s.create', $lan) }}" class="btn btn-primary" title="@lang('title.create')"><span class="oi oi-plus"></span></a>
+            </div>
+        @endcan
+    </div>
+    {{ Breadcrumbs::render('home') }}
+@endsection
+
+@section('content')
+    @include('pages.{{ModelClassNameCamelCase}}s.partials.list', ['{{ModelClassNameCamelCase}}s' => ${{ModelClassNameCamelCase}}s])
+@endsection

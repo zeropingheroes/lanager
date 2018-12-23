@@ -1,0 +1,16 @@
+@extends('layouts.default')
+
+@section('title')
+    @lang('title.edit-item', ['item' => __('title.{{ModelClassNameKebabCase}}')])
+@endsection
+
+@section('content-header')
+    <h1>@lang('title.edit-item', ['item' => __('title.{{ModelClassNameKebabCase}}')])</h1>
+    {{ Breadcrumbs::render('home') }}
+@endsection
+
+@section('content')
+    @include('components.form.edit', ['route' => route('{{ModelClassNameKebabCase}}s.update', ${{ModelClassNameCamelCase}}])])
+    @include('pages.{{ModelClassNameKebabCase}}s.partials.form')
+    @include('components.form.close')
+@endsection
