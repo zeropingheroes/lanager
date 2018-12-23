@@ -80,18 +80,19 @@ class MakeFeature extends Command
      * @param $stubPath
      * @param $replacements
      * @param $outputPath
+     * @param string $label
      */
-    private function makeFileFromStub($stubPath, $replacements, $outputPath)
+    private function makeFileFromStub($stubPath, $replacements, $outputPath, $label = null)
     {
-        $item = studly_case(basename($stubPath, '.stub'));
+        $label = $label ?? studly_case(basename($stubPath, '.stub'));
 
         if (!file_exists($stubPath)) {
-            $this->error(__('phrase.item-not-found', ['item' => $item . ' stub']));
+            $this->error(__('phrase.item-not-found', ['item' => $label . ' stub']));
             return;
         }
 
         if (file_exists($outputPath)) {
-            $this->error(__('phrase.item-already-exists', ['item' => $item]));
+            $this->error(__('phrase.item-already-exists', ['item' => $label]));
             return;
         }
 
@@ -101,7 +102,7 @@ class MakeFeature extends Command
             $stub = str_replace('{{' . $find . '}}', $replace, $stub);
         }
         if (file_put_contents($outputPath, $stub) !== false) {
-            $this->info(__('phrase.item-created-successfully', ['item' => $item]) . '.');
+            $this->info(__('phrase.item-created-successfully', ['item' => $label]) . '.');
         }
 
     }
