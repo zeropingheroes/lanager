@@ -206,5 +206,9 @@ return [
     'spoofing-initial-migration' => 'Spoofing initial migration',
     'confirm-get-app-ownership-data' => 'Would you like to get each user\'s app ownership data? (~1 minute per 50 users)',
     'successfully-upgraded-database' => 'Successfully upgraded database from v0.5.x to v1.0.x',
+
+    // make:feature
+    'create-classes-for-feature' => 'Create classes required for a new feature',
+    'name-of-feature' => 'The name of the feature',
 ];
 
