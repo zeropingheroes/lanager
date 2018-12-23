@@ -30,6 +30,7 @@ class MakeFeature extends Command
         $this->makePolicy($name);
         $this->makeStoreRequest($name);
         $this->makeViews($name);
+        $this->makeMigration($name);
     }
 
     /**
@@ -43,6 +44,22 @@ class MakeFeature extends Command
                 'name' => $name . 'Controller',
                 '--model' => $name,
                 '--resource' => true,
+                '--no-interaction' => true,
+            ]
+        );
+    }
+
+    /**
+     * @param $name
+     */
+    private function makeMigration($name)
+    {
+        $name = snake_case(str_plural($name, 2));
+        $this->call(
+            'make:migration',
+            [
+                'name' => $name . '_table_create',
+                '--table' => $name,
                 '--no-interaction' => true,
             ]
         );
