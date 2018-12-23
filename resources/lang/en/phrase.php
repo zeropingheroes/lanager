@@ -211,7 +211,7 @@ return [
     'successfully-upgraded-database' => 'Successfully upgraded database from v0.5.x to v1.0.x',
 
     // make:feature
-    'create-classes-for-feature' => 'Create classes required for a new feature',
+    'create-files-for-feature' => 'Create files required for a new feature',
     'name-of-feature' => 'The name of the feature',
 ];
 

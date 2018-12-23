@@ -12,7 +12,7 @@ class MakeFeature extends Command
     public function __construct()
     {
         $this->signature = 'make:feature {name : ' . __('phrase.name-of-feature') . '}';
-        $this->description = __('phrase.create-classes-for-feature');
+        $this->description = __('phrase.create-files-for-feature');
 
         parent::__construct();
     }
@@ -59,7 +59,7 @@ class MakeFeature extends Command
         $stubPath = __DIR__ . '/stubs/policy.stub';
         $outputPath = app_path("Policies/{$name}Policy.php");
 
-        $this->makeClassFromStub($stubPath, $replacements, $outputPath);
+        $this->makeFileFromStub($stubPath, $replacements, $outputPath);
     }
 
     /**
@@ -73,7 +73,7 @@ class MakeFeature extends Command
         $stubPath = __DIR__ . '/stubs/request.stub';
         $outputPath = app_path("Requests/Store{$name}Request.php");
 
-        $this->makeClassFromStub($stubPath, $replacements, $outputPath);
+        $this->makeFileFromStub($stubPath, $replacements, $outputPath);
     }
 
     /**
@@ -81,17 +81,17 @@ class MakeFeature extends Command
      * @param $replacements
      * @param $outputPath
      */
-    private function makeClassFromStub($stubPath, $replacements, $outputPath)
+    private function makeFileFromStub($stubPath, $replacements, $outputPath)
     {
-        $classType = studly_case(basename($stubPath, '.stub'));
+        $item = studly_case(basename($stubPath, '.stub'));
 
         if (!file_exists($stubPath)) {
-            $this->error(__('phrase.item-not-found', ['item' => $classType . ' stub']));
+            $this->error(__('phrase.item-not-found', ['item' => $item . ' stub']));
             return;
         }
 
         if (file_exists($outputPath)) {
-            $this->error(__('phrase.item-already-exists', ['item' => $classType]));
+            $this->error(__('phrase.item-already-exists', ['item' => $item]));
             return;
         }
 
@@ -101,7 +101,7 @@ class MakeFeature extends Command
             $stub = str_replace('{{' . $find . '}}', $replace, $stub);
         }
         if (file_put_contents($outputPath, $stub) !== false) {
-            $this->info(__('phrase.item-created-successfully', ['item' => $classType]) . '.');
+            $this->info(__('phrase.item-created-successfully', ['item' => $item]) . '.');
         }
 
     }
