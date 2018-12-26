@@ -43,6 +43,7 @@ class MakeFeature extends Command
             'table' => snake_case(str_plural($name, 2)),
         ];
 
+        $this->makeModel();
         $this->makeRoute();
         $this->makeController();
         $this->makePolicy();
@@ -147,5 +148,16 @@ class MakeFeature extends Command
         $outputPath = base_path('routes/breadcrumbs.php');
 
         $this->makeFileFromStub($stubPath, $outputPath, null, true);
+    }
+
+    private function makeModel()
+    {
+        $this->call(
+            'make:model',
+            [
+                'name' => $this->replacements['model'],
+                '--no-interaction' => true,
+            ]
+        );
     }
 }
