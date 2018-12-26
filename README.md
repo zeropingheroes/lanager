@@ -24,6 +24,7 @@ more enjoyable for attendees and organisers alike.
 
 * Server running Ubuntu Server 18.04 (_with shell access - basic web hosting is not supported_)
 * [Steam API Key](http://steamcommunity.com/dev/apikey)
+* [Google API Key](https://cloud.google.com/maps-platform/?apis=maps) enabled for the Maps Embed API
 * Internet access
 
 While it's possible to run LANager on a server at your venue, only accessible internally, we recommend you cloud host, so outside of
@@ -119,6 +120,7 @@ your events you can easily update the site and prepare for your next LAN, and yo
     - `APP_URL` - The full URL
     - `APP_TIMEZONE` - Your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
     - `STEAM_API_KEY` - Your [Steam API Key](http://steamcommunity.com/dev/apikey)
+    - `GOOGLE_API_KEY` - Your [Google API Key](https://console.cloud.google.com/apis/)
     - `DB_PASSWORD` - The password you chose for the `lanager` MySQL user above
 
 9. Run first-time setup commands:

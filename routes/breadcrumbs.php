@@ -202,3 +202,27 @@ Breadcrumbs::for('lans.user-achievements.index', function ($trail, $lan) {
     $trail->parent('lans.show', $lan);
     $trail->push(__('title.achievements'), route('lans.user-achievements.index', $lan));
 });
+
+// Home > Venue
+Breadcrumbs::for('venues.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.venues'), route('venues.index'));
+});
+
+// Home > Venue > [Venue]
+Breadcrumbs::for('venues.show', function ($trail, $venue) {
+    $trail->parent('venues.index');
+    $trail->push($venue->name, route('venues.show', $venue));
+});
+
+// Home > Venue > [Venue] > Edit
+Breadcrumbs::for('venues.edit', function ($trail, $venue) {
+    $trail->parent('venues.index');
+    $trail->push($venue->name, route('venues.edit', $venue));
+});
+
+// Home > Venue > Create
+Breadcrumbs::for('venues.create', function ($trail) {
+    $trail->parent('venues.index');
+    $trail->push(__('title.create'), route('venues.create'));
+});

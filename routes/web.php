@@ -111,3 +111,8 @@ Route::fallback(function () {
  * Images
  */
 Route::resource('images', 'ImageController', ['only' => ['index', 'store', 'edit', 'update', 'destroy']]);
+
+/**
+ * Venues
+ */
+Route::resource('venues', 'VenueController');

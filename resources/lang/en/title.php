@@ -150,4 +150,10 @@ return [
     'award-an-achievement' => 'Award an Achievement',
     'award' => 'Award',
 
+    // Venues
+    'venues' => 'Venues',
+    'venue' => 'Venue',
+    'street-address' => 'Street Address',
+    'map' => 'Map',
+
 ];
