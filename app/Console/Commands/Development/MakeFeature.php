@@ -48,6 +48,7 @@ class MakeFeature extends Command
         $this->makePolicy();
         $this->makeStoreRequest();
         $this->makeViews();
+        $this->makeBreadcrumbs();
         $this->makeMigration();
     }
 
@@ -136,6 +137,14 @@ class MakeFeature extends Command
     {
         $stubPath = __DIR__ . '/stubs/route.stub';
         $outputPath = base_path('routes/web.php');
+
+        $this->makeFileFromStub($stubPath, $outputPath, null, true);
+    }
+
+    private function makeBreadcrumbs()
+    {
+        $stubPath = __DIR__ . '/stubs/breadcrumbs.stub';
+        $outputPath = base_path('routes/breadcrumbs.php');
 
         $this->makeFileFromStub($stubPath, $outputPath, null, true);
     }
