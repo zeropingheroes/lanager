@@ -1,18 +1,18 @@
 <table class="table table-striped">
     <tbody>
-    @foreach(${{ModelClassNameCamelCase}}s as ${{ModelClassNameCamelCase}})
-        @can('view', ${{ModelClassNameCamelCase}})
+    @foreach(${{variables}} as ${{variable}})
+        @can('view', ${{variable}})
             <tr>
                 <td>
-                    <a href="{{ route('{{ModelClassNameKebabCase}}.show', ${{ModelClassNameCamelCase}}) }}">{{ ${{ModelClassNameCamelCase}}->title }}</a>
+                    <a href="{{ route('{{route}}.show', ${{variable}}) }}">{{ ${{variable}}->title }}</a>
                 </td>
                 <td>
-                    {{ ${{ModelClassNameCamelCase}}->content }}</a>
+                    {{ ${{variable}}->content }}</a>
                 </td>
                 <td>
-                    @lang('title.updated') @include('components.time-relative', ['datetime' => ${{ModelClassNameCamelCase}}->updated_at])
+                    @lang('title.updated') @include('components.time-relative', ['datetime' => ${{variable}}->updated_at])
                 </td>
-                @canany(['update', 'delete'], ${{ModelClassNameCamelCase}})
+                @canany(['update', 'delete'], ${{variable}})
                 @endcanany
             </tr>
         @endcan

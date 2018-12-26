@@ -3,18 +3,18 @@
 namespace Zeropingheroes\Lanager\Policies;
 
 use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\{{ModelClassName}};
+use Zeropingheroes\Lanager\{{model}};
 
-class {{ModelClassName}}Policy extends BasePolicy
+class {{model}}Policy extends BasePolicy
 {
     /**
      * Determine whether the user can view a given item.
      *
      * @param User $user
-     * @param {{ModelClassName}} ${{ModelClassNameCamelCase}}
+     * @param {{model}} ${{variable}}
      * @return mixed
      */
-    public function view(?User $user, {{ModelClassName}} ${{ModelClassNameCamelCase}})
+    public function view(?User $user, {{model}} ${{variable}})
     {
         if ($user && $user->hasRole('admin')) {
             return true;
@@ -36,10 +36,10 @@ class {{ModelClassName}}Policy extends BasePolicy
      * Determine whether the user can edit a given item.
      *
      * @param User $user
-     * @param {{ModelClassName}} ${{ModelClassNameCamelCase}}
+     * @param {{model}} ${{variable}}
      * @return mixed
      */
-    public function update(User $user, {{ModelClassName}} ${{ModelClassNameCamelCase}})
+    public function update(User $user, {{model}} ${{variable}})
     {
         return $user->hasRole('admin');
     }
@@ -48,10 +48,10 @@ class {{ModelClassName}}Policy extends BasePolicy
      * Determine whether the user can delete a given item.
      *
      * @param User $user
-     * @param {{ModelClassName}} ${{ModelClassNameCamelCase}}
+     * @param {{model}} ${{variable}}
      * @return mixed
      */
-    public function delete(User $user, {{ModelClassName}} ${{ModelClassNameCamelCase}})
+    public function delete(User $user, {{model}} ${{variable}})
     {
         return $user->hasRole('admin');
     }

@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-class {{ModelClassName}}Request extends Request
+class {{model}}Request extends Request
 {
     use LaravelValidation;
 

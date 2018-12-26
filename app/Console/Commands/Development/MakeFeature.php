@@ -6,6 +6,11 @@ use Illuminate\Console\Command;
 
 class MakeFeature extends Command
 {
+    /*
+     * Replacements to be made
+     */
+    private $replacements;
+
     /**
      * Set command signature and description
      */
@@ -15,6 +20,7 @@ class MakeFeature extends Command
         $this->description = __('phrase.create-files-for-feature');
 
         parent::__construct();
+
     }
 
     /**
@@ -24,7 +30,18 @@ class MakeFeature extends Command
      */
     public function handle()
     {
-        $name = $this->argument('name');
+        $name = studly_case(str_singular($this->argument('name')));
+
+        $this->replacements = [
+            'model' => $name,
+            'variable' => camel_case($name),
+            'variables' => camel_case(str_plural($name, 2)),
+            'route' => kebab_case(str_plural($name, 2)),
+            'view' => kebab_case(str_plural($name, 2)),
+            'lang' => kebab_case($name),
+            'langs' => kebab_case(str_plural($name, 2)),
+            'table' => snake_case(str_plural($name, 2)),
+        ];
 
         $this->makeController($name);
         $this->makePolicy($name);
@@ -33,82 +50,47 @@ class MakeFeature extends Command
         $this->makeMigration($name);
     }
 
-    /**
-     * @param $name
-     */
-    private function makeController($name)
+    private function makeController()
     {
-        $replacements = [
-            'ModelClassName' => studly_case($name),
-            'ModelClassNameCamelCase' => camel_case($name),
-            'ModelClassNameKebabCase' => kebab_case($name),
-            'ViewFolderName' => kebab_case(str_plural($name, 2)),
-        ];
         $stubPath = __DIR__ . '/stubs/controller.stub';
-        $outputPath = app_path("Http/Controllers/{$name}Controller.php");
+        $outputPath = app_path("Http/Controllers/{$this->replacements['model']}Controller.php");
 
-        $this->makeFileFromStub($stubPath, $replacements, $outputPath);
+        $this->makeFileFromStub($stubPath, $outputPath);
     }
 
-    /**
-     * @param $name
-     */
-    private function makeMigration($name)
+    private function makeMigration()
     {
-        $name = snake_case(str_plural($name, 2));
         $this->call(
             'make:migration',
             [
-                'name' => $name . '_table_create',
-                '--table' => $name,
+                'name' => $this->replacements['table'] . '_table_create',
+                '--table' => $this->replacements['table'],
                 '--no-interaction' => true,
             ]
         );
     }
 
-    /**
-     * @param $name
-     */
-    private function makePolicy($name)
+    private function makePolicy()
     {
-        $replacements = [
-            'ModelClassName' => studly_case($name),
-            'ModelClassNameCamelCase' => camel_case($name)
-        ];
         $stubPath = __DIR__ . '/stubs/policy.stub';
-        $outputPath = app_path("Policies/{$name}Policy.php");
+        $outputPath = app_path("Policies/{$this->replacements['model']}Policy.php");
 
-        $this->makeFileFromStub($stubPath, $replacements, $outputPath);
+        $this->makeFileFromStub($stubPath, $outputPath);
     }
 
-    /**
-     * @param $name
-     */
-    private function makeStoreRequest($name)
+    private function makeStoreRequest()
     {
-        $replacements = [
-            'ModelClassName' => studly_case($name),
-        ];
         $stubPath = __DIR__ . '/stubs/request.stub';
-        $outputPath = app_path("Requests/Store{$name}Request.php");
+        $outputPath = app_path("Requests/Store{$this->replacements['model']}Request.php");
 
-        $this->makeFileFromStub($stubPath, $replacements, $outputPath);
+        $this->makeFileFromStub($stubPath, $outputPath);
     }
 
-    /**
-     * @param $name
-     */
-    private function makeViews($name)
+    private function makeViews()
     {
         $viewStubs = ['create.stub', 'edit.stub', 'index.stub', 'show.stub', 'partials/form.stub', 'partials/list.stub'];
 
-        $replacements = [
-            'ModelClassName' => studly_case($name),
-            'ModelClassNameCamelCase' => camel_case($name),
-            'ModelClassNameKebabCase' => kebab_case($name),
-        ];
-
-        $viewPath = resource_path('views/pages/' . camel_case($name) . 's/');
+        $viewPath = resource_path("views/pages/{$this->replacements['view']}/");
 
         foreach ($viewStubs as $viewStub) {
             $outputPath = $viewPath . str_replace('.stub', '.blade.php', $viewStub);
@@ -116,17 +98,16 @@ class MakeFeature extends Command
                 mkdir(dirname($outputPath), 755, true);
             }
             $label = 'View "' . studly_case(basename($viewStub, '.stub')) . '"';
-            $this->makeFileFromStub(__DIR__ . '/stubs/views/' . $viewStub, $replacements, $outputPath, $label);
+            $this->makeFileFromStub(__DIR__ . '/stubs/views/' . $viewStub, $outputPath, $label);
         }
     }
 
     /**
      * @param $stubPath
-     * @param $replacements
      * @param $outputPath
      * @param string $label
      */
-    private function makeFileFromStub($stubPath, $replacements, $outputPath, $label = null)
+    private function makeFileFromStub($stubPath, $outputPath, $label = null)
     {
         $label = $label ?? studly_case(basename($stubPath, '.stub'));
 
@@ -142,12 +123,11 @@ class MakeFeature extends Command
 
         $stub = file_get_contents($stubPath);
 
-        foreach ($replacements as $find => $replace) {
+        foreach ($this->replacements as $find => $replace) {
             $stub = str_replace('{{' . $find . '}}', $replace, $stub);
         }
         if (file_put_contents($outputPath, $stub) !== false) {
             $this->info(__('phrase.item-created-successfully', ['item' => $label]) . '.');
         }
-
     }
 }

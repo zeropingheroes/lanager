@@ -212,6 +212,6 @@ return [
 
     // make:feature
     'create-files-for-feature' => 'Create files required for a new feature',
-    'name-of-feature' => 'The name of the feature',
+    'name-of-feature' => 'The name of the feature, in singular StudlyCase, e.g. Venue',
 ];
 

@@ -1,12 +1,12 @@
 <div class="form-group">
     <label for="title">@lang('title.title')</label>
     <input type="text" class="form-control" id="title" name="title" placeholder="@lang('title.title')"
-           value="{{ old('title', ${{ModelClassNameCamelCase}}->title) }}">
+           value="{{ old('title', ${{variable}}->title) }}">
 </div>
 <div class="form-group">
     <label for="content">@lang('title.content')</label>
     <textarea class="form-control" id="content" name="content" rows="10" placeholder="@lang('phrase.markdown-help')"
-              aria-describedby="contentHelp">{{ old('content', ${{ModelClassNameCamelCase}}->content) }}</textarea>
+              aria-describedby="contentHelp">{{ old('content', ${{variable}}->content) }}</textarea>
     <small id="contentHelp" class="form-text text-muted">
         <a href="@lang('phrase.markdown-formatting-help-link-url')" target="_blank">@lang('phrase.markdown-formatting-help-link')</a>
         <br>

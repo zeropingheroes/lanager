@@ -1,17 +1,17 @@
 @extends('layouts.default')
 
 @section('title')
-    @lang('title.{{ModelClassNameKebabCase}}s')
+    @lang('title.{{langs}}')
 @endsection
 
 @section('content-header')
     <div class="row align-items-center">
         <div class="col">
-            <h1>@lang('title.{{ModelClassNameKebabCase}}s')</h1>
+            <h1>@lang('title.{{langs}}')</h1>
         </div>
-        @can('create', \Zeropingheroes\Lanager\{{ModelClassName}}::class)
+        @can('create', \Zeropingheroes\Lanager\{{model}}::class)
             <div class="col-auto text-right">
-                <a href="{{ route( '{{ModelClassNameKebabCase}}s.create', $lan) }}" class="btn btn-primary" title="@lang('title.create')"><span class="oi oi-plus"></span></a>
+                <a href="{{ route( '{{route}}.create') }}" class="btn btn-primary" title="@lang('title.create')"><span class="oi oi-plus"></span></a>
             </div>
         @endcan
     </div>
@@ -19,5 +19,5 @@
 @endsection
 
 @section('content')
-    @include('pages.{{ModelClassNameCamelCase}}s.partials.list', ['{{ModelClassNameCamelCase}}s' => ${{ModelClassNameCamelCase}}s])
+    @include('pages.{{view}}.partials.list', ['{{variables}}' => ${{variables}}])
 @endsection

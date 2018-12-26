@@ -1,15 +1,15 @@
 @extends('layouts.default')
 
 @section('title')
-    {{ ${{ModelClassNameCamelCase}}->title }}
+    {{ ${{variable}}->title }}
 @endsection
 
 @section('content-header')
     <div class="row align-items-center">
         <div class="col-md-auto">
-            <h1>{{ ${{ModelClassNameCamelCase}}->title }}</h1>
+            <h1>{{ ${{variable}}->title }}</h1>
         </div>
-        @canany(['update', 'delete'], ${{ModelClassNameCamelCase}}}})
+        @canany(['update', 'delete'], ${{variable}})
         @endcanany
     </div>
 
@@ -17,5 +17,5 @@
 @endsection
 
 @section('content')
-    {!! Markdown::convertToHtml(${{ModelClassNameCamelCase}}->content) !!}
+    {!! Markdown::convertToHtml(${{variable}}->content) !!}
 @endsection
