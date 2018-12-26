@@ -43,11 +43,12 @@ class MakeFeature extends Command
             'table' => snake_case(str_plural($name, 2)),
         ];
 
-        $this->makeController($name);
-        $this->makePolicy($name);
-        $this->makeStoreRequest($name);
-        $this->makeViews($name);
-        $this->makeMigration($name);
+        $this->makeRoute();
+        $this->makeController();
+        $this->makePolicy();
+        $this->makeStoreRequest();
+        $this->makeViews();
+        $this->makeMigration();
     }
 
     private function makeController()
@@ -107,7 +108,7 @@ class MakeFeature extends Command
      * @param $outputPath
      * @param string $label
      */
-    private function makeFileFromStub($stubPath, $outputPath, $label = null)
+    private function makeFileFromStub($stubPath, $outputPath, $label = null, $append = false)
     {
         $label = $label ?? studly_case(basename($stubPath, '.stub'));
 
@@ -116,7 +117,7 @@ class MakeFeature extends Command
             return;
         }
 
-        if (file_exists($outputPath)) {
+        if (! $append && file_exists($outputPath)) {
             $this->error(__('phrase.item-already-exists', ['item' => $label]));
             return;
         }
@@ -126,8 +127,16 @@ class MakeFeature extends Command
         foreach ($this->replacements as $find => $replace) {
             $stub = str_replace('{{' . $find . '}}', $replace, $stub);
         }
-        if (file_put_contents($outputPath, $stub) !== false) {
+        if (file_put_contents($outputPath, $stub, FILE_APPEND) !== false) {
             $this->info(__('phrase.item-created-successfully', ['item' => $label]) . '.');
         }
+    }
+
+    private function makeRoute()
+    {
+        $stubPath = __DIR__ . '/stubs/route.stub';
+        $outputPath = base_path('routes/web.php');
+
+        $this->makeFileFromStub($stubPath, $outputPath, null, true);
     }
 }
