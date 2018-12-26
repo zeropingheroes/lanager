@@ -6,7 +6,7 @@
 
 @section('content-header')
     <h1>@lang('title.edit-item', ['item' => __('title.{{lang}}')])</h1>
-    {{ Breadcrumbs::render('home') }}
+    {{ Breadcrumbs::render('{{route}}.edit', ${{variable}}) }}
 @endsection
 
 @section('content')

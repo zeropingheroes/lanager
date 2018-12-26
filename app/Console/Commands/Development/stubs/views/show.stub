@@ -13,7 +13,7 @@
         @endcanany
     </div>
 
-    {{ Breadcrumbs::render('home') }}
+    {{ Breadcrumbs::render('{{route}}.show', ${{variable}}) }}
 @endsection
 
 @section('content')
