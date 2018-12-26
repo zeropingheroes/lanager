@@ -38,15 +38,16 @@ class MakeFeature extends Command
      */
     private function makeController($name)
     {
-        $this->call(
-            'make:controller',
-            [
-                'name' => $name . 'Controller',
-                '--model' => $name,
-                '--resource' => true,
-                '--no-interaction' => true,
-            ]
-        );
+        $replacements = [
+            'ModelClassName' => studly_case($name),
+            'ModelClassNameCamelCase' => camel_case($name),
+            'ModelClassNameKebabCase' => kebab_case($name),
+            'ViewFolderName' => kebab_case(str_plural($name, 2)),
+        ];
+        $stubPath = __DIR__ . '/stubs/controller.stub';
+        $outputPath = app_path("Http/Controllers/{$name}Controller.php");
+
+        $this->makeFileFromStub($stubPath, $replacements, $outputPath);
     }
 
     /**

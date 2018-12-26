@@ -1,0 +1,146 @@
+<?php
+
+namespace Zeropingheroes\Lanager\Http\Controllers;
+
+use Zeropingheroes\Lanager\{{ModelClassName}};
+use Zeropingheroes\Lanager\Requests\Store{{ModelClassName}}Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+
+class {{ModelClassName}}Controller extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        ${{ModelClassNameCamelCase}} = {{ModelClassName}}::all();
+        return View::make('pages.{{ViewFolderName}}.index')
+            ->with('{{ModelClassNameCamelCase}}', ${{ModelClassNameCamelCase}});
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $this->authorize('create', {{ModelClassName}}::class);
+
+        return View::make('pages.{{ViewFolderName}}.create')
+            ->with('{{ModelClassNameCamelCase}}', new {{ModelClassName}});
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $httpRequest
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $httpRequest)
+    {
+        $this->authorize('create', {{ModelClassName}}::class);
+
+        $input = [
+            'name' => $httpRequest->input('name'),
+            'description' => $httpRequest->input('description'),
+        ];
+
+        $request = new Store{{ModelClassName}}Request($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withError($request->errors())
+                ->withInput();
+        }
+
+        ${{ModelClassNameCamelCase}} = {{ModelClassName}}::create($input);
+
+        return redirect()
+            ->route('{{ViewFolderName}}.show', ${{ModelClassNameCamelCase}});
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \Zeropingheroes\Lanager\{{ModelClassName}} ${{ModelClassNameCamelCase}}
+     * @return \Illuminate\Http\Response
+     */
+    public function show({{ModelClassName}} ${{ModelClassNameCamelCase}})
+    {
+        $this->authorize('view', ${{ModelClassNameCamelCase}});
+
+        return View::make('pages.{{ViewFolderName}}.show')
+            ->with('{{ModelClassNameCamelCase}}', ${{ModelClassNameCamelCase}});
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \Zeropingheroes\Lanager\{{ModelClassName}} ${{ModelClassNameCamelCase}}
+     * @return \Illuminate\Http\Response
+     */
+    public function edit({{ModelClassName}} ${{ModelClassNameCamelCase}})
+    {
+        $this->authorize('update', ${{ModelClassNameCamelCase}});
+
+        return View::make('pages.{{ViewFolderName}}.edit')
+            ->with('{{ModelClassNameCamelCase}}', ${{ModelClassNameCamelCase}});
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $httpRequest
+     * @param  \Zeropingheroes\Lanager\{{ModelClassName}} ${{ModelClassNameCamelCase}}
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $httpRequest, {{ModelClassName}} ${{ModelClassNameCamelCase}})
+    {
+        $this->authorize('update', ${{ModelClassNameCamelCase}});
+
+        $input = [
+            'name' => $httpRequest->input('name'),
+            'description' => $httpRequest->input('description'),
+            'id' => ${{ModelClassNameCamelCase}}->id,
+        ];
+
+        $request = new Store{{ModelClassName}}Request($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withError($request->errors())
+                ->withInput();
+        }
+
+        ${{ModelClassNameCamelCase}}->update($input);
+
+        return redirect()
+            ->route('{{ViewFolderName}}.show', ${{ModelClassNameCamelCase}});
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Zeropingheroes\Lanager\{{ModelClassName}} ${{ModelClassNameCamelCase}}
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy({{ModelClassName}} ${{ModelClassNameCamelCase}})
+    {
+        $this->authorize('delete', ${{ModelClassNameCamelCase}});
+
+        {{ModelClassName}}::destroy(${{ModelClassNameCamelCase}}->id);
+
+        return redirect()
+            ->route('{{ViewFolderName}}.index')
+            ->withSuccess(__('phrase.item-name-deleted', [
+                'item' => __('title.{{ModelClassNameKebabCase}}'),
+                'name' => ${{ModelClassNameCamelCase}}->name
+            ]));
+    }
+}
