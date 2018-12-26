@@ -16,9 +16,7 @@ class {{model}}Policy extends BasePolicy
      */
     public function view(?User $user, {{model}} ${{variable}})
     {
-        if ($user && $user->hasRole('admin')) {
-            return true;
-        }
+        return true;
     }
 
     /**

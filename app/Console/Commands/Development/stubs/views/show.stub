@@ -1,19 +1,22 @@
 @extends('layouts.default')
 
 @section('title')
-    {{ ${{variable}}->title }}
+    {{ ${{variable}}->name }}
 @endsection
 
 @section('content-header')
     <div class="row align-items-center">
         <div class="col-md-auto">
-            <h1>{{ ${{variable}}->title }}</h1>
+            <h1>{{ ${{variable}}->name }}</h1>
         </div>
         @canany(['update', 'delete'], ${{variable}})
+            <div class="col text-right">
+                @include('pages.{{view}}.partials.actions-dropdown', ['{{variable}}' => ${{variable}}])
+            </div>
         @endcanany
     </div>
 
-    {{ Breadcrumbs::render('{{route}}.show', ${{variable}}) }}
+    {{ Breadcrumbs::render('{{route}}.edit', ${{variable}}) }}
 @endsection
 
 @section('content')

@@ -91,7 +91,7 @@ class MakeFeature extends Command
 
     private function makeViews()
     {
-        $viewStubs = ['create.stub', 'edit.stub', 'index.stub', 'show.stub', 'partials/form.stub', 'partials/list.stub'];
+        $viewStubs = ['create.stub', 'edit.stub', 'index.stub', 'show.stub', 'partials/actions-dropdown.stub', 'partials/form.stub', 'partials/list.stub'];
 
         $viewPath = resource_path("views/pages/{$this->replacements['view']}/");
 
