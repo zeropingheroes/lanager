@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Lan extends Model
 {
     protected $fillable = [
+        'venue_id',
         'name',
         'description',
         'start',
@@ -90,5 +91,13 @@ class Lan extends Model
     public function userAchievements()
     {
         return $this->hasMany('Zeropingheroes\Lanager\UserAchievement');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function venue()
+    {
+        return $this->belongsTo('Zeropingheroes\Lanager\Venue');
     }
 }

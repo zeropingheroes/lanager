@@ -11,4 +11,12 @@ class Venue extends Model
         'street_address',
         'description',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function lans()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\Lan');
+    }
 }

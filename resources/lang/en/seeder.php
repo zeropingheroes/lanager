@@ -18,6 +18,10 @@ return [
     'food-and-drink' => 'Food & Drink',
     'projector' => 'Projector',
 
+    // Venues
+    'example-venue' => 'Example Venue',
+    'example-venue-description' => 'Example description',
+
     // LANs
     'example-lan' => 'Example LAN',
 
