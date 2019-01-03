@@ -7,11 +7,8 @@
 @section('content-header')
     <div class="row align-items-center">
         <div class="col-md-auto">
-            <h1>
+            <h1 class="mb-0">
                 {{ $lan->name }}
-                <small class="text-muted">
-                    @include('pages.lans.partials.dates', ['lan' => $lan])
-                </small>
             </h1>
         </div>
         @canany(['update', 'delete'], $lan)
@@ -20,16 +17,9 @@
         </div>
         @endcanany
     </div>
-    <div class="row">
-        <div class="col">
-            <h4>
-                @include('pages.lans.partials.timespan', ['lan' => $lan])
-                <small class="text-muted">
-                    @include('pages.lans.partials.duration', ['lan' => $lan])
-                </small>
-            </h4>
-        </div>
-    </div>
+    @if( $lan->venue )
+        <h5><a href="{{ route('venues.show', $lan->venue) }}">{{ $lan->venue->name }}</a></h5>
+    @endif
     {{ Breadcrumbs::render('lans.show', $lan) }}
 @endsection
 
