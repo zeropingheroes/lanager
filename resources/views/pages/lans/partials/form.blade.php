@@ -63,6 +63,10 @@
     </div>
 </div>
 <div class="form-group">
+    <label for="venue_id">@lang('title.venue')</label>
+    @include('components.form.select', ['name' => 'venue_id', 'item' => $lan, 'items' => $venues, 'labelField' => 'name', 'blank' => true])
+</div>
+<div class="form-group">
     <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id="published" name="published"
                value="1" {{ old('published', $lan->published) ? 'checked' : null}}>

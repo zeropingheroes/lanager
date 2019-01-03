@@ -7,6 +7,7 @@ use Zeropingheroes\Lanager\Lan;
 use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Requests\StoreLanRequest;
 use Zeropingheroes\Lanager\Services\GetGamesPlayedBetweenService;
+use Zeropingheroes\Lanager\Venue;
 
 class LanController extends Controller
 {
@@ -40,6 +41,7 @@ class LanController extends Controller
         $this->authorize('create', Lan::class);
 
         return View::make('pages.lans.create')
+            ->with('venues', Venue::orderBy('name')->get())
             ->with('lan', new Lan);
     }
 
@@ -91,6 +93,7 @@ class LanController extends Controller
             'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
+            'venue_id' => $httpRequest->input('venue_id'),
             'published' => $httpRequest->has('published'),
         ];
 
@@ -119,6 +122,7 @@ class LanController extends Controller
         $this->authorize('update', $lan);
 
         return View::make('pages.lans.edit')
+            ->with('venues', Venue::orderBy('name')->get())
             ->with('lan', $lan);
     }
 
@@ -139,6 +143,7 @@ class LanController extends Controller
             'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
+            'venue_id' => $httpRequest->input('venue_id'),
             'published' => $httpRequest->has('published'),
             'id' => $lan->id,
         ];
