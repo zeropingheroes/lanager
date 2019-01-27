@@ -4,7 +4,6 @@
             <status v-bind:status="status()"></status>
         </td>
         <td class="event-name">{{ name }}</td>
-        <td class="event-type">{{ type.name }}</td>
         <td class="event-relative-time">
             <relative-time v-bind:status="status()"
                            v-bind:start="start"
@@ -17,7 +16,7 @@
 
 <script>
     export default {
-        props: ['name', 'type', 'start', 'end', 'now'],
+        props: ['name', 'start', 'end', 'now'],
         methods: {
             status() {
                 if (moment(this.start).isBefore(this.now) && moment(this.end).isAfter(this.now)) {
