@@ -30,7 +30,11 @@ body > nav.navbar {
 }
 
 body > .container {
-	padding-top: 60px;
+  padding-top: 60px;
+}
+
+body > .container-fullscreen {
+  padding-top: 0;
 }
 
 .footer {

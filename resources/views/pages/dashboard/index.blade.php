@@ -13,6 +13,13 @@
         });
     </script>
     <div id="app">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <h1><u><a href="{{ url('/') }}">{{ request()->getHost() }}</a></u></h1>
+                </div>
+            </div>
+        </div>
         <events></events>
         <active-games></active-games>
     </div>
