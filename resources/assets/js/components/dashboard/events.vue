@@ -20,7 +20,7 @@
     export default {
         data() {
             return {
-                time: new moment().format("h:mma"),
+                time: new moment().format("HH:mm"),
                 now: new moment(),
                 events: []
             };
@@ -34,7 +34,7 @@
         },
         methods: {
             update() {
-                this.$data.time = new moment().format("h:mma");
+                this.$data.time = new moment().format("HH:mm");
                 this.$data.now = new moment();
                 axios.get('events?after=' + this.$data.now.format() + '&limit=5')
                     .then((response) => {
