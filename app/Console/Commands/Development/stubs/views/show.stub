@@ -16,7 +16,7 @@
         @endcanany
     </div>
 
-    {{ Breadcrumbs::render('{{route}}.edit', ${{variable}}) }}
+    {{ Breadcrumbs::render('{{route}}.show', ${{variable}}) }}
 @endsection
 
 @section('content')
