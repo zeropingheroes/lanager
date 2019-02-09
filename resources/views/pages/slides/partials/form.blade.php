@@ -21,6 +21,11 @@
            value="{{ old('position', $slide->position) }}">
 </div>
 <div class="form-group">
+    <label for="duration">@lang('title.duration')</label>
+    <input type="text" class="form-control" id="duration" name="duration" placeholder="@lang('title.duration')"
+           value="{{ old('duration', $slide->duration) }}">
+</div>
+<div class="form-group">
     <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id="published" name="published"
                value="1" {{ old('published', $slide->published) ? 'checked' : null}}>

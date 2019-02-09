@@ -60,6 +60,7 @@ class SlideController extends Controller
             'name' => $httpRequest->input('name'),
             'content' => $httpRequest->input('content'),
             'position' => $httpRequest->input('position'),
+            'duration' => $httpRequest->input('duration'),
             'published' => $httpRequest->has('published'),
         ];
 
@@ -137,6 +138,7 @@ class SlideController extends Controller
             'name' => $httpRequest->input('name'),
             'content' => $httpRequest->input('content'),
             'position' => $httpRequest->input('position'),
+            'duration' => $httpRequest->input('duration'),
             'published' => $httpRequest->has('published'),
         ];
 

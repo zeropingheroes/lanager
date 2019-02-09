@@ -159,5 +159,5 @@ return [
     // Slides
     'slides' => 'Slides',
     'slide' => 'Slide',
-
+    'duration' => 'Duration',
 ];

@@ -18,6 +18,7 @@ class StoreSlideRequest extends Request
             'name'               => ['required', 'max:255'],
             'content'            => ['required'],
             'position'           => ['integer'],
+            'duration'           => ['integer'],
             'published'          => ['boolean'],
         ];
 

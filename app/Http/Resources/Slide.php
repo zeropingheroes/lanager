@@ -19,6 +19,7 @@ class Slide extends JsonResource
             'name' => $this->name,
             'content' => $this->content,
             'position' => $this->position,
+            'duration' => $this->duration,
             'lan' => new Lan($this->whenLoaded('lan')),
             'links' => [
                 'self' => route('api.slides.show', $this->id),

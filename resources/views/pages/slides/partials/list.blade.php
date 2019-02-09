@@ -4,6 +4,7 @@
         <th>@lang('title.name')</th>
         <th>@lang('title.content')</th>
         <th>@lang('title.position')</th>
+        <th>@lang('title.duration')</th>
         <th>@lang('title.updated')</th>
         <th>@lang('title.actions')</th>
     </tr>
@@ -25,6 +26,9 @@
                     </td>
                     <td>
                         {{ $slide->position }}
+                    </td>
+                    <td>
+                        {{ \Carbon\CarbonInterval::seconds($slide->duration)->cascade()->forHumans() }}
                     </td>
                     <td>
                         @lang('title.updated') @include('components.time-relative', ['datetime' => $slide->updated_at])

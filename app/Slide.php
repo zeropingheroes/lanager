@@ -11,6 +11,7 @@ class Slide extends Model
         'name',
         'content',
         'position',
+        'duration',
         'published',
     ];
 

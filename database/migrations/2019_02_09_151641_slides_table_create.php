@@ -21,6 +21,7 @@ class SlidesTableCreate extends Migration
                 ->unique();
             $table->text('content');
             $table->tinyInteger('position');
+            $table->smallInteger('duration');
             $table->boolean('published')
                 ->default(false);
             $table->timestamps();
