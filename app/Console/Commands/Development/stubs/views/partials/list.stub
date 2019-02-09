@@ -13,6 +13,9 @@
                     @lang('title.updated') @include('components.time-relative', ['datetime' => ${{variable}}->updated_at])
                 </td>
                 @canany(['update', 'delete'], ${{variable}})
+                    <td class="text-right pr-0">
+                        @include('pages.{{route}}.partials.actions-dropdown', ['{{variable}}' => ${{variable}}])
+                    </td>
                 @endcanany
             </tr>
         @endcan
