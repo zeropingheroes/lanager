@@ -156,4 +156,8 @@ return [
     'street-address' => 'Street Address',
     'map' => 'Map',
 
+    // Slides
+    'slides' => 'Slides',
+    'slide' => 'Slide',
+
 ];

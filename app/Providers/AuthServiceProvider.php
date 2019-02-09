@@ -9,7 +9,9 @@ use Zeropingheroes\Lanager\Policies\AchievementPolicy;
 use Zeropingheroes\Lanager\EventSignup;
 use Zeropingheroes\Lanager\Policies\EventSignupPolicy;
 use Zeropingheroes\Lanager\Policies\ImagePolicy;
+use Zeropingheroes\Lanager\Policies\SlidePolicy;
 use Zeropingheroes\Lanager\Policies\VenuePolicy;
+use Zeropingheroes\Lanager\Slide;
 use Zeropingheroes\Lanager\UserAchievement;
 use Zeropingheroes\Lanager\Policies\UserAchievementPolicy;
 use Zeropingheroes\Lanager\RoleAssignment;
@@ -52,6 +54,7 @@ class AuthServiceProvider extends ServiceProvider
         Achievement::class      => AchievementPolicy::class,
         UserAchievement::class  => UserAchievementPolicy::class,
         Venue::class            => VenuePolicy::class,
+        Slide::class            => SlidePolicy::class,
     ];
 
     /**

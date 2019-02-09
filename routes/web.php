@@ -116,3 +116,8 @@ Route::resource('images', 'ImageController', ['only' => ['index', 'store', 'edit
  * Venues
  */
 Route::resource('venues', 'VenueController');
+
+/**
+ * Slides
+ */
+Route::resource('lans.slides', 'SlideController');

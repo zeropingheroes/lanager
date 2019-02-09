@@ -213,5 +213,9 @@ return [
     // make:feature
     'create-files-for-feature' => 'Create files required for a new feature',
     'name-of-feature' => 'The name of the feature, in singular StudlyCase, e.g. Venue',
+
+    // Slides
+    'slides-content-placeholder' => 'Markdown-formatted text, a single image, or a URL to embed',
+    'slides-content-help' => 'Content will be horizontally centered, increased in size, and scaled to fit the screen'
 ];
 

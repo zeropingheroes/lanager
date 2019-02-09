@@ -97,4 +97,20 @@
         @include('pages.users.partials.list', ['users' => $lan->users])
     @endif
 
+    @can('create', \Zeropingheroes\Lanager\Slide::class)
+        <div class="row">
+            <div class="col-auto">
+                <h5>@lang('title.slides')</h5>
+            </div>
+                <div class="col text-right">
+                    <a href="{{ route( 'lans.slides.create', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.create')">
+                        <span class="oi oi-plus"></span>
+                    </a>
+                </div>
+        </div>
+        @if(! $lan->guides->isEmpty())
+            @include('pages.slides.partials.list', ['slides' => $lan->slides])
+        @endif
+    @endcan
+
 @endsection

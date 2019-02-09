@@ -100,4 +100,12 @@ class Lan extends Model
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Venue');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function slides()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\Slide');
+    }
 }
