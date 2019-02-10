@@ -103,10 +103,6 @@ Route::get('/dashboard', function () {
     return view('pages.dashboard.index');
 })->name('dashboard');
 
-Route::fallback(function () {
-    return view('errors.404');
-})->name('fallback');
-
 /**
  * Images
  */
@@ -121,3 +117,7 @@ Route::resource('venues', 'VenueController');
  * Slides
  */
 Route::resource('lans.slides', 'SlideController');
+
+Route::fallback(function () {
+    return view('errors.404');
+})->name('fallback');
