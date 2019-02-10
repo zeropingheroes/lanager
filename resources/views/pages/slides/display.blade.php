@@ -14,10 +14,8 @@
     </script>
     <div id="app">
         <div class="container-fluid container-no-scroll">
-            <div class="row">
-                <div class="col text-center">
-                    <h1><a href="{{ url('/') }}">{{ request()->getHost() }}</a></h1>
-                </div>
+           <div class="text-center">
+                <h1><a href="{{ url('/') }}">{{ request()->getHost() }}</a></h1>
             </div>
             <slides></slides>
         </div>
