@@ -1,4 +1,4 @@
 @include('layouts.partials.header')
-<main class="container container-fullscreen">
+<main class="container-fluid container-fullscreen">
     @yield('content')
 </main>
