@@ -39,6 +39,12 @@ body > .container-fullscreen {
 main.container {
   margin-bottom: 60px; /* ensure footer does not cover bottom of page */
 }
+
+div.container-no-scroll {
+  height: 100vh;
+  overflow: hidden;
+}
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -223,4 +229,16 @@ table.dashboard-table td.game-user-list {
 
 table.dashboard-table td.game-logo { /* easy to read user count */
   width: 184px;
+}
+
+/**
+ * slides.display
+ */
+div.slide-content {
+  text-align: center !important;
+  font-size: 250%;
+}
+div.slide-content img { /* make images fit the full width of the screen */
+  max-width: 100%;
+  height: auto;
 }

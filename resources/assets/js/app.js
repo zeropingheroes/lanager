@@ -39,3 +39,6 @@ Vue.component('active-game', require('./components/dashboard/active-game.vue'));
 Vue.component('user-avatar', require('./components/dashboard/user-avatar.vue'));
 
 Vue.component('schedule', require('./components/events/schedule.vue'));
+
+Vue.component('slides', require('./components/slides/slides.vue'));
+Vue.component('vue-markdown', require('vue-markdown').default);

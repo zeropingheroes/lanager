@@ -29,5 +29,8 @@
         "tempusdominus-bootstrap-4": "^5.0.0-alpha18",
         "vue": "^2.5.7",
         "vue-full-calendar": "^2.5.4"
+    },
+    "dependencies": {
+        "vue-markdown": "^2.2.4"
     }
 }
