@@ -15,7 +15,6 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
   background-image: url('../img/bg.jpg');
 }
 
@@ -37,6 +36,9 @@ body > .container-fullscreen {
   padding-top: 0;
 }
 
+main.container {
+  margin-bottom: 60px; /* ensure footer does not cover bottom of page */
+}
 .footer {
   position: fixed;
   bottom: 0;
