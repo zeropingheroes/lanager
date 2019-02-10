@@ -234,11 +234,22 @@ table.dashboard-table td.game-logo { /* easy to read user count */
 /**
  * slides.display
  */
+div.container-slides {
+  font-size: 400%;
+}
+div.slide-wrap {
+  height: 90%;
+  display: flex; /* allow vertically centering content without overflow */
+}
 div.slide-content {
   text-align: center !important;
-  font-size: 250%;
+  margin: auto; /* vertically center content without overflow */
 }
+
+div.container-slides h1 {
+  font-size: 160% !important;
+}
+
 div.slide-content img { /* make images fit the full width of the screen */
   max-width: 100%;
-  height: auto;
 }

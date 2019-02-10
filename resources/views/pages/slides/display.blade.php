@@ -13,7 +13,7 @@
         });
     </script>
     <div id="app">
-        <div class="container-fluid container-no-scroll">
+        <div class="container-fluid container-no-scroll container-slides">
            <div class="text-center">
                 <h1><a href="{{ url('/') }}">{{ request()->getHost() }}</a></h1>
             </div>

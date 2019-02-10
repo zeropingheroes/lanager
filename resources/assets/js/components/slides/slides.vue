@@ -1,6 +1,8 @@
 <template>
-    <div class="slide-content">
-        <vue-markdown :source="currentSlide.content"></vue-markdown>
+    <div class="slide-wrap">
+        <div class="slide-content">
+            <vue-markdown :source="currentSlide.content"></vue-markdown>
+        </div>
     </div>
 </template>
 
