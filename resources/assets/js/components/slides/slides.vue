@@ -19,24 +19,31 @@
             self.update();
             setInterval(function () {
                 self.update()
-            }, 60000);
-            var index = 0;
-            setInterval(function () {
-                index = (index + 1) % self.$data.slides.length;
-                self.$data.currentSlide = self.$data.slides[index];
-            }, 15000);
+            }, 30000);
         },
         methods: {
             update() {
+                console.log('Getting slides')
                 axios.get('slides')
                     .then((response) => {
                         this.$data.slides = response.data.data;
-                        if ( ! this.$data.currentSlide.length ) {
-                            this.$data.currentSlide = this.$data.slides[0];
+
+                        // If there isn't already a current slide, display the first one
+                        if ( this.$data.currentSlide.length === 0 ) {
+                            console.log('No current slide set - displaying first slide');
+                            this.displaySlide(0);
                         }
                     }, (error) => {
                         console.log('Error getting slides')
                     })
+            },
+            displaySlide(index) {
+                this.$data.currentSlide = this.$data.slides[index];
+                console.log('Displaying slide "' + this.$data.currentSlide.name + '" for ' + this.$data.currentSlide.duration + ' seconds')
+
+                index = (index + 1) % this.$data.slides.length;
+                self = this;
+                setTimeout(function () {self.displaySlide(index)}, (self.$data.currentSlide.duration * 1000));
             }
         }
     }
