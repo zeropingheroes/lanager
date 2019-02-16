@@ -13,10 +13,20 @@
         },
         mounted: function () {
             this.$el.addEventListener('click', this.enterFullScreen)
-            document.addEventListener('webkitfullscreenchange', this.showFullScreenButtonOnExit, false);
-            document.addEventListener('mozfullscreenchange', this.showFullScreenButtonOnExit, false);
-            document.addEventListener('fullscreenchange', this.showFullScreenButtonOnExit, false);
-            document.addEventListener('MSFullscreenChange', this.showFullScreenButtonOnExit, false);
+            document.addEventListener('webkitfullscreenchange', this.showFullScreenButtonOnExit);
+            document.addEventListener('mozfullscreenchange', this.showFullScreenButtonOnExit);
+            document.addEventListener('fullscreenchange', this.showFullScreenButtonOnExit);
+            document.addEventListener('MSFullscreenChange', this.showFullScreenButtonOnExit);
+
+            // Hide fullscreen button when fullscreen triggered by keyboard shortcut / menu click
+            var self = this;
+            window.addEventListener('resize', function () {
+                if(window.innerHeight == screen.height) {
+                    self.$data.fullscreen = true;
+                } else {
+                    self.$data.fullscreen = false;
+                }
+            });
         },
         beforeDestroy: function () {
             this.$el.removeEventListener('click', this.enterFullScreen)
