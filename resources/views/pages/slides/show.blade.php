@@ -1,33 +1,30 @@
-@extends('layouts.default')
+@extends('layouts.fullscreen')
 
 @section('title')
     {{ $slide->name }}
 @endsection
 
-@section('content-header')
-    <div class="row align-items-center">
-        <div class="col-md-auto">
-            <h1>{{ $slide->name }}</h1>
-        </div>
-        @canany(['update', 'delete'], $slide)
-            <div class="col text-right">
-                @include('pages.slides.partials.actions-dropdown', ['slide' => $slide])
-            </div>
-        @endcanany
-    </div>
-
-    {{ Breadcrumbs::render('lans.slides.show', $lan, $slide) }}
-@endsection
-
-@section('content-alerts')
-    @parent
-    @canany(['update', 'delete'], $slide)
-    @if(!$slide->published)
-        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.item-unpublished', ['item' => strtolower(__('title.slide'))])])
-    @endif
-    @endcanany
-@endsection
-
 @section('content')
-    {!! Markdown::convertToHtml($slide->content) !!}
+    <script>
+        window.addEventListener('load', function() {
+            const app = new Vue({
+                el: '#app'
+            });
+        });
+    </script>
+    <div class="container-center-flex">
+        <div id="app" class="container-slides-1080">
+            <div class="slide-header">
+                <h1><a href="{{ url('/') }}">{{ request()->getHost() }}</a></h1>
+            </div>
+            <div class="slide-content-container">
+                @if($slide)
+                    <vue-markdown class="slide-content">{{ $slide->content }}</vue-markdown>
+                @else
+                    <slides></slides>
+                @endif
+            </div>
+            <fullscreen-button></fullscreen-button>
+        </div>
+    </div>
 @endsection
