@@ -118,7 +118,7 @@ Route::resource('venues', 'VenueController');
  */
 Route::resource('lans.slides', 'SlideController');
 Route::get('/slides', function () {
-    return view('pages.slides.display');
+    return view('pages.slides.show');
 })->name('slides');
 
 Route::fallback(function () {
