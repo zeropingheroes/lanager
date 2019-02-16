@@ -1,7 +1,11 @@
 @extends('layouts.fullscreen')
 
 @section('title')
-    {{ $slide->name }}
+    @isset($slide)
+        {{ $slide->name }}
+    @else
+        @lang('title.slides')
+    @endif
 @endsection
 
 @section('content')
@@ -18,7 +22,7 @@
                 <h1><a href="{{ url('/') }}">{{ request()->getHost() }}</a></h1>
             </div>
             <div class="slide-content-container">
-                @if($slide)
+                @isset($slide)
                     <vue-markdown class="slide-content">{{ $slide->content }}</vue-markdown>
                 @else
                     <slides></slides>
