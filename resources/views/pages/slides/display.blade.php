@@ -20,6 +20,7 @@
             <div class="slide-content-container">
                 <slides></slides>
             </div>
+            <fullscreen-button></fullscreen-button>
         </div>
     </div>
 @endsection

@@ -42,3 +42,4 @@ Vue.component('schedule', require('./components/events/schedule.vue'));
 
 Vue.component('slides', require('./components/slides/slides.vue'));
 Vue.component('vue-markdown', require('vue-markdown').default);
+Vue.component('fullscreen-button', require('./components/fullscreen-button.vue'));
