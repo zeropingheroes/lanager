@@ -1,5 +1,6 @@
 <template>
-    <vue-markdown :source="currentSlide.content" class="slide-content"></vue-markdown>
+    <img v-if="currentSlide.type === 'image'" :src="currentSlide.content" class="image-only">
+    <vue-markdown v-else :source="currentSlide.content" class="slide-content"></vue-markdown>
 </template>
 
 <script>
@@ -34,7 +35,11 @@
                     })
             },
             displaySlide(index) {
+                const isImageUrl = require('is-image-url');
                 this.$data.currentSlide = this.$data.slides[index];
+                if(isImageUrl(this.$data.currentSlide.content)) {
+                    this.$data.currentSlide.type = 'image';
+                }
                 console.log('Displaying slide "' + this.$data.currentSlide.name + '" for ' + this.$data.currentSlide.duration + ' seconds')
 
                 index = (index + 1) % this.$data.slides.length;

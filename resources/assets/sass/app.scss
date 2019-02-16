@@ -277,3 +277,8 @@ div#fullscreen-button {
   bottom: 15px;
   right: 15px;
 }
+img.image-only {
+  width: 1920px;
+  height: 960px;
+  object-fit: contain;
+}
