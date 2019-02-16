@@ -12,12 +12,14 @@
             });
         });
     </script>
-    <div id="app">
-        <div class="container-fluid container-no-scroll container-slides">
-           <div class="text-center">
+    <div class="container-center-flex">
+        <div id="app" class="container-slides-1080">
+           <div class="slide-header">
                 <h1><a href="{{ url('/') }}">{{ request()->getHost() }}</a></h1>
             </div>
-            <slides></slides>
+            <div class="slide-content-container">
+                <slides></slides>
+            </div>
         </div>
     </div>
 @endsection

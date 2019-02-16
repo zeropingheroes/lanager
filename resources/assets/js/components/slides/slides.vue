@@ -1,9 +1,5 @@
 <template>
-    <div class="slide-wrap">
-        <div class="slide-content">
-            <vue-markdown :source="currentSlide.content"></vue-markdown>
-        </div>
-    </div>
+    <vue-markdown :source="currentSlide.content" class="slide-content"></vue-markdown>
 </template>
 
 <script>
