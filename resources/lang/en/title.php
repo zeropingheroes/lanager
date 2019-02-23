@@ -36,6 +36,7 @@ return [
     'type' => 'Type',
     'description' => 'Description',
     'copy-markdown-link' => 'Copy Markdown Link',
+    'fullscreen' => 'Fullscreen',
 
     // CRUD
     'create-item' => 'Create :Item',
