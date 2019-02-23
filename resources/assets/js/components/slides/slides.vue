@@ -1,6 +1,6 @@
 <template>
     <img v-if="currentSlide.type === 'image'" :src="currentSlide.content" class="image-only">
-    <iframe v-else-if="currentSlide.type === 'url'" :src="currentSlide.content" class="url-only" seamless></iframe>
+    <iframe v-else-if="currentSlide.type === 'url'" :src="currentSlide.content" class="url-only" scrolling="no" seamless></iframe>
     <vue-markdown v-else :source="currentSlide.content" class="slide-content"></vue-markdown>
 </template>
 
