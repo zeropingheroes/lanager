@@ -26,12 +26,14 @@ return [
 
     // Account Authentication
     'profile-update-required' => 'Please update your profile to continue',
-    'please-sign-in' => 'Please sign in through Steam',
+    'please-sign-in' => 'Please sign in',
     'no-steam-account' => 'Don\'t have a Steam account? No problem!',
     'create-steam-account' => 'Create a Steam account for free',
     'provider-not-supported' => 'Unsupported authentication provider ":provider"',
     'user-successfully-logged-in' => 'User :username successfully logged in',
     'user-successfully-logged-out' => 'User :username successfully logged out',
+    'connect-account' => 'Link your account with :provider',
+    'account-connected' => 'Success! Your :provider account has been linked',
 
     // Roles
     'user-already-has-role' => ':user is already assigned the :role role',

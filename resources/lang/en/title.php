@@ -51,7 +51,8 @@ return [
     'updated' => 'Updated',
 
     // Authentication
-    'sits' => 'Sign in through Steam',
+    'sign-in-steam' => 'Sign in through Steam',
+    'sign-in-discord' => 'Sign in through Discord',
     'login' => 'Login',
     'logout' => 'Logout',
 

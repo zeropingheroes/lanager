@@ -34,6 +34,8 @@ class UserOAuthAccount extends Model
     {
         if ($this->provider == 'steam') {
             return str_replace('_medium.jpg', '.jpg', $this->avatar);
+        } elseif ($this->provider == 'discord') {
+            return $this->avatar . '?size=64';
         }
         return '';
     }
@@ -45,6 +47,8 @@ class UserOAuthAccount extends Model
     {
         if ($this->provider == 'steam') {
             return $this->avatar;
+        } elseif ($this->provider == 'discord') {
+            return $this->avatar . '?size=128';
         }
         return '';
     }
@@ -56,8 +60,18 @@ class UserOAuthAccount extends Model
     {
         if ($this->provider == 'steam') {
             return str_replace('_medium.jpg', '_full.jpg', $this->avatar);
+        } elseif ($this->provider == 'discord') {
+            return $this->avatar . '?size=512';
         }
         return '';
+    }
+
+    public function profileUrl(): string
+    {
+        if ($this->provider == 'steam') {
+            return 'steam://url/SteamIDPage/' . $this->provider_id;
+        }
+        return '#';
     }
 
 }

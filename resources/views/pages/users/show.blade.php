@@ -14,13 +14,28 @@
         </h1>
     </div>
     <hr>
-    <h2>@lang('title.linked-accounts')</h2>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 border border-secondary rounded py-2 mr-2">
-                @include('pages.users.partials.accounts.steam', ['user' => $user])
-            </div>
-        </div>
+    <div class="container row">
+        @foreach($authProviders as $name => $provider)
+            @php
+                $account = $user->accounts()->where(['provider' => $name])->first();
+                $url = $account ? $account->profileUrl() : route('auth', ['provider' => $name]);
+            @endphp
+            <a class="col-lg-2" href="{{ $url }}">
+                <div class="card text-center">
+                    <div class="card-header">{{ $provider::$name }}</div>
+                    <img src="/img/{{ $name }}.svg" width="100" height="100" class="card-img mr-1">
+                    <div class="card-body text-center">
+                    <span class="card-title">
+                        @if($account)
+                            {{ $account->username }}
+                        @else
+                            {{ __('phrase.connect-account', ['provider' => $provider::$name]) }}
+                        @endif
+                    </span>
+                    </div>
+                </div>
+            </a>
+        @endforeach
     </div>
 @endsection
 

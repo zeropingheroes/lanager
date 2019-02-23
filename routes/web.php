@@ -24,11 +24,9 @@ Route::get('login', 'AuthController@showLoginForm')
     ->name('login');
 
 Route::get('auth/{provider}', 'AuthController@redirectToProvider')
-    ->middleware(['guest'])
     ->name('auth');
 
 Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback')
-    ->middleware(['guest'])
     ->name('auth.callback');
 
 /**
