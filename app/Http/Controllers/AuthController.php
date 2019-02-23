@@ -7,6 +7,7 @@ use InvalidArgumentException;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Zeropingheroes\Lanager\AuthProviders\AuthHelper;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
@@ -31,16 +32,12 @@ class AuthController extends Controller
      * Redirect the user to the external authentication provider.
      *
      * @param $OAuthProvider string
+     * @return \Illuminate\Http\RedirectResponse
      * @throws InvalidArgumentException
      */
     public function redirectToProvider($OAuthProvider)
     {
-        if ($OAuthProvider == 'steam') {
-            return Socialite::with('steam')->redirect();
-        }
-        $message = __('phrase.provider-not-supported', ['provider' => $OAuthProvider]);
-        Log::error($message);
-        throw new InvalidArgumentException($message);
+        return AuthHelper::provider($OAuthProvider)->to();
 
     }
 
@@ -53,36 +50,24 @@ class AuthController extends Controller
      */
     public function handleProviderCallback($OAuthProvider)
     {
-        if ($OAuthProvider == 'steam') {
-            $OAuthUser = Socialite::with('steam')->user();
+        $provider = AuthHelper::provider($OAuthProvider);
+        $OAuthUser = $provider->from();
 
-            $service = new UpdateSteamUsersService($OAuthUser->id);
-            $service->update();
+        // Get the newly updated user
+        $user = UserOAuthAccount::where('provider_id', $OAuthUser->id)
+            ->firstOrFail()
+            ->user;
 
-            // Check if the user wasn't updated, or if there are errors
-            if (!array_key_exists($OAuthUser->id, $service->getUpdated()) ||
-                $service->errors()->isNotEmpty()) {
-                Log::error($service->errors()->first());
-
-                return redirect()
-                    ->route('login')
-                    ->withError($service->errors()->first());
-            }
-
-            // Get the newly updated user
-            $user = UserOAuthAccount::where('provider_id', $OAuthUser->id)
-                ->firstOrFail()
-                ->user;
-
+        if (Auth::user()) {
+            // Account connecting, rather than logging in.
+            Log::info(__('phrase.account-connected', ['provider' => $provider->getName()]));
+        } else {
             // Log them in
             Auth::login($user, true);
             Log::info(__('phrase.user-successfully-logged-in', ['username' => $user->username]));
-
-            return redirect()->intended(route('users.show', ['id' => $user->id]));
-
         }
 
-        throw new InvalidArgumentException(__('phrase.provider-not-supported', ['provider' => $OAuthProvider]));
+        return redirect()->intended(route('users.show', ['id' => $user->id]));
     }
 
     /**

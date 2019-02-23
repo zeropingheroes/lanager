@@ -21,6 +21,8 @@
         "laravel/framework": "5.7.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "^1.0",
+        "restcord/restcord": "^0.3.1",
+        "socialiteproviders/discord": "^2.0",
         "socialiteproviders/steam": "^1.0",
         "syntax/steam-api": "2.0.*",
         "tucker-eric/eloquentfilter": "^1.2"

@@ -41,4 +41,11 @@ return [
         'redirect' => env('APP_URL').'/auth/steam/callback',
     ],
 
+    'discord' => [
+        'client_id' => env('DISCORD_KEY'),
+        'client_secret' => env('DISCORD_SECRET'),
+        'redirect' => env('APP_URL').'/auth/discord/callback',
+        'token' => env('DISCORD_TOKEN'),
+    ],
+
 ];

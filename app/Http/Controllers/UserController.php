@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Zeropingheroes\Lanager\AuthProviders\AuthHelper;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
 
@@ -71,7 +72,8 @@ class UserController extends Controller
             ->with('gamesInCommon', $gamesInCommon)
             ->with('lansAttended', $lansAttended)
             ->with('gameSessions', $gameSessions)
-            ->with('currentLan', $lan);
+            ->with('currentLan', $lan)
+            ->with('authProviders', AuthHelper::$supportedProviders);
     }
 
     /**

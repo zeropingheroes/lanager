@@ -15,6 +15,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'SocialiteProviders\Manager\SocialiteWasCalled' => [
             'SocialiteProviders\Steam\SteamExtendSocialite@handle',
+            '\Zeropingheroes\Lanager\AuthProviders\Discord\DiscordExtendSocialite@handle',
         ],
         'Illuminate\Auth\Events\Login' => [
             'Zeropingheroes\Lanager\Listeners\UpdateLanAttendeesTable',
