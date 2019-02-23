@@ -1,5 +1,5 @@
 <template>
-    <slide v-bind:slide="currentSlide"></slide>
+    <slide v-bind:content="currentSlide.content"></slide>
 </template>
 
 <script>
@@ -10,6 +10,7 @@
                 currentSlide: [],
             };
         },
+        props: ['id'],
         created() {
             var self = this;
             self.update();
@@ -20,18 +21,30 @@
         methods: {
             update() {
                 console.log('Getting slides')
-                axios.get('slides')
-                    .then((response) => {
-                        this.$data.slides = response.data.data;
-
-                        // If there isn't already a current slide, display the first one
-                        if ( this.$data.currentSlide.length === 0 ) {
-                            console.log('No current slide set - displaying first slide');
-                            this.displaySlide(0);
-                        }
+                // If
+                if ( Number.isInteger(this.id) ) {
+                    axios.get('slides/' + this.id)
+                        .then((response) => {
+                            console.log('Displaying single slide');
+                            this.$data.currentSlide = response.data.data;
                     }, (error) => {
-                        console.log('Error getting slides')
+                        console.log('Error getting slide')
                     })
+                } else {
+                    axios.get('slides')
+                        .then((response) => {
+                            this.$data.slides = response.data.data;
+
+                            // If there isn't already a current slide, display the first one
+                            if ( this.$data.currentSlide.length === 0 ) {
+                                console.log('No current slide set - displaying first slide');
+                                this.displaySlide(0);
+                            }
+                        }, (error) => {
+                            console.log('Error getting slides')
+                        })
+                }
+
             },
             displaySlide(index) {
                 this.$data.currentSlide = this.$data.slides[index];

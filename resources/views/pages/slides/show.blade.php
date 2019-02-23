@@ -23,7 +23,7 @@
             </div>
             <div class="slide-content-container">
                 @isset($slide)
-                    <vue-markdown class="slide-content">{{ $slide->content }}</vue-markdown>
+                    <slides v-bind:id="{{ $slide->id }}"></slides>
                 @else
                     <slides></slides>
                 @endif
