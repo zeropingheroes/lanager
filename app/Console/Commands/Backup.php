@@ -61,7 +61,7 @@ class Backup extends Command
             // steam_apps - will be restored from Steam API
             // logs - often very large
             // sessions - temporary
-            if (str_contains($table, ['migrations', 'steam_apps', 'logs', 'sessions'])) {
+            if (str_contains($table, ['migrations', 'steam_apps', 'logs', 'sessions', 'phpdebugbar'])) {
                 continue;
             }
             $processes["mysqldump-$table"] = new Process(
