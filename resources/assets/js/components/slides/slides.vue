@@ -1,7 +1,5 @@
 <template>
-    <img v-if="currentSlide.type === 'image'" :src="currentSlide.content" class="image-only">
-    <iframe v-else-if="currentSlide.type === 'url'" :src="currentSlide.content" class="url-only" scrolling="no" seamless></iframe>
-    <vue-markdown v-else :source="currentSlide.content" class="slide-content"></vue-markdown>
+    <slide v-bind:slide="currentSlide"></slide>
 </template>
 
 <script>
@@ -36,14 +34,7 @@
                     })
             },
             displaySlide(index) {
-                const isImageUrl = require('is-image-url');
-                const isUrl = require('is-url');
                 this.$data.currentSlide = this.$data.slides[index];
-                if(isImageUrl(this.$data.currentSlide.content)) {
-                    this.$data.currentSlide.type = 'image';
-                } else if(isUrl(this.$data.currentSlide.content)) {
-                    this.$data.currentSlide.type = 'url';
-                }
                 console.log('Displaying slide "' + this.$data.currentSlide.name + '" for ' + this.$data.currentSlide.duration + ' seconds')
 
                 index = (index + 1) % this.$data.slides.length;
