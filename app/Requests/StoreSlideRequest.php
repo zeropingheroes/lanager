@@ -17,8 +17,8 @@ class StoreSlideRequest extends Request
             'lan_id'             => ['required', 'numeric', 'exists:lans,id'],
             'name'               => ['required', 'max:255'],
             'content'            => ['required'],
-            'position'           => ['integer'],
-            'duration'           => ['integer'],
+            'position'           => ['integer', 'min:0', 'max:127'],
+            'duration'           => ['integer', 'min:0', 'max:32767'],
             'published'          => ['boolean'],
         ];
 
