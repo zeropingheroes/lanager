@@ -109,7 +109,7 @@
                 </div>
         </div>
         @if(! $lan->guides->isEmpty())
-            @include('pages.slides.partials.list', ['slides' => $lan->slides])
+            @include('pages.slides.partials.list', ['slides' => $lan->slides()->orderBy('position')->get()])
         @endif
     @endcan
 
