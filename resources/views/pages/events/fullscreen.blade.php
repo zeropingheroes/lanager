@@ -12,7 +12,7 @@
             });
         });
     </script>
-    <div id="app">
+    <div id="app" class="tv">
         <events></events>
     </div>
 @endsection

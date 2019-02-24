@@ -4,7 +4,7 @@
             <status v-bind:status="status()"></status>
         </td>
         <td class="event-name">{{ name }}</td>
-        <td class="event-relative-time">
+        <td class="event-relative-time font-weight-light">
             <relative-time v-bind:status="status()"
                            v-bind:start="start"
                            v-bind:end="end"

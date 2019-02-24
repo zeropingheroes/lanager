@@ -1,14 +1,11 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
-                <h1 class="pull-left">Events</h1>
-            </div>
-            <div class="col-md-4">
-                <h1 class="pull-right">{{ time }}</h1>
+            <div class="col-lg">
+                <h1 class="text-center">Schedule</h1>
             </div>
         </div>
-        <table class="table dashboard-table">
+        <table class="table">
             <tbody>
             <event v-for="event in events" :key="event.id" v-bind="event" v-bind:now="now"></event>
             </tbody>

@@ -20,7 +20,6 @@
                 </div>
             </div>
         </div>
-        <events></events>
         <active-games></active-games>
     </div>
 @endsection
