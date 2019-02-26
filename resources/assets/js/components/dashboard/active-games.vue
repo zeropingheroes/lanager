@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg">
-                <h1 class="text-center">Games In Progress</h1>
+                <h1 class="text-center">Games</h1>
             </div>
         </div>
         <table class="table">

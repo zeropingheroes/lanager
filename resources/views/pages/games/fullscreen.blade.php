@@ -1,7 +1,7 @@
 @extends('layouts.fullscreen')
 
 @section('title')
-    @lang('title.games-in-progress')
+    @lang('title.games')
 @endsection
 
 @section('content')
