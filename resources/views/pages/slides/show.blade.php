@@ -18,9 +18,6 @@
     </script>
     <div class="container-center-flex">
         <div id="app" class="container-slides-1080">
-            <div class="slide-header">
-                <h1><a href="{{ url('/') }}">{{ request()->getHost() }}</a></h1>
-            </div>
             <div class="slide-content-container">
                 @isset($slide)
                     <slides v-bind:id="{{ $slide->id }}"></slides>
