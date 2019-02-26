@@ -17,8 +17,7 @@ class SlidesTableCreate extends Migration
             $table->increments('id');
             $table->integer('lan_id')
                 ->unsigned();
-            $table->string('name')
-                ->unique();
+            $table->string('name');
             $table->text('content');
             $table->tinyInteger('position');
             $table->smallInteger('duration');
