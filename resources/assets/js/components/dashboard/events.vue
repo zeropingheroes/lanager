@@ -27,7 +27,7 @@
             self.update();
             setInterval(function () {
                 self.update()
-            }, 1000)
+            }, 60000)
         },
         methods: {
             update() {
