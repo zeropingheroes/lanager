@@ -18,7 +18,8 @@ class Lan extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'start' => $this->start->toIso8601String(),
-            'end' => $this->end->toIso8601String()
+            'end' => $this->end->toIso8601String(),
+            'users' => User::collection($this->whenLoaded('users')),
         ];
     }
 }
