@@ -37,4 +37,7 @@ return [
     'snooze' => 'Snooze',
     'looking-to-trade' => 'Looking to trade',
     'looking-to-play' => 'Looking to play',
+
+    // Slides
+    'log-into-lanager' => '# Log into :lanager-url to join the party!',
 ];
