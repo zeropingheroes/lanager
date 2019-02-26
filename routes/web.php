@@ -81,7 +81,9 @@ Route::get('lans/{lan}/guides/{guide}/{slug?}', 'GuideController@show')
 Route::resource('lans.events', 'EventController');
 Route::resource('lans.events.signups', 'EventSignupController', ['only' => ['store', 'destroy']]);
 Route::resource('event-types', 'EventTypeController');
-
+Route::get('/events/fullscreen', function () {
+    return view('pages.events.fullscreen');
+})->name('events.fullscreen');
 /**
  * Users & Attendees
  */

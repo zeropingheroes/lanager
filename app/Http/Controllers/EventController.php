@@ -23,8 +23,6 @@ class EventController extends Controller
         if ($request->has('schedule')) {
             return View::make('pages.events.schedule')
                 ->with('lan', $lan);
-        } elseif ($request->has('fullscreen')) {
-            return View::make('pages.events.fullscreen');
         }
 
         $events = $lan->events()
