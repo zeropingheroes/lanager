@@ -39,5 +39,7 @@ return [
     'looking-to-play' => 'Looking to play',
 
     // Slides
-    'log-into-lanager' => '# Log into :lanager-url to join the party!',
+    'slide-lanager' => '# Log into :app-url to join the party!',
+    'slide-events' => ':app-url/events/fullscreen',
+    'slide-games' => ':app-url/games/fullscreen',
 ];

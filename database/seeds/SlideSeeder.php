@@ -18,13 +18,37 @@ class SlideSeeder extends Seeder
             return;
         }
 
-        Slide::create([
-            'lan_id' => Lan::first()->id,
-            'name' => config('app.name'),
-            'content' => __('seeder.log-into-lanager', ['lanager-url' => config('app.url')]),
-            'position' => 0,
-            'duration' => 10,
-            'published' => true,
-        ]);
+        $lan_id = Lan::first()->id;
+
+        $slides = [
+            [
+                'lan_id' => $lan_id,
+                'name' => config('app.name'),
+                'content' => __('seeder.slide-lanager', ['app-url' => config('app.url')]),
+                'position' => 0,
+                'duration' => 10,
+                'published' => true,
+            ],
+            [
+                'lan_id' => $lan_id,
+                'name' => __('title.events'),
+                'content' => __('seeder.slide-events', ['app-url' => config('app.url')]),
+                'position' => 0,
+                'duration' => 10,
+                'published' => true,
+            ],
+            [
+                'lan_id' => $lan_id,
+                'name' => __('title.games'),
+                'content' => __('seeder.slide-games', ['app-url' => config('app.url')]),
+                'position' => 0,
+                'duration' => 10,
+                'published' => true,
+            ],
+        ];
+
+        foreach ($slides as $slide) {
+            Slide::create($slide);
+        }
     }
 }
