@@ -34,6 +34,7 @@ Vue.component('events', require('./components/dashboard/events.vue'));
 Vue.component('event', require('./components/dashboard/event.vue'));
 Vue.component('status', require('./components/dashboard/status.vue'));
 Vue.component('relative-time', require('./components/dashboard/relative-time.vue'));
+Vue.component('event-start-and-end', require('./components/dashboard/event-start-and-end.vue'));
 Vue.component('active-games', require('./components/dashboard/active-games.vue'));
 Vue.component('active-game', require('./components/dashboard/active-game.vue'));
 Vue.component('user-avatar', require('./components/dashboard/user-avatar.vue'));

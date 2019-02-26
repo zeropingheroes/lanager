@@ -4,6 +4,9 @@
             <status v-bind:status="status()"></status>
         </td>
         <td class="event-name">{{ name }}</td>
+        <td class="font-weight-light">
+            <event-start-and-end v-bind:start="start" v-bind:end="end"></event-start-and-end>
+        </td>
         <td class="event-relative-time font-weight-light">
             <relative-time v-bind:status="status()"
                            v-bind:start="start"
