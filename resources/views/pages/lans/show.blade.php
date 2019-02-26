@@ -108,8 +108,8 @@
                     </a>
                 </div>
         </div>
-        @if(! $lan->guides->isEmpty())
-            @include('pages.slides.partials.list', ['slides' => $lan->slides()->orderBy('position')->get()])
+        @if(! $lan->slides->isEmpty())
+            @include('pages.slides.partials.list', ['slides' => $lan->slides])
         @endif
     @endcan
 

@@ -67,6 +67,9 @@ class LanController extends Controller
                 'guides' => function ($query) {
                     $query->orderBy('guides.title', 'asc');
                 },
+                'slides' => function ($query) {
+                    $query->orderBy('slides.position', 'asc');
+                },
             ]
         );
 
