@@ -24,6 +24,7 @@
                 <a class="dropdown-item @if($active == 'in-progress') active @endif" href="{{ route('games.in-progress') }}">@lang('title.in-progress')</a>
                 <a class="dropdown-item @if($active == 'recent') active @endif" href="{{ route('games.recent') }}">@lang('title.recent')</a>
                 <a class="dropdown-item @if($active == 'owned') active @endif" href="{{ route('games.owned') }}">@lang('title.owned')</a>
+                <a class="dropdown-item" href="{{ route('games.fullscreen') }}" target="_blank">@lang('title.fullscreen')</a>
             </div>
         </div>
     </div>

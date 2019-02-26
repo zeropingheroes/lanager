@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td class="game-image"><img :src="game.logo.small" /></td>
+        <td class="game-image"><img :src="game.logo.medium" /></td>
         <td class="game-name">{{ game.name }}</td>
         <td class="game-user-count">{{ userCount }} In Game</td>
         <td class="game-user-list">

@@ -1,11 +1,11 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
-                <h1 class="pull-left">Games</h1>
+            <div class="col-lg">
+                <h1 class="text-center">Games In Progress</h1>
             </div>
         </div>
-        <table class="table dashboard-table">
+        <table class="table">
             <tbody>
             <active-game v-for="activeGame in activeGames" :key="activeGame.id" v-bind="activeGame"></active-game>
             </tbody>

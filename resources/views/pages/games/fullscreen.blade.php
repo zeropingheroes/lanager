@@ -1,7 +1,7 @@
 @extends('layouts.fullscreen')
 
 @section('title')
-    @lang('title.dashboard')
+    @lang('title.games-in-progress')
 @endsection
 
 @section('content')
@@ -12,14 +12,7 @@
             });
         });
     </script>
-    <div id="app">
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <h1><u><a href="{{ url('/') }}">{{ request()->getHost() }}</a></u></h1>
-                </div>
-            </div>
-        </div>
+    <div id="app" class="tv">
         <active-games></active-games>
     </div>
 @endsection

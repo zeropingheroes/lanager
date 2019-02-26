@@ -59,6 +59,9 @@ Route::get('/games/recent', 'GameController@recent')
     ->name('games.recent');
 Route::get('/games/owned', 'GameController@owned')
     ->name('games.owned');
+Route::get('/games/fullscreen', function () {
+    return view('pages.games.fullscreen');
+})->name('games.fullscreen');
 
 /**
  * LANs
@@ -95,13 +98,6 @@ Route::resource('lans.user-achievements', 'UserAchievementController', ['except'
  * Navigation Links
  */
 Route::resource('navigation-links', 'NavigationLinkController', ['except' => 'show']);
-
-/**
- * Dashboard
- */
-Route::get('/dashboard', function () {
-    return view('pages.dashboard.index');
-})->name('dashboard');
 
 /**
  * Images
