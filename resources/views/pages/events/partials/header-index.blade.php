@@ -23,7 +23,6 @@
             <div class="dropdown-menu" aria-labelledby="eventsDisplayDropdown">
                 <a class="dropdown-item @if($active == 'list') active @endif" href="{{ route('lans.events.index', ['lan' => $lan]) }}">@lang('title.list')</a>
                 <a class="dropdown-item @if($active == 'schedule') active @endif" href="{{ route('lans.events.index', ['lan' => $lan, 'schedule']) }}">@lang('title.schedule')</a>
-                <a class="dropdown-item" href="{{ route('lans.events.index', ['lan' => $lan, 'fullscreen']) }}" target="_blank">@lang('title.fullscreen')</a>
             </div>
         </div>
     </div>
