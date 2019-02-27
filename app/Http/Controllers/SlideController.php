@@ -154,7 +154,7 @@ class SlideController extends Controller
         $slide->update($input);
 
         return redirect()
-            ->route('lans.slides.index', ['lan' => $lan, 'slide' => $slide]);
+            ->route('lans.slides.index', ['lan' => $lan]);
     }
 
     /**

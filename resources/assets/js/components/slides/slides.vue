@@ -10,7 +10,7 @@
                 currentSlide: [],
             };
         },
-        props: ['id'],
+        props: ['id', 'lan_id'],
         created() {
             var self = this;
             self.update();
@@ -23,7 +23,7 @@
                 console.log('Getting slides')
                 // If
                 if ( Number.isInteger(this.id) ) {
-                    axios.get('slides/' + this.id)
+                    axios.get('lans/' + this.lan_id + ' /slides/' + this.id)
                         .then((response) => {
                             console.log('Displaying single slide');
                             this.$data.currentSlide = response.data.data;
@@ -31,7 +31,7 @@
                         console.log('Error getting slide')
                     })
                 } else {
-                    axios.get('slides')
+                    axios.get('lans/' + this.lan_id + '/slides/')
                         .then((response) => {
                             this.$data.slides = response.data.data;
 

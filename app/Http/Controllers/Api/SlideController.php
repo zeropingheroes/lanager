@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
 use Zeropingheroes\Lanager\Http\Resources\Slide as SlideResource;
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Slide;
 
 class SlideController extends Controller
@@ -12,18 +13,15 @@ class SlideController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param Lan $lan
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Lan $lan)
     {
-        $slides = Slide::where('published', 1);
-
-        if ($request->filled('limit')) {
-            $slides->limit($request->limit);
-        }
-
-        $slides = $slides->orderBy('position')->get();
+        $slides = $lan->slides()
+            ->where('published', 1)
+            ->orderBy('position')
+            ->get();
 
         return SlideResource::collection($slides);
     }
@@ -31,12 +29,18 @@ class SlideController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\Slide $slide
+     * @param Lan $lan
+     * @param Slide $slide
      * @return SlideResource
      */
-    public function show(Slide $slide)
+    public function show(Lan $lan, Slide $slide)
     {
-        $slide->load('lan');
+        $this->authorize('view', $slide);
+
+        // If the slide is accessed via the wrong LAN ID, show 404
+        if ($slide->lan_id != $lan->id) {
+            abort(404);
+        }
         return new SlideResource($slide);
     }
 }

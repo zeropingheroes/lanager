@@ -161,4 +161,5 @@ return [
     'slides' => 'Slides',
     'slide' => 'Slide',
     'duration' => 'Duration',
+    'play' => 'Play',
 ];

@@ -11,7 +11,12 @@
         </div>
         @can('create', \Zeropingheroes\Lanager\Slide::class)
             <div class="col-auto text-right">
-                <a href="{{ route( 'lans.slides.create', ['lan' => $lan]) }}" class="btn btn-primary" title="@lang('title.create')"><span class="oi oi-plus"></span></a>
+                <a href="{{ route( 'lans.slides.play', $lan) }}" class="btn btn-primary" title="@lang('title.play')" target="_blank">
+                    <span class="oi oi-media-play"></span>
+                </a>
+                <a href="{{ route( 'lans.slides.create', ['lan' => $lan]) }}" class="btn btn-primary" title="@lang('title.create')">
+                    <span class="oi oi-plus"></span>
+                </a>
             </div>
         @endcan
     </div>

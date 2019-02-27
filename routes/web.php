@@ -114,10 +114,10 @@ Route::resource('venues', 'VenueController');
 /**
  * Slides
  */
+Route::get('lans/{lan}/slides/play', function (Zeropingheroes\Lanager\Lan $lan) {
+    return view('pages.slides.play', ['lan' => $lan]);
+})->name('lans.slides.play');
 Route::resource('lans.slides', 'SlideController');
-Route::get('/slides', function () {
-    return view('pages.slides.show');
-})->name('slides');
 
 Route::fallback(function () {
     return view('errors.404');

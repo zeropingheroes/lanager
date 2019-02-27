@@ -1,7 +1,7 @@
 @extends('layouts.fullscreen')
 
 @section('title')
-    {{ $slide->name }}
+    @lang('title.slides')
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
     <div class="container-center-flex">
         <div id="app" class="container-slides-1080">
             <div class="slide-content-container">
-                <slides v-bind:lan_id="{{ $slide->lan->id }}" v-bind:id="{{ $slide->id }}"></slides>
+                <slides v-bind:lan_id="{{ $lan->id }}"></slides>
             </div>
             <fullscreen-button></fullscreen-button>
         </div>

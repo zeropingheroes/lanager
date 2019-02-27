@@ -102,11 +102,14 @@
             <div class="col-auto">
                 <h5>@lang('title.slides')</h5>
             </div>
-                <div class="col text-right">
-                    <a href="{{ route( 'lans.slides.create', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.create')">
-                        <span class="oi oi-plus"></span>
-                    </a>
-                </div>
+            <div class="col text-right">
+                <a href="{{ route( 'lans.slides.play', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.play')" target="_blank">
+                    <span class="oi oi-media-play"></span>
+                </a>
+                <a href="{{ route( 'lans.slides.create', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.create')">
+                    <span class="oi oi-plus"></span>
+                </a>
+            </div>
         </div>
         @if(! $lan->slides->isEmpty())
             @include('pages.slides.partials.list', ['slides' => $lan->slides])
