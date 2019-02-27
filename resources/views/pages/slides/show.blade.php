@@ -1,4 +1,4 @@
-@extends('layouts.fullscreen')
+@extends('layouts.content-only')
 
 @section('title')
     {{ $slide->name }}
