@@ -1,18 +1,18 @@
 <template>
     <tr>
         <td class="event-status">
-            <status v-bind:status="status()"></status>
+            <event-status v-bind:status="status()"></event-status>
         </td>
         <td class="event-name">{{ name }}</td>
         <td class="font-weight-light">
             <event-start-and-end v-bind:start="start" v-bind:end="end"></event-start-and-end>
         </td>
         <td class="event-relative-time font-weight-light">
-            <relative-time v-bind:status="status()"
+            <event-relative-time v-bind:status="status()"
                            v-bind:start="start"
                            v-bind:end="end"
                            v-bind:now="now">
-            </relative-time>
+            </event-relative-time>
         </td>
     </tr>
 </template>

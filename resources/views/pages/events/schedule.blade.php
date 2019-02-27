@@ -18,6 +18,6 @@
         }
     </script>
     <div id="app">
-        <schedule></schedule>
+        <event-schedule></event-schedule>
     </div>
 @endsection
