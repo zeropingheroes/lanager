@@ -1,7 +1,20 @@
 <template>
-    <img v-if="type() === 'image'" :src="content" class="image-only">
-    <iframe v-else-if="type() === 'url'" :src="content" class="url-only" scrolling="no" seamless></iframe>
-    <vue-markdown v-else :source="content" class="slide-content"></vue-markdown>
+    <img
+         class="image-slide"
+         v-if="type() === 'image'"
+         :src="content">
+    <iframe
+        class="website-slide"
+        v-else-if="type() === 'website'"
+        :src="content"
+        scrolling="no"
+        seamless>
+    </iframe>
+    <vue-markdown
+        class="markdown-slide"
+        v-else
+        :source="content">
+    </vue-markdown>
 </template>
 
 <script>
@@ -14,7 +27,7 @@
                 if(isImageUrl(this.content)) {
                     return 'image';
                 } else if(isUrl(this.content)) {
-                    return 'url';
+                    return 'website';
                 } else {
                     return 'markdown';
                 }

@@ -12,9 +12,9 @@
             });
         });
     </script>
-    <div class="container-center-flex">
-        <div id="app" class="container-slides-1080">
-            <div class="slide-content-container">
+    <div class="center-contents-horizontally">
+        <div id="app" class="container-1920x1080">
+            <div class="center-contents-horizontally">
                 <slides v-bind:lan_id="{{ $lan->id }}"></slides>
             </div>
             <fullscreen-button></fullscreen-button>
