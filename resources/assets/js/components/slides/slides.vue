@@ -21,30 +21,17 @@
         methods: {
             update() {
                 console.log('Getting slides')
-                // If
-                if ( Number.isInteger(this.id) ) {
-                    axios.get('lans/' + this.lan_id + ' /slides/' + this.id)
-                        .then((response) => {
-                            console.log('Displaying single slide');
-                            this.$data.currentSlide = response.data.data;
+                axios.get('lans/' + this.lan_id + '/slides/')
+                    .then((response) => {
+                        this.$data.slides = response.data.data;
+                        // If there isn't already a current slide, display the first one
+                        if ( this.$data.currentSlide.length === 0 ) {
+                            console.log('No current slide set - displaying first slide');
+                            this.displaySlide(0);
+                        }
                     }, (error) => {
-                        console.log('Error getting slide')
+                        console.log('Error getting slides')
                     })
-                } else {
-                    axios.get('lans/' + this.lan_id + '/slides/')
-                        .then((response) => {
-                            this.$data.slides = response.data.data;
-
-                            // If there isn't already a current slide, display the first one
-                            if ( this.$data.currentSlide.length === 0 ) {
-                                console.log('No current slide set - displaying first slide');
-                                this.displaySlide(0);
-                            }
-                        }, (error) => {
-                            console.log('Error getting slides')
-                        })
-                }
-
             },
             displaySlide(index) {
                 this.$data.currentSlide = this.$data.slides[index];

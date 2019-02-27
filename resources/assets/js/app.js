@@ -54,4 +54,5 @@ Vue.component('user-avatar',            require('./components/users/user-avatar.
 
 /* Slides */
 Vue.component('slides',                 require('./components/slides/slides.vue'));
+Vue.component('slides-single',          require('./components/slides/slides-single.vue'));
 Vue.component('slide',                  require('./components/slides/slide.vue'));
