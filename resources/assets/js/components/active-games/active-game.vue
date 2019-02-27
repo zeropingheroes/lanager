@@ -1,14 +1,12 @@
 <template>
     <tr>
-        <td class="game-image"><img :src="game.logo.medium" /></td>
-        <td class="game-name">{{ game.name }}</td>
-        <td class="game-user-count">{{ userCount }} In Game</td>
-        <td class="game-user-list">
-            <user-avatar v-for="user in users"
-                              :key="user.id"
-                              v-bind:user="user">
-            </user-avatar>
-
+        <td>
+            <game-banner v-bind:game="game"></game-banner>
+        </td>
+        <td>{{ game.name }}</td>
+        <td>{{ userCount }} In Game</td>
+        <td>
+            <user-avatar v-for="user in users" :key="user.id" v-bind:user="user"></user-avatar>
         </td>
     </tr>
 </template>

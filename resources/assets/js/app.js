@@ -45,6 +45,7 @@ Vue.component('event-start-and-end',    require('./components/events/event-start
 Vue.component('event-schedule',         require('./components/events/event-schedule.vue'));
 
 /* Games */
+Vue.component('game-banner',            require('./components/games/game-banner.vue'));
 Vue.component('active-games',           require('./components/active-games/active-games.vue'));
 Vue.component('active-game',            require('./components/active-games/active-game.vue'));
 
