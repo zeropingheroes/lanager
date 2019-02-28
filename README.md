@@ -67,6 +67,7 @@ your events you can easily update the site and prepare for your next LAN, and yo
     
                     fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
             }
+            client_max_body_size 20M;
     }
     ```
 
