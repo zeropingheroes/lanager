@@ -1,5 +1,7 @@
 <template>
-    <slide v-bind:content="currentSlide.content"></slide>
+    <div class="center-contents-horizontally">
+        <slide v-for="(slide, index) in slides" :key="slide.id" v-bind:content="slide.content" v-show="indexToShow == index"></slide>
+    </div>
 </template>
 
 <script>
@@ -7,40 +9,40 @@
         data() {
             return {
                 slides: [],
-                currentSlide: [],
+                indexToShow: -1,
             };
         },
-        props: ['id', 'lan_id'],
+        props: ['lan_id'],
         created() {
+            // Get slides from API for the first time
+            this.update();
+
+            // Get slides from API periodically
             var self = this;
-            self.update();
             setInterval(function () {
                 self.update()
             }, 30000);
         },
         methods: {
             update() {
-                console.log('Getting slides')
                 axios.get('lans/' + this.lan_id + '/slides/')
                     .then((response) => {
                         this.$data.slides = response.data.data;
-                        // If there isn't already a current slide, display the first one
-                        if ( this.$data.currentSlide.length === 0 ) {
-                            console.log('No current slide set - displaying first slide');
-                            this.displaySlide(0);
+                        // If this is the first time that slides have been retrieved, begin cycling slides
+                        if(this.$data.indexToShow == -1) {
+                            this.cycle();
                         }
                     }, (error) => {
                         console.log('Error getting slides')
                     })
             },
-            displaySlide(index) {
-                this.$data.currentSlide = this.$data.slides[index];
-                console.log('Displaying slide "' + this.$data.currentSlide.name + '" for ' + this.$data.currentSlide.duration + ' seconds')
-
-                index = (index + 1) % this.$data.slides.length;
+            cycle() {
+                this.$data.indexToShow = (this.$data.indexToShow + 1) % this.$data.slides.length;
                 self = this;
-                setTimeout(function () {self.displaySlide(index)}, (self.$data.currentSlide.duration * 1000));
-            }
+                setTimeout(function () {
+                    self.cycle()
+                }, (self.$data.slides[self.$data.indexToShow].duration * 1000));
+            },
         }
     }
 </script>
