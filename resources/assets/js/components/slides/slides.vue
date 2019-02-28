@@ -9,7 +9,7 @@
         data() {
             return {
                 slides: [],
-                indexToShow: -1,
+                indexToShow: null,
             };
         },
         props: ['lan_id'],
@@ -28,8 +28,10 @@
                 axios.get('lans/' + this.lan_id + '/slides/')
                     .then((response) => {
                         this.$data.slides = response.data.data;
-                        // If this is the first time that slides have been retrieved, begin cycling slides
-                        if(this.$data.indexToShow == -1) {
+
+                        // If slides were retrieved and no slide is currently being displayed
+                        if (this.$data.slides.length != 0 && this.$data.indexToShow == null) {
+                            // Begin cycling slides
                             this.cycle();
                         }
                     }, (error) => {
@@ -37,11 +39,30 @@
                     })
             },
             cycle() {
-                this.$data.indexToShow = (this.$data.indexToShow + 1) % this.$data.slides.length;
-                self = this;
-                setTimeout(function () {
-                    self.cycle()
-                }, (self.$data.slides[self.$data.indexToShow].duration * 1000));
+                // If there are no slides to show
+                if (this.$data.slides.length == 0) {
+
+                    // Reset the index
+                    this.$data.indexToShow = null;
+
+                // If there are slides to show
+                } else {
+                    // If no slide is currently showing
+                    if (this.$data.indexToShow == null) {
+                        // Display the first slide
+                        this.$data.indexToShow = 0;
+
+                    // If a slide is currently being shown
+                    } else {
+                        // Display the next slide (looping back to the first slide if needed)
+                        this.$data.indexToShow = (this.$data.indexToShow + 1) % this.$data.slides.length;
+                    }
+                    // Call this function again after the current slide has been shown for its duration
+                    self = this;
+                    setTimeout(function () {
+                        self.cycle()
+                    }, (self.$data.slides[self.$data.indexToShow].duration * 1000));
+                }
             },
         }
     }
