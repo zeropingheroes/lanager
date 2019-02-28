@@ -1,7 +1,7 @@
 <template>
-    <div class="center-contents-horizontally">
+    <transition-group name="fade" class="inherit-size" tag="div">
         <slide v-for="(slide, index) in slides" :key="slide.id" v-bind:content="slide.content" v-show="indexToShow == index"></slide>
-    </div>
+    </transition-group>
 </template>
 
 <script>
