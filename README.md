@@ -71,7 +71,25 @@ your events you can easily update the site and prepare for your next LAN, and yo
     }
     ```
 
-3. Enable the site:
+3. Increase PHP's upload file size limit
+
+    ```bash
+    sudo nano /etc/php/7.2/fpm/php.ini
+    ```
+
+    Find and update the lines:
+
+    ```
+    upload_max_filesize = 20M
+    post_max_size = 8M
+    ```
+
+    Restart PHP
+    ```bash
+    sudo systemctl restart php7.2-fpm
+    ```
+
+4. Enable the site:
 
     ```bash
     rm /etc/nginx/sites-enabled/default
@@ -79,7 +97,7 @@ your events you can easily update the site and prepare for your next LAN, and yo
     nginx -s reload
     ```
 
-4. Configure MySQL:
+5. Configure MySQL:
 
     ```bash
     mysql
@@ -93,26 +111,26 @@ your events you can easily update the site and prepare for your next LAN, and yo
     QUIT;
     ```
 
-5. Clone a copy of LANager:
+6. Clone a copy of LANager:
 
     ```
     git clone -b develop https://github.com/zeropingheroes/lanager /var/www/lanager/
     ``` 
 
-6. Grant permissions:
+7. Grant permissions:
 
     ```
     chgrp www-data -R /var/www/lanager/
     chmod 777 -R /var/www/lanager/storage
     ```
 
-7. Install LANager's dependencies:
+8. Install LANager's dependencies:
 
     ```
     composer install --working-dir=/var/www/lanager
     ```
 
-8. Configure LANager:
+9. Configure LANager:
     
     ```bash
     cd /var/www/lanager/ && cp .env.example .env && nano .env
@@ -124,7 +142,7 @@ your events you can easily update the site and prepare for your next LAN, and yo
     - `GOOGLE_API_KEY` - Your [Google API Key](https://console.cloud.google.com/apis/)
     - `DB_PASSWORD` - The password you chose for the `lanager` MySQL user above
 
-9. Run first-time setup commands:
+10. Run first-time setup commands:
 
     ```bash
     php artisan key:generate
@@ -134,9 +152,9 @@ your events you can easily update the site and prepare for your next LAN, and yo
     php artisan lanager:update-steam-apps
     ```
 
-10. Visit the app URL to check that the installation was successful
+11. Visit the app URL to check that the installation was successful
 
-11. Enable the scheduled commands:
+12. Enable the scheduled commands:
 
     ```bash
     crontab -e
@@ -146,7 +164,7 @@ your events you can easily update the site and prepare for your next LAN, and yo
     * * * * * php /var/www/lanager/artisan schedule:run >> /dev/null 2>&1
     ```
 
-12. Disable debugging, set the site's environment to *production*, and enable MySQL logging:
+13. Disable debugging, set the site's environment to *production*, and enable MySQL logging:
 
     ```bash
     nano /var/www/lanager/.env
@@ -266,7 +284,7 @@ sites, organise the links into dropdown menus, and choose the order that the lin
     mysql_upgrade -u root -p
     ```
 
-5. Follow steps 2, 3, 6, 7 and 8 from the normal [installation instructions](#installation)
+5. Follow steps 2, 3, 4, 7, 8 and 9 from the normal [installation instructions](#installation)
 
 6. Run the following commands
 
@@ -277,7 +295,7 @@ sites, organise the links into dropdown menus, and choose the order that the lin
     php artisan lanager:upgrade-database
     ```
     
-6. Follow steps 10, 11 and 12 from the normal [installation instructions](#installation)
+6. Follow steps 11, 12 and 13 from the normal [installation instructions](#installation)
 
 ## Development
 
