@@ -29,10 +29,9 @@ class SlidePolicy extends BasePolicy
      * Determine whether the user can list all items.
      *
      * @param User $user
-     * @param Slide $slide
      * @return mixed
      */
-    public function index(User $user, Slide $slide)
+    public function index(User $user)
     {
         return $user->hasRole('admin');
     }
