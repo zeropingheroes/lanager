@@ -5,7 +5,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Event;
 use Illuminate\Http\Request;
-use Zeropingheroes\Lanager\EventType;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Requests\StoreEventRequest;
 
@@ -44,11 +43,8 @@ class EventController extends Controller
     {
         $this->authorize('create', Event::class);
 
-        $eventTypes = EventType::orderBy('name')->get();
-
         return View::make('pages.events.create')
             ->with('lan', $lan)
-            ->with('eventTypes', $eventTypes)
             ->with('event', new Event);
     }
 
@@ -71,7 +67,6 @@ class EventController extends Controller
             'end' => $httpRequest->input('end'),
             'signups_open' => $httpRequest->input('signups_open'),
             'signups_close' => $httpRequest->input('signups_close'),
-            'event_type_id' => $httpRequest->input('event_type_id'),
             'published' => $httpRequest->has('published'),
         ];
 
@@ -126,11 +121,8 @@ class EventController extends Controller
             abort(404);
         }
 
-        $eventTypes = EventType::orderBy('name')->get();
-
         return View::make('pages.events.edit')
             ->with('lan', $lan)
-            ->with('eventTypes', $eventTypes)
             ->with('event', $event);
     }
 
@@ -154,7 +146,6 @@ class EventController extends Controller
             'end' => $httpRequest->input('end'),
             'signups_open' => $httpRequest->input('signups_open'),
             'signups_close' => $httpRequest->input('signups_close'),
-            'event_type_id' => $httpRequest->input('event_type_id'),
             'published' => $httpRequest->has('published'),
         ];
 

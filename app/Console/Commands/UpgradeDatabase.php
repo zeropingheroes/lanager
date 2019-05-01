@@ -111,6 +111,7 @@ class UpgradeDatabase extends Command
         $tablesToDrop = [
             'states',
             'servers',
+            'event_types',
             'applications',
             'logs',
             'migrations',
@@ -135,7 +136,6 @@ class UpgradeDatabase extends Command
         $tablesWithStandardTimestamps = [
             'achievements',
             'event_signups',
-            'event_types',
             'pages',
             'roles',
             'user_achievements',

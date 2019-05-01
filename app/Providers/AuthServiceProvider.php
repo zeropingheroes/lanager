@@ -24,8 +24,6 @@ use Zeropingheroes\Lanager\NavigationLink;
 use Zeropingheroes\Lanager\Policies\NavigationLinkPolicy;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Policies\LanPolicy;
-use Zeropingheroes\Lanager\EventType;
-use Zeropingheroes\Lanager\Policies\EventTypePolicy;
 use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\Policies\EventPolicy;
 use Zeropingheroes\Lanager\User;
@@ -47,7 +45,6 @@ class AuthServiceProvider extends ServiceProvider
         Guide::class            => GuidePolicy::class,
         NavigationLink::class   => NavigationLinkPolicy::class,
         Lan::class              => LanPolicy::class,
-        EventType::class        => EventTypePolicy::class,
         Event::class            => EventPolicy::class,
         User::class             => UserPolicy::class,
         EventSignup::class      => EventSignupPolicy::class,
