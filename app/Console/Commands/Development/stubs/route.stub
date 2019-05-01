@@ -1,0 +1,5 @@
+
+/**
+ * {{model}}s
+ */
+Route::resource('{{route}}', '{{model}}Controller');

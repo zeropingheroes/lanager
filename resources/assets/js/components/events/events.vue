@@ -1,14 +1,11 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
-                <h1 class="pull-left">Events</h1>
-            </div>
-            <div class="col-md-4">
-                <h1 class="pull-right">{{ time }}</h1>
+            <div class="col-lg">
+                <h1 class="text-center">Events</h1>
             </div>
         </div>
-        <table class="table dashboard-table">
+        <table class="table">
             <tbody>
             <event v-for="event in events" :key="event.id" v-bind="event" v-bind:now="now"></event>
             </tbody>
@@ -20,7 +17,7 @@
     export default {
         data() {
             return {
-                time: new moment().format("h:mma"),
+                time: new moment().format("HH:mm"),
                 now: new moment(),
                 events: []
             };
@@ -30,11 +27,11 @@
             self.update();
             setInterval(function () {
                 self.update()
-            }, 1000)
+            }, 60000)
         },
         methods: {
             update() {
-                this.$data.time = new moment().format("h:mma");
+                this.$data.time = new moment().format("HH:mm");
                 this.$data.now = new moment();
                 axios.get('events?after=' + this.$data.now.format() + '&limit=5')
                     .then((response) => {

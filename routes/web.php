@@ -59,6 +59,9 @@ Route::get('/games/recent', 'GameController@recent')
     ->name('games.recent');
 Route::get('/games/owned', 'GameController@owned')
     ->name('games.owned');
+Route::get('/games/fullscreen', function () {
+    return view('pages.games.fullscreen');
+})->name('games.fullscreen');
 
 /**
  * LANs
@@ -78,7 +81,9 @@ Route::get('lans/{lan}/guides/{guide}/{slug?}', 'GuideController@show')
 Route::resource('lans.events', 'EventController');
 Route::resource('lans.events.signups', 'EventSignupController', ['only' => ['store', 'destroy']]);
 Route::resource('event-types', 'EventTypeController');
-
+Route::get('/events/fullscreen', function () {
+    return view('pages.events.fullscreen');
+})->name('events.fullscreen');
 /**
  * Users & Attendees
  */
@@ -97,17 +102,23 @@ Route::resource('lans.user-achievements', 'UserAchievementController', ['except'
 Route::resource('navigation-links', 'NavigationLinkController', ['except' => 'show']);
 
 /**
- * Dashboard
+ * Images
  */
-Route::get('/dashboard', function () {
-    return view('pages.dashboard.index');
-})->name('dashboard');
+Route::resource('images', 'ImageController', ['only' => ['index', 'store', 'edit', 'update', 'destroy']]);
+
+/**
+ * Venues
+ */
+Route::resource('venues', 'VenueController');
+
+/**
+ * Slides
+ */
+Route::get('lans/{lan}/slides/play', function (Zeropingheroes\Lanager\Lan $lan) {
+    return view('pages.slides.play', ['lan' => $lan]);
+})->name('lans.slides.play');
+Route::resource('lans.slides', 'SlideController');
 
 Route::fallback(function () {
     return view('errors.404');
 })->name('fallback');
-
-/**
- * Images
- */
-Route::resource('images', 'ImageController', ['only' => ['index', 'store', 'edit', 'update', 'destroy']]);

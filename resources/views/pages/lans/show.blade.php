@@ -7,11 +7,8 @@
 @section('content-header')
     <div class="row align-items-center">
         <div class="col-md-auto">
-            <h1>
+            <h1 class="mb-0">
                 {{ $lan->name }}
-                <small class="text-muted">
-                    @include('pages.lans.partials.dates', ['lan' => $lan])
-                </small>
             </h1>
         </div>
         @canany(['update', 'delete'], $lan)
@@ -20,16 +17,9 @@
         </div>
         @endcanany
     </div>
-    <div class="row">
-        <div class="col">
-            <h4>
-                @include('pages.lans.partials.timespan', ['lan' => $lan])
-                <small class="text-muted">
-                    @include('pages.lans.partials.duration', ['lan' => $lan])
-                </small>
-            </h4>
-        </div>
-    </div>
+    @if( $lan->venue )
+        <h5><a href="{{ route('venues.show', $lan->venue) }}">{{ $lan->venue->name }}</a></h5>
+    @endif
     {{ Breadcrumbs::render('lans.show', $lan) }}
 @endsection
 
@@ -106,5 +96,24 @@
         <h5>{{ $lan->users->count() }} @lang('title.attendees')</h5>
         @include('pages.users.partials.list', ['users' => $lan->users])
     @endif
+
+    @can('create', \Zeropingheroes\Lanager\Slide::class)
+        <div class="row">
+            <div class="col-auto">
+                <h5>@lang('title.slides')</h5>
+            </div>
+            <div class="col text-right">
+                <a href="{{ route( 'lans.slides.play', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.play')" target="_blank">
+                    <span class="oi oi-media-play"></span>
+                </a>
+                <a href="{{ route( 'lans.slides.create', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.create')">
+                    <span class="oi oi-plus"></span>
+                </a>
+            </div>
+        </div>
+        @if(! $lan->slides->isEmpty())
+            @include('pages.slides.partials.list', ['slides' => $lan->slides])
+        @endif
+    @endcan
 
 @endsection

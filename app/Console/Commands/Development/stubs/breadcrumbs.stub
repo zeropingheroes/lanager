@@ -1,0 +1,24 @@
+
+// Home > {{model}}
+Breadcrumbs::for('{{route}}.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.{{langs}}'), route('{{route}}.index'));
+});
+
+// Home > {{model}} > [{{model}}]
+Breadcrumbs::for('{{route}}.show', function ($trail, ${{variable}}) {
+    $trail->parent('{{route}}.index');
+    $trail->push(${{variable}}->name, route('{{route}}.show', ${{variable}}));
+});
+
+// Home > {{model}} > [{{model}}] > Edit
+Breadcrumbs::for('{{route}}.edit', function ($trail, ${{variable}}) {
+    $trail->parent('{{route}}.index');
+    $trail->push(${{variable}}->name, route('{{route}}.edit', ${{variable}}));
+});
+
+// Home > {{model}} > Create
+Breadcrumbs::for('{{route}}.create', function ($trail) {
+    $trail->parent('{{route}}.index');
+    $trail->push(__('title.create'), route('{{route}}.create'));
+});

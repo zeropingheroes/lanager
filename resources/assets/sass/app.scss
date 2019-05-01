@@ -15,22 +15,25 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
   background-image: url('../img/bg.jpg');
 }
 
 body > nav.navbar {
   min-height: 50px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 0; /* reduce navbar height */
+  padding-bottom: 0; /* reduce navbar height */
 }
 
 #admin-menu {
-  margin-top: 5px;
+  margin-top: 5px; /* vertically center in navbar */
 }
 
 body > .container {
-	padding-top: 60px;
+  margin-top: 60px; /* stop navbar covering content */
+}
+
+main.container {
+  margin-bottom: 60px; /* ensure footer does not cover bottom of page */
 }
 
 .footer {
@@ -38,14 +41,18 @@ body > .container {
   bottom: 0;
   width: 100%;
   height: 40px;
-  line-height: 40px; /* Vertically center the text there */
-  z-index: 2;
+  line-height: 40px; /* vertically center the text */
+  z-index: 2; /* move in front of other content */
 }
 /**
  * Utilities
  */
 .inline {
   display: inline;
+}
+div.inherit-size {
+  width: inherit;
+  height: inherit;
 }
 
 /**
@@ -65,7 +72,7 @@ label.custom-file-label {
 }
 
 /**
- * Avatars
+ * Steam Avatars
  */
 img.avatar,
 img.avatar-small {
@@ -161,60 +168,110 @@ span.badge-future {
  */
 div#schedule {
   margin-top: -3.9em; /* move schedule up */
+
   div.fc-toolbar {
     margin-right: 0.5em; /* move toolbar left */
   }
+
   td.fc-state-highlight { /* remove schedule background */
     background-color: transparent;
   }
+
   .fc-today {
     background-color: #1a1a1a;
   }
+
   thead {
     border: none;
   }
+
   th.fc-widget-header,
   td.fc-widget-header { /* remove outer borders */
     border: none;
   }
+
   td.fc-widget-content { /* subtle inner borders*/
     border: 1px dotted #444;
   }
+
   hr.fc-widget-header {
     border: 1px dotted #444;
     background-color: #222;
   }
+
   .fc-event-bg { /* hide event overlay */
     display: none;
   }
 }
 
 /**
- * dashboard.events
+ * slides.display
  */
-table.dashboard-table {
-  font-size: 30px;
-  margin: 0px;
+div.container-1920x1080 {
+  /* set container initial and maximum sizes */
+  max-width: 1920px;
+  width: 1920px;
+  max-height: 1080px;
+  height: 1080px;
+
+  /* disable scrollbars */
+  overflow: hidden;
 }
 
-table.dashboard-table td.event-relative-time {
-  text-align: right;
-  font-size: 80%;
+div.slide-container {
+  /* make slides overlap one another to allow cross-fading in Vue */
+  position: absolute;
+
+  /* set size same as parent to allow "align-self" on children to work*/
+  width: inherit;
+  height: inherit;
+
+  /* horizontally center-align child elements */
+  justify-content: center;
+  display: flex;
 }
 
-/**
- * dashboard.games
- */
-table.dashboard-table td.game-user-count { /* easy to read user count */
-  font-weight: bold;
-  padding: 0px 30px;
-  width: 220px;
+div.markdown-slide {
+  /* horizontally center-align contained text */
+  text-align: center !important;
+
+  /* vertically center align div in parent */
+  align-self: center;
+  max-width: 1920px;
+  max-height: 1080px;
+  overflow: hidden;
 }
 
-table.dashboard-table td.game-user-list {
-  text-align: right;
+img.image-slide {
+  /* make image fill all available space */
+  width: inherit;
+  height: inherit;
+
+  /* display image at maximum size of parent without changing aspect ratio or cropping */
+  object-fit: contain;
 }
 
-table.dashboard-table td.game-logo { /* easy to read user count */
-  width: 184px;
+iframe.website-slide {
+  /* make iframe fill all available space */
+  width: inherit;
+  height: inherit;
+  border: none;
+}
+
+div.tv {
+  /* set font size to be readable from 10ft / 3m away */
+  font-size: 54px;
+}
+
+div#fullscreen-button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }

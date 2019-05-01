@@ -202,3 +202,53 @@ Breadcrumbs::for('lans.user-achievements.index', function ($trail, $lan) {
     $trail->parent('lans.show', $lan);
     $trail->push(__('title.achievements'), route('lans.user-achievements.index', $lan));
 });
+
+// Home > Venue
+Breadcrumbs::for('venues.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.venues'), route('venues.index'));
+});
+
+// Home > Venue > [Venue]
+Breadcrumbs::for('venues.show', function ($trail, $venue) {
+    $trail->parent('venues.index');
+    $trail->push($venue->name, route('venues.show', $venue));
+});
+
+// Home > Venue > [Venue] > Edit
+Breadcrumbs::for('venues.edit', function ($trail, $venue) {
+    $trail->parent('venues.index');
+    $trail->push($venue->name, route('venues.edit', $venue));
+});
+
+// Home > Venue > Create
+Breadcrumbs::for('venues.create', function ($trail) {
+    $trail->parent('venues.index');
+    $trail->push(__('title.create'), route('venues.create'));
+});
+
+// Home > LANs > [LAN] > Slides
+Breadcrumbs::for('lans.slides.index', function ($trail, $lan) {
+    $trail->parent('lans.show', $lan);
+    $trail->push(__('title.slides'), route('lans.slides.index', $lan));
+});
+
+// Home > LANs > [LAN] > Slides > Create
+Breadcrumbs::for('lans.slides.create', function ($trail, $lan) {
+    $trail->parent('lans.slides.index', $lan);
+    $trail->push(__('title.create'), route('lans.slides.create', $lan));
+});
+
+// Home > LANs > [LAN] > Slides > [Slide]
+Breadcrumbs::for('lans.slides.show', function ($trail, $lan, $slide) {
+    $trail->parent('lans.slides.index', $lan);
+    $trail->push($slide->name, route('lans.slides.show', ['lan' => $lan, 'slide' => $slide]));
+});
+
+// Home > LANs > [LAN] > Slides > [Slide] > Edit
+Breadcrumbs::for('lans.slides.edit', function ($trail, $lan, $slide) {
+    $trail->parent('lans.slides.index', $lan);
+    $trail->push($slide->name, route('lans.slides.edit', ['lan' => $lan, 'slide' => $slide]));
+});
+
+

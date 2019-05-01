@@ -1,0 +1,16 @@
+@extends('layouts.default')
+
+@section('title')
+    @lang('title.edit-item', ['item' => __('title.{{lang}}')])
+@endsection
+
+@section('content-header')
+    <h1>@lang('title.edit-item', ['item' => __('title.{{lang}}')])</h1>
+    {{ Breadcrumbs::render('{{route}}.edit', ${{variable}}) }}
+@endsection
+
+@section('content')
+    @include('components.form.edit', ['route' => route('{{route}}.update', ${{variable}})])
+    @include('pages.{{view}}.partials.form')
+    @include('components.form.close')
+@endsection

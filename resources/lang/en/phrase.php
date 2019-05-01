@@ -53,6 +53,9 @@ return [
     'oh-no' => 'Oh no!',
     'item-name-deleted' => ':Item ":name" deleted',
     'are-you-sure-delete' => 'Are you sure you want to delete this?',
+    'item-created-successfully' => ':Item created successfully',
+    'item-not-found' => ':item not found!',
+    'item-already-exists' => ':item already exists!',
 
     /**
      * Resources
@@ -206,5 +209,13 @@ return [
     'spoofing-initial-migration' => 'Spoofing initial migration',
     'confirm-get-app-ownership-data' => 'Would you like to get each user\'s app ownership data? (~1 minute per 50 users)',
     'successfully-upgraded-database' => 'Successfully upgraded database from v0.5.x to v1.0.x',
+
+    // make:feature
+    'create-files-for-feature' => 'Create files required for a new feature',
+    'name-of-feature' => 'The name of the feature, in singular StudlyCase, e.g. Venue',
+
+    // Slides
+    'slides-content-placeholder' => 'Markdown-formatted text, a single image, or a URL to embed',
+    'slides-content-help' => 'Content will be horizontally centered, increased in size, and scaled to fit the screen'
 ];
 

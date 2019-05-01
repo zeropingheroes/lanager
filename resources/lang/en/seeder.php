@@ -18,6 +18,10 @@ return [
     'food-and-drink' => 'Food & Drink',
     'projector' => 'Projector',
 
+    // Venues
+    'example-venue' => 'Example Venue',
+    'example-venue-description' => 'Example description',
+
     // LANs
     'example-lan' => 'Example LAN',
 
@@ -33,4 +37,9 @@ return [
     'snooze' => 'Snooze',
     'looking-to-trade' => 'Looking to trade',
     'looking-to-play' => 'Looking to play',
+
+    // Slides
+    'slide-lanager' => '# Log into :app-url to join the party!',
+    'slide-events' => ':app-url/events/fullscreen',
+    'slide-games' => ':app-url/games/fullscreen',
 ];

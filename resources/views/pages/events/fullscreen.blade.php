@@ -1,7 +1,7 @@
-@extends('layouts.fullscreen')
+@extends('layouts.content-only')
 
 @section('title')
-    @lang('title.dashboard')
+    @lang('title.events')
 @endsection
 
 @section('content')
@@ -12,8 +12,7 @@
             });
         });
     </script>
-    <div id="app">
+    <div id="app" class="tv">
         <events></events>
-        <active-games></active-games>
     </div>
 @endsection

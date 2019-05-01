@@ -17,7 +17,7 @@ class Event extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'description' => $this->name,
+            'description' => $this->description,
             'start' => $this->start->toIso8601String(),
             'end' => $this->end->toIso8601String(),
             'type' => new EventType($this->type),

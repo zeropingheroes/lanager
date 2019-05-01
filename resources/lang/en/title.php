@@ -36,6 +36,7 @@ return [
     'type' => 'Type',
     'description' => 'Description',
     'copy-markdown-link' => 'Copy Markdown Link',
+    'fullscreen' => 'Fullscreen',
 
     // CRUD
     'create-item' => 'Create :Item',
@@ -150,4 +151,15 @@ return [
     'award-an-achievement' => 'Award an Achievement',
     'award' => 'Award',
 
+    // Venues
+    'venues' => 'Venues',
+    'venue' => 'Venue',
+    'street-address' => 'Street Address',
+    'map' => 'Map',
+
+    // Slides
+    'slides' => 'Slides',
+    'slide' => 'Slide',
+    'duration' => 'Duration',
+    'play' => 'Play',
 ];

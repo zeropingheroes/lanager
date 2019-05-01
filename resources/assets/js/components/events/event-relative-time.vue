@@ -14,7 +14,6 @@
             this.updateRelativeTimeText();
         },
         watch: {
-            // whenever question changes, this function will run
             now: function (newTime, oldTime) {
                 this.updateRelativeTimeText();
             }
