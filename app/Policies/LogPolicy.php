@@ -8,6 +8,17 @@ use Zeropingheroes\Lanager\User;
 class LogPolicy extends BasePolicy
 {
     /**
+     * Determine whether the user can list all items.
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function index(User $user)
+    {
+        return $user->hasRole('admin');
+    }
+
+    /**
      * Determine whether the user can view a given item.
      *
      * @param User $user

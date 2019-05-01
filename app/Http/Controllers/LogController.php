@@ -16,7 +16,7 @@ class LogController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('view', Log::class);
+        $this->authorize('index', Log::class);
 
         $logs = Log::with('user')
             ->filter($request->all())
