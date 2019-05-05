@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Console\Commands\Development;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class MakeFeature extends Command
 {
@@ -30,16 +31,16 @@ class MakeFeature extends Command
      */
     public function handle()
     {
-        $name = studly_case(str_singular($this->argument('name')));
+        $name = Str::studly(str_singular($this->argument('name')));
 
         $this->replacements = [
             'model' => $name,
-            'variable' => camel_case($name),
-            'variables' => camel_case(str_plural($name, 2)),
-            'route' => kebab_case(str_plural($name, 2)),
-            'view' => kebab_case(str_plural($name, 2)),
-            'lang' => kebab_case($name),
-            'langs' => kebab_case(str_plural($name, 2)),
+            'variable' => Str::camel($name),
+            'variables' => Str::camel(str_plural($name, 2)),
+            'route' => Str::kebab(str_plural($name, 2)),
+            'view' => Str::kebab(str_plural($name, 2)),
+            'lang' => Str::kebab($name),
+            'langs' => Str::kebab(str_plural($name, 2)),
             'table' => snake_case(str_plural($name, 2)),
         ];
 
@@ -100,7 +101,7 @@ class MakeFeature extends Command
             if (!is_dir(dirname($outputPath))) {
                 mkdir(dirname($outputPath), 755, true);
             }
-            $label = 'View "' . studly_case(basename($viewStub, '.stub')) . '"';
+            $label = 'View "' . Str::studly(basename($viewStub, '.stub')) . '"';
             $this->makeFileFromStub(__DIR__ . '/stubs/views/' . $viewStub, $outputPath, $label);
         }
     }
@@ -112,7 +113,7 @@ class MakeFeature extends Command
      */
     private function makeFileFromStub($stubPath, $outputPath, $label = null, $append = false)
     {
-        $label = $label ?? studly_case(basename($stubPath, '.stub'));
+        $label = $label ?? Str::studly(basename($stubPath, '.stub'));
 
         if (!file_exists($stubPath)) {
             $this->error(__('phrase.item-not-found', ['item' => $label . ' stub']));

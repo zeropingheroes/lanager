@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Guide;
 use Illuminate\Http\Request;
@@ -92,10 +93,10 @@ class GuideController extends Controller
         // If the guide is accessed without the URL slug
         // or an incorrect slug
         // redirect to the guide with the right slug
-        if (!$slug || $slug != str_slug($guide->title)) {
+        if (!$slug || $slug != Str::slug($guide->title)) {
             return redirect()->route(
                 'lans.guides.show',
-                ['lan' => $guide->lan_id, 'guide' => $guide, 'slug' => str_slug($guide->title)]
+                ['lan' => $guide->lan_id, 'guide' => $guide, 'slug' => Str::slug($guide->title)]
             );
         }
 

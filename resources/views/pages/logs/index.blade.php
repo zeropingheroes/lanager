@@ -50,7 +50,7 @@
                         </td>
                         <td>
                             <a href="{{ route('logs.show', $log->id) }}">
-                                {{ str_limit($log->message, 96) }}
+                                {{ \Illuminate\Support\Str::limit($log->message, 96) }}
                             </a>
                         </td>
                         <td>

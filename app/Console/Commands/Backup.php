@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
 
 class Backup extends Command
@@ -61,7 +62,7 @@ class Backup extends Command
             // steam_apps - will be restored from Steam API
             // logs - often very large
             // sessions - temporary
-            if (str_contains($table, ['migrations', 'steam_apps', 'logs', 'sessions', 'phpdebugbar'])) {
+            if (Str::contains($table, ['migrations', 'steam_apps', 'logs', 'sessions', 'phpdebugbar'])) {
                 continue;
             }
             $processes["mysqldump-$table"] = new Process(
