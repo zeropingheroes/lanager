@@ -160,4 +160,9 @@ return [
     'slide' => 'Slide',
     'duration' => 'Duration',
     'play' => 'Play',
+
+    // Whitelisted IP Ranges
+    'whitelisted-ip-ranges' => 'Whitelisted IP Ranges',
+    'whitelisted-ip-range' => 'Whitelisted IP Range',
+    'ip-range' => 'IP Range',
 ];

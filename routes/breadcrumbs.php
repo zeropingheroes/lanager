@@ -233,4 +233,20 @@ Breadcrumbs::for('lans.slides.edit', function ($trail, $lan, $slide) {
     $trail->push($slide->name, route('lans.slides.edit', ['lan' => $lan, 'slide' => $slide]));
 });
 
+// Home > WhitelistedIpRange
+Breadcrumbs::for('whitelisted-ip-ranges.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('title.whitelisted-ip-ranges'), route('whitelisted-ip-ranges.index'));
+});
 
+// Home > WhitelistedIpRange > [WhitelistedIpRange] > Edit
+Breadcrumbs::for('whitelisted-ip-ranges.edit', function ($trail, $whitelistedIpRange) {
+    $trail->parent('whitelisted-ip-ranges.index');
+    $trail->push($whitelistedIpRange->ip_range, route('whitelisted-ip-ranges.edit', $whitelistedIpRange));
+});
+
+// Home > WhitelistedIpRange > Create
+Breadcrumbs::for('whitelisted-ip-ranges.create', function ($trail) {
+    $trail->parent('whitelisted-ip-ranges.index');
+    $trail->push(__('title.create'), route('whitelisted-ip-ranges.create'));
+});

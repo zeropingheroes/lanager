@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VenueSeeder::class);
         $this->call(LanSeeder::class);
         $this->call(SlideSeeder::class);
+        $this->call(WhitelistedIpRangeSeeder::class);
     }
 }
