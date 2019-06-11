@@ -1,3 +1,24 @@
+<script>
+    $(function () {
+        var start = $('#start');
+        var end = $('#end');
+
+        $("#start").click(function(){
+            start.datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:00',
+                sideBySide: true,
+                useCurrent: false
+            });
+        });
+        $("#end").click(function(){
+            end.datetimepicker({
+                format: 'YYYY-MM-DD HH:mm:00',
+                sideBySide: true,
+                useCurrent: false
+            });
+        });
+    });
+</script>
 <div class="form-group">
     <label for="name">@lang('title.name')</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="@lang('title.name')"
@@ -25,6 +46,23 @@
     <input type="text" class="form-control" id="duration" name="duration" placeholder="@lang('title.duration')"
            value="{{ old('duration', $slide->duration) }}">
 </div>
+
+<div class="form-group">
+    <label for="start">@lang('title.start')</label>
+    <input type="text" class="form-control datetimepicker-input" id="start" name="start"
+           placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('start', $slide->start) }}"
+           data-toggle="datetimepicker" data-target="#start" autocomplete="off">
+    <span class='help-block'>Leave blank to have no date/time restrictions</span>
+</div>
+
+<div class="form-group">
+    <label for="end">@lang('title.end')</label>
+    <input type="text" class="form-control datetimepicker-input" id="end" name="end"
+           placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('end', $slide->end) }}"
+           data-toggle="datetimepicker" data-target="#end" autocomplete="off">
+    <span class='help-block'>Leave blank to have no date/time restrictions</span>
+</div>
+
 <div class="form-group">
     <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id="published" name="published"

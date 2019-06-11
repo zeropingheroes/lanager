@@ -12,6 +12,8 @@ class Slide extends Model
         'content',
         'position',
         'duration',
+        'start',
+        'end',
         'published',
     ];
 
@@ -22,4 +24,9 @@ class Slide extends Model
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Lan');
     }
+
+    protected $dates = [
+        'start',
+        'end'
+    ];
 }
