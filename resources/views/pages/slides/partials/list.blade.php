@@ -30,7 +30,7 @@
                         {{ $slide->position }}
                     </td>
                     <td>
-                        @include('pages.slides.partials.start-and-end', ['slide' => $slide])
+                        {{ \Carbon\CarbonInterval::seconds($slide->duration)->cascade()->forHumans() }}
                     </td>
                     <td>
                         @isset($slide->start)
