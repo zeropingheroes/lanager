@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Providers;
 
 use Exception;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use League\CommonMark\Inline\Element\Image;
 use League\CommonMark\Inline\Element\Link;
 use Zeropingheroes\Lanager\MarkdownRenderers\ExternalLinkRenderer;
@@ -37,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
             Image::class,
             new ResponsiveImageRenderer(['img-fluid'])
         );
+
+        Relation::morphMap([
+            'steam_app' => 'Zeropingheroes\Lanager\SteamApp',
+        ]);
     }
 
     /**

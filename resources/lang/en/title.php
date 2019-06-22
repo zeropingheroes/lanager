@@ -116,6 +116,9 @@ return [
     'games-history' => 'Games History',
     'popular-games' => 'Popular Games',
 
+    // Favourite games
+    'favourite-games' => 'Favourite Games',
+
     // Navigation Links
     'navigation-link' => 'Navigation Link',
     'navigation-links' => 'Navigation Links',

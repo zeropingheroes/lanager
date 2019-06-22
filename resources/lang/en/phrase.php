@@ -79,6 +79,7 @@ return [
     'you-have-no-games-in-common-with-username' => 'You have no games in common with :username',
     'username-does-not-own-any-games' => ':username does not own any games',
     'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or have in common with you',
+    'username-has-not-favourited-any-games' => ':username has not favourited any games',
     'viewing-user-from-another-lan' => 'This user is not attending the current LAN',
     'username-has-not-played-any-games-this-lan' => ':username has not played any games this LAN',
     'played-for-x' => 'Played for :x',
