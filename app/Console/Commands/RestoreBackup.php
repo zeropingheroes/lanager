@@ -92,6 +92,7 @@ class RestoreBackup extends Command
 
         // Run the defined processes in turn
         foreach ($processes as $process) {
+            $process->setTimeout(300);
             $process->run(
                 function ($type, $buffer) {
                     if (Process::ERR === $type) {
