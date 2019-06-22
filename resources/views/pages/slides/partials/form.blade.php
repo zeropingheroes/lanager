@@ -52,7 +52,7 @@
         <input type="text" class="form-control datetimepicker-input" id="start" name="start"
                placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('start', $slide->start) }}"
                data-toggle="datetimepicker" data-target="#start" autocomplete="off">
-        <span class='help-block'>Optionally set when the slide should be displayed</span>
+        <span class="help-block">@lang('phrase.slides-start-end-help')</span>
     </div>
 
     <div class="form-group col-md-6">
