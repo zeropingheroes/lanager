@@ -16,6 +16,7 @@ Route::name('api.')->group(function () {
     Route::resource('lans.slides', 'Api\SlideController', ['only' => ['index', 'show']]);
     Route::resource('events', 'Api\EventController', ['only' => ['index', 'show']]);
     Route::resource('active-games', 'Api\ActiveGamesController', ['only' => ['index']]);
+    Route::resource('games', 'Api\GameController', ['only' => ['index', 'show']]);
 });
 
 Route::fallback(function () {
