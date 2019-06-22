@@ -33,7 +33,9 @@
                         @include('pages.slides.partials.start-and-end', ['slide' => $slide])
                     </td>
                     <td>
-                        {{ $slide->end ?? "Not Set" }}
+                        @isset($slide->start)
+                            @include('pages.slides.partials.start-and-end', ['slide' => $slide])
+                        @endisset
                     </td>
                     <td>
                         @lang('title.updated') @include('components.time-relative', ['datetime' => $slide->updated_at])
