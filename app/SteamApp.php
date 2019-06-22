@@ -39,4 +39,12 @@ class SteamApp extends Model
     {
         return 'steam://store/' . $this->id;
     }
+
+    /**
+     * Get all of the Steam app's favourites.
+     */
+    public function favourites()
+    {
+        return $this->morphMany('Zeropingheroes\Lanager\UserFavouriteGame', 'favouriteable');
+    }
 }
