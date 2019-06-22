@@ -21,9 +21,9 @@ class Game extends JsonResource
                 'name' => $this->name,
                 'url' => $this->url(),
                 'logo' => [
-                    'small' => $this->image('small'),
-                    'medium' => $this->image('medium'),
-                    'large' => $this->image('large'),
+                    'small' => $this->logo('small'),
+                    'medium' => $this->logo('medium'),
+                    'large' => $this->logo('large'),
                 ],
             ];
         }

@@ -75,11 +75,11 @@
             @foreach($games as $game)
                 <tr>
                     <td class="game">
-                        @include('pages.games.partials.game-image-link',
+                        @include('pages.games.partials.game-logo-link',
                         [
                             'name' => $game['game']->name,
                             'url' => $game['game']->url(),
-                            'image' => $game['game']->image(),
+                            'logo' => $game['game']->logo(),
                         ])
                     </td>
                     <td class="playtime">

@@ -6,11 +6,11 @@
         @foreach($favouriteGames as $favouriteGame)
             <tr>
                 <td>
-                    @include('pages.games.partials.game-image-link',
+                    @include('pages.games.partials.game-logo-link',
                     [
                         'name' => $favouriteGame->favouriteable->name,
                         'url' => $favouriteGame->favouriteable->url(),
-                        'image' => $favouriteGame->favouriteable->image(),
+                        'logo' => $favouriteGame->favouriteable->logo(),
                     ])
                 </td>
                 <td>{{ $favouriteGame->favouriteable->name }}</td>

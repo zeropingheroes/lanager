@@ -10,11 +10,11 @@
     @foreach($gamesInCommon as $userGame)
             <tr>
                 <td class="game">
-                    @include('pages.games.partials.game-image-link',
+                    @include('pages.games.partials.game-logo-link',
                     [
                         'name' => $userGame->app->name,
                         'url' => $userGame->app->url(),
-                        'image' => $userGame->app->image(),
+                        'logo' => $userGame->app->logo(),
                     ])
                 </td>
                 <td class="playtime-forever">
