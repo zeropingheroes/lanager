@@ -9,7 +9,7 @@
                     @include('pages.games.partials.game-image-link',
                     [
                         'name' => $favouriteGame->favouriteable->name,
-                        'url' => $favouriteGame->favouriteable->steamStoreURL(),
+                        'url' => $favouriteGame->favouriteable->url(),
                         'image' => $favouriteGame->favouriteable->image(),
                     ])
                 </td>

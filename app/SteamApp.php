@@ -35,7 +35,7 @@ class SteamApp extends Model
     /**
      * @return string
      */
-    public function steamStoreURL(): string
+    public function url(): string
     {
         return 'steam://store/' . $this->id;
     }

@@ -8,7 +8,7 @@
                     @include('pages.games.partials.game-image-link',
                     [
                         'name' => $gameSession->app->name,
-                        'url' => $gameSession->app->steamStoreURL(),
+                        'url' => $gameSession->app->url(),
                         'image' => $gameSession->app->image(),
                     ])
                 </td>

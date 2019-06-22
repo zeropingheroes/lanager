@@ -17,7 +17,7 @@
                     @include('pages.games.partials.game-image-link',
                     [
                         'name' => $game['game']->name,
-                        'url' => $game['game']->steamStoreURL(),
+                        'url' => $game['game']->url(),
                         'image' => $game['game']->image(),
                     ])
                 </td>
