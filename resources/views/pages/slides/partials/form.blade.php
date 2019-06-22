@@ -2,21 +2,26 @@
     $(function () {
         var start = $('#start');
         var end = $('#end');
+        var format = 'YYYY-MM-DD HH:mm:00';
 
-        $("#start").click(function(){
-            start.datetimepicker({
-                format: 'YYYY-MM-DD HH:mm:00',
-                sideBySide: true,
-                useCurrent: false
-            });
+        var startDate = moment(start.val(), format).toDate();
+        var endDate = moment(end.val(), format).toDate();
+
+        start.datetimepicker({
+            format: format,
+            sideBySide: true,
+            useCurrent: false
         });
-        $("#end").click(function(){
-            end.datetimepicker({
-                format: 'YYYY-MM-DD HH:mm:00',
-                sideBySide: true,
-                useCurrent: false
-            });
+
+        end.datetimepicker({
+            format: format,
+            sideBySide: true,
+            useCurrent: false
         });
+
+        start.datetimepicker('date', startDate);
+        end.datetimepicker('date', endDate);
+
     });
 </script>
 <div class="form-group">
@@ -51,7 +56,7 @@
         <label for="start">@lang('title.start')</label>
         <input type="text" class="form-control datetimepicker-input" id="start" name="start"
                placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('start', $slide->start) }}"
-               data-toggle="datetimepicker" data-target="#start" autocomplete="off">
+               data-toggle="datetimepicker" data-target="#start">
         <span class="help-block">@lang('phrase.slides-start-end-help')</span>
     </div>
 
@@ -59,7 +64,7 @@
         <label for="end">@lang('title.end')</label>
         <input type="text" class="form-control datetimepicker-input" id="end" name="end"
                placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('end', $slide->end) }}"
-               data-toggle="datetimepicker" data-target="#end" autocomplete="off">
+               data-toggle="datetimepicker" data-target="#end">
     </div>
 </div>
 
