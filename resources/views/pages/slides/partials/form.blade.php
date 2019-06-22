@@ -46,21 +46,21 @@
     <input type="text" class="form-control" id="duration" name="duration" placeholder="@lang('title.duration')"
            value="{{ old('duration', $slide->duration) }}">
 </div>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="start">@lang('title.start')</label>
+        <input type="text" class="form-control datetimepicker-input" id="start" name="start"
+               placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('start', $slide->start) }}"
+               data-toggle="datetimepicker" data-target="#start" autocomplete="off">
+        <span class='help-block'>Optionally set when the slide should be displayed</span>
+    </div>
 
-<div class="form-group">
-    <label for="start">@lang('title.start')</label>
-    <input type="text" class="form-control datetimepicker-input" id="start" name="start"
-           placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('start', $slide->start) }}"
-           data-toggle="datetimepicker" data-target="#start" autocomplete="off">
-    <span class='help-block'>Leave blank to have no date/time restrictions</span>
-</div>
-
-<div class="form-group">
-    <label for="end">@lang('title.end')</label>
-    <input type="text" class="form-control datetimepicker-input" id="end" name="end"
-           placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('end', $slide->end) }}"
-           data-toggle="datetimepicker" data-target="#end" autocomplete="off">
-    <span class='help-block'>Leave blank to have no date/time restrictions</span>
+    <div class="form-group col-md-6">
+        <label for="end">@lang('title.end')</label>
+        <input type="text" class="form-control datetimepicker-input" id="end" name="end"
+               placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('end', $slide->end) }}"
+               data-toggle="datetimepicker" data-target="#end" autocomplete="off">
+    </div>
 </div>
 
 <div class="form-group">

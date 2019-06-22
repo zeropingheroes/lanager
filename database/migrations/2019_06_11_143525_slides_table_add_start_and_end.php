@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateSlidesTableAdditions extends Migration
+class SlidesTableAddStartAndEnd extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,12 @@ class UpdateSlidesTableAdditions extends Migration
     {
         Schema::table('slides', function (Blueprint $table) {
             $table->timestamp('start')
-                ->nullable();
+                ->nullable()
+                ->after('published');
 
             $table->timestamp('end')
-                ->nullable();
+                ->nullable()
+                ->after('start');
         });
     }
 

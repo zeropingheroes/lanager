@@ -160,6 +160,7 @@ return [
     'slide' => 'Slide',
     'duration' => 'Duration',
     'play' => 'Play',
+    'active' => 'Active',
 
     // Whitelisted IP Ranges
     'whitelisted-ip-ranges' => 'Whitelisted IP Ranges',

@@ -5,8 +5,7 @@
         <th>@lang('title.content')</th>
         <th>@lang('title.position')</th>
         <th>@lang('title.duration')</th>
-        <th>@lang('title.start')</th>
-        <th>@lang('title.end')</th>
+        <th>@lang('title.active')</th>
         <th>@lang('title.updated')</th>
         <th>@lang('title.published')</th>
         <th>@lang('title.actions')</th>
@@ -31,10 +30,7 @@
                         {{ $slide->position }}
                     </td>
                     <td>
-                        {{ \Carbon\CarbonInterval::seconds($slide->duration)->cascade()->forHumans() }}
-                    </td>
-                    <td>
-                        {{ $slide->start ?? "Not Set" }}
+                        @include('pages.slides.partials.start-and-end', ['slide' => $slide])
                     </td>
                     <td>
                         {{ $slide->end ?? "Not Set" }}
