@@ -5,7 +5,9 @@
         <th>@lang('title.content')</th>
         <th>@lang('title.position')</th>
         <th>@lang('title.duration')</th>
+        <th>@lang('title.active')</th>
         <th>@lang('title.updated')</th>
+        <th>@lang('title.published')</th>
         <th>@lang('title.actions')</th>
     </tr>
     </thead>
@@ -31,7 +33,15 @@
                         {{ \Carbon\CarbonInterval::seconds($slide->duration)->cascade()->forHumans() }}
                     </td>
                     <td>
+                        @isset($slide->start)
+                            @include('pages.slides.partials.start-and-end', ['slide' => $slide])
+                        @endisset
+                    </td>
+                    <td>
                         @lang('title.updated') @include('components.time-relative', ['datetime' => $slide->updated_at])
+                    </td>
+                    <td>
+                        {{ $slide->published ? 'Yes' : 'No' }}
                     </td>
                     @canany(['update', 'delete'], $slide)
                         <td class="">
