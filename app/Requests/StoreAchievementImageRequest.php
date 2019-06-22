@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-class StoreWhitelistedIpRangeRequest extends Request
+class StoreAchievementImageRequest extends Request
 {
     use LaravelValidation;
 
@@ -14,8 +14,12 @@ class StoreWhitelistedIpRangeRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'ip_range'           => ['required', 'max:255', 'regex:^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$/g'],
-            'description'        => ['nullable', 'max:255'],
+            'images'  => ['required', 'image', 'max:5000'],
+        ];
+
+        $this->validationMessages = [
+            'images.image'    => __('phrase.submitted-file-was-invalid-image'),
+            'images.max'  => __('phrase.submitted-file-exceeded-max-file-size-of-x', ['x' => '5MB']),
         ];
 
         if (!$this->laravelValidationPasses()) {
