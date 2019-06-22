@@ -76,11 +76,10 @@ Route::get('lans/{lan}/guides/{guide}/{slug?}', 'GuideController@show')
     ->name('lans.guides.show');
 
 /**
- * Events & Event Types
+ * Events
  */
 Route::resource('lans.events', 'EventController');
 Route::resource('lans.events.signups', 'EventSignupController', ['only' => ['store', 'destroy']]);
-Route::resource('event-types', 'EventTypeController');
 Route::get('/events/fullscreen', function () {
     return view('pages.events.fullscreen');
 })->name('events.fullscreen');

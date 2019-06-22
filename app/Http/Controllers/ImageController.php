@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Requests\StoreImageRequest;
 use Zeropingheroes\Lanager\Requests\UpdateImageRequest;
@@ -86,7 +87,7 @@ class ImageController extends Controller
 
             $fileName = str_replace($extension, '', $fileNameWithExtension);
 
-            $newFileName = str_slug($fileName) . '.' . strtolower($extension);
+            $newFileName = Str::slug($fileName) . '.' . strtolower($extension);
 
             $image->storeAs($this::directory, $newFileName);
         }
@@ -137,7 +138,7 @@ class ImageController extends Controller
 
         $originalFilePath = $this::directory . '/' . $filename;
         $originalFileExtension = File::extension($originalFilePath);
-        $newFilenameWithoutExtension = str_before($httpRequest->input('filename'), '.' . $originalFileExtension);
+        $newFilenameWithoutExtension = Str::before($httpRequest->input('filename'), '.' . $originalFileExtension);
         $newFilePath = $this::directory . '/' . $newFilenameWithoutExtension . '.' . $originalFileExtension;
 
         $input = [

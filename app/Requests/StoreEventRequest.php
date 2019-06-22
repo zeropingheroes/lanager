@@ -34,7 +34,6 @@ class StoreEventRequest extends Request
                 'before_or_equal:start',
                 'required_with:signups_open',
             ],
-            'event_type_id' => ['required', 'numeric', 'exists:event_types,id'],
             'lan_id' => ['required', 'numeric', 'exists:lans,id'],
             'published' => ['boolean'],
         ];

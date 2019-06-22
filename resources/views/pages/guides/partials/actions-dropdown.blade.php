@@ -2,7 +2,7 @@
     @can('update', $guide)
         <a class="dropdown-item copy-to-clipboard"
            href="#"
-           data-clipboard-text="[{{ $guide->title }}]({{ route('lans.guides.show', ['lan' => $guide->lan, 'guide' => $guide, 'slug' => str_slug($guide->title)], false) }})">
+           data-clipboard-text="[{{ $guide->title }}]({{ route('lans.guides.show', ['lan' => $guide->lan, 'guide' => $guide, 'slug' => \Illuminate\Support\Str::slug($guide->title)], false) }})">
             @lang('title.copy-markdown-link')
         </a>
         <a href="{{ route('lans.guides.edit', ['lan' => $guide->lan, 'guide' => $guide]) }}"

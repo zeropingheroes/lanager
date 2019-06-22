@@ -229,6 +229,9 @@ div.slide-container {
   /* horizontally center-align child elements */
   justify-content: center;
   display: flex;
+
+  /* make text easier to read when on a white background */
+  text-shadow: 1px 0 5px #000, 0 -1px 5px #000, 0 1px 5px #000, -1px 0 5px #000;
 }
 
 div.markdown-slide {

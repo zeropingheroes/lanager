@@ -11,13 +11,6 @@ return [
     |
     */
 
-    // Event Types
-    'ceremony' => 'Ceremony',
-    'big-game' => 'Big Game',
-    'tournament' => 'Tournament',
-    'food-and-drink' => 'Food & Drink',
-    'projector' => 'Projector',
-
     // Venues
     'example-venue' => 'Example Venue',
     'example-venue-description' => 'Example description',

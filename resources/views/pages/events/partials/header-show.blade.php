@@ -14,11 +14,6 @@
             @include('pages.events.partials.start-and-end', ['event' => $event])
         </h4>
     </div>
-    <div class="col-md-auto pl-0">
-        <h5>
-            @include('pages.event-types.partials.label', ['eventType' => $event->type])
-        </h5>
-    </div>
     @canany(['update', 'delete'], $event)
         <div class="col text-right">
             @include('pages.events.partials.actions-dropdown', ['event' => $event])

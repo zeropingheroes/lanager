@@ -22,7 +22,7 @@
                         @endcanany
                     </td>
                     <td>
-                        {{ str_limit($slide->content, 16) }}
+                        {{ \Illuminate\Support\Str::limit($slide->content, 16) }}
                     </td>
                     <td>
                         {{ $slide->position }}

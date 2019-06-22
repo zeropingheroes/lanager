@@ -124,13 +124,6 @@
 </div>
 
 <div class="form-group">
-    <label for="event_type_id">@lang('title.event-type')</label>
-    @include('components.form.select', ['name' => 'event_type_id', 'item' => $event, 'items' => $eventTypes, 'labelField' => 'name'])
-    <small id="descriptionHelp" class="form-text text-muted">
-        <a href="{{ route('event-types.index') }}" target="_blank">@lang('title.manage') @lang('title.event-types')</a>
-    </small>
-</div>
-<div class="form-group">
     <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id="published" name="published"
                value="1" {{ old('published', $event->published) ? 'checked' : null}}>

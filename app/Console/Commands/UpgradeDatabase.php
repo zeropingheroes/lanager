@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class UpgradeDatabase extends Command
 {
@@ -111,6 +112,7 @@ class UpgradeDatabase extends Command
         $tablesToDrop = [
             'states',
             'servers',
+            'event_types',
             'applications',
             'logs',
             'migrations',
@@ -135,7 +137,6 @@ class UpgradeDatabase extends Command
         $tablesWithStandardTimestamps = [
             'achievements',
             'event_signups',
-            'event_types',
             'pages',
             'roles',
             'user_achievements',
@@ -329,7 +330,7 @@ class UpgradeDatabase extends Command
             DB::table('roles')
                 ->where('id', $role->id)
                 ->update([
-                    'name' => kebab_case($role->name),
+                    'name' => Str::kebab($role->name),
                     'display_name' => $role->name,
                 ]);
         }

@@ -17,11 +17,13 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        $events = Event::where('published', 1);
+        $events = Event::where('published', true);
 
         if ($request->filled('after')) {
-            $events->where('start', '>', $request->after);
-            $events->orWhere('end', '>', $request->after);
+            $events->where(function ($query) use ($request) {
+                $query->where('start', '>', $request->after)
+                      ->orWhere('end', '>', $request->after);
+            });
         }
 
         if ($request->filled('limit')) {
