@@ -75,7 +75,12 @@
             @foreach($games as $game)
                 <tr>
                     <td class="game">
-                        @include('pages.games.partials.game-image-link', ['game' => $game['game']])
+                        @include('pages.games.partials.game-image-link',
+                        [
+                            'name' => $game['game']->name,
+                            'url' => $game['game']->steamStoreURL(),
+                            'image' => $game['game']->image(),
+                        ])
                     </td>
                     <td class="playtime">
                         {{ $game['playtime']->seconds(0)->cascade()->forHumans() }}

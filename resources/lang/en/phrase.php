@@ -94,7 +94,6 @@ return [
     'x-in-game' => ':x In Game',
     'x-played-recently' => ':x Played recently',
     'x-owners' => ':x Owners',
-    'view-game-in-steam-store' => 'View :game in the Steam Store',
     'logo-for-game' => 'Logo for :game',
 
     // Guides

@@ -5,7 +5,14 @@
     <tbody>
         @foreach($favouriteGames as $favouriteGame)
             <tr>
-                <td>@include('pages.games.partials.game-image-link', ['game' => $favouriteGame->favouriteable])</td>
+                <td>
+                    @include('pages.games.partials.game-image-link',
+                    [
+                        'name' => $favouriteGame->favouriteable->name,
+                        'url' => $favouriteGame->favouriteable->steamStoreURL(),
+                        'image' => $favouriteGame->favouriteable->image(),
+                    ])
+                </td>
                 <td>{{ $favouriteGame->favouriteable->name }}</td>
             </tr>
         @endforeach

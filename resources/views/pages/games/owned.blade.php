@@ -14,9 +14,12 @@
         @foreach($games as $game)
             <tr>
                 <td class="game">
-                    <a href="{{ $game['game']->steamStoreURL() }}" title="@lang('phrase.view-game-in-steam-store', ['game' => $game['game']->name])">
-                        <img src="{{ $game['game']->image() }}" alt="@lang('phrase.logo-for-game', ['game' => $game['game']->name])">
-                    </a>
+                    @include('pages.games.partials.game-image-link',
+                    [
+                        'name' => $game['game']->name,
+                        'url' => $game['game']->steamStoreURL(),
+                        'image' => $game['game']->image(),
+                    ])
                 </td>
                 <td class="user-count">
                     @lang('phrase.x-owners', ['x' => count($game['users'])])
