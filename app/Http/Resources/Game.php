@@ -17,6 +17,7 @@ class Game extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'provider' => 'steam',
             'url' => $this->url(),
             'logo' => [
                 'small' => $this->logo('small'),
