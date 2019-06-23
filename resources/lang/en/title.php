@@ -133,7 +133,7 @@ return [
     'x-hours' => ':x hours',
     'attendees' => 'Attendees',
     'attendee' => 'Attendee',
-    'lan-achievement' => 'Event Achievement',
+    'lan-achievement' => 'Achievement',
 
     // Images
     'images' => 'Images',

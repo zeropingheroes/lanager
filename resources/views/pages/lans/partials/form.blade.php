@@ -70,6 +70,9 @@
 <div class="form-group">
     <label for="achievement_id">@lang('title.lan-achievement')</label>
     @include('components.form.select', ['name' => 'achievement_id', 'item' => $lan, 'items' => $achievements, 'labelField' => 'name', 'blank' => true])
+    <small id="achievement_id_help" class="form-text">
+        @lang('phrase.lan-achievement-help')
+    </small>
 </div>
 <div class="form-group">
     <div class="custom-control custom-checkbox">

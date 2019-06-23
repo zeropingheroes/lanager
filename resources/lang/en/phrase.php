@@ -108,6 +108,7 @@ return [
 
     // LANs
     'lans-cannot-overlap' => 'LANs cannot overlap',
+    'lan-achievement-help' => 'The achievement to award to attendees when they sign in at the LAN',
 
     // Events
     'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',
