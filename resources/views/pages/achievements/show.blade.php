@@ -7,7 +7,12 @@
 @section('content-header')
     <div class="row align-items-center">
         <div class="col-md-auto">
-            <h1>{{ $achievement->name }}</h1>
+            <h1>
+                @if($achievement->image_filename)
+                    <img src="/storage/images/achievements/{{ $achievement->image_filename }}" height="64px" width="64px">
+                @endif
+                {{ $achievement->name }}
+            </h1>
         </div>
         @canany(['edit', 'delete'], $achievement)
             <div class="col text-right">

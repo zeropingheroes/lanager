@@ -19,6 +19,9 @@
                         @include('pages.users.partials.avatar-username', ['user' => $userAchievement->user])
                     </td>
                     <td>
+                        @if($userAchievement->achievement->image_filename)
+                            <img src="/storage/images/achievements/{{ $userAchievement->achievement->image_filename }}" height="32px" width=32px">
+                        @endif
                         <span title="{{ $userAchievement->achievement->description }}">{{ $userAchievement->achievement->name }}</span>
                     </td>
                     <td>

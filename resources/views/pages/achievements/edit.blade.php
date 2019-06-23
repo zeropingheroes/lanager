@@ -10,7 +10,8 @@
 @endsection
 
 @section('content')
-    @include('components.form.edit', ['route' => route('achievements.update', $achievement)])
-    @include('pages.achievements.partials.form')
-    @include('components.form.close')
+    <form method="POST" action="{{ route('achievements.update', $achievement) }}" accept-charset="UTF-8" enctype="multipart/form-data">
+        {{method_field('PUT')}}
+        @include('pages.achievements.partials.form')
+    </form>
 @endsection

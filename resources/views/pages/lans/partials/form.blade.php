@@ -66,6 +66,11 @@
     <label for="venue_id">@lang('title.venue')</label>
     @include('components.form.select', ['name' => 'venue_id', 'item' => $lan, 'items' => $venues, 'labelField' => 'name', 'blank' => true])
 </div>
+
+<div class="form-group">
+    <label for="achievement_id">@lang('title.lan-achievement')</label>
+    @include('components.form.select', ['name' => 'achievement_id', 'item' => $lan, 'items' => $achievements, 'labelField' => 'name', 'blank' => true])
+</div>
 <div class="form-group">
     <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id="published" name="published"

@@ -4,11 +4,19 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Zeropingheroes\Lanager\Achievement;
+use Zeropingheroes\Lanager\Requests\StoreAchievementImageRequest;
 use Zeropingheroes\Lanager\Requests\StoreAchievementRequest;
+use Zeropingheroes\Lanager\Requests\StoreImageRequest;
 
 class AchievementController extends Controller
 {
+    /**
+     * Uploaded image storage location
+     */
+    const directory = 'public/images/achievements';
+
     /**
      * Display a listing of the resource.
      *
@@ -52,14 +60,24 @@ class AchievementController extends Controller
         ];
 
         $request = new StoreAchievementRequest($input);
+        $request2 = new StoreAchievementImageRequest(['images' => $httpRequest->image]);
 
-        if ($request->invalid()) {
+        if ($request->invalid() OR $request2->invalid()) {
             return redirect()
                 ->back()
                 ->withError($request->errors())
                 ->withInput();
         }
+
         $achievement = Achievement::create($input);
+
+        if($httpRequest->image)
+        {
+            $extension = $httpRequest->image->getClientOriginalExtension();
+            $newFileName = $achievement->id . '.' . strtolower($extension);
+            $httpRequest->image->storeAs($this::directory, $newFileName);
+            $achievement->update(['image_filename' => $newFileName]);
+        }
 
         return redirect()
             ->route('achievements.show', $achievement);
@@ -109,16 +127,26 @@ class AchievementController extends Controller
         $input = [
             'name' => $httpRequest->input('name'),
             'description' => $httpRequest->input('description'),
-        ];
+        ];;
 
         $request = new StoreAchievementRequest($input);
+        $request2 = new StoreAchievementImageRequest(['images' => $httpRequest->image]);
 
-        if ($request->invalid()) {
+        if ($request->invalid() OR $request2->invalid()) {
             return redirect()
                 ->back()
                 ->withError($request->errors())
                 ->withInput();
         }
+
+        if($httpRequest->image)
+        {
+            $extension = $httpRequest->image->getClientOriginalExtension();
+            $newFileName = $achievement->id . '.' . strtolower($extension);
+            $httpRequest->image->storeAs($this::directory, $newFileName);
+            $input['image_filename'] = $newFileName;
+        }
+
         $achievement->update($input);
 
         return redirect()

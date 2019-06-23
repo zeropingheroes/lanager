@@ -4,7 +4,12 @@
         @can('view', $achievement)
             <tr>
                 <td>
-                    <a href="{{ route('achievements.show', ['achievement' => $achievement])}}">{{ $achievement->name }}</a>
+                    <a href="{{ route('achievements.show', ['achievement' => $achievement])}}">
+                        @if($achievement->image_filename)
+                            <img src="/storage/images/achievements/{{ $achievement->image_filename }}" height="32px" width="32px">
+                        @endif
+                        {{ $achievement->name }}
+                    </a>
                 </td>
                 @canany(['edit', 'delete'], $achievement)
                 <td class="text-right pr-0">
