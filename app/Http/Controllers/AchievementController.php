@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 use Zeropingheroes\Lanager\Achievement;
 use Zeropingheroes\Lanager\Requests\StoreAchievementImageRequest;
 use Zeropingheroes\Lanager\Requests\StoreAchievementRequest;
-use Zeropingheroes\Lanager\Requests\StoreImageRequest;
 
 class AchievementController extends Controller
 {
@@ -57,12 +56,12 @@ class AchievementController extends Controller
         $input = [
             'name' => $httpRequest->input('name'),
             'description' => $httpRequest->input('description'),
+            'image' => $httpRequest->image,
         ];
 
         $request = new StoreAchievementRequest($input);
-        $request2 = new StoreAchievementImageRequest(['images' => $httpRequest->image]);
 
-        if ($request->invalid() OR $request2->invalid()) {
+        if ($request->invalid()) {
             return redirect()
                 ->back()
                 ->withError($request->errors())
@@ -127,12 +126,12 @@ class AchievementController extends Controller
         $input = [
             'name' => $httpRequest->input('name'),
             'description' => $httpRequest->input('description'),
-        ];;
+            'image' => $httpRequest->image,
+        ];
 
         $request = new StoreAchievementRequest($input);
-        $request2 = new StoreAchievementImageRequest(['images' => $httpRequest->image]);
 
-        if ($request->invalid() OR $request2->invalid()) {
+        if ($request->invalid()) {
             return redirect()
                 ->back()
                 ->withError($request->errors())
