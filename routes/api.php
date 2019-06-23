@@ -19,7 +19,3 @@ Route::name('api.')->group(function () {
     Route::resource('active-games', 'Api\ActiveGamesController', ['only' => ['index']]);
     Route::resource('games', 'Api\GameController', ['only' => ['index', 'show']]);
 });
-
-Route::fallback(function () {
-    return response()->json(['error' => ['message' => __('http-status-codes.404-title')]],404);
-})->name('fallback');
