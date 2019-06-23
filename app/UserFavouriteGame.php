@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserFavouriteGame extends Model
 {
+    protected $fillable = [
+        'favouriteable_id',
+        'favouriteable_type',
+    ];
+
     /**
      * Get all of the owning favouriteable models.
      */

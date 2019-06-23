@@ -12,7 +12,7 @@
 */
 Route::name('api.')->group(function () {
     Route::resource('users', 'Api\UserController', ['only' => ['index', 'show']]);
-    Route::resource('users.favourite-games', 'Api\UserFavouriteGameController', ['only' => ['index']]);
+    Route::resource('users.favourite-games', 'Api\UserFavouriteGameController', ['only' => ['index', 'store']]);
     Route::resource('lans', 'Api\LanController', ['only' => ['index', 'show']]);
     Route::resource('lans.slides', 'Api\SlideController', ['only' => ['index', 'show']]);
     Route::resource('events', 'Api\EventController', ['only' => ['index', 'show']]);

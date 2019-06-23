@@ -29,6 +29,9 @@ use Zeropingheroes\Lanager\Policies\EventPolicy;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\Policies\UserPolicy;
 use Zeropingheroes\Lanager\Venue;
+use Zeropingheroes\Lanager\UserFavouriteGame;
+use Zeropingheroes\Lanager\Policies\UserFavouriteGamePolicy;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -52,6 +55,7 @@ class AuthServiceProvider extends ServiceProvider
         UserAchievement::class  => UserAchievementPolicy::class,
         Venue::class            => VenuePolicy::class,
         Slide::class            => SlidePolicy::class,
+        UserFavouriteGame::class=> UserFavouriteGamePolicy::class,
     ];
 
     /**

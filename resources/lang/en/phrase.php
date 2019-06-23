@@ -56,7 +56,7 @@ return [
     'item-name-deleted' => ':Item ":name" deleted',
     'are-you-sure-delete' => 'Are you sure you want to delete this?',
     'item-created-successfully' => ':Item created successfully',
-    'item-not-found' => ':item not found!',
+    'item-not-found' => ':item not found',
     'item-already-exists' => ':item already exists!',
 
     /**
@@ -95,6 +95,8 @@ return [
     'x-played-recently' => ':x Played recently',
     'x-owners' => ':x Owners',
     'logo-for-game' => 'Logo for :game',
+    'unsupported-provider' => 'Unsupported provider',
+    'game-already-favourited' => 'Game already favourited',
 
     // Guides
     'markdown-formatting-help-link' => 'Markdown formatting help',

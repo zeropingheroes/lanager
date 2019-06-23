@@ -105,6 +105,7 @@ return [
 
     // Games
     'games' => 'Games',
+    'game' => 'Game',
     'games-in-progress' => 'Games In Progress',
     'in-progress' => 'In Progress',
     'recently-played-games' => 'Recently Played Games',
