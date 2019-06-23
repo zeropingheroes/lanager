@@ -31,4 +31,17 @@ class UserFavouriteGamePolicy extends BasePolicy
     {
         return $authUser->id === $user->id;
     }
+
+    /**
+     * Determine whether the user can delete a given item.
+     *
+     * @param User $authUser
+     * @param UserFavouriteGame $userFavouriteGame
+     * @return mixed
+     */
+    public function delete(User $authUser, UserFavouriteGame $userFavouriteGame)
+    {
+        // Users can only delete their own favourite games
+        return $authUser->id == $userFavouriteGame->user->id;
+    }
 }

@@ -16,7 +16,7 @@ class UserFavouriteGameController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['only' => ['store']]);
+        $this->middleware('auth:api', ['only' => ['store', 'destroy']]);
     }
 
     /**
@@ -63,4 +63,26 @@ class UserFavouriteGameController extends Controller
         }
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Zeropingheroes\Lanager\User $user
+     * @param UserFavouriteGame $favouriteGame
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user, UserFavouriteGame $favouriteGame)
+    {
+        $this->authorize('delete', $favouriteGame);
+
+        // If the favourite game is accessed via the wrong user ID, show 404
+        if ($favouriteGame->user->id != $user->id) {
+            abort(404);
+        }
+
+        $destroyed = UserFavouriteGame::destroy($favouriteGame->id);
+
+        if($destroyed) {
+            return response(null, 200);
+        }
+    }
 }
