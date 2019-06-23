@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
-use Zeropingheroes\Lanager\Http\Resources\Game;
+use Zeropingheroes\Lanager\Http\Resources\UserFavouriteGame as UserFavouriteGameResource;
 use Zeropingheroes\Lanager\Requests\StoreUserFavouriteGameRequest;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\UserFavouriteGame;
@@ -27,12 +27,7 @@ class UserFavouriteGameController extends Controller
      */
     public function index(User $user)
     {
-        $favouriteGames = $user->favouriteGames;
-
-        $games = $favouriteGames->map(function ($favouriteGame) {
-            return $favouriteGame->favouriteable;
-        });
-        return Game::collection($games);
+        return UserFavouriteGameResource::collection($user->favouriteGames);
     }
 
     /**
