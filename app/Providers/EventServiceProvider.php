@@ -18,6 +18,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Illuminate\Auth\Events\Login' => [
             'Zeropingheroes\Lanager\Listeners\UpdateLanAttendeesTable',
+            'Zeropingheroes\Lanager\Listeners\AwardLanAchievementToAttendee',
             'Zeropingheroes\Lanager\Listeners\UpdateOutdatedUserAppsAfterSuccessfulAuth',
         ],
     ];

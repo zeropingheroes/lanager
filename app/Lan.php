@@ -9,6 +9,7 @@ class Lan extends Model
 {
     protected $fillable = [
         'venue_id',
+        'achievement_id',
         'name',
         'description',
         'start',
@@ -99,6 +100,14 @@ class Lan extends Model
     public function venue()
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Venue');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function achievement()
+    {
+        return $this->hasOne('Zeropingheroes\Lanager\Achievement', 'id');
     }
 
     /**

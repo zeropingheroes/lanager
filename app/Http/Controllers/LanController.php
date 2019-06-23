@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
+use Zeropingheroes\Lanager\Achievement;
 use Zeropingheroes\Lanager\Lan;
 use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Requests\StoreLanRequest;
@@ -42,6 +43,7 @@ class LanController extends Controller
 
         return View::make('pages.lans.create')
             ->with('venues', Venue::orderBy('name')->get())
+            ->with('achievements', Achievement::orderBy('name')->get())
             ->with('lan', new Lan);
     }
 
@@ -97,6 +99,7 @@ class LanController extends Controller
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
             'venue_id' => $httpRequest->input('venue_id'),
+            'achievement_id' => $httpRequest->input('achievement_id'),
             'published' => $httpRequest->has('published'),
         ];
 
@@ -126,6 +129,7 @@ class LanController extends Controller
 
         return View::make('pages.lans.edit')
             ->with('venues', Venue::orderBy('name')->get())
+            ->with('achievements', Achievement::orderBy('name')->get())
             ->with('lan', $lan);
     }
 
@@ -147,6 +151,7 @@ class LanController extends Controller
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
             'venue_id' => $httpRequest->input('venue_id'),
+            'achievement_id' => $httpRequest->input('achievement_id'),
             'published' => $httpRequest->has('published'),
             'id' => $lan->id,
         ];

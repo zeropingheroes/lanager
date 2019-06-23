@@ -133,6 +133,7 @@ return [
     'x-hours' => ':x hours',
     'attendees' => 'Attendees',
     'attendee' => 'Attendee',
+    'lan-achievement' => 'Achievement',
 
     // Images
     'images' => 'Images',
@@ -148,6 +149,7 @@ return [
     'achievement' => 'Achievement',
     'award-an-achievement' => 'Award an Achievement',
     'award' => 'Award',
+    'image' => 'Achievement Image',
 
     // Venues
     'venues' => 'Venues',

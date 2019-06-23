@@ -45,6 +45,8 @@ return [
     // Achievements
     'achievement-successfully-awarded' => 'You have awarded :user the achievement ":achievement"',
     'achievement-successfully-revoked' => 'You have revoked the achievement ":achievement" from :user',
+    'select-file' => 'Select file',
+    'image-help' => 'Recommended image size is 128x128',
 
     // General purpose
     'no-items-found' => 'No :item found',
@@ -106,6 +108,7 @@ return [
 
     // LANs
     'lans-cannot-overlap' => 'LANs cannot overlap',
+    'lan-achievement-help' => 'The achievement to award to attendees when they sign in at the LAN',
 
     // Events
     'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',

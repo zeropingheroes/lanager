@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    @include('components.form.create', ['route' => route('achievements.store')])
-    @include('pages.achievements.partials.form')
-    @include('components.form.close')
+    <form method="POST" action="{{ route('achievements.store') }}" accept-charset="UTF-8" enctype="multipart/form-data">
+        @include('pages.achievements.partials.form')
+    </form>
 @endsection

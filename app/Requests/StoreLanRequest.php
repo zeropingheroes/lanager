@@ -21,6 +21,7 @@ class StoreLanRequest extends Request
             'start' => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
             'end' => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
             'venue_id' => ['nullable', 'numeric', 'exists:venues,id'],
+            'achievement_id' => ['nullable', 'numeric','exists:achievements,id'],
             'published' => ['nullable', 'boolean']
         ];
 
