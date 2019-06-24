@@ -114,7 +114,7 @@ your events you can easily update the site and prepare for your next LAN, and yo
 6. Clone a copy of LANager:
 
     ```
-    git clone -b develop https://github.com/zeropingheroes/lanager /var/www/lanager/
+    git clone https://github.com/zeropingheroes/lanager /var/www/lanager/
     ``` 
 
 7. Grant permissions:
