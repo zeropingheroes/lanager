@@ -31,6 +31,8 @@ window.axios = require('axios');
 window.Vue = require('vue');
 import FullCalendar from 'vue-full-calendar';
 Vue.use(FullCalendar);
+import VueSimpleSuggest from 'vue-simple-suggest'
+Vue.component('vue-simple-suggest', VueSimpleSuggest)
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.baseURL = document.head.querySelector('meta[name="api-base-url"]').content;

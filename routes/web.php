@@ -88,6 +88,9 @@ Route::get('/events/fullscreen', function () {
  */
 Route::resource('users', 'UserController', ['only' => ['show', 'destroy']]);
 Route::resource('lans.attendees', 'AttendeeController', ['only' => ['index']]);
+Route::get('/users/{user}/favourite-games', function () {
+    return view('pages.users.favourite-games');
+})->name('users.favourite-games');
 
 /**
  * Achievements

@@ -1,0 +1,55 @@
+<template>
+    <div>
+        <vue-simple-suggest
+                v-model="chosen"
+                :list="games"
+                :destyled=true
+                :styles="bootstrap"
+                :placeholder="'Search'"
+                :debounce="250"
+                :filter-by-query="false"
+                :display-attribute="'name'"
+                :min-length="3">
+            <li slot="suggestion-item" slot-scope="{ suggestion }">
+               {{ suggestion.name }}
+            </li>
+        </vue-simple-suggest>
+
+        <br>
+
+        <p>Chosen element: {{ chosen }}</p>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                chosen: '',
+                bootstrap : {
+                    vueSimpleSuggest: "position-relative",
+                    inputWrapper: "",
+                    defaultInput : "form-control",
+                    suggestions: "position-absolute list-group",
+                    suggestItem: "list-group-item"
+                }
+            }
+        },
+        methods: {
+            games(q) {
+                return axios.get('games?name='+ q + '&limit=5')
+                    .then((response) => {
+                        return response.data.data;
+                    }, (error) => {
+                        console.log('Error getting events')
+                    })
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+    .hover {
+        font-weight: bold;
+    }
+</style>
