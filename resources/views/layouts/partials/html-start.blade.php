@@ -6,7 +6,9 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="api-base-url" content="{{ url('/api') }}">
-    <meta name="api-token" content="{{ Auth::user()->api_token }}">
+    @if(Auth::user())
+        <meta name="api-token" content="{{ Auth::user()->api_token }}">
+    @endif
 
     <title>@yield('title') | {{ config('app.name') }}</title>
 
