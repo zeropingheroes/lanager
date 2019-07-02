@@ -16,7 +16,8 @@
         });
     </script>
     <div id="app">
-        <user-favourite-games></user-favourite-games>
+        <game-search-suggest></game-search-suggest>
+        <favourite-games></favourite-games>
     </div>
 
 @endsection

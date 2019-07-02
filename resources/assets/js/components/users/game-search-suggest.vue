@@ -10,9 +10,9 @@
                 :filter-by-query="false"
                 :display-attribute="'name'"
                 :min-length="3">
-            <li slot="suggestion-item" slot-scope="{ suggestion }">
+            <div slot="suggestion-item" slot-scope="{ suggestion }">
                {{ suggestion.name }}
-            </li>
+            </div>
         </vue-simple-suggest>
 
         <br>

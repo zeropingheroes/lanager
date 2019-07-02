@@ -51,7 +51,9 @@ Vue.component('active-game',            require('./components/active-games/activ
 
 /* Users */
 Vue.component('user-avatar',            require('./components/users/user-avatar.vue'));
-Vue.component('user-favourite-games',   require('./components/users/user-favourite-games.vue'));
+Vue.component('game-search-suggest',    require('./components/users/game-search-suggest.vue'));
+Vue.component('favourite-games',        require('./components/users/favourite-games.vue'));
+Vue.component('favourite-game',         require('./components/users/favourite-game.vue'));
 
 /* Slides */
 Vue.component('slides',                 require('./components/slides/slides.vue'));
