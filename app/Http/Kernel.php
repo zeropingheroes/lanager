@@ -59,6 +59,11 @@ class Kernel extends HttpKernel
             'throttle:80,1',
             'bindings',
         ],
+
+        'session' => [
+            EncryptCookies::class,
+            StartSession::class,
+        ],
     ];
 
     /**

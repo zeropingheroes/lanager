@@ -11,6 +11,7 @@
 |
 */
 Route::name('api.')->group(function () {
+    Route::get('users/me', 'Api\UserController@showAuth')->middleware('session');
     Route::resource('users', 'Api\UserController', ['only' => ['index', 'show']]);
     Route::resource('lans', 'Api\LanController', ['only' => ['index', 'show']]);
     Route::resource('lans.slides', 'Api\SlideController', ['only' => ['index', 'show']]);
