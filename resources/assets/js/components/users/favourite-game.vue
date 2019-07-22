@@ -1,7 +1,7 @@
 <template>
     <tr>
-        <td><img :src="game.logo.small"></td>
-        <td>{{ game.name }}</td>
+        <td><img :src="game.logo.small" onerror="this.style.display='none'"></td>
+        <td class="game-name">{{ game.name }}</td>
         <td>
             <button type="button" class="btn btn-primary btn-sm" v-on:click="unfavourite">
                 <span class="oi oi-trash"></span>
@@ -27,3 +27,8 @@
         }
     }
 </script>
+<style lang="scss">
+    td.game-name {
+        font-size: large;
+    }
+</style>
