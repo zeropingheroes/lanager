@@ -3,7 +3,11 @@
         <game-search-suggest @favourite-added="updateList"></game-search-suggest>
         <table class="table">
             <tbody>
-            <favourite-game v-for="favouriteGame in favouriteGames" :key="favouriteGame.id" v-bind="favouriteGame.game"></favourite-game>
+            <favourite-game v-for="favouriteGame in favouriteGames"
+                            :key="favouriteGame.id"
+                            v-bind="favouriteGame"
+                            @favourite-deleted="updateList">
+            </favourite-game>
             </tbody>
         </table>
     </div>
