@@ -5,14 +5,20 @@
                 :list="games"
                 :destyled=true
                 :styles="bootstrap"
-                :placeholder="'Search'"
-                :debounce="250"
+                :placeholder="'Search for games'"
+                :debounce="350"
                 :filter-by-query="false"
                 :display-attribute="'name'"
+                :max-suggestions="3"
                 :min-length="3"
                 @select="post">
             <div slot="suggestion-item" slot-scope="{ suggestion }">
-               {{ suggestion.name }}
+                <div class="game-image">
+                    <img :src="suggestion.logo.small" onerror="this.style.display='none'">
+                </div>
+                <div class="game-name">
+                    {{ suggestion.name }}
+                </div>
             </div>
         </vue-simple-suggest>
     </div>
@@ -56,7 +62,29 @@
 </script>
 
 <style lang="scss">
-    .hover {
-        font-weight: bold;
+    @import "../../../sass/_variables.scss";
+    ul.suggestions {
+        width: 100%;
+        z-index: 1000; /* fix buttons showing over dropdown */
+    }
+    li.suggest-item {
+        padding-left: 12px; /* make images line up with table */
+    }
+    li.hover {
+        background-color: $gray-600;
+    }
+    div.game-image {
+        display: inline-block;
+        float: left;
+        width: 184px;
+        height: 69px;
+    }
+    div.game-name {
+        padding-left: 12px;
+        display: inline-block;
+        height: 69px;
+        line-height: 69px;
+        float: left;
+        font-size: x-large;
     }
 </style>
