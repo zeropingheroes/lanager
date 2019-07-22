@@ -43,7 +43,7 @@ class UserFavouriteGameController extends Controller
 
         $input = [
             'id' => $httpRequest->input('id'),
-            'provider' => $httpRequest->input('provider'),
+            'provider' => $httpRequest->input('provider') . '_app',
             'user' => $user,
         ];
 
