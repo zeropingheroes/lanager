@@ -16,7 +16,6 @@
         });
     </script>
     <div id="app">
-        <game-search-suggest></game-search-suggest>
         <favourite-games></favourite-games>
     </div>
 

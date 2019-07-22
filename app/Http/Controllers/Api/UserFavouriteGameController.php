@@ -27,7 +27,10 @@ class UserFavouriteGameController extends Controller
      */
     public function index(User $user)
     {
-        return UserFavouriteGameResource::collection($user->favouriteGames);
+        $favouriteGames = $user->favouriteGames()
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return UserFavouriteGameResource::collection($favouriteGames);
     }
 
     /**
