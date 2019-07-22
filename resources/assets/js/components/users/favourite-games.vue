@@ -1,9 +1,13 @@
 <template>
-    <table class="table">
-        <tbody>
+    <div>
+        <game-search-suggest @favourite-added="updateList"></game-search-suggest>
+        <table class="table">
+            <tbody>
             <favourite-game v-for="favouriteGame in favouriteGames" :key="favouriteGame.id" v-bind="favouriteGame.game"></favourite-game>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+
 </template>
 
 <script>
@@ -14,23 +18,17 @@
             }
         },
         mounted () {
-            this.get();
+            this.updateList();
         },
         methods: {
-            get() {
+            updateList() {
                 axios.get('users/' + userId + '/favourite-games')
                     .then((response) => {
                         this.$data.favouriteGames = response.data.data;
                     }, (error) => {
                         console.log('Error getting favourite games')
-                    })
-            },
-            post(game) {
-                axios.post('users/' + userId + '/favourite-games', game)
-                    .then((response) => {
-                        this.get();
-                    }, (error) => {
-                        console.log('Error adding favourite game')
+                        console.log(error.response.status)
+                        console.log(error.response.data)
                     })
             },
             delete(id) {
@@ -39,8 +37,10 @@
                         this.get();
                     }, (error) => {
                         console.log('Error deleting favourite game')
+                        console.log(error.response.status)
+                        console.log(error.response.data)
                     })
-            }
+            },
         }
     }
 </script>

@@ -9,15 +9,12 @@
                 :debounce="250"
                 :filter-by-query="false"
                 :display-attribute="'name'"
-                :min-length="3">
+                :min-length="3"
+                @select="post">
             <div slot="suggestion-item" slot-scope="{ suggestion }">
                {{ suggestion.name }}
             </div>
         </vue-simple-suggest>
-
-        <br>
-
-        <p>Chosen element: {{ chosen }}</p>
     </div>
 </template>
 
@@ -43,7 +40,17 @@
                     }, (error) => {
                         console.log('Error getting events')
                     })
-            }
+            },
+            post(game) {
+                axios.post('users/' + userId + '/favourite-games', game)
+                    .then((response) => {
+                        this.$emit('favourite-added')
+                    }, (error) => {
+                        console.log('Error adding favourite game')
+                        console.log(error.response.status)
+                        console.log(error.response.data)
+                    })
+            },
         }
     }
 </script>
