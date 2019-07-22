@@ -51,6 +51,7 @@
                 axios.post('users/' + userId + '/favourite-games', game)
                     .then((response) => {
                         this.$emit('favourite-added')
+                        this.chosen = ''
                     }, (error) => {
                         console.log('Error adding favourite game')
                         console.log(error.response.status)
