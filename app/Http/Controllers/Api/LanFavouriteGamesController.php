@@ -5,7 +5,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
 use Zeropingheroes\Lanager\Http\Resources\Game;
-use Zeropingheroes\Lanager\Http\Resources\User;
 use Zeropingheroes\Lanager\Lan;
 
 class LanFavouriteGamesController extends Controller

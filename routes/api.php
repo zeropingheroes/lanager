@@ -18,4 +18,5 @@ Route::name('api.')->group(function () {
     Route::resource('events', 'Api\EventController', ['only' => ['index', 'show']]);
     Route::resource('active-games', 'Api\ActiveGamesController', ['only' => ['index']]);
     Route::resource('games', 'Api\GameController', ['only' => ['index', 'show']]);
+    Route::resource('lans.favourite-games', 'Api\LanFavouriteGamesController', ['only' => ['index']]);
 });
