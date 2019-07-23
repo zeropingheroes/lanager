@@ -44,13 +44,6 @@ class LanFavouriteGamesController extends Controller
                 return count($b['users']) - count($a['users']);
             }
         );
-        return collect($combined);
-
-//        if ($request->filled('limit')) {
-//            $lanFavouriteGames = $lanFavouriteGames->take($request->limit);
-//        }
-
-//            return $lanFavouriteGames;
-//        return FavouriteGame::collection($lanFavouriteGames);
+        return collect(['data' => $combined]);
     }
 }
