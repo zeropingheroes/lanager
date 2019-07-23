@@ -83,14 +83,12 @@ Route::resource('lans.events.signups', 'EventSignupController', ['only' => ['sto
 Route::get('/events/fullscreen', function () {
     return view('pages.events.fullscreen');
 })->name('events.fullscreen');
+
 /**
  * Users & Attendees
  */
 Route::resource('users', 'UserController', ['only' => ['show', 'destroy']]);
 Route::resource('lans.attendees', 'AttendeeController', ['only' => ['index']]);
-Route::get('/users/{user}/favourite-games', function () {
-    return view('pages.users.favourite-games');
-})->name('users.favourite-games');
 
 /**
  * Achievements

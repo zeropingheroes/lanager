@@ -1,6 +1,11 @@
-@foreach($lan->userFavouriteGames()->distinct()->get(['favouriteable_id', 'favouriteable_type']) as $favourite)
-    <div>
-        <img src="{{ $favourite->favouriteable->logo('small') }}">
-        {{ $favourite->favouriteable->name }}
-    </div>
-@endforeach
+<script>
+    window.addEventListener('load', function() {
+        window.lanId = {{ $lan->id }}
+        const app = new Vue({
+            el: '#app'
+        });
+    });
+</script>
+<div id="app">
+    <favourite-games-page></favourite-games-page>
+</div>

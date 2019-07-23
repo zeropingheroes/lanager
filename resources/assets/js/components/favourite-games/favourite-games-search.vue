@@ -2,7 +2,7 @@
     <div>
         <vue-simple-suggest
                 v-model="chosen"
-                :list="games"
+                :list="searchGames"
                 :destyled=true
                 :styles="bootstrap"
                 :placeholder="'Search for games'"
@@ -11,7 +11,7 @@
                 :display-attribute="'name'"
                 :max-suggestions="3"
                 :min-length="3"
-                @select="post">
+                @select="favourite">
             <div slot="suggestion-item" slot-scope="{ suggestion }">
                 <div class="game-image">
                     <img :src="suggestion.logo.small" onerror="this.style.display='none'">
@@ -39,15 +39,17 @@
             }
         },
         methods: {
-            games(q) {
+            searchGames(q) {
                 return axios.get('games?name='+ q + '&limit=5')
                     .then((response) => {
                         return response.data.data;
                     }, (error) => {
-                        console.log('Error getting events')
+                        console.log('Error searching games')
+                        console.log(error.response.status)
+                        console.log(error.response.data)
                     })
             },
-            post(game) {
+            favourite(game) {
                 axios.post('users/' + userId + '/favourite-games', game)
                     .then((response) => {
                         this.$emit('favourite-added')

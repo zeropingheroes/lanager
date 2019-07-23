@@ -40,18 +40,18 @@
 
     <ul class="nav nav-tabs" id="lanTabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="events-tab" data-toggle="tab" href="#events" role="tab" aria-controls="events" aria-selected="true">
+            <a class="nav-link active" id="favourite-games-tab" data-toggle="tab" href="#favourite-games" role="tab" aria-controls="favourite-games" aria-selected="true">
+                @lang('title.favourite-games') <span class="badge">{{ $lan->userFavouriteGames()->distinct()->count(['favouriteable_id', 'favouriteable_type']) }}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="events-tab" data-toggle="tab" href="#events" role="tab" aria-controls="events" aria-selected="false">
                 @lang('title.events') <span class="badge">{{ $lan->events->count() }}</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="guides-tab" data-toggle="tab" href="#guides" role="tab" aria-controls="guides" aria-selected="false">
                 @lang('title.guides') <span class="badge">{{ $lan->guides->count() }}</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="favourite-games-tab" data-toggle="tab" href="#favourite-games" role="tab" aria-controls="favourite-games" aria-selected="false">
-                @lang('title.favourite-games') <span class="badge">{{ $lan->userFavouriteGames()->distinct()->count(['favouriteable_id', 'favouriteable_type']) }}</span>
             </a>
         </li>
         <li class="nav-item">
@@ -68,7 +68,10 @@
         @endcan
     </ul>
     <div class="tab-content" id="lanTabsContent">
-        <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
+        <div class="tab-pane fade show active" id="favourite-games" role="tabpanel" aria-labelledby="favourite-games-tab">
+            @include('pages.lans.partials.favourite-games')
+        </div>
+        <div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab">
             @if(! $lan->events->isEmpty())
                 @include('pages.events.partials.list', ['events' => $lan->events])
             @endif
@@ -87,9 +90,6 @@
                     @lang('title.create')
                 </a>
             @endcan
-        </div>
-        <div class="tab-pane fade" id="favourite-games" role="tabpanel" aria-labelledby="favourite-games-tab">
-            @include('pages.lans.partials.favourite-games')
         </div>
         <div class="tab-pane fade" id="attendees" role="tabpanel" aria-labelledby="attendees-tab">
             @include('pages.users.partials.list', ['users' => $lan->users])
