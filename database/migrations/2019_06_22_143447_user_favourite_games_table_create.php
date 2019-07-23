@@ -16,12 +16,20 @@ class UserFavouriteGamesTableCreate extends Migration
         Schema::create('user_favourite_games', function (Blueprint $table) {
             $table->increments('id')
                 ->unsigned();
+            $table->integer('lan_id')
+                ->unsigned();
             $table->integer('user_id')
                 ->unsigned();
             $table->integer('favouriteable_id')
                 ->unsigned();
             $table->string('favouriteable_type');
             $table->timestamps();
+
+            $table->foreign('lan_id')
+                ->references('id')
+                ->on('lans')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('user_id')
                 ->references('id')

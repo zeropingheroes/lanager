@@ -26,4 +26,12 @@ class UserFavouriteGame extends Model
     {
         return $this->belongsTo('Zeropingheroes\Lanager\User');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function lan()
+    {
+        return $this->belongsTo('Zeropingheroes\Lanager\Lan');
+    }
 }
