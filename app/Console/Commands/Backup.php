@@ -47,7 +47,7 @@ class Backup extends Command
 
         // TODO: Use Laravel's filesystem class to get the files
         $processes["cp-images"] = new Process(
-            "cp $imagesDir/* $outputDir/tmp/images/"
+            "cp -r $imagesDir/* $outputDir/tmp/images/"
         );
 
         // Get all tables in database
