@@ -50,8 +50,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="popular-games-tab" data-toggle="tab" href="#popular-games" role="tab" aria-controls="popular-games" aria-selected="false">
-                @lang('title.popular-games') <span class="badge">{{ $games->count() }}</span>
+            <a class="nav-link" id="favourite-games-tab" data-toggle="tab" href="#favourite-games" role="tab" aria-controls="favourite-games" aria-selected="false">
+                @lang('title.favourite-games') <span class="badge">{{ $lan->userFavouriteGames()->distinct()->count(['favouriteable_id', 'favouriteable_type']) }}</span>
             </a>
         </li>
         <li class="nav-item">
@@ -88,8 +88,8 @@
                 </a>
             @endcan
         </div>
-        <div class="tab-pane fade" id="popular-games" role="tabpanel" aria-labelledby="popular-games-tab">
-            @include('pages.lans.partials.popular-games', ['games' => $games])
+        <div class="tab-pane fade" id="favourite-games" role="tabpanel" aria-labelledby="favourite-games-tab">
+            @include('pages.lans.partials.favourite-games')
         </div>
         <div class="tab-pane fade" id="attendees" role="tabpanel" aria-labelledby="attendees-tab">
             @include('pages.users.partials.list', ['users' => $lan->users])
