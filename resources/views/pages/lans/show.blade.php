@@ -37,88 +37,77 @@
         {!! Markdown::convertToHtml($lan->description) !!}
     @endif
 
-    <div class="row">
-        <div class="col-auto">
-            <h5>@lang('title.events')</h5>
+
+    <ul class="nav nav-tabs" id="lanTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="events-tab" data-toggle="tab" href="#events" role="tab" aria-controls="events" aria-selected="true">
+                @lang('title.events') <span class="badge">{{ $lan->events->count() }}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="guides-tab" data-toggle="tab" href="#guides" role="tab" aria-controls="guides" aria-selected="false">
+                @lang('title.guides') <span class="badge">{{ $lan->guides->count() }}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="popular-games-tab" data-toggle="tab" href="#popular-games" role="tab" aria-controls="popular-games" aria-selected="false">
+                @lang('title.popular-games') <span class="badge">{{ $games->count() }}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="attendees-tab" data-toggle="tab" href="#attendees" role="tab" aria-controls="attendees" aria-selected="false">
+                @lang('title.attendees') <span class="badge">{{ $lan->users->count() }}</span>
+            </a>
+        </li>
+        @can('create', \Zeropingheroes\Lanager\Slide::class)
+            <li class="nav-item">
+                <a class="nav-link" id="slides-tab" data-toggle="tab" href="#slides" role="tab" aria-controls="slides" aria-selected="false">
+                    @lang('title.slides') <span class="badge">{{ $lan->slides->count() }}</span>
+                </a>
+            </li>
+        @endcan
+    </ul>
+    <div class="tab-content" id="lanTabsContent">
+        <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
+            @if(! $lan->events->isEmpty())
+                @include('pages.events.partials.list', ['events' => $lan->events])
+            @endif
+            @can('create', \Zeropingheroes\Lanager\Event::class)
+                <a href="{{ route( 'lans.events.create', $lan) }}" class="btn btn-primary btn-sm mt-2" title="@lang('title.create')">
+                    @lang('title.create')
+                </a>
+            @endcan
         </div>
-        @can('create', \Zeropingheroes\Lanager\Event::class)
-            <div class="col text-right">
-                <a href="{{ route( 'lans.events.create', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.create')">
-                    <span class="oi oi-plus"></span>
+        <div class="tab-pane fade" id="guides" role="tabpanel" aria-labelledby="guides-tab">
+            @if(! $lan->guides->isEmpty())
+                @include('pages.guides.partials.list', ['guides' => $lan->guides])
+            @endif
+            @can('create', \Zeropingheroes\Lanager\Guide::class)
+                <a href="{{ route( 'lans.guides.create', $lan) }}" class="btn btn-primary btn-sm mt-2" title="@lang('title.create')">
+                    @lang('title.create')
+                </a>
+            @endcan
+        </div>
+        <div class="tab-pane fade" id="popular-games" role="tabpanel" aria-labelledby="popular-games-tab">
+            @include('pages.lans.partials.popular-games', ['games' => $games])
+        </div>
+        <div class="tab-pane fade" id="attendees" role="tabpanel" aria-labelledby="attendees-tab">
+            @include('pages.users.partials.list', ['users' => $lan->users])
+        </div>
+        @can('create', \Zeropingheroes\Lanager\Slide::class)
+            <div class="tab-pane fade" id="slides" role="tabpanel" aria-labelledby="slides-tab">
+                @if(! $lan->slides->isEmpty())
+                    @include('pages.slides.partials.list', ['slides' => $lan->slides])
+                @endif
+                <a href="{{ route( 'lans.slides.create', $lan) }}" class="btn btn-primary btn-sm mt-2" title="@lang('title.create')">
+                    @lang('title.create')
+                </a>
+                <a href="{{ route( 'lans.slides.play', $lan) }}" class="btn btn-primary btn-sm mt-2" title="@lang('title.play')" target="_blank">
+                    @lang('title.play')
                 </a>
             </div>
         @endcan
     </div>
-    @if(! $lan->events->isEmpty())
-        @include('pages.events.partials.list', ['events' => $lan->events])
-    @endif
 
-    <div class="row">
-        <div class="col-auto">
-            <h5>@lang('title.guides')</h5>
-        </div>
-        @can('create', \Zeropingheroes\Lanager\Guide::class)
-            <div class="col text-right">
-                <a href="{{ route( 'lans.guides.create', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.create')">
-                    <span class="oi oi-plus"></span>
-                </a>
-            </div>
-        @endcan
-    </div>
-    @if(! $lan->guides->isEmpty())
-        @include('pages.guides.partials.list', ['guides' => $lan->guides])
-    @endif
-
-    @if( ! $games->isEmpty())
-        <h5>@lang('title.popular-games')</h5>
-        <table class="table table-striped popular-games">
-            @foreach($games as $game)
-                <tr>
-                    <td class="game">
-                        @include('pages.games.partials.game-logo-link',
-                        [
-                            'name' => $game['game']->name,
-                            'url' => $game['game']->url(),
-                            'logo' => $game['game']->logo(),
-                        ])
-                    </td>
-                    <td class="playtime">
-                        {{ $game['playtime']->seconds(0)->cascade()->forHumans() }}
-                    </td>
-                    <td class="players">
-                        @foreach($game['users'] as $user)
-                            <a href="{{ route('users.show', $user->id) }}">
-                                @include('pages.users.partials.avatar', ['user' => $user])
-                            </a>
-                        @endforeach
-                    </td>
-                </tr>
-            @endforeach
-        </table>
-    @endif
-
-    @if( ! $lan->users->isEmpty())
-        <h5>{{ $lan->users->count() }} @lang('title.attendees')</h5>
-        @include('pages.users.partials.list', ['users' => $lan->users])
-    @endif
-
-    @can('create', \Zeropingheroes\Lanager\Slide::class)
-        <div class="row">
-            <div class="col-auto">
-                <h5>@lang('title.slides')</h5>
-            </div>
-            <div class="col text-right">
-                <a href="{{ route( 'lans.slides.play', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.play')" target="_blank">
-                    <span class="oi oi-media-play"></span>
-                </a>
-                <a href="{{ route( 'lans.slides.create', $lan) }}" class="btn btn-primary btn-sm" title="@lang('title.create')">
-                    <span class="oi oi-plus"></span>
-                </a>
-            </div>
-        </div>
-        @if(! $lan->slides->isEmpty())
-            @include('pages.slides.partials.list', ['slides' => $lan->slides])
-        @endif
-    @endcan
 
 @endsection
