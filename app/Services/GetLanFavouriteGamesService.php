@@ -35,14 +35,14 @@ class GetLanFavouriteGamesService
         foreach ($favourites as $favourite) {
             $combined[$favourite->favouriteable_id] = $combined[$favourite->favouriteable_id] ?? ['game' => null, 'users' => []];
             $combined[$favourite->favouriteable_id]['game'] = $combined[$favourite->favouriteable_id]['game'] ?? $favourite->favouriteable;
-            $combined[$favourite->favouriteable_id]['users'][] = $favourite->user;
+            $combined[$favourite->favouriteable_id]['favourites'][] = $favourite;
         }
 
         // Sort games array by user count, in descending order (removing key)
         usort(
             $combined,
             function ($a, $b) {
-                return count($b['users']) - count($a['users']);
+                return count($b['favourites']) - count($a['favourites']);
             }
         );
         return collect($combined);
