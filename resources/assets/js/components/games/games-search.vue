@@ -5,7 +5,7 @@
                 :list="searchGames"
                 :destyled=true
                 :styles="bootstrap"
-                :placeholder="'Search for games'"
+                :placeholder="'Search for games you\'d like to play'"
                 :debounce="350"
                 :filter-by-query="false"
                 :display-attribute="'name'"

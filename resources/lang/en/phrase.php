@@ -97,6 +97,8 @@ return [
     'logo-for-game' => 'Logo for :game',
     'unsupported-provider' => 'Unsupported provider',
     'game-already-favourited' => 'Game already favourited',
+    'lan-favourite-games-user-help' => 'Add the games you’d like to play, and find people to play with in the list below.',
+    'lan-favourite-games-guest-help' => 'Log in to add the games you’d like to play.',
 
     // Guides
     'markdown-formatting-help-link' => 'Markdown formatting help',
