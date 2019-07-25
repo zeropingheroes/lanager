@@ -48,12 +48,7 @@ Vue.component('event-schedule',         require('./components/events/event-sched
 Vue.component('game-banner',            require('./components/games/game-banner.vue'));
 Vue.component('active-games',           require('./components/active-games/active-games.vue'));
 Vue.component('active-game',            require('./components/active-games/active-game.vue'));
-
-/* Favourite Games */
-Vue.component('favourite-games-page',       require('./components/favourite-games/favourite-games-page.vue'));
-Vue.component('favourite-games-search',     require('./components/favourite-games/favourite-games-search.vue'));
-Vue.component('favourite-games-table',      require('./components/favourite-games/favourite-games-table.vue'));
-Vue.component('favourite-games-table-row',  require('./components/favourite-games/favourite-games-table-row.vue'));
+Vue.component('games-search',           require('./components/games/games-search.vue'));
 
 /* Users */
 Vue.component('user-avatar',            require('./components/users/user-avatar.vue'));

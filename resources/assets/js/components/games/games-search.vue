@@ -11,7 +11,7 @@
                 :display-attribute="'name'"
                 :max-suggestions="3"
                 :min-length="3"
-                @select="favourite">
+                @select="selected">
             <div slot="suggestion-item" slot-scope="{ suggestion }">
                 <div class="game-image">
                     <img :src="suggestion.logo.small" onerror="this.style.display='none'">
@@ -49,16 +49,8 @@
                         console.log(error.response.data)
                     })
             },
-            favourite(game) {
-                axios.post('users/' + userId + '/favourite-games', game)
-                    .then((response) => {
-                        this.$emit('favourite-added')
-                        this.chosen = ''
-                    }, (error) => {
-                        console.log('Error adding favourite game')
-                        console.log(error.response.status)
-                        console.log(error.response.data)
-                    })
+            selected(game) {
+                this.$emit('selected', game)
             },
         }
     }

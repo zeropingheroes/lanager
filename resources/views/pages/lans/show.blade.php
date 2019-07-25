@@ -40,8 +40,8 @@
 
     <ul class="nav nav-tabs" id="lanTabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="favourite-games-tab" data-toggle="tab" href="#favourite-games" role="tab" aria-controls="favourite-games" aria-selected="true">
-                @lang('title.favourite-games') <span class="badge">{{ $lan->userFavouriteGames()->distinct()->count(['favouriteable_id', 'favouriteable_type']) }}</span>
+            <a class="nav-link active" id="games-tab" data-toggle="tab" href="#games" role="tab" aria-controls="games" aria-selected="true">
+                @lang('title.games') <span class="badge">{{ $lan->userFavouriteGames()->distinct()->count(['favouriteable_id', 'favouriteable_type']) }}</span>
             </a>
         </li>
         <li class="nav-item">
@@ -68,8 +68,8 @@
         @endcan
     </ul>
     <div class="tab-content" id="lanTabsContent">
-        <div class="tab-pane fade show active" id="favourite-games" role="tabpanel" aria-labelledby="favourite-games-tab">
-            @include('pages.lans.partials.favourite-games')
+        <div class="tab-pane fade show active" id="games" role="tabpanel" aria-labelledby="games-tab">
+            @include('pages.lans.partials.games')
         </div>
         <div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab">
             @if(! $lan->events->isEmpty())
