@@ -33,8 +33,11 @@ class GetLanFavouriteGamesService
         // Collect and combine favourites for the same game
         $combined = [];
         foreach ($favourites as $favourite) {
+
             $combined[$favourite->favouriteable_id] = $combined[$favourite->favouriteable_id] ?? ['game' => null, 'users' => []];
+
             $combined[$favourite->favouriteable_id]['game'] = $combined[$favourite->favouriteable_id]['game'] ?? $favourite->favouriteable;
+
             $combined[$favourite->favouriteable_id]['favourites'][] = $favourite;
         }
 

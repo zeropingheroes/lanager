@@ -24,5 +24,5 @@
     <div id="app">
         <games-search @selected="post"></games-search>
     </div>
-    @include('pages.lans.favourite-games.partials.list', ['favourites' => $favourites])
+    @include('pages.lans.favourite-games.partials.list', ['lanFavourites' => $lanFavourites])
 @endsection
