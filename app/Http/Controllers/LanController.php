@@ -58,28 +58,7 @@ class LanController extends Controller
     {
         $this->authorize('view', $lan);
 
-        $lan->load(
-            [
-                'users' => function ($query) {
-                    $query->orderBy('users.username', 'asc');
-                },
-                'events' => function ($query) {
-                    $query->orderBy('events.start', 'asc');
-                },
-                'guides' => function ($query) {
-                    $query->orderBy('guides.title', 'asc');
-                },
-                'slides' => function ($query) {
-                    $query->orderBy('slides.position', 'asc');
-                },
-            ]
-        );
-
-        $games = (new GetGamesPlayedBetweenService($lan->start, $lan->end))->get()->take(10);
-
-        return View::make('pages.lans.show')
-            ->with('games', $games)
-            ->with('lan', $lan);
+        return redirect()->route('lans.favourite-games.index', $lan);
     }
 
     /**

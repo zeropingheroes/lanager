@@ -3,7 +3,6 @@
 namespace Zeropingheroes\Lanager\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Zeropingheroes\Lanager\SteamApp;
 
 class Game extends JsonResource
 {
@@ -15,18 +14,19 @@ class Game extends JsonResource
      */
     public function toArray($request)
     {
-        if ($this->resource instanceof SteamApp) {
-            return [
-                'id' => $this->id,
-                'name' => $this->name,
-                'url' => $this->steamStoreURL(),
-                'logo' => [
-                    'small' => $this->image('small'),
-                    'medium' => $this->image('medium'),
-                    'large' => $this->image('large'),
-                ],
-            ];
-        }
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'provider' => 'steam',
+            'url' => $this->url(),
+            'logo' => [
+                'small' => $this->logo('small'),
+                'medium' => $this->logo('medium'),
+                'large' => $this->logo('large'),
+            ],
+            'links' => [
+                'self' => route('api.games.show', ['game' => $this->id]),
+            ],
+        ];
     }
 }

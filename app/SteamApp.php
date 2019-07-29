@@ -17,7 +17,7 @@ class SteamApp extends Model
      * @param string $size
      * @return string
      */
-    public function image(string $size = 'small'): string
+    public function logo(string $size = 'small'): string
     {
         switch ($size) {
             case 'large':
@@ -28,15 +28,23 @@ class SteamApp extends Model
                 return 'http://cdn.akamai.steamstatic.com/steam/apps/' . $this->id . '/capsule_184x69.jpg';
 
             default:
-                return $this->image('small');
+                return $this->logo('small');
         }
     }
 
     /**
      * @return string
      */
-    public function steamStoreURL(): string
+    public function url(): string
     {
         return 'steam://store/' . $this->id;
+    }
+
+    /**
+     * Get all of the Steam app's favourites.
+     */
+    public function favourites()
+    {
+        return $this->morphMany('Zeropingheroes\Lanager\UserFavouriteGame', 'favouriteable');
     }
 }

@@ -17,6 +17,7 @@ class EventServiceProvider extends ServiceProvider
             'SocialiteProviders\Steam\SteamExtendSocialite@handle',
         ],
         'Illuminate\Auth\Events\Login' => [
+            'Zeropingheroes\Lanager\Listeners\CreateApiTokenIfMissing',
             'Zeropingheroes\Lanager\Listeners\UpdateLanAttendeesTable',
             'Zeropingheroes\Lanager\Listeners\AwardLanAchievementToAttendee',
             'Zeropingheroes\Lanager\Listeners\UpdateOutdatedUserAppsAfterSuccessfulAuth',

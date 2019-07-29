@@ -105,6 +105,7 @@ return [
 
     // Games
     'games' => 'Games',
+    'game' => 'Game',
     'games-in-progress' => 'Games In Progress',
     'in-progress' => 'In Progress',
     'recently-played-games' => 'Recently Played Games',
@@ -115,6 +116,9 @@ return [
     'games-in-common' => 'Games In Common',
     'games-history' => 'Games History',
     'popular-games' => 'Popular Games',
+
+    // Favourite games
+    'favourite-games' => 'Favourite Games',
 
     // Navigation Links
     'navigation-link' => 'Navigation Link',

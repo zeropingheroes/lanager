@@ -31,9 +31,14 @@ window.axios = require('axios');
 window.Vue = require('vue');
 import FullCalendar from 'vue-full-calendar';
 Vue.use(FullCalendar);
+import VueSimpleSuggest from 'vue-simple-suggest'
+Vue.component('vue-simple-suggest', VueSimpleSuggest)
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.baseURL = document.head.querySelector('meta[name="api-base-url"]').content;
+window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + document.head.querySelector("meta[name=api-token]").content;
+
+window.userId = Number(document.head.querySelector("meta[name=api-user-id]").content);
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that

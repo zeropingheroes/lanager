@@ -36,6 +36,9 @@
     @endif
     {{-- Show game info if the user is attending the current or most recent LAN (or there isn't a LAN) --}}
     @if( !$currentLan || $lansAttended->contains('id',$currentLan->id))
+        <h2>@lang('title.favourite-games')</h2>
+        @include('pages.users.partials.games-favourite', ['favouriteGames' => $user->favouriteGames])
+
         @if($user->steamMetadata->exists && $user->steamMetadata->apps_visible == 1)
             <h2>@lang('title.games-history')</h2>
             @include('pages.users.partials.games-history', ['user' => $user])

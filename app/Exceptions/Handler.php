@@ -51,13 +51,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof NotFoundHttpException) {
+        if ($exception instanceof NotFoundHttpException || $exception instanceof ModelNotFoundException) {
+
+            if($request->wantsJson()) {
+                return response()->json(['error' => ['message' => __('http-status-codes.404-title')]],404);
+            }
+
             return Route::respondWithRoute('fallback');
         }
 
-        if ($exception instanceof ModelNotFoundException) {
-            return Route::respondWithRoute('fallback');
-        }
         return parent::render($request, $exception);
     }
 }

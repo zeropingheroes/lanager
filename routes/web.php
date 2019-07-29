@@ -69,6 +69,11 @@ Route::get('/games/fullscreen', function () {
 Route::resource('lans', 'LanController');
 
 /**
+ * LAN Favourite Games
+ */
+Route::resource('lans.favourite-games', 'LanFavouriteGameController', ['only' => ['index']]);
+
+/**
  * Guides
  */
 Route::resource('lans.guides', 'GuideController', ['except' => 'show']);
@@ -83,6 +88,7 @@ Route::resource('lans.events.signups', 'EventSignupController', ['only' => ['sto
 Route::get('/events/fullscreen', function () {
     return view('pages.events.fullscreen');
 })->name('events.fullscreen');
+
 /**
  * Users & Attendees
  */

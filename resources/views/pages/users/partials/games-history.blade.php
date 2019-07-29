@@ -5,11 +5,12 @@
         @foreach($gameSessions as $gameSession)
             <tr>
                 <td class="game">
-                    <a href="{{ $gameSession->app->steamStoreURL() }}"
-                       title="@lang('phrase.view-game-in-steam-store', ['game' => $gameSession->app->name])">
-                        <img src="{{ $gameSession->app->image() }}"
-                             alt="@lang('phrase.logo-for-game', ['game' => $gameSession->app->name])">
-                    </a>
+                    @include('pages.games.partials.game-logo-link',
+                    [
+                        'name' => $gameSession->app->name,
+                        'url' => $gameSession->app->url(),
+                        'logo' => $gameSession->app->logo(),
+                    ])
                 </td>
                 <td class="duration">
                     @if($gameSession->end)
