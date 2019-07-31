@@ -2,7 +2,7 @@
     <li class="nav-item">
         <a class="nav-link {{ Request::route()->getName() == 'lans.attendee-game-picks.index' ? 'active' : '' }}"
            href="{{ route('lans.attendee-game-picks.index', $lan) }}">
-            @lang('title.games')
+            @lang('title.game-picks')
             <span class="badge">
                 {{ $lan->attendeeGamePicks()->distinct()->count(['game_id', 'game_provider']) }}
             </span>
