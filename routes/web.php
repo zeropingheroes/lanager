@@ -71,7 +71,7 @@ Route::resource('lans', 'LanController');
 /**
  * LAN Game Picks
  */
-Route::resource('lans.attendee-game-picks', 'LanAttendeeGamePickController', ['only' => ['index']]);
+Route::resource('lans.attendee-game-picks', 'LanAttendeeGamePickController', ['only' => ['index', 'destroy']]);
 
 /**
  * Guides

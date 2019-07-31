@@ -99,6 +99,8 @@ return [
     'game-already-picked' => 'Game already picked',
     'lan-attendee-game-picks-user-help' => 'Add the games you’d like to play, and find people to play with in the list below.',
     'lan-attendee-game-picks-guest-help' => 'Log in to add the games you’d like to play.',
+    'add-game-to-lan-picks' => 'Add :game to your picks for this LAN',
+    'remove-game-from-lan-picks' => 'Remove :game from your picks for this LAN',
 
     // Guides
     'markdown-formatting-help-link' => 'Markdown formatting help',
