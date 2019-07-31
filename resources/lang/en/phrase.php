@@ -79,7 +79,7 @@ return [
     'you-have-no-games-in-common-with-username' => 'You have no games in common with :username',
     'username-does-not-own-any-games' => ':username does not own any games',
     'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or have in common with you',
-    'username-has-not-favourited-any-games' => ':username has not favourited any games',
+    'username-has-not-picked-any-games' => ':username has not picked any games',
     'viewing-user-from-another-lan' => 'This user is not attending the current LAN',
     'username-has-not-played-any-games-this-lan' => ':username has not played any games this LAN',
     'played-for-x' => 'Played for :x',
@@ -96,9 +96,9 @@ return [
     'x-owners' => ':x Owners',
     'logo-for-game' => 'Logo for :game',
     'unsupported-provider' => 'Unsupported provider',
-    'game-already-favourited' => 'Game already favourited',
-    'lan-favourite-games-user-help' => 'Add the games you’d like to play, and find people to play with in the list below.',
-    'lan-favourite-games-guest-help' => 'Log in to add the games you’d like to play.',
+    'game-already-picked' => 'Game already picked',
+    'lan-attendee-game-picks-user-help' => 'Add the games you’d like to play, and find people to play with in the list below.',
+    'lan-attendee-game-picks-guest-help' => 'Log in to add the games you’d like to play.',
 
     // Guides
     'markdown-formatting-help-link' => 'Markdown formatting help',

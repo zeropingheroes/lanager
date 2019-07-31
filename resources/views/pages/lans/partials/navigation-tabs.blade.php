@@ -1,10 +1,10 @@
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link {{ Request::route()->getName() == 'lans.favourite-games.index' ? 'active' : '' }}"
-           href="{{ route('lans.favourite-games.index', $lan) }}">
+        <a class="nav-link {{ Request::route()->getName() == 'lans.attendee-game-picks.index' ? 'active' : '' }}"
+           href="{{ route('lans.attendee-game-picks.index', $lan) }}">
             @lang('title.games')
             <span class="badge">
-                {{ $lan->userFavouriteGames()->distinct()->count(['favouriteable_id', 'favouriteable_type']) }}
+                {{ $lan->attendeeGamePicks()->distinct()->count(['game_id', 'game_provider']) }}
             </span>
         </a>
     </li>

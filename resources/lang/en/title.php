@@ -116,9 +116,8 @@ return [
     'games-in-common' => 'Games In Common',
     'games-history' => 'Games History',
     'popular-games' => 'Popular Games',
+    'game-picks' => 'Game Picks',
 
-    // Favourite games
-    'favourite-games' => 'Favourite Games',
 
     // Navigation Links
     'navigation-link' => 'Navigation Link',

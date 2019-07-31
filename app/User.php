@@ -117,8 +117,8 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function favouriteGames()
+    public function gamePicks()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\UserFavouriteGame');
+        return $this->hasMany('Zeropingheroes\Lanager\LanAttendeeGamePick');
     }
 }

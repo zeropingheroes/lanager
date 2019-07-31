@@ -41,10 +41,10 @@ class SteamApp extends Model
     }
 
     /**
-     * Get all of the Steam app's favourites.
+     * Get all of the Steam app's LAN attendee picks.
      */
-    public function favourites()
+    public function picks()
     {
-        return $this->morphMany('Zeropingheroes\Lanager\UserFavouriteGame', 'favouriteable');
+        return $this->morphMany('Zeropingheroes\Lanager\LanAttendeeGamePick', 'game', 'game_provider', 'game_id');
     }
 }

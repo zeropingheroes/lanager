@@ -4,7 +4,7 @@ namespace Zeropingheroes\Lanager\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserFavouriteGame extends JsonResource
+class LanAttendeeGamePick extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,9 @@ class UserFavouriteGame extends JsonResource
     {
         return [
             'id' => $this->id,
-            'game' => new Game($this->favouriteable),
+            'user_id' => $this->user_id,
+            'game_provider' => $this->game_provider,
+            'game_id' => $this->game_id,
         ];
     }
 }

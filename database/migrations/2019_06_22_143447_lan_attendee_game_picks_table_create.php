@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UserFavouriteGamesTableCreate extends Migration
+class LanAttendeeGamePicksTableCreate extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class UserFavouriteGamesTableCreate extends Migration
      */
     public function up()
     {
-        Schema::create('user_favourite_games', function (Blueprint $table) {
+        Schema::create('lan_attendee_game_picks', function (Blueprint $table) {
             $table->increments('id')
                 ->unsigned();
             $table->integer('lan_id')
                 ->unsigned();
             $table->integer('user_id')
                 ->unsigned();
-            $table->integer('favouriteable_id')
+            $table->string('game_provider');
+            $table->integer('game_id')
                 ->unsigned();
-            $table->string('favouriteable_type');
             $table->timestamps();
 
             $table->foreign('lan_id')
@@ -47,6 +47,6 @@ class UserFavouriteGamesTableCreate extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_favourite_games');
+        Schema::dropIfExists('lan_attendee_game_picks');
     }
 }

@@ -121,8 +121,8 @@ class Lan extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function userFavouriteGames()
+    public function attendeeGamePicks()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\UserFavouriteGame');
+        return $this->hasMany('Zeropingheroes\Lanager\LanAttendeeGamePick');
     }
 }

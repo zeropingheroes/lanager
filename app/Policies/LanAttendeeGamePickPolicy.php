@@ -3,20 +3,20 @@
 namespace Zeropingheroes\Lanager\Policies;
 
 use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\UserFavouriteGame;
+use Zeropingheroes\Lanager\LanAttendeeGamePick;
 
-class UserFavouriteGamePolicy extends BasePolicy
+class LanAttendeeGamePickPolicy extends BasePolicy
 {
     /**
      * Determine whether the user can view a given item.
      *
      * @param null|User $authUser
-     * @param UserFavouriteGame $userFavouriteGame
+     * @param LanAttendeeGamePick $lanAttendeeGamePick
      * @return mixed
      */
-    public function view(?User $authUser, UserFavouriteGame $userFavouriteGame)
+    public function view(?User $authUser, LanAttendeeGamePick $lanAttendeeGamePick)
     {
-        // Anyone can view users
+        // Anyone can view
         return true;
     }
 
@@ -29,6 +29,7 @@ class UserFavouriteGamePolicy extends BasePolicy
      */
     public function create(User $authUser, User $user)
     {
+        // Users can only create their own
         return $authUser->id === $user->id;
     }
 
@@ -36,12 +37,12 @@ class UserFavouriteGamePolicy extends BasePolicy
      * Determine whether the user can delete a given item.
      *
      * @param User $authUser
-     * @param UserFavouriteGame $userFavouriteGame
+     * @param LanAttendeeGamePick $lanAttendeeGamePick
      * @return mixed
      */
-    public function delete(User $authUser, UserFavouriteGame $userFavouriteGame)
+    public function delete(User $authUser, LanAttendeeGamePick $lanAttendeeGamePick)
     {
-        // Users can only delete their own favourite games
-        return $authUser->id == $userFavouriteGame->user->id;
+        // Users can only delete their own
+        return $authUser->id == $lanAttendeeGamePick->user->id;
     }
 }

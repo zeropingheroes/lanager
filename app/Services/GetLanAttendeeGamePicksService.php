@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Services;
 use Illuminate\Support\Collection;
 use Zeropingheroes\Lanager\Lan;
 
-class GetLanFavouriteGamesService
+class GetLanAttendeeGamePicksService
 {
     /**
      * @var Lan
@@ -24,28 +24,29 @@ class GetLanFavouriteGamesService
      */
     public function get(): Collection
     {
-        $favourites = $this->lan->userFavouriteGames()->with('user', 'favouriteable')->get();
+        $picks = $this->lan->attendeeGamePicks()->with('user', 'game')->get();
 
-        if (empty($favourites)) {
+        if (empty($picks)) {
             return new Collection();
         }
 
-        // Collect and combine favourites for the same game
+        // Collect and combine picks for the same game
         $combined = [];
-        foreach ($favourites as $favourite) {
+        foreach ($picks as $pick) {
 
-            $combined[$favourite->favouriteable_id] = $combined[$favourite->favouriteable_id] ?? ['game' => null, 'users' => []];
+            // TODO: work for aggregating with provider too
+            $combined[$pick->game_id] = $combined[$pick->game_id] ?? ['game' => null];
 
-            $combined[$favourite->favouriteable_id]['game'] = $combined[$favourite->favouriteable_id]['game'] ?? $favourite->favouriteable;
+            $combined[$pick->game_id]['game'] = $combined[$pick->game_id]['game'] ?? $pick->game;
 
-            $combined[$favourite->favouriteable_id]['favourites'][] = $favourite;
+            $combined[$pick->game_id]['picks'][] = $pick;
         }
 
         // Sort games array by user count, in descending order (removing key)
         usort(
             $combined,
             function ($a, $b) {
-                return count($b['favourites']) - count($a['favourites']);
+                return count($b['picks']) - count($a['picks']);
             }
         );
         return collect($combined);

@@ -58,7 +58,7 @@ class LanController extends Controller
     {
         $this->authorize('view', $lan);
 
-        return redirect()->route('lans.favourite-games.index', $lan);
+        return redirect()->route('lans.game-picks.index', $lan);
     }
 
     /**

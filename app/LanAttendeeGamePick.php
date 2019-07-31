@@ -4,19 +4,21 @@ namespace Zeropingheroes\Lanager;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserFavouriteGame extends Model
+class LanAttendeeGamePick extends Model
 {
     protected $fillable = [
-        'favouriteable_id',
-        'favouriteable_type',
+        'user_id',
+        'lan_id',
+        'game_id',
+        'game_provider',
     ];
 
     /**
-     * Get all of the owning favouriteable models.
+     * Get all of the owning game models.
      */
-    public function favouriteable()
+    public function game()
     {
-        return $this->morphTo();
+        return $this->morphTo(null, 'game_provider');
     }
 
     /**

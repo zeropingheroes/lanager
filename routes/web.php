@@ -69,9 +69,9 @@ Route::get('/games/fullscreen', function () {
 Route::resource('lans', 'LanController');
 
 /**
- * LAN Favourite Games
+ * LAN Game Picks
  */
-Route::resource('lans.favourite-games', 'LanFavouriteGameController', ['only' => ['index']]);
+Route::resource('lans.attendee-game-picks', 'LanAttendeeGamePickController', ['only' => ['index']]);
 
 /**
  * Guides
