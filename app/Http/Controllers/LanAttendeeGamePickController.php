@@ -4,8 +4,10 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\LanAttendeeGamePick;
+use Zeropingheroes\Lanager\Requests\StoreLanAttendeeGamePickRequest;
 use Zeropingheroes\Lanager\Services\GetLanAttendeeGamePicksService;
 
 class LanAttendeeGamePickController extends Controller
@@ -31,6 +33,38 @@ class LanAttendeeGamePickController extends Controller
             ->with('lan', $lan)
             ->with('lanPicks', $lanPicks)
             ->with('userPicks', $userPicks);
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Lan $lan
+     * @param Request $httpRequest
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Lan $lan, Request $httpRequest)
+    {
+        $this->authorize('create', LanAttendeeGamePick::class);
+
+        $input = [
+            'game_id' => $httpRequest->input('game_id'),
+            'game_provider' => $httpRequest->input('game_provider'),
+            'lan_id' => $lan->id,
+            'user_id' => Auth::user()->id,
+        ];
+
+        $request = new StoreLanAttendeeGamePickRequest($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withError($request->errors())
+                ->withInput();
+        }
+        LanAttendeeGamePick::create($input);
+
+        return redirect()->route('lans.attendee-game-picks.index', $lan);
     }
 
     /**
