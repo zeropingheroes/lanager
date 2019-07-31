@@ -17,7 +17,7 @@ class LanAttendeeGamePick extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'game_provider' => $this->game_provider,
+            'game_provider' => str_replace('_app', '', $this->game_provider),
             'game_id' => $this->game_id,
         ];
     }
