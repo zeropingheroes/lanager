@@ -26,8 +26,6 @@ class LanAttendeeGamePickController extends Controller
             $userPicks = collect();
         }
 
-//        dd($picks);
-
         return View::make('pages.lans.attendee-game-picks.index')
             ->with('lan', $lan)
             ->with('lanPicks', $lanPicks)

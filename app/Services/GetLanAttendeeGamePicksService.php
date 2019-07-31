@@ -33,16 +33,13 @@ class GetLanAttendeeGamePicksService
         // Collect and combine picks for the same game
         $combined = [];
         foreach ($picks as $pick) {
-
-            // TODO: work for aggregating with provider too
-            $combined[$pick->game_id] = $combined[$pick->game_id] ?? ['game' => null];
-
-            $combined[$pick->game_id]['game'] = $combined[$pick->game_id]['game'] ?? $pick->game;
-
-            $combined[$pick->game_id]['picks'][] = $pick;
+            $key = $pick->game_provider.$pick->game_id;
+            $combined[$key] = $combined[$key] ?? ['game' => null];
+            $combined[$key]['game'] = $combined[$key]['game'] ?? $pick->game;
+            $combined[$key]['picks'][] = $pick;
         }
 
-        // Sort games array by user count, in descending order (removing key)
+        // Sort games array by number of picks, in descending order (removing key)
         usort(
             $combined,
             function ($a, $b) {
