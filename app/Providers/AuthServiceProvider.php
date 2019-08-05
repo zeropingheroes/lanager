@@ -29,6 +29,7 @@ use Zeropingheroes\Lanager\Policies\EventPolicy;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\Policies\UserPolicy;
 use Zeropingheroes\Lanager\Venue;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -64,5 +65,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::resource('images', ImagePolicy::class);
+
+        Passport::routes();
     }
 }

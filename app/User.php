@@ -4,10 +4,11 @@ namespace Zeropingheroes\Lanager;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasApiTokens;
 
     protected $fillable = [
         'username',
