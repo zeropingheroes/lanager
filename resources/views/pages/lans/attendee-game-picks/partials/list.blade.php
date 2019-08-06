@@ -22,10 +22,11 @@
                 {{ $lanPick['game']->name }}
             </td>
             <td>
-                @foreach($lanPick['picks'] as $attendeePick)
+            <?php $loggedInUserPick = null ?>
+            @foreach($lanPick['picks'] as $attendeePick)
                     @if(Auth::user() && $attendeePick->user->id == Auth::user()->id)
                         {{-- TODO: do this better and less hackily --}}
-                        <?php $picked = $attendeePick; ?>
+                        <?php $loggedInUserPick = $attendeePick; ?>
                     @endif
                     <a href="{{ route('users.show', $attendeePick->user->id) }}">
                         @include('pages.users.partials.avatar', ['user' => $attendeePick->user])
@@ -34,7 +35,7 @@
             </td>
             @if(Auth::user())
                 <td>
-                    @if(!$picked)
+                    @if(!$loggedInUserPick)
                         <form action="{{ route( 'lans.attendee-game-picks.store', $lan) }}"
                               method="POST"
                               class="inline">
@@ -48,9 +49,8 @@
                                 <span class="oi oi-plus"></span>
                             </button>
                         </form>
-
                     @else
-                        <form action="{{ route( 'lans.attendee-game-picks.destroy', ['lan' => $lan, 'attendee_game_pick' => $attendeePick]) }}"
+                        <form action="{{ route( 'lans.attendee-game-picks.destroy', ['lan' => $lan, 'attendee_game_pick' => $loggedInUserPick]) }}"
                               method="POST"
                               class="inline">
                             {{ method_field('DELETE') }}
