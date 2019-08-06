@@ -105,9 +105,9 @@ class Lan extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function achievement()
+    public function attendanceAchievement()
     {
-        return $this->hasOne('Zeropingheroes\Lanager\Achievement', 'id');
+        return $this->hasOne('Zeropingheroes\Lanager\Achievement', 'id', 'achievement_id');
     }
 
     /**

@@ -33,8 +33,7 @@ class AwardLanAchievementToAttendee
      */
     public function handle(Login $login)
     {
-        $lanHappeningNow = Lan::where('start', '<', now())
-            ->where('end', '>', now())->first();
+        $lanHappeningNow = Lan::happeningNow()->first();
 
         if(!$lanHappeningNow) {
             return;
@@ -50,18 +49,13 @@ class AwardLanAchievementToAttendee
             }
         }
 
-        if($isAtLan && $lanHappeningNow && $lanHappeningNow->has('achievement'))
+        if($isAtLan && $lanHappeningNow && $lanHappeningNow->attendanceAchievement)
         {
-            $userHasAchievement = $login->user->whereHas('achievements', function ($query) use ($lanHappeningNow) {
-                $query->where('id', $lanHappeningNow->achievement_id);
-            })->first();
-
-            if(!$userHasAchievement)
-                UserAchievement::create([
-                    'user_id' => $login->user->id,
-                    'achievement_id' => $lanHappeningNow->achievement_id,
-                    'lan_id' => $lanHappeningNow->id
-                ]);
+            UserAchievement::firstOrCreate([
+                'user_id' => $login->user->id,
+                'achievement_id' => $lanHappeningNow->attendanceAchievement->id,
+                'lan_id' => $lanHappeningNow->id
+            ]);
         }
     }
 }
