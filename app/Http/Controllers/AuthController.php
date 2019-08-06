@@ -7,6 +7,7 @@ use InvalidArgumentException;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
@@ -78,7 +79,19 @@ class AuthController extends Controller
             Auth::login($user, true);
             Log::info(__('phrase.user-successfully-logged-in', ['username' => $user->username]));
 
-            return redirect()->intended(route('users.show', ['id' => $user->id]));
+            // Redirect the user:
+            // - to where they wanted to go (if given) OR
+            // - the LAN happening now (if exists) OR
+            // - the nearest future LAN (if exists) OR
+            // - the user's profile
+            $lan = Lan::happeningNow()->first() ?? Lan::future()->orderBy('start', 'asc')->first();
+            if ($lan) {
+                $route = route('lans.attendee-game-picks.index', ['lan' => $lan]);
+            } else {
+                $route = route('users.show', ['id' => $user->id]);
+
+            }
+            return redirect()->intended($route);
 
         }
 
