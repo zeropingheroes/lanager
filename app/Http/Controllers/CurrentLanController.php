@@ -9,29 +9,19 @@ class CurrentLanController extends Controller
     /**
      * @var \Zeropingheroes\Lanager\Lan
      */
-    protected $currentLan;
+    protected $lan;
 
     /**
      * Determine the current LAN
      */
     public function __construct()
     {
-        // Get the LAN happening now
-        // or the most recently ended LAN
-        $this->currentLan = Lan::presentAndPast()
-            ->orderBy('start', 'desc')
-            ->first();
-
-        // If there isn't a LAN happening now
-        // nor a LAN that has recently ended
-        // get the nearest future LAN
-        if (!$this->currentLan) {
-            $this->currentLan = Lan::orderBy('start', 'asc')
-                ->first();
-        }
+        $this->lan = Lan::happeningNow()->first()                       // LAN happening now
+                  ?? Lan::future()->orderBy('start', 'asc')->first()    // Closest future LAN
+                  ?? Lan::past()->orderBy('end', 'desc')->first();      // Most recently ended past LAN
 
         // If there are no LANs, go to a 404 page
-        if (!$this->currentLan) {
+        if (!$this->lan) {
             abort(404);
         }
     }
@@ -43,7 +33,7 @@ class CurrentLanController extends Controller
      */
     public function show()
     {
-        return redirect()->route('lans.show', $this->currentLan);
+        return redirect()->route('lans.show', $this->lan);
     }
 
     /**
@@ -53,7 +43,7 @@ class CurrentLanController extends Controller
      */
     public function guides()
     {
-        return redirect()->route('lans.guides.index', $this->currentLan);
+        return redirect()->route('lans.guides.index', $this->lan);
     }
 
     /**
@@ -63,7 +53,7 @@ class CurrentLanController extends Controller
      */
     public function events()
     {
-        return redirect()->route('lans.events.index', $this->currentLan);
+        return redirect()->route('lans.events.index', $this->lan);
     }
 
     /**
@@ -73,7 +63,7 @@ class CurrentLanController extends Controller
      */
     public function schedule()
     {
-        return redirect()->route('lans.events.index', ['lan' => $this->currentLan, 'schedule']);
+        return redirect()->route('lans.events.index', ['lan' => $this->lan, 'schedule']);
     }
 
     /**
@@ -83,7 +73,7 @@ class CurrentLanController extends Controller
      */
     public function users()
     {
-        return redirect()->route('lans.attendees.index', $this->currentLan);
+        return redirect()->route('lans.attendees.index', $this->lan);
     }
 
     /**
@@ -93,6 +83,6 @@ class CurrentLanController extends Controller
      */
     public function userAchievements()
     {
-        return redirect()->route('lans.user-achievements.index', $this->currentLan);
+        return redirect()->route('lans.user-achievements.index', $this->lan);
     }
 }

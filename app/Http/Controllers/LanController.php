@@ -22,10 +22,9 @@ class LanController extends Controller
         $lans = Lan::orderBy('start', 'desc')
             ->get();
 
-        // Get the LAN happening now, or the most recently ended LAN
-        $currentLan = Lan::presentAndPast()
-            ->orderBy('start', 'desc')
-            ->first();
+        $currentLan = Lan::happeningNow()->first()                      // LAN happening now
+                   ?? Lan::future()->orderBy('start', 'asc')->first()   // Closest future LAN
+                   ?? Lan::past()->orderBy('end', 'desc')->first();     // Most recently ended past LAN
 
         return View::make('pages.lans.index')
             ->with('lans', $lans)
