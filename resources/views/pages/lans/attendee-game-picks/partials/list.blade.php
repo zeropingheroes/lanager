@@ -1,14 +1,17 @@
 <table class="table table-striped">
     <tbody>
     @foreach($lanPicks as $lanPick)
-
         {{-- Check if the logged-in user has picked the game --}}
         <?php $picked = false ?>
         @foreach($lanPick['picks'] as $attendeePick)
-            @if($userPicks->contains($attendeePick))
+            @if(Auth::user() && $userPicks->contains($attendeePick))
                 <?php $picked = true ?>
             @endif
         @endforeach
+        @if(\Request::has('mine') && Auth::user() && !$picked)
+            {{-- If URL has ?mine then Hide rows the logged in user didn't pick --}}
+            @continue
+        @endif
         <tr @if($picked) class="table-active" @endif>
             <td>
                 @include('pages.games.partials.game-logo-link',

@@ -101,6 +101,8 @@ return [
     'lan-attendee-game-picks-guest-help' => 'Log in to add the games you’d like to play.',
     'add-game-to-lan-picks' => 'Add :game to your picks for this LAN',
     'remove-game-from-lan-picks' => 'Remove :game from your picks for this LAN',
+    'only-show-my-game-picks' => 'Only show my game picks',
+    'show-everyones-game-picks' => 'Show everyone\'s game picks',
 
     // Guides
     'markdown-formatting-help-link' => 'Markdown formatting help',

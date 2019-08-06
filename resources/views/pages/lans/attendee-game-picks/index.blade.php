@@ -38,8 +38,23 @@
                 });
             });
         </script>
-        <div id="app" class="mb-3">
-            <games-search @selected="post"></games-search>
+        <div class="container">
+            <div class="row">
+                <div class="col-md">
+                    <div id="app" class="mb-3">
+                        <games-search @selected="post"></games-search>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    @if(!\Request::has('mine') )
+                        <a class="btn btn-secondary" href="{{ route('lans.attendee-game-picks.index', ['lan' => $lan, 'mine']) }}"
+                           role="button">@lang('phrase.only-show-my-game-picks')</a>
+                    @else
+                        <a class="btn btn-secondary" href="{{ route('lans.attendee-game-picks.index', ['lan' => $lan]) }}"
+                           role="button">@lang('phrase.show-everyones-game-picks')</a>
+                    @endif
+                </div>
+            </div>
         </div>
         <div id="alerts"></div>
     @else
