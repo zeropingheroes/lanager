@@ -76,7 +76,7 @@ class RestoreBackup extends Command
 
         // Restore images
         $processes["cp-images"] = new Process(
-            "cp $restoreDir/images/* $imagesDir"
+            "cp -r $restoreDir/images/* $imagesDir"
         );
 
         // Restore database dump files
