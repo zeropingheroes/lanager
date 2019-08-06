@@ -52,13 +52,13 @@ class LanController extends Controller
      *
      * @param Lan $lan
      * @return \Illuminate\Contracts\View\View
-     * @internal param \Zeropingheroes\Lanager\Log $log
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Lan $lan)
     {
         $this->authorize('view', $lan);
 
-        return redirect()->route('lans.game-picks.index', $lan);
+        return redirect()->route('lans.attendee-game-picks.index', $lan);
     }
 
     /**
