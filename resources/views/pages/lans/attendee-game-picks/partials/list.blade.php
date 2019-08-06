@@ -23,7 +23,7 @@
             </td>
             <td>
                 @foreach($lanPick['picks'] as $attendeePick)
-                    @if($attendeePick->user->id == Auth::user()->id)
+                    @if(Auth::user() && $attendeePick->user->id == Auth::user()->id)
                         {{-- TODO: do this better and less hackily --}}
                         <?php $picked = $attendeePick; ?>
                     @endif
@@ -32,36 +32,38 @@
                     </a>
                 @endforeach
             </td>
-            <td>
-                @if(!$picked)
-                    <form action="{{ route( 'lans.attendee-game-picks.store', $lan) }}"
-                          method="POST"
-                          class="inline">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="game_id" value="{{ $lanPick['game']->id }}">
-                        {{-- TODO: Get the provider in a less hacky way --}}
-                        <input type="hidden" name="game_provider" value="{{ $lanPick['picks'][0]->game_provider }}">
-                        <button type="submit"
-                                class="btn btn-primary btn-sm"
-                                title="@lang('phrase.add-game-to-lan-picks', ['game' => $lanPick['game']->name])">
-                            <span class="oi oi-plus"></span>
-                        </button>
-                    </form>
+            @if(Auth::user())
+                <td>
+                    @if(!$picked)
+                        <form action="{{ route( 'lans.attendee-game-picks.store', $lan) }}"
+                              method="POST"
+                              class="inline">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="game_id" value="{{ $lanPick['game']->id }}">
+                            {{-- TODO: Get the provider in a less hacky way --}}
+                            <input type="hidden" name="game_provider" value="{{ $lanPick['picks'][0]->game_provider }}">
+                            <button type="submit"
+                                    class="btn btn-primary btn-sm"
+                                    title="@lang('phrase.add-game-to-lan-picks', ['game' => $lanPick['game']->name])">
+                                <span class="oi oi-plus"></span>
+                            </button>
+                        </form>
 
-                @else
-                    <form action="{{ route( 'lans.attendee-game-picks.destroy', ['lan' => $lan, 'attendee_game_pick' => $attendeePick]) }}"
-                          method="POST"
-                          class="inline">
-                        {{ method_field('DELETE') }}
-                        {{ csrf_field() }}
-                        <button type="submit"
-                                class="btn btn-primary btn-sm"
-                                title="@lang('phrase.remove-game-from-lan-picks', ['game' => $lanPick['game']->name])">
-                            <span class="oi oi-minus"></span>
-                        </button>
-                    </form>
-                @endif
-            </td>
+                    @else
+                        <form action="{{ route( 'lans.attendee-game-picks.destroy', ['lan' => $lan, 'attendee_game_pick' => $attendeePick]) }}"
+                              method="POST"
+                              class="inline">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+                            <button type="submit"
+                                    class="btn btn-primary btn-sm"
+                                    title="@lang('phrase.remove-game-from-lan-picks', ['game' => $lanPick['game']->name])">
+                                <span class="oi oi-minus"></span>
+                            </button>
+                        </form>
+                    @endif
+                </td>
+            @endif
         </tr>
     @endforeach
     </tbody>
