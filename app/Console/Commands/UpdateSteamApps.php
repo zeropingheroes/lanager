@@ -3,9 +3,14 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
+use Syntax\SteamApi\Exceptions\ApiCallFailedException;
 use Syntax\SteamApi\Facades\SteamApi as Steam;
 use Zeropingheroes\Lanager\SteamApp;
 use League\Csv\Writer;
+use bandwidthThrottle\tokenBucket\Rate;
+use bandwidthThrottle\tokenBucket\TokenBucket;
+use bandwidthThrottle\tokenBucket\BlockingConsumer;
+use bandwidthThrottle\tokenBucket\storage\FileStorage;
 
 class UpdateSteamApps extends Command
 {
@@ -27,7 +32,7 @@ class UpdateSteamApps extends Command
      */
     public function handle()
     {
-        $this->updateAppList();
+//        $this->updateAppList();
         $this->updateAppTypes();
         $this->exportCsv();
         return;
@@ -102,10 +107,27 @@ class UpdateSteamApps extends Command
         $progress = $this->output->createProgressBar(count($steamAppIds));
         $progress->setFormat("%current%/%max% %bar% %percent%%");
 
+
+        // Prevent hitting Steam's API rate limits of 200 requests every 5 minutes
+        $storage  = new FileStorage(__DIR__ . "/../../../storage/app/api.bucket"); // store state in storage directory
+        $rate     = new Rate(40, Rate::MINUTE); // add 40 tokens every minute (= 200 over 5 minutes)
+        $bucket   = new TokenBucket(10, $rate, $storage); // bucket can never have more than 10 tokens saved up
+        $consumer = new BlockingConsumer($bucket); // if no tokens are available, block further execution until there are tokens
+        $bucket->bootstrap(10); // fill the bucket with 10 tokens initially
+
         $updatedCount = 0;
         foreach ($steamAppIds as &$appId) {
             // Query Steam API to get app details
-            $app = Steam::app()->appDetails($appId);
+            try {
+                $consumer->consume(1);
+                $app = Steam::app()->appDetails($appId);
+
+            // If the API call failed, empty the bucket and skip the app
+            } catch(ApiCallFailedException $e) {
+                $consumer->consume(10);
+                $progress->advance();
+                continue;
+            }
             if (isset($app[0])) {
                 $type = $app[0]->type;
                 $dlcs = $app[0]->dlc;

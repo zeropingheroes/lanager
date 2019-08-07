@@ -4,8 +4,64 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62d829403004c74b12b1b16c9b426b10",
+    "content-hash": "1abde7a4030ac691a7c22d2a56fd13ab",
     "packages": [
+        {
+            "name": "bandwidth-throttle/token-bucket",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bandwidth-throttle/token-bucket.git",
+                "reference": "a0c31a4d0fbcf0c1a68c895fc91bf71455bcec08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bandwidth-throttle/token-bucket/zipball/a0c31a4d0fbcf0c1a68c895fc91bf71455bcec08",
+                "reference": "a0c31a4d0fbcf0c1a68c895fc91bf71455bcec08",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "malkusch/lock": "^1",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "ext-redis": "^2.2.4|^3",
+                "mikey179/vfsstream": "^1.5.0",
+                "php-mock/php-mock-phpunit": "^1",
+                "phpunit/phpunit": "^5",
+                "predis/predis": "^1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "bandwidthThrottle\\tokenBucket\\": "classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Markus Malkusch",
+                    "role": "Developer",
+                    "email": "markus@malkusch.de",
+                    "homepage": "http://markus.malkusch.de"
+                }
+            ],
+            "description": "Implementation of the Token Bucket algorithm.",
+            "homepage": "https://github.com/bandwidth-throttle/token-bucket",
+            "keywords": [
+                "bandwidth",
+                "rate limit",
+                "rate limiting",
+                "throttle",
+                "throttling",
+                "token bucket"
+            ],
+            "time": "2017-10-13T19:09:01+00:00"
+        },
         {
             "name": "barryvdh/laravel-debugbar",
             "version": "dev-master",
@@ -1715,6 +1771,65 @@
                 "twitter"
             ],
             "time": "2016-08-17T00:36:58+00:00"
+        },
+        {
+            "name": "malkusch/lock",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/malkusch/lock.git",
+                "reference": "5555f291092a0ed5ab4f02d8be7031b877d8d165"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/malkusch/lock/zipball/5555f291092a0ed5ab4f02d8be7031b877d8d165",
+                "reference": "5555f291092a0ed5ab4f02d8be7031b877d8d165",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "psr/log": "^1"
+            },
+            "require-dev": {
+                "ext-redis": "^2.2.4|^3",
+                "kriswallsmith/spork": "^0.3",
+                "mikey179/vfsstream": "^1.5.0",
+                "php-mock/php-mock-phpunit": "^1",
+                "phpunit/phpunit": "^5",
+                "predis/predis": "~1.0",
+                "zetacomponents/system-information": "~1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "malkusch\\lock\\": "classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Markus Malkusch",
+                    "role": "Developer",
+                    "email": "markus@malkusch.de",
+                    "homepage": "http://markus.malkusch.de"
+                }
+            ],
+            "description": "Mutex library for exclusive code execution.",
+            "homepage": "https://github.com/malkusch/lock",
+            "keywords": [
+                "cas",
+                "flock",
+                "lock",
+                "memcache",
+                "mutex",
+                "redis",
+                "redlock",
+                "semaphore"
+            ],
+            "time": "2016-08-05T11:03:36+00:00"
         },
         {
             "name": "maximebf/debugbar",
