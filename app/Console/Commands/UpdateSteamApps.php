@@ -26,7 +26,7 @@ class UpdateSteamApps extends Command
      */
     public function handle()
     {
-        $this->info(__('phrase.requesting-details-of-all-apps-from-steam'));
+        $this->info(__('phrase.requesting-list-of-all-apps-from-steam'));
         $apps = Steam::app()->GetAppList();
 
         $fromSteamCount = count($apps);
@@ -81,6 +81,32 @@ class UpdateSteamApps extends Command
             $progress->finish();
             $this->info(PHP_EOL . __('phrase.steam-app-update-complete-x-added', ['x' => $fromSteamCount]));
         }
+
+        // Get apps which do not have a type set
+        $steamAppIds = SteamApp::whereNull('type')->pluck('id');
+
+        $this->info(__('phrase.requesting-type-for-x-apps-from-steam', ['x' => count($steamAppIds)]));
+
+        $progress = $this->output->createProgressBar(count($steamAppIds));
+        $progress->setFormat("%bar% %percent%%");
+
+        $updatedCount = 0;
+        foreach($steamAppIds as $appId) {
+            // Query Steam API to get app details
+            $app = Steam::app()->appDetails($appId);
+            if(isset($app[0])) {
+                $type = $app[0]->type;
+            } else {
+                $type = 'unknown';
+            }
+            SteamApp::where('id', $appId)->update(['type' => $type]);
+            $updatedCount++;
+            $progress->advance();
+        }
+        $progress->finish();
+
+        $this->info(PHP_EOL.__('phrase.steam-app-type-update-complete-x-apps-updated', ['x' => $updatedCount]));
+
         return;
     }
 }

@@ -161,11 +161,13 @@ return [
 
     // lanager:update-steam-apps
     'update-database-with-apps-from-steam' => 'Update the database with the latest list of apps from Steam',
-    'requesting-details-of-all-apps-from-steam' => 'Requesting details of all apps from Steam',
+    'requesting-list-of-all-apps-from-steam' => 'Requesting list of all apps from Steam',
     'adding-x-steam-apps-to-db' => 'Adding :x apps to the database',
-    'updating-x-steam-apps-already-in-db-and-adding-y-new' => 'Updating :x existing apps, and adding :y new apps',
-    'steam-app-update-complete-x-added' => 'Steam app update complete - :x apps added',
-    'steam-app-update-complete-x-updates-y-new' => 'Steam app update complete - :x updates, of which :y were new apps',
+    'updating-x-steam-apps-already-in-db-and-adding-y-new' => 'Checking :x existing apps for name changes, and adding :y new apps',
+    'steam-app-update-complete-x-added' => 'Steam app list update complete - :x apps added',
+    'steam-app-update-complete-x-updates-y-new' => 'Steam app list update complete - :x existing app names updated, and :y new apps added',
+    'requesting-type-for-x-apps-from-steam' => 'Requesting type for :x apps from Steam',
+    'steam-app-type-update-complete-x-apps-updated' => 'Steam app type update compete - :x apps updated',
 
     // lanager:import-steam-users
     'steamids-to-import-list-or-file' => 'One or more SteamId64(s) for the user(s) to import, or a file containing a list of IDs',
