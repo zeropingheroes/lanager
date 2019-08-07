@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 use Illuminate\Console\Command;
 use Syntax\SteamApi\Facades\SteamApi as Steam;
 use Zeropingheroes\Lanager\SteamApp;
+use League\Csv\Writer;
 
 class UpdateSteamApps extends Command
 {
@@ -122,6 +123,13 @@ class UpdateSteamApps extends Command
         $progress->finish();
 
         $this->info(PHP_EOL.__('phrase.steam-app-type-update-complete-x-apps-updated', ['x' => $updatedCount]));
+
+        // Export apps table to CSV
+        $steamApps = SteamApp::all()->toArray();
+        $this->info(__('phrase.exporting-x-steam-apps-to-csv', ['x' => count($steamApps)]));
+        $csv = Writer::createFromPath('steam_apps.csv', 'w+');
+        $csv->insertAll($steamApps);
+        $this->info(__('phrase.steam-app-csv-export-complete'));
 
         return;
     }

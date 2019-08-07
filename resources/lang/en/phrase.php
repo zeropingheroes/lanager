@@ -168,6 +168,8 @@ return [
     'steam-app-update-complete-x-updates-y-new' => 'Steam app list update complete - :x existing app names updated, and :y new apps added',
     'requesting-type-for-x-apps-from-steam' => 'Requesting type for :x apps from Steam',
     'steam-app-type-update-complete-x-apps-updated' => 'Steam app type update compete - :x apps updated',
+    'exporting-x-steam-apps-to-csv' => 'Exporting :x Steam apps to CSV',
+    'steam-app-csv-export-complete' => 'Steam app CSV export complete',
 
     // lanager:import-steam-users
     'steamids-to-import-list-or-file' => 'One or more SteamId64(s) for the user(s) to import, or a file containing a list of IDs',
