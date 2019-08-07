@@ -27,6 +27,14 @@ class UpdateSteamApps extends Command
      */
     public function handle()
     {
+        $this->updateAppList();
+        $this->updateAppTypes();
+        $this->exportCsv();
+        return;
+    }
+
+    private function updateAppList()
+    {
         $this->info(__('phrase.requesting-list-of-all-apps-from-steam'));
         $apps = Steam::app()->GetAppList();
 
@@ -82,7 +90,10 @@ class UpdateSteamApps extends Command
             $progress->finish();
             $this->info(PHP_EOL . __('phrase.steam-app-update-complete-x-added', ['x' => $fromSteamCount]));
         }
+    }
 
+    private function updateAppTypes()
+    {
         // Get apps which do not have a type set
         $steamAppIds = SteamApp::whereNull('type')->pluck('id')->toArray();
 
@@ -92,16 +103,16 @@ class UpdateSteamApps extends Command
         $progress->setFormat("%current%/%max% %bar% %percent%%");
 
         $updatedCount = 0;
-        foreach($steamAppIds as &$appId) {
+        foreach ($steamAppIds as &$appId) {
             // Query Steam API to get app details
             $app = Steam::app()->appDetails($appId);
-            if(isset($app[0])) {
+            if (isset($app[0])) {
                 $type = $app[0]->type;
                 $dlcs = $app[0]->dlc;
 
                 // If the app has a list of app IDs that are DLC, update their type now and remove them from the loop
-                if(count($dlcs)) {
-                    foreach($dlcs as $dlcAppId) {
+                if (count($dlcs)) {
+                    foreach ($dlcs as $dlcAppId) {
                         SteamApp::where('id', $dlcAppId)->update(['type' => 'dlc']);
                         $updatedCount++;
                         $key = array_search($dlcAppId, $steamAppIds);
@@ -122,15 +133,16 @@ class UpdateSteamApps extends Command
         unset($appId);
         $progress->finish();
 
-        $this->info(PHP_EOL.__('phrase.steam-app-type-update-complete-x-apps-updated', ['x' => $updatedCount]));
+        $this->info(PHP_EOL . __('phrase.steam-app-type-update-complete-x-apps-updated', ['x' => $updatedCount]));
+    }
 
+    private function exportCsv()
+    {
         // Export apps table to CSV
         $steamApps = SteamApp::all()->toArray();
         $this->info(__('phrase.exporting-x-steam-apps-to-csv', ['x' => count($steamApps)]));
         $csv = Writer::createFromPath('steam_apps.csv', 'w+');
         $csv->insertAll($steamApps);
         $this->info(__('phrase.steam-app-csv-export-complete'));
-
-        return;
     }
 }
