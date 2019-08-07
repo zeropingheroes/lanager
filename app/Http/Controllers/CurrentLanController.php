@@ -16,9 +16,9 @@ class CurrentLanController extends Controller
      */
     public function __construct()
     {
-        $this->lan = Lan::happeningNow()->first()                       // LAN happening now
-                  ?? Lan::future()->orderBy('start', 'asc')->first()    // Closest future LAN
-                  ?? Lan::past()->orderBy('end', 'desc')->first();      // Most recently ended past LAN
+        $this->lan = Lan::happeningNow()->where('published', 1)->first()                       // LAN happening now
+                  ?? Lan::future()->where('published', 1)->orderBy('start', 'asc')->first()    // Closest future LAN
+                  ?? Lan::past()->where('published', 1)->orderBy('end', 'desc')->first();      // Most recently ended past LAN
 
         // If there are no LANs, go to a 404 page
         if (!$this->lan) {
