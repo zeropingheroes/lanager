@@ -83,19 +83,33 @@ class UpdateSteamApps extends Command
         }
 
         // Get apps which do not have a type set
-        $steamAppIds = SteamApp::whereNull('type')->pluck('id');
+        $steamAppIds = SteamApp::whereNull('type')->pluck('id')->toArray();
 
         $this->info(__('phrase.requesting-type-for-x-apps-from-steam', ['x' => count($steamAppIds)]));
 
         $progress = $this->output->createProgressBar(count($steamAppIds));
-        $progress->setFormat("%bar% %percent%%");
+        $progress->setFormat("%current%/%max% %bar% %percent%%");
 
         $updatedCount = 0;
-        foreach($steamAppIds as $appId) {
+        foreach($steamAppIds as &$appId) {
             // Query Steam API to get app details
             $app = Steam::app()->appDetails($appId);
             if(isset($app[0])) {
                 $type = $app[0]->type;
+                $dlcs = $app[0]->dlc;
+
+                // If the app has a list of app IDs that are DLC, update their type now and remove them from the loop
+                if(count($dlcs)) {
+                    foreach($dlcs as $dlcAppId) {
+                        SteamApp::where('id', $dlcAppId)->update(['type' => 'dlc']);
+                        $updatedCount++;
+                        $key = array_search($dlcAppId, $steamAppIds);
+                        if (false !== $key) {
+                            unset($steamAppIds[$key]);
+                            $progress->advance();
+                        }
+                    }
+                }
             } else {
                 $type = 'unknown';
             }
@@ -103,6 +117,8 @@ class UpdateSteamApps extends Command
             $updatedCount++;
             $progress->advance();
         }
+        // Unset variable passed by reference
+        unset($appId);
         $progress->finish();
 
         $this->info(PHP_EOL.__('phrase.steam-app-type-update-complete-x-apps-updated', ['x' => $updatedCount]));
