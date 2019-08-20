@@ -7,6 +7,7 @@ use Syntax\SteamApi\Exceptions\ApiCallFailedException;
 use Syntax\SteamApi\Facades\SteamApi as Steam;
 use Zeropingheroes\Lanager\SteamApp;
 use League\Csv\Writer;
+use League\Csv\Reader;
 use bandwidthThrottle\tokenBucket\Rate;
 use bandwidthThrottle\tokenBucket\TokenBucket;
 use bandwidthThrottle\tokenBucket\BlockingConsumer;
@@ -32,10 +33,55 @@ class UpdateSteamApps extends Command
      */
     public function handle()
     {
+        $this->importCsv();
         $this->updateAppList();
         $this->updateAppTypes();
         $this->exportCsv();
         return;
+    }
+
+    private function importCsv()
+    {
+        try {
+            $reader = Reader::createFromPath('steam_apps.csv', 'r');
+        } catch( \League\Csv\Exception $e) {
+            $this->info(__('phrase.csv-file-not-found-skipping-import'));
+            return;
+        }
+        $apps = $reader->getRecords(['id', 'name', 'type']);
+
+        $this->info(__('phrase.importing-x-steam-apps-from-csv', ['x' => count($reader)]));
+
+        // If there are apps in the database skip importing from CSV
+        if (SteamApp::count()) {
+            return;
+        }
+
+        // Convert CSV object to array
+        foreach($apps as $app) {
+            $arrayApps[] = [
+                'id' => $app['id'],
+                'name' => $app['name'],
+                'type' => $app['type'],
+            ];
+        }
+
+        // Chunk the apps into blocks of 500
+        $chunkedApps = array_chunk($arrayApps, 500);
+
+        $progress = $this->output->createProgressBar(count($chunkedApps));
+        $progress->setFormat("%bar% %percent%%");
+        $importedCount = 0;
+
+        // Insert the apps 500 at a time
+        foreach ($chunkedApps as $chunk) {
+            SteamApp::insert($chunk);
+            $importedCount = $importedCount + count($chunk);
+            $progress->advance();
+        }
+        $progress->finish();
+
+        $this->info(PHP_EOL . __('phrase.x-steam-apps-imported-from-csv', ['x' => $importedCount]));
     }
 
     private function updateAppList()
