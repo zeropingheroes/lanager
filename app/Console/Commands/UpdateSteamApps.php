@@ -32,7 +32,7 @@ class UpdateSteamApps extends Command
      */
     public function handle()
     {
-//        $this->updateAppList();
+        $this->updateAppList();
         $this->updateAppTypes();
         $this->exportCsv();
         return;
@@ -131,6 +131,7 @@ class UpdateSteamApps extends Command
             if (isset($app[0])) {
                 $type = $app[0]->type;
                 $dlcs = $app[0]->dlc;
+                $movies = $app[0]->movies;
 
                 // If the app has a list of app IDs that are DLC, update their type now and remove them from the loop
                 if (count($dlcs)) {
@@ -138,6 +139,18 @@ class UpdateSteamApps extends Command
                         SteamApp::where('id', $dlcAppId)->update(['type' => 'dlc']);
                         $updatedCount++;
                         $key = array_search($dlcAppId, $steamAppIds);
+                        if (false !== $key) {
+                            unset($steamAppIds[$key]);
+                            $progress->advance();
+                        }
+                    }
+                }
+                // If the app has a list of app IDs that are movies, update their type now and remove them from the loop
+                if (count($movies)) {
+                    foreach ($movies as $movie) {
+                        SteamApp::where('id', $movie->id)->update(['type' => 'movie']);
+                        $updatedCount++;
+                        $key = array_search($movie->id, $steamAppIds);
                         if (false !== $key) {
                             unset($steamAppIds[$key]);
                             $progress->advance();
