@@ -175,9 +175,9 @@ class UpdateSteamApps extends Command
                 continue;
             }
             if (isset($app[0])) {
-                $type = $app[0]->type;
-                $dlcs = $app[0]->dlc;
-                $movies = $app[0]->movies;
+                $type = $app[0]->type ?? null;
+                $dlcs = $app[0]->dlc ?? [];
+                $movies = $app[0]->movies ?? [];
 
                 // If the app has a list of app IDs that are DLC, update their type now and remove them from the loop
                 if (count($dlcs)) {
