@@ -22,7 +22,9 @@ class GameController extends Controller
         } else {
             $limit = 10;
         }
-        $games = SteamApp::limit($limit);
+
+        // Filter out Steam apps that aren't games (DLC/movies/advertising etc)
+        $games = SteamApp::where('type','=','game')->limit($limit);
 
         if ($request->filled('name')) {
             $games->where('name', 'like', '%'.$request->name.'%');
@@ -39,6 +41,10 @@ class GameController extends Controller
      */
     public function show(SteamApp $game)
     {
+        // Do not show Steam apps that aren't games (DLC/movies/advertising etc)
+        if($game->type != 'game') {
+            abort(404);
+        }
         return new Game($game);
     }
 }
