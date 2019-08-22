@@ -50,12 +50,39 @@ class UpdateSteamApps extends Command
         }
         $apps = $reader->getRecords(['id', 'name', 'type']);
 
-        $this->info(__('phrase.importing-x-steam-apps-from-csv', ['x' => count($reader)]));
+        $existingCount = SteamApp::count();
 
-        // If there are apps in the database skip importing from CSV
-        if (SteamApp::count()) {
+        // If there are apps in the database, update instead of insert
+        if ($existingCount) {
+
+            $this->info(__('phrase.updating-x-existing-steam-apps-from-csv', ['x' => $existingCount]));
+
+            // Initialise progress bar and counter
+            $progress = $this->output->createProgressBar(count($reader));
+            $progress->setFormat("%current%/%max% %bar% %percent%%");
+            $changedCount = 0;
+
+            foreach ($apps as $app) {
+                $databaseApp = SteamApp::updateOrCreate(
+                    [
+                        'id' => $app['id']
+                    ],
+                    [
+                        'name' => $app['name'],
+                        'type' => $app['type'],
+                    ]
+                );
+                if ($databaseApp->wasChanged()) {
+                    $changedCount++;
+                }
+                $progress->advance();
+            }
+            $progress->finish();
+            $this->info(PHP_EOL . __('phrase.x-steam-apps-updated-from-csv', ['x' => $changedCount]));
             return;
         }
+
+        $this->info(__('phrase.importing-x-steam-apps-from-csv', ['x' => count($reader)]));
 
         // Convert CSV object to array
         foreach($apps as $app) {
@@ -70,7 +97,7 @@ class UpdateSteamApps extends Command
         $chunkedApps = array_chunk($arrayApps, 500);
 
         $progress = $this->output->createProgressBar(count($chunkedApps));
-        $progress->setFormat("%bar% %percent%%");
+        $progress->setFormat("%current%/%max% %bar% %percent%%");
         $importedCount = 0;
 
         // Insert the apps 500 at a time
@@ -104,7 +131,7 @@ class UpdateSteamApps extends Command
             // Initialise counter and progress bar
             $changedCount = 0;
             $progress = $this->output->createProgressBar($fromSteamCount);
-            $progress->setFormat("%bar% %percent%%");
+            $progress->setFormat("%current%/%max% %bar% %percent%%");
 
             foreach ($apps as $app) {
                 $databaseApp = SteamApp::updateOrCreate(
@@ -131,7 +158,7 @@ class UpdateSteamApps extends Command
             $chunkedApps = array_chunk($apps, 500);
 
             $progress = $this->output->createProgressBar(count($chunkedApps));
-            $progress->setFormat("%bar% %percent%%");
+            $progress->setFormat("%current%/%max% %bar% %percent%%");
 
             // Insert the apps 500 at a time
             foreach ($chunkedApps as $apps) {

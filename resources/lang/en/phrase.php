@@ -160,10 +160,12 @@ return [
     'unable-to-update-data-for-user-x' => 'Unable to update data for user :x - :error',
 
     // lanager:update-steam-apps
+    'update-database-with-apps-from-steam' => 'Update the database with the latest list of apps from Steam',
     'csv-file-not-found-skipping-import' => 'steam_apps.csv not found - skipping import from CSV',
     'importing-x-steam-apps-from-csv' => 'Importing :x Steam apps from CSV',
     'x-steam-apps-imported-from-csv' =>':x Steam apps imported from CSV',
-    'update-database-with-apps-from-steam' => 'Update the database with the latest list of apps from Steam',
+    'updating-x-existing-steam-apps-from-csv' => 'Updating :x existing Steam apps in database from CSV',
+    'x-steam-apps-updated-from-csv' => ':x Steam apps updated from CSV',
     'requesting-list-of-all-apps-from-steam' => 'Requesting list of all apps from Steam',
     'adding-x-steam-apps-to-db' => 'Adding :x apps to the database',
     'updating-x-steam-apps-already-in-db-and-adding-y-new' => 'Checking :x existing apps for name changes, and adding :y new apps',
