@@ -36,7 +36,7 @@
                     </a>
                 @endforeach
             </td>
-            @if(Auth::user())
+            @if(Auth::user() && $lan->end > now())
                 <td>
                     @if(!$loggedInUserPick)
                         <form action="{{ route( 'lans.attendee-game-picks.store', $lan) }}"
