@@ -149,7 +149,9 @@ your events you can easily update the site and prepare for your next LAN, and yo
     php artisan migrate:fresh
     php artisan db:seed
     php artisan storage:link
+    php artisan lanager:import-steam-apps-csv
     php artisan lanager:update-steam-apps
+    php artisan lanager:update-steam-apps-metadata
     ```
 
 11. Visit the app URL to check that the installation was successful
