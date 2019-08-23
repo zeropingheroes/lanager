@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
@@ -37,7 +37,11 @@ class Kernel extends ConsoleKernel
 
         // 1 Steam API call total
         $schedule->command(UpdateSteamApps::class)
-            ->dailyAt('6:00');
+            ->hourly();
+
+        // Many rate-limited Steam API calls
+        $schedule->command(UpdateSteamAppsMetadata::class)
+            ->twiceDaily();
     }
 
     /**
