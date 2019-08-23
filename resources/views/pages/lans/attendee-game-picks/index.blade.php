@@ -10,7 +10,9 @@
 
 @section('content')
     @if(Auth::user())
-        <p class="mt-2">@lang('phrase.lan-attendee-game-picks-user-help')</p>
+        <div class="alert alert-info mt-2" role="alert">
+            @lang('phrase.lan-attendee-game-picks-user-help')
+        </div>
         <script>
             window.addEventListener('load', function() {
                 const app = new Vue({
@@ -58,7 +60,9 @@
         </div>
         <div id="alerts"></div>
     @else
-        <p class="mt-2">@lang('phrase.lan-attendee-game-picks-guest-help')</p>
+        <div class="alert alert-info mt-2" role="alert">
+            @lang('phrase.lan-attendee-game-picks-guest-help')
+        </div>
     @endif
     @include('pages.lans.attendee-game-picks.partials.list', ['lanPicks' => $lanPicks])
 @endsection
