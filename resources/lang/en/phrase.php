@@ -160,21 +160,34 @@ return [
     'unable-to-update-data-for-user-x' => 'Unable to update data for user :x - :error',
 
     // lanager:update-steam-apps
-    'update-database-with-apps-from-steam' => 'Update the database with the latest list of apps from Steam',
-    'csv-file-not-found-skipping-import' => 'steam_apps.csv not found - skipping import from CSV',
-    'importing-x-steam-apps-from-csv' => 'Importing :x Steam apps from CSV',
-    'x-steam-apps-imported-from-csv' =>':x Steam apps imported from CSV',
-    'updating-x-existing-steam-apps-from-csv' => 'Updating :x existing Steam apps in database from CSV',
-    'x-steam-apps-updated-from-csv' => ':x Steam apps updated from CSV',
-    'requesting-list-of-all-apps-from-steam' => 'Requesting list of all apps from Steam',
-    'adding-x-steam-apps-to-db' => 'Adding :x apps to the database',
-    'updating-x-steam-apps-already-in-db-and-adding-y-new' => 'Checking :x existing apps for name changes, and adding :y new apps',
-    'steam-app-update-complete-x-added' => 'Steam app list update complete - :x apps added',
-    'steam-app-update-complete-x-updates-y-new' => 'Steam app list update complete - :x existing app names updated, and :y new apps added',
-    'requesting-type-for-x-apps-from-steam' => 'Requesting type for :x apps from Steam',
-    'steam-app-type-update-complete-x-apps-updated' => 'Steam app type update compete - :x apps updated',
-    'exporting-x-steam-apps-to-csv' => 'Exporting :x Steam apps to CSV',
-    'steam-app-csv-export-complete' => 'Steam app CSV export complete',
+    'update-steam-apps' => 'Update the database with the latest list of apps from Steam',
+    'requesting-list-of-all-apps-from-steam-api' => 'Requesting list of all apps from Steam API',
+    'importing-x-steam-apps' => 'Importing :x apps',
+
+
+    // lanager:update-steam-apps-metadata
+    'update-steam-apps-metadata' => 'Update Steam apps in the database with the latest metadata from Steam',
+    'steam-app-metadata-up-to-date' => 'Steam app metadata already up-to-date',
+    'requesting-metadata-for-x-apps-from-steam-api' => 'Requesting metadata for :x apps from Steam API',
+
+    // lanager:import-steam-apps-csv
+    'import-steam-apps-csv' => 'Import from steam_apps.csv',
+    'csv-not-found-aborting' => 'steam_apps.csv not found - aborting',
+
+    // lanager:export-steam-apps-csv
+    'export-steam-apps-csv' => 'Export to steam_apps.csv',
+    'overwrite-existing-csv' => 'Overwrite existing steam_apps.csv?',
+    'x-steam-apps-exported' => ':x Steam apps exported',
+
+    // Used by:
+    // lanager:update-steam-apps
+    // lanager:import-steam-apps-csv
+    // lanager:export-steam-apps-csv
+    'database-empty-batch-import' => 'Database empty - performing batch import',
+    'database-empty-aborting' => 'Database empty - aborting',
+    'x-steam-apps-imported' => ':x Steam apps imported',
+    'updating-x-steam-apps' => 'Updating :x Steam apps',
+    'x-steam-apps-updated' => ':x Steam apps updated',
 
     // lanager:import-steam-users
     'steamids-to-import-list-or-file' => 'One or more SteamId64(s) for the user(s) to import, or a file containing a list of IDs',
