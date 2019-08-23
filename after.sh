@@ -12,4 +12,6 @@ php artisan key:generate
 php artisan migrate:fresh
 php artisan db:seed
 php artisan storage:link
+php artisan lanager:import-steam-apps-csv
 php artisan lanager:update-steam-apps
+php artisan lanager:update-steam-apps-metadata
