@@ -2,6 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
+use Barryvdh\Debugbar\Facade as DebugbarFacade;
+use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Exception;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -53,12 +55,11 @@ class AppServiceProvider extends ServiceProvider
         $command = array_get(request()->server(), 'argv.1');
 
         if ($this->app->environment('local')) {
-            $this->app->register(Barryvdh\Debugbar\ServiceProvider::class);
-            $this->app->alias('Debugbar', Barryvdh\Debugbar\Facade::class);
+            $this->app->register(DebugbarServiceProvider::class);
+            $this->app->alias('Debugbar', DebugbarFacade::class);
         }
 
-        // Check required environment variables are set
-        // unless the config has been cached, or the package:discover command is being run
+        // Check required environment variables are set unless the config has been cached, or the package:discover command is being run
         if (!$this->app->configurationIsCached() && $command != 'package:discover') {
             if (!env('STEAM_API_KEY')) {
                 throw new Exception('STEAM_API_KEY not set in .env file');
