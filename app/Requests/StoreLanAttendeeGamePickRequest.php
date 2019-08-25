@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Requests;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Zeropingheroes\Lanager\LanAttendeeGamePick;
+use Illuminate\Support\Facades\Auth;
 
 class StoreLanAttendeeGamePickRequest extends Request
 {
@@ -50,6 +51,12 @@ class StoreLanAttendeeGamePickRequest extends Request
             $this->addError(__('phrase.game-already-picked'));
             return $this->setValid(false);
         }
+
+        if (Auth::user()->id != $this->input['user_id']) {
+            $this->addError(__('phrase.you-can-only-sign-yourself-up-to-event'));
+            return $this->setValid(false);
+        }
+
         return $this->setValid(true);
     }
 }

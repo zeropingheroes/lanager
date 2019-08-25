@@ -29,8 +29,7 @@ class LanAttendeeGamePickPolicy extends BasePolicy
      */
     public function create(User $authUser, User $gamePickUser)
     {
-        // Users can only create their own
-        return $authUser->id === $gamePickUser->id;
+        return true;
     }
 
     /**
