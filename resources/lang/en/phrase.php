@@ -103,6 +103,7 @@ return [
     'remove-game-from-lan-picks' => 'Remove :game from your picks for this LAN',
     'only-show-my-game-picks' => 'Only show my game picks',
     'show-everyones-game-picks' => 'Show everyone\'s game picks',
+    'no-game-picks-to-show' => 'No game picks to show',
 
     // Guides
     'markdown-formatting-help-link' => 'Markdown formatting help',
