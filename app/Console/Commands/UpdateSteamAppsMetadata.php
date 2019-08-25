@@ -37,8 +37,6 @@ class UpdateSteamAppsMetadata extends Command
             return;
         }
 
-        // Get apps which do not have a type set
-        $steamAppIds = SteamApp::whereNull('type')->pluck('id')->toArray();
         if ( $this->option('all-apps')) {
             // Get all apps
             $steamAppIds = SteamApp::all()->pluck('id')->toArray();
