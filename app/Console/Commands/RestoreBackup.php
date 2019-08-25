@@ -28,9 +28,9 @@ class RestoreBackup extends Command
      */
     public function handle()
     {
-        $username = env('DB_USERNAME');
-        $password = env('DB_PASSWORD');
-        $database = env('DB_DATABASE');
+        $username = config('database.connections.mysql.username');
+        $password = config('database.connections.mysql.password');
+        $database = config('database.connections.mysql.database');
         $imagesDir = base_path() . '/storage/app/public/images';
         $backupFile = $this->argument('backup-file');
         $restoreDir = '/tmp/lanager-backup-restore-' . date('Y-m-d_H-i-s');
