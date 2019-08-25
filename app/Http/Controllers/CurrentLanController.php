@@ -20,9 +20,9 @@ class CurrentLanController extends Controller
                   ?? Lan::future()->where('published', 1)->orderBy('start', 'asc')->first()    // Closest future LAN
                   ?? Lan::past()->where('published', 1)->orderBy('end', 'desc')->first();      // Most recently ended past LAN
 
-        // If there are no LANs, go to a 404 page
+        // If there are no LANs, go to the LAN index page
         if (!$this->lan) {
-            abort(404);
+            redirect()->route('lans.index')->send();
         }
     }
 
