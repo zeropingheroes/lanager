@@ -171,6 +171,7 @@ return [
     'steam-app-metadata-up-to-date' => 'Steam app metadata already up-to-date',
     'requesting-metadata-for-x-apps-from-steam-api' => 'Requesting metadata for :x apps from Steam API',
     'this-will-take-approximately-time-to-complete' => 'This will take approximately :time to complete, due to Steam API rate limiting',
+    'error-updating-metadata-for-steam-app-id-message' => 'Error updating metadata for Steam app with ID :id - :message',
     'x-steam-apps-not-updated-re-run-command' => ':x Steam apps could not be updated - please re-run the command',
 
     // lanager:import-steam-apps-csv

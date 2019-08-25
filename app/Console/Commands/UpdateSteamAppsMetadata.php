@@ -11,6 +11,7 @@ use bandwidthThrottle\tokenBucket\TokenBucket;
 use bandwidthThrottle\tokenBucket\BlockingConsumer;
 use bandwidthThrottle\tokenBucket\storage\FileStorage;
 use Carbon\CarbonInterval;
+use Illuminate\Support\Facades\Log;
 
 class UpdateSteamAppsMetadata extends Command
 {
@@ -34,7 +35,9 @@ class UpdateSteamAppsMetadata extends Command
     public function handle()
     {
         if (!SteamApp::count()) {
-            $this->error(__('phrase.database-empty-aborting'));
+            $message = __('phrase.database-empty-aborting');
+            $this->error($message);
+            Log::error($message);
             return;
         }
 
@@ -48,7 +51,9 @@ class UpdateSteamAppsMetadata extends Command
 
         $appCount = count($steamAppIds);
         if (!$appCount) {
-            $this->info(__('phrase.steam-app-metadata-up-to-date'));
+            $message = __('phrase.steam-app-metadata-up-to-date');
+            $this->info($message);
+            Log::info($message);
             return;
         }
 
@@ -79,6 +84,9 @@ class UpdateSteamAppsMetadata extends Command
             } catch (ApiCallFailedException $e) {
                 $failedCount++;
                 $consumer->consume(10);
+                $message = __('phrase.error-updating-metadata-for-steam-app-id-message', ['id' => $appId, 'message' => $e->getMessage()]);
+                $this->error($message);
+                Log::error($message);
                 $progress->advance();
                 continue;
             }
@@ -122,10 +130,14 @@ class UpdateSteamAppsMetadata extends Command
         unset($appId);
         $progress->finish();
 
-        $this->info(PHP_EOL . __('phrase.x-steam-apps-updated', ['x' => $updatedCount]));
+        $message = __('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
+        $this->info(PHP_EOL .$message);
+        Log::info($message);
 
         if ($failedCount) {
-            $this->warn(__('phrase.x-steam-apps-not-updated-re-run-command', ['x' => $failedCount]));
+            $message = __('phrase.x-steam-apps-not-updated-re-run-command', ['x' => $failedCount]);
+            $this->error($message);
+            Log::error($message);
         }
     }
 }
