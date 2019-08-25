@@ -167,6 +167,7 @@ return [
 
     // lanager:update-steam-apps-metadata
     'update-steam-apps-metadata' => 'Update Steam apps in the database with the latest metadata from Steam',
+    'update-all-apps' => 'Update all apps, not just apps missing metadata',
     'steam-app-metadata-up-to-date' => 'Steam app metadata already up-to-date',
     'requesting-metadata-for-x-apps-from-steam-api' => 'Requesting metadata for :x apps from Steam API',
 

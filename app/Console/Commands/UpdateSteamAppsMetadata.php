@@ -18,7 +18,8 @@ class UpdateSteamAppsMetadata extends Command
      */
     public function __construct()
     {
-        $this->signature = 'lanager:update-steam-apps-metadata';
+        $this->signature = 'lanager:update-steam-apps-metadata'
+                         . '{--all-apps : ' . __('phrase.update-all-apps') . '}';
         $this->description = __('phrase.update-steam-apps-metadata');
 
         parent::__construct();
@@ -38,6 +39,13 @@ class UpdateSteamAppsMetadata extends Command
 
         // Get apps which do not have a type set
         $steamAppIds = SteamApp::whereNull('type')->pluck('id')->toArray();
+        if ( $this->option('all-apps')) {
+            // Get all apps
+            $steamAppIds = SteamApp::all()->pluck('id')->toArray();
+        } else {
+            // Get apps which do not have a type set
+            $steamAppIds = SteamApp::whereNull('type')->pluck('id')->toArray();
+        }
 
         if (!count($steamAppIds)) {
             $this->info(__('phrase.steam-app-metadata-up-to-date'));
