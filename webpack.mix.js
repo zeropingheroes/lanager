@@ -23,8 +23,8 @@ mix.webpackConfig({
     }
 });
 
-mix.js('resources/assets/js/app.js', 'public/js')
-    .sass('resources/assets/sass/app.scss', 'public/css').options({processCssUrls: false})
+mix.js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css').options({processCssUrls: false})
     .copy('node_modules/open-iconic/font/fonts', 'public/fonts')
     .sass('node_modules/open-iconic/font/css/open-iconic-bootstrap.scss', 'public/css')
     .sass('node_modules/font-awesome/scss/font-awesome.scss', 'public/css')
