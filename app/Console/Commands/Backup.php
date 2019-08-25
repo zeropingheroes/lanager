@@ -32,7 +32,7 @@ class Backup extends Command
         $database = env('DB_DATABASE');
         $imagesDir = base_path() . '/storage/app/public/images';
         $outputDir = $this->argument('output-dir');
-        $commitHash = trim(exec('git log --pretty="%h" -n1 HEAD'));
+        $commitHash = trim(exec('cd '.base_path().' && /usr/bin/git log --pretty="%h" -n1 HEAD'));
         $filename = 'lanager-backup-' . date('Y-m-d_H-i-s') . '-git-hash-' . $commitHash;
 
         if (!is_writable($outputDir)) {
