@@ -127,7 +127,7 @@ your events you can easily update the site and prepare for your next LAN, and yo
 8. Install LANager's dependencies:
 
     ```
-    composer install --working-dir=/var/www/lanager
+    composer install --no-dev --working-dir=/var/www/lanager
     ```
 
 9. Configure LANager:
