@@ -8,48 +8,48 @@ use Zeropingheroes\Lanager\User;
 class UserAchievementPolicy extends BasePolicy
 {
     /**
-     * Determine whether the user can list all items.
+     * Determine whether the logged-in user can list all items.
      *
-     * @param User $user
-     * @return mixed
+     * @param User $authUser
+     * @return boolean
      */
-    public function index(?User $user)
+    public function index(?User $authUser)
     {
         return true;
     }
 
     /**
-     * Determine whether the user can view a given item.
+     * Determine whether the logged-in user can view a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param UserAchievement $userAchievement
-     * @return mixed
+     * @return boolean
      */
-    public function view(?User $user, UserAchievement $userAchievement)
+    public function view(?User $authUser, UserAchievement $userAchievement)
     {
         return true;
     }
 
     /**
-     * Determine whether the user can create an item.
+     * Determine whether the logged-in user can create an item.
      *
-     * @param User $user
-     * @return mixed
+     * @param User $authUser
+     * @return boolean
      */
-    public function create(User $user)
+    public function create(User $authUser)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
-     * Determine whether the user can delete a given item.
+     * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param UserAchievement $userAchievement
-     * @return mixed
+     * @return boolean
      */
-    public function delete(User $user, UserAchievement $userAchievement)
+    public function delete(User $authUser, UserAchievement $userAchievement)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 }

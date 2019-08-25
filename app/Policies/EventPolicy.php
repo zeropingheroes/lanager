@@ -8,55 +8,54 @@ use Zeropingheroes\Lanager\User;
 class EventPolicy extends BasePolicy
 {
     /**
-     * Determine whether the user can view a given item.
+     * Determine whether the logged-in user can view a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param Event $event
-     * @return mixed
+     * @return boolean
      */
-    public function view(?User $user, Event $event)
+    public function view(?User $authUser, Event $event)
     {
-        // admins can view any event
-        if ($user && $user->hasRole('admin')) {
+        // Admins can view any event
+        if ($authUser && $authUser->hasRole('admin')) {
             return true;
         }
-        // Non-admins can only view an event if the
-        // event and its parent LAN are both published
+        // Non-admins can only view an event if the event and its parent LAN are both published
         return ($event->published && $event->lan->published);
     }
 
     /**
-     * Determine whether the user can create an item.
+     * Determine whether the logged-in user can create an item.
      *
-     * @param User $user
-     * @return mixed
+     * @param User $authUser
+     * @return boolean
      */
-    public function create(User $user)
+    public function create(User $authUser)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
-     * Determine whether the user can edit a given item.
+     * Determine whether the logged-in user can edit a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param Event $event
-     * @return mixed
+     * @return boolean
      */
-    public function update(User $user, Event $event)
+    public function update(User $authUser, Event $event)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
-     * Determine whether the user can delete a given item.
+     * Determine whether the logged-in user can delete a given item.
      *
-     * @param  User $user
+     * @param User $authUser
      * @param Event $event
-     * @return mixed
+     * @return boolean
      */
-    public function delete(User $user, Event $event)
+    public function delete(User $authUser, Event $event)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 }

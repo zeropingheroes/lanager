@@ -12,14 +12,13 @@ class BasePolicy
     /**
      * Run checks before calling the individual policies
      *
-     * @param $user
+     * @param User|null $authUser
      * @return bool
      */
-    public function before(?User $user)
+    public function before(?User $authUser)
     {
-        // Allow users with the Super Admin role
-        // to perform any action
-        if ($user && $user->hasRole('super-admin')) {
+        // Allow users with the super admin role to perform any action
+        if ($authUser && $authUser->hasRole('super-admin')) {
             return true;
         }
     }

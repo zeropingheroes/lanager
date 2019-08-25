@@ -8,66 +8,65 @@ use Zeropingheroes\Lanager\Slide;
 class SlidePolicy extends BasePolicy
 {
     /**
-     * Determine whether the user can view a given item.
+     * Determine whether the logged-in user can view a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param Slide $slide
-     * @return mixed
+     * @return boolean
      */
-    public function view(?User $user, Slide $slide)
+    public function view(?User $authUser, Slide $slide)
     {
-        // admins can view any slide
-        if ($user && $user->hasRole('admin')) {
+        // Admins can view any slide
+        if ($authUser && $authUser->hasRole('admin')) {
             return true;
         }
-        // Non-admins can only view a slide if the
-        // slide and its parent LAN are both published
+        // Non-admins can only view a slide if the slide and its parent LAN are both published
         return ($slide->published && $slide->lan->published);
     }
 
     /**
-     * Determine whether the user can list all items.
+     * Determine whether the logged-in user can list all items.
      *
-     * @param User $user
-     * @return mixed
+     * @param User $authUser
+     * @return boolean
      */
-    public function index(User $user)
+    public function index(User $authUser)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
-     * Determine whether the user can create an item.
+     * Determine whether the logged-in user can create an item.
      *
-     * @param User $user
-     * @return mixed
+     * @param User $authUser
+     * @return boolean
      */
-    public function create(User $user)
+    public function create(User $authUser)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
-     * Determine whether the user can edit a given item.
+     * Determine whether the logged-in user can edit a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param Slide $slide
-     * @return mixed
+     * @return boolean
      */
-    public function update(User $user, Slide $slide)
+    public function update(User $authUser, Slide $slide)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
-     * Determine whether the user can delete a given item.
+     * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param Slide $slide
-     * @return mixed
+     * @return boolean
      */
-    public function delete(User $user, Slide $slide)
+    public function delete(User $authUser, Slide $slide)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 }

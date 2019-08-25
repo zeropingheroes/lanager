@@ -8,27 +8,26 @@ use Zeropingheroes\Lanager\User;
 class EventSignupPolicy extends BasePolicy
 {
     /**
-     * Determine whether the user can create an item.
+     * Determine whether the logged-in user can create an item.
      *
-     * @param User $user
-     * @return mixed
-     * @internal param Event $event
+     * @param User $authUser
+     * @return boolean
      */
-    public function create(User $user)
+    public function create(User $authUser)
     {
         return true;
     }
 
     /**
-     * Determine whether the user can delete a given item.
+     * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param EventSignup $eventSignup
-     * @return mixed
+     * @return boolean
      */
-    public function delete(User $user, EventSignup $eventSignup)
+    public function delete(User $authUser, EventSignup $eventSignup)
     {
         // Users can delete their own signups
-        return $user->id == $eventSignup->user->id;
+        return $authUser->id == $eventSignup->user->id;
     }
 }

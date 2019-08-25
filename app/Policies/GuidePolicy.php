@@ -8,16 +8,16 @@ use Zeropingheroes\Lanager\User;
 class GuidePolicy extends BasePolicy
 {
     /**
-     * Determine whether the user can view a given item.
+     * Determine whether the logged-in user can view a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param Guide $guide
-     * @return mixed
+     * @return boolean
      */
-    public function view(?User $user, Guide $guide)
+    public function view(?User $authUser, Guide $guide)
     {
         // admins can view any guide
-        if ($user && $user->hasRole('admin')) {
+        if ($authUser && $authUser->hasRole('admin')) {
             return true;
         }
         // Non-admins can only view a guide if the
@@ -26,37 +26,37 @@ class GuidePolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can create an item.
+     * Determine whether the logged-in user can create an item.
      *
-     * @param User $user
-     * @return mixed
+     * @param User $authUser
+     * @return boolean
      */
-    public function create(User $user)
+    public function create(User $authUser)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
-     * Determine whether the user can edit a given item.
+     * Determine whether the logged-in user can edit a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param Guide $guide
-     * @return mixed
+     * @return boolean
      */
-    public function update(User $user, Guide $guide)
+    public function update(User $authUser, Guide $guide)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
-     * Determine whether the user can delete a given item.
+     * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param Guide $guide
-     * @return mixed
+     * @return boolean
      */
-    public function delete(User $user, Guide $guide)
+    public function delete(User $authUser, Guide $guide)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 }

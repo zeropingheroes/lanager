@@ -7,11 +7,11 @@ use Zeropingheroes\Lanager\User;
 class UserPolicy extends BasePolicy
 {
     /**
-     * Determine whether the user can view a given item.
+     * Determine whether the logged-in user can view a given item.
      *
      * @param null|User $authUser
      * @param User $requestedUser
-     * @return mixed
+     * @return boolean
      */
     public function view(?User $authUser, User $requestedUser)
     {
@@ -20,11 +20,11 @@ class UserPolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can delete the page.
+     * Determine whether the logged-in user can delete a given item.
      *
      * @param User $authUser
      * @param User $requestedUser
-     * @return mixed
+     * @return boolean
      */
     public function delete(User $authUser, User $requestedUser)
     {

@@ -8,11 +8,11 @@ use Zeropingheroes\Lanager\LanAttendeeGamePick;
 class LanAttendeeGamePickPolicy extends BasePolicy
 {
     /**
-     * Determine whether the user can view a given item.
+     * Determine whether the logged-in user can view a given item.
      *
      * @param null|User $authUser
      * @param LanAttendeeGamePick $lanAttendeeGamePick
-     * @return mixed
+     * @return boolean
      */
     public function view(?User $authUser, LanAttendeeGamePick $lanAttendeeGamePick)
     {
@@ -21,24 +21,24 @@ class LanAttendeeGamePickPolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can create an item.
+     * Determine whether the logged-in user can create an item.
      *
      * @param User $authUser
-     * @param User $user
-     * @return mixed
+     * @param User $gamePickUser
+     * @return boolean
      */
-    public function create(User $authUser, User $user)
+    public function create(User $authUser, User $gamePickUser)
     {
         // Users can only create their own
-        return $authUser->id === $user->id;
+        return $authUser->id === $gamePickUser->id;
     }
 
     /**
-     * Determine whether the user can delete a given item.
+     * Determine whether the logged-in user can delete a given item.
      *
      * @param User $authUser
      * @param LanAttendeeGamePick $lanAttendeeGamePick
-     * @return mixed
+     * @return boolean
      */
     public function delete(User $authUser, LanAttendeeGamePick $lanAttendeeGamePick)
     {

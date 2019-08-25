@@ -7,46 +7,46 @@ use Zeropingheroes\Lanager\User;
 class ImagePolicy extends BasePolicy
 {
     /**
-     * Determine whether the user can list all images.
+     * Determine whether the logged-in user can list all images.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
-     * @return mixed
+     * @param User $authUser
+     * @return boolean
      */
-    public function view(User $user)
+    public function view(User $authUser)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
-     * Determine whether the user can create images.
+     * Determine whether the logged-in user can create images.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
-     * @return mixed
+     * @param User $authUser
+     * @return boolean
      */
-    public function create(User $user)
+    public function create(User $authUser)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
-     * Determine whether the user can update images.
+     * Determine whether the logged-in user can update images.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
-     * @return mixed
+     * @param User $authUser
+     * @return boolean
      */
-    public function update(User $user)
+    public function update(User $authUser)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
-     * Determine whether the user can delete images.
+     * Determine whether the logged-in user can delete images.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
-     * @return mixed
+     * @param User $authUser
+     * @return boolean
      */
-    public function delete(User $user)
+    public function delete(User $authUser)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 }
