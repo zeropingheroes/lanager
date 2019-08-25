@@ -23,7 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         User::observe(UserObserver::class);
         NavigationLink::observe(NavigationLinkObserver::class);
 
@@ -52,6 +51,11 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $command = array_get(request()->server(), 'argv.1');
+
+        if ($this->app->environment('local')) {
+            $this->app->register(Barryvdh\Debugbar\ServiceProvider::class);
+            $this->app->alias('Debugbar', Barryvdh\Debugbar\Facade::class);
+        }
 
         // Check required environment variables are set
         // unless the config has been cached, or the package:discover command is being run

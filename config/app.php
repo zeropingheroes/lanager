@@ -151,7 +151,6 @@ return [
          * Package Service Providers...
          */
         Syntax\SteamApi\SteamApiServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
         Logger\Laravel\Provider\MonologMysqlHandlerServiceProvider::class,
         EloquentFilter\ServiceProvider::class,
 
@@ -214,7 +213,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
 
     ],
