@@ -63,6 +63,7 @@ class UpdateSteamAppsMetadata extends Command
         $bucket->bootstrap(10); // fill the bucket with 10 tokens initially
 
         $updatedCount = 0;
+        $failedCount = 0;
         foreach ($steamAppIds as &$appId) {
             // Query Steam API to get app details
             try {
@@ -71,6 +72,7 @@ class UpdateSteamAppsMetadata extends Command
 
                 // If the API call failed, empty the bucket and skip the app
             } catch (ApiCallFailedException $e) {
+                $failedCount++;
                 $consumer->consume(10);
                 $progress->advance();
                 continue;
@@ -116,5 +118,9 @@ class UpdateSteamAppsMetadata extends Command
         $progress->finish();
 
         $this->info(PHP_EOL . __('phrase.x-steam-apps-updated', ['x' => $updatedCount]));
+
+        if ($failedCount) {
+            $this->warn(__('phrase.x-steam-apps-not-updated-re-run-command', ['x' => $failedCount]));
+        }
     }
 }
