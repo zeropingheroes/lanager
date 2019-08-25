@@ -103,7 +103,7 @@ class AppServiceProvider extends ServiceProvider
      * Get the currently executing command
      * @return string
      */
-    private function getCommand(): string
+    private function getCommand()
     {
         return array_get(request()->server(), 'argv.1');
     }
