@@ -11,6 +11,8 @@ use League\CommonMark\Inline\Element\Image;
 use League\CommonMark\Inline\Element\Link;
 use Zeropingheroes\Lanager\MarkdownRenderers\ExternalLinkRenderer;
 use Zeropingheroes\Lanager\MarkdownRenderers\ResponsiveImageRenderer;
+use Zeropingheroes\Lanager\Role;
+use Zeropingheroes\Lanager\SteamUserStatusCode;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\Observers\UserObserver;
 use Zeropingheroes\Lanager\NavigationLink;
@@ -40,9 +42,16 @@ class AppServiceProvider extends ServiceProvider
             new ResponsiveImageRenderer(['img-fluid'])
         );
 
-        Relation::morphMap([
-            'steam_app' => 'Zeropingheroes\Lanager\SteamApp',
-        ]);
+        Relation::morphMap(
+            [
+                'steam_app' => 'Zeropingheroes\Lanager\SteamApp',
+            ]
+        );
+        if (!$this->app->configurationIsCached() && !in_array($this->getCommand(), ['package:discover', 'db:seed'])) {
+            if (!$this->systemTablesPopulated()) {
+                throw new Exception('Database empty - please run php artisan db:seed');
+            }
+        }
     }
 
     /**
@@ -69,6 +78,25 @@ class AppServiceProvider extends ServiceProvider
                 throw new Exception('GOOGLE_API_KEY not set in .env file');
             }
         }
+    }
+
+    /**
+     * Check if tables required for the app to function are populated
+     * @return bool
+     */
+    private function systemTablesPopulated(): bool
+    {
+        $models = [
+            SteamUserStatusCode::class,
+            Role::class,
+        ];
+
+        foreach ($models as $model) {
+            if (!$model::count()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
