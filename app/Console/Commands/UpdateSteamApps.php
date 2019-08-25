@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
 use Syntax\SteamApi\Facades\SteamApi as Steam;
+use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\SteamApp;
 
 class UpdateSteamApps extends Command
@@ -29,9 +30,7 @@ class UpdateSteamApps extends Command
         $this->info(__('phrase.requesting-list-of-all-apps-from-steam-api'));
         $apps = Steam::app()->GetAppList();
 
-        $existingCount = SteamApp::count();
-
-        if (!$existingCount) {
+        if (!SteamApp::count()) {
             $this->import($apps);
         } else {
             $this->update($apps);
@@ -40,8 +39,7 @@ class UpdateSteamApps extends Command
 
     /**
      * @param $apps
-     * @param int $fromSteamCount
-     * @return array
+     * @return void
      */
     private function import($apps): void
     {
@@ -52,7 +50,9 @@ class UpdateSteamApps extends Command
             $apps[$key] = ['id' => $app->appid, 'name' => $app->name];
         }
 
-        $this->info(__('phrase.importing-x-steam-apps', ['x' => count($apps)]));
+        $message = __('phrase.importing-x-steam-apps', ['x' => count($apps)]);
+        $this->info($message);
+        Log::info($message);
 
         // Chunk the apps into blocks of 500
         $chunkedApps = array_chunk($apps, 500);
@@ -68,17 +68,20 @@ class UpdateSteamApps extends Command
             $progress->advance();
         }
         $progress->finish();
-        $this->info(PHP_EOL . __('phrase.x-steam-apps-imported', ['x' => $importedCount]));
+        $message = __('phrase.x-steam-apps-imported', ['x' => $importedCount]);
+        $this->info(PHP_EOL . $message);
+        Log::info($message);
     }
 
     /**
-     * @param $fromSteamCount
-     * @param $existingCount
      * @param $apps
+     * @return void
      */
     private function update($apps): void
     {
-        $this->info(__('phrase.updating-x-steam-apps', ['x' => SteamApp::count()]));
+        $message = __('phrase.updating-x-steam-apps', ['x' => SteamApp::count()]);
+        $this->info($message);
+        Log::info($message);
 
         // Initialise counter and progress bar
         $progress = $this->output->createProgressBar(count($apps));
@@ -97,6 +100,8 @@ class UpdateSteamApps extends Command
         }
         $progress->finish();
 
-        $this->info(PHP_EOL . __('phrase.x-steam-apps-updated', ['x' => $updatedCount]));
+        $message = __('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
+        $this->info(PHP_EOL . $message);
+        Log::info($message);
     }
 }
