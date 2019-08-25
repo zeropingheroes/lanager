@@ -4,6 +4,8 @@ namespace Zeropingheroes\Lanager\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -34,7 +36,7 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception $exception
+     * @param Exception $exception
      * @return void
      */
     public function report(Exception $exception)
@@ -45,9 +47,9 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Exception $exception
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @param Exception $exception
+     * @return Response
      */
     public function render($request, Exception $exception)
     {
