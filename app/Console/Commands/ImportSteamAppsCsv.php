@@ -66,7 +66,7 @@ class ImportSteamAppsCsv extends Command
         $chunkedApps = array_chunk($arrayApps, 500);
 
         $progress = $this->output->createProgressBar(count($chunkedApps));
-        $progress->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
+        $progress->setFormat('%bar% %percent%% - %estimated%');
         $importedCount = 0;
 
         // Insert the chunks
