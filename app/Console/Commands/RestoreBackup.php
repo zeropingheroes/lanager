@@ -57,7 +57,7 @@ class RestoreBackup extends Command
         $this->call('migrate:fresh');
 
         // Import Steam apps
-        $this->call('lanager:update-steam-apps');
+        $this->call('lanager:import-steam-apps-csv');
 
         // Create a temporary restore directory
         $processes["mkdir-$restoreDir"] = new Process(
