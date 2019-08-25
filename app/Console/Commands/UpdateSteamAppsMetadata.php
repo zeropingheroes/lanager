@@ -10,6 +10,7 @@ use bandwidthThrottle\tokenBucket\Rate;
 use bandwidthThrottle\tokenBucket\TokenBucket;
 use bandwidthThrottle\tokenBucket\BlockingConsumer;
 use bandwidthThrottle\tokenBucket\storage\FileStorage;
+use Carbon\CarbonInterval;
 
 class UpdateSteamAppsMetadata extends Command
 {
@@ -45,15 +46,19 @@ class UpdateSteamAppsMetadata extends Command
             $steamAppIds = SteamApp::whereNull('type')->pluck('id')->toArray();
         }
 
-        if (!count($steamAppIds)) {
+        $appCount = count($steamAppIds);
+        if (!$appCount) {
             $this->info(__('phrase.steam-app-metadata-up-to-date'));
             return;
         }
 
-        $this->info(__('phrase.requesting-metadata-for-x-apps-from-steam-api', ['x' => count($steamAppIds)]));
+        $timeEstimate = CarbonInterval::seconds(ceil($appCount*1.5));
 
-        $progress = $this->output->createProgressBar(count($steamAppIds));
-        $progress->setFormat("%current%/%max% %bar% %percent%%");
+        $this->info(__('phrase.requesting-metadata-for-x-apps-from-steam-api', ['x' => $appCount]));
+        $this->info(__('phrase.this-will-take-approximately-time-to-complete', ['time' => $timeEstimate->cascade()->forHumans()]));
+
+        $progress = $this->output->createProgressBar($appCount);
+        $progress->setFormat('%current%/%max% %bar% %percent%% - %elapsed% ' . __('title.elapsed'));
 
         // Prevent hitting Steam's API rate limits of 200 requests every 5 minutes
         $storage = new FileStorage(__DIR__ . "/../../../storage/app/api.bucket"); // store state in storage directory

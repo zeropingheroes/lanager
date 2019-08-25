@@ -37,6 +37,7 @@ return [
     'description' => 'Description',
     'copy-markdown-link' => 'Copy Markdown Link',
     'fullscreen' => 'Fullscreen',
+    'elapsed' => 'elapsed',
 
     // CRUD
     'create-item' => 'Create :Item',
