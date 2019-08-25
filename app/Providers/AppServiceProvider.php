@@ -67,6 +67,9 @@ class AppServiceProvider extends ServiceProvider
             if (!ctype_xdigit(env('STEAM_API_KEY')) || strlen(env('STEAM_API_KEY')) != 32) {
                 throw new Exception('Invalid STEAM_API_KEY set in .env file');
             }
+            if (!env('GOOGLE_API_KEY')) {
+                throw new Exception('GOOGLE_API_KEY not set in .env file');
+            }
         }
     }
 }
