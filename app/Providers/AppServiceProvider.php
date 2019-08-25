@@ -52,15 +52,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $command = array_get(request()->server(), 'argv.1');
-
         if ($this->app->environment('local')) {
             $this->app->register(DebugbarServiceProvider::class);
             $this->app->alias('Debugbar', DebugbarFacade::class);
         }
 
         // Check required environment variables are set unless the config has been cached, or the package:discover command is being run
-        if (!$this->app->configurationIsCached() && $command != 'package:discover') {
+        if (!$this->app->configurationIsCached() && $this->getCommand() != 'package:discover') {
             if (!env('STEAM_API_KEY')) {
                 throw new Exception('STEAM_API_KEY not set in .env file');
             }
@@ -71,5 +69,14 @@ class AppServiceProvider extends ServiceProvider
                 throw new Exception('GOOGLE_API_KEY not set in .env file');
             }
         }
+    }
+
+    /**
+     * Get the currently executing command
+     * @return string
+     */
+    private function getCommand(): string
+    {
+        return array_get(request()->server(), 'argv.1');
     }
 }
