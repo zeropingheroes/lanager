@@ -68,11 +68,11 @@
         @endif
     @endif
     {{-- For past LANs with no game picks, show an info message --}}
-    @if($lan->end < now() && !$lanPicks->count() )
+    @if($lan->end < now() && !$games->count() )
         <div class="alert alert-info mt-2" role="alert">
             @lang('phrase.no-game-picks-to-show')
         </div>
     @else
-        @include('pages.lans.attendee-game-picks.partials.list', ['lanPicks' => $lanPicks])
+        @include('pages.lans.attendee-game-picks.partials.list', ['games' => $games])
     @endif
 @endsection

@@ -21,20 +21,12 @@ class LanAttendeeGamePickController extends Controller
      */
     public function index(Lan $lan)
     {
-        $lanPicks = (new GetLanAttendeeGamePicksService($lan))->get();
-
-        if(Auth::user()) {
-            $userPicks = Auth::user()->gamePicks()->where('lan_id', $lan->id)->get();
-        } else {
-            $userPicks = collect();
-        }
+        $games = (new GetLanAttendeeGamePicksService($lan))->get();
 
         return View::make('pages.lans.attendee-game-picks.index')
             ->with('lan', $lan)
-            ->with('lanPicks', $lanPicks)
-            ->with('userPicks', $userPicks);
+            ->with('games', $games);
     }
-
 
     /**
      * Store a newly created resource in storage.

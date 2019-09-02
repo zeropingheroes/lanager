@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Services;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Lan;
 
 class GetLanAttendeeGamePicksService
@@ -31,21 +32,28 @@ class GetLanAttendeeGamePicksService
         }
 
         // Collect and combine picks for the same game
-        $combined = [];
+        $games = [];
         foreach ($picks as $pick) {
-            $key = $pick->game_provider.$pick->game_id;
-            $combined[$key] = $combined[$key] ?? ['game' => null];
-            $combined[$key]['game'] = $combined[$key]['game'] ?? $pick->game;
-            $combined[$key]['picks'][] = $pick;
+            $id = $pick->game_provider.$pick->game_id;
+            $games[$id]['name'] = $pick->game->name;
+            $games[$id]['logo'] = $pick->game->logo();
+            $games[$id]['url'] = $pick->game->url();
+            $games[$id]['provider'] = 'steam_app';
+            $games[$id]['id'] = $pick->game->id;
+            if (Auth::user() && Auth::user()->id === $pick->user->id) {
+                $games[$id]['auth_user_pick'] = $pick;
+            }
+            $games[$id]['picks'][] = $pick;
         }
 
         // Sort games array by number of picks, in descending order (removing key)
         usort(
-            $combined,
+            $games,
             function ($a, $b) {
                 return count($b['picks']) - count($a['picks']);
             }
         );
-        return collect($combined);
+        return collect($games);
+//        dd(collect($games));
     }
 }
