@@ -4,7 +4,7 @@
            href="{{ route('lans.attendee-game-picks.index', $lan) }}">
             @lang('title.game-picks')
             <span class="badge">
-                {{ $lan->attendeeGamePicks()->distinct()->count(['game_id', 'game_provider']) }}
+                {{ $lan->attendeeGamePicks()->distinct()->count(['game_id', 'game_id_type']) }}
             </span>
         </a>
     </li>

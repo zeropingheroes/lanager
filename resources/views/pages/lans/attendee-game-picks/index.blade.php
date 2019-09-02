@@ -23,7 +23,7 @@
                             post(game) {
                                 console.log(game);
                                 pick = {
-                                    game_provider: game.provider,
+                                    game_id_type: game.id_type,
                                     game_id: game.id,
                                 }
                                 axios.post('lans/' + {{ $lan->id }} + '/attendee-game-picks', pick)

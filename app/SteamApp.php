@@ -46,6 +46,6 @@ class SteamApp extends Model
      */
     public function picks()
     {
-        return $this->morphMany('Zeropingheroes\Lanager\LanAttendeeGamePick', 'game', 'game_provider', 'game_id');
+        return $this->morphMany('Zeropingheroes\Lanager\LanAttendeeGamePick', 'game', 'game_id_type', 'game_id');
     }
 }

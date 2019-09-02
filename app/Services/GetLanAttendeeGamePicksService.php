@@ -34,7 +34,7 @@ class GetLanAttendeeGamePicksService
         // Collect and combine picks for the same game
         $games = [];
         foreach ($picks as $pick) {
-            $id = $pick->game_provider.$pick->game_id;
+            $id = $pick->game_id_type.$pick->game_id;
             $games[$id]['name'] = $pick->game->name;
             $games[$id]['logo'] = $pick->game->logo();
             $games[$id]['url'] = $pick->game->url();
