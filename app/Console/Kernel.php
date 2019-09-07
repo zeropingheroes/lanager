@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamApps;
+use Zeropingheroes\Lanager\Console\Commands\UpdateSteamAppsMetadata;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUserApps;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUsers;
 
