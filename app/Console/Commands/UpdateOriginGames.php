@@ -74,6 +74,27 @@ class UpdateOriginGames extends Command
             $games = array_merge($games, json_decode($response->getBody())->games->game);
         }
 
+        // Get free games
+        $response = $this->client->request(
+            'GET',
+            'products',
+            [
+                'query' =>
+                    [
+                        'filterQuery' => 'gameType:freegames',
+                        'sort' => 'title asc',
+                        'start' => 0,
+                        'rows' => '30',
+                        'isGDP' => 'true',
+                    ]
+            ]
+        );
+
+        // Add free games to total
+        $responseBody = json_decode($response->getBody());
+        $totalGames = $totalGames + $responseBody->games->numFound;
+        $games = array_merge($games, $responseBody->games->game);
+
         $this->info(__('phrase.updating-x-origin-games', ['x' => $totalGames]));
 
         $updatedCount = 0;
