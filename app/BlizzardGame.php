@@ -34,6 +34,15 @@ class BlizzardGame extends Model
      */
     public function logo(string $size = 'small'): string
     {
-        return '';
+        switch ($size) {
+            case 'large':
+                return url('img/blizzard/placeholder-460x215.png');
+            case 'medium':
+                return url('img/blizzard/placeholder-292x136.png');
+            case 'small':
+                return url('img/blizzard/placeholder-184x69.png');
+            default:
+                return $this->logo('small');
+        }
     }
 }
