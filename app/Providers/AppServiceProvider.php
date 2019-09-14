@@ -47,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
                 'steam' => 'Zeropingheroes\Lanager\SteamApp',
                 'blizzard' => 'Zeropingheroes\Lanager\BlizzardGame',
                 'origin' => 'Zeropingheroes\Lanager\OriginGame',
+                'epic' => 'Zeropingheroes\Lanager\EpicGame',
             ]
         );
         if (!$this->app->configurationIsCached() && !in_array($this->getCommand(), ['package:discover', 'db:seed'])) {

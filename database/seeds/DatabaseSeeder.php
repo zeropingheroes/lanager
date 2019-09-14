@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SlideSeeder::class);
         $this->call(WhitelistedIpRangeSeeder::class);
         $this->call(BlizzardGameSeeder::class);
+        $this->call(EpicGameSeeder::class);
     }
 }

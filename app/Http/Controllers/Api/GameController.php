@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Response;
+use Zeropingheroes\Lanager\EpicGame;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
 use Zeropingheroes\Lanager\Http\Resources\Game;
 use Zeropingheroes\Lanager\OriginGame;
@@ -52,6 +53,16 @@ class GameController extends Controller
             return $originGame;
         });
 
+        // Find Epic games
+        $epicGames = EpicGame::where('name', 'like', '%' . $request->name . '%')
+            ->limit(50)
+            ->get();
+
+        $epicGames->map(function ($epicGame) {
+            $epicGame['id_type'] = 'epic';
+            return $epicGame;
+        });
+
         // Find Steam games
         $steamApps = SteamApp::where('type', '=', 'game')
             ->where('name', 'like', '%' . $request->name . '%')
@@ -69,6 +80,7 @@ class GameController extends Controller
         $games = $games->merge($blizzardGames);
         $games = $games->merge($steamApps);
         $games = $games->merge($originGames);
+        $games = $games->merge($epicGames);
 
         $limit = ($request->limit < 50) ? $request->limit : 10;
 
