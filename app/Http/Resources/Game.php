@@ -24,9 +24,6 @@ class Game extends JsonResource
                 'medium' => $this->logo('medium'),
                 'large' => $this->logo('large'),
             ],
-            'links' => [
-                'self' => route('api.games.show', ['game' => $this->id]),
-            ],
         ];
     }
 }
