@@ -19,7 +19,7 @@ class BlizzardGamesAddUrl extends Migration
     public function up()
     {
         Schema::table('blizzard_games', function (Blueprint $table) {
-            $table->text('url', 32)
+            $table->text('url')
                 ->after('name')
                 ->nullable()
                 ->default(null);
