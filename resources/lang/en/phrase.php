@@ -163,7 +163,7 @@ return [
     // lanager:update-steam-apps
     'update-steam-apps' => 'Update the database with the latest list of apps from Steam',
     'requesting-list-of-all-apps-from-steam-api' => 'Requesting list of all apps from Steam API',
-    'importing-x-steam-apps' => 'Importing :x apps',
+    'importing-x-steam-apps' => 'Importing :x Steam apps',
 
 
     // lanager:update-steam-apps-metadata
@@ -217,6 +217,12 @@ return [
     'delete-steam-user-history-outside-lans' => 'Delete historical Steam user status and gameplay data that did not occur during any of the LANs in the database',
     'pruning-historical-steam-data' => 'Deleting historical Steam user status and gameplay data that did not occur during any of the LANs in the database',
     'x-entries-deleted-and-y-entries-retained' => 'Deleted :x and retained :y historical entries of Steam user status and gameplay',
+
+    // lanager:update-origin-apps
+    'update-origin-games' => 'Update the database with the latest list of games from Origin',
+    'requesting-list-of-all-games-from-origin-api' => 'Requesting list of all games from Origin API',
+    'updating-x-origin-games' => 'Updating :x Origin games',
+    'x-origin-games-updated' => ':x Origin games updated',
 
     // lanager:backup
     'output-dir' => 'Where to store the backup file',
