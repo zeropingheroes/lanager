@@ -45,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
         Relation::morphMap(
             [
                 'steam_app' => 'Zeropingheroes\Lanager\SteamApp',
+                'blizzard_game' => 'Zeropingheroes\Lanager\BlizzardGame',
             ]
         );
         if (!$this->app->configurationIsCached() && !in_array($this->getCommand(), ['package:discover', 'db:seed'])) {
