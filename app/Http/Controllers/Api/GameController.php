@@ -2,10 +2,12 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Response;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
 use Zeropingheroes\Lanager\Http\Resources\Game;
+use Zeropingheroes\Lanager\OriginGame;
 use Zeropingheroes\Lanager\SteamApp;
 use Zeropingheroes\Lanager\BlizzardGame;
 
@@ -40,6 +42,15 @@ class GameController extends Controller
             return $blizzardGame;
         });
 
+        // Find Origin games
+        $originGames = OriginGame::where('name', 'like', '%' . $request->name . '%')
+            ->limit(50)
+            ->get();
+
+        $originGames->map(function ($originGame) {
+            $originGame['id_type'] = 'origin';
+            return $originGame;
+        });
 
         // Find Steam games
         $steamApps = SteamApp::where('type', '=', 'game')
@@ -52,8 +63,12 @@ class GameController extends Controller
             return $steamApp;
         });
 
-        // Merge collections, showing Blizzard games first
-        $games = $blizzardGames->merge($steamApps);
+        // Merge collections
+        // TODO: Make games in Steam overwrite other games of the same name elsewhere
+        $games = new Collection();
+        $games = $games->merge($blizzardGames);
+        $games = $games->merge($steamApps);
+        $games = $games->merge($originGames);
 
         $limit = ($request->limit < 50) ? $request->limit : 10;
 
