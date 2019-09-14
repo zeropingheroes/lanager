@@ -47,7 +47,7 @@ class BlizzardGameSeeder extends Seeder
                 'url' => 'https://shop.battle.net/product/starcraft'
             ],
             11 => [
-                'name' => 'StarCraft II: Wings of Liberty',
+                'name' => 'StarCraft II',
                 'url' => 'https://shop.battle.net/family/starcraft-ii'
             ],
             14 => [
