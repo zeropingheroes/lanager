@@ -9,6 +9,7 @@ class BlizzardGame extends Model
     protected $fillable = [
         'id',
         'name',
+        'url',
     ];
 
     /**
@@ -17,5 +18,22 @@ class BlizzardGame extends Model
     public function picks()
     {
         return $this->morphMany('Zeropingheroes\Lanager\LanAttendeeGamePick', 'game', 'game_id_type', 'game_id');
+    }
+
+    /**
+     * @return string
+     */
+    public function url(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $size
+     * @return string
+     */
+    public function logo(string $size = 'small'): string
+    {
+        return '';
     }
 }
