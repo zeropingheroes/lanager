@@ -36,11 +36,11 @@ class BlizzardGame extends Model
     {
         switch ($size) {
             case 'large':
-                return url('img/blizzard/placeholder-460x215.png');
+                return url('img/blizzard/'.$this->id.'/460x215.png');
             case 'medium':
-                return url('img/blizzard/placeholder-292x136.png');
+                return url('img/blizzard/'.$this->id.'/292x136.png');
             case 'small':
-                return url('img/blizzard/placeholder-184x69.png');
+                return url('img/blizzard/'.$this->id.'/184x69.png');
             default:
                 return $this->logo('small');
         }
