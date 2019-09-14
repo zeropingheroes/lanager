@@ -15,17 +15,14 @@ class Game extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
             'name' => $this->name,
-            'provider' => 'steam',
+            'id' => $this->id,
+            'id_type' => $this->id_type,
             'url' => $this->url(),
             'logo' => [
                 'small' => $this->logo('small'),
                 'medium' => $this->logo('medium'),
                 'large' => $this->logo('large'),
-            ],
-            'links' => [
-                'self' => route('api.games.show', ['game' => $this->id]),
             ],
         ];
     }

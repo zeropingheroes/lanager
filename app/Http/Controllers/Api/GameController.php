@@ -3,9 +3,11 @@
 namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Response;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
 use Zeropingheroes\Lanager\Http\Resources\Game;
 use Zeropingheroes\Lanager\SteamApp;
+use Zeropingheroes\Lanager\BlizzardGame;
 
 class GameController extends Controller
 {
@@ -17,34 +19,46 @@ class GameController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('limit') && $request->limit <= 50) {
-            $limit = $request->limit;
-        } else {
-            $limit = 10;
+        if (!$request->has('name')) {
+            return Response::json(
+                [
+                    'errors' => [
+                        'The name parameter is required',
+                    ],
+                ],
+                400
+            );
         }
 
-        // Filter out Steam apps that aren't games (DLC/movies/advertising etc)
-        $games = SteamApp::where('type','=','game')->limit($limit);
+        // Find Blizzard games
+        $blizzardGames = BlizzardGame::where('name', 'like', '%' . $request->name . '%')
+            ->limit(50)
+            ->get();
 
-        if ($request->filled('name')) {
-            $games->where('name', 'like', '%'.$request->name.'%');
-        }
+        $blizzardGames->map(function ($blizzardGame) {
+            $blizzardGame['id_type'] = 'blizzard';
+            return $blizzardGame;
+        });
 
-        return Game::collection($games->get());
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param SteamApp $game
-     * @return Game
-     */
-    public function show(SteamApp $game)
-    {
-        // Do not show Steam apps that aren't games (DLC/movies/advertising etc)
-        if($game->type != 'game') {
-            abort(404);
-        }
-        return new Game($game);
+        // Find Steam games
+        $steamApps = SteamApp::where('type', '=', 'game')
+            ->where('name', 'like', '%' . $request->name . '%')
+            ->limit(50)
+            ->get();
+
+        $steamApps->map(function ($steamApp) {
+            $steamApp['id_type'] = 'steam';
+            return $steamApp;
+        });
+
+        // Merge collections, showing Blizzard games first
+        $games = $blizzardGames->merge($steamApps);
+
+        $limit = ($request->limit < 50) ? $request->limit : 10;
+
+        $games = $games->take($limit);
+
+        return Game::collection($games);
     }
 }

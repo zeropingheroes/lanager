@@ -21,14 +21,14 @@ class StoreLanAttendeeGamePickRequest extends Request
             'lan_id'                => ['required', 'integer', 'exists:lans,id'],
             'user_id'               => ['required', 'integer', 'exists:users,id'],
             'game_id'               => ['required', 'integer'],
-            'game_provider'         => ['required', 'string'],
+            'game_id_type'          => ['required', 'string'],
         ];
 
         if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
-        $providerModel = Relation::getMorphedModel($this->input['game_provider']);
+        $providerModel = Relation::getMorphedModel($this->input['game_id_type']);
 
         if(!class_exists($providerModel)) {
             $this->addError(__('phrase.unsupported-provider'));
@@ -44,7 +44,7 @@ class StoreLanAttendeeGamePickRequest extends Request
             ['user_id',          '=', $this->input['user_id']],
             ['lan_id',           '=', $this->input['lan_id']],
             ['game_id',          '=', $this->input['game_id']],
-            ['game_provider',    '=', $this->input['game_provider']],
+            ['game_id_type',     '=', $this->input['game_id_type']],
         ])->count();
 
         if($alreadyPicked) {

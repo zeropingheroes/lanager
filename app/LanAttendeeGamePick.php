@@ -10,7 +10,7 @@ class LanAttendeeGamePick extends Model
         'user_id',
         'lan_id',
         'game_id',
-        'game_provider',
+        'game_id_type',
     ];
 
     /**
@@ -18,7 +18,7 @@ class LanAttendeeGamePick extends Model
      */
     public function game()
     {
-        return $this->morphTo(null, 'game_provider');
+        return $this->morphTo(null, 'game_id_type');
     }
 
     /**

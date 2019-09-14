@@ -41,7 +41,7 @@ class LanAttendeeGamePickController extends Controller
 
         $input = [
             'game_id' => $httpRequest->input('game_id'),
-            'game_provider' => $httpRequest->input('game_provider'),
+            'game_id_type' => $httpRequest->input('game_id_type'),
             'lan_id' => $lan->id,
             'user_id' => Auth::user()->id,
         ];

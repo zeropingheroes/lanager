@@ -30,7 +30,7 @@
                         <form action="{{ route('lans.attendee-game-picks.store', $lan) }}" method="POST" class="inline">
                             {{ csrf_field() }}
                             <input type="hidden" name="game_id" value="{{ $game['id'] }}">
-                            <input type="hidden" name="game_provider" value="{{ $game['provider'] }}">
+                            <input type="hidden" name="game_id_type" value="{{ $game['provider'] }}">
                             <button type="submit"
                                     class="btn btn-primary btn-sm"
                                     title="@lang('phrase.add-game-to-lan-picks', ['game' => $game['name']])">
