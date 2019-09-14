@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Services;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Lan;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class GetLanAttendeeGamePicksService
 {
@@ -38,7 +39,7 @@ class GetLanAttendeeGamePicksService
             $games[$id]['name'] = $pick->game->name;
             $games[$id]['logo'] = $pick->game->logo();
             $games[$id]['url'] = $pick->game->url();
-            $games[$id]['provider'] = 'steam_app';
+            $games[$id]['provider'] = $pick->game_id_type;
             $games[$id]['id'] = $pick->game->id;
             if (Auth::user() && Auth::user()->id === $pick->user->id) {
                 $games[$id]['auth_user_pick'] = $pick;
