@@ -36,7 +36,7 @@ class GameController extends Controller
             ->get();
 
         $blizzardGames->map(function ($blizzardGame) {
-            $blizzardGame['id_type'] = 'blizzard_game';
+            $blizzardGame['id_type'] = 'blizzard';
             return $blizzardGame;
         });
 
@@ -48,7 +48,7 @@ class GameController extends Controller
             ->get();
 
         $steamApps->map(function ($steamApp) {
-            $steamApp['id_type'] = 'steam_app';
+            $steamApp['id_type'] = 'steam';
             return $steamApp;
         });
 
