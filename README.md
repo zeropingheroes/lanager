@@ -152,6 +152,7 @@ your events you can easily update the site and prepare for your next LAN, and yo
     php artisan lanager:import-steam-apps-csv
     php artisan lanager:update-steam-apps
     php artisan lanager:update-steam-apps-metadata
+    php artisan lanager:update-origin-games
     php artisan config:cache
     ```
 
