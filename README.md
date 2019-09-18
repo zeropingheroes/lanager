@@ -15,7 +15,7 @@ more enjoyable for attendees and organisers alike.
 * **Games in common** - when viewing another attendee's profile
 * **Games recently played** - showing the top games most recently played by attendees at the LAN
 
-### Broadcast Useful Information 
+### Broadcast useful information 
 * **Live Dashboard** - showing games attendees are currently playing, and current and upcoming events, for TVs/projectors around your venue 
 * **Guides** - written by you, to help attendees learn about things like venue facilities, rules, or gameplay guides
 * **Links** - to other websites, such as your organisation's website, or a game statistics page
