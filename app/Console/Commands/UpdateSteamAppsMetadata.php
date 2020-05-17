@@ -66,11 +66,11 @@ class UpdateSteamAppsMetadata extends Command
         $progress->setFormat('%current%/%max% %bar% %percent%% - %elapsed% ' . __('title.elapsed'));
 
         // Prevent hitting Steam's API rate limits of 200 requests every 5 minutes
-        $storage = new FileStorage(__DIR__ . "/../../../storage/app/api.bucket"); // store state in storage directory
+        $storage = new FileStorage(storage_path('steam-web-api.bucket')); // store state in storage directory
         $rate = new Rate(40, Rate::MINUTE); // add 40 tokens every minute (= 200 over 5 minutes)
-        $bucket = new TokenBucket(10, $rate, $storage); // bucket can never have more than 10 tokens saved up
+        $bucket = new TokenBucket(200, $rate, $storage); // bucket can never have more than 200 tokens saved up
         $consumer = new BlockingConsumer($bucket); // if no tokens are available, block further execution until there are tokens
-        $bucket->bootstrap(10); // fill the bucket with 10 tokens initially
+        $bucket->bootstrap(200); // fill the bucket with 200 tokens initially
 
         $updatedCount = 0;
         $failedCount = 0;
