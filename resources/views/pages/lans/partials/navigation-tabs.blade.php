@@ -1,13 +1,4 @@
 <ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link {{ Request::route()->getName() == 'lans.attendee-game-picks.index' ? 'active' : '' }}"
-           href="{{ route('lans.attendee-game-picks.index', $lan) }}">
-            @lang('title.game-picks')
-            <span class="badge">
-                {{ $lan->attendeeGamePicks()->distinct()->count(['game_id', 'game_id_type']) }}
-            </span>
-        </a>
-    </li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle {{ Request::route()->getName() == 'lans.events.index' ? 'active' : '' }}"
            data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -17,7 +8,6 @@
             <a class="dropdown-item" href="{{ route('lans.events.index', $lan) }}">@lang('title.list')</a>
             <a class="dropdown-item" href="{{ route('lans.events.index', ['lan' => $lan, 'schedule']) }}">@lang('title.schedule')</a>
         </div>
-    </li>
     </li>
     <li class="nav-item">
         <a class="nav-link {{ Request::route()->getName() == 'lans.guides.index' ? 'active' : '' }}"

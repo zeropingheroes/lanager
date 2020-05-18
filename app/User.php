@@ -113,12 +113,4 @@ class User extends Authenticatable
     {
         return $this->hasMany('Zeropingheroes\Lanager\SteamUserAppSession');
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function gamePicks()
-    {
-        return $this->hasMany('Zeropingheroes\Lanager\LanAttendeeGamePick');
-    }
 }

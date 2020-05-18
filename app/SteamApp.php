@@ -40,12 +40,4 @@ class SteamApp extends Model
     {
         return 'steam://store/' . $this->id;
     }
-
-    /**
-     * Get all of the Steam app's LAN attendee picks.
-     */
-    public function picks()
-    {
-        return $this->morphMany('Zeropingheroes\Lanager\LanAttendeeGamePick', 'game', 'game_id_type', 'game_id');
-    }
 }

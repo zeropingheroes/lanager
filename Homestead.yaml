@@ -6,10 +6,10 @@ folders:
     -
         map: ./
         to: /home/vagrant/lanager
-        type: "nfs"
-        options:
-            linux__nfs_options: ['async','rw','no_subtree_check','all_squash']
-            mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
+#        type: "nfs"
+#        options:
+#            linux__nfs_options: ['async','rw','no_subtree_check','all_squash']
+#            mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
 sites:
     -
         map: lanager.localhost

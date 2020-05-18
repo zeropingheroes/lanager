@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Providers;
 use Barryvdh\Debugbar\Facade as DebugbarFacade;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Exception;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use League\CommonMark\Inline\Element\Image;
@@ -45,16 +46,8 @@ class AppServiceProvider extends ServiceProvider
         Relation::morphMap(
             [
                 'steam' => 'Zeropingheroes\Lanager\SteamApp',
-                'blizzard' => 'Zeropingheroes\Lanager\BlizzardGame',
-                'origin' => 'Zeropingheroes\Lanager\OriginGame',
-                'epic' => 'Zeropingheroes\Lanager\EpicGame',
             ]
         );
-        if (!$this->app->configurationIsCached() && !in_array($this->getCommand(), ['package:discover', 'db:seed'])) {
-            if (!$this->systemTablesPopulated()) {
-                throw new Exception('Database empty - please run php artisan db:seed');
-            }
-        }
     }
 
     /**
@@ -81,25 +74,6 @@ class AppServiceProvider extends ServiceProvider
                 throw new Exception('GOOGLE_API_KEY not set in .env file');
             }
         }
-    }
-
-    /**
-     * Check if tables required for the app to function are populated
-     * @return bool
-     */
-    private function systemTablesPopulated(): bool
-    {
-        $models = [
-            SteamUserStatusCode::class,
-            Role::class,
-        ];
-
-        foreach ($models as $model) {
-            if (!$model::count()) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

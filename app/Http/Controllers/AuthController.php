@@ -86,7 +86,7 @@ class AuthController extends Controller
             // - the user's profile
             $lan = Lan::happeningNow()->first() ?? Lan::future()->orderBy('start', 'asc')->first();
             if ($lan) {
-                $route = route('lans.attendee-game-picks.index', ['lan' => $lan]);
+                $route = route('lans.events.index', ['lan' => $lan]);
             } else {
                 $route = route('users.show', ['id' => $user->id]);
 

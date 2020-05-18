@@ -69,11 +69,6 @@ Route::get('/games/fullscreen', function () {
 Route::resource('lans', 'LanController');
 
 /**
- * LAN Game Picks
- */
-Route::resource('lans.attendee-game-picks', 'LanAttendeeGamePickController', ['only' => ['index', 'store', 'destroy']]);
-
-/**
  * Guides
  */
 Route::resource('lans.guides', 'GuideController', ['except' => 'show']);
