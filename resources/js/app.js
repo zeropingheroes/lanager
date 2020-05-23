@@ -48,7 +48,6 @@ Vue.component('event-schedule',         require('./components/events/event-sched
 Vue.component('game-banner',            require('./components/games/game-banner.vue'));
 Vue.component('active-games',           require('./components/active-games/active-games.vue'));
 Vue.component('active-game',            require('./components/active-games/active-game.vue'));
-Vue.component('games-search',           require('./components/games/games-search.vue'));
 
 /* Users */
 Vue.component('user-avatar',            require('./components/users/user-avatar.vue'));
