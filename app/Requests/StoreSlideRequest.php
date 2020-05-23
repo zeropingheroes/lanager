@@ -19,8 +19,8 @@ class StoreSlideRequest extends Request
             'content'            => ['required'],
             'position'           => ['integer', 'min:0', 'max:127'],
             'duration'           => ['integer', 'min:0', 'max:32767'],
-            'start'              => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
-            'end'                => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
+            'start'              => ['nullable', 'date_format:Y-m-d H:i:s', 'before:end'],
+            'end'                => ['nullable', 'date_format:Y-m-d H:i:s', 'after:start'],
             'published'          => ['boolean'],
         ];
 
