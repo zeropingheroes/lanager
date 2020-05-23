@@ -27,7 +27,7 @@ class NavigationLinkPolicy extends BasePolicy
      * @param NavigationLink $navigationLink
      * @return boolean
      */
-    public function index(User $authUser, NavigationLink $navigationLink)
+    public function index(User $authUser)
     {
         return $authUser->hasRole('admin');
     }
