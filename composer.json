@@ -10,10 +10,6 @@
     ],
     "keywords": ["lanager", "lan", "party"],
     "license": "AGPL-3.0",
-    "repositories": [{
-        "type": "vcs",
-        "url": "http://github.com/ilumos/Steam"
-    }],
     "require": {
         "php": "^7.1.3",
         "bandwidth-throttle/token-bucket": "^2.0",
@@ -27,7 +23,7 @@
         "laravel/tinker": "^1.0",
         "league/csv": "^9.3",
         "socialiteproviders/steam": "^1.0",
-        "syntax/steam-api": "dev-master",
+        "syntax/steam-api": "^2.1",
         "tucker-eric/eloquentfilter": "^1.2"
     },
     "require-dev": {
