@@ -1,34 +1,33 @@
 LANager
 =======
 
-LANager is a web application designed to make [LAN Parties](https://en.wikipedia.org/wiki/Lan_party)
+LANager is a web application designed to make [LAN parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
 
 ## Features
 
-### Encourage Socialising & Participation
+### Encourage socialising & participation
 
 * **Games being played** - by your LAN's attendees, updated every minute from Steam
 * **Events timetable** - so your attendees know what's on at the LAN
-* **Achievements** - created and awarded to attendees by you
+* **Achievements** - created by you and awarded to attendees 
 * **Attendee profiles** - with a link to their Steam profile, and their gameplay history at the LAN
 * **Games in common** - when viewing another attendee's profile
 * **Games recently played** - showing the top games most recently played by attendees at the LAN
 
-### Broadcast Useful Information 
-* **Live Dashboard** - showing games being played by attendees, current and upcoming events, for TVs/projectors around your venue 
-* **Guides** - written by you, to help attendees learn about, e.g. venue facilities, rules or gameplay guides
-* **Links** - to other websites, e.g. your organisation's website, or a game statistics page
+### Broadcast useful information 
+* **Live Dashboard** - showing games attendees are currently playing, and current and upcoming events, for TVs/projectors around your venue 
+* **Guides** - written by you, to help attendees learn about things like venue facilities, rules, or gameplay guides
+* **Links** - to other websites, such as your organisation's website, or a game statistics page
 
 ## Requirements
 
-* Server running Ubuntu Server 18.04 (_with shell access - basic web hosting is not supported_)
-* [Steam API Key](http://steamcommunity.com/dev/apikey)
-* [Google API Key](https://cloud.google.com/maps-platform/?apis=maps) enabled for the Maps Embed API
+* A server running Ubuntu Server 18.04 (_with shell access - basic web hosting is not supported_)
+* A [Steam API Key](http://steamcommunity.com/dev/apikey)
+* A [Google API Key](https://cloud.google.com/maps-platform/?apis=maps) enabled for the Maps Embed API
 * Internet access
 
-While it's possible to run LANager on a server at your venue, only accessible internally, we recommend you cloud host, so outside of
-your events you can easily update the site and prepare for your next LAN, and your attendees can find out about it ahead of the event.
+While it's possible to run LANager on a server at your venue and make it only accessible internally, we recommend you cloud host. This allows you to easily update the site outside of your events (for example, to prepare for your next LAN), and allows your attendees to use it to find information ahead of the event.
 
 ## Installation
 
@@ -71,7 +70,7 @@ your events you can easily update the site and prepare for your next LAN, and yo
     }
     ```
 
-3. Increase PHP's upload file size limit
+3. Increase PHP's upload file size limit:
 
     ```bash
     sudo nano /etc/php/7.2/fpm/php.ini
@@ -156,7 +155,7 @@ your events you can easily update the site and prepare for your next LAN, and yo
     php artisan config:cache
     ```
 
-11. Visit the app URL to check that the installation was successful
+11. Visit the app URL to check that the installation was successful.
 
 12. Enable the scheduled commands:
 
@@ -182,85 +181,89 @@ your events you can easily update the site and prepare for your next LAN, and yo
 
 ## Troubleshooting
 
-- Enable debugging in your `.env` file
+- Enable debugging in your `.env` file.
 
-- [Create an issue](https://github.com/zeropingheroes/lanager/issues) with the error message(s) you see
+- [Create an issue](https://github.com/zeropingheroes/lanager/issues) with the error message(s) you see.
 
 - If you don't see an error message, in your `.env` file:
     - set `LOG_CHANNEL=stack` 
     - check for errors in `/var/www/lanager/storage/logs/laravel.log`
     
-## Getting Started
+## Getting started
+
+To set up the LANager for your next LAN party, you need to create a LAN page, then add Events (such as scheduled games or lunch breaks) and Guides (such as game rules) to that LAN page.
 
 ### Become a Super Admin
 
-The first user to log in to LANager is assigned the "Super Admin" role, so ensure you log in once installation has completed.
+The LANager assigns the "Super Admin" role to the first account that logs into it, so make sure you log in as soon as you have completed installation.
+
 Super Admins can perform any action on the site, including assigning roles to other users. 
 
-### Create Your LAN Event
+### Create your LAN page
 
-Before you can start creating an event schedule, publishing any guides or awarding achievements, you'll need to create a LAN, which
-represents your whole event, whether it's a single-day or all week long.
+The first thing you need to do is to create a LAN page in the LANager. This process is the same whether your LAN party is one day or multiple days. You need to do this before you can create an event schedule, publish any guides or award achievements.
 
-Once logged in, click ⚙ > LANs, and then click the + button to go to the LAN creation form. Enter your LAN's details, adding a 
-description with [markdown formatting](https://en.wikipedia.org/wiki/Markdown#Example) if desired.
+Log into the LANanger, and go to ⚙ > **LANs**, then select the **+** button to go to the LAN page creation form. Enter your LAN's details, and add a description with [markdown formatting](https://en.wikipedia.org/wiki/Markdown#Example) if you want to.
 
-Anyone who signs into the LANager during the LAN you've created will be automatically added to the LAN's list of attendees, and taken
-to the LAN's page, showing the LAN's timetabled events, guides and attendees list.
+The LANager automatically adds anyone who signs into the LANager during the LAN party to the LAN's list of attendees. For each attendee it displays the current LAN page, which contains the LAN's timetabled events, guides and attendees list.
 
 ### Create Events & Guides
 
-With your LAN created, you can now create events that will be happening during the LAN, and any relevant guides to help attendees
-enjoy your party.
+Once you have a LAN page for your LAN party, you can create Events and Guides to help attendees enjoy your party.
 
-From the LAN's page, click the + button next to the **Events** and **Guides** headings to go to their creation forms.
+* **Events** are a useful way to timetable game tournaments, highlight big game sessions, schedule breaks and mealtimes, and let people know when it's time to go home
+* **Guides** are a useful way to provide people with the rules and download links to the games you're playing, to let them know where the nearest shops and restaurants are, to provide a code of conduct for your event, and to communicate any other information you think your guests might need.
 
-#### Using Links
+From the LAN page, click the **+** button next to the **Events** and **Guides** headings to go to their creation forms.
 
-You can use markdown formatted links in LANs, guides and events, to help attendees find relevant information. For example, you can
-write a single guide, and link to it on several event pages:
+#### Using links
+
+You can use markdown-formatted links in LANs, guides and events. For example, you can write a single guide, and insert a link to it on several event pages:
 
     If you need any help, please contact one of our [tournament staff](/lans/4/guides/3) 
 
-It's recommended that you use relative links as above, so that if you change domain, the links continue to work.
+Where possible, it's good practice to use relative links as demonstrated above, so that if you change your domain, the links continue to work.
 
-#### Using Images
+#### Using images
 
-You can also upload images for displaying on these pages by clicking the "upload images" link below the "description" text box.
-Once uploaded, click ⚙ > **Copy Markdown** next to the image, and then paste into the guide, event or LAN's 
-**description** field.
+You can upload images to LAN pages, Events and Guides. To do this, follow these steps:
+
+* Below the "description" text box, select "upload images".
+* Upload the image you want to use.
+* Next to the image, select ⚙ > **Copy Markdown** 
+* Paste the markdown into the guide, event or LAN's **description** field, in the location you want it to appear in the text.
 
 ### Display the Live Dashboard
 
-To make it easy for your attendees to see at a glance which games are being played, events that are in progress, and any that are
-upcoming, on a computer connected to a TV or projector visit the dashboard page by clicking ⚙ > **Dashboard**, or if you aren't 
-logged in, simply visit:
+The Live Dashboard make it easy for your attendees to see at a glance which games are being played, events that are in progress, and any that are upcoming.
+
+To display the Live Dashboard, go to ⚙ > **Dashboard**. Alternatively, if you aren't logged in, visit the following URL:
 
 `http://(your LANager install's address)/dashboard`
 
-### Create and Award Achievements
+It's useful to display this on a TV or projector that everyone can see.
 
-Click ⚙ > **Achievements** and then click the + button to create achievements that can then be awarded to users. 
+### Create and award Achievements
 
-Once you've created one or more achievements, you can award them by clicking **Achievements** on the navigation bar, which will take
-you to the list of achievements awarded to attendees of the current LAN. At the bottom of the page, choose the achievement and the
-attendee to award it to, and click **Award**.
+Click ⚙ > **Achievements** and then click the **+** button to create achievements that you can award to users. 
 
-### Customise the Navigation Bar
+To award an Achievement to an attendee, go to the navigation bar and select **Achievements**. This opens the list of Achievements you have awarded to attendees of the current LAN. At the bottom of the page, choose the Achievement and the
+attendee to award it to, then select **Award**.
 
-Click ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager, or 3rd party
-sites, organise the links into dropdown menus, and choose the order that the links appear in the navbar or dropdown.
+### Customise the navigation bar
+
+Click ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager or to third-party sites, organise the links into drop-down menus, and choose the order that the links appear in the navbar or dropdown.
 
 ## Upgrading from v0.5.x on Ubuntu 14.04
 
-1. Back up the database and site files
+1. Back up the database and site files:
 
     ```bash
     mysqldump -u lanager -p --extended-insert=FALSE lanager > ~/lanager-backup.sql
     tar -zcvf ~/lanager-backup.tar.gz /var/www/lanager
     ```
 
-2. Delete any local changes and get the latest version from GitHub
+2. Delete any local changes and get the latest version from GitHub:
 
     ```bash
     cd /var/www/lanager
@@ -268,13 +271,13 @@ sites, organise the links into dropdown menus, and choose the order that the lin
     git pull
     ```
 
-3. Remove Apache and PHP5
+3. Remove Apache and PHP5:
 
     ```bash
     sudo apt remove php5-common php5-cli php5-mcrypt php5-curl php5-mysql libapache2-mod-php5 apache2
     ```
     
-4. Install NGINX, PHP7.2 and MySQL 5.7
+4. Install NGINX, PHP7.2 and MySQL 5.7:
 
     ```bash
     cd ~
@@ -288,9 +291,9 @@ sites, organise the links into dropdown menus, and choose the order that the lin
     mysql_upgrade -u root -p
     ```
 
-5. Follow steps 2, 3, 4, 7, 8 and 9 from the normal [installation instructions](#installation)
+5. From the normal [installation instructions](#installation), follow steps 2, 3, 4, 7, 8 and 9.
 
-6. Run the following commands
+6. Run the following commands:
 
     ```bash
     cd /varr/www/lanager
@@ -299,7 +302,7 @@ sites, organise the links into dropdown menus, and choose the order that the lin
     php artisan lanager:upgrade-database
     ```
     
-6. Follow steps 11, 12 and 13 from the normal [installation instructions](#installation)
+6. From the normal [installation instructions](#installation), follow steps 11, 12 and 13.
 
 ## Development
 
@@ -320,16 +323,18 @@ sites, organise the links into dropdown menus, and choose the order that the lin
 5. `vagrant plugin install vagrant-vbguest vagrant-winnfsd`
 6. `vagrant up`
 
-Your development environment will now be available available at [lanager.localhost:8000](http://lanager.localhost:8000/)
+When you complete these steps, your development environment should be available at [lanager.localhost:8000](http://lanager.localhost:8000/).
 
 ## Feedback & Contributions
 
 * Found a bug? Got a great feature idea? Post it to the [issue tracker](https://github.com/zeropingheroes/lanager/issues)!
 * Want to contribute?
-    * [Fork the project](https://github.com/zeropingheroes/lanager/fork) and add the features you want to see
-    * Work on new features / bug fixes in the [issue tracker](https://github.com/zeropingheroes/lanager/issues)
-    * Or if you're really hardcore, request commit access
+    * [Fork the project](https://github.com/zeropingheroes/lanager/fork) and add the features you want to see.
+    * Work on new features / bug fixes in the [issue tracker](https://github.com/zeropingheroes/lanager/issues).
+    * If you're really hardcore, request commit access.
 
 If you want to support the project in a non-technical way, we'd love it if you donated to us:
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=zeropingheroes&url=https%3A%2F%2Fgithub.com%2Fzeropingheroes%2Flanager)
+
+Enjoy using the LANager!
