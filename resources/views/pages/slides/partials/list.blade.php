@@ -2,7 +2,6 @@
     <thead>
     <tr>
         <th>@lang('title.name')</th>
-        <th>@lang('title.content')</th>
         <th>@lang('title.position')</th>
         <th>@lang('title.duration')</th>
         <th>@lang('title.active')</th>
@@ -22,9 +21,6 @@
                             <small>&mdash; @lang('title.unpublished')</small>
                         @endif
                         @endcanany
-                    </td>
-                    <td>
-                        {{ \Illuminate\Support\Str::limit($slide->content, 16) }}
                     </td>
                     <td>
                         {{ $slide->position }}
