@@ -15,4 +15,3 @@ php artisan storage:link
 php artisan lanager:import-steam-apps-csv
 php artisan lanager:update-steam-apps
 php artisan lanager:update-steam-apps-metadata
-php artisan lanager:update-origin-games
