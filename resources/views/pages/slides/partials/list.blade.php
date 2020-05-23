@@ -38,10 +38,10 @@
                         @endisset
                     </td>
                     <td>
-                        @lang('title.updated') @include('components.time-relative', ['datetime' => $slide->updated_at])
+                        @include('components.time-relative', ['datetime' => $slide->updated_at])
                     </td>
                     <td>
-                        {{ $slide->published ? 'Yes' : 'No' }}
+                        @include('components.tick-cross', ['value' => $slide->published])
                     </td>
                     @canany(['update', 'delete'], $slide)
                         <td class="">
