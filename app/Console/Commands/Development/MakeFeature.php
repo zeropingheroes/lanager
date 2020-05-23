@@ -31,17 +31,17 @@ class MakeFeature extends Command
      */
     public function handle()
     {
-        $name = Str::studly(str_singular($this->argument('name')));
+        $name = Str::studly(Str::singular($this->argument('name')));
 
         $this->replacements = [
             'model' => $name,
             'variable' => Str::camel($name),
-            'variables' => Str::camel(str_plural($name, 2)),
-            'route' => Str::kebab(str_plural($name, 2)),
-            'view' => Str::kebab(str_plural($name, 2)),
+            'variables' => Str::camel(Str::plural($name, 2)),
+            'route' => Str::kebab(Str::plural($name, 2)),
+            'view' => Str::kebab(Str::plural($name, 2)),
             'lang' => Str::kebab($name),
-            'langs' => Str::kebab(str_plural($name, 2)),
-            'table' => snake_case(str_plural($name, 2)),
+            'langs' => Str::kebab(Str::plural($name, 2)),
+            'table' => snake_case(Str::plural($name, 2)),
         ];
 
         $this->makeModel();

@@ -2,8 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 use Zeropingheroes\Lanager\EventSignup;
 
 class RouteServiceProvider extends ServiceProvider
@@ -16,6 +16,13 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'Zeropingheroes\Lanager\Http\Controllers';
+
+    /**
+     * The path to the "home" route for your application.
+     *
+     * @var string
+     */
+    public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, etc.
