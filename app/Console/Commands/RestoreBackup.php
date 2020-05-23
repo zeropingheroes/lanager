@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Cache;
 
 class RestoreBackup extends Command
 {
@@ -107,6 +108,10 @@ class RestoreBackup extends Command
                 die();
             }
         }
+
+        // Clear navigation link cache
+        Cache::forget('navigationLinks');
+
         $this->info(__('phrase.backup-restored-successfully'));
         return;
     }
