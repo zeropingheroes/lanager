@@ -20,7 +20,7 @@ class UpdateSteamAppsMetadata extends Command
      */
     public function __construct()
     {
-        $this->signature = 'lanager:update-steam-apps-metadata'
+        $this->signature = 'lanager:update-steam-apps-metadata '
                          . '{--all-apps : ' . __('phrase.update-all-apps') . '}';
         $this->description = __('phrase.update-steam-apps-metadata');
 
