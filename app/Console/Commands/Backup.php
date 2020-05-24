@@ -41,12 +41,12 @@ class Backup extends Command
         }
 
         // Create a temporary directory in the output dir
-        $processes["mkdir-tmp"] = new Process(
-            "mkdir -p $outputDir/tmp/sql $outputDir/tmp/images"
-        );
+        $processes["mkdir-tmp"] = new Process([
+            "mkdir", "-p", "$outputDir/tmp/sql", "$outputDir/tmp/images"
+        ]);
 
         // TODO: Use Laravel's filesystem class to get the files
-        $processes["cp-images"] = new Process(
+        $processes["cp-images"] = Process::fromShellCommandline(
             "cp -r $imagesDir/* $outputDir/tmp/images/"
         );
 
@@ -65,20 +65,20 @@ class Backup extends Command
             if (in_array($table,['migrations', 'steam_apps', 'logs', 'sessions', 'phpdebugbar'])) {
                 continue;
             }
-            $processes["mysqldump-$table"] = new Process(
+            $processes["mysqldump-$table"] = Process::fromShellCommandline(
                 "mysqldump -u $username --password=$password --extended-insert=FALSE --no-create-info $database $table > $outputDir/tmp/sql/$table.sql"
             );
         }
 
         // Compress all files
-        $processes["gzip"] = new Process(
-            "tar -C $outputDir/tmp/ -zcvf $outputDir/$filename.tar.gz sql images"
-        );
+        $processes["gzip"] = new Process([
+            "tar", "-C", "$outputDir/tmp/", "-zcvf", "$outputDir/$filename.tar.gz", "sql", "images"
+        ]);
 
         // Remove the temporary directory
-        $processes["rm-tmp"] = new Process(
-            "rm -rf $outputDir/tmp"
-        );
+        $processes["rm-tmp"] = new Process([
+            "rm", "-rf", "$outputDir/tmp"
+        ]);
 
         // Run the defined processes in turn
         foreach ($processes as $process) {

@@ -50,9 +50,10 @@ class RestoreBackup extends Command
         }
 
         // Delete existing images
-        $processes["rm-images"] = new Process(
-            "rm -rf $imagesDir/*"
-        );
+        $processes["rm-images"] = new Process([
+            "rm", "-rf", "$imagesDir/*"
+        ]);
+
 
         // Clear database
         $this->call('migrate:fresh');
@@ -61,35 +62,35 @@ class RestoreBackup extends Command
         $this->call('lanager:import-steam-apps-csv');
 
         // Create a temporary restore directory
-        $processes["mkdir-$restoreDir"] = new Process(
-            "mkdir -p $restoreDir"
-        );
+        $processes["mkdir-$restoreDir"] = new Process([
+            "mkdir", "-p", "$restoreDir"
+        ]);
 
         // Extract all files to temporary directory
-        $processes["uncompress"] = new Process(
-            "tar -zxvf $backupFile -C $restoreDir"
-        );
+        $processes["uncompress"] = new Process([
+            "tar", "-zxvf", $backupFile, "-C", $restoreDir
+        ]);
 
         // Create the images directory
-        $processes["mkdir-$imagesDir"] = new Process(
-            "mkdir -p $imagesDir"
-        );
+        $processes["mkdir-$imagesDir"] = new Process([
+            "mkdir", "-p", $imagesDir
+        ]);
 
         // Restore images
-        $processes["cp-images"] = new Process(
+        $processes["cp-images"] = Process::fromShellCommandline(
             "cp -r $restoreDir/images/* $imagesDir"
         );
 
         // Restore database dump files
         // TODO: Change how password is passed to mysql so it doesn't output warnings
-        $processes["mysql-restore"] = new Process(
+        $processes["mysql-restore"] = Process::fromShellCommandline(
             "cat $restoreDir/sql/*.sql | mysql --init-command=\"SET SESSION FOREIGN_KEY_CHECKS=0;\" -u $username --password=$password $database"
         );
 
         // Remove the temporary directory
-        $processes["rm-tmp"] = new Process(
-            "rm -rf $restoreDir"
-        );
+        $processes["rm-tmp"] = new Process([
+            "rm", "-rf", $restoreDir
+        ]);
 
         // Run the defined processes in turn
         foreach ($processes as $process) {
