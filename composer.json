@@ -14,6 +14,12 @@
         "party"
     ],
     "license": "AGPL-3.0",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ilumos/Providers"
+        }
+    ],
     "require": {
         "php": "^7.2.5",
         "fideloper/proxy": "^4.2",
@@ -28,7 +34,7 @@
         "gilg4mesh/monolog-mysql": "^0.1.8",
         "graham-campbell/markdown": "^12.0",
         "league/csv": "^9.3",
-        "socialiteproviders/steam": "^1.0",
+        "socialiteproviders/providers": "dev-steam-provider",
         "syntax/steam-api": "^2.1",
         "tucker-eric/eloquentfilter": "^2.3"
     },

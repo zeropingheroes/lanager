@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5434c091b3572a60136da28242d4157e",
+    "content-hash": "20e2ff91af660bd65dfaeab64b759d5f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1273,53 +1273,6 @@
                 "url"
             ],
             "time": "2019-07-01T23:21:34+00:00"
-        },
-        {
-            "name": "iignatov/lightopenid",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/WillSkates/LightOpenID.git",
-                "reference": "15264c31aef8bbe7ea18f12b6da4ccdb9927f9fa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/WillSkates/LightOpenID/zipball/15264c31aef8bbe7ea18f12b6da4ccdb9927f9fa",
-                "reference": "15264c31aef8bbe7ea18f12b6da4ccdb9927f9fa",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "openid.php",
-                    "provider/provider.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ignat Ignatov",
-                    "homepage": "https://github.com/iignatov/LightOpenID"
-                },
-                {
-                    "name": "Mewp",
-                    "homepage": "https://code.google.com/p/lightopenid/"
-                }
-            ],
-            "description": "Lightweight PHP5 library for easy OpenID authentication.",
-            "homepage": "https://github.com/iignatov/LightOpenID",
-            "keywords": [
-                "Authentication",
-                "OpenId",
-                "security"
-            ],
-            "time": "2014-01-27T06:01:05+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2949,42 +2902,50 @@
             "time": "2020-03-08T16:54:44+00:00"
         },
         {
-            "name": "socialiteproviders/steam",
-            "version": "v1.1",
+            "name": "socialiteproviders/providers",
+            "version": "dev-steam-provider",
             "source": {
                 "type": "git",
-                "url": "https://github.com/SocialiteProviders/Steam.git",
-                "reference": "c6f372646c01e96258ebf603644e95e0e82eeeb7"
+                "url": "https://github.com/ilumos/Providers.git",
+                "reference": "91aafbcf7088e6fc96f6d80d91b24ef26e0c1eeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Steam/zipball/c6f372646c01e96258ebf603644e95e0e82eeeb7",
-                "reference": "c6f372646c01e96258ebf603644e95e0e82eeeb7",
+                "url": "https://api.github.com/repos/ilumos/Providers/zipball/91aafbcf7088e6fc96f6d80d91b24ef26e0c1eeb",
+                "reference": "91aafbcf7088e6fc96f6d80d91b24ef26e0c1eeb",
                 "shasum": ""
             },
             "require": {
-                "iignatov/lightopenid": "~1.0",
+                "ext-json": "*",
                 "php": "^5.6 || ^7.0",
                 "socialiteproviders/manager": "~2.0 || ~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0",
+                "symplify/monorepo-builder": "^6.1"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "SocialiteProviders\\Steam\\": ""
+                    "SocialiteProviders\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ],
+                "test:ci": [
+                    "phpunit --coverage-clover build/logs/clover.xml"
+                ]
+            },
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Christopher Eklund",
-                    "email": "eklundchristopher@gmail.com"
-                }
-            ],
-            "description": "Steam OpenID Provider for Laravel Socialite",
-            "time": "2019-01-11T19:48:14+00:00"
+            "description": "Collection of all OAuth2 Providers for Laravel Socialite",
+            "support": {
+                "source": "https://github.com/ilumos/Providers/tree/steam-provider"
+            },
+            "time": "2020-05-24T18:10:51+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4847,12 +4808,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "979b4c193ff173a7dfc44ba8b4cad94e7d69a0a5"
+                "reference": "34f6b96146ec08d3961363353922dfd72c667663"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/979b4c193ff173a7dfc44ba8b4cad94e7d69a0a5",
-                "reference": "979b4c193ff173a7dfc44ba8b4cad94e7d69a0a5",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/34f6b96146ec08d3961363353922dfd72c667663",
+                "reference": "34f6b96146ec08d3961363353922dfd72c667663",
                 "shasum": ""
             },
             "require": {
@@ -4907,7 +4868,13 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2020-05-23T10:30:57+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/barryvdh",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-05-24T17:10:43+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -7130,6 +7097,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "socialiteproviders/providers": 20,
         "barryvdh/laravel-debugbar": 20
     },
     "prefer-stable": true,
