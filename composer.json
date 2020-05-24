@@ -43,7 +43,8 @@
         "nunomaduro/collision": "^4.1",
         "phpunit/phpunit": "^8.5",
         "laravel/homestead": "^10",
-        "barryvdh/laravel-debugbar": "dev-master"
+        "barryvdh/laravel-debugbar": "dev-master",
+        "barryvdh/laravel-ide-helper": "^2.7"
     },
     "config": {
         "optimize-autoloader": true,
@@ -83,6 +84,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+           "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ]
     }
 }
