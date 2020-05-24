@@ -15,7 +15,7 @@ Route::get('/schedule', 'CurrentLanController@schedule')
 Route::get('/users', 'CurrentLanController@users')
     ->name('users');
 Route::get('/user-achievements', 'CurrentLanController@userAchievements')
-    ->name('users');
+    ->name('users.achievements');
 
 /**
  * Login
