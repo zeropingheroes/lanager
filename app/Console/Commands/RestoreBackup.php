@@ -38,7 +38,7 @@ class RestoreBackup extends Command
 
         if (!file_exists($backupFile)) {
             $this->error(__('phrase.backup-file-not-found'));
-            die();
+            return 1;
         }
 
         $this->warn(__('phrase.this-will-delete-all-lanager-data'));
@@ -46,7 +46,7 @@ class RestoreBackup extends Command
         if ($this->option('yes') || $this->confirm(__('phrase.are-you-sure'))) {
             $this->info(__('phrase.deleting-all-lanager-data'));
         } else {
-            die();
+            return 1;
         }
 
         // Delete existing images
@@ -105,7 +105,7 @@ class RestoreBackup extends Command
             );
             if (!$process->isSuccessful()) {
                 $this->error(__('phrase.process-exit-code-x', ['x' => $process->getExitCode()]));
-                die();
+                return $process->getExitCode();
             }
         }
 
@@ -113,6 +113,6 @@ class RestoreBackup extends Command
         Cache::forget('navigationLinks');
 
         $this->info(__('phrase.backup-restored-successfully'));
-        return;
+        return 0;
     }
 }

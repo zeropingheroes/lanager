@@ -50,7 +50,7 @@ class UpdateSteamUserApps extends Command
             $message = __('phrase.no-steam-users-to-update');
             Log::info($message);
             $this->info($message);
-            return;
+            return 0;
         }
 
         $this->info(__('phrase.requesting-app-ownership-data-for-x-users-from-steam', ['x' => $users->count()]));
@@ -73,7 +73,8 @@ class UpdateSteamUserApps extends Command
                 Log::error($error[0]);
                 $this->error($error[0]);
             }
+            return 1;
         }
-        return;
+        return 0;
     }
 }

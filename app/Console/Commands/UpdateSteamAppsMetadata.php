@@ -38,7 +38,7 @@ class UpdateSteamAppsMetadata extends Command
             $message = __('phrase.database-empty-aborting');
             $this->error($message);
             Log::error($message);
-            return;
+            return 1;
         }
 
         if ( $this->option('all-apps')) {
@@ -54,7 +54,7 @@ class UpdateSteamAppsMetadata extends Command
             $message = __('phrase.steam-app-metadata-up-to-date');
             $this->info($message);
             Log::info($message);
-            return;
+            return 0;
         }
 
         $timeEstimate = CarbonInterval::seconds(ceil($appCount*1.5));
@@ -138,6 +138,8 @@ class UpdateSteamAppsMetadata extends Command
             $message = __('phrase.x-steam-apps-not-updated-re-run-command', ['x' => $failedCount]);
             $this->error($message);
             Log::error($message);
+            return 1;
         }
+        return 0;
     }
 }

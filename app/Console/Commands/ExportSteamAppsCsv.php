@@ -46,5 +46,6 @@ class ExportSteamAppsCsv extends Command
         $csv = Writer::createFromPath('steam_apps.csv', 'w+');
         $csv->insertAll($steamApps);
         $this->info(__('phrase.x-steam-apps-exported', ['x' => count($steamApps)]));
+        return 0;
     }
 }

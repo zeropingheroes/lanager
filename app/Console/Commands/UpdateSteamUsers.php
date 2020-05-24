@@ -65,7 +65,7 @@ class UpdateSteamUsers extends Command
             $message = __('phrase.no-steam-users-to-update');
             Log::info($message);
             $this->info($message);
-            return;
+            return 0;
         }
 
         $this->info(__('phrase.updating-profiles-and-online-status-for-x-users-from-steam', ['x' => count($steamIds)]));
@@ -87,7 +87,8 @@ class UpdateSteamUsers extends Command
                 Log::error($error[0]);
                 $this->error($error[0]);
             }
+            return 1;
         }
-        return;
+        return 0;
     }
 }

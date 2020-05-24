@@ -40,7 +40,7 @@ class ImportSteamUsers extends Command
             $message = __('phrase.no-steam-users-to-import');
             Log::error($message);
             $this->error($message);
-            return;
+            return 1;
         }
 
         $this->info(__('phrase.importing-x-users-from-steam', ['x' => count($steamIds)]));
@@ -61,7 +61,9 @@ class ImportSteamUsers extends Command
                 Log::error($error[0]);
                 $this->error($error[0]);
             }
+            return 1;
+        } else {
+            return 0;
         }
-        return;
     }
 }

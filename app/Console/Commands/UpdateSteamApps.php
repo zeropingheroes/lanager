@@ -35,6 +35,7 @@ class UpdateSteamApps extends Command
         } else {
             $this->update($apps);
         }
+        return 0;
     }
 
     /**

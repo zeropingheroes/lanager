@@ -62,6 +62,6 @@ class PruneSteamUserHistory extends Command
         $message = __('phrase.x-entries-deleted-and-y-entries-retained', ['x' => $quantityDeleted, 'y' => $quantityRemaining]);
         $this->info($message);
         Log::info($message);
-        return;
+        return 0;
     }
 }

@@ -33,7 +33,7 @@ class UpgradeDatabase extends Command
 
         $this->warn(__('phrase.manually-backup-before-continuing'));
         if (! $this->confirm(__('phrase.are-you-sure'))) {
-            die();
+            return 1;
         }
 
         $this->dropTables();
@@ -58,7 +58,7 @@ class UpgradeDatabase extends Command
 
         $this->info(__('phrase.successfully-upgraded-database'));
 
-        return;
+        return 0;
     }
 
     /**
@@ -72,7 +72,7 @@ class UpgradeDatabase extends Command
 
         if ($migrationAlreadyRun) {
             $this->error(__('phrase.database-structure-already-up-to-date'));
-            die();
+            return 1;
         }
 
         $expectedTables = [
@@ -99,7 +99,7 @@ class UpgradeDatabase extends Command
         foreach ($expectedTables as $table) {
             if (!Schema::hasTable($table)) {
                 $this->error(__('phrase.database-structure-does-not-match-table-x-missing', ['x' => $table]));
-                die();
+                return 1;
             }
         }
     }

@@ -43,6 +43,7 @@ class ImportSteamAppsCsv extends Command
         } else {
             $this->update($csvApps, count($reader));
         }
+        return 0;
     }
 
     /**

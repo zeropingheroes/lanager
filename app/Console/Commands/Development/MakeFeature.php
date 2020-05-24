@@ -52,6 +52,7 @@ class MakeFeature extends Command
         $this->makeViews();
         $this->makeBreadcrumbs();
         $this->makeMigration();
+        return 0;
     }
 
     private function makeController()
