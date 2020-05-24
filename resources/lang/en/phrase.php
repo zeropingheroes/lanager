@@ -62,11 +62,6 @@ return [
     /**
      * Resources
      */
-    // Logs
-    'minimum-level' => 'Minimum level',
-    'mark-as-read' => 'Mark as read',
-    'log-entries-marked-as-read' => 'Log entries successfully marked as read',
-    'paste-below-into-github-issue' => 'Paste the content below into a GitHub issue',
 
     // Users
     'your-steam-game-details-are-private' => 'Your Steam game details are currently private',

@@ -166,8 +166,6 @@ return [
          * Package Service Providers...
          */
         Syntax\SteamApi\SteamApiServiceProvider::class,
-        Logger\Laravel\Provider\MonologMysqlHandlerServiceProvider::class,
-        EloquentFilter\ServiceProvider::class,
 
         /*
          * Application Service Providers...

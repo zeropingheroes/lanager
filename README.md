@@ -167,7 +167,7 @@ While it's possible to run LANager on a server at your venue and make it only ac
     * * * * * php /var/www/lanager/artisan schedule:run >> /dev/null 2>&1
     ```
 
-13. Disable debugging, set the site's environment to *production*, and enable MySQL logging:
+13. Disable debugging and set the site's environment to *production*:
 
     ```bash
     nano /var/www/lanager/.env
@@ -176,18 +176,13 @@ While it's possible to run LANager on a server at your venue and make it only ac
     ```
     APP_DEBUG=false
     APP_ENV=production
-    LOG_CHANNEL=stack
     ```
 
 ## Troubleshooting
 
 - Enable debugging in your `.env` file.
 
-- [Create an issue](https://github.com/zeropingheroes/lanager/issues) with the error message(s) you see.
-
-- If you don't see an error message, in your `.env` file:
-    - set `LOG_CHANNEL=stack` 
-    - check for errors in `/var/www/lanager/storage/logs/laravel.log`
+- [Create an issue](https://github.com/zeropingheroes/lanager/issues) with error messages from the browser or the log files in `/var/www/lanager/storage/logs/`
     
 ## Getting started
 

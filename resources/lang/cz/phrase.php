@@ -60,11 +60,6 @@ return [
     /**
      * Resources
      */
-    // Logs
-    'minimum-level' => 'Minimální level',
-    'mark-as-read' => 'Označit jako přečtené',
-    'log-entries-marked-as-read' => 'Logy úspěšně označeny jako přečtené',
-    'paste-below-into-github-issue' => 'Vložte obsah níže do GitHub issue',
 
     // Users
     'your-steam-game-details-are-private' => 'Informace o Vašich Steam hrách jsou momentálně soukromé',

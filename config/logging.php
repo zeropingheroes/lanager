@@ -37,11 +37,11 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['file'],
             'ignore_exceptions' => false,
         ],
 
-        'single' => [
+        'file' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
@@ -100,11 +100,6 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
-        'mysql' => [
-            'driver' => 'custom',
-            'via' => Zeropingheroes\Lanager\Logging\CreateMySQLLogger::class,
-            'level' => 'info',
-        ],
     ],
 
 ];

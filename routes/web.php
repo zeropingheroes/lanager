@@ -45,13 +45,6 @@ Route::post('logout', 'AuthController@logout')
 Route::resource('role-assignments', 'RoleAssignmentController', ['except' => ['show', 'edit', 'update']]);
 
 /**
- * Logs
- */
-Route::resource('logs', 'LogController', ['only' => ['index', 'show']]);
-Route::patch('logs', 'LogController@patch')
-    ->name('logs.patch');
-
-/**
  * Games
  */
 Route::get('/games/in-progress', 'GameController@inProgress')

@@ -41,18 +41,6 @@ Breadcrumbs::for('images.edit', function ($trail, $image) {
     $trail->push(__('title.edit'), route('images.edit', $image));
 });
 
-// Home > Logs
-Breadcrumbs::for('logs.index', function ($trail) {
-    $trail->parent('home');
-    $trail->push(__('title.logs'), route('logs.index'));
-});
-
-// Home > Logs > [Log]
-Breadcrumbs::for('logs.show', function ($trail, $log) {
-    $trail->parent('logs.index');
-    $trail->push('#' . $log->id, route('logs.show', $log));
-});
-
 // Home > Games
 Breadcrumbs::for('games.index', function ($trail) {
     $trail->parent('home');
