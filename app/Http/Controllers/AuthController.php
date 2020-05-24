@@ -88,7 +88,7 @@ class AuthController extends Controller
             if ($lan) {
                 $route = route('lans.events.index', ['lan' => $lan]);
             } else {
-                $route = route('users.show', ['id' => $user->id]);
+                $route = route('users.show', ['user' => $user]);
 
             }
             return redirect()->intended($route);
