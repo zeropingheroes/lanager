@@ -41,7 +41,7 @@ class MakeFeature extends Command
             'view' => Str::kebab(Str::plural($name, 2)),
             'lang' => Str::kebab($name),
             'langs' => Str::kebab(Str::plural($name, 2)),
-            'table' => snake_case(Str::plural($name, 2)),
+            'table' => Str::snake(Str::plural($name, 2)),
         ];
 
         $this->makeModel();
