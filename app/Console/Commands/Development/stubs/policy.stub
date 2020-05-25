@@ -10,11 +10,11 @@ class {{model}}Policy extends BasePolicy
     /**
      * Determine whether the user can view a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param {{model}} ${{variable}}
      * @return mixed
      */
-    public function view(?User $user, {{model}} ${{variable}})
+    public function view(?User $authUser, {{model}} ${{variable}})
     {
         return true;
     }
@@ -22,35 +22,35 @@ class {{model}}Policy extends BasePolicy
     /**
      * Determine whether the user can create an item.
      *
-     * @param User $user
+     * @param User $authUser
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $authUser)
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the user can edit a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param {{model}} ${{variable}}
      * @return mixed
      */
-    public function update(User $user, {{model}} ${{variable}})
+    public function update(User $authUser, {{model}} ${{variable}})
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the user can delete a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param {{model}} ${{variable}}
      * @return mixed
      */
-    public function delete(User $user, {{model}} ${{variable}})
+    public function delete(User $authUser, {{model}} ${{variable}})
     {
-        return $user->hasRole('admin');
+        return $authUser->hasRole('admin');
     }
 }
