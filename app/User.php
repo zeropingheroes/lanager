@@ -84,6 +84,22 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function lanGames()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\LanGame');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function lanGameVotes()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\LanGameVote');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function achievements()
     {
         return $this->hasMany('Zeropingheroes\Lanager\UserAchievement');

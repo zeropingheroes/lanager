@@ -117,4 +117,12 @@ class Lan extends Model
     {
         return $this->hasMany('Zeropingheroes\Lanager\Slide');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function games()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\LanGame');
+    }
 }
