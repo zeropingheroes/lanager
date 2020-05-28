@@ -1,4 +1,10 @@
 <ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link {{ Request::route()->getName() == 'lans.lan-games.index' ? 'active' : '' }}"
+           href="{{ route('lans.lan-games.index', $lan) }}">
+            @lang('title.games') <span class="badge">{{ $lan->games->count() }}</span>
+        </a>
+    </li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle {{ Request::route()->getName() == 'lans.events.index' ? 'active' : '' }}"
            data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">

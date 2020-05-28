@@ -79,6 +79,12 @@ Route::get('/events/fullscreen', function () {
 })->name('events.fullscreen');
 
 /**
+ * LAN Games & LAN Game Votes
+ */
+Route::resource('lans.lan-games', 'LanGameController', ['except' => ['create']])->shallow();
+Route::resource('lans.lan-games.votes', 'LanGameVoteController', ['only' => ['store', 'destroy']])->shallow();
+
+/**
  * Users & Attendees
  */
 Route::resource('users', 'UserController', ['only' => ['show', 'destroy']]);
@@ -121,3 +127,5 @@ Route::resource('whitelisted-ip-ranges', 'WhitelistedIpRangeController', ['only'
 Route::fallback(function () {
     return view('errors.404');
 })->name('fallback');
+
+
