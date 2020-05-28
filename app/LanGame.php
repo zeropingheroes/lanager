@@ -12,6 +12,10 @@ class LanGame extends Model
         'created_by',
     ];
 
+    protected $with = [
+        'votes.user'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
