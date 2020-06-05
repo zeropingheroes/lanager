@@ -320,6 +320,10 @@ Click ⚙ > **Navigation** to customise the links shown on the navigation bar. Y
 
 When you complete these steps, your development environment should be available at [lanager.localhost:8000](http://lanager.localhost:8000/).
 
+You can also fill the database with test data:
+1. `vagrant ssh`
+2. `php artisan db:seed --class=TestDataSeeder`
+
 ## Feedback & Contributions
 
 * Found a bug? Got a great feature idea? Post it to the [issue tracker](https://github.com/zeropingheroes/lanager/issues)!
