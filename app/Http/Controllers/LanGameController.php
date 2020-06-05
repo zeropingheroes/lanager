@@ -56,36 +56,49 @@ class LanGameController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \Zeropingheroes\Lanager\LanGame $lanGame
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function edit(LanGame $lanGame)
+    {
+        $this->authorize('update', $lanGame);
+
+        return View::make('pages.lan-games.edit')
+            ->with('lanGame', $lanGame);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $httpRequest
      * @param  \Zeropingheroes\Lanager\LanGame $lanGame
      * @return \Illuminate\Http\Response
      */
-//    public function update(Request $httpRequest, LanGame $lanGame)
-//    {
-//        $this->authorize('update', $lanGame);
-//
-//        $input = [
-//            'lan_id' => $lan->id,
-//            'game_name' => $httpRequest->input('game_name'),
-//            'id' => $lanGame->id,
-//        ];
-//
-//        $request = new StoreLanGameRequest($input);
-//
-//        if ($request->invalid()) {
-//            return redirect()
-//                ->back()
-//                ->withError($request->errors())
-//                ->withInput();
-//        }
-//
-//        $lanGame->update($input);
-//
-//        return redirect()
-//            ->route('lan-games.show', $lanGame);
-//    }
+    public function update(Request $httpRequest, LanGame $lanGame)
+    {
+        $this->authorize('update', $lanGame);
+
+        $input = [
+            'lan_id' => $lanGame->lan->id,
+            'game_name' => $httpRequest->input('game_name'),
+            'id' => $lanGame->id,
+        ];
+
+        $request = new StoreLanGameRequest($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withError($request->errors())
+                ->withInput();
+        }
+
+        $lanGame->update($input);
+
+        return redirect()->route('lans.lan-games.index', ['lan' => $lanGame->lan]);
+    }
 
     /**
      * Remove the specified resource from storage.
