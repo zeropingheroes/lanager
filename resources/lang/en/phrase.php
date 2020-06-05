@@ -116,7 +116,6 @@ return [
     'ended' => 'Ended',
     'starting' => 'Starting',
     'ending' => 'Ending',
-    'ended' => 'Ended',
     'unknown' => 'Unknown',
     'signups' => 'Signups',
     'not-yet-open' => 'Not yet open',
@@ -124,7 +123,6 @@ return [
     'closed' => 'Closed',
     'opening' => 'Opening',
     'closing' => 'Closing',
-    'closed' => 'Closed',
 
     // Images
     'select-files' => 'Select files',
