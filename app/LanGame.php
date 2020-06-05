@@ -29,7 +29,7 @@ class LanGame extends Model
      */
     public function user()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\User');
+        return $this->belongsTo('Zeropingheroes\Lanager\User', 'created_by');
     }
 
     /**
