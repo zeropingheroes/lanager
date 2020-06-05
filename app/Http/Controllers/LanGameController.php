@@ -106,17 +106,16 @@ class LanGameController extends Controller
      * @param  \Zeropingheroes\Lanager\LanGame $lanGame
      * @return \Illuminate\Http\Response
      */
-//    public function destroy(LanGame $lanGame)
-//    {
-//        $this->authorize('delete', $lanGame);
-//
-//        LanGame::destroy($lanGame->id);
-//
-//        return redirect()
-//            ->route('lan-games.index')
-//            ->withSuccess(__('phrase.item-name-deleted', [
-//                'item' => __('title.lan-game'),
-//                'name' => $lanGame->name
-//            ]));
-//    }
+    public function destroy(LanGame $lanGame)
+    {
+        $this->authorize('delete', $lanGame);
+
+        LanGame::destroy($lanGame->id);
+
+        return redirect()->route('lans.lan-games.index', ['lan' => $lanGame->lan])
+            ->withSuccess(__('phrase.item-name-deleted', [
+                'item' => __('title.lan-game'),
+                'name' => $lanGame->game_name
+            ]));
+    }
 }
