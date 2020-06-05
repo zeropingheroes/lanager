@@ -10,4 +10,5 @@
 
 @section('content')
     @include('pages.lan-games.partials.list', ['lanGames' => $lanGames])
+    @include('pages.lan-games.partials.create-game', ['lan', $lan])
 @endsection

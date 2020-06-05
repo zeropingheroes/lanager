@@ -245,6 +245,9 @@ return [
     // Slides
     'slides-content-placeholder' => 'Markdown-formatted text, a single image, or a URL to embed',
     'slides-content-help' => 'Content will be horizontally centered, increased in size, and scaled to fit the screen',
-    'slides-start-end-help' => 'Optionally set when the slide should be displayed'
+    'slides-start-end-help' => 'Optionally set when the slide should be displayed',
+
+    // LAN Games
+    'create-lan-game' => 'Add a game you want to play at :lan',
 ];
 
