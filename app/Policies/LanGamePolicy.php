@@ -38,12 +38,22 @@ class LanGamePolicy extends BasePolicy
     /**
      * Determine whether the user can edit a given item.
      *
-     * @param User $user
+     * @param User $authUser
      * @param LanGame $lanGame
      * @return mixed
      */
     public function update(User $authUser, LanGame $lanGame)
     {
+        // Admins can update any
+        if ($authUser && $authUser->hasRole('admin')) {
+            return true;
+        }
+        // Non-admins can't update if game already voted for by others
+        if ($lanGame->votes()->whereNotIn('user_id', [$authUser->id])->count() !== 0) {
+            return false;
+        }
+
+        // Non-admins can update their own submissions
         return $authUser->id == $lanGame->user->id;
     }
 
