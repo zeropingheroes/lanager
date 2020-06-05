@@ -11,11 +11,11 @@
                         @include('pages.users.partials.avatar', ['user' => $vote->user])
                     @endforeach
                 </td>
-                @canany(['update', 'delete'], $lanGame)
-                    <td class="text-right pr-0">
+                <td class="text-right pr-0">
+                    @canany(['update', 'delete'], $lanGame)
                         @include('pages.lan-games.partials.actions-dropdown', ['lanGame' => $lanGame])
-                    </td>
-                @endcanany
+                    @endcanany
+                </td>
             </tr>
         @endcan
     @endforeach
