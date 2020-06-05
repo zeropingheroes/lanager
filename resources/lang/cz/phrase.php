@@ -209,5 +209,6 @@ return [
 
     // Slides
     'slides-content-placeholder' => 'Text ve formátu Markdown, jeden obrázek nebo URL adresa k vložení',
-    'slides-content-help' => 'Obsah bude horizontálně vycentrován, bude zvětšen a škálován, aby se vešel na obrazovku'
+    'slides-content-help' => 'Obsah bude horizontálně vycentrován, bude zvětšen a škálován, aby se vešel na obrazovku',
+    'slides-start-end-help' => 'Volitelně lze nastavit, kdy má být snímek zobrazen',
 ];
