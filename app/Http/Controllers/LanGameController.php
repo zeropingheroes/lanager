@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\LanGame;
 use Zeropingheroes\Lanager\Requests\StoreLanGameRequest;
@@ -26,32 +27,33 @@ class LanGameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $httpRequest
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $httpRequest
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-//    public function store(Lan $lan, Request $httpRequest)
-//    {
-//        $this->authorize('create', LanGame::class);
-//
-//        $input = [
-//            'lan_id' => $lan->id,
-//            'game_name' => $httpRequest->input('game_name'),
-//            'created_by' => Auth::user()->id,
-//        ];
-//
-//        $request = new StoreLanGameRequest($input);
-//
-//        if ($request->invalid()) {
-//            return redirect()
-//                ->back()
-//                ->withError($request->errors())
-//                ->withInput();
-//        }
-//
-//        $lanGame = LanGame::create($input);
-//
-//        return redirect()->route('lans.lan-games.index');
-//    }
+    public function store(Lan $lan, Request $httpRequest)
+    {
+        $this->authorize('create', LanGame::class);
+
+        $input = [
+            'lan_id' => $lan->id,
+            'game_name' => $httpRequest->input('game_name'),
+            'created_by' => Auth::user()->id,
+        ];
+
+        $request = new StoreLanGameRequest($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withError($request->errors())
+                ->withInput();
+        }
+
+        $lanGame = LanGame::create($input);
+
+        return redirect()->route('lans.lan-games.index', ['lan' => $lan]);
+    }
 
     /**
      * Update the specified resource in storage.
