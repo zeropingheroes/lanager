@@ -23,7 +23,8 @@
                     $avatar = str_replace('_medium.jpg', '.jpg', $steamAccount->avatar);
             }
         } else {
-            $avatar = '';
+            $avatar = $user->accounts->first()->avatar;
+            $size = 'small';
         }
 
         $activeSession = $user->steamAppSessions->first();
