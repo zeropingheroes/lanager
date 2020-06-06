@@ -3,8 +3,24 @@
     @foreach($lanGames as $lanGame)
         @can('view', $lanGame)
             <tr>
+            @php
+                if (Auth::user()) {
+                    $voted = $lanGame->votes->where('user_id',Auth::user()->id)->count();
+                } else {
+                    $voted = false;
+                }
+            @endphp
                 <td>
-                    {{ $lanGame->game_name }}
+                    <form>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="lan_game_{{ $lanGame->id }}"
+                                   {{ $voted ? 'checked' : '' }}
+                            >
+                            <label class="custom-control-label" for="lan_game_{{ $lanGame->id }}">{{ $lanGame->game_name }}</label>
+                        </div>
+                    </form>
                 </td>
                 <td>
                     @foreach($lanGame->votes as $vote)
