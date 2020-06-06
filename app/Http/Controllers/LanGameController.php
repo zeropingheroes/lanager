@@ -18,7 +18,11 @@ class LanGameController extends Controller
      */
     public function index(Lan $lan)
     {
-        $lanGames = $lan->games()->withCount('votes')->orderBy('votes_count', 'desc')->get();
+        $lanGames = $lan->games()
+            ->withCount('votes')
+            ->orderBy('votes_count', 'desc')
+            ->orderBy('game_name', 'asc')
+            ->get();
         return View::make('pages.lan-games.index')
             ->with('lan', $lan)
             ->with('lanGames', $lanGames);
