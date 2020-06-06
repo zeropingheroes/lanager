@@ -2,7 +2,6 @@
     <tbody>
     @foreach($lanGames as $lanGame)
         @can('view', $lanGame)
-            <tr>
             @php
                 if (Auth::user()) {
                     $voted = $lanGame->votes->where('user_id',Auth::user()->id)->count();
@@ -10,6 +9,7 @@
                     $voted = false;
                 }
             @endphp
+            <tr class="{{ $voted ? 'bg-primary' : '' }}">
                 <td>
                     <form>
                         <div class="custom-control custom-checkbox">
