@@ -9,7 +9,7 @@
                     $voted = false;
                 }
             @endphp
-            <tr class="{{ $voted ? 'bg-primary' : '' }}">
+            <tr class="{{ $voted ? 'bg-primary' : '' }}" onclick="document.getElementById('lan_game_{{ $lanGame->id }}').checked = ! document.getElementById('lan_game_{{ $lanGame->id }}').checked">
                 <td>
                     <form>
                         <div class="custom-control custom-checkbox">
