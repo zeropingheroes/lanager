@@ -21,12 +21,12 @@ class LanGameVotePolicy extends BasePolicy
     /**
      * Determine whether the user can delete a given item.
      *
-     * @param User $user
-     * @param LanGameVote $lanGame
+     * @param User $authUser
+     * @param LanGameVote $lanGameVote
      * @return mixed
      */
-    public function delete(User $authUser, LanGameVote $lanGame)
+    public function delete(User $authUser, LanGameVote $lanGameVote)
     {
-        return $authUser->id == $lanGame->user->id;
+        return $authUser->id == $lanGameVote->user_id;
     }
 }

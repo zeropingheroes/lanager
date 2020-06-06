@@ -249,5 +249,8 @@ return [
 
     // LAN Games
     'create-lan-game' => 'Add a game you want to play at :lan',
+
+    // LAN Game votes
+    'you-have-already-voted-for-this-game' => 'You have already voted for this game',
 ];
 

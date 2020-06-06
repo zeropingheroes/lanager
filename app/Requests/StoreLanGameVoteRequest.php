@@ -2,6 +2,9 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
+use Zeropingheroes\Lanager\LanGame;
+use Zeropingheroes\Lanager\User;
+
 class StoreLanGameVoteRequest extends Request
 {
     use LaravelValidation;
@@ -23,10 +26,8 @@ class StoreLanGameVoteRequest extends Request
         }
 
         $lanGame = LanGame::findOrFail($this->input['lan_game_id']);
-        $user = User::findOrFail($this->input['user_id']);
 
-
-        if ($lanGame->votes->contains($user->id)) {
+        if ($lanGame->votes->where('user_id',$this->input['user_id'])->count()) {
             $this->addError(__('phrase.you-have-already-voted-for-this-game'));
             return $this->setValid(false);
         }

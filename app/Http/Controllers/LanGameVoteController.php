@@ -2,60 +2,62 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\LanGame;
 use Zeropingheroes\Lanager\LanGameVote;
-use Zeropingheroes\Lanager\Requests\StoreLanGameRequest;
+use Zeropingheroes\Lanager\Requests\StoreLanGameVoteRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 
 class LanGameVoteController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $httpRequest
-     * @return \Illuminate\Http\Response
+     * @param Request $httpRequest
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
-//    public function store(Request $httpRequest)
-//    {
-//        $this->authorize('create', LanGame::class);
-//
-//        $input = [
-//            'name' => $httpRequest->input('name'),
-//            'description' => $httpRequest->input('description'),
-//        ];
-//
-//        $request = new StoreLanGameRequest($input);
-//
-//        if ($request->invalid()) {
-//            return redirect()
-//                ->back()
-//                ->withError($request->errors())
-//                ->withInput();
-//        }
-//
-//        $lanGame = LanGame::create($input);
-//
-//        return redirect()
-//            ->route('lan-games.show', $lanGame);
-//    }
+    public function store(Request $httpRequest)
+    {
+        $this->authorize('create', LanGameVote::class);
+
+        $input = [
+            'lan_game_id' => $httpRequest->input('lan_game_id'),
+            'user_id' => Auth::user()->id,
+        ];
+
+        $request = new StoreLanGameVoteRequest($input);
+
+        if ($request->invalid()) {
+            return redirect()
+                ->back()
+                ->withError($request->errors())
+                ->withInput();
+        }
+
+        $lanGameVote = LanGameVote::create($input);
+
+        return redirect()->back();
+    }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\LanGame $lanGame
-     * @return \Illuminate\Http\Response
+     * @param Lan $lan
+     * @param LanGame $lanGame
+     * @param LanGameVote $vote
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
-//    public function destroy(LanGame $lanGame)
-//    {
-//        $this->authorize('delete', $lanGame);
-//
-//        LanGame::destroy($lanGame->id);
-//
-//        return redirect()
-//            ->route('lan-games.index')
-//            ->withSuccess(__('phrase.item-name-deleted', [
-//                'item' => __('title.lan-game'),
-//                'name' => $lanGame->name
-//            ]));
-//    }
+    public function destroy(Lan $lan, LanGame $lanGame, LanGameVote $vote)
+    {
+        $this->authorize('delete', $vote);
+
+        LanGameVote::destroy($vote->id);
+
+        return redirect()->back();
+    }
 }

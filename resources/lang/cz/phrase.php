@@ -214,4 +214,7 @@ return [
 
     // LAN Games
     'create-lan-game' => 'Přidejte hru, kterou chcete hrát na :lan',
+
+    // LAN Game votes
+    'you-have-already-voted-for-this-game' => 'Už jste pro tuto hru hlasovali',
 ];
