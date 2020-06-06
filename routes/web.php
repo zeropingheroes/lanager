@@ -81,8 +81,8 @@ Route::get('/events/fullscreen', function () {
 /**
  * LAN Games & LAN Game Votes
  */
-Route::resource('lans.lan-games', 'LanGameController', ['except' => ['create']])->shallow();
-Route::resource('lans.lan-games.votes', 'LanGameVoteController', ['only' => ['store', 'destroy']])->shallow();
+Route::resource('lans.lan-games', 'LanGameController', ['except' => ['create']]);
+Route::resource('lans.lan-games.votes', 'LanGameVoteController', ['only' => ['store', 'destroy']]);
 
 /**
  * Users & Attendees
