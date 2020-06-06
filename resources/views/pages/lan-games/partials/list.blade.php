@@ -1,3 +1,8 @@
+<script type="application/javascript">
+    function toggleVote(lan_game_id) {
+        document.getElementById('lan_game_' + lan_game_id + '_checkbox').checked = !document.getElementById('lan_game_' + lan_game_id + '_checkbox').checked
+    }
+</script>
 <table class="table table-striped">
     <tbody>
     @foreach($lanGames as $lanGame)
@@ -9,16 +14,18 @@
                     $voted = false;
                 }
             @endphp
-            <tr class="{{ $voted ? 'bg-primary' : '' }}" onclick="document.getElementById('lan_game_{{ $lanGame->id }}').checked = ! document.getElementById('lan_game_{{ $lanGame->id }}').checked">
+            <tr class="{{ $voted ? 'bg-primary' : '' }}" onclick="toggleVote({{ $lanGame->id }})">
                 <td>
                     <form>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox"
                                    class="custom-control-input"
-                                   id="lan_game_{{ $lanGame->id }}"
-                                   {{ $voted ? 'checked' : '' }}
+                                   id="lan_game_{{ $lanGame->id }}_checkbox"
+                                {{ $voted ? 'checked' : '' }}
                             >
-                            <label class="custom-control-label" for="lan_game_{{ $lanGame->id }}">{{ $lanGame->game_name }}</label>
+                            <label class="custom-control-label" for="lan_game_{{ $lanGame->id }}_checkbox">
+                                {{ $lanGame->game_name }}
+                            </label>
                         </div>
                     </form>
                 </td>
