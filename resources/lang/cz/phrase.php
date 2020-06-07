@@ -217,4 +217,5 @@ return [
 
     // LAN Game votes
     'you-have-already-voted-for-this-game' => 'Už jste pro tuto hru hlasovali',
+    'log-in-to-submit-and-vote-on-games' => 'Přihlaste se a odešlete a hlasujte o hrách, které chcete hrát na :lan',
 ];

@@ -10,6 +10,10 @@
 
 @section('content')
     @guest
+        @include('components.alerts.alert-single', [
+            'type' => 'info',
+            'message' => __('phrase.log-in-to-submit-and-vote-on-games', ['lan' => $lan->name])
+        ])
         <table class="table table-striped">
             <tbody>
             @foreach($lanGames as $lanGame)
