@@ -49,6 +49,15 @@
                 }
                 form.submit()
             }
+
+            function toggleActionVisibility(lan_game_id) {
+                const actions_div = document.getElementById('lan_game_' + lan_game_id + '_actions');
+                if (actions_div.style.display === 'none') {
+                    actions_div.style.display = 'inline'
+                } else {
+                    actions_div.style.display = 'none'
+                }
+            }
         </script>
         <table class="table table-striped">
             <tbody>
@@ -64,7 +73,10 @@
                     }
                 @endphp
                 <tr class="{{ $voted ? 'bg-secondary' : '' }}"
-                    id="lan_game_{{ $lanGame->id }}_row">
+                    id="lan_game_{{ $lanGame->id }}_row"
+                    onmouseover="toggleActionVisibility({{ $lanGame->id }})"
+                    onmouseout="toggleActionVisibility({{ $lanGame->id }})"
+                >
                     <td onclick="toggleVote({{ $lanGame->id }})">
                         <form id="lan_game_{{ $lanGame->id }}_form" method="POST" action="{{ $route }}">
                             {{ csrf_field() }}
@@ -90,22 +102,24 @@
                         @endforeach
                     </td>
                     <td>
-                        @can('update', $lanGame)
-                            <a href="{{ route('lans.lan-games.edit', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]) }}">
-                                <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
-                            </a>
-                        @endcan
-                        @can('delete', $lanGame)
-                            <form action="{{ route('lans.lan-games.destroy', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]) }}"
-                                  method="POST"
-                                  class="confirm-deletion d-inline ml-1">
-                                {{ method_field('DELETE') }}
-                                {{ csrf_field() }}
-                                <a href="#" onclick="$(this).closest('form').submit();">
-                                    <span class="oi oi-trash" title="Delete" aria-hidden="true"></span>
+                        <div id="lan_game_{{ $lanGame->id }}_actions" style="display: none">
+                            @can('update', $lanGame)
+                                <a href="{{ route('lans.lan-games.edit', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]) }}">
+                                    <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
                                 </a>
-                            </form>
-                        @endcan
+                            @endcan
+                            @can('delete', $lanGame)
+                                <form action="{{ route('lans.lan-games.destroy', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]) }}"
+                                      method="POST"
+                                      class="confirm-deletion d-inline ml-1">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <a href="#" onclick="$(this).closest('form').submit();">
+                                        <span class="oi oi-trash" title="Delete" aria-hidden="true"></span>
+                                    </a>
+                                </form>
+                            @endcan
+                        </div>
                     </td>
                 </tr>
             @endforeach
