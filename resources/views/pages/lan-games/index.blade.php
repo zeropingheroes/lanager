@@ -9,6 +9,24 @@
 @endsection
 
 @section('content')
+    @guest
+        <table class="table table-striped">
+            <tbody>
+            @foreach($lanGames as $lanGame)
+                <tr>
+                    <td>
+                        {{ $lanGame->game_name }}
+                    </td>
+                    <td>
+                        @foreach($lanGame->votes as $vote)
+                            @include('pages.users.partials.avatar', ['user' => $vote->user])
+                        @endforeach
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    @endguest
     @auth
         <script type="application/javascript">
             function toggleVote(lan_game_id) {
@@ -25,11 +43,9 @@
                 form.submit()
             }
         </script>
-    @endauth
-    <table class="table table-striped">
-        <tbody>
-        @foreach($lanGames as $lanGame)
-            @auth
+        <table class="table table-striped">
+            <tbody>
+            @foreach($lanGames as $lanGame)
                 @php
                     $vote = $lanGame->votes->where('user_id',Auth::user()->id)->first();
                     if($vote != null) {
@@ -73,23 +89,9 @@
                         @endcanany
                     </td>
                 </tr>
-            @endauth
-            @guest
-                <tr>
-                    <td>
-                        {{ $lanGame->game_name }}
-                    </td>
-                    <td>
-                        @foreach($lanGame->votes as $vote)
-                            @include('pages.users.partials.avatar', ['user' => $vote->user])
-                        @endforeach
-                    </td>
-                </tr>
-            @endguest
-        @endforeach
-        </tbody>
-    </table>
-    @auth
+            @endforeach
+            </tbody>
+        </table>
         <form method="POST" action="{{ route('lans.lan-games.store', ['lan' => $lan]) }}" accept-charset="UTF-8">
             {{ csrf_field() }}
             <div class="row no-gutters">
