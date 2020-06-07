@@ -64,9 +64,8 @@
                     }
                 @endphp
                 <tr class="{{ $voted ? 'bg-primary' : '' }}"
-                    onclick="toggleVote({{ $lanGame->id }})"
                     id="lan_game_{{ $lanGame->id }}_row">
-                    <td>
+                    <td onclick="toggleVote({{ $lanGame->id }})">
                         <form id="lan_game_{{ $lanGame->id }}_form" method="POST" action="{{ $route }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="lan_game_id" value="{{ $lanGame->id }}">
