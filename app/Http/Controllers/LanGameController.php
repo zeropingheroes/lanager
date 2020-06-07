@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\LanGame;
+use Zeropingheroes\Lanager\LanGameVote;
 use Zeropingheroes\Lanager\Requests\StoreLanGameRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -54,7 +55,7 @@ class LanGameController extends Controller
                 ->withInput();
         }
 
-        $lanGame = LanGame::create($input);
+        LanGame::create($input)->votes()->save(new LanGameVote(['user_id' => Auth::user()->id]));
 
         return redirect()->route('lans.lan-games.index', ['lan' => $lan]);
     }
