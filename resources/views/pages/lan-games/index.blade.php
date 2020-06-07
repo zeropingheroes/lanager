@@ -98,7 +98,8 @@
                         @endcan
                         @can('delete', $lanGame)
                             <form action="{{ route('lans.lan-games.destroy', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]) }}"
-                                  method="POST" class="confirm-deletion">
+                                  method="POST"
+                                  class="confirm-deletion d-inline ml-1">
                                 {{ method_field('DELETE') }}
                                 {{ csrf_field() }}
                                 <a href="#" onclick="$(this).closest('form').submit();">
