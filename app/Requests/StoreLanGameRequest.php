@@ -2,6 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
+use Zeropingheroes\Lanager\LanGame;
+
 class StoreLanGameRequest extends Request
 {
     use LaravelValidation;
@@ -19,6 +21,16 @@ class StoreLanGameRequest extends Request
         ];
 
         if (!$this->laravelValidationPasses()) {
+            return $this->setValid(false);
+        }
+
+        $lanGamesWithSameName = LanGame::where([
+                ['lan_id', '=', $this->input['lan_id']],
+                ['game_name', '=', $this->input['game_name']],
+            ])->count();
+
+        if ($lanGamesWithSameName != 0) {
+            $this->addError(__('phrase.game-already-submitted'));
             return $this->setValid(false);
         }
 
