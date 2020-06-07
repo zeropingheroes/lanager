@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Zeropingheroes\Lanager\Attendee;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\LanGame;
@@ -20,6 +21,9 @@ class TestDataSeeder extends Seeder
     {
         // Seed required data
         $this->call(DatabaseSeeder::class);
+
+        // Import Steam apps
+        Artisan::call('lanager:import-steam-apps-csv');
 
         // Seed users & OAuth accounts
         factory(User::class, 100)->create()
