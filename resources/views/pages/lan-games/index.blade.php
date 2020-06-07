@@ -90,10 +90,22 @@
                             @include('pages.users.partials.avatar', ['user' => $vote->user])
                         @endforeach
                     </td>
-                    <td class="text-right pr-0">
-                        @canany(['update', 'delete'], $lanGame)
-                            @include('pages.lan-games.partials.actions-dropdown', ['lanGame' => $lanGame])
-                        @endcanany
+                    <td>
+                        @can('update', $lanGame)
+                            <a href="{{ route('lans.lan-games.edit', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]) }}">
+                                <span class="oi oi-pencil" title="Edit" aria-hidden="true"></span>
+                            </a>
+                        @endcan
+                        @can('delete', $lanGame)
+                            <form action="{{ route('lans.lan-games.destroy', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]) }}"
+                                  method="POST" class="confirm-deletion">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <a href="#" onclick="$(this).closest('form').submit();">
+                                    <span class="oi oi-trash" title="Delete" aria-hidden="true"></span>
+                                </a>
+                            </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach
