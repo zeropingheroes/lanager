@@ -118,7 +118,7 @@ class LanGameController extends Controller
 
         return redirect()->route('lans.lan-games.index', ['lan' => $lanGame->lan])
             ->withSuccess(__('phrase.item-name-deleted', [
-                'item' => __('title.lan-game'),
+                'item' => __('title.game'),
                 'name' => $lanGame->game_name
             ]));
     }
