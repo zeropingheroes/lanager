@@ -250,6 +250,7 @@ return [
     // LAN Games
     'create-lan-game' => 'Add a game you want to play at :lan',
     'which-games-would-you-like-to-play' => 'Which games would you like to play at :lan?',
+    'game-already-submitted' => ':game has already been submitted',
 
     // LAN Game votes
     'you-have-already-voted-for-this-game' => 'You have already voted for this game',
