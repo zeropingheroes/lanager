@@ -249,9 +249,10 @@ return [
 
     // LAN Games
     'create-lan-game' => 'Add a game you want to play at :lan',
-    'log-in-to-submit-and-vote-on-games' => 'Log in to submit and vote on games you want to play at :lan',
+    'which-games-would-you-like-to-play' => 'Which games would you like to play at :lan?',
 
     // LAN Game votes
     'you-have-already-voted-for-this-game' => 'You have already voted for this game',
+    'log-in-to-submit-and-vote-on-games' => 'Log in to submit and vote on games you want to play at :lan',
 ];
 

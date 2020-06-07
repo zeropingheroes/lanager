@@ -32,6 +32,9 @@
         </table>
     @endguest
     @auth
+        <p class="mt-2">
+            @lang('phrase.which-games-would-you-like-to-play', ['lan' => $lan->name])
+        </p>
         <script type="application/javascript">
             function toggleVote(lan_game_id) {
                 const checkbox = document.getElementById('lan_game_' + lan_game_id + '_checkbox')

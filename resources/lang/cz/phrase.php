@@ -214,6 +214,7 @@ return [
 
     // LAN Games
     'create-lan-game' => 'Přidejte hru, kterou chcete hrát na :lan',
+    'which-games-would-you-like-to-play' => 'Které hry byste chtěli hrát na :lan?',
 
     // LAN Game votes
     'you-have-already-voted-for-this-game' => 'Už jste pro tuto hru hlasovali',
