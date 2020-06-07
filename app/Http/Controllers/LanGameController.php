@@ -65,7 +65,7 @@ class LanGameController extends Controller
      * @param  \Zeropingheroes\Lanager\LanGame $lanGame
      * @return \Illuminate\Contracts\View\View
      */
-    public function edit(LanGame $lanGame)
+    public function edit(Lan $lan, LanGame $lanGame)
     {
         $this->authorize('update', $lanGame);
 
@@ -80,7 +80,7 @@ class LanGameController extends Controller
      * @param  \Zeropingheroes\Lanager\LanGame $lanGame
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $httpRequest, LanGame $lanGame)
+    public function update(Request $httpRequest, Lan $lan, LanGame $lanGame)
     {
         $this->authorize('update', $lanGame);
 
@@ -110,7 +110,7 @@ class LanGameController extends Controller
      * @param  \Zeropingheroes\Lanager\LanGame $lanGame
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LanGame $lanGame)
+    public function destroy(Lan $lan, LanGame $lanGame)
     {
         $this->authorize('delete', $lanGame);
 

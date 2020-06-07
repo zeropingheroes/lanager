@@ -9,7 +9,10 @@
 @endsection
 
 @section('content')
-    <form method="POST" action="{{ route('lan-games.update', $lanGame) }}" accept-charset="UTF-8">
+    <form method="POST"
+          action="{{ route('lans.lan-games.update', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]) }}"
+          accept-charset="UTF-8"
+    >
         {{ method_field('PUT') }}
         {{ csrf_field() }}
         <div class="row no-gutters">
