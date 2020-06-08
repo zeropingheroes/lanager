@@ -102,7 +102,7 @@ While it's possible to run LANager on a server at your venue and make it only ac
     mysql
     ```
     
-    ```
+    ```mysql
     CREATE DATABASE lanager;
     CREATE USER 'lanager'@'%' IDENTIFIED BY 'YOUR-PASSWORD-HERE';
     GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'%';
@@ -112,20 +112,20 @@ While it's possible to run LANager on a server at your venue and make it only ac
 
 6. Clone a copy of LANager:
 
-    ```
+    ```bash
     git clone https://github.com/zeropingheroes/lanager /var/www/lanager/
     ``` 
 
 7. Grant permissions:
 
-    ```
     chgrp www-data -R /var/www/lanager/
     chmod 777 -R /var/www/lanager/storage
+    ```bash
     ```
 
 8. Install LANager's dependencies:
 
-    ```
+    ```bash
     composer install --no-dev --working-dir=/var/www/lanager
     ```
 
