@@ -3,6 +3,8 @@
 namespace Zeropingheroes\Lanager;
 
 use Illuminate\Database\Eloquent\Model;
+use Eloquent;
+/* @mixin Eloquent */
 
 class Guide extends Model
 {

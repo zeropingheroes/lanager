@@ -4,6 +4,8 @@ namespace Zeropingheroes\Lanager;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Eloquent;
+/* @mixin Eloquent */
 
 class User extends Authenticatable
 {
