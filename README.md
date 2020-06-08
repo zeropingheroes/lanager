@@ -118,9 +118,9 @@ While it's possible to run LANager on a server at your venue and make it only ac
 
 7. Grant permissions:
 
-    chgrp www-data -R /var/www/lanager/
-    chmod 777 -R /var/www/lanager/storage
     ```bash
+    sudo chgrp www-data -R /var/www/lanager/
+    sudo chmod 777 -R /var/www/lanager/storage
     ```
 
 8. Install LANager's dependencies:
