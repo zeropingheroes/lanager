@@ -67,7 +67,7 @@ class UserAchievementController extends Controller
 
         Session::flash(
             'success',
-            __(
+            trans(
                 'phrase.achievement-successfully-awarded',
                 ['user' => $userAchievement->user->username, 'achievement' => $userAchievement->achievement->name]
             )
@@ -97,7 +97,7 @@ class UserAchievementController extends Controller
 
         Session::flash(
             'success',
-            __(
+            trans(
                 'phrase.achievement-successfully-revoked',
                 ['user' => $userAchievement->user->username, 'achievement' => $userAchievement->achievement->name]
             )

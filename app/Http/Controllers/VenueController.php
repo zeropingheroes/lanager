@@ -145,8 +145,8 @@ class VenueController extends Controller
 
         Session::flash(
             'success',
-            __('phrase.item-name-deleted', [
-                'item' => __('title.venue'),
+            trans('phrase.item-name-deleted', [
+                'item' => trans('title.venue'),
                 'name' => $venue->name
             ])
            );

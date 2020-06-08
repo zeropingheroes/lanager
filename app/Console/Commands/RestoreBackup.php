@@ -14,10 +14,10 @@ class RestoreBackup extends Command
     public function __construct()
     {
         $this->signature = 'lanager:restore-backup
-                            {backup-file : ' . __('phrase.backup-file') . '}
-                            {--yes : ' . __('phrase.suppress-confirmations') . '}';
+                            {backup-file : ' . trans('phrase.backup-file') . '}
+                            {--yes : ' . trans('phrase.suppress-confirmations') . '}';
 
-        $this->description = __('phrase.restore-lanager-backup-from-file');
+        $this->description = trans('phrase.restore-lanager-backup-from-file');
 
         parent::__construct();
     }
@@ -37,14 +37,14 @@ class RestoreBackup extends Command
         $restoreDir = '/tmp/lanager-backup-restore-' . date('Y-m-d_H-i-s');
 
         if (!file_exists($backupFile)) {
-            $this->error(__('phrase.backup-file-not-found'));
+            $this->error(trans('phrase.backup-file-not-found'));
             return 1;
         }
 
-        $this->warn(__('phrase.this-will-delete-all-lanager-data'));
+        $this->warn(trans('phrase.this-will-delete-all-lanager-data'));
 
-        if ($this->option('yes') || $this->confirm(__('phrase.are-you-sure'))) {
-            $this->info(__('phrase.deleting-all-lanager-data'));
+        if ($this->option('yes') || $this->confirm(trans('phrase.are-you-sure'))) {
+            $this->info(trans('phrase.deleting-all-lanager-data'));
         } else {
             return 1;
         }
@@ -105,7 +105,7 @@ class RestoreBackup extends Command
                 }
             );
             if (!$process->isSuccessful()) {
-                $this->error(__('phrase.process-exit-code-x', ['x' => $process->getExitCode()]));
+                $this->error(trans('phrase.process-exit-code-x', ['x' => $process->getExitCode()]));
                 return $process->getExitCode();
             }
         }
@@ -113,7 +113,7 @@ class RestoreBackup extends Command
         // Clear navigation link cache
         Cache::forget('navigationLinks');
 
-        $this->info(__('phrase.backup-restored-successfully'));
+        $this->info(trans('phrase.backup-restored-successfully'));
         return 0;
     }
 }

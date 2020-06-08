@@ -168,7 +168,7 @@ class AchievementController extends Controller
 
         Session::flash(
             'success',
-            __('phrase.item-name-deleted', ['item' => __('title.achievement'), 'name' => $achievement->name])
+            trans('phrase.item-name-deleted', ['item' => trans('title.achievement'), 'name' => $achievement->name])
         );
 
         return redirect()->route('achievements.index');

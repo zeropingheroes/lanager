@@ -97,7 +97,7 @@ class UserController extends Controller
 
         Session::flash(
             'success',
-            __('phrase.item-name-deleted', ['item' => __('title.user'), 'name' => $user->username])
+            trans('phrase.item-name-deleted', ['item' => trans('title.user'), 'name' => $user->username])
            );
 
         return redirect()->route('users');

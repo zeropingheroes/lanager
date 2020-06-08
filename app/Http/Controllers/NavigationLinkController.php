@@ -148,7 +148,7 @@ class NavigationLinkController extends Controller
 
         Session::flash(
             'success',
-            __('phrase.item-name-deleted', ['item' => __('title.navigation-link'), 'name' => $navigationLink->title])
+            trans('phrase.item-name-deleted', ['item' => trans('title.navigation-link'), 'name' => $navigationLink->title])
            );
 
         return redirect()->route('navigation-links.index');

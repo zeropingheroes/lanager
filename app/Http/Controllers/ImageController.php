@@ -94,7 +94,7 @@ class ImageController extends Controller
             $image->storeAs($this::directory, $newFileName);
         }
 
-        Session::flash('success',__('phrase.images-successfully-uploaded'));
+        Session::flash('success',trans('phrase.images-successfully-uploaded'));
 
         return redirect()->route('images.index');
     }
@@ -183,7 +183,7 @@ class ImageController extends Controller
 
         Session::flash(
             'success',
-            __('phrase.item-name-deleted', ['item' => __('title.image'), 'name' => $filename])
+            trans('phrase.item-name-deleted', ['item' => trans('title.image'), 'name' => $filename])
            );
 
         return redirect()->route('images.index');

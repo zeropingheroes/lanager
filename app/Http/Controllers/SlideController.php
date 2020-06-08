@@ -188,8 +188,8 @@ class SlideController extends Controller
 
         Session::flash(
             'success',
-            __('phrase.item-name-deleted', [
-                'item' => __('title.slide'),
+            trans('phrase.item-name-deleted', [
+                'item' => trans('title.slide'),
                 'name' => $slide->name
             ])
            );

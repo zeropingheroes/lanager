@@ -30,7 +30,7 @@ class StoreLanGameRequest extends Request
             ])->count();
 
         if ($lanGamesWithSameName != 0) {
-            $this->addError(__('phrase.game-already-submitted', ['game' => $this->input['game_name']]));
+            $this->addError(trans('phrase.game-already-submitted', ['game' => $this->input['game_name']]));
             return $this->setValid(false);
         }
 

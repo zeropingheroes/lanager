@@ -185,7 +185,7 @@ class EventController extends Controller
 
         Session::flash(
             'success',
-            __('phrase.item-name-deleted', ['item' => __('title.event'), 'name' => $event->name])
+            trans('phrase.item-name-deleted', ['item' => trans('title.event'), 'name' => $event->name])
            );
 
         return redirect()->route('lans.events.index', ['lan' => $lan]);

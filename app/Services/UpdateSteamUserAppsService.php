@@ -46,7 +46,7 @@ class UpdateSteamUserAppsService
     public function __construct(Collection $users)
     {
         if ($users->isEmpty()) {
-            throw new Exception(__('phrase.one-or-more-users-must-be-provided'));
+            throw new Exception(trans('phrase.one-or-more-users-must-be-provided'));
         }
 
         $this->users = $users;
@@ -119,7 +119,7 @@ class UpdateSteamUserAppsService
             } catch (Exception $e) {
                 $this->errors->add(
                     $steamAccount->provider_id,
-                    __(
+                    trans(
                         'phrase.unable-to-update-data-for-user-x',
                         ['x' => $steamAccount->user->username, 'error' => $e->getMessage()]
                     )

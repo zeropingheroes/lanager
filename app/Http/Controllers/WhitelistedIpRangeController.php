@@ -128,8 +128,8 @@ class WhitelistedIpRangeController extends Controller
         WhitelistedIpRange::destroy($whitelistedIpRange->id);
         Session::flash(
             'success',
-            __('phrase.item-name-deleted', [
-                'item' => __('title.ip-range'),
+            trans('phrase.item-name-deleted', [
+                'item' => trans('title.ip-range'),
                 'name' => $whitelistedIpRange->ip_range
             ])
            );
