@@ -2,11 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
+use File;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Storage;
+use Str;
+use View;
 use Zeropingheroes\Lanager\Requests\StoreImageRequest;
 use Zeropingheroes\Lanager\Requests\UpdateImageRequest;
 
@@ -26,6 +29,7 @@ class ImageController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function index()
     {
@@ -59,9 +63,8 @@ class ImageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $httpRequest
-     * @return \Illuminate\Http\Response
-     * @internal param Request|StoreRoleAssignmentRequest $request
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return Response
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest)
     {
@@ -102,7 +105,7 @@ class ImageController extends Controller
      *
      * @param string $filename
      * @return \Illuminate\Contracts\View\View
-     * @internal param \Zeropingheroes\Lanager\Lan $lan
+     * @throws AuthorizationException
      */
     public function edit(string $filename)
     {
@@ -129,8 +132,8 @@ class ImageController extends Controller
      *
      * @param Request $httpRequest
      * @param string $filename
-     * @return \Illuminate\Http\Response
-     * @internal param Request $request
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, string $filename)
     {
@@ -166,7 +169,8 @@ class ImageController extends Controller
      * Remove the specified resource from storage.
      *
      * @param string $filename
-     * @return \Illuminate\Http\Response
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(string $filename)
     {

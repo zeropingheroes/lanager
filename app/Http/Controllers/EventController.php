@@ -2,9 +2,12 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
-use Zeropingheroes\Lanager\Event;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use View;
+use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Requests\StoreEventRequest;
 
@@ -38,6 +41,7 @@ class EventController extends Controller
      *
      * @param Lan $lan
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function create(Lan $lan)
     {
@@ -53,7 +57,8 @@ class EventController extends Controller
      *
      * @param Request $httpRequest
      * @param Lan $lan
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan)
     {
@@ -80,8 +85,7 @@ class EventController extends Controller
         }
         $event = Event::create($input);
 
-        return redirect()
-            ->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
+        return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
     }
 
     /**
@@ -90,6 +94,7 @@ class EventController extends Controller
      * @param Lan $lan
      * @param Event $event
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function show(Lan $lan, Event $event)
     {
@@ -111,6 +116,7 @@ class EventController extends Controller
      * @param Lan $lan
      * @param Event $event
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function edit(Lan $lan, Event $event)
     {
@@ -132,7 +138,8 @@ class EventController extends Controller
      * @param Request $httpRequest
      * @param Lan $lan
      * @param Event $event
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan, Event $event)
     {
@@ -168,7 +175,8 @@ class EventController extends Controller
      *
      * @param Lan $lan
      * @param Event $event
-     * @return \Illuminate\Http\Response
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Event $event)
     {

@@ -2,12 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use View;
 use Zeropingheroes\Lanager\Achievement;
 use Zeropingheroes\Lanager\Lan;
-use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Requests\StoreLanRequest;
-use Zeropingheroes\Lanager\Services\GetGamesPlayedBetweenService;
 use Zeropingheroes\Lanager\Venue;
 
 class LanController extends Controller
@@ -35,6 +37,7 @@ class LanController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function create()
     {
@@ -51,7 +54,7 @@ class LanController extends Controller
      *
      * @param Lan $lan
      * @return \Illuminate\Contracts\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function show(Lan $lan)
     {
@@ -64,8 +67,8 @@ class LanController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $httpRequest
-     * @return \Illuminate\Http\Response
-     * @internal param Request $request
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest)
     {
@@ -98,8 +101,9 @@ class LanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\Lan $lan
+     * @param Lan $lan
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function edit(Lan $lan)
     {
@@ -115,9 +119,9 @@ class LanController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $httpRequest
-     * @param  \Zeropingheroes\Lanager\Lan $lan
-     * @return \Illuminate\Http\Response
-     * @internal param Request $request
+     * @param Lan $lan
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan)
     {
@@ -151,8 +155,9 @@ class LanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\Lan $lan
-     * @return \Illuminate\Http\Response
+     * @param Lan $lan
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(Lan $lan)
     {
@@ -163,6 +168,5 @@ class LanController extends Controller
         return redirect()
             ->route('lans.index')
             ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.lan'), 'name' => $lan->name]));
-
     }
 }

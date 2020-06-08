@@ -2,11 +2,15 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\Log;
-use InvalidArgumentException;
-use Laravel\Socialite\Facades\Socialite;
+use Auth;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use InvalidArgumentException;
+use Log;
+use Socialite;
+use Throwable;
+use View;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 use Zeropingheroes\Lanager\UserOAuthAccount;
@@ -21,18 +25,18 @@ class AuthController extends Controller
     /**
      * Show the login page.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function showLoginForm()
     {
-        return view('pages.auth.login');
+        return View::make('pages.auth.login');
     }
 
     /**
      * Redirect the user to the external authentication provider.
      *
      * @param $OAuthProvider string
-     * @throws InvalidArgumentException
+     * @return RedirectResponse
      */
     public function redirectToProvider($OAuthProvider)
     {
@@ -49,8 +53,8 @@ class AuthController extends Controller
      * Obtain the user information from the external authentication provider.
      *
      * @param $OAuthProvider
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Throwable
+     * @return RedirectResponse
+     * @throws Throwable
      */
     public function handleProviderCallback($OAuthProvider)
     {
@@ -101,8 +105,8 @@ class AuthController extends Controller
     /**
      * Log the user out of the application.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function logout(Request $request)
     {
@@ -110,13 +114,13 @@ class AuthController extends Controller
         $this->guard()->logout();
         $request->session()->invalidate();
         Log::info(__('phrase.user-successfully-logged-out', ['username' => $user->username]));
-        return redirect('/');
+        return redirect()->to('/');
     }
 
     /**
      * Get the guard to be used during authentication.
      *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     * @return StatefulGuard
      */
     protected function guard()
     {

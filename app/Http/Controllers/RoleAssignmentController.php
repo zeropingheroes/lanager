@@ -2,14 +2,16 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Auth;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
+use View;
 use Zeropingheroes\Lanager\Requests\DestroyRoleAssignmentRequest;
 use Zeropingheroes\Lanager\Requests\StoreRoleAssignmentRequest;
 use Zeropingheroes\Lanager\Role;
 use Zeropingheroes\Lanager\RoleAssignment;
 use Zeropingheroes\Lanager\User;
-use Illuminate\Support\Facades\View;
 
 class RoleAssignmentController extends Controller
 {
@@ -17,6 +19,7 @@ class RoleAssignmentController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function index()
     {
@@ -36,8 +39,8 @@ class RoleAssignmentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $httpRequest
-     * @return \Illuminate\Http\Response
-     * @internal param Request|StoreRoleAssignmentRequest $request
+     * @return Response
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest)
     {
@@ -70,8 +73,9 @@ class RoleAssignmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\RoleAssignment $roleAssignment
-     * @return \Illuminate\Http\Response
+     * @param RoleAssignment $roleAssignment
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(RoleAssignment $roleAssignment)
     {

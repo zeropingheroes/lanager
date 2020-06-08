@@ -2,12 +2,13 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Zeropingheroes\Lanager\Lan;
 
 class CurrentLanController extends Controller
 {
     /**
-     * @var \Zeropingheroes\Lanager\Lan
+     * @var Lan
      */
     protected $lan;
 
@@ -29,7 +30,7 @@ class CurrentLanController extends Controller
     /**
      * Redirect to current LAN's page
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function show()
     {
@@ -39,7 +40,7 @@ class CurrentLanController extends Controller
     /**
      * Redirect to current LAN's guides index
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function guides()
     {
@@ -49,7 +50,7 @@ class CurrentLanController extends Controller
     /**
      * Redirect to current LAN's events index
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function events()
     {
@@ -59,7 +60,7 @@ class CurrentLanController extends Controller
     /**
      * Redirect to current LAN's events schedule
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function schedule()
     {
@@ -69,7 +70,7 @@ class CurrentLanController extends Controller
     /**
      * Redirect to current LAN's attendees index
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function users()
     {
@@ -79,7 +80,7 @@ class CurrentLanController extends Controller
     /**
      * Redirect to current LAN's awarded achievements
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function userAchievements()
     {

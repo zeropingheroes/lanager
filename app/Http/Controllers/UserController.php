@@ -2,9 +2,11 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Auth;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
+use View;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
 
@@ -13,7 +15,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param User $user
      * @return \Illuminate\Contracts\View\View
      */
     public function show(User $user)
@@ -77,9 +79,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @param User $user
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(User $user)
     {

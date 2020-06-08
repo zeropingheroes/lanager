@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
+use View;
 use Zeropingheroes\Lanager\Services\GetActiveGamesService;
 use Zeropingheroes\Lanager\Services\GetGamesOwnedService;
 use Zeropingheroes\Lanager\Services\GetGamesPlayedRecentlyService;

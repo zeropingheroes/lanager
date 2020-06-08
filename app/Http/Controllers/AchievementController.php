@@ -2,11 +2,12 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
+use Illuminate\Http\Response;
+use View;
 use Zeropingheroes\Lanager\Achievement;
-use Zeropingheroes\Lanager\Requests\StoreAchievementImageRequest;
 use Zeropingheroes\Lanager\Requests\StoreAchievementRequest;
 
 class AchievementController extends Controller
@@ -19,7 +20,7 @@ class AchievementController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -33,6 +34,7 @@ class AchievementController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function create()
     {
@@ -46,8 +48,8 @@ class AchievementController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $httpRequest
-     * @return \Illuminate\Http\Response
-     * @internal param Request $request
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest)
     {
@@ -87,6 +89,7 @@ class AchievementController extends Controller
      *
      * @param Achievement $achievement
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function show(Achievement $achievement)
     {
@@ -101,6 +104,7 @@ class AchievementController extends Controller
      *
      * @param Achievement $achievement
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function edit(Achievement $achievement)
     {
@@ -116,8 +120,8 @@ class AchievementController extends Controller
      *
      * @param Request $httpRequest
      * @param Achievement $achievement
-     * @return \Illuminate\Http\Response
-     * @internal param Request $request
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Achievement $achievement)
     {
@@ -156,7 +160,8 @@ class AchievementController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Achievement $achievement
-     * @return \Illuminate\Http\Response
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(Achievement $achievement)
     {

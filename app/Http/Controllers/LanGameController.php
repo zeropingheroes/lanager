@@ -2,20 +2,23 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+use Auth;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use View;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\LanGame;
 use Zeropingheroes\Lanager\LanGameVote;
 use Zeropingheroes\Lanager\Requests\StoreLanGameRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
 
 class LanGameController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index(Lan $lan)
     {
@@ -32,9 +35,9 @@ class LanGameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $httpRequest
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @param Request $httpRequest
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Lan $lan, Request $httpRequest)
     {
@@ -63,8 +66,9 @@ class LanGameController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\LanGame $lanGame
+     * @param LanGame $lanGame
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function edit(Lan $lan, LanGame $lanGame)
     {
@@ -77,9 +81,11 @@ class LanGameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $httpRequest
-     * @param  \Zeropingheroes\Lanager\LanGame $lanGame
-     * @return \Illuminate\Http\Response
+     * @param Request $httpRequest
+     * @param Lan $lan
+     * @param LanGame $lanGame
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan, LanGame $lanGame)
     {
@@ -108,8 +114,10 @@ class LanGameController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\LanGame $lanGame
-     * @return \Illuminate\Http\Response
+     * @param Lan $lan
+     * @param LanGame $lanGame
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(Lan $lan, LanGame $lanGame)
     {

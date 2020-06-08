@@ -2,13 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Auth;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Event;
+use Zeropingheroes\Lanager\EventSignup;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Requests\StoreEventSignupRequest;
-use Zeropingheroes\Lanager\Requests\DestroyEventSignupRequest;
-use Zeropingheroes\Lanager\EventSignup;
 
 class EventSignupController extends Controller
 {
@@ -18,8 +19,8 @@ class EventSignupController extends Controller
      * @param Lan $lan
      * @param Event $event
      * @param Request $httpRequest
-     * @return \Illuminate\Http\Response
-     * @internal param Request|StoreEventSignupRequest $request
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Lan $lan, Event $event, Request $httpRequest)
     {
@@ -56,7 +57,8 @@ class EventSignupController extends Controller
      * @param Lan $lan
      * @param Event $event
      * @param EventSignup $eventSignup
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Event $event, EventSignup $eventSignup)
     {

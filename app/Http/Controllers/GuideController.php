@@ -2,11 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\Guide;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Str;
+use View;
+use Zeropingheroes\Lanager\Guide;
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Requests\StoreGuideRequest;
 
 class GuideController extends Controller
@@ -46,7 +49,8 @@ class GuideController extends Controller
      *
      * @param Request $httpRequest
      * @param Lan $lan
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan)
     {
@@ -77,9 +81,10 @@ class GuideController extends Controller
      * Display the specified resource.
      *
      * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Guide $guide
+     * @param Guide $guide
      * @param string $slug
-     * @return \Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\View|RedirectResponse
+     * @throws AuthorizationException
      */
     public function show(Lan $lan, Guide $guide, $slug = '')
     {
@@ -109,8 +114,9 @@ class GuideController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Guide $guide
+     * @param Guide $guide
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function edit(Lan $lan, Guide $guide)
     {
@@ -131,10 +137,11 @@ class GuideController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $httpRequest
+     * @param Request $httpRequest
      * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Guide $guide
-     * @return \Illuminate\Http\Response
+     * @param Guide $guide
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan, Guide $guide)
     {
@@ -170,8 +177,9 @@ class GuideController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Guide $guide
-     * @return \Illuminate\Http\Response
+     * @param Guide $guide
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Guide $guide)
     {

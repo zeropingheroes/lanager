@@ -2,14 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\LanGame;
 use Zeropingheroes\Lanager\LanGameVote;
 use Zeropingheroes\Lanager\Requests\StoreLanGameVoteRequest;
-use Illuminate\Http\Request;
 
 class LanGameVoteController extends Controller
 {

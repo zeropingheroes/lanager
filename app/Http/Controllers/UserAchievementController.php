@@ -2,13 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use View;
 use Zeropingheroes\Lanager\Achievement;
 use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\Requests\DestroyUserAchievementRequest;
 use Zeropingheroes\Lanager\Requests\StoreUserAchievementRequest;
 use Zeropingheroes\Lanager\UserAchievement;
-use Illuminate\Support\Facades\View;
 
 class UserAchievementController extends Controller
 {
@@ -17,6 +18,7 @@ class UserAchievementController extends Controller
      *
      * @param Lan $lan
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function index(Lan $lan)
     {
@@ -42,8 +44,8 @@ class UserAchievementController extends Controller
      *
      * @param Request $httpRequest
      * @param Lan $lan
-     * @return \Illuminate\Http\Response
-     * @internal param Request|StoreUserAchievementRequest $request
+     * @return Response
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan)
     {
@@ -77,8 +79,9 @@ class UserAchievementController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\UserAchievement $userAchievement
-     * @return \Illuminate\Http\Response
+     * @param UserAchievement $userAchievement
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(Lan $lan, UserAchievement $userAchievement)
     {

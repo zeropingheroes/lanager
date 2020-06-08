@@ -2,11 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\Slide;
-use Zeropingheroes\Lanager\Requests\StoreSlideRequest;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+use Illuminate\Http\Response;
+use View;
+use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Requests\StoreSlideRequest;
+use Zeropingheroes\Lanager\Slide;
 
 class SlideController extends Controller
 {
@@ -14,7 +17,8 @@ class SlideController extends Controller
      * Display a listing of the resource.
      *
      * @param Lan $lan
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function index(Lan $lan)
     {
@@ -33,7 +37,8 @@ class SlideController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Lan $lan
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function create(Lan $lan)
     {
@@ -47,9 +52,10 @@ class SlideController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $httpRequest
+     * @param Request $httpRequest
      * @param Lan $lan
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan)
     {
@@ -85,8 +91,9 @@ class SlideController extends Controller
      * Display the specified resource.
      *
      * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Slide $slide
-     * @return \Illuminate\Http\Response
+     * @param Slide $slide
+     * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function show(Lan $lan, Slide $slide)
     {
@@ -106,8 +113,9 @@ class SlideController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Slide $slide
-     * @return \Illuminate\Http\Response
+     * @param Slide $slide
+     * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function edit(Lan $lan, Slide $slide)
     {
@@ -126,10 +134,11 @@ class SlideController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $httpRequest
+     * @param Request $httpRequest
      * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Slide $slide
-     * @return \Illuminate\Http\Response
+     * @param Slide $slide
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan, Slide $slide)
     {
@@ -165,8 +174,9 @@ class SlideController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Slide $slide
-     * @return \Illuminate\Http\Response
+     * @param Slide $slide
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Slide $slide)
     {

@@ -2,17 +2,20 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Zeropingheroes\Lanager\WhitelistedIpRange;
-use Zeropingheroes\Lanager\Requests\StoreWhitelistedIpRangeRequest;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+use Illuminate\Http\Response;
+use View;
+use Zeropingheroes\Lanager\Requests\StoreWhitelistedIpRangeRequest;
+use Zeropingheroes\Lanager\WhitelistedIpRange;
 
 class WhitelistedIpRangeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -24,7 +27,8 @@ class WhitelistedIpRangeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function create()
     {
@@ -37,8 +41,9 @@ class WhitelistedIpRangeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $httpRequest
-     * @return \Illuminate\Http\Response
+     * @param Request $httpRequest
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest)
     {
@@ -67,8 +72,9 @@ class WhitelistedIpRangeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\WhitelistedIpRange $whitelistedIpRange
-     * @return \Illuminate\Http\Response
+     * @param WhitelistedIpRange $whitelistedIpRange
+     * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function edit(WhitelistedIpRange $whitelistedIpRange)
     {
@@ -81,9 +87,10 @@ class WhitelistedIpRangeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $httpRequest
-     * @param  \Zeropingheroes\Lanager\WhitelistedIpRange $whitelistedIpRange
-     * @return \Illuminate\Http\Response
+     * @param Request $httpRequest
+     * @param WhitelistedIpRange $whitelistedIpRange
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, WhitelistedIpRange $whitelistedIpRange)
     {
@@ -113,8 +120,9 @@ class WhitelistedIpRangeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\WhitelistedIpRange $whitelistedIpRange
-     * @return \Illuminate\Http\Response
+     * @param WhitelistedIpRange $whitelistedIpRange
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(WhitelistedIpRange $whitelistedIpRange)
     {
