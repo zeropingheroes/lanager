@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6e8f6e0371f20f93801504b77b807f6",
+    "content-hash": "fe41556b4acd6ba85af2c9df43014875",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2910,17 +2910,17 @@
             "time": "2020-03-08T16:54:44+00:00"
         },
         {
-            "name": "socialiteproviders/steam",
+            "name": "socialiteproviders/providers",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/SocialiteProviders/Steam.git",
-                "reference": "ef25e725a12f99c31494a035e417b4668256a2f5"
+                "url": "https://github.com/ilumos/Providers.git",
+                "reference": "de9668f85df6210418f637d8a3b927438f2411ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Steam/zipball/ef25e725a12f99c31494a035e417b4668256a2f5",
-                "reference": "ef25e725a12f99c31494a035e417b4668256a2f5",
+                "url": "https://api.github.com/repos/ilumos/Providers/zipball/de9668f85df6210418f637d8a3b927438f2411ee",
+                "reference": "de9668f85df6210418f637d8a3b927438f2411ee",
                 "shasum": ""
             },
             "require": {
@@ -2928,24 +2928,32 @@
                 "php": "^5.6 || ^7.0",
                 "socialiteproviders/manager": "~2.0 || ~3.0"
             },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0",
+                "symplify/monorepo-builder": "^6.1"
+            },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "SocialiteProviders\\Steam\\": ""
+                    "SocialiteProviders\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ],
+                "test:ci": [
+                    "phpunit --coverage-clover build/logs/clover.xml"
+                ]
+            },
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Christopher Eklund",
-                    "email": "eklundchristopher@gmail.com"
-                }
-            ],
-            "description": "Steam OpenID Provider for Laravel Socialite",
-            "time": "2020-05-31T01:38:16+00:00"
+            "description": "Collection of all OAuth2 Providers for Laravel Socialite",
+            "support": {
+                "source": "https://github.com/ilumos/Providers/tree/master"
+            },
+            "time": "2020-06-08T13:47:35+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -8203,7 +8211,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "socialiteproviders/steam": 20,
+        "socialiteproviders/providers": 20,
         "barryvdh/laravel-debugbar": 20
     },
     "prefer-stable": true,
