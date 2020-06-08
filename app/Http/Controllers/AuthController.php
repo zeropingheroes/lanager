@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Log;
+use Session;
 use Socialite;
 use Throwable;
 use View;
@@ -68,10 +69,8 @@ class AuthController extends Controller
             if (!array_key_exists($OAuthUser->id, $service->getUpdated()) ||
                 $service->errors()->isNotEmpty()) {
                 Log::error($service->errors()->first());
-
-                return redirect()
-                    ->route('login')
-                    ->withError($service->errors()->first());
+                Session::flash('error', $service->errors()->first());
+                return redirect()->route('login');
             }
 
             // Get the newly updated user

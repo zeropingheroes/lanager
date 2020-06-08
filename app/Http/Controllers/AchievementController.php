@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use View;
 use Zeropingheroes\Lanager\Achievement;
 use Zeropingheroes\Lanager\Requests\StoreAchievementRequest;
@@ -64,10 +65,8 @@ class AchievementController extends Controller
         $request = new StoreAchievementRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         $achievement = Achievement::create($input);
@@ -136,10 +135,8 @@ class AchievementController extends Controller
         $request = new StoreAchievementRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         if($httpRequest->image)
@@ -160,7 +157,7 @@ class AchievementController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Achievement $achievement
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function destroy(Achievement $achievement)
@@ -169,9 +166,12 @@ class AchievementController extends Controller
 
         Achievement::destroy($achievement->id);
 
-        return redirect()
-            ->route('achievements.index')
-            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.achievement'), 'name' => $achievement->name]));
+        Session::flash(
+            'success',
+            __('phrase.item-name-deleted', ['item' => __('title.achievement'), 'name' => $achievement->name])
+        );
+
+        return redirect()->route('achievements.index');
 
     }
 }

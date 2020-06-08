@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use View;
 use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\Lan;
@@ -78,11 +79,10 @@ class EventController extends Controller
         $request = new StoreEventRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
+
         $event = Event::create($input);
 
         return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
@@ -159,11 +159,10 @@ class EventController extends Controller
         $request = new StoreEventRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
+
         $event->update($input);
 
         return redirect()
@@ -175,7 +174,7 @@ class EventController extends Controller
      *
      * @param Lan $lan
      * @param Event $event
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Event $event)
@@ -184,8 +183,11 @@ class EventController extends Controller
 
         Event::destroy($event->id);
 
-        return redirect()
-            ->route('lans.events.index', ['lan' => $lan])
-            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.event'), 'name' => $event->name]));
+        Session::flash(
+            'success',
+            __('phrase.item-name-deleted', ['item' => __('title.event'), 'name' => $event->name])
+           );
+
+        return redirect()->route('lans.events.index', ['lan' => $lan]);
     }
 }

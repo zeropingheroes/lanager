@@ -4,8 +4,10 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Auth;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use View;
 use Zeropingheroes\Lanager\Requests\DestroyRoleAssignmentRequest;
 use Zeropingheroes\Lanager\Requests\StoreRoleAssignmentRequest;
@@ -39,7 +41,7 @@ class RoleAssignmentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $httpRequest
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest)
@@ -51,30 +53,28 @@ class RoleAssignmentController extends Controller
         $request = new StoreRoleAssignmentRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
+
         $input['assigned_by'] = Auth::user()->id;
 
         $roleAssignment = RoleAssignment::create($input);
 
-        return redirect()
-            ->route('role-assignments.index')
-            ->withSuccess(
-                __(
-                    'phrase.role-successfully-assigned',
-                    ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->display_name]
-                )
-            );
+        Session::flash('success',
+            __('phrase.role-successfully-assigned',
+                ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->display_name]
+            )
+           );
+
+        return redirect()->route('role-assignments.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param RoleAssignment $roleAssignment
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function destroy(RoleAssignment $roleAssignment)
@@ -82,22 +82,21 @@ class RoleAssignmentController extends Controller
         $this->authorize('delete', $roleAssignment);
 
         $request = new DestroyRoleAssignmentRequest(['id' => $roleAssignment->id]);
+
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         RoleAssignment::destroy($roleAssignment->id);
 
-        return redirect()
-            ->route('role-assignments.index')
-            ->withSuccess(
-                __(
-                    'phrase.role-successfully-unassigned',
-                    ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->display_name]
-                )
-            );
+        Session::flash(
+            'success',
+            __('phrase.role-successfully-unassigned',
+                ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->display_name]
+            )
+           );
+
+        return redirect()->route('role-assignments.index');
     }
 }

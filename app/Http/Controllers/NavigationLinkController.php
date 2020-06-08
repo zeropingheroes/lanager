@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use View;
 use Zeropingheroes\Lanager\NavigationLink;
 use Zeropingheroes\Lanager\Requests\StoreNavigationLinkRequest;
@@ -69,11 +70,10 @@ class NavigationLinkController extends Controller
         $request = new StoreNavigationLinkRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
+
         NavigationLink::create($input);
 
         return redirect()->route('navigation-links.index');
@@ -123,11 +123,10 @@ class NavigationLinkController extends Controller
         $request = new StoreNavigationLinkRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
+
         $navigationLink->update($input);
 
         return redirect()
@@ -138,7 +137,7 @@ class NavigationLinkController extends Controller
      * Remove the specified resource from storage.
      *
      * @param NavigationLink $navigationLink
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function destroy(NavigationLink $navigationLink)
@@ -147,8 +146,11 @@ class NavigationLinkController extends Controller
 
         NavigationLink::destroy($navigationLink->id);
 
-        return redirect()
-            ->route('navigation-links.index')
-            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.navigation-link'), 'name' => $navigationLink->title]));
+        Session::flash(
+            'success',
+            __('phrase.item-name-deleted', ['item' => __('title.navigation-link'), 'name' => $navigationLink->title])
+           );
+
+        return redirect()->route('navigation-links.index');
     }
 }

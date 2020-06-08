@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use View;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Requests\StoreSlideRequest;
@@ -75,10 +76,8 @@ class SlideController extends Controller
         $request = new StoreSlideRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         $slide = Slide::create($input);
@@ -158,10 +157,8 @@ class SlideController extends Controller
         $request = new StoreSlideRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         $slide->update($input);
@@ -189,11 +186,14 @@ class SlideController extends Controller
 
         Slide::destroy($slide->id);
 
-        return redirect()
-            ->route('lans.slides.index', ['lan' => $lan])
-            ->withSuccess(__('phrase.item-name-deleted', [
+        Session::flash(
+            'success',
+            __('phrase.item-name-deleted', [
                 'item' => __('title.slide'),
                 'name' => $slide->name
-            ]));
+            ])
+           );
+
+        return redirect()->route('lans.slides.index', ['lan' => $lan]);
     }
 }

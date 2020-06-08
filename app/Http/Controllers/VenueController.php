@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use View;
 use Zeropingheroes\Lanager\Requests\StoreVenueRequest;
 use Zeropingheroes\Lanager\Venue;
@@ -58,10 +59,8 @@ class VenueController extends Controller
         $request = new StoreVenueRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         $venue = Venue::create($input);
@@ -122,23 +121,20 @@ class VenueController extends Controller
         $request = new StoreVenueRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         $venue->update($input);
 
-        return redirect()
-            ->route('venues.show', $venue);
+        return redirect()->route('venues.show', $venue);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Venue $venue
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function destroy(Venue $venue)
@@ -147,11 +143,14 @@ class VenueController extends Controller
 
         Venue::destroy($venue->id);
 
-        return redirect()
-            ->route('venues.index')
-            ->withSuccess(__('phrase.item-name-deleted', [
+        Session::flash(
+            'success',
+            __('phrase.item-name-deleted', [
                 'item' => __('title.venue'),
                 'name' => $venue->name
-            ]));
+            ])
+           );
+
+        return redirect()->route('venues.index');
     }
 }

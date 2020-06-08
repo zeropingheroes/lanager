@@ -4,8 +4,10 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Auth;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Session;
 use View;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
@@ -80,7 +82,7 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param User $user
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function destroy(User $user)
@@ -93,8 +95,11 @@ class UserController extends Controller
             Auth::logout();
         }
 
-        return redirect()
-            ->route('users')
-            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.user'), 'name' => $user->username]));
+        Session::flash(
+            'success',
+            __('phrase.item-name-deleted', ['item' => __('title.user'), 'name' => $user->username])
+           );
+
+        return redirect()->route('users');
     }
 }

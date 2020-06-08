@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use View;
 use Zeropingheroes\Lanager\Achievement;
 use Zeropingheroes\Lanager\Lan;
@@ -53,7 +54,7 @@ class LanController extends Controller
      * Display the specified resource.
      *
      * @param Lan $lan
-     * @return \Illuminate\Contracts\View\View
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function show(Lan $lan)
@@ -87,11 +88,10 @@ class LanController extends Controller
         $request = new StoreLanRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
+
         $lan = Lan::create($input);
 
         return redirect()
@@ -141,11 +141,10 @@ class LanController extends Controller
         $request = new StoreLanRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
+
         $lan->update($input);
 
         return redirect()
@@ -156,7 +155,7 @@ class LanController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Lan $lan
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan)
@@ -165,8 +164,11 @@ class LanController extends Controller
 
         Lan::destroy($lan->id);
 
-        return redirect()
-            ->route('lans.index')
-            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.lan'), 'name' => $lan->name]));
+        Session::flash(
+            'success',
+            __('phrase.item-name-deleted', ['item' => __('title.lan'), 'name' => $lan->name])
+           );
+
+        return redirect()->route('lans.index');
     }
 }

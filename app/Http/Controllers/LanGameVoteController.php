@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Session;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\LanGame;
 use Zeropingheroes\Lanager\LanGameVote;
@@ -32,13 +33,11 @@ class LanGameVoteController extends Controller
         $request = new StoreLanGameVoteRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
-        $lanGameVote = LanGameVote::create($input);
+        LanGameVote::create($input);
 
         return redirect()->back();
     }

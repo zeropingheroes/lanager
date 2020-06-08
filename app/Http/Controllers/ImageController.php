@@ -7,6 +7,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use Storage;
 use Str;
 use View;
@@ -63,7 +64,7 @@ class ImageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $httpRequest
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest)
@@ -77,10 +78,8 @@ class ImageController extends Controller
         $request = new StoreImageRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         // Store each file
@@ -95,9 +94,9 @@ class ImageController extends Controller
             $image->storeAs($this::directory, $newFileName);
         }
 
-        return redirect()
-            ->route('images.index')
-            ->withSuccess(__('phrase.images-successfully-uploaded'));
+        Session::flash('success',__('phrase.images-successfully-uploaded'));
+
+        return redirect()->route('images.index');
     }
 
     /**
@@ -153,10 +152,8 @@ class ImageController extends Controller
         $request = new UpdateImageRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         Storage::move($originalFilePath, $newFilePath);
@@ -169,7 +166,7 @@ class ImageController extends Controller
      * Remove the specified resource from storage.
      *
      * @param string $filename
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function destroy(string $filename)
@@ -184,8 +181,11 @@ class ImageController extends Controller
 
         Storage::delete($file);
 
-        return redirect()
-            ->route('images.index')
-            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.image'), 'name' => $filename]));
+        Session::flash(
+            'success',
+            __('phrase.item-name-deleted', ['item' => __('title.image'), 'name' => $filename])
+           );
+
+        return redirect()->route('images.index');
     }
 }

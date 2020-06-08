@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Session;
 use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\EventSignup;
 use Zeropingheroes\Lanager\Lan;
@@ -39,10 +40,8 @@ class EventSignupController extends Controller
         $request = new StoreEventSignupRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         EventSignup::create($input);

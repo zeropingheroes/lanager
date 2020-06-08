@@ -7,6 +7,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use View;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\LanGame;
@@ -52,10 +53,8 @@ class LanGameController extends Controller
         $request = new StoreLanGameRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         LanGame::create($input)->votes()->save(new LanGameVote(['user_id' => Auth::user()->id]));
@@ -100,10 +99,8 @@ class LanGameController extends Controller
         $request = new StoreLanGameRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         $lanGame->update($input);
@@ -125,10 +122,11 @@ class LanGameController extends Controller
 
         LanGame::destroy($lanGame->id);
 
-        return redirect()->route('lans.lan-games.index', ['lan' => $lanGame->lan])
-            ->withSuccess(__('phrase.item-name-deleted', [
-                'item' => __('title.game'),
-                'name' => $lanGame->game_name
-            ]));
+        Session::flash(
+            'success',
+            __('phrase.item-name-deleted', ['item' => __('title.game'), 'name' => $lanGame->game_name])
+           );
+
+        return redirect()->route('lans.lan-games.index', ['lan' => $lanGame->lan]);
     }
 }

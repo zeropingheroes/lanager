@@ -3,8 +3,10 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use View;
 use Zeropingheroes\Lanager\Achievement;
 use Zeropingheroes\Lanager\Lan;
@@ -44,7 +46,7 @@ class UserAchievementController extends Controller
      *
      * @param Request $httpRequest
      * @param Lan $lan
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan)
@@ -57,22 +59,21 @@ class UserAchievementController extends Controller
         $request = new StoreUserAchievementRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         $userAchievement = UserAchievement::create($input);
 
-        return redirect()
-            ->route('lans.user-achievements.index', $lan)
-            ->withSuccess(
-                __(
-                    'phrase.achievement-successfully-awarded',
-                    ['user' => $userAchievement->user->username, 'achievement' => $userAchievement->achievement->name]
-                )
-            );
+        Session::flash(
+            'success',
+            __(
+                'phrase.achievement-successfully-awarded',
+                ['user' => $userAchievement->user->username, 'achievement' => $userAchievement->achievement->name]
+            )
+        );
+
+        return redirect()->route('lans.user-achievements.index', $lan);
     }
 
     /**
@@ -80,7 +81,7 @@ class UserAchievementController extends Controller
      *
      * @param Lan $lan
      * @param UserAchievement $userAchievement
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan, UserAchievement $userAchievement)
@@ -94,13 +95,14 @@ class UserAchievementController extends Controller
 
         UserAchievement::destroy($userAchievement->id);
 
-        return redirect()
-            ->route('lans.user-achievements.index', $lan)
-            ->withSuccess(
-                __(
-                    'phrase.achievement-successfully-revoked',
-                    ['user' => $userAchievement->user->username, 'achievement' => $userAchievement->achievement->name]
-                )
-            );
+        Session::flash(
+            'success',
+            __(
+                'phrase.achievement-successfully-revoked',
+                ['user' => $userAchievement->user->username, 'achievement' => $userAchievement->achievement->name]
+            )
+           );
+
+        return redirect()->route('lans.user-achievements.index', $lan);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use Str;
 use View;
 use Zeropingheroes\Lanager\Guide;
@@ -66,11 +67,10 @@ class GuideController extends Controller
         $request = new StoreGuideRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
+
         $guide = Guide::create($input);
 
         return redirect()
@@ -162,11 +162,10 @@ class GuideController extends Controller
         $request = new StoreGuideRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
+
         $guide->update($input);
 
         return redirect()
@@ -178,7 +177,7 @@ class GuideController extends Controller
      *
      * @param Lan $lan
      * @param Guide $guide
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Guide $guide)
@@ -192,8 +191,11 @@ class GuideController extends Controller
 
         Guide::destroy($guide->id);
 
-        return redirect()
-            ->route('lans.guides.index', ['lan' => $lan])
-            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.guide'), 'name' => $guide->title]));
+        Session::flash(
+            'success',
+            __('phrase.item-name-deleted', ['item' => __('title.guide'), 'name' => $guide->title])
+           );
+
+        return redirect()->route('lans.guides.index', ['lan' => $lan]);
     }
 }

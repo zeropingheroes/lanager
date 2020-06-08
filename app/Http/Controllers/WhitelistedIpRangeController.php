@@ -6,6 +6,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 use View;
 use Zeropingheroes\Lanager\Requests\StoreWhitelistedIpRangeRequest;
 use Zeropingheroes\Lanager\WhitelistedIpRange;
@@ -57,13 +58,11 @@ class WhitelistedIpRangeController extends Controller
         $request = new StoreWhitelistedIpRangeRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
-        $whitelistedIpRange = WhitelistedIpRange::create($input);
+        WhitelistedIpRange::create($input);
 
         return redirect()
             ->route('whitelisted-ip-ranges.index');
@@ -105,10 +104,8 @@ class WhitelistedIpRangeController extends Controller
         $request = new StoreWhitelistedIpRangeRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+            return redirect()->back()->withInput();
         }
 
         $whitelistedIpRange->update($input);
@@ -121,7 +118,7 @@ class WhitelistedIpRangeController extends Controller
      * Remove the specified resource from storage.
      *
      * @param WhitelistedIpRange $whitelistedIpRange
-     * @return Response
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
     public function destroy(WhitelistedIpRange $whitelistedIpRange)
@@ -129,12 +126,13 @@ class WhitelistedIpRangeController extends Controller
         $this->authorize('delete', $whitelistedIpRange);
 
         WhitelistedIpRange::destroy($whitelistedIpRange->id);
-
-        return redirect()
-            ->route('whitelisted-ip-ranges.index')
-            ->withSuccess(__('phrase.item-name-deleted', [
+        Session::flash(
+            'success',
+            __('phrase.item-name-deleted', [
                 'item' => __('title.ip-range'),
                 'name' => $whitelistedIpRange->ip_range
-            ]));
+            ])
+           );
+        return redirect()->route('whitelisted-ip-ranges.index');
     }
 }
