@@ -5,7 +5,6 @@ namespace Zeropingheroes\Lanager;
 use Illuminate\Database\Eloquent\Model;
 use Eloquent;
 /* @mixin Eloquent */
-
 class NavigationLink extends Model
 {
     protected $fillable = [
@@ -13,6 +12,10 @@ class NavigationLink extends Model
         'position',
         'url',
         'parent_id',
+    ];
+
+    protected $with = [
+        'children',
     ];
 
     /**
