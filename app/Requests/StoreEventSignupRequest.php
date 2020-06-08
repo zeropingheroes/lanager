@@ -30,12 +30,12 @@ class StoreEventSignupRequest extends Request
         $user = User::findOrFail($this->input['user_id']);
 
         if ($event->signups_open->isFuture() || $event->signups_close->isPast()) {
-            $this->addError(__('phrase.event-is-not-open-for-signups'));
+            $this->addError(trans('phrase.event-is-not-open-for-signups'));
             return $this->setValid(false);
         }
 
         if (Auth::user()->id != $user->id && !Auth::user()->hasRole('super-admin')) {
-            $this->addError(__('phrase.you-can-only-sign-yourself-up-to-event'));
+            $this->addError(trans('phrase.you-can-only-sign-yourself-up-to-event'));
             return $this->setValid(false);
         }
 

@@ -13,8 +13,8 @@ class ImportSteamUsers extends Command
      */
     public function __construct()
     {
-        $this->signature = 'lanager:import-steam-users {steamIds* : ' . __('phrase.steamids-to-import-list-or-file') . '}';
-        $this->description = __('phrase.import-users-from-steam-into-lanager');
+        $this->signature = 'lanager:import-steam-users {steamIds* : ' . trans('phrase.steamids-to-import-list-or-file') . '}';
+        $this->description = trans('phrase.import-users-from-steam-into-lanager');
 
         parent::__construct();
     }
@@ -37,18 +37,18 @@ class ImportSteamUsers extends Command
         }
 
         if (!$steamIds) {
-            $message = __('phrase.no-steam-users-to-import');
+            $message = trans('phrase.no-steam-users-to-import');
             Log::error($message);
             $this->error($message);
             return 1;
         }
 
-        $this->info(__('phrase.importing-x-users-from-steam', ['x' => count($steamIds)]));
+        $this->info(trans('phrase.importing-x-users-from-steam', ['x' => count($steamIds)]));
 
         $service = new UpdateSteamUsersService($steamIds);
         $service->update();
 
-        $message = __(
+        $message = trans(
             'phrase.successfully-updated-x-of-y-users',
             ['x' => count($service->getUpdated()), 'y' => count($steamIds)]
         );
@@ -56,7 +56,7 @@ class ImportSteamUsers extends Command
         $this->info($message);
 
         if ($service->errors()->isNotEmpty()) {
-            $this->error(__('phrase.the-following-errors-were-encountered'));
+            $this->error(trans('phrase.the-following-errors-were-encountered'));
             foreach ($service->errors()->getMessages() as $error) {
                 Log::error($error[0]);
                 $this->error($error[0]);

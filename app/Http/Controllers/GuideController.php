@@ -193,7 +193,7 @@ class GuideController extends Controller
 
         Session::flash(
             'success',
-            __('phrase.item-name-deleted', ['item' => __('title.guide'), 'name' => $guide->title])
+            trans('phrase.item-name-deleted', ['item' => trans('title.guide'), 'name' => $guide->title])
            );
 
         return redirect()->route('lans.guides.index', ['lan' => $lan]);

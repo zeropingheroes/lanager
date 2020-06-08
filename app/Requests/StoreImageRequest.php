@@ -19,8 +19,8 @@ class StoreImageRequest extends Request
         ];
 
         $this->validationMessages = [
-            'images.*.image'    => __('phrase.submitted-file-was-invalid-image'),
-            'images.*.max'  => __('phrase.submitted-file-exceeded-max-file-size-of-x', ['x' => '5MB']),
+            'images.*.image'    => trans('phrase.submitted-file-was-invalid-image'),
+            'images.*.max'  => trans('phrase.submitted-file-exceeded-max-file-size-of-x', ['x' => '5MB']),
         ];
 
         if (!$this->laravelValidationPasses()) {

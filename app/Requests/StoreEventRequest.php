@@ -50,7 +50,7 @@ class StoreEventRequest extends Request
         if (!$eventStart->between($lan->start, $lan->end) ||
             !$eventEnd->between($lan->start, $lan->end)
         ) {
-            $this->addError(__('phrase.event-times-must-be-within-lan-times'));
+            $this->addError(trans('phrase.event-times-must-be-within-lan-times'));
             return $this->setValid(false);
         }
 

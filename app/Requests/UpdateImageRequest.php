@@ -29,7 +29,7 @@ class UpdateImageRequest extends Request
         }
 
         if (Storage::exists($this->input['new_file_path'])) {
-            $this->addError(__('phrase.image-already-exists'));
+            $this->addError(trans('phrase.image-already-exists'));
             return $this->setValid(false);
         }
 

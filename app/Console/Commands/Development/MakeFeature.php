@@ -17,8 +17,8 @@ class MakeFeature extends Command
      */
     public function __construct()
     {
-        $this->signature = 'make:feature {name : ' . __('phrase.name-of-feature') . '}';
-        $this->description = __('phrase.create-files-for-feature');
+        $this->signature = 'make:feature {name : ' . trans('phrase.name-of-feature') . '}';
+        $this->description = trans('phrase.create-files-for-feature');
 
         parent::__construct();
 
@@ -117,12 +117,12 @@ class MakeFeature extends Command
         $label = $label ?? Str::studly(basename($stubPath, '.stub'));
 
         if (!file_exists($stubPath)) {
-            $this->error(__('phrase.item-not-found', ['item' => $label . ' stub']));
+            $this->error(trans('phrase.item-not-found', ['item' => $label . ' stub']));
             return;
         }
 
         if (! $append && file_exists($outputPath)) {
-            $this->error(__('phrase.item-already-exists', ['item' => $label]));
+            $this->error(trans('phrase.item-already-exists', ['item' => $label]));
             return;
         }
 
@@ -132,7 +132,7 @@ class MakeFeature extends Command
             $stub = str_replace('{{' . $find . '}}', $replace, $stub);
         }
         if (file_put_contents($outputPath, $stub, FILE_APPEND) !== false) {
-            $this->info(__('phrase.item-created-successfully', ['item' => $label]) . '.');
+            $this->info(trans('phrase.item-created-successfully', ['item' => $label]) . '.');
         }
     }
 

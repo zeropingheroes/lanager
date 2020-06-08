@@ -15,7 +15,7 @@ class UpdateSteamApps extends Command
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-apps';
-        $this->description = __('phrase.update-steam-apps');
+        $this->description = trans('phrase.update-steam-apps');
 
         parent::__construct();
     }
@@ -27,7 +27,7 @@ class UpdateSteamApps extends Command
      */
     public function handle()
     {
-        $this->info(__('phrase.requesting-list-of-all-apps-from-steam-api'));
+        $this->info(trans('phrase.requesting-list-of-all-apps-from-steam-api'));
         $apps = Steam::app()->GetAppList();
 
         if (!SteamApp::count()) {
@@ -44,14 +44,14 @@ class UpdateSteamApps extends Command
      */
     private function import($apps): void
     {
-        $this->info(__('phrase.database-empty-batch-import'));
+        $this->info(trans('phrase.database-empty-batch-import'));
 
         // Create an array ready for batch inserting
         foreach ($apps as $key => $app) {
             $apps[$key] = ['id' => $app->appid, 'name' => $app->name];
         }
 
-        $message = __('phrase.importing-x-steam-apps', ['x' => count($apps)]);
+        $message = trans('phrase.importing-x-steam-apps', ['x' => count($apps)]);
         $this->info($message);
         Log::info($message);
 
@@ -69,7 +69,7 @@ class UpdateSteamApps extends Command
             $progress->advance();
         }
         $progress->finish();
-        $message = __('phrase.x-steam-apps-imported', ['x' => $importedCount]);
+        $message = trans('phrase.x-steam-apps-imported', ['x' => $importedCount]);
         $this->info(PHP_EOL . $message);
         Log::info($message);
     }
@@ -80,7 +80,7 @@ class UpdateSteamApps extends Command
      */
     private function update($apps): void
     {
-        $message = __('phrase.updating-x-steam-apps', ['x' => SteamApp::count()]);
+        $message = trans('phrase.updating-x-steam-apps', ['x' => SteamApp::count()]);
         $this->info($message);
         Log::info($message);
 
@@ -101,7 +101,7 @@ class UpdateSteamApps extends Command
         }
         $progress->finish();
 
-        $message = __('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
+        $message = trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
         $this->info(PHP_EOL . $message);
         Log::info($message);
     }

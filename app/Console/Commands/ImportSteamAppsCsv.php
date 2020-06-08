@@ -18,7 +18,7 @@ class ImportSteamAppsCsv extends Command
     public function __construct()
     {
         $this->signature = 'lanager:import-steam-apps-csv';
-        $this->description = __('phrase.import-steam-apps-csv');
+        $this->description = trans('phrase.import-steam-apps-csv');
 
         parent::__construct();
     }
@@ -33,7 +33,7 @@ class ImportSteamAppsCsv extends Command
         try {
             $reader = Reader::createFromPath($this::$filename, 'r');
         } catch (Exception $e) {
-            $this->info(__('phrase.csv-not-found-aborting'));
+            $this->info(trans('phrase.csv-not-found-aborting'));
             return;
         }
         $csvApps = $reader->getRecords(['id', 'name', 'type']);
@@ -52,7 +52,7 @@ class ImportSteamAppsCsv extends Command
      */
     private function import($csvApps): void
     {
-        $this->info(__('phrase.database-empty-batch-import'));
+        $this->info(trans('phrase.database-empty-batch-import'));
 
         // Convert CSV object to array
         foreach ($csvApps as $csvApp) {
@@ -78,7 +78,7 @@ class ImportSteamAppsCsv extends Command
         }
         $progress->finish();
 
-        $this->info(PHP_EOL . __('phrase.x-steam-apps-imported', ['x' => $importedCount]));
+        $this->info(PHP_EOL . trans('phrase.x-steam-apps-imported', ['x' => $importedCount]));
     }
 
     /**
@@ -87,7 +87,7 @@ class ImportSteamAppsCsv extends Command
      */
     private function update($csvApps, int $csvCount): void
     {
-        $this->info(__('phrase.updating-x-steam-apps', ['x' => SteamApp::count()]));
+        $this->info(trans('phrase.updating-x-steam-apps', ['x' => SteamApp::count()]));
 
         // Initialise progress bar and counter
         $progress = $this->output->createProgressBar($csvCount);
@@ -110,6 +110,6 @@ class ImportSteamAppsCsv extends Command
             $progress->advance();
         }
         $progress->finish();
-        $this->info(PHP_EOL . __('phrase.x-steam-apps-updated', ['x' => $updatedCount]));
+        $this->info(PHP_EOL . trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]));
     }
 }

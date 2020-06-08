@@ -14,8 +14,8 @@ class Backup extends Command
      */
     public function __construct()
     {
-        $this->signature = 'lanager:backup {output-dir : ' . __('phrase.output-dir') . '}';
-        $this->description = __('phrase.backup-lanager-to-file');
+        $this->signature = 'lanager:backup {output-dir : ' . trans('phrase.output-dir') . '}';
+        $this->description = trans('phrase.backup-lanager-to-file');
 
         parent::__construct();
     }
@@ -36,7 +36,7 @@ class Backup extends Command
         $filename = 'lanager-backup-' . date('Y-m-d_H-i-s') . '-git-hash-' . $commitHash;
 
         if (!is_writable($outputDir)) {
-            $this->error(__('phrase.output-directory-not-writable'));
+            $this->error(trans('phrase.output-directory-not-writable'));
             die();
         }
 
@@ -92,11 +92,11 @@ class Backup extends Command
                 }
             );
             if (!$process->isSuccessful()) {
-                $this->error(__('phrase.process-exit-code-x', ['x' => $process->getExitCode()]));
+                $this->error(trans('phrase.process-exit-code-x', ['x' => $process->getExitCode()]));
                 die();
             }
         }
-        $this->info(__('phrase.backup-created-successfully'));
+        $this->info(trans('phrase.backup-created-successfully'));
         return 0;
     }
 }

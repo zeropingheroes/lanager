@@ -17,7 +17,7 @@ class UpgradeDatabase extends Command
     public function __construct()
     {
         $this->signature = 'lanager:upgrade-database';
-        $this->description = __('phrase.upgrade-database');
+        $this->description = trans('phrase.upgrade-database');
 
         parent::__construct();
     }
@@ -31,8 +31,8 @@ class UpgradeDatabase extends Command
     {
         $this->checkDatabaseStructure();
 
-        $this->warn(__('phrase.manually-backup-before-continuing'));
-        if (! $this->confirm(__('phrase.are-you-sure'))) {
+        $this->warn(trans('phrase.manually-backup-before-continuing'));
+        if (! $this->confirm(trans('phrase.are-you-sure'))) {
             return 1;
         }
 
@@ -52,11 +52,11 @@ class UpgradeDatabase extends Command
         $this->call('lanager:update-steam-apps');
         $this->call('lanager:update-steam-users', ['--all' => true]);
 
-        if ($this->confirm(__('phrase.confirm-get-app-ownership-data'))) {
+        if ($this->confirm(trans('phrase.confirm-get-app-ownership-data'))) {
             $this->call('lanager:update-steam-user-apps', ['--all' => true]);
         }
 
-        $this->info(__('phrase.successfully-upgraded-database'));
+        $this->info(trans('phrase.successfully-upgraded-database'));
 
         return 0;
     }
@@ -71,7 +71,7 @@ class UpgradeDatabase extends Command
             ->count();
 
         if ($migrationAlreadyRun) {
-            $this->error(__('phrase.database-structure-already-up-to-date'));
+            $this->error(trans('phrase.database-structure-already-up-to-date'));
             return 1;
         }
 
@@ -98,7 +98,7 @@ class UpgradeDatabase extends Command
 
         foreach ($expectedTables as $table) {
             if (!Schema::hasTable($table)) {
-                $this->error(__('phrase.database-structure-does-not-match-table-x-missing', ['x' => $table]));
+                $this->error(trans('phrase.database-structure-does-not-match-table-x-missing', ['x' => $table]));
                 return 1;
             }
         }
@@ -122,7 +122,7 @@ class UpgradeDatabase extends Command
         ];
 
         foreach ($tablesToDrop as $table) {
-            $this->info(__('phrase.deleting-x', ['x' => $table]));
+            $this->info(trans('phrase.deleting-x', ['x' => $table]));
             Schema::dropIfExists($table);
         }
     }
@@ -132,7 +132,7 @@ class UpgradeDatabase extends Command
      */
     private function fixTimestamps()
     {
-        $this->info(__('phrase.fixing-timestamp-columns'));
+        $this->info(trans('phrase.fixing-timestamp-columns'));
 
         $tablesWithStandardTimestamps = [
             'achievements',
@@ -176,7 +176,7 @@ class UpgradeDatabase extends Command
      */
     private function upgradeUsers()
     {
-        $this->info(__('phrase.upgrading-x', ['x' => 'users']));
+        $this->info(trans('phrase.upgrading-x', ['x' => 'users']));
 
         Schema::create('user_oauth_accounts', function (Blueprint $table) {
             $table->increments('id');
@@ -225,7 +225,7 @@ class UpgradeDatabase extends Command
      */
     private function upgradeLans()
     {
-        $this->info(__('phrase.upgrading-x', ['x' => 'LANs']));
+        $this->info(trans('phrase.upgrading-x', ['x' => 'LANs']));
         Schema::table('lans', function (Blueprint $table) {
             $table->text('description')
                 ->after('name');
@@ -240,7 +240,7 @@ class UpgradeDatabase extends Command
      */
     private function upgradeGuides()
     {
-        $this->info(__('phrase.upgrading-x', ['x' => 'guides']));
+        $this->info(trans('phrase.upgrading-x', ['x' => 'guides']));
 
         // Remove hierarchy
         Schema::table('pages', function (Blueprint $table) {
@@ -275,7 +275,7 @@ class UpgradeDatabase extends Command
      */
     private function upgradeEvents()
     {
-        $this->info(__('phrase.upgrading-x', ['x' => 'events']));
+        $this->info(trans('phrase.upgrading-x', ['x' => 'events']));
         // Add lan_id field
         Schema::table('events', function (Blueprint $table) {
             $table->integer('lan_id')
@@ -302,7 +302,7 @@ class UpgradeDatabase extends Command
      */
     private function upgradeRoles()
     {
-        $this->info(__('phrase.upgrading-x', ['x' => 'roles']));
+        $this->info(trans('phrase.upgrading-x', ['x' => 'roles']));
 
         // Get role IDs
         $superAdminRole = DB::table('roles')->where('name', '=', 'Super Admin')->first();
@@ -342,7 +342,7 @@ class UpgradeDatabase extends Command
      */
     private function createNewTables()
     {
-        $this->info(__('phrase.creating-new-tables'));
+        $this->info(trans('phrase.creating-new-tables'));
 
         Schema::create('logs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
@@ -531,7 +531,7 @@ class UpgradeDatabase extends Command
     private function spoofInitialMigration()
     {
         $this->call('migrate:install');
-        $this->info(__('phrase.spoofing-initial-migration'));
+        $this->info(trans('phrase.spoofing-initial-migration'));
         DB::table('migrations')->insert([
             'migration' => '2018_11_17_205759_release_v1_0_0',
             'batch' => 1,

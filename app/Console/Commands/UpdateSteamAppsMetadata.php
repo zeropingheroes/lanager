@@ -21,8 +21,8 @@ class UpdateSteamAppsMetadata extends Command
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-apps-metadata '
-                         . '{--all-apps : ' . __('phrase.update-all-apps') . '}';
-        $this->description = __('phrase.update-steam-apps-metadata');
+                         . '{--all-apps : ' . trans('phrase.update-all-apps') . '}';
+        $this->description = trans('phrase.update-steam-apps-metadata');
 
         parent::__construct();
     }
@@ -35,7 +35,7 @@ class UpdateSteamAppsMetadata extends Command
     public function handle()
     {
         if (!SteamApp::count()) {
-            $message = __('phrase.database-empty-aborting');
+            $message = trans('phrase.database-empty-aborting');
             $this->error($message);
             Log::error($message);
             return 1;
@@ -51,7 +51,7 @@ class UpdateSteamAppsMetadata extends Command
 
         $appCount = count($steamAppIds);
         if (!$appCount) {
-            $message = __('phrase.steam-app-metadata-up-to-date');
+            $message = trans('phrase.steam-app-metadata-up-to-date');
             $this->info($message);
             Log::info($message);
             return 0;
@@ -59,11 +59,11 @@ class UpdateSteamAppsMetadata extends Command
 
         $timeEstimate = CarbonInterval::seconds(ceil($appCount*1.5));
 
-        $this->info(__('phrase.requesting-metadata-for-x-apps-from-steam-api', ['x' => $appCount]));
-        $this->info(__('phrase.this-will-take-approximately-time-to-complete', ['time' => $timeEstimate->cascade()->forHumans()]));
+        $this->info(trans('phrase.requesting-metadata-for-x-apps-from-steam-api', ['x' => $appCount]));
+        $this->info(trans('phrase.this-will-take-approximately-time-to-complete', ['time' => $timeEstimate->cascade()->forHumans()]));
 
         $progress = $this->output->createProgressBar($appCount);
-        $progress->setFormat('%current%/%max% %bar% %percent%% - %elapsed% ' . __('title.elapsed'));
+        $progress->setFormat('%current%/%max% %bar% %percent%% - %elapsed% ' . trans('title.elapsed'));
 
         // Prevent hitting Steam's API rate limits of 200 requests every 5 minutes
         $storage = new FileStorage(storage_path('steam-web-api.bucket')); // store state in storage directory
@@ -84,7 +84,7 @@ class UpdateSteamAppsMetadata extends Command
             } catch (ApiCallFailedException $e) {
                 $failedCount++;
                 $consumer->consume(10);
-                $message = __('phrase.error-updating-metadata-for-steam-app-id-message', ['id' => $appId, 'message' => $e->getMessage()]);
+                $message = trans('phrase.error-updating-metadata-for-steam-app-id-message', ['id' => $appId, 'message' => $e->getMessage()]);
                 $this->error($message);
                 Log::error($message);
                 $progress->advance();
@@ -130,12 +130,12 @@ class UpdateSteamAppsMetadata extends Command
         unset($appId);
         $progress->finish();
 
-        $message = __('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
+        $message = trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
         $this->info(PHP_EOL .$message);
         Log::info($message);
 
         if ($failedCount) {
-            $message = __('phrase.x-steam-apps-not-updated-re-run-command', ['x' => $failedCount]);
+            $message = trans('phrase.x-steam-apps-not-updated-re-run-command', ['x' => $failedCount]);
             $this->error($message);
             Log::error($message);
             return 1;

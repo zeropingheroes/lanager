@@ -44,7 +44,7 @@ class AuthController extends Controller
         if ($OAuthProvider == 'steam') {
             return Socialite::with('steam')->redirect();
         }
-        $message = __('phrase.provider-not-supported', ['provider' => $OAuthProvider]);
+        $message = trans('phrase.provider-not-supported', ['provider' => $OAuthProvider]);
         Log::error($message);
         throw new InvalidArgumentException($message);
 
@@ -80,7 +80,7 @@ class AuthController extends Controller
 
             // Log them in
             Auth::login($user, true);
-            Log::info(__('phrase.user-successfully-logged-in', ['username' => $user->username]));
+            Log::info(trans('phrase.user-successfully-logged-in', ['username' => $user->username]));
 
             // Redirect the user:
             // - to where they wanted to go (if given) OR
@@ -98,7 +98,7 @@ class AuthController extends Controller
 
         }
 
-        throw new InvalidArgumentException(__('phrase.provider-not-supported', ['provider' => $OAuthProvider]));
+        throw new InvalidArgumentException(trans('phrase.provider-not-supported', ['provider' => $OAuthProvider]));
     }
 
     /**
@@ -112,7 +112,7 @@ class AuthController extends Controller
         $user = Auth::user();
         $this->guard()->logout();
         $request->session()->invalidate();
-        Log::info(__('phrase.user-successfully-logged-out', ['username' => $user->username]));
+        Log::info(trans('phrase.user-successfully-logged-out', ['username' => $user->username]));
         return redirect()->to('/');
     }
 

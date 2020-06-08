@@ -58,7 +58,7 @@ class UpdateSteamUsersService
     public function __construct($steamIds)
     {
         if (empty($steamIds)) {
-            throw new Exception(__('phrase.one-or-more-steam-ids-must-be-provided'));
+            throw new Exception(trans('phrase.one-or-more-steam-ids-must-be-provided'));
         }
 
         // Ensure we have an array, even if only one ID is given
@@ -132,7 +132,7 @@ class UpdateSteamUsersService
                 $this->failed[$steamUser->steamId] = $steamUser->personaName;
                 $this->errors->add(
                     $steamUser->steamId,
-                    __('phrase.unable-to-update-data-for-user-x', ['x' => $steamUser->personaName, 'error' => $e->getMessage()])
+                    trans('phrase.unable-to-update-data-for-user-x', ['x' => $steamUser->personaName, 'error' => $e->getMessage()])
                 );
             }
         }

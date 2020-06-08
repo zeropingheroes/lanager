@@ -166,7 +166,7 @@ class LanController extends Controller
 
         Session::flash(
             'success',
-            __('phrase.item-name-deleted', ['item' => __('title.lan'), 'name' => $lan->name])
+            trans('phrase.item-name-deleted', ['item' => trans('title.lan'), 'name' => $lan->name])
            );
 
         return redirect()->route('lans.index');

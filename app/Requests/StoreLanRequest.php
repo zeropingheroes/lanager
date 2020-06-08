@@ -38,7 +38,7 @@ class StoreLanRequest extends Request
         }
 
         if ($overlappingLans->count()) {
-            $this->addError(__('phrase.lans-cannot-overlap'));
+            $this->addError(trans('phrase.lans-cannot-overlap'));
             return $this->setValid(false);
         }
 

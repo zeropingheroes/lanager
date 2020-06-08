@@ -28,7 +28,7 @@ class StoreLanGameVoteRequest extends Request
         $lanGame = LanGame::findOrFail($this->input['lan_game_id']);
 
         if ($lanGame->votes->where('user_id',$this->input['user_id'])->count()) {
-            $this->addError(__('phrase.you-have-already-voted-for-this-game'));
+            $this->addError(trans('phrase.you-have-already-voted-for-this-game'));
             return $this->setValid(false);
         }
 

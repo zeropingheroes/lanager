@@ -16,7 +16,7 @@ class PruneSteamUserHistory extends Command
     public function __construct()
     {
         $this->signature = 'lanager:prune-steam-user-history';
-        $this->description = __('phrase.delete-steam-user-history-outside-lans');
+        $this->description = trans('phrase.delete-steam-user-history-outside-lans');
 
         parent::__construct();
     }
@@ -28,7 +28,7 @@ class PruneSteamUserHistory extends Command
      */
     public function handle()
     {
-        $this->info(__('phrase.pruning-historical-steam-data'));
+        $this->info(trans('phrase.pruning-historical-steam-data'));
 
         $periodsToDelete = [];
 
@@ -59,7 +59,7 @@ class PruneSteamUserHistory extends Command
 
         $quantityRemaining = SteamUserAppSession::count();
 
-        $message = __('phrase.x-entries-deleted-and-y-entries-retained', ['x' => $quantityDeleted, 'y' => $quantityRemaining]);
+        $message = trans('phrase.x-entries-deleted-and-y-entries-retained', ['x' => $quantityDeleted, 'y' => $quantityRemaining]);
         $this->info($message);
         Log::info($message);
         return 0;

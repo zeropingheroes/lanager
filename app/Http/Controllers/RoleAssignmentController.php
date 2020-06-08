@@ -62,7 +62,7 @@ class RoleAssignmentController extends Controller
         $roleAssignment = RoleAssignment::create($input);
 
         Session::flash('success',
-            __('phrase.role-successfully-assigned',
+            trans('phrase.role-successfully-assigned',
                 ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->display_name]
             )
            );
@@ -92,7 +92,7 @@ class RoleAssignmentController extends Controller
 
         Session::flash(
             'success',
-            __('phrase.role-successfully-unassigned',
+            trans('phrase.role-successfully-unassigned',
                 ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->display_name]
             )
            );
