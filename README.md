@@ -249,56 +249,6 @@ attendee to award it to, then select **Award**.
 
 Click ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager or to third-party sites, organise the links into drop-down menus, and choose the order that the links appear in the navbar or dropdown.
 
-## Upgrading from v0.5.x on Ubuntu 14.04
-
-1. Back up the database and site files:
-
-    ```bash
-    mysqldump -u lanager -p --extended-insert=FALSE lanager > ~/lanager-backup.sql
-    tar -zcvf ~/lanager-backup.tar.gz /var/www/lanager
-    ```
-
-2. Delete any local changes and get the latest version from GitHub:
-
-    ```bash
-    cd /var/www/lanager
-    git checkout .
-    git pull
-    ```
-
-3. Remove Apache and PHP5:
-
-    ```bash
-    sudo apt remove php5-common php5-cli php5-mcrypt php5-curl php5-mysql libapache2-mod-php5 apache2
-    ```
-    
-4. Install NGINX, PHP7.2 and MySQL 5.7:
-
-    ```bash
-    cd ~
-    sudo add-apt-repository ppa:ondrej/php
-    sudo add-apt-repository ppa:ondrej/nginx-mainline
-    wget http://dev.mysql.com/get/mysql-apt-config_0.6.0-1_all.deb
-    sudo dpkg -i mysql-apt-config_0.6.0-1_all.deb
-    rm -f mysql-apt-config_0.6.0-1_all.deb
-    sudo apt update
-    sudo apt install php7.2-common php7.2-fpm php7.2-mysql php7.2-mbstring php7.2-bcmath php7.2-xml php7.2-zip zip nginx mysql-server
-    mysql_upgrade -u root -p
-    ```
-
-5. From the normal [installation instructions](#installation), follow steps 2, 3, 4, 7, 8 and 9.
-
-6. Run the following commands:
-
-    ```bash
-    cd /varr/www/lanager
-    php artisan key:generate
-    php artisan storage:link
-    php artisan lanager:upgrade-database
-    ```
-    
-6. From the normal [installation instructions](#installation), follow steps 11, 12 and 13.
-
 ## Development
 
 ### Requirements
