@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 7.14.1 on 2020-06-08 15:02:46.
+ * Generated for Laravel 7.14.1 on 2020-06-09 00:05:33.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -15291,6 +15291,120 @@ namespace Illuminate\Support {
  
 }
 
+namespace Syntax\SteamApi\Facades { 
+
+    /**
+     * 
+     *
+     */ 
+    class SteamApi {
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function get()
+        {
+                        /** @var \Syntax\SteamApi\Client $instance */
+                        return $instance->get();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getSteamId()
+        {
+                        /** @var \Syntax\SteamApi\Client $instance */
+                        return $instance->getSteamId();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getRedirectUrl()
+        {
+                        /** @var \Syntax\SteamApi\Client $instance */
+                        return $instance->getRedirectUrl();
+        }
+        
+        /**
+         * 
+         *
+         * @param string|int $id
+         * @param string|null $format
+         * @return mixed 
+         * @static 
+         */ 
+        public static function convertId($id, $format = null)
+        {
+                        /** @var \Syntax\SteamApi\Client $instance */
+                        return $instance->convertId($id, $format);
+        }
+         
+    }
+
+    /**
+     * 
+     *
+     */ 
+    class SteamApi {
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function get()
+        {
+                        /** @var \Syntax\SteamApi\Client $instance */
+                        return $instance->get();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getSteamId()
+        {
+                        /** @var \Syntax\SteamApi\Client $instance */
+                        return $instance->getSteamId();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getRedirectUrl()
+        {
+                        /** @var \Syntax\SteamApi\Client $instance */
+                        return $instance->getRedirectUrl();
+        }
+        
+        /**
+         * 
+         *
+         * @param string|int $id
+         * @param string|null $format
+         * @return mixed 
+         * @static 
+         */ 
+        public static function convertId($id, $format = null)
+        {
+                        /** @var \Syntax\SteamApi\Client $instance */
+                        return $instance->convertId($id, $format);
+        }
+         
+    }
+ 
+}
+
 namespace GrahamCampbell\Markdown\Facades { 
 
     /**
@@ -16527,65 +16641,6 @@ namespace Laravel\Socialite\Facades {
             //Method inherited from \Illuminate\Support\Manager            
                         /** @var \Laravel\Socialite\SocialiteManager $instance */
                         return $instance->getDrivers();
-        }
-         
-    }
- 
-}
-
-namespace Syntax\SteamApi\Facades { 
-
-    /**
-     * 
-     *
-     */ 
-    class SteamApi {
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function get()
-        {
-                        /** @var \Syntax\SteamApi\Client $instance */
-                        return $instance->get();
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getSteamId()
-        {
-                        /** @var \Syntax\SteamApi\Client $instance */
-                        return $instance->getSteamId();
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */ 
-        public static function getRedirectUrl()
-        {
-                        /** @var \Syntax\SteamApi\Client $instance */
-                        return $instance->getRedirectUrl();
-        }
-        
-        /**
-         * 
-         *
-         * @param string|int $id
-         * @param string|null $format
-         * @return mixed 
-         * @static 
-         */ 
-        public static function convertId($id, $format = null)
-        {
-                        /** @var \Syntax\SteamApi\Client $instance */
-                        return $instance->convertId($id, $format);
         }
          
     }
@@ -19532,6 +19587,8 @@ namespace  {
     class Session extends \Illuminate\Support\Facades\Session {}
 
     class Storage extends \Illuminate\Support\Facades\Storage {}
+
+    class SteamApi extends \Syntax\SteamApi\Facades\SteamApi {}
 
     class Str extends \Illuminate\Support\Str {}
 
