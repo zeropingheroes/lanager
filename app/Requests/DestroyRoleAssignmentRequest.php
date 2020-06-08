@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Zeropingheroes\Lanager\RoleAssignment;
 
 class DestroyRoleAssignmentRequest extends Request

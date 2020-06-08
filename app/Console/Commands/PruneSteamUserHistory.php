@@ -3,8 +3,9 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
+use Log;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\SteamUserAppSession;
 
@@ -25,6 +26,7 @@ class PruneSteamUserHistory extends Command
      * Execute the console command.
      *
      * @return mixed
+     * @throws Exception
      */
     public function handle()
     {

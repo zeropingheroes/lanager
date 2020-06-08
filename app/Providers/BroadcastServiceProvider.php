@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
-use Illuminate\Support\Facades\Broadcast;
+use Broadcast;
 use Illuminate\Support\ServiceProvider;
 
 class BroadcastServiceProvider extends ServiceProvider

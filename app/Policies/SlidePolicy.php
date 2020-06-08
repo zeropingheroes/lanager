@@ -2,15 +2,15 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\Slide;
+use Zeropingheroes\Lanager\User;
 
 class SlidePolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User $authUser
+     * @param User|null $authUser
      * @param Slide $slide
      * @return boolean
      */

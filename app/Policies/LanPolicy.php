@@ -10,7 +10,7 @@ class LanPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User $authUser
+     * @param User|null $authUser
      * @param Lan $lan
      * @return boolean
      */

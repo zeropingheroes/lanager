@@ -2,9 +2,9 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\View;
+use Cache;
 use Illuminate\Support\ServiceProvider;
+use View;
 use Zeropingheroes\Lanager\NavigationLink;
 
 class ViewComposerServiceProvider extends ServiceProvider
@@ -24,7 +24,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 $navigationLinks = Cache::rememberForever(
                     'navigationLinks',
                     function () {
-                        return NavigationLink::whereNull('parent_id')->with('children')->orderBy('position')->get();
+                        return NavigationLink::whereNull('parent_id')->orderBy('position')->get();
                     }
                 );
                 $view->with('navigationLinks', $navigationLinks);

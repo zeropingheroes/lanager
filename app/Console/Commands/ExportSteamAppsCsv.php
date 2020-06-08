@@ -3,9 +3,8 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
-use League\Csv\Exception;
-use Zeropingheroes\Lanager\SteamApp;
 use League\Csv\Writer;
+use Zeropingheroes\Lanager\SteamApp;
 
 class ExportSteamAppsCsv extends Command
 {

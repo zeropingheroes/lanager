@@ -4,9 +4,9 @@ namespace Zeropingheroes\Lanager\Services;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
-use Zeropingheroes\Lanager\SteamUserAppSession;
-use Zeropingheroes\Lanager\SteamUserState;
+use Exception;
 use Illuminate\Support\Collection;
+use Zeropingheroes\Lanager\SteamUserAppSession;
 
 class GetGamesPlayedBetweenService
 {
@@ -35,6 +35,7 @@ class GetGamesPlayedBetweenService
      * Get the games that were played between two dates
      *
      * @return Collection
+     * @throws Exception
      */
     public function get(): Collection
     {

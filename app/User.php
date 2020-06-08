@@ -52,7 +52,6 @@ class User extends Authenticatable
      *
      * @param string $role
      * @return bool
-     * @internal param $role
      */
     public function hasRole(string $role)
     {

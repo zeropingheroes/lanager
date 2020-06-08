@@ -2,9 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
-use Zeropingheroes\Lanager\SteamUserAppSession;
-use Zeropingheroes\Lanager\SteamUserState;
 use Illuminate\Support\Collection;
+use Zeropingheroes\Lanager\SteamUserAppSession;
 
 class GetActiveGamesService
 {

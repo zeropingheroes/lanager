@@ -48,11 +48,12 @@ class ImportSteamAppsCsv extends Command
 
     /**
      * @param $csvApps
-     * @param array $arrayApps
      */
     private function import($csvApps): void
     {
         $this->info(trans('phrase.database-empty-batch-import'));
+
+        $arrayApps = [];
 
         // Convert CSV object to array
         foreach ($csvApps as $csvApp) {

@@ -2,23 +2,20 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Arr;
 use Barryvdh\Debugbar\Facade as DebugbarFacade;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
+use Exception;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Arr;
+use Illuminate\Support\ServiceProvider;
 use League\CommonMark\Inline\Element\Image;
 use League\CommonMark\Inline\Element\Link;
-use Exception;
 use Zeropingheroes\Lanager\MarkdownRenderers\ExternalLinkRenderer;
 use Zeropingheroes\Lanager\MarkdownRenderers\ResponsiveImageRenderer;
-use Zeropingheroes\Lanager\Role;
-use Zeropingheroes\Lanager\SteamUserStatusCode;
-use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\Observers\UserObserver;
 use Zeropingheroes\Lanager\NavigationLink;
 use Zeropingheroes\Lanager\Observers\NavigationLinkObserver;
+use Zeropingheroes\Lanager\Observers\UserObserver;
+use Zeropingheroes\Lanager\User;
 
 class AppServiceProvider extends ServiceProvider
 {

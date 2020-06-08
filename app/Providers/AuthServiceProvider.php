@@ -2,8 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
+use Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 use Zeropingheroes\Lanager\Policies\ImagePolicy;
 
 class AuthServiceProvider extends ServiceProvider

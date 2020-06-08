@@ -4,7 +4,7 @@ namespace Zeropingheroes\Lanager\Http\Middleware;
 
 use Zeropingheroes\Lanager\Providers\RouteServiceProvider;
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class RedirectIfAuthenticated
 {

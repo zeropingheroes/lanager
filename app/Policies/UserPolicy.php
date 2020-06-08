@@ -9,7 +9,7 @@ class UserPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param null|User $authUser
+     * @param User|null $authUser
      * @param User $requestedUser
      * @return boolean
      */

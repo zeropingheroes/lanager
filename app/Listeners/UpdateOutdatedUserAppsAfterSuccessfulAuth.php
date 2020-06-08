@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Listeners;
 
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Collection;
+use Throwable;
 use Zeropingheroes\Lanager\Services\UpdateSteamUserAppsService;
 
 class UpdateOutdatedUserAppsAfterSuccessfulAuth
@@ -14,7 +15,7 @@ class UpdateOutdatedUserAppsAfterSuccessfulAuth
      *
      * @param Login $login
      * @return void
-     * @internal param object $event
+     * @throws Throwable
      */
     public function handle(Login $login)
     {

@@ -6,13 +6,12 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
-use Syntax\SteamApi\Facades\SteamApi as Steam;
-use Zeropingheroes\Lanager\UserOAuthAccount;
-use Zeropingheroes\Lanager\SteamApp;
-use Zeropingheroes\Lanager\SteamAppServer;
+use Syntax\SteamApi\Facades\SteamApi as SteamApi;
+use Throwable;
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\SteamUserAppSession;
 use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\UserOAuthAccount;
 
 class UpdateSteamUsersService
 {
@@ -27,7 +26,7 @@ class UpdateSteamUsersService
     /**
      * Errors
      *
-     * @var \Illuminate\Support\MessageBag
+     * @var MessageBag
      */
     protected $errors;
 
@@ -103,13 +102,13 @@ class UpdateSteamUsersService
     /**
      * Update Steam users
      * @return void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(): void
     {
         $this->endStaleAppSessions();
 
-        $steamUsers = Steam::user($this->steamIds)->GetPlayerSummaries();
+        $steamUsers = SteamApi::user($this->steamIds)->GetPlayerSummaries();
 
         // Get the LAN happening now, or the most recently ended LAN
         $lan = Lan::presentAndPast()
@@ -143,7 +142,7 @@ class UpdateSteamUsersService
      *
      * @param $steamUser
      * @return bool
-     * @throws \Throwable
+     * @throws Throwable
      */
     protected function updateUser($steamUser): bool
     {

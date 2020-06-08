@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Services;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
-use Syntax\SteamApi\Facades\SteamApi as Steam;
+use Syntax\SteamApi\Facades\SteamApi;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
 class UpdateSteamUserAppsService
@@ -34,14 +34,13 @@ class UpdateSteamUserAppsService
     /**
      * Errors
      *
-     * @var \Illuminate\Support\MessageBag
+     * @var MessageBag
      */
     protected $errors;
 
     /**
      * @param Collection $users
      * @throws Exception
-     * @internal param array $users
      */
     public function __construct(Collection $users)
     {
@@ -80,7 +79,7 @@ class UpdateSteamUserAppsService
     /**
      * Update Steam users apps
      * @return void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(): void
     {
@@ -90,7 +89,7 @@ class UpdateSteamUserAppsService
         // Update games for each user in turn
         foreach ($steamAccounts as $steamAccount) {
             try {
-                $apps = Steam::player($steamAccount->provider_id)->GetOwnedGames();
+                $apps = SteamApi::player($steamAccount->provider_id)->GetOwnedGames();
 
                 $appsVisible = (count($apps) != 0);
 

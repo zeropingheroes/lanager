@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Route;
+use Route;
 use Zeropingheroes\Lanager\EventSignup;
 
 class RouteServiceProvider extends ServiceProvider

@@ -3,7 +3,6 @@
 namespace Zeropingheroes\Lanager\Requests;
 
 use Zeropingheroes\Lanager\LanGame;
-use Zeropingheroes\Lanager\User;
 
 class StoreLanGameVoteRequest extends Request
 {

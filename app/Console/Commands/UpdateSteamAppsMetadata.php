@@ -2,16 +2,17 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
-use Illuminate\Console\Command;
-use Syntax\SteamApi\Exceptions\ApiCallFailedException;
-use Syntax\SteamApi\Facades\SteamApi as Steam;
-use Zeropingheroes\Lanager\SteamApp;
-use bandwidthThrottle\tokenBucket\Rate;
-use bandwidthThrottle\tokenBucket\TokenBucket;
 use bandwidthThrottle\tokenBucket\BlockingConsumer;
+use bandwidthThrottle\tokenBucket\Rate;
 use bandwidthThrottle\tokenBucket\storage\FileStorage;
+use bandwidthThrottle\tokenBucket\storage\StorageException;
+use bandwidthThrottle\tokenBucket\TimeoutException;
+use bandwidthThrottle\tokenBucket\TokenBucket;
 use Carbon\CarbonInterval;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Console\Command;
+use Log;
+use Syntax\SteamApi\Exceptions\ApiCallFailedException;
+use Zeropingheroes\Lanager\SteamApp;
 
 class UpdateSteamAppsMetadata extends Command
 {
@@ -31,6 +32,8 @@ class UpdateSteamAppsMetadata extends Command
      * Execute the console command.
      *
      * @return mixed
+     * @throws TimeoutException
+     * @throws StorageException
      */
     public function handle()
     {
@@ -78,7 +81,7 @@ class UpdateSteamAppsMetadata extends Command
             // Query Steam API to get app details
             try {
                 $consumer->consume(1);
-                $app = Steam::app()->appDetails($appId);
+                $app = SteamApi::app()->appDetails($appId);
 
                 // If the API call failed, empty the bucket and skip the app
             } catch (ApiCallFailedException $e) {

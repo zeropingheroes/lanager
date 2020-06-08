@@ -2,8 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\LanGameVote;
+use Zeropingheroes\Lanager\User;
 
 class LanGameVotePolicy extends BasePolicy
 {

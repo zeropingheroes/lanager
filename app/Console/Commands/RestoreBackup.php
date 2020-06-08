@@ -4,7 +4,7 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
-use Illuminate\Support\Facades\Cache;
+use Cache;
 
 class RestoreBackup extends Command
 {

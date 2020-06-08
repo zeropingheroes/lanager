@@ -2,15 +2,15 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\LanGame;
+use Zeropingheroes\Lanager\User;
 
 class LanGamePolicy extends BasePolicy
 {
     /**
      * Determine whether the user can view a given item.
      *
-     * @param User $user
+     * @param User|null $authUser
      * @param LanGame $lanGame
      * @return mixed
      */

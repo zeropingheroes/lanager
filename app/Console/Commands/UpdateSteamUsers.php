@@ -2,8 +2,10 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
+use Log;
+use Throwable;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 use Zeropingheroes\Lanager\SteamUserMetadata;
@@ -28,7 +30,7 @@ class UpdateSteamUsers extends Command
      * Execute the console command.
      *
      * @return mixed
-     * @throws \Exception
+     * @throws Exception|Throwable
      */
     public function handle()
     {

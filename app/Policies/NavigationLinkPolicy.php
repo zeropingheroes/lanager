@@ -2,15 +2,15 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\NavigationLink;
+use Zeropingheroes\Lanager\User;
 
 class NavigationLinkPolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User $authUser
+     * @param User|null $authUser
      * @param NavigationLink $navigationLink
      * @return boolean
      */
@@ -24,7 +24,6 @@ class NavigationLinkPolicy extends BasePolicy
      * Determine whether the logged-in user can list all items.
      *
      * @param User $authUser
-     * @param NavigationLink $navigationLink
      * @return boolean
      */
     public function index(User $authUser)

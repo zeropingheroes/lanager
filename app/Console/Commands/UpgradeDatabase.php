@@ -3,11 +3,12 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Carbon\Carbon;
+use DB;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
+use Schema;
+use Str;
 
 class UpgradeDatabase extends Command
 {
@@ -502,7 +503,7 @@ class UpgradeDatabase extends Command
     /**
      * Get the latest LAN, or create an example LAN
      *
-     * @return \Illuminate\Database\Eloquent\Model|null|object|static
+     * @return Model
      */
     private function getLatestLan()
     {

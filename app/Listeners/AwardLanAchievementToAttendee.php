@@ -4,12 +4,10 @@ namespace Zeropingheroes\Lanager\Listeners;
 
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Symfony\Component\HttpFoundation\IpUtils;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\UserAchievement;
 use Zeropingheroes\Lanager\WhitelistedIpRange;
-use Symfony\Component\HttpFoundation\IpUtils;
 
 class AwardLanAchievementToAttendee
 {
@@ -18,7 +16,7 @@ class AwardLanAchievementToAttendee
     /**
      * Create the event listener.
      *
-     * @return void
+     * @param Request $request
      */
     public function __construct(Request $request)
     {

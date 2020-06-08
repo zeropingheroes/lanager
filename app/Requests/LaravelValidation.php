@@ -2,12 +2,12 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Illuminate\Support\Facades\Validator;
+use Validator;
 
 trait LaravelValidation
 {
     /**
-     * @var \Illuminate\Support\Facades\Validator
+     * @var Validator
      */
     protected $validator;
 

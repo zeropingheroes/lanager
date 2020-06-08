@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\User;
 

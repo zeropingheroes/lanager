@@ -2,15 +2,15 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\UserAchievement;
 use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\UserAchievement;
 
 class UserAchievementPolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can list all items.
      *
-     * @param User $authUser
+     * @param User|null $authUser
      * @return boolean
      */
     public function index(?User $authUser)
@@ -21,7 +21,7 @@ class UserAchievementPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User $authUser
+     * @param User|null $authUser
      * @param UserAchievement $userAchievement
      * @return boolean
      */

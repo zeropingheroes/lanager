@@ -8,13 +8,11 @@ use Zeropingheroes\Lanager\Attendee;
 
 class UpdateLanAttendeesTable
 {
-
     /**
      * Handle the event.
      *
      * @param Login $login
      * @return void
-     * @internal param object $event
      */
     public function handle(Login $login)
     {

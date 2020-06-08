@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Illuminate\Support\Facades\Storage;
+use Storage;
 
 class UpdateImageRequest extends Request
 {

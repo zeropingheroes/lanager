@@ -10,7 +10,7 @@ class AchievementPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User $authUser
+     * @param User|null $authUser
      * @param Achievement $achievement
      * @return boolean
      */
