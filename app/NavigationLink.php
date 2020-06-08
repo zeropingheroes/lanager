@@ -2,8 +2,11 @@
 
 namespace Zeropingheroes\Lanager;
 
-use Illuminate\Database\Eloquent\Model;
 use Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 /* @mixin Eloquent */
 class NavigationLink extends Model
 {
@@ -19,7 +22,7 @@ class NavigationLink extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function parent()
     {
@@ -28,7 +31,7 @@ class NavigationLink extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return HasMany
      */
     public function children()
     {

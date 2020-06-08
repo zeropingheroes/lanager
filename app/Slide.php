@@ -2,8 +2,10 @@
 
 namespace Zeropingheroes\Lanager;
 
-use Illuminate\Database\Eloquent\Model;
 use Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\belongsTo;
+
 /* @mixin Eloquent */
 
 class Slide extends Model
@@ -19,16 +21,16 @@ class Slide extends Model
         'published',
     ];
 
+    protected $dates = [
+        'start',
+        'end'
+    ];
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return belongsTo
      */
     public function lan()
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Lan');
     }
-
-    protected $dates = [
-        'start',
-        'end'
-    ];
 }

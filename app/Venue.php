@@ -2,8 +2,10 @@
 
 namespace Zeropingheroes\Lanager;
 
-use Illuminate\Database\Eloquent\Model;
 use Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 /* @mixin Eloquent */
 
 class Venue extends Model
@@ -15,7 +17,7 @@ class Venue extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function lans()
     {

@@ -2,8 +2,10 @@
 
 namespace Zeropingheroes\Lanager;
 
-use Illuminate\Database\Eloquent\Model;
 use Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\belongsTo;
+
 /* @mixin Eloquent */
 
 class Guide extends Model
@@ -20,7 +22,7 @@ class Guide extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return belongsTo
      */
     public function lan()
     {

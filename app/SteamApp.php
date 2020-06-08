@@ -2,8 +2,9 @@
 
 namespace Zeropingheroes\Lanager;
 
-use Illuminate\Database\Eloquent\Model;
 use Eloquent;
+use Illuminate\Database\Eloquent\Model;
+
 /* @mixin Eloquent */
 
 class SteamApp extends Model

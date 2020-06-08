@@ -2,8 +2,9 @@
 
 namespace Zeropingheroes\Lanager;
 
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use Eloquent;
+use Illuminate\Database\Eloquent\Relations\Pivot;
+
 /* @mixin Eloquent */
 
 class Attendee extends Pivot

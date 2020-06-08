@@ -2,8 +2,10 @@
 
 namespace Zeropingheroes\Lanager;
 
-use Illuminate\Database\Eloquent\Model;
 use Eloquent;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\belongsTo;
+
 /* @mixin Eloquent */
 
 class UserOAuthAccount extends Model
@@ -22,7 +24,7 @@ class UserOAuthAccount extends Model
     protected $table = 'user_oauth_accounts';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return belongsTo
      */
     public function user()
     {
