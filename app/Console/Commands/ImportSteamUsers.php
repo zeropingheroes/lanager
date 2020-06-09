@@ -15,9 +15,10 @@ class ImportSteamUsers extends Command
      */
     public function __construct()
     {
-        $this->signature = 'lanager:import-steam-users {steamIds* : ' . trans(
-                'phrase.steamids-to-import-list-or-file'
-            ) . '}';
+        $this->signature = sprintf(
+            "lanager:import-steam-users {steamIds* : %s}",
+            trans('phrase.steamids-to-import-list-or-file')
+        );
         $this->description = trans('phrase.import-users-from-steam-into-lanager');
 
         parent::__construct();

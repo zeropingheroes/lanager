@@ -208,8 +208,8 @@ class UpdateSteamUsersService
                 $session->start = Carbon::now();
 
                 return $session->saveOrFail();
-                // If an existing ongoing session was found
             } else {
+                // If an existing ongoing session was found
                 // Update its updated_at timestamp field
                 return $session->touch();
             }
