@@ -73,7 +73,6 @@ class UpdateSteamUsers extends Command
 
         $this->info(trans('phrase.updating-profiles-and-online-status-for-x-users-from-steam', ['x' => count($steamIds)]));
 
-        // TODO: Add progress bar
         $service = new UpdateSteamUsersService($steamIds);
         $service->update();
 

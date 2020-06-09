@@ -45,7 +45,6 @@ class Backup extends Command
             'mkdir', '-p', "$outputDir/tmp/sql", "$outputDir/tmp/images",
         ]);
 
-        // TODO: Use Laravel's filesystem class to get the files
         $processes['cp-images'] = Process::fromShellCommandline(
             "cp -r $imagesDir/* $outputDir/tmp/images/"
         );
@@ -55,7 +54,6 @@ class Backup extends Command
         $tables = array_map('current', $tables);
 
         // Define process for dumping each one
-        // TODO: Change how password is passed to mysqldump so it doesn't output warnings
         foreach ($tables as $table) {
             // Do not back up tables
             // migrations - will be created when migrations are re-run

@@ -175,7 +175,6 @@ class ImageController extends Controller
     {
         $this->authorize('images.delete');
 
-        // TODO: move to Request class
         $file = $this::directory.'/'.$filename;
         if (! Storage::exists($file)) {
             abort(404);

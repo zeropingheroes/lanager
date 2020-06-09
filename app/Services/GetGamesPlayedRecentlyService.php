@@ -57,8 +57,6 @@ class GetGamesPlayedRecentlyService
             }
         );
 
-        // TODO: sort users by play time
-
         // Remove any recently played games that have only been played by one user
         $combinedUsage = array_filter(
             $combinedUsage,

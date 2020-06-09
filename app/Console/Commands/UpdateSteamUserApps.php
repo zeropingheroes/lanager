@@ -57,7 +57,6 @@ class UpdateSteamUserApps extends Command
 
         $this->info(trans('phrase.requesting-app-ownership-data-for-x-users-from-steam', ['x' => $users->count()]));
 
-        // TODO: Add progress bar
         $service = new UpdateSteamUserAppsService($users);
         $service->update();
 
@@ -71,7 +70,6 @@ class UpdateSteamUserApps extends Command
         if ($service->errors()->isNotEmpty()) {
             $this->error(trans('phrase.the-following-errors-were-encountered'));
             foreach ($service->errors()->getMessages() as $error) {
-                // TODO: find way of adding context to error
                 Log::error($error[0]);
                 $this->error($error[0]);
             }

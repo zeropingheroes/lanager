@@ -82,7 +82,6 @@ class RestoreBackup extends Command
         );
 
         // Restore database dump files
-        // TODO: Change how password is passed to mysql so it doesn't output warnings
         $processes['mysql-restore'] = Process::fromShellCommandline(
             "cat $restoreDir/sql/*.sql | mysql --init-command=\"SET SESSION FOREIGN_KEY_CHECKS=0;\" -u $username --password=$password $database"
         );
