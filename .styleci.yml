@@ -1,9 +1,6 @@
-preset: laravel
-disabled:
-  - unused_use
+preset: psr2
 finder:
   not-name:
     - index.php
     - server.php
-    - _ide_helper.php
 
