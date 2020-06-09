@@ -12,7 +12,7 @@ class VenuePolicy extends BasePolicy
      *
      * @param User|null $authUser
      * @param Venue $venue
-     * @return boolean
+     * @return bool
      */
     public function view(?User $authUser, Venue $venue)
     {
@@ -23,7 +23,7 @@ class VenuePolicy extends BasePolicy
      * Determine whether the logged-in user can create an item.
      *
      * @param User $authUser
-     * @return boolean
+     * @return bool
      */
     public function create(User $authUser)
     {
@@ -35,7 +35,7 @@ class VenuePolicy extends BasePolicy
      *
      * @param User $authUser
      * @param Venue $venue
-     * @return boolean
+     * @return bool
      */
     public function update(User $authUser, Venue $venue)
     {
@@ -47,7 +47,7 @@ class VenuePolicy extends BasePolicy
      *
      * @param User $authUser
      * @param Venue $venue
-     * @return boolean
+     * @return bool
      */
     public function delete(User $authUser, Venue $venue)
     {

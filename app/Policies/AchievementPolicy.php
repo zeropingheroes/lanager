@@ -12,7 +12,7 @@ class AchievementPolicy extends BasePolicy
      *
      * @param User|null $authUser
      * @param Achievement $achievement
-     * @return boolean
+     * @return bool
      */
     public function view(?User $authUser, Achievement $achievement)
     {
@@ -24,7 +24,7 @@ class AchievementPolicy extends BasePolicy
      * Determine whether the logged-in user can create an item.
      *
      * @param User $authUser
-     * @return boolean
+     * @return bool
      */
     public function create(User $authUser)
     {
@@ -36,7 +36,7 @@ class AchievementPolicy extends BasePolicy
      *
      * @param User $authUser
      * @param Achievement $achievement
-     * @return boolean
+     * @return bool
      */
     public function update(User $authUser, Achievement $achievement)
     {
@@ -48,7 +48,7 @@ class AchievementPolicy extends BasePolicy
      *
      * @param User $authUser
      * @param Achievement $achievement
-     * @return boolean
+     * @return bool
      */
     public function delete(User $authUser, Achievement $achievement)
     {

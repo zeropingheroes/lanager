@@ -10,7 +10,7 @@ class StoreEventRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
@@ -38,7 +38,7 @@ class StoreEventRequest extends Request
             'published' => ['boolean'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
@@ -47,10 +47,11 @@ class StoreEventRequest extends Request
         $eventStart = Carbon::make($this->input['start']);
         $eventEnd = Carbon::make($this->input['end']);
 
-        if (!$eventStart->between($lan->start, $lan->end) ||
-            !$eventEnd->between($lan->start, $lan->end)
+        if (! $eventStart->between($lan->start, $lan->end) ||
+            ! $eventEnd->between($lan->start, $lan->end)
         ) {
             $this->addError(trans('phrase.event-times-must-be-within-lan-times'));
+
             return $this->setValid(false);
         }
 

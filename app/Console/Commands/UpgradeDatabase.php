@@ -13,7 +13,7 @@ use Str;
 class UpgradeDatabase extends Command
 {
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
@@ -63,7 +63,7 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Check that the existing database structure matches v0.5.3
+     *  Check that the existing database structure matches v0.5.3.
      */
     private function checkDatabaseStructure()
     {
@@ -73,6 +73,7 @@ class UpgradeDatabase extends Command
 
         if ($migrationAlreadyRun) {
             $this->error(trans('phrase.database-structure-already-up-to-date'));
+
             return 1;
         }
 
@@ -98,15 +99,16 @@ class UpgradeDatabase extends Command
         ];
 
         foreach ($expectedTables as $table) {
-            if (!Schema::hasTable($table)) {
+            if (! Schema::hasTable($table)) {
                 $this->error(trans('phrase.database-structure-does-not-match-table-x-missing', ['x' => $table]));
+
                 return 1;
             }
         }
     }
 
     /**
-     *  Drop tables that are not needed
+     *  Drop tables that are not needed.
      */
     private function dropTables()
     {
@@ -129,7 +131,7 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Fix timestamp columns with default zero dates
+     *  Fix timestamp columns with default zero dates.
      */
     private function fixTimestamps()
     {
@@ -142,7 +144,7 @@ class UpgradeDatabase extends Command
             'roles',
             'user_achievements',
             'user_roles',
-            'users'
+            'users',
         ];
 
         foreach ($tablesWithStandardTimestamps as $table) {
@@ -154,26 +156,26 @@ class UpgradeDatabase extends Command
         }
 
         DB::statement(
-            "ALTER TABLE `events`
+            'ALTER TABLE `events`
             CHANGE COLUMN `start` `start` TIMESTAMP NULL ,
             CHANGE COLUMN `end` `end` TIMESTAMP NULL ,
             CHANGE COLUMN `signup_opens` `signups_open` TIMESTAMP NULL ,
             CHANGE COLUMN `signup_closes` `signups_close` TIMESTAMP NULL ,
             CHANGE COLUMN `created_at` `created_at` TIMESTAMP NULL ,
-            CHANGE COLUMN `updated_at` `updated_at` TIMESTAMP NULL ;"
+            CHANGE COLUMN `updated_at` `updated_at` TIMESTAMP NULL ;'
         );
 
         DB::statement(
-            "ALTER TABLE `lans`
+            'ALTER TABLE `lans`
             CHANGE COLUMN `start` `start` TIMESTAMP NULL ,
             CHANGE COLUMN `end` `end` TIMESTAMP NULL ,
             CHANGE COLUMN `created_at` `created_at` TIMESTAMP NULL ,
-            CHANGE COLUMN `updated_at` `updated_at` TIMESTAMP NULL ;"
+            CHANGE COLUMN `updated_at` `updated_at` TIMESTAMP NULL ;'
         );
     }
 
     /**
-     *  Upgrade users table and data
+     *  Upgrade users table and data.
      */
     private function upgradeUsers()
     {
@@ -204,7 +206,7 @@ class UpgradeDatabase extends Command
         });
 
         // Create OAuth account for each Steam user
-        foreach(DB::table('users')->get() as $user) {
+        foreach (DB::table('users')->get() as $user) {
             DB::table('user_oauth_accounts')->insert([
                 'user_id' => $user->id,
                 'username' => $user->username,
@@ -222,7 +224,7 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Upgrade LANs table and data
+     *  Upgrade LANs table and data.
      */
     private function upgradeLans()
     {
@@ -237,7 +239,7 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Upgrade guides table and data
+     *  Upgrade guides table and data.
      */
     private function upgradeGuides()
     {
@@ -267,12 +269,12 @@ class UpgradeDatabase extends Command
             $table->integer('lan_id')
                 ->nullable(false)
                 ->change();
-            }
+        }
         );
     }
 
     /**
-     *  Upgrade events table and data
+     *  Upgrade events table and data.
      */
     private function upgradeEvents()
     {
@@ -299,7 +301,7 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Upgrade roles tables and data
+     *  Upgrade roles tables and data.
      */
     private function upgradeRoles()
     {
@@ -327,7 +329,7 @@ class UpgradeDatabase extends Command
         });
 
         // Set the name and display name
-        foreach($roles as $role) {
+        foreach ($roles as $role) {
             DB::table('roles')
                 ->where('id', $role->id)
                 ->update([
@@ -339,7 +341,7 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Create new tables
+     *  Create new tables.
      */
     private function createNewTables()
     {
@@ -501,14 +503,14 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     * Get the latest LAN, or create an example LAN
+     * Get the latest LAN, or create an example LAN.
      *
      * @return Model
      */
     private function getLatestLan()
     {
         // If the LANs table is empty, create a LAN
-        if (!DB::table('lans')->count()) {
+        if (! DB::table('lans')->count()) {
             DB::table('lans')->insert([
                 'name' => 'Example LAN',
                 'start' => Carbon::parse('next Friday')->addHours(18),
@@ -523,11 +525,12 @@ class UpgradeDatabase extends Command
         $latestLan = DB::table('lans')
             ->latest('end')
             ->first();
+
         return $latestLan;
     }
 
     /**
-     *  Spoof the initial migration
+     *  Spoof the initial migration.
      */
     private function spoofInitialMigration()
     {

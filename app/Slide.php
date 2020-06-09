@@ -23,7 +23,7 @@ class Slide extends Model
 
     protected $dates = [
         'start',
-        'end'
+        'end',
     ];
 
     /**

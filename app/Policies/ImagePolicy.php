@@ -10,7 +10,7 @@ class ImagePolicy extends BasePolicy
      * Determine whether the logged-in user can list all images.
      *
      * @param User $authUser
-     * @return boolean
+     * @return bool
      */
     public function view(User $authUser)
     {
@@ -21,7 +21,7 @@ class ImagePolicy extends BasePolicy
      * Determine whether the logged-in user can create images.
      *
      * @param User $authUser
-     * @return boolean
+     * @return bool
      */
     public function create(User $authUser)
     {
@@ -32,7 +32,7 @@ class ImagePolicy extends BasePolicy
      * Determine whether the logged-in user can update images.
      *
      * @param User $authUser
-     * @return boolean
+     * @return bool
      */
     public function update(User $authUser)
     {
@@ -43,7 +43,7 @@ class ImagePolicy extends BasePolicy
      * Determine whether the logged-in user can delete images.
      *
      * @param User $authUser
-     * @return boolean
+     * @return bool
      */
     public function delete(User $authUser)
     {

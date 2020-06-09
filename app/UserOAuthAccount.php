@@ -39,6 +39,7 @@ class UserOAuthAccount extends Model
         if ($this->provider == 'steam') {
             return str_replace('_medium.jpg', '.jpg', $this->avatar);
         }
+
         return '';
     }
 
@@ -50,6 +51,7 @@ class UserOAuthAccount extends Model
         if ($this->provider == 'steam') {
             return $this->avatar;
         }
+
         return '';
     }
 
@@ -61,7 +63,7 @@ class UserOAuthAccount extends Model
         if ($this->provider == 'steam') {
             return str_replace('_medium.jpg', '_full.jpg', $this->avatar);
         }
+
         return '';
     }
-
 }

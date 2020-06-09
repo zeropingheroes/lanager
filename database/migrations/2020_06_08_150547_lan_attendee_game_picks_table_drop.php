@@ -46,7 +46,6 @@ class LanAttendeeGamePicksTableDrop extends Migration
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-
         });
     }
 }

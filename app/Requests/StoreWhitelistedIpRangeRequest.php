@@ -7,7 +7,7 @@ class StoreWhitelistedIpRangeRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
@@ -18,7 +18,7 @@ class StoreWhitelistedIpRangeRequest extends Request
             'description'        => ['nullable', 'max:255'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

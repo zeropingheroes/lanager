@@ -8,7 +8,7 @@ use Zeropingheroes\Lanager\SteamUserAppSession;
 class GetActiveGamesService
 {
     /**
-     * Get the games that are currently being played
+     * Get the games that are currently being played.
      *
      * @return Collection
      */
@@ -37,6 +37,7 @@ class GetActiveGamesService
                 return count($b['users']) - count($a['users']);
             }
         );
+
         return collect($combinedUsage);
     }
 }

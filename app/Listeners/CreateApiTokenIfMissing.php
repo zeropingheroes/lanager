@@ -7,7 +7,6 @@ use Str;
 
 class CreateApiTokenIfMissing
 {
-
     /**
      * Handle the event.
      *
@@ -17,7 +16,7 @@ class CreateApiTokenIfMissing
     public function handle(Login $login)
     {
         $user = $login->user;
-        if (!$user->api_token) {
+        if (! $user->api_token) {
             $user->api_token = Str::random(60);
             $user->save();
         }

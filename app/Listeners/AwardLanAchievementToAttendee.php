@@ -33,26 +33,23 @@ class AwardLanAchievementToAttendee
     {
         $lanHappeningNow = Lan::happeningNow()->first();
 
-        if(!$lanHappeningNow) {
+        if (! $lanHappeningNow) {
             return;
         }
         $isAtLan = false;
 
-        foreach(WhitelistedIpRange::pluck('ip_range') as $ipRange)
-        {
-            if (IpUtils::checkIp($this->request->ip(), $ipRange))
-            {
+        foreach (WhitelistedIpRange::pluck('ip_range') as $ipRange) {
+            if (IpUtils::checkIp($this->request->ip(), $ipRange)) {
                 $isAtLan = true;
                 break;
             }
         }
 
-        if($isAtLan && $lanHappeningNow && $lanHappeningNow->attendanceAchievement)
-        {
+        if ($isAtLan && $lanHappeningNow && $lanHappeningNow->attendanceAchievement) {
             UserAchievement::firstOrCreate([
                 'user_id' => $login->user->id,
                 'achievement_id' => $lanHappeningNow->attendanceAchievement->id,
-                'lan_id' => $lanHappeningNow->id
+                'lan_id' => $lanHappeningNow->id,
             ]);
         }
     }

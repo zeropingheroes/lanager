@@ -28,8 +28,8 @@ class TestDataSeeder extends Seeder
         // Seed users & OAuth accounts
         factory(User::class, 100)->create()
            ->each(function ($user) {
-                $user->accounts()->save(factory(UserOAuthAccount::class)->make());
-            });
+               $user->accounts()->save(factory(UserOAuthAccount::class)->make());
+           });
 
         // Seed venues & LANs
         factory(Venue::class, 10)->create()

@@ -15,37 +15,36 @@ use Zeropingheroes\Lanager\UserOAuthAccount;
 
 class UpdateSteamUsersService
 {
-
     /**
-     * Steam ID(s) to be updated
+     * Steam ID(s) to be updated.
      *
      * @var array
      */
     protected $steamIds = [];
 
     /**
-     * Errors
+     * Errors.
      *
      * @var MessageBag
      */
     protected $errors;
 
     /**
-     * Successfully updated Steam IDs
+     * Successfully updated Steam IDs.
      *
      * @var array
      */
     protected $updated = [];
 
     /**
-     * Steam IDs that were not updated due to failures
+     * Steam IDs that were not updated due to failures.
      *
      * @var array
      */
     protected $failed = [];
 
     /**
-     * User IDs who are attending the current LAN
+     * User IDs who are attending the current LAN.
      * @var Collection
      */
     private $currentLanAttendees;
@@ -61,7 +60,7 @@ class UpdateSteamUsersService
         }
 
         // Ensure we have an array, even if only one ID is given
-        $steamIds = (array)$steamIds;
+        $steamIds = (array) $steamIds;
 
         // Remove excess white space and convert strings to integers
         $steamIds = array_map(
@@ -100,7 +99,7 @@ class UpdateSteamUsersService
     }
 
     /**
-     * Update Steam users
+     * Update Steam users.
      * @return void
      * @throws Throwable
      */
@@ -121,12 +120,10 @@ class UpdateSteamUsersService
 
         // Update state for each user in turn
         foreach ($steamUsers as $steamUser) {
-
             try {
                 if ($this->updateUser($steamUser)) {
                     $this->updated[$steamUser->steamId] = $steamUser->personaName;
                 }
-
             } catch (Exception $e) {
                 $this->failed[$steamUser->steamId] = $steamUser->personaName;
                 $this->errors->add(
@@ -138,7 +135,7 @@ class UpdateSteamUsersService
     }
 
     /**
-     * Update a single Steam user
+     * Update a single Steam user.
      *
      * @param $steamUser
      * @return bool
@@ -150,11 +147,11 @@ class UpdateSteamUsersService
         $userOAuthAccount = UserOAuthAccount::where('provider_id', $steamUser->steamId)->first();
 
         // If this Steam account is not already in the database
-        if (!$userOAuthAccount) {
+        if (! $userOAuthAccount) {
             // Create a new LANager user account
             $user = User::create(['username' => $steamUser->personaName]);
 
-            // Otherwise just get the associated user
+        // Otherwise just get the associated user
         } else {
             $user = $userOAuthAccount->user;
         }
@@ -183,12 +180,12 @@ class UpdateSteamUsersService
         );
 
         // Do not record gameplay info, unless a LAN is in progress
-        if (!$this->currentLanAttendees) {
+        if (! $this->currentLanAttendees) {
             return true;
         }
 
         // Do not record gameplay info if the user is not at the LAN in progress
-        if (!$this->currentLanAttendees->contains('id', $user->id)) {
+        if (! $this->currentLanAttendees->contains('id', $user->id)) {
             return true;
         }
 
@@ -205,12 +202,13 @@ class UpdateSteamUsersService
             );
 
             // If no existing ongoing session was found
-            if (!$session->exists) {
+            if (! $session->exists) {
                 // Create one starting now
                 $session->start = Carbon::now();
+
                 return $session->saveOrFail();
 
-                // If an existing ongoing session was found
+            // If an existing ongoing session was found
             } else {
                 // Update its updated_at timestamp field
                 return $session->touch();
@@ -223,12 +221,13 @@ class UpdateSteamUsersService
                 ->whereNull('end')
                 ->update(['end' => Carbon::now()]);
         }
+
         return true;
     }
 
     /**
      * End any unfinished sessions that have
-     * not been updated in the last X minutes
+     * not been updated in the last X minutes.
      *
      * @return mixed
      */

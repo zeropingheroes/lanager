@@ -18,7 +18,7 @@ class LanGame extends Model
     ];
 
     protected $with = [
-        'votes.user'
+        'votes.user',
     ];
 
     /**

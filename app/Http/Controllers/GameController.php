@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\Services\GetGamesPlayedRecentlyService;
 class GameController extends Controller
 {
     /**
-     * Display games in progress
+     * Display games in progress.
      *
      * @return \Illuminate\Contracts\View\View
      */
@@ -23,7 +23,7 @@ class GameController extends Controller
     }
 
     /**
-     * Display recently played games
+     * Display recently played games.
      *
      * @return \Illuminate\Contracts\View\View
      */
@@ -36,7 +36,7 @@ class GameController extends Controller
     }
 
     /**
-     * Display games owned
+     * Display games owned.
      *
      * @return \Illuminate\Contracts\View\View
      */
@@ -47,5 +47,4 @@ class GameController extends Controller
         return View::make('pages.games.owned')
             ->with('games', $games);
     }
-
 }

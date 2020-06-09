@@ -7,7 +7,7 @@ class StoreGuideRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
@@ -17,10 +17,10 @@ class StoreGuideRequest extends Request
             'lan_id'    => ['required', 'numeric', 'exists:lans,id'],
             'title'     => ['required', 'max:255'],
             'content'   => ['nullable'],
-            'published' => ['nullable','boolean'],
+            'published' => ['nullable', 'boolean'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

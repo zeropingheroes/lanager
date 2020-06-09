@@ -12,7 +12,7 @@ use Zeropingheroes\Lanager\SteamUserAppSession;
 class PruneSteamUserHistory extends Command
 {
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
@@ -64,6 +64,7 @@ class PruneSteamUserHistory extends Command
         $message = trans('phrase.x-entries-deleted-and-y-entries-retained', ['x' => $quantityDeleted, 'y' => $quantityRemaining]);
         $this->info($message);
         Log::info($message);
+
         return 0;
     }
 }

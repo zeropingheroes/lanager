@@ -9,7 +9,7 @@ use Zeropingheroes\Lanager\User;
 class GetGamesOwnedService
 {
     /**
-     * Get the top 10 games that users own
+     * Get the top 10 games that users own.
      *
      * @return array
      */
@@ -41,9 +41,9 @@ class GetGamesOwnedService
         $combinedUsage = [];
         foreach ($steamUserApps as $steamUserApp) {
             $combinedUsage[$steamUserApp->steam_app_id] = $combinedUsage[$steamUserApp->steam_app_id] ?? [
-                    'game' => null,
-                    'users' => []
-                ];
+                'game' => null,
+                'users' => [],
+            ];
             $combinedUsage[$steamUserApp->steam_app_id]['game'] = $combinedUsage[$steamUserApp->steam_app_id]['game'] ?? $steamUserApp->app;
             $combinedUsage[$steamUserApp->steam_app_id]['users'][] = $steamUserApp->user;
         }
@@ -68,5 +68,4 @@ class GetGamesOwnedService
 
         return $combinedUsage;
     }
-
 }

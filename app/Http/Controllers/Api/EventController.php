@@ -45,6 +45,7 @@ class EventController extends Controller
     public function show(Event $event)
     {
         $event->load('lan');
+
         return new EventResource($event);
     }
 }

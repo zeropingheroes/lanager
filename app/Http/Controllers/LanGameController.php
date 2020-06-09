@@ -28,6 +28,7 @@ class LanGameController extends Controller
             ->orderBy('votes_count', 'desc')
             ->orderBy('game_name', 'asc')
             ->get();
+
         return View::make('pages.lan-games.index')
             ->with('lan', $lan)
             ->with('lanGames', $lanGames);
@@ -54,6 +55,7 @@ class LanGameController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
@@ -100,6 +102,7 @@ class LanGameController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 

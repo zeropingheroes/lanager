@@ -58,7 +58,7 @@ return [
     'item-already-exists' => ':item již existuje!',
 
     /**
-     * Resources
+     * Resources.
      */
 
     // Users
@@ -130,7 +130,7 @@ return [
     'image-already-exists' => 'Obrázek se stejným názvem již existuje',
 
     /**
-     * Commands & Services
+     * Commands & Services.
      */
     // General purpose
     'suppress-confirmations' => 'Spustit příkaz bez žádání o povolení',

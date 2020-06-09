@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\SteamApp;
 class UpdateSteamApps extends Command
 {
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
@@ -30,11 +30,12 @@ class UpdateSteamApps extends Command
         $this->info(trans('phrase.requesting-list-of-all-apps-from-steam-api'));
         $apps = SteamApi::app()->GetAppList();
 
-        if (!SteamApp::count()) {
+        if (! SteamApp::count()) {
             $this->import($apps);
         } else {
             $this->update($apps);
         }
+
         return 0;
     }
 
@@ -70,7 +71,7 @@ class UpdateSteamApps extends Command
         }
         $progress->finish();
         $message = trans('phrase.x-steam-apps-imported', ['x' => $importedCount]);
-        $this->info(PHP_EOL . $message);
+        $this->info(PHP_EOL.$message);
         Log::info($message);
     }
 
@@ -102,7 +103,7 @@ class UpdateSteamApps extends Command
         $progress->finish();
 
         $message = trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
-        $this->info(PHP_EOL . $message);
+        $this->info(PHP_EOL.$message);
         Log::info($message);
     }
 }

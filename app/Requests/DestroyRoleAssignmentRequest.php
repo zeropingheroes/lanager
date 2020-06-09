@@ -8,7 +8,7 @@ use Zeropingheroes\Lanager\RoleAssignment;
 class DestroyRoleAssignmentRequest extends Request
 {
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
@@ -18,6 +18,7 @@ class DestroyRoleAssignmentRequest extends Request
 
         if ($roleAssignment->user->id == Auth::user()->id) {
             $this->addError(trans('phrase.cannot-unassign-role-from-self'));
+
             return $this->setValid(false);
         }
 

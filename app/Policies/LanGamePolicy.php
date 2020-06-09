@@ -68,6 +68,5 @@ class LanGamePolicy extends BasePolicy
     {
         // Same permissions as updating
         return $this->update($authUser, $lanGame);
-
     }
 }

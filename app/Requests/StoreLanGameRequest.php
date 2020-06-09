@@ -9,7 +9,7 @@ class StoreLanGameRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
@@ -20,17 +20,18 @@ class StoreLanGameRequest extends Request
             'game_name' => ['required', 'max:255'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
         $lanGamesWithSameName = LanGame::where([
-                ['lan_id', '=', $this->input['lan_id']],
-                ['game_name', '=', $this->input['game_name']],
-            ])->count();
+            ['lan_id', '=', $this->input['lan_id']],
+            ['game_name', '=', $this->input['game_name']],
+        ])->count();
 
         if ($lanGamesWithSameName != 0) {
             $this->addError(trans('phrase.game-already-submitted', ['game' => $this->input['game_name']]));
+
             return $this->setValid(false);
         }
 

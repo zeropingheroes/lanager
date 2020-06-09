@@ -4,16 +4,15 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
 use League\Csv\Exception;
-use Zeropingheroes\Lanager\SteamApp;
 use League\Csv\Reader;
+use Zeropingheroes\Lanager\SteamApp;
 
 class ImportSteamAppsCsv extends Command
 {
-
     private static $filename = 'steam_apps.csv';
 
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
@@ -34,15 +33,17 @@ class ImportSteamAppsCsv extends Command
             $reader = Reader::createFromPath($this::$filename, 'r');
         } catch (Exception $e) {
             $this->info(trans('phrase.csv-not-found-aborting'));
+
             return;
         }
         $csvApps = $reader->getRecords(['id', 'name', 'type']);
 
-        if (!SteamApp::count()) {
+        if (! SteamApp::count()) {
             $this->import($csvApps);
         } else {
             $this->update($csvApps, count($reader));
         }
+
         return 0;
     }
 
@@ -79,7 +80,7 @@ class ImportSteamAppsCsv extends Command
         }
         $progress->finish();
 
-        $this->info(PHP_EOL . trans('phrase.x-steam-apps-imported', ['x' => $importedCount]));
+        $this->info(PHP_EOL.trans('phrase.x-steam-apps-imported', ['x' => $importedCount]));
     }
 
     /**
@@ -98,7 +99,7 @@ class ImportSteamAppsCsv extends Command
         foreach ($csvApps as $csvApp) {
             $databaseApp = SteamApp::updateOrCreate(
                 [
-                    'id' => $csvApp['id']
+                    'id' => $csvApp['id'],
                 ],
                 [
                     'name' => $csvApp['name'],
@@ -111,6 +112,6 @@ class ImportSteamAppsCsv extends Command
             $progress->advance();
         }
         $progress->finish();
-        $this->info(PHP_EOL . trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]));
+        $this->info(PHP_EOL.trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]));
     }
 }

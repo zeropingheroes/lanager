@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class ReleaseV100 extends Migration
 {
@@ -188,12 +188,12 @@ class ReleaseV100 extends Migration
                 ->nullable();
             $table->timestamp('apps_updated_at')
                 ->nullable();
-             $table->foreign('user_id')
+            $table->foreign('user_id')
                     ->references('id')
                     ->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-                $table->foreign('steam_user_status_code_id')
+            $table->foreign('steam_user_status_code_id')
                     ->references('id')
                     ->on('steam_user_status_codes')
                     ->onUpdate('cascade')
@@ -373,6 +373,5 @@ class ReleaseV100 extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('logs');
-
     }
 }

@@ -14,7 +14,7 @@ class Guide extends Model
         'lan_id',
         'title',
         'content',
-        'published'
+        'published',
     ];
 
     protected $with = [

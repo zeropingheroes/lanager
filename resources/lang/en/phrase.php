@@ -60,7 +60,7 @@ return [
     'item-already-exists' => ':item already exists!',
 
     /**
-     * Resources
+     * Resources.
      */
 
     // Users
@@ -133,7 +133,7 @@ return [
     'image-already-exists' => 'An image of the same name already exists',
 
     /**
-     * Commands & Services
+     * Commands & Services.
      */
     // General purpose
     'suppress-confirmations' => 'Run command without requesting confirmation',
@@ -148,7 +148,6 @@ return [
     'update-steam-apps' => 'Update the database with the latest list of apps from Steam',
     'requesting-list-of-all-apps-from-steam-api' => 'Requesting list of all apps from Steam API',
     'importing-x-steam-apps' => 'Importing :x Steam apps',
-
 
     // lanager:update-steam-apps-metadata
     'update-steam-apps-metadata' => 'Update Steam apps in the database with the latest metadata from Steam',
@@ -256,4 +255,3 @@ return [
     'you-have-already-voted-for-this-game' => 'You have already voted for this game',
     'log-in-to-submit-and-vote-on-games' => 'Log in to submit and vote on games you want to play at :lan',
 ];
-

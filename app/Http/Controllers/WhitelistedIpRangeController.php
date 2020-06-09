@@ -21,6 +21,7 @@ class WhitelistedIpRangeController extends Controller
     public function index()
     {
         $whitelistedIpRanges = WhitelistedIpRange::all();
+
         return View::make('pages.whitelisted-ip-ranges.index')
             ->with('whitelistedIpRanges', $whitelistedIpRanges);
     }
@@ -59,6 +60,7 @@ class WhitelistedIpRangeController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
@@ -105,6 +107,7 @@ class WhitelistedIpRangeController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
@@ -130,9 +133,10 @@ class WhitelistedIpRangeController extends Controller
             'success',
             trans('phrase.item-name-deleted', [
                 'item' => trans('title.ip-range'),
-                'name' => $whitelistedIpRange->ip_range
+                'name' => $whitelistedIpRange->ip_range,
             ])
            );
+
         return redirect()->route('whitelisted-ip-ranges.index');
     }
 }

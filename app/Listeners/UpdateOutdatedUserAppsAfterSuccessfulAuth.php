@@ -9,7 +9,6 @@ use Zeropingheroes\Lanager\Services\UpdateSteamUserAppsService;
 
 class UpdateOutdatedUserAppsAfterSuccessfulAuth
 {
-
     /**
      * Handle the event.
      *
@@ -21,7 +20,7 @@ class UpdateOutdatedUserAppsAfterSuccessfulAuth
     {
         $steamMetadata = $login->user->SteamMetadata;
 
-        if (!$steamMetadata) {
+        if (! $steamMetadata) {
             return;
         }
 

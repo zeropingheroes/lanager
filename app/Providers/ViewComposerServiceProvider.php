@@ -16,7 +16,6 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         View::composer(
             'layouts.partials.nav.primary',
             function ($view) {

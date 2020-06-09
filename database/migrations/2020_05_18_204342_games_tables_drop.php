@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class GamesTablesDrop extends Migration
 {
@@ -16,7 +16,6 @@ class GamesTablesDrop extends Migration
         Schema::dropIfExists('epic_games');
         Schema::dropIfExists('origin_games');
         Schema::dropIfExists('blizzard_games');
-
     }
 
     /**

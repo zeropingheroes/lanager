@@ -32,7 +32,7 @@ class GetGamesPlayedBetweenService
     }
 
     /**
-     * Get the games that were played between two dates
+     * Get the games that were played between two dates.
      *
      * @return Collection
      * @throws Exception
@@ -58,10 +58,10 @@ class GetGamesPlayedBetweenService
         foreach ($sessions as $session) {
             // Initialise entry if this game has not been added before
             $combinedUsage[$session->steam_app_id] = $combinedUsage[$session->steam_app_id] ?? [
-                    'game' => $session->app,
-                    'users' => [],
-                    'playtime' => new CarbonInterval(0),
-                ];
+                'game' => $session->app,
+                'users' => [],
+                'playtime' => new CarbonInterval(0),
+            ];
 
             // Add the session's user to the list of users
             $combinedUsage[$session->steam_app_id]['users'][$session->user->id] = $session->user;

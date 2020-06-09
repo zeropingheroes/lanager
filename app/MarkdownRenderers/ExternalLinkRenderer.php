@@ -15,7 +15,7 @@ class ExternalLinkRenderer implements InlineRendererInterface
     private $host;
 
     /**
-     * ExternalLinkRenderer constructor
+     * ExternalLinkRenderer constructor.
      *
      * @param $host
      */
@@ -25,7 +25,7 @@ class ExternalLinkRenderer implements InlineRendererInterface
     }
 
     /**
-     * Render external links to open in a new window
+     * Render external links to open in a new window.
      *
      * @param AbstractInline $inline
      * @param ElementRendererInterface $htmlRenderer
@@ -34,8 +34,8 @@ class ExternalLinkRenderer implements InlineRendererInterface
      */
     public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer)
     {
-        if (!($inline instanceof Link)) {
-            throw new InvalidArgumentException('Incompatible inline type: ' . get_class($inline));
+        if (! ($inline instanceof Link)) {
+            throw new InvalidArgumentException('Incompatible inline type: '.get_class($inline));
         }
 
         $attributes = [];
@@ -54,7 +54,7 @@ class ExternalLinkRenderer implements InlineRendererInterface
     }
 
     /**
-     * Check if supplied URL is to another site
+     * Check if supplied URL is to another site.
      *
      * @param $url
      * @return bool

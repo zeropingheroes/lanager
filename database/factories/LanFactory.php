@@ -8,7 +8,7 @@ use Zeropingheroes\Lanager\Venue;
 
 $factory->define(Lan::class, function (Faker $faker) {
     $start = $faker->dateTimeThisDecade;
-    $end = $faker->dateTimeBetween($start,'+ 3 days');
+    $end = $faker->dateTimeBetween($start, '+ 3 days');
 
     return [
         'name' => $faker->company,

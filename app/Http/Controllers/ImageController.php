@@ -17,12 +17,12 @@ use Zeropingheroes\Lanager\Requests\UpdateImageRequest;
 class ImageController extends Controller
 {
     /**
-     * Permitted extensions
+     * Permitted extensions.
      */
     const permittedExtensions = ['gif', 'jpg', 'jpeg', 'png', 'bmp'];
 
     /**
-     * Uploaded image storage location
+     * Uploaded image storage location.
      */
     const directory = 'public/images';
 
@@ -79,6 +79,7 @@ class ImageController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
@@ -89,12 +90,12 @@ class ImageController extends Controller
 
             $fileName = str_replace($extension, '', $fileNameWithExtension);
 
-            $newFileName = Str::slug($fileName) . '.' . strtolower($extension);
+            $newFileName = Str::slug($fileName).'.'.strtolower($extension);
 
             $image->storeAs($this::directory, $newFileName);
         }
 
-        Session::flash('success',trans('phrase.images-successfully-uploaded'));
+        Session::flash('success', trans('phrase.images-successfully-uploaded'));
 
         return redirect()->route('images.index');
     }
@@ -110,8 +111,8 @@ class ImageController extends Controller
     {
         $this->authorize('images.update');
 
-        $filePath = $this::directory . '/' . $filename;
-        if (!Storage::exists($filePath)) {
+        $filePath = $this::directory.'/'.$filename;
+        if (! Storage::exists($filePath)) {
             abort(404);
         }
 
@@ -138,10 +139,10 @@ class ImageController extends Controller
     {
         $this->authorize('images.update');
 
-        $originalFilePath = $this::directory . '/' . $filename;
+        $originalFilePath = $this::directory.'/'.$filename;
         $originalFileExtension = File::extension($originalFilePath);
-        $newFilenameWithoutExtension = Str::before($httpRequest->input('filename'), '.' . $originalFileExtension);
-        $newFilePath = $this::directory . '/' . $newFilenameWithoutExtension . '.' . $originalFileExtension;
+        $newFilenameWithoutExtension = Str::before($httpRequest->input('filename'), '.'.$originalFileExtension);
+        $newFilePath = $this::directory.'/'.$newFilenameWithoutExtension.'.'.$originalFileExtension;
 
         $input = [
             'original_file_path' => $originalFilePath,
@@ -153,6 +154,7 @@ class ImageController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
@@ -174,8 +176,8 @@ class ImageController extends Controller
         $this->authorize('images.delete');
 
         // TODO: move to Request class
-        $file = $this::directory . '/' . $filename;
-        if (!Storage::exists($file)) {
+        $file = $this::directory.'/'.$filename;
+        if (! Storage::exists($file)) {
             abort(404);
         }
 

@@ -13,15 +13,14 @@ class MakeFeature extends Command
     private $replacements;
 
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
-        $this->signature = 'make:feature {name : ' . trans('phrase.name-of-feature') . '}';
+        $this->signature = 'make:feature {name : '.trans('phrase.name-of-feature').'}';
         $this->description = trans('phrase.create-files-for-feature');
 
         parent::__construct();
-
     }
 
     /**
@@ -52,12 +51,13 @@ class MakeFeature extends Command
         $this->makeViews();
         $this->makeBreadcrumbs();
         $this->makeMigration();
+
         return 0;
     }
 
     private function makeController()
     {
-        $stubPath = __DIR__ . '/stubs/controller.stub';
+        $stubPath = __DIR__.'/stubs/controller.stub';
         $outputPath = app_path("Http/Controllers/{$this->replacements['model']}Controller.php");
 
         $this->makeFileFromStub($stubPath, $outputPath);
@@ -68,7 +68,7 @@ class MakeFeature extends Command
         $this->call(
             'make:migration',
             [
-                'name' => $this->replacements['table'] . '_table_create',
+                'name' => $this->replacements['table'].'_table_create',
                 '--table' => $this->replacements['table'],
                 '--no-interaction' => true,
             ]
@@ -77,7 +77,7 @@ class MakeFeature extends Command
 
     private function makePolicy()
     {
-        $stubPath = __DIR__ . '/stubs/policy.stub';
+        $stubPath = __DIR__.'/stubs/policy.stub';
         $outputPath = app_path("Policies/{$this->replacements['model']}Policy.php");
 
         $this->makeFileFromStub($stubPath, $outputPath);
@@ -85,7 +85,7 @@ class MakeFeature extends Command
 
     private function makeStoreRequest()
     {
-        $stubPath = __DIR__ . '/stubs/request.stub';
+        $stubPath = __DIR__.'/stubs/request.stub';
         $outputPath = app_path("Requests/Store{$this->replacements['model']}Request.php");
 
         $this->makeFileFromStub($stubPath, $outputPath);
@@ -98,12 +98,12 @@ class MakeFeature extends Command
         $viewPath = resource_path("views/pages/{$this->replacements['view']}/");
 
         foreach ($viewStubs as $viewStub) {
-            $outputPath = $viewPath . str_replace('.stub', '.blade.php', $viewStub);
-            if (!is_dir(dirname($outputPath))) {
+            $outputPath = $viewPath.str_replace('.stub', '.blade.php', $viewStub);
+            if (! is_dir(dirname($outputPath))) {
                 mkdir(dirname($outputPath), 755, true);
             }
-            $label = 'View "' . Str::studly(basename($viewStub, '.stub')) . '"';
-            $this->makeFileFromStub(__DIR__ . '/stubs/views/' . $viewStub, $outputPath, $label);
+            $label = 'View "'.Str::studly(basename($viewStub, '.stub')).'"';
+            $this->makeFileFromStub(__DIR__.'/stubs/views/'.$viewStub, $outputPath, $label);
         }
     }
 
@@ -116,29 +116,31 @@ class MakeFeature extends Command
     {
         $label = $label ?? Str::studly(basename($stubPath, '.stub'));
 
-        if (!file_exists($stubPath)) {
-            $this->error(trans('phrase.item-not-found', ['item' => $label . ' stub']));
+        if (! file_exists($stubPath)) {
+            $this->error(trans('phrase.item-not-found', ['item' => $label.' stub']));
+
             return;
         }
 
         if (! $append && file_exists($outputPath)) {
             $this->error(trans('phrase.item-already-exists', ['item' => $label]));
+
             return;
         }
 
         $stub = file_get_contents($stubPath);
 
         foreach ($this->replacements as $find => $replace) {
-            $stub = str_replace('{{' . $find . '}}', $replace, $stub);
+            $stub = str_replace('{{'.$find.'}}', $replace, $stub);
         }
         if (file_put_contents($outputPath, $stub, FILE_APPEND) !== false) {
-            $this->info(trans('phrase.item-created-successfully', ['item' => $label]) . '.');
+            $this->info(trans('phrase.item-created-successfully', ['item' => $label]).'.');
         }
     }
 
     private function makeRoute()
     {
-        $stubPath = __DIR__ . '/stubs/route.stub';
+        $stubPath = __DIR__.'/stubs/route.stub';
         $outputPath = base_path('routes/web.php');
 
         $this->makeFileFromStub($stubPath, $outputPath, null, true);
@@ -146,7 +148,7 @@ class MakeFeature extends Command
 
     private function makeBreadcrumbs()
     {
-        $stubPath = __DIR__ . '/stubs/breadcrumbs.stub';
+        $stubPath = __DIR__.'/stubs/breadcrumbs.stub';
         $outputPath = base_path('routes/breadcrumbs.php');
 
         $this->makeFileFromStub($stubPath, $outputPath, null, true);

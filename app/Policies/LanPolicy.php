@@ -12,7 +12,7 @@ class LanPolicy extends BasePolicy
      *
      * @param User|null $authUser
      * @param Lan $lan
-     * @return boolean
+     * @return bool
      */
     public function view(?User $authUser, Lan $lan)
     {
@@ -28,7 +28,7 @@ class LanPolicy extends BasePolicy
      * Determine whether the logged-in user can create an item.
      *
      * @param User $authUser
-     * @return boolean
+     * @return bool
      */
     public function create(User $authUser)
     {
@@ -40,7 +40,7 @@ class LanPolicy extends BasePolicy
      *
      * @param User $authUser
      * @param Lan $lan
-     * @return boolean
+     * @return bool
      */
     public function update(User $authUser, Lan $lan)
     {
@@ -52,7 +52,7 @@ class LanPolicy extends BasePolicy
      *
      * @param User $authUser
      * @param Lan $lan
-     * @return boolean
+     * @return bool
      */
     public function delete(User $authUser, Lan $lan)
     {

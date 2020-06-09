@@ -6,19 +6,19 @@ use Exception;
 use Illuminate\Console\Command;
 use Log;
 use Throwable;
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Services\UpdateSteamUserAppsService;
 use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\Lan;
 
 class UpdateSteamUserApps extends Command
 {
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-user-apps
-                            {--all : ' . trans('phrase.update-all-users') . '}';
+                            {--all : '.trans('phrase.update-all-users').'}';
         $this->description = trans('phrase.update-existing-user-app-ownership');
 
         parent::__construct();
@@ -51,6 +51,7 @@ class UpdateSteamUserApps extends Command
             $message = trans('phrase.no-steam-users-to-update');
             Log::info($message);
             $this->info($message);
+
             return 0;
         }
 
@@ -74,8 +75,10 @@ class UpdateSteamUserApps extends Command
                 Log::error($error[0]);
                 $this->error($error[0]);
             }
+
             return 1;
         }
+
         return 0;
     }
 }

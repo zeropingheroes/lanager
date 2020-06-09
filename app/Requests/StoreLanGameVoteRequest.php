@@ -9,7 +9,7 @@ class StoreLanGameVoteRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
@@ -20,14 +20,15 @@ class StoreLanGameVoteRequest extends Request
             'user_id'       => ['required', 'numeric', 'exists:users,id'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
         $lanGame = LanGame::findOrFail($this->input['lan_game_id']);
 
-        if ($lanGame->votes->where('user_id',$this->input['user_id'])->count()) {
+        if ($lanGame->votes->where('user_id', $this->input['user_id'])->count()) {
             $this->addError(trans('phrase.you-have-already-voted-for-this-game'));
+
             return $this->setValid(false);
         }
 

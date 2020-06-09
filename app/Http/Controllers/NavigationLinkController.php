@@ -71,13 +71,13 @@ class NavigationLinkController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
         NavigationLink::create($input);
 
         return redirect()->route('navigation-links.index');
-
     }
 
     /**
@@ -124,6 +124,7 @@ class NavigationLinkController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 

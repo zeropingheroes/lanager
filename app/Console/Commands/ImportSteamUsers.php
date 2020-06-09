@@ -11,11 +11,11 @@ use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 class ImportSteamUsers extends Command
 {
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
-        $this->signature = 'lanager:import-steam-users {steamIds* : ' . trans('phrase.steamids-to-import-list-or-file') . '}';
+        $this->signature = 'lanager:import-steam-users {steamIds* : '.trans('phrase.steamids-to-import-list-or-file').'}';
         $this->description = trans('phrase.import-users-from-steam-into-lanager');
 
         parent::__construct();
@@ -38,10 +38,11 @@ class ImportSteamUsers extends Command
             $steamIds = explode("\n", trim($steamIds));
         }
 
-        if (!$steamIds) {
+        if (! $steamIds) {
             $message = trans('phrase.no-steam-users-to-import');
             Log::error($message);
             $this->error($message);
+
             return 1;
         }
 
@@ -63,6 +64,7 @@ class ImportSteamUsers extends Command
                 Log::error($error[0]);
                 $this->error($error[0]);
             }
+
             return 1;
         } else {
             return 0;

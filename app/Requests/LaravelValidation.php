@@ -12,21 +12,21 @@ trait LaravelValidation
     protected $validator;
 
     /**
-     * Validation rules for the Laravel validator
+     * Validation rules for the Laravel validator.
      *
      * @var array
      */
     protected $validationRules = [];
 
     /**
-     * Custom validation error messages for the Laravel validator
+     * Custom validation error messages for the Laravel validator.
      *
      * @var array
      */
     protected $validationMessages = [];
 
     /**
-     * Validate the input against rules using Laravel's validation
+     * Validate the input against rules using Laravel's validation.
      *
      * @return bool
      */
@@ -38,8 +38,10 @@ trait LaravelValidation
             foreach ($this->validator->errors()->all() as $error) {
                 $this->addError($error);
             }
+
             return false;
         }
+
         return true;
     }
 }

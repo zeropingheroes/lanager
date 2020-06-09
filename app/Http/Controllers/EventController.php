@@ -80,6 +80,7 @@ class EventController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
@@ -160,6 +161,7 @@ class EventController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 

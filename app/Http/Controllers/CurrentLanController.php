@@ -13,7 +13,7 @@ class CurrentLanController extends Controller
     protected $lan;
 
     /**
-     * Determine the current LAN
+     * Determine the current LAN.
      */
     public function __construct()
     {
@@ -22,13 +22,13 @@ class CurrentLanController extends Controller
                   ?? Lan::past()->where('published', 1)->orderBy('end', 'desc')->first();      // Most recently ended past LAN
 
         // If there are no LANs, go to the LAN index page
-        if (!$this->lan) {
+        if (! $this->lan) {
             redirect()->route('lans.index')->send();
         }
     }
 
     /**
-     * Redirect to current LAN's page
+     * Redirect to current LAN's page.
      *
      * @return RedirectResponse
      */
@@ -38,7 +38,7 @@ class CurrentLanController extends Controller
     }
 
     /**
-     * Redirect to current LAN's guides index
+     * Redirect to current LAN's guides index.
      *
      * @return RedirectResponse
      */
@@ -48,7 +48,7 @@ class CurrentLanController extends Controller
     }
 
     /**
-     * Redirect to current LAN's events index
+     * Redirect to current LAN's events index.
      *
      * @return RedirectResponse
      */
@@ -58,7 +58,7 @@ class CurrentLanController extends Controller
     }
 
     /**
-     * Redirect to current LAN's events schedule
+     * Redirect to current LAN's events schedule.
      *
      * @return RedirectResponse
      */
@@ -68,7 +68,7 @@ class CurrentLanController extends Controller
     }
 
     /**
-     * Redirect to current LAN's attendees index
+     * Redirect to current LAN's attendees index.
      *
      * @return RedirectResponse
      */
@@ -78,7 +78,7 @@ class CurrentLanController extends Controller
     }
 
     /**
-     * Redirect to current LAN's awarded achievements
+     * Redirect to current LAN's awarded achievements.
      *
      * @return RedirectResponse
      */

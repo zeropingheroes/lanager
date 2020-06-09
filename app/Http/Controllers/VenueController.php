@@ -21,6 +21,7 @@ class VenueController extends Controller
     public function index()
     {
         $venues = Venue::all();
+
         return View::make('pages.venues.index')
             ->with('venues', $venues);
     }
@@ -60,6 +61,7 @@ class VenueController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
@@ -122,6 +124,7 @@ class VenueController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
@@ -147,7 +150,7 @@ class VenueController extends Controller
             'success',
             trans('phrase.item-name-deleted', [
                 'item' => trans('title.venue'),
-                'name' => $venue->name
+                'name' => $venue->name,
             ])
            );
 

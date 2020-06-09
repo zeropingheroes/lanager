@@ -14,7 +14,7 @@ use Zeropingheroes\Lanager\Requests\StoreAchievementRequest;
 class AchievementController extends Controller
 {
     /**
-     * Uploaded image storage location
+     * Uploaded image storage location.
      */
     const directory = 'public/images/achievements';
 
@@ -66,15 +66,15 @@ class AchievementController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
         $achievement = Achievement::create($input);
 
-        if($httpRequest->image)
-        {
+        if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
-            $newFileName = $achievement->id . '.' . strtolower($extension);
+            $newFileName = $achievement->id.'.'.strtolower($extension);
             $httpRequest->image->storeAs($this::directory, $newFileName);
             $achievement->update(['image_filename' => $newFileName]);
         }
@@ -113,7 +113,6 @@ class AchievementController extends Controller
             ->with('achievement', $achievement);
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -136,13 +135,13 @@ class AchievementController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
-        if($httpRequest->image)
-        {
+        if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
-            $newFileName = $achievement->id . '.' . strtolower($extension);
+            $newFileName = $achievement->id.'.'.strtolower($extension);
             $httpRequest->image->storeAs($this::directory, $newFileName);
             $input['image_filename'] = $newFileName;
         }
@@ -172,6 +171,5 @@ class AchievementController extends Controller
         );
 
         return redirect()->route('achievements.index');
-
     }
 }

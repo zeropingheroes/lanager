@@ -15,7 +15,7 @@ class ResponsiveImageRenderer implements InlineRendererInterface
     private $classes;
 
     /**
-     * ExternalLinkRenderer constructor
+     * ExternalLinkRenderer constructor.
      *
      * @param $classes
      */
@@ -25,7 +25,7 @@ class ResponsiveImageRenderer implements InlineRendererInterface
     }
 
     /**
-     * Render images with responsive classes added
+     * Render images with responsive classes added.
      *
      * @param AbstractInline $inline
      * @param ElementRendererInterface $htmlRenderer
@@ -34,8 +34,8 @@ class ResponsiveImageRenderer implements InlineRendererInterface
      */
     public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer)
     {
-        if (!($inline instanceof Image)) {
-            throw new InvalidArgumentException('Incompatible inline type: ' . get_class($inline));
+        if (! ($inline instanceof Image)) {
+            throw new InvalidArgumentException('Incompatible inline type: '.get_class($inline));
         }
 
         $attributes = [];

@@ -15,12 +15,12 @@ use Zeropingheroes\Lanager\UserOAuthAccount;
 class UpdateSteamUsers extends Command
 {
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-users
-                            {--all : ' . trans('phrase.update-all-users') . '}';
+                            {--all : '.trans('phrase.update-all-users').'}';
         $this->description = trans('phrase.update-existing-users-profiles-from-steam');
 
         parent::__construct();
@@ -63,10 +63,11 @@ class UpdateSteamUsers extends Command
             ->pluck('provider_id')
             ->toArray();
 
-        if (!$steamIds) {
+        if (! $steamIds) {
             $message = trans('phrase.no-steam-users-to-update');
             Log::info($message);
             $this->info($message);
+
             return 0;
         }
 
@@ -89,8 +90,10 @@ class UpdateSteamUsers extends Command
                 Log::error($error[0]);
                 $this->error($error[0]);
             }
+
             return 1;
         }
+
         return 0;
     }
 }

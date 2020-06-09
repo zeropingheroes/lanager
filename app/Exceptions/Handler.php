@@ -56,9 +56,8 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof NotFoundHttpException || $exception instanceof ModelNotFoundException) {
-
-            if($request->wantsJson()) {
-                return response()->json(['error' => ['message' => trans('http-status-codes.404-title')]],404);
+            if ($request->wantsJson()) {
+                return response()->json(['error' => ['message' => trans('http-status-codes.404-title')]], 404);
             }
 
             return Route::respondWithRoute('fallback');

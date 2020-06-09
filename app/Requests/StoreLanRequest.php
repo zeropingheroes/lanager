@@ -9,7 +9,7 @@ class StoreLanRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
@@ -21,11 +21,11 @@ class StoreLanRequest extends Request
             'start' => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
             'end' => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
             'venue_id' => ['nullable', 'numeric', 'exists:venues,id'],
-            'achievement_id' => ['nullable', 'numeric','exists:achievements,id'],
-            'published' => ['nullable', 'boolean']
+            'achievement_id' => ['nullable', 'numeric', 'exists:achievements,id'],
+            'published' => ['nullable', 'boolean'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
@@ -39,6 +39,7 @@ class StoreLanRequest extends Request
 
         if ($overlappingLans->count()) {
             $this->addError(trans('phrase.lans-cannot-overlap'));
+
             return $this->setValid(false);
         }
 

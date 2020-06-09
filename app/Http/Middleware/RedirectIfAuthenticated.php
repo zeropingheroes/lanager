@@ -2,9 +2,9 @@
 
 namespace Zeropingheroes\Lanager\Http\Middleware;
 
-use Zeropingheroes\Lanager\Providers\RouteServiceProvider;
-use Closure;
 use Auth;
+use Closure;
+use Zeropingheroes\Lanager\Providers\RouteServiceProvider;
 
 class RedirectIfAuthenticated
 {

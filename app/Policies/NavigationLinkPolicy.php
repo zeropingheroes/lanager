@@ -12,7 +12,7 @@ class NavigationLinkPolicy extends BasePolicy
      *
      * @param User|null $authUser
      * @param NavigationLink $navigationLink
-     * @return boolean
+     * @return bool
      */
     public function view(?User $authUser, NavigationLink $navigationLink)
     {
@@ -24,7 +24,7 @@ class NavigationLinkPolicy extends BasePolicy
      * Determine whether the logged-in user can list all items.
      *
      * @param User $authUser
-     * @return boolean
+     * @return bool
      */
     public function index(User $authUser)
     {
@@ -35,7 +35,7 @@ class NavigationLinkPolicy extends BasePolicy
      * Determine whether the logged-in user can create an item.
      *
      * @param User $authUser
-     * @return boolean
+     * @return bool
      */
     public function create(User $authUser)
     {
@@ -47,7 +47,7 @@ class NavigationLinkPolicy extends BasePolicy
      *
      * @param User $authUser
      * @param NavigationLink $navigationLink
-     * @return boolean
+     * @return bool
      */
     public function update(User $authUser, NavigationLink $navigationLink)
     {
@@ -59,7 +59,7 @@ class NavigationLinkPolicy extends BasePolicy
      *
      * @param User $authUser
      * @param NavigationLink $navigationLink
-     * @return boolean
+     * @return bool
      */
     public function delete(User $authUser, NavigationLink $navigationLink)
     {

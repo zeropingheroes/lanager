@@ -12,7 +12,7 @@ class WhitelistedIpRangePolicy extends BasePolicy
      *
      * @param User|null $authUser
      * @param WhitelistedIpRange $whitelistedIpRange
-     * @return boolean
+     * @return bool
      */
     public function view(?User $authUser, WhitelistedIpRange $whitelistedIpRange)
     {
@@ -23,7 +23,7 @@ class WhitelistedIpRangePolicy extends BasePolicy
      * Determine whether the logged-in user can create an item.
      *
      * @param User $authUser
-     * @return boolean
+     * @return bool
      */
     public function create(User $authUser)
     {
@@ -35,7 +35,7 @@ class WhitelistedIpRangePolicy extends BasePolicy
      *
      * @param User $authUser
      * @param WhitelistedIpRange $whitelistedIpRange
-     * @return boolean
+     * @return bool
      */
     public function update(User $authUser, WhitelistedIpRange $whitelistedIpRange)
     {
@@ -47,7 +47,7 @@ class WhitelistedIpRangePolicy extends BasePolicy
      *
      * @param User $authUser
      * @param WhitelistedIpRange $whitelistedIpRange
-     * @return boolean
+     * @return bool
      */
     public function delete(User $authUser, WhitelistedIpRange $whitelistedIpRange)
     {

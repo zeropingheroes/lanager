@@ -9,7 +9,7 @@ use Zeropingheroes\Lanager\User;
 class GetGamesPlayedRecentlyService
 {
     /**
-     * Get the top 10 games that users have played in the last 2 weeks
+     * Get the top 10 games that users have played in the last 2 weeks.
      *
      * @return array
      */
@@ -42,9 +42,9 @@ class GetGamesPlayedRecentlyService
         $combinedUsage = [];
         foreach ($steamUserApps as $steamUserApp) {
             $combinedUsage[$steamUserApp->steam_app_id] = $combinedUsage[$steamUserApp->steam_app_id] ?? [
-                    'game' => null,
-                    'users' => []
-                ];
+                'game' => null,
+                'users' => [],
+            ];
             $combinedUsage[$steamUserApp->steam_app_id]['game'] = $combinedUsage[$steamUserApp->steam_app_id]['game'] ?? $steamUserApp->app;
             $combinedUsage[$steamUserApp->steam_app_id]['users'][] = $steamUserApp->user;
         }

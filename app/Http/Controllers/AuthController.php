@@ -17,12 +17,10 @@ use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
 /**
- * Class AuthController
- * @package Zeropingheroes\Lanager\Http\Controllers\Auth
+ * Class AuthController.
  */
 class AuthController extends Controller
 {
-
     /**
      * Show the login page.
      *
@@ -47,7 +45,6 @@ class AuthController extends Controller
         $message = trans('phrase.provider-not-supported', ['provider' => $OAuthProvider]);
         Log::error($message);
         throw new InvalidArgumentException($message);
-
     }
 
     /**
@@ -66,10 +63,11 @@ class AuthController extends Controller
             $service->update();
 
             // Check if the user wasn't updated, or if there are errors
-            if (!array_key_exists($OAuthUser->id, $service->getUpdated()) ||
+            if (! array_key_exists($OAuthUser->id, $service->getUpdated()) ||
                 $service->errors()->isNotEmpty()) {
                 Log::error($service->errors()->first());
                 Session::flash('error', $service->errors()->first());
+
                 return redirect()->route('login');
             }
 
@@ -92,10 +90,9 @@ class AuthController extends Controller
                 $route = route('lans.events.index', ['lan' => $lan]);
             } else {
                 $route = route('users.show', ['user' => $user]);
-
             }
-            return redirect()->intended($route);
 
+            return redirect()->intended($route);
         }
 
         throw new InvalidArgumentException(trans('phrase.provider-not-supported', ['provider' => $OAuthProvider]));
@@ -113,6 +110,7 @@ class AuthController extends Controller
         $this->guard()->logout();
         $request->session()->invalidate();
         Log::info(trans('phrase.user-successfully-logged-out', ['username' => $user->username]));
+
         return redirect()->to('/');
     }
 

@@ -13,7 +13,7 @@ class Achievement extends Model
     protected $fillable = [
         'name',
         'description',
-        'image_filename'
+        'image_filename',
     ];
 
     /**

@@ -2,12 +2,13 @@
 
 namespace Zeropingheroes\Lanager;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Eloquent;
+use Illuminate\Notifications\Notifiable;
+
 /* @mixin Eloquent */
 
 class User extends Authenticatable
@@ -48,7 +49,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if the user has the specified role(s)
+     * Check if the user has the specified role(s).
      *
      * @param string $role
      * @return bool

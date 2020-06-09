@@ -19,9 +19,11 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->filled('ids')) {
-            $ids = explode(',',$request->ids);
+            $ids = explode(',', $request->ids);
+
             return UserResource::collection(User::whereIn('id', $ids)->orderBy('username')->get());
         }
+
         return UserResource::collection(User::orderBy('username')->get());
     }
 
@@ -34,6 +36,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user->load('accounts');
+
         return new UserResource($user);
     }
 }

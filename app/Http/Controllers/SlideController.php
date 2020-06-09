@@ -77,6 +77,7 @@ class SlideController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
@@ -158,6 +159,7 @@ class SlideController extends Controller
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
+
             return redirect()->back()->withInput();
         }
 
@@ -190,7 +192,7 @@ class SlideController extends Controller
             'success',
             trans('phrase.item-name-deleted', [
                 'item' => trans('title.slide'),
-                'name' => $slide->name
+                'name' => $slide->name,
             ])
            );
 

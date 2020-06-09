@@ -7,7 +7,7 @@ class StoreVenueRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
@@ -19,7 +19,7 @@ class StoreVenueRequest extends Request
             'content'            => ['nullable'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

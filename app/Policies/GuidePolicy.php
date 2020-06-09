@@ -12,7 +12,7 @@ class GuidePolicy extends BasePolicy
      *
      * @param User|null $authUser
      * @param Guide $guide
-     * @return boolean
+     * @return bool
      */
     public function view(?User $authUser, Guide $guide)
     {
@@ -22,14 +22,14 @@ class GuidePolicy extends BasePolicy
         }
         // Non-admins can only view a guide if the
         // guide and its parent LAN are both published
-        return ($guide->published && $guide->lan->published);
+        return $guide->published && $guide->lan->published;
     }
 
     /**
      * Determine whether the logged-in user can create an item.
      *
      * @param User $authUser
-     * @return boolean
+     * @return bool
      */
     public function create(User $authUser)
     {
@@ -41,7 +41,7 @@ class GuidePolicy extends BasePolicy
      *
      * @param User $authUser
      * @param Guide $guide
-     * @return boolean
+     * @return bool
      */
     public function update(User $authUser, Guide $guide)
     {
@@ -53,7 +53,7 @@ class GuidePolicy extends BasePolicy
      *
      * @param User $authUser
      * @param Guide $guide
-     * @return boolean
+     * @return bool
      */
     public function delete(User $authUser, Guide $guide)
     {

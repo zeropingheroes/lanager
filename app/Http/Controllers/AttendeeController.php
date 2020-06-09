@@ -21,5 +21,4 @@ class AttendeeController extends Controller
             ->with('lan', $lan)
             ->with('users', $users);
     }
-
 }

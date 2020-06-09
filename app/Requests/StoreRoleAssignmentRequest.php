@@ -11,7 +11,7 @@ class StoreRoleAssignmentRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
@@ -22,7 +22,7 @@ class StoreRoleAssignmentRequest extends Request
             'role_id' => ['exists:roles,id'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
@@ -30,17 +30,20 @@ class StoreRoleAssignmentRequest extends Request
         $role = Role::find($this->input['role_id']);
 
         if ($user->hasRole($role->name)) {
-            $this->addError(trans('phrase.user-already-has-role', ['user' => $user->username, 'role' => $role->display_name,]));
+            $this->addError(trans('phrase.user-already-has-role', ['user' => $user->username, 'role' => $role->display_name]));
+
             return $this->setValid(false);
         }
 
         if ($user == Auth::user()) {
             $this->addError(trans('phrase.cannot-assign-role-to-self'));
+
             return $this->setValid(false);
         }
 
         if ($user->hasRole('Super Admin')) {
             $this->addError(trans('phrase.cannot-assign-role-to-super-admin'));
+
             return $this->setValid(false);
         }
 

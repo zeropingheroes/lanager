@@ -11,7 +11,7 @@ class UserPolicy extends BasePolicy
      *
      * @param User|null $authUser
      * @param User $requestedUser
-     * @return boolean
+     * @return bool
      */
     public function view(?User $authUser, User $requestedUser)
     {
@@ -24,7 +24,7 @@ class UserPolicy extends BasePolicy
      *
      * @param User $authUser
      * @param User $requestedUser
-     * @return boolean
+     * @return bool
      */
     public function delete(User $authUser, User $requestedUser)
     {

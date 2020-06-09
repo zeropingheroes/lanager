@@ -3,8 +3,8 @@
 namespace Zeropingheroes\Lanager\Listeners;
 
 use Illuminate\Auth\Events\Login;
-use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Attendee;
+use Zeropingheroes\Lanager\Lan;
 
 class UpdateLanAttendeesTable
 {
