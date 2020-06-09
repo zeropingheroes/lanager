@@ -41,9 +41,9 @@ class GetGamesOwnedService
         $combinedUsage = [];
         foreach ($steamUserApps as $steamUserApp) {
             $combinedUsage[$steamUserApp->steam_app_id] = $combinedUsage[$steamUserApp->steam_app_id] ?? [
-                'game' => null,
-                'users' => [],
-            ];
+                    'game' => null,
+                    'users' => [],
+                ];
             $combinedUsage[$steamUserApp->steam_app_id]['game'] = $combinedUsage[$steamUserApp->steam_app_id]['game'] ?? $steamUserApp->app;
             $combinedUsage[$steamUserApp->steam_app_id]['users'][] = $steamUserApp->user;
         }

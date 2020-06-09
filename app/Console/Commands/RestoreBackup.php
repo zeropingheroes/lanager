@@ -51,9 +51,13 @@ class RestoreBackup extends Command
         }
 
         // Delete existing images
-        $processes['rm-images'] = new Process([
-            'rm', '-rf', "$imagesDir/*",
-        ]);
+        $processes['rm-images'] = new Process(
+            [
+                'rm',
+                '-rf',
+                "$imagesDir/*",
+            ]
+        );
 
         // Clear database
         $this->call('migrate:fresh');
@@ -62,19 +66,33 @@ class RestoreBackup extends Command
         $this->call('lanager:import-steam-apps-csv');
 
         // Create a temporary restore directory
-        $processes["mkdir-$restoreDir"] = new Process([
-            'mkdir', '-p', "$restoreDir",
-        ]);
+        $processes["mkdir-$restoreDir"] = new Process(
+            [
+                'mkdir',
+                '-p',
+                "$restoreDir",
+            ]
+        );
 
         // Extract all files to temporary directory
-        $processes['uncompress'] = new Process([
-            'tar', '-zxvf', $backupFile, '-C', $restoreDir,
-        ]);
+        $processes['uncompress'] = new Process(
+            [
+                'tar',
+                '-zxvf',
+                $backupFile,
+                '-C',
+                $restoreDir,
+            ]
+        );
 
         // Create the images directory
-        $processes["mkdir-$imagesDir"] = new Process([
-            'mkdir', '-p', $imagesDir,
-        ]);
+        $processes["mkdir-$imagesDir"] = new Process(
+            [
+                'mkdir',
+                '-p',
+                $imagesDir,
+            ]
+        );
 
         // Restore images
         $processes['cp-images'] = Process::fromShellCommandline(
@@ -87,9 +105,13 @@ class RestoreBackup extends Command
         );
 
         // Remove the temporary directory
-        $processes['rm-tmp'] = new Process([
-            'rm', '-rf', $restoreDir,
-        ]);
+        $processes['rm-tmp'] = new Process(
+            [
+                'rm',
+                '-rf',
+                $restoreDir,
+            ]
+        );
 
         // Run the defined processes in turn
         foreach ($processes as $process) {

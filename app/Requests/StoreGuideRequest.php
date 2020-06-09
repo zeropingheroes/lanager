@@ -14,9 +14,9 @@ class StoreGuideRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'lan_id'    => ['required', 'numeric', 'exists:lans,id'],
-            'title'     => ['required', 'max:255'],
-            'content'   => ['nullable'],
+            'lan_id' => ['required', 'numeric', 'exists:lans,id'],
+            'title' => ['required', 'max:255'],
+            'content' => ['nullable'],
             'published' => ['nullable', 'boolean'],
         ];
 

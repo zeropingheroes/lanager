@@ -6,7 +6,6 @@ use File;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Session;
 use Storage;
 use Str;
@@ -185,7 +184,7 @@ class ImageController extends Controller
         Session::flash(
             'success',
             trans('phrase.item-name-deleted', ['item' => trans('title.image'), 'name' => $filename])
-           );
+        );
 
         return redirect()->route('images.index');
     }

@@ -5,7 +5,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Session;
 use View;
@@ -35,9 +34,7 @@ class UserController extends Controller
         // If the user's apps are visible, and they're attending the current LAN (or there isn't a current LAN)
         if (($user->steamMetadata && $user->steamMetadata->apps_visible == 1) &&
             (! $lan || $lansAttended->contains('id', $lan->id))) {
-
-            // Get games in common so long as the logged
-            // in user is not viewing their own profile
+            // Get games in common so long as the logged in user is not viewing their own profile
             if (Auth::check() && $user->id != Auth::user()->id) {
                 $authUserGames = Auth::user()
                     ->steamApps()
@@ -98,7 +95,7 @@ class UserController extends Controller
         Session::flash(
             'success',
             trans('phrase.item-name-deleted', ['item' => trans('title.user'), 'name' => $user->username])
-           );
+        );
 
         return redirect()->route('users');
     }

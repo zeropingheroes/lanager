@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\belongsTo;
 use Illuminate\Database\Eloquent\Relations\hasMany;
 
 /* @mixin Eloquent */
-
 class Event extends Model
 {
     protected $fillable = [

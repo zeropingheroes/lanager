@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /* @mixin Eloquent */
-
 class SteamUserMetadata extends Model
 {
     protected $fillable = [

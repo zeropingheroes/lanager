@@ -5,7 +5,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Session;
 use View;
 use Zeropingheroes\Lanager\Achievement;
@@ -102,7 +101,7 @@ class UserAchievementController extends Controller
                 'phrase.achievement-successfully-revoked',
                 ['user' => $userAchievement->user->username, 'achievement' => $userAchievement->achievement->name]
             )
-           );
+        );
 
         return redirect()->route('lans.user-achievements.index', $lan);
     }

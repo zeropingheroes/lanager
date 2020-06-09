@@ -17,11 +17,11 @@ class CurrentLanController extends Controller
      */
     public function __construct()
     {
-        $this->lan = Lan::happeningNow()->where('published', 1)->first()                       // LAN happening now
-                  ?? Lan::future()->where('published', 1)->orderBy('start', 'asc')->first()    // Closest future LAN
-                  ?? Lan::past()->where('published', 1)->orderBy('end', 'desc')->first();      // Most recently ended past LAN
+        // LAN happening now, or closest future LAN, or most recently ended past LAN
+        $this->lan = Lan::happeningNow()->where('published', 1)->first()
+            ?? Lan::future()->where('published', 1)->orderBy('start', 'asc')->first()
+            ?? Lan::past()->where('published', 1)->orderBy('end', 'desc')->first();
 
-        // If there are no LANs, go to the LAN index page
         if (! $this->lan) {
             redirect()->route('lans.index')->send();
         }

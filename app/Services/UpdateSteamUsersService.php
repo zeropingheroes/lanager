@@ -128,7 +128,10 @@ class UpdateSteamUsersService
                 $this->failed[$steamUser->steamId] = $steamUser->personaName;
                 $this->errors->add(
                     $steamUser->steamId,
-                    trans('phrase.unable-to-update-data-for-user-x', ['x' => $steamUser->personaName, 'error' => $e->getMessage()])
+                    trans(
+                        'phrase.unable-to-update-data-for-user-x',
+                        ['x' => $steamUser->personaName, 'error' => $e->getMessage()]
+                    )
                 );
             }
         }
@@ -150,9 +153,8 @@ class UpdateSteamUsersService
         if (! $userOAuthAccount) {
             // Create a new LANager user account
             $user = User::create(['username' => $steamUser->personaName]);
-
-        // Otherwise just get the associated user
         } else {
+            // Otherwise just get the associated user
             $user = $userOAuthAccount->user;
         }
 
@@ -191,7 +193,6 @@ class UpdateSteamUsersService
 
         // If the user is running an app/game
         if ($steamUser->gameDetails) {
-
             // Get existing ongoing session for the game
             // or if none exists instantiate a new
             $session = $user->steamAppSessions()->firstOrNew(
@@ -207,13 +208,11 @@ class UpdateSteamUsersService
                 $session->start = Carbon::now();
 
                 return $session->saveOrFail();
-
-            // If an existing ongoing session was found
+                // If an existing ongoing session was found
             } else {
                 // Update its updated_at timestamp field
                 return $session->touch();
             }
-
             // If the user is not running an app/game
         } else {
             // Add an end time to any sessions without one

@@ -41,9 +41,8 @@ class UpdateSteamUserApps extends Command
         if ($lan && ! $this->option('all')) {
             // Get the attendees for the LAN
             $users = $lan->users()->get();
-
-        // Otherwise, get all users
         } else {
+            // Otherwise, get all users
             $users = User::all();
         }
 

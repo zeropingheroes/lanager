@@ -51,9 +51,8 @@ class UpdateSteamUsers extends Command
                 ->pluck('user_id');
 
             $users = $attendees->merge($staleUsers);
-
-        // Otherwise, get all users
         } else {
+            // Otherwise, get all users
             $users = User::all()->pluck('id');
         }
 
@@ -71,7 +70,9 @@ class UpdateSteamUsers extends Command
             return 0;
         }
 
-        $this->info(trans('phrase.updating-profiles-and-online-status-for-x-users-from-steam', ['x' => count($steamIds)]));
+        $this->info(
+            trans('phrase.updating-profiles-and-online-status-for-x-users-from-steam', ['x' => count($steamIds)])
+        );
 
         $service = new UpdateSteamUsersService($steamIds);
         $service->update();

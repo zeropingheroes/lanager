@@ -24,16 +24,19 @@ class SlideController extends Controller
             ->orderBy('position')
             ->get();
 
-        $validSlides = $slides->filter(function ($value) {
-            if (($value->start == null) && ($value->end == null)) {
-                return true;
+        $validSlides = $slides->filter(
+            function ($value) {
+                if (($value->start == null) && ($value->end == null)) {
+                    return true;
+                }
+                if (($value->start == null || $value->start <= \Carbon\Carbon::now(
+                        )) && ($value->end == null || $value->end >= \Carbon\Carbon::now())) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
-            if (($value->start == null || $value->start <= \Carbon\Carbon::now()) && ($value->end == null || $value->end >= \Carbon\Carbon::now())) {
-                return true;
-            } else {
-                return false;
-            }
-        });
+        );
 
         return SlideResource::collection($validSlides);
     }

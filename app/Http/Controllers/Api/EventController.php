@@ -21,10 +21,12 @@ class EventController extends Controller
         $events = Event::where('published', true);
 
         if ($request->filled('after')) {
-            $events->where(function ($query) use ($request) {
-                $query->where('start', '>', $request->after)
-                      ->orWhere('end', '>', $request->after);
-            });
+            $events->where(
+                function ($query) use ($request) {
+                    $query->where('start', '>', $request->after)
+                        ->orWhere('end', '>', $request->after);
+                }
+            );
         }
 
         if ($request->filled('limit')) {

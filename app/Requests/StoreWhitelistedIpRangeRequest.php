@@ -14,8 +14,12 @@ class StoreWhitelistedIpRangeRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'ip_range'           => ['required', 'max:255', 'regex:^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$/g'],
-            'description'        => ['nullable', 'max:255'],
+            'ip_range' => [
+                'required',
+                'max:255',
+                'regex:^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$/g'
+            ],
+            'description' => ['nullable', 'max:255'],
         ];
 
         if (! $this->laravelValidationPasses()) {

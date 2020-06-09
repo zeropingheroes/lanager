@@ -181,46 +181,54 @@ class UpgradeDatabase extends Command
     {
         $this->info(trans('phrase.upgrading-x', ['x' => 'users']));
 
-        Schema::create('user_oauth_accounts', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')
-                ->unsigned();
-            $table->string('username')
-                ->nullable();
-            $table->string('provider');
-            $table->string('provider_id');
-            $table->timestamps();
-            $table->string('avatar')
-                ->nullable();
-            $table->string('access_token')
-                ->nullable();
-            $table->timestamp('token_expiry')
-                ->nullable();
-            $table->string('refresh_token')
-                ->nullable();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-        });
+        Schema::create(
+            'user_oauth_accounts',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('user_id')
+                    ->unsigned();
+                $table->string('username')
+                    ->nullable();
+                $table->string('provider');
+                $table->string('provider_id');
+                $table->timestamps();
+                $table->string('avatar')
+                    ->nullable();
+                $table->string('access_token')
+                    ->nullable();
+                $table->timestamp('token_expiry')
+                    ->nullable();
+                $table->string('refresh_token')
+                    ->nullable();
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            }
+        );
 
         // Create OAuth account for each Steam user
         foreach (DB::table('users')->get() as $user) {
-            DB::table('user_oauth_accounts')->insert([
-                'user_id' => $user->id,
-                'username' => $user->username,
-                'provider' => 'steam',
-                'provider_id' => $user->steam_id_64,
-                'avatar' => $user->avatar,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
+            DB::table('user_oauth_accounts')->insert(
+                [
+                    'user_id' => $user->id,
+                    'username' => $user->username,
+                    'provider' => 'steam',
+                    'provider_id' => $user->steam_id_64,
+                    'avatar' => $user->avatar,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]
+            );
         }
 
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['steam_id_64', 'avatar', 'ip', 'steam_visibility', 'visible', 'api_key']);
-        });
+        Schema::table(
+            'users',
+            function (Blueprint $table) {
+                $table->dropColumn(['steam_id_64', 'avatar', 'ip', 'steam_visibility', 'visible', 'api_key']);
+            }
+        );
     }
 
     /**
@@ -229,12 +237,15 @@ class UpgradeDatabase extends Command
     private function upgradeLans()
     {
         $this->info(trans('phrase.upgrading-x', ['x' => 'LANs']));
-        Schema::table('lans', function (Blueprint $table) {
-            $table->text('description')
-                ->after('name');
-            $table->boolean('published')
-                ->after('end');
-        });
+        Schema::table(
+            'lans',
+            function (Blueprint $table) {
+                $table->text('description')
+                    ->after('name');
+                $table->boolean('published')
+                    ->after('end');
+            }
+        );
         DB::table('lans')->update(['published' => true]);
     }
 
@@ -246,30 +257,38 @@ class UpgradeDatabase extends Command
         $this->info(trans('phrase.upgrading-x', ['x' => 'guides']));
 
         // Remove hierarchy
-        Schema::table('pages', function (Blueprint $table) {
-            $table->dropForeign('pages_parent_id_foreign');
-            $table->dropColumn(['parent_id', 'position']);
-        });
+        Schema::table(
+            'pages',
+            function (Blueprint $table) {
+                $table->dropForeign('pages_parent_id_foreign');
+                $table->dropColumn(['parent_id', 'position']);
+            }
+        );
         Schema::rename('pages', 'guides');
 
         // Add lan_id field
-        Schema::table('guides', function (Blueprint $table) {
-            $table->integer('lan_id')
-                ->unsigned()
-                ->nullable()
-                ->after('id');
-        });
+        Schema::table(
+            'guides',
+            function (Blueprint $table) {
+                $table->integer('lan_id')
+                    ->unsigned()
+                    ->nullable()
+                    ->after('id');
+            }
+        );
 
         // Attach all guides to latest LAN
         DB::table('guides')
             ->update(['lan_id' => $this->getLatestLan()->id]);
 
         // Make a guide's lan_id required
-        Schema::table('guides', function (Blueprint $table) {
-            $table->integer('lan_id')
-                ->nullable(false)
-                ->change();
-        }
+        Schema::table(
+            'guides',
+            function (Blueprint $table) {
+                $table->integer('lan_id')
+                    ->nullable(false)
+                    ->change();
+            }
         );
     }
 
@@ -280,23 +299,28 @@ class UpgradeDatabase extends Command
     {
         $this->info(trans('phrase.upgrading-x', ['x' => 'events']));
         // Add lan_id field
-        Schema::table('events', function (Blueprint $table) {
-            $table->integer('lan_id')
-                ->unsigned()
-                ->nullable()
-                ->after('id');
-        });
+        Schema::table(
+            'events',
+            function (Blueprint $table) {
+                $table->integer('lan_id')
+                    ->unsigned()
+                    ->nullable()
+                    ->after('id');
+            }
+        );
 
         // Attach all events to latest LAN
         DB::table('events')
             ->update(['lan_id' => $this->getLatestLan()->id]);
 
         // Make an event's lan_id required
-        Schema::table('events', function (Blueprint $table) {
-            $table->integer('lan_id')
-                ->nullable(false)
-                ->change();
-        }
+        Schema::table(
+            'events',
+            function (Blueprint $table) {
+                $table->integer('lan_id')
+                    ->nullable(false)
+                    ->change();
+            }
         );
     }
 
@@ -323,19 +347,24 @@ class UpgradeDatabase extends Command
         $roles = DB::table('roles')->get();
 
         // Add display name to roles table
-        Schema::table('roles', function (Blueprint $table) {
-            $table->text('display_name')
-                ->after('name');
-        });
+        Schema::table(
+            'roles',
+            function (Blueprint $table) {
+                $table->text('display_name')
+                    ->after('name');
+            }
+        );
 
         // Set the name and display name
         foreach ($roles as $role) {
             DB::table('roles')
                 ->where('id', $role->id)
-                ->update([
-                    'name' => Str::kebab($role->name),
-                    'display_name' => $role->name,
-                ]);
+                ->update(
+                    [
+                        'name' => Str::kebab($role->name),
+                        'display_name' => $role->name,
+                    ]
+                );
         }
         Schema::rename('user_roles', 'role_assignments');
     }
@@ -347,159 +376,186 @@ class UpgradeDatabase extends Command
     {
         $this->info(trans('phrase.creating-new-tables'));
 
-        Schema::create('logs', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->bigIncrements('id');
-            $table->string('instance')
-                ->index();
-            $table->string('channel')
-                ->index();
-            $table->string('level')
-                ->index();
-            $table->string('level_name');
-            $table->text('message');
-            $table->longText('context');
-            $table->integer('remote_addr')
-                ->nullable()
-                ->unsigned();
-            $table->string('user_agent')
-                ->nullable();
-            $table->integer('created_by')
-                ->nullable()
-                ->index();
-            $table->boolean('read')
-                ->default(false);
-            $table->timestamps();
-        });
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')
-                ->unique();
-            $table->unsignedInteger('user_id')
-                ->nullable();
-            $table->string('ip_address', 45)
-                ->nullable();
-            $table->text('user_agent')
-                ->nullable();
-            $table->text('payload');
-            $table->integer('last_activity');
-        });
+        Schema::create(
+            'logs',
+            function (Blueprint $table) {
+                $table->engine = 'InnoDB';
+                $table->bigIncrements('id');
+                $table->string('instance')
+                    ->index();
+                $table->string('channel')
+                    ->index();
+                $table->string('level')
+                    ->index();
+                $table->string('level_name');
+                $table->text('message');
+                $table->longText('context');
+                $table->integer('remote_addr')
+                    ->nullable()
+                    ->unsigned();
+                $table->string('user_agent')
+                    ->nullable();
+                $table->integer('created_by')
+                    ->nullable()
+                    ->index();
+                $table->boolean('read')
+                    ->default(false);
+                $table->timestamps();
+            }
+        );
+        Schema::create(
+            'sessions',
+            function (Blueprint $table) {
+                $table->string('id')
+                    ->unique();
+                $table->unsignedInteger('user_id')
+                    ->nullable();
+                $table->string('ip_address', 45)
+                    ->nullable();
+                $table->text('user_agent')
+                    ->nullable();
+                $table->text('payload');
+                $table->integer('last_activity');
+            }
+        );
 
-        Schema::create('steam_apps', function (Blueprint $table) {
-            $table->integer('id')
-                ->unsigned()
-                ->unique();
-            $table->string('name');
-            $table->primary('id');
-        });
-        Schema::create('steam_user_status_codes', function (Blueprint $table) {
-            $table->smallInteger('id')
-                ->unsigned()
-                ->unique();
-            $table->string('name');
-            $table->text('display_name');
-            $table->primary('id');
-        });
-        Schema::create('steam_user_app_sessions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')
-                ->unsigned();
-            $table->integer('steam_app_id')
-                ->unsigned();
-            $table->dateTime('start');
-            $table->dateTime('end')
-                ->nullable();
-            $table->timestamps();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreign('steam_app_id')
-                ->references('id')
-                ->on('steam_apps')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-        });
-        Schema::create('steam_user_apps', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')
-                ->unsigned();
-            $table->integer('steam_app_id')
-                ->unsigned()
-                ->nullable(); // nullable to prevent circular dependencies
-            $table->integer('playtime_two_weeks')
-                ->unsigned()
-                ->default(0);
-            $table->integer('playtime_forever')
-                ->unsigned()
-                ->default(0);
-            $table->timestamps();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreign('steam_app_id')
-                ->references('id')
-                ->on('steam_apps')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-        });
-        Schema::create('steam_user_metadata', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')
-                ->unsigned();
-            $table->smallInteger('steam_user_status_code_id')
-                ->unsigned()
-                ->default(0);
-            $table->boolean('profile_visible')
-                ->nullable();
-            $table->boolean('apps_visible')
-                ->nullable();
-            $table->timestamp('profile_updated_at')
-                ->nullable();
-            $table->timestamp('apps_updated_at')
-                ->nullable();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreign('steam_user_status_code_id')
-                ->references('id')
-                ->on('steam_user_status_codes')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-        });
-        Schema::create('navigation_links', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->tinyInteger('position');
-            $table->text('url')
-                ->nullable();
-            $table->integer('parent_id')
-                ->nullable()
-                ->unsigned();
-            $table->timestamps();
-        });
-        Schema::create('lan_attendees', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('lan_id')
-                ->unsigned();
-            $table->integer('user_id')
-                ->unsigned();
-            $table->timestamps();
-            $table->foreign('lan_id')
-                ->references('id')
-                ->on('lans')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-        });
+        Schema::create(
+            'steam_apps',
+            function (Blueprint $table) {
+                $table->integer('id')
+                    ->unsigned()
+                    ->unique();
+                $table->string('name');
+                $table->primary('id');
+            }
+        );
+        Schema::create(
+            'steam_user_status_codes',
+            function (Blueprint $table) {
+                $table->smallInteger('id')
+                    ->unsigned()
+                    ->unique();
+                $table->string('name');
+                $table->text('display_name');
+                $table->primary('id');
+            }
+        );
+        Schema::create(
+            'steam_user_app_sessions',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('user_id')
+                    ->unsigned();
+                $table->integer('steam_app_id')
+                    ->unsigned();
+                $table->dateTime('start');
+                $table->dateTime('end')
+                    ->nullable();
+                $table->timestamps();
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+                $table->foreign('steam_app_id')
+                    ->references('id')
+                    ->on('steam_apps')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            }
+        );
+        Schema::create(
+            'steam_user_apps',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('user_id')
+                    ->unsigned();
+                $table->integer('steam_app_id')
+                    ->unsigned()
+                    ->nullable(); // nullable to prevent circular dependencies
+                $table->integer('playtime_two_weeks')
+                    ->unsigned()
+                    ->default(0);
+                $table->integer('playtime_forever')
+                    ->unsigned()
+                    ->default(0);
+                $table->timestamps();
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+                $table->foreign('steam_app_id')
+                    ->references('id')
+                    ->on('steam_apps')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            }
+        );
+        Schema::create(
+            'steam_user_metadata',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('user_id')
+                    ->unsigned();
+                $table->smallInteger('steam_user_status_code_id')
+                    ->unsigned()
+                    ->default(0);
+                $table->boolean('profile_visible')
+                    ->nullable();
+                $table->boolean('apps_visible')
+                    ->nullable();
+                $table->timestamp('profile_updated_at')
+                    ->nullable();
+                $table->timestamp('apps_updated_at')
+                    ->nullable();
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+                $table->foreign('steam_user_status_code_id')
+                    ->references('id')
+                    ->on('steam_user_status_codes')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            }
+        );
+        Schema::create(
+            'navigation_links',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('title');
+                $table->tinyInteger('position');
+                $table->text('url')
+                    ->nullable();
+                $table->integer('parent_id')
+                    ->nullable()
+                    ->unsigned();
+                $table->timestamps();
+            }
+        );
+        Schema::create(
+            'lan_attendees',
+            function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('lan_id')
+                    ->unsigned();
+                $table->integer('user_id')
+                    ->unsigned();
+                $table->timestamps();
+                $table->foreign('lan_id')
+                    ->references('id')
+                    ->on('lans')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
+            }
+        );
     }
 
     /**
@@ -511,14 +567,16 @@ class UpgradeDatabase extends Command
     {
         // If the LANs table is empty, create a LAN
         if (! DB::table('lans')->count()) {
-            DB::table('lans')->insert([
-                'name' => 'Example LAN',
-                'start' => Carbon::parse('next Friday')->addHours(18),
-                'end' => Carbon::parse('next Sunday')->addHours(18),
-                'published' => true,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
+            DB::table('lans')->insert(
+                [
+                    'name' => 'Example LAN',
+                    'start' => Carbon::parse('next Friday')->addHours(18),
+                    'end' => Carbon::parse('next Sunday')->addHours(18),
+                    'published' => true,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]
+            );
         }
 
         // Get the latest LAN
@@ -536,9 +594,11 @@ class UpgradeDatabase extends Command
     {
         $this->call('migrate:install');
         $this->info(trans('phrase.spoofing-initial-migration'));
-        DB::table('migrations')->insert([
-            'migration' => '2018_11_17_205759_release_v1_0_0',
-            'batch' => 1,
-        ]);
+        DB::table('migrations')->insert(
+            [
+                'migration' => '2018_11_17_205759_release_v1_0_0',
+                'batch' => 1,
+            ]
+        );
     }
 }

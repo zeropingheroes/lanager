@@ -29,8 +29,8 @@ class ExternalLinkRenderer implements InlineRendererInterface
      *
      * @param AbstractInline $inline
      * @param ElementRendererInterface $htmlRenderer
-     * @throws InvalidArgumentException
      * @return HtmlElement
+     * @throws InvalidArgumentException
      */
     public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer)
     {

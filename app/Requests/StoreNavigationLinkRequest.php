@@ -16,9 +16,9 @@ class StoreNavigationLinkRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'title'     => ['required', 'max:255'],
-            'url'       => ['nullable', 'max:2000'],
-            'position'  => ['integer'],
+            'title' => ['required', 'max:255'],
+            'url' => ['nullable', 'max:2000'],
+            'position' => ['integer'],
             'parent_id' => ['nullable', 'exists:navigation_links,id'],
         ];
 
@@ -32,7 +32,9 @@ class StoreNavigationLinkRequest extends Request
             return $this->setValid(false);
         }
 
-        if (! empty($this->input['parent_id']) && NavigationLink::findOrFail($this->input['parent_id'])->parent_id != null) {
+        if (! empty($this->input['parent_id']) && NavigationLink::findOrFail(
+                $this->input['parent_id']
+            )->parent_id != null) {
             $this->addError(trans('phrase.navigation-links-can-only-be-nested-one-level-deep'));
 
             return $this->setValid(false);

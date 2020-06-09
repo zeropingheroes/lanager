@@ -5,7 +5,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Session;
 use Str;
 use View;
@@ -196,7 +195,7 @@ class GuideController extends Controller
         Session::flash(
             'success',
             trans('phrase.item-name-deleted', ['item' => trans('title.guide'), 'name' => $guide->title])
-           );
+        );
 
         return redirect()->route('lans.guides.index', ['lan' => $lan]);
     }

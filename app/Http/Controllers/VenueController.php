@@ -5,7 +5,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Session;
 use View;
 use Zeropingheroes\Lanager\Requests\StoreVenueRequest;
@@ -148,11 +147,14 @@ class VenueController extends Controller
 
         Session::flash(
             'success',
-            trans('phrase.item-name-deleted', [
-                'item' => trans('title.venue'),
-                'name' => $venue->name,
-            ])
-           );
+            trans(
+                'phrase.item-name-deleted',
+                [
+                    'item' => trans('title.venue'),
+                    'name' => $venue->name,
+                ]
+            )
+        );
 
         return redirect()->route('venues.index');
     }

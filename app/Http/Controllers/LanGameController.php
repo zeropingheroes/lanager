@@ -128,7 +128,7 @@ class LanGameController extends Controller
         Session::flash(
             'success',
             trans('phrase.item-name-deleted', ['item' => trans('title.game'), 'name' => $lanGame->game_name])
-           );
+        );
 
         return redirect()->route('lans.lan-games.index', ['lan' => $lanGame->lan]);
     }

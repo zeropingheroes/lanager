@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\belongsTo;
 
 /* @mixin Eloquent */
-
 class UserAchievement extends Model
 {
     protected $fillable = [

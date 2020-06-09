@@ -5,7 +5,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Session;
 use View;
 use Zeropingheroes\Lanager\Event;
@@ -188,7 +187,7 @@ class EventController extends Controller
         Session::flash(
             'success',
             trans('phrase.item-name-deleted', ['item' => trans('title.event'), 'name' => $event->name])
-           );
+        );
 
         return redirect()->route('lans.events.index', ['lan' => $lan]);
     }

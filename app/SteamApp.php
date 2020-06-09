@@ -6,7 +6,6 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 
 /* @mixin Eloquent */
-
 class SteamApp extends Model
 {
     protected $fillable = [

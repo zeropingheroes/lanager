@@ -16,7 +16,7 @@ class StoreLanGameRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'lan_id'    => ['exists:lans,id'],
+            'lan_id' => ['exists:lans,id'],
             'game_name' => ['required', 'max:255'],
         ];
 
@@ -24,10 +24,12 @@ class StoreLanGameRequest extends Request
             return $this->setValid(false);
         }
 
-        $lanGamesWithSameName = LanGame::where([
-            ['lan_id', '=', $this->input['lan_id']],
-            ['game_name', '=', $this->input['game_name']],
-        ])->count();
+        $lanGamesWithSameName = LanGame::where(
+            [
+                ['lan_id', '=', $this->input['lan_id']],
+                ['game_name', '=', $this->input['game_name']],
+            ]
+        )->count();
 
         if ($lanGamesWithSameName != 0) {
             $this->addError(trans('phrase.game-already-submitted', ['game' => $this->input['game_name']]));

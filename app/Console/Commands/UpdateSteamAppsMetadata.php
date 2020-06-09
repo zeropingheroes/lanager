@@ -22,7 +22,7 @@ class UpdateSteamAppsMetadata extends Command
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-apps-metadata '
-                         .'{--all-apps : '.trans('phrase.update-all-apps').'}';
+            .'{--all-apps : '.trans('phrase.update-all-apps').'}';
         $this->description = trans('phrase.update-steam-apps-metadata');
 
         parent::__construct();
@@ -65,17 +65,31 @@ class UpdateSteamAppsMetadata extends Command
         $timeEstimate = CarbonInterval::seconds(ceil($appCount * 1.5));
 
         $this->info(trans('phrase.requesting-metadata-for-x-apps-from-steam-api', ['x' => $appCount]));
-        $this->info(trans('phrase.this-will-take-approximately-time-to-complete', ['time' => $timeEstimate->cascade()->forHumans()]));
+        $this->info(
+            trans(
+                'phrase.this-will-take-approximately-time-to-complete',
+                ['time' => $timeEstimate->cascade()->forHumans()]
+            )
+        );
 
         $progress = $this->output->createProgressBar($appCount);
         $progress->setFormat('%current%/%max% %bar% %percent%% - %elapsed% '.trans('title.elapsed'));
 
         // Prevent hitting Steam's API rate limits of 200 requests every 5 minutes
-        $storage = new FileStorage(storage_path('steam-web-api.bucket')); // store state in storage directory
-        $rate = new Rate(40, Rate::MINUTE); // add 40 tokens every minute (= 200 over 5 minutes)
-        $bucket = new TokenBucket(200, $rate, $storage); // bucket can never have more than 200 tokens saved up
-        $consumer = new BlockingConsumer($bucket); // if no tokens are available, block further execution until there are tokens
-        $bucket->bootstrap(200); // fill the bucket with 200 tokens initially
+        // Store state in storage directory
+        $storage = new FileStorage(storage_path('steam-web-api.bucket'));
+
+        // add 40 tokens every minute (= 200 over 5 minutes)
+        $rate = new Rate(40, Rate::MINUTE);
+
+        // bucket can never have more than 200 tokens saved up
+        $bucket = new TokenBucket(200, $rate, $storage);
+
+        // if no tokens are available, block further execution until there are tokens
+        $consumer = new BlockingConsumer($bucket);
+
+        // fill the bucket with 200 tokens initially
+        $bucket->bootstrap(200);
 
         $updatedCount = 0;
         $failedCount = 0;
@@ -84,12 +98,14 @@ class UpdateSteamAppsMetadata extends Command
             try {
                 $consumer->consume(1);
                 $app = SteamApi::app()->appDetails($appId);
-
                 // If the API call failed, empty the bucket and skip the app
             } catch (ApiCallFailedException $e) {
                 $failedCount++;
                 $consumer->consume(10);
-                $message = trans('phrase.error-updating-metadata-for-steam-app-id-message', ['id' => $appId, 'message' => $e->getMessage()]);
+                $message = trans(
+                    'phrase.error-updating-metadata-for-steam-app-id-message',
+                    ['id' => $appId, 'message' => $e->getMessage()]
+                );
                 $this->error($message);
                 Log::error($message);
                 $progress->advance();

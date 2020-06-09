@@ -16,8 +16,8 @@ class StoreLanGameVoteRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'lan_game_id'   => ['required', 'numeric', 'exists:lan_games,id'],
-            'user_id'       => ['required', 'numeric', 'exists:users,id'],
+            'lan_game_id' => ['required', 'numeric', 'exists:lan_games,id'],
+            'user_id' => ['required', 'numeric', 'exists:users,id'],
         ];
 
         if (! $this->laravelValidationPasses()) {

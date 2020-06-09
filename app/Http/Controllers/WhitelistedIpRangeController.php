@@ -5,7 +5,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Session;
 use View;
 use Zeropingheroes\Lanager\Requests\StoreWhitelistedIpRangeRequest;
@@ -131,11 +130,14 @@ class WhitelistedIpRangeController extends Controller
         WhitelistedIpRange::destroy($whitelistedIpRange->id);
         Session::flash(
             'success',
-            trans('phrase.item-name-deleted', [
-                'item' => trans('title.ip-range'),
-                'name' => $whitelistedIpRange->ip_range,
-            ])
-           );
+            trans(
+                'phrase.item-name-deleted',
+                [
+                    'item' => trans('title.ip-range'),
+                    'name' => $whitelistedIpRange->ip_range,
+                ]
+            )
+        );
 
         return redirect()->route('whitelisted-ip-ranges.index');
     }

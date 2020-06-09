@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\belongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /* @mixin Eloquent */
-
 class RoleAssignment extends Pivot
 {
     protected $fillable = [

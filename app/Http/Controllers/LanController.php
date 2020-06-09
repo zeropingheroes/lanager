@@ -5,7 +5,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Session;
 use View;
 use Zeropingheroes\Lanager\Achievement;
@@ -25,9 +24,10 @@ class LanController extends Controller
         $lans = Lan::orderBy('start', 'desc')
             ->get();
 
-        $currentLan = Lan::happeningNow()->first()                      // LAN happening now
-                   ?? Lan::future()->orderBy('start', 'asc')->first()   // Closest future LAN
-                   ?? Lan::past()->orderBy('end', 'desc')->first();     // Most recently ended past LAN
+        // LAN happening now, or closest future LAN, or most recently ended past LAN
+        $currentLan = Lan::happeningNow()->first()
+            ?? Lan::future()->orderBy('start', 'asc')->first()
+            ?? Lan::past()->orderBy('end', 'desc')->first();
 
         return View::make('pages.lans.index')
             ->with('lans', $lans)
@@ -169,7 +169,7 @@ class LanController extends Controller
         Session::flash(
             'success',
             trans('phrase.item-name-deleted', ['item' => trans('title.lan'), 'name' => $lan->name])
-           );
+        );
 
         return redirect()->route('lans.index');
     }

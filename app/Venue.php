@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /* @mixin Eloquent */
-
 class Venue extends Model
 {
     protected $fillable = [

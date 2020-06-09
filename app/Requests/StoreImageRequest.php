@@ -14,13 +14,13 @@ class StoreImageRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'images'    => ['required'],
-            'images.*'  => ['required', 'image', 'max:5000'],
+            'images' => ['required'],
+            'images.*' => ['required', 'image', 'max:5000'],
         ];
 
         $this->validationMessages = [
-            'images.*.image'    => trans('phrase.submitted-file-was-invalid-image'),
-            'images.*.max'  => trans('phrase.submitted-file-exceeded-max-file-size-of-x', ['x' => '5MB']),
+            'images.*.image' => trans('phrase.submitted-file-was-invalid-image'),
+            'images.*.max' => trans('phrase.submitted-file-exceeded-max-file-size-of-x', ['x' => '5MB']),
         ];
 
         if (! $this->laravelValidationPasses()) {

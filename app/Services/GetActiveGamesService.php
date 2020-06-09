@@ -25,7 +25,10 @@ class GetActiveGamesService
         // Collect and combine states for the same game
         $combinedUsage = [];
         foreach ($sessions as $session) {
-            $combinedUsage[$session->steam_app_id] = $combinedUsage[$session->steam_app_id] ?? ['game' => null, 'users' => []];
+            $combinedUsage[$session->steam_app_id] = $combinedUsage[$session->steam_app_id] ?? [
+                    'game' => null,
+                    'users' => []
+                ];
             $combinedUsage[$session->steam_app_id]['game'] = $combinedUsage[$session->steam_app_id]['game'] ?? $session->app;
             $combinedUsage[$session->steam_app_id]['users'][] = $session->user;
         }

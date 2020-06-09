@@ -27,7 +27,6 @@ class UpdateOutdatedUserAppsAfterSuccessfulAuth
         // If the user's apps have never been updated
         // or have not been updated in the last hour
         if ($steamMetadata->apps_updated_at == null || $steamMetadata->apps_updated_at < now()->subHour()) {
-
             // Update their apps
             $service = new UpdateSteamUserAppsService((new Collection($login->user)));
             $service->update();

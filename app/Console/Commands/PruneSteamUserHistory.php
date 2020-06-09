@@ -61,7 +61,10 @@ class PruneSteamUserHistory extends Command
 
         $quantityRemaining = SteamUserAppSession::count();
 
-        $message = trans('phrase.x-entries-deleted-and-y-entries-retained', ['x' => $quantityDeleted, 'y' => $quantityRemaining]);
+        $message = trans(
+            'phrase.x-entries-deleted-and-y-entries-retained',
+            ['x' => $quantityDeleted, 'y' => $quantityRemaining]
+        );
         $this->info($message);
         Log::info($message);
 

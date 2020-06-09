@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /* @mixin Eloquent */
-
 class SteamUserAppSession extends Model
 {
     protected $fillable = [

@@ -14,9 +14,9 @@ class StoreVenueRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'name'               => ['required', 'max:255'],
-            'street_address'     => ['required', 'max:255'],
-            'content'            => ['nullable'],
+            'name' => ['required', 'max:255'],
+            'street_address' => ['required', 'max:255'],
+            'content' => ['nullable'],
         ];
 
         if (! $this->laravelValidationPasses()) {

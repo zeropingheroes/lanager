@@ -16,7 +16,7 @@ class ExportSteamAppsCsv extends Command
     public function __construct()
     {
         $this->signature = 'lanager:export-steam-apps-csv '
-                         .'{--yes : '.trans('phrase.suppress-confirmations').'}';
+            .'{--yes : '.trans('phrase.suppress-confirmations').'}';
         $this->description = trans('phrase.export-steam-apps-csv');
 
         parent::__construct();

@@ -190,11 +190,14 @@ class SlideController extends Controller
 
         Session::flash(
             'success',
-            trans('phrase.item-name-deleted', [
-                'item' => trans('title.slide'),
-                'name' => $slide->name,
-            ])
-           );
+            trans(
+                'phrase.item-name-deleted',
+                [
+                    'item' => trans('title.slide'),
+                    'name' => $slide->name,
+                ]
+            )
+        );
 
         return redirect()->route('lans.slides.index', ['lan' => $lan]);
     }

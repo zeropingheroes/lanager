@@ -6,7 +6,6 @@ use Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Session;
 use View;
 use Zeropingheroes\Lanager\Requests\DestroyRoleAssignmentRequest;
@@ -62,11 +61,13 @@ class RoleAssignmentController extends Controller
 
         $roleAssignment = RoleAssignment::create($input);
 
-        Session::flash('success',
-            trans('phrase.role-successfully-assigned',
+        Session::flash(
+            'success',
+            trans(
+                'phrase.role-successfully-assigned',
                 ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->display_name]
             )
-           );
+        );
 
         return redirect()->route('role-assignments.index');
     }
@@ -94,10 +95,11 @@ class RoleAssignmentController extends Controller
 
         Session::flash(
             'success',
-            trans('phrase.role-successfully-unassigned',
+            trans(
+                'phrase.role-successfully-unassigned',
                 ['user' => $roleAssignment->user->username, 'role' => $roleAssignment->role->display_name]
             )
-           );
+        );
 
         return redirect()->route('role-assignments.index');
     }

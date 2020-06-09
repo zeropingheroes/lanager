@@ -4,7 +4,6 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 
 use DB;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
 
 class Backup extends Command
@@ -41,9 +40,14 @@ class Backup extends Command
         }
 
         // Create a temporary directory in the output dir
-        $processes['mkdir-tmp'] = new Process([
-            'mkdir', '-p', "$outputDir/tmp/sql", "$outputDir/tmp/images",
-        ]);
+        $processes['mkdir-tmp'] = new Process(
+            [
+                'mkdir',
+                '-p',
+                "$outputDir/tmp/sql",
+                "$outputDir/tmp/images",
+            ]
+        );
 
         $processes['cp-images'] = Process::fromShellCommandline(
             "cp -r $imagesDir/* $outputDir/tmp/images/"
@@ -69,14 +73,26 @@ class Backup extends Command
         }
 
         // Compress all files
-        $processes['gzip'] = new Process([
-            'tar', '-C', "$outputDir/tmp/", '-zcvf', "$outputDir/$filename.tar.gz", 'sql', 'images',
-        ]);
+        $processes['gzip'] = new Process(
+            [
+                'tar',
+                '-C',
+                "$outputDir/tmp/",
+                '-zcvf',
+                "$outputDir/$filename.tar.gz",
+                'sql',
+                'images',
+            ]
+        );
 
         // Remove the temporary directory
-        $processes['rm-tmp'] = new Process([
-            'rm', '-rf', "$outputDir/tmp",
-        ]);
+        $processes['rm-tmp'] = new Process(
+            [
+                'rm',
+                '-rf',
+                "$outputDir/tmp",
+            ]
+        );
 
         // Run the defined processes in turn
         foreach ($processes as $process) {

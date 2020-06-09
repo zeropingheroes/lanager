@@ -15,7 +15,6 @@ class GetGamesPlayedRecentlyService
      */
     public function get(): array
     {
-
         // Get the LAN happening now, or the most recently ended LAN
         $lan = Lan::presentAndPast()
             ->orderBy('start', 'desc')
@@ -42,9 +41,9 @@ class GetGamesPlayedRecentlyService
         $combinedUsage = [];
         foreach ($steamUserApps as $steamUserApp) {
             $combinedUsage[$steamUserApp->steam_app_id] = $combinedUsage[$steamUserApp->steam_app_id] ?? [
-                'game' => null,
-                'users' => [],
-            ];
+                    'game' => null,
+                    'users' => [],
+                ];
             $combinedUsage[$steamUserApp->steam_app_id]['game'] = $combinedUsage[$steamUserApp->steam_app_id]['game'] ?? $steamUserApp->app;
             $combinedUsage[$steamUserApp->steam_app_id]['users'][] = $steamUserApp->user;
         }
