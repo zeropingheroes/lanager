@@ -5,4 +5,5 @@ finder:
   not-name:
     - index.php
     - server.php
+    - _ide_helper.php
 
