@@ -34,7 +34,7 @@ class ImportSteamAppsCsv extends Command
         } catch (Exception $e) {
             $this->info(trans('phrase.csv-not-found-aborting'));
 
-            return;
+            return 1;
         }
         $csvApps = $reader->getRecords(['id', 'name', 'type']);
 

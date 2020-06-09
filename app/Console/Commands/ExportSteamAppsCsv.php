@@ -32,12 +32,12 @@ class ExportSteamAppsCsv extends Command
         if (! SteamApp::count()) {
             $this->error(trans('phrase.database-empty-aborting'));
 
-            return;
+            return 1;
         }
 
         if (file_exists($this::$filename)) {
             if (! $this->option('yes') && ! $this->confirm(trans('phrase.overwrite-existing-csv'))) {
-                return;
+                return 1;
             }
         }
         $steamApps = SteamApp::all()->toArray();
