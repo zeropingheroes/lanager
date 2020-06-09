@@ -18,12 +18,12 @@ class ImageController extends Controller
     /**
      * Permitted extensions.
      */
-    const permittedExtensions = ['gif', 'jpg', 'jpeg', 'png', 'bmp'];
+    public const permittedExtensions = ['gif', 'jpg', 'jpeg', 'png', 'bmp'];
 
     /**
      * Uploaded image storage location.
      */
-    const directory = 'public/images';
+    public const directory = 'public/images';
 
     /**
      * Display a listing of the resource.
@@ -89,7 +89,7 @@ class ImageController extends Controller
 
             $fileName = str_replace($extension, '', $fileNameWithExtension);
 
-            $newFileName = Str::slug($fileName).'.'.strtolower($extension);
+            $newFileName = Str::slug($fileName) . '.' . strtolower($extension);
 
             $image->storeAs($this::directory, $newFileName);
         }
@@ -110,7 +110,7 @@ class ImageController extends Controller
     {
         $this->authorize('images.update');
 
-        $filePath = $this::directory.'/'.$filename;
+        $filePath = $this::directory . '/' . $filename;
         if (! Storage::exists($filePath)) {
             abort(404);
         }
@@ -138,10 +138,10 @@ class ImageController extends Controller
     {
         $this->authorize('images.update');
 
-        $originalFilePath = $this::directory.'/'.$filename;
+        $originalFilePath = $this::directory . '/' . $filename;
         $originalFileExtension = File::extension($originalFilePath);
-        $newFilenameWithoutExtension = Str::before($httpRequest->input('filename'), '.'.$originalFileExtension);
-        $newFilePath = $this::directory.'/'.$newFilenameWithoutExtension.'.'.$originalFileExtension;
+        $newFilenameWithoutExtension = Str::before($httpRequest->input('filename'), '.' . $originalFileExtension);
+        $newFilePath = $this::directory . '/' . $newFilenameWithoutExtension . '.' . $originalFileExtension;
 
         $input = [
             'original_file_path' => $originalFilePath,
@@ -174,7 +174,7 @@ class ImageController extends Controller
     {
         $this->authorize('images.delete');
 
-        $file = $this::directory.'/'.$filename;
+        $file = $this::directory . '/' . $filename;
         if (! Storage::exists($file)) {
             abort(404);
         }

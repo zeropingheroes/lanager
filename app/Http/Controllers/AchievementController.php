@@ -15,7 +15,7 @@ class AchievementController extends Controller
     /**
      * Uploaded image storage location.
      */
-    const directory = 'public/images/achievements';
+    public const directory = 'public/images/achievements';
 
     /**
      * Display a listing of the resource.
@@ -41,7 +41,7 @@ class AchievementController extends Controller
         $this->authorize('create', Achievement::class);
 
         return View::make('pages.achievements.create')
-            ->with('achievement', new Achievement);
+            ->with('achievement', new Achievement());
     }
 
     /**
@@ -73,7 +73,7 @@ class AchievementController extends Controller
 
         if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
-            $newFileName = $achievement->id.'.'.strtolower($extension);
+            $newFileName = $achievement->id . '.' . strtolower($extension);
             $httpRequest->image->storeAs($this::directory, $newFileName);
             $achievement->update(['image_filename' => $newFileName]);
         }
@@ -140,7 +140,7 @@ class AchievementController extends Controller
 
         if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
-            $newFileName = $achievement->id.'.'.strtolower($extension);
+            $newFileName = $achievement->id . '.' . strtolower($extension);
             $httpRequest->image->storeAs($this::directory, $newFileName);
             $input['image_filename'] = $newFileName;
         }

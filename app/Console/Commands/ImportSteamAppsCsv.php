@@ -80,7 +80,7 @@ class ImportSteamAppsCsv extends Command
         }
         $progress->finish();
 
-        $this->info(PHP_EOL.trans('phrase.x-steam-apps-imported', ['x' => $importedCount]));
+        $this->info(PHP_EOL . trans('phrase.x-steam-apps-imported', ['x' => $importedCount]));
     }
 
     /**
@@ -112,6 +112,6 @@ class ImportSteamAppsCsv extends Command
             $progress->advance();
         }
         $progress->finish();
-        $this->info(PHP_EOL.trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]));
+        $this->info(PHP_EOL . trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]));
     }
 }

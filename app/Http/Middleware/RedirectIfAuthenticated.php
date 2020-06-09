@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Http\Middleware;
 
 use Auth;
 use Closure;
+use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Providers\RouteServiceProvider;
 
 class RedirectIfAuthenticated
@@ -11,8 +12,8 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param Request $request
+     * @param Closure $next
      * @param string|null $guard
      * @return mixed
      */

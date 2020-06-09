@@ -36,7 +36,7 @@ class VenueController extends Controller
         $this->authorize('create', Venue::class);
 
         return View::make('pages.venues.create')
-            ->with('venue', new Venue);
+            ->with('venue', new Venue());
     }
 
     /**

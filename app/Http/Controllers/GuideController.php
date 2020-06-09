@@ -41,7 +41,7 @@ class GuideController extends Controller
     {
         return View::make('pages.guides.create')
             ->with('lan', $lan)
-            ->with('guide', new Guide);
+            ->with('guide', new Guide());
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 
+use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
@@ -29,8 +30,8 @@ class SlideController extends Controller
                 if (($value->start == null) && ($value->end == null)) {
                     return true;
                 }
-                if (($value->start == null || $value->start <= \Carbon\Carbon::now(
-                        )) && ($value->end == null || $value->end >= \Carbon\Carbon::now())) {
+                if (($value->start == null || $value->start <= Carbon::now(
+                        )) && ($value->end == null || $value->end >= Carbon::now())) {
                     return true;
                 } else {
                     return false;

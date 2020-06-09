@@ -13,7 +13,7 @@ class Backup extends Command
      */
     public function __construct()
     {
-        $this->signature = 'lanager:backup {output-dir : '.trans('phrase.output-dir').'}';
+        $this->signature = 'lanager:backup {output-dir : ' . trans('phrase.output-dir') . '}';
         $this->description = trans('phrase.backup-lanager-to-file');
 
         parent::__construct();
@@ -29,10 +29,10 @@ class Backup extends Command
         $username = env('DB_USERNAME');
         $password = env('DB_PASSWORD');
         $database = env('DB_DATABASE');
-        $imagesDir = base_path().'/storage/app/public/images';
+        $imagesDir = base_path() . '/storage/app/public/images';
         $outputDir = $this->argument('output-dir');
-        $commitHash = trim(exec('cd '.base_path().' && /usr/bin/git log --pretty="%h" -n1 HEAD'));
-        $filename = 'lanager-backup-'.date('Y-m-d_H-i-s').'-git-hash-'.$commitHash;
+        $commitHash = trim(exec('cd ' . base_path() . ' && /usr/bin/git log --pretty="%h" -n1 HEAD'));
+        $filename = 'lanager-backup-' . date('Y-m-d_H-i-s') . '-git-hash-' . $commitHash;
 
         if (! is_writable($outputDir)) {
             $this->error(trans('phrase.output-directory-not-writable'));

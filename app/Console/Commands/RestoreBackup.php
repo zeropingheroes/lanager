@@ -14,8 +14,8 @@ class RestoreBackup extends Command
     public function __construct()
     {
         $this->signature = 'lanager:restore-backup
-                            {backup-file : '.trans('phrase.backup-file').'}
-                            {--yes : '.trans('phrase.suppress-confirmations').'}';
+                            {backup-file : ' . trans('phrase.backup-file') . '}
+                            {--yes : ' . trans('phrase.suppress-confirmations') . '}';
 
         $this->description = trans('phrase.restore-lanager-backup-from-file');
 
@@ -32,9 +32,9 @@ class RestoreBackup extends Command
         $username = config('database.connections.mysql.username');
         $password = config('database.connections.mysql.password');
         $database = config('database.connections.mysql.database');
-        $imagesDir = base_path().'/storage/app/public/images';
+        $imagesDir = base_path() . '/storage/app/public/images';
         $backupFile = $this->argument('backup-file');
-        $restoreDir = '/tmp/lanager-backup-restore-'.date('Y-m-d_H-i-s');
+        $restoreDir = '/tmp/lanager-backup-restore-' . date('Y-m-d_H-i-s');
 
         if (! file_exists($backupFile)) {
             $this->error(trans('phrase.backup-file-not-found'));

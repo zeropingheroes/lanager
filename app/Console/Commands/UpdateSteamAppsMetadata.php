@@ -22,7 +22,7 @@ class UpdateSteamAppsMetadata extends Command
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-apps-metadata '
-            .'{--all-apps : '.trans('phrase.update-all-apps').'}';
+            . '{--all-apps : ' . trans('phrase.update-all-apps') . '}';
         $this->description = trans('phrase.update-steam-apps-metadata');
 
         parent::__construct();
@@ -73,7 +73,7 @@ class UpdateSteamAppsMetadata extends Command
         );
 
         $progress = $this->output->createProgressBar($appCount);
-        $progress->setFormat('%current%/%max% %bar% %percent%% - %elapsed% '.trans('title.elapsed'));
+        $progress->setFormat('%current%/%max% %bar% %percent%% - %elapsed% ' . trans('title.elapsed'));
 
         // Prevent hitting Steam's API rate limits of 200 requests every 5 minutes
         // Store state in storage directory
@@ -152,7 +152,7 @@ class UpdateSteamAppsMetadata extends Command
         $progress->finish();
 
         $message = trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
-        $this->info(PHP_EOL.$message);
+        $this->info(PHP_EOL . $message);
         Log::info($message);
 
         if ($failedCount) {

@@ -47,7 +47,7 @@ class SlideController extends Controller
 
         return View::make('pages.slides.create')
             ->with('lan', $lan)
-            ->with('slide', new Slide);
+            ->with('slide', new Slide());
     }
 
     /**

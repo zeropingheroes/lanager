@@ -49,7 +49,7 @@ class EventController extends Controller
 
         return View::make('pages.events.create')
             ->with('lan', $lan)
-            ->with('event', new Event);
+            ->with('event', new Event());
     }
 
     /**

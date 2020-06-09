@@ -18,7 +18,7 @@ class UpdateSteamUserApps extends Command
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-user-apps
-                            {--all : '.trans('phrase.update-all-users').'}';
+                            {--all : ' . trans('phrase.update-all-users') . '}';
         $this->description = trans('phrase.update-existing-user-app-ownership');
 
         parent::__construct();

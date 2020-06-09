@@ -36,7 +36,7 @@ class WhitelistedIpRangeController extends Controller
         $this->authorize('create', WhitelistedIpRange::class);
 
         return View::make('pages.whitelisted-ip-ranges.create')
-            ->with('whitelistedIpRange', new WhitelistedIpRange);
+            ->with('whitelistedIpRange', new WhitelistedIpRange());
     }
 
     /**

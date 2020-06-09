@@ -47,7 +47,7 @@ class LanController extends Controller
         return View::make('pages.lans.create')
             ->with('venues', Venue::orderBy('name')->get())
             ->with('achievements', Achievement::orderBy('name')->get())
-            ->with('lan', new Lan);
+            ->with('lan', new Lan());
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Providers;
 use Arr;
 use Barryvdh\Debugbar\Facade as DebugbarFacade;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
+use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Exception;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
@@ -30,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('local')) {
             $this->app->register(DebugbarServiceProvider::class);
             $this->app->alias('Debugbar', DebugbarFacade::class);
-            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            $this->app->register(IdeHelperServiceProvider::class);
         }
 
         $command = Arr::get(request()->server(), 'argv.1');

@@ -71,7 +71,7 @@ class UpdateSteamApps extends Command
         }
         $progress->finish();
         $message = trans('phrase.x-steam-apps-imported', ['x' => $importedCount]);
-        $this->info(PHP_EOL.$message);
+        $this->info(PHP_EOL . $message);
         Log::info($message);
     }
 
@@ -103,7 +103,7 @@ class UpdateSteamApps extends Command
         $progress->finish();
 
         $message = trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
-        $this->info(PHP_EOL.$message);
+        $this->info(PHP_EOL . $message);
         Log::info($message);
     }
 }
