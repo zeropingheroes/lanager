@@ -170,20 +170,7 @@ While it's possible to run LANager on a server at your venue and make it only ac
     * * * * * php /var/www/lanager/artisan schedule:run >> /dev/null 2>&1
     ```
 
-13. Disable debugging and set the site's environment to *production*:
-
-    ```bash
-    nano /var/www/lanager/.env
-    ```
-
-    ```
-    APP_DEBUG=false
-    APP_ENV=production
-    ```
-
 ## Troubleshooting
-
-- Enable debugging in your `.env` file.
 
 - [Create an issue](https://github.com/zeropingheroes/lanager/issues) with error messages from the browser or the log files in `/var/www/lanager/storage/logs/`
     
@@ -265,11 +252,14 @@ Click ⚙ > **Navigation** to customise the links shown on the navigation bar. Y
 1. `git clone https://github.com/zeropingheroes/lanager && cd lanager`
 2. `cp .env.example .env`
 3. `nano .env`
-   1. `STEAM_API_KEY` - Enter your [Steam API Key](http://steamcommunity.com/dev/apikey)
-   2. `DB_USERNAME=homestead`
+    - `APP_ENV=local`
+    - `APP_DEBUG=true`
+    - `APP_TIMEZONE` - Your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
+    - `STEAM_API_KEY` - Your [Steam API Key](http://steamcommunity.com/dev/apikey)
+    - `GOOGLE_API_KEY` - Your [Google API Key](https://console.cloud.google.com/apis/)
+    - `DB_USERNAME=homestead`
 4. `composer install`
-5. `vagrant plugin install vagrant-vbguest vagrant-winnfsd`
-6. `vagrant up`
+5. `vagrant up`
 
 When you complete these steps, your development environment should be available at [lanager.localhost:8000](http://lanager.localhost:8000/).
 
