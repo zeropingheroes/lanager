@@ -36,7 +36,9 @@ class AppServiceProvider extends ServiceProvider
 
         $command = Arr::get(request()->server(), 'argv.1');
 
-        // Check required environment variables are set unless the config has been cached, or the package:discover command is being run
+        // Check required environment variables are set, unless:
+        // - the config has been cached
+        // - or the package:discover command is being run
         if (! $this->app->configurationIsCached() && $command != 'package:discover') {
             if (! env('STEAM_API_KEY')) {
                 throw new Exception('STEAM_API_KEY not set in .env file');
