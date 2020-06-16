@@ -133,4 +133,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('Zeropingheroes\Lanager\SteamUserAppSession');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function sessions()
+    {
+        return $this->hasMany('Zeropingheroes\Lanager\Session');
+    }
 }
