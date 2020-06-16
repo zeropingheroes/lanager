@@ -11,7 +11,8 @@
         </div>
         @can('create', \Zeropingheroes\Lanager\Venue::class)
             <div class="col-auto text-right">
-                <a href="{{ route( 'venues.create') }}" class="btn btn-primary" title="@lang('title.create')"><span class="oi oi-plus"></span></a>
+                <a href="{{ route( 'venues.create') }}" class="btn btn-primary" title="@lang('title.create')"><span
+                        class="oi oi-plus"></span></a>
             </div>
         @endcan
     </div>
