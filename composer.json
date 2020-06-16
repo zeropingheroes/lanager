@@ -38,7 +38,10 @@
         "phpunit/phpunit": "^8.5",
         "laravel/homestead": "^10",
         "barryvdh/laravel-debugbar": "dev-master",
-        "barryvdh/laravel-ide-helper": "^2.7"
+        "barryvdh/laravel-ide-helper": "^2.7",
+        "behat/behat": "^3.7",
+        "behat/mink": "^1.8",
+        "behat/mink-goutte-driver": "^1.2"
     },
     "config": {
         "optimize-autoloader": true,
