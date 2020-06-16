@@ -13,6 +13,8 @@ class Session extends Model
         'last_activity',
     ];
 
+    protected $keyType = 'string';
+
     /**
      * @return belongsTo
      */
