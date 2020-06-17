@@ -1,6 +1,6 @@
 preset: psr12
 finder:
-  not-name:
-    - index.php
-    - server.php
+    not-name:
+        - index.php
+        - server.php
 

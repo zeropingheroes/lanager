@@ -3,12 +3,10 @@ memory: 4096
 cpus: 4
 provider: virtualbox
 folders:
-    -
-        map: ./
+    -   map: ./
         to: /home/vagrant/lanager
 sites:
-    -
-        map: lanager.localhost
+    -   map: lanager.localhost
         to: /home/vagrant/lanager/public
         schedule: true
 databases:
