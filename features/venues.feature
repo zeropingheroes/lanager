@@ -17,3 +17,16 @@ Feature: Venues
 
         Then I go to "venues"
         And I should see "Cyberdelia"
+
+    Scenario: Editing an existing venue's name
+        When I go to "venues"
+        And I follow "Edit"
+        And I fill in "Name" with "Ellingson Mineral Corporation HQ"
+        And I fill in "Street Address" with "Lloyd's building, Lime Street, London, EC3M 7AW"
+        And I fill in "Description" with "Together, Anything is Possible"
+        And I press "Submit"
+        And I log out
+
+        Then I go to "venues"
+        And I should see "Ellingson Mineral Corporation HQ"
+        And I should see "Lloyd's building, Lime Street, London, EC3M 7AW"
