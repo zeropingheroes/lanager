@@ -2,7 +2,6 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Behat\Gherkin\Node\TableNode;
 use Behat\Mink\Driver\GoutteDriver;
 use Behat\Mink\Session as MinkSession;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -48,7 +47,7 @@ class FeatureContext extends TestCase implements Context
     }
 
     /**
-     * @Given an admin with username :arg1 exists
+     * @Given an admin with username :username exists
      */
     public function anAdminWithUsernameExists($username)
     {
@@ -89,23 +88,12 @@ class FeatureContext extends TestCase implements Context
     }
 
     /**
-     * @When I create the venue:
+     * @When I type :value into the :field field
      */
-    public function iCreateTheVenue(TableNode $venuesTable)
+    public function iTypeIntoThe($value, $field)
     {
-        foreach ($venuesTable as $venue) {
-            $this->session->visit(env('APP_URL') . 'venues/create');
-
-            if ($this->session->getStatusCode() != 200) {
-                throw new \Exception('HTTP ' . $this->session->getStatusCode());
-            }
-
-            $page = $this->session->getPage();
-            $page->fillField('name', $venue['name']);
-            $page->fillField('street_address', $venue['street address']);
-            $page->fillField('description', $venue['description']);
-            $page->find('css', 'body > main.container > form')->submit();
-        }
+        $page = $this->session->getPage();
+        $page->fillField($field, $value);
     }
 
     /**
@@ -114,14 +102,26 @@ class FeatureContext extends TestCase implements Context
     public function iLogOut()
     {
         $this->session->visit(env('APP_URL') . 'logout');
+        if ($this->session->getStatusCode() != 200) {
+            throw new \Exception('HTTP ' . $this->session->getStatusCode());
+        }
     }
 
     /**
-     * @Given I visit the path :path
+     * @When I visit :path
      */
-    public function iVisitThePath($path)
+    public function iVisit($path)
     {
         $this->session->visit(env('APP_URL') . $path);
+    }
+
+    /**
+     * @When I submit the form
+     */
+    public function iSubmitTheForm()
+    {
+        $page = $this->session->getPage();
+        $page->find('css', 'body > main.container > form')->submit();
     }
 
     /**
@@ -137,4 +137,6 @@ class FeatureContext extends TestCase implements Context
             throw new \Exception('The text is not found');
         }
     }
+
+
 }
