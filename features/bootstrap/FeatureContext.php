@@ -1,7 +1,6 @@
 <?php
 
 use Behat\Behat\Context\Context;
-use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Zeropingheroes\Lanager\Console\Kernel;
@@ -16,11 +15,6 @@ class FeatureContext extends TestCase implements Context
     use DatabaseMigrations;
 
     /**
-     * @var Session
-     */
-    private $session;
-
-    /**
      * Initializes context.
      *
      * Every scenario gets its own context instance.
@@ -30,11 +24,6 @@ class FeatureContext extends TestCase implements Context
     public function __construct()
     {
         parent::setUp();
-    }
-
-    /** @BeforeScenario */
-    public function before(BeforeScenarioScope $scope)
-    {
         $this->artisan('db:seed');
         $this->app[Kernel::class]->setArtisan(null);
     }
@@ -58,5 +47,4 @@ class FeatureContext extends TestCase implements Context
         // $role = Role::where('name', 'super-admin')->first();
         // $user->roles()->attach($role->id, ['assigned_by' => $user->id]);
     }
-
 }
