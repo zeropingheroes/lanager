@@ -9,12 +9,12 @@ Feature: Venues
     Scenario: Creating a new venue for all to see
         Given I am logged in as "Lord Nikon"
 
-        When I visit "venues/create"
-        And I type "Cyberdelia" into the "Name" field
-        And I type "Clifden Road, Brentford, Greater London" into the "Street Address" field
-        And I type "The ultimate cyberpunk club lounge" into the "Description" field
-        And I submit the form
+        When I go to "venues/create"
+        And I fill in "Name" with "Cyberdelia"
+        And I fill in "Street Address" with "Clifden Road, Brentford, Greater London"
+        And I fill in "Description" with "The ultimate cyberpunk club lounge"
+        And I press "Submit"
         And I log out
 
-        Then I visit "venues"
-        And I should see the text "Cyberdelia"
+        Then I go to "venues"
+        And I should see "Cyberdelia"
