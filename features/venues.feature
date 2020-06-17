@@ -5,10 +5,9 @@ Feature: Venues
 
     Background:
         Given an admin with username "Lord Nikon" exists
-
-    Scenario: Creating a new venue for all to see
         Given I am logged in as "Lord Nikon"
 
+    Scenario: Creating a new venue for all to see
         When I go to "venues/create"
         And I fill in "Name" with "Cyberdelia"
         And I fill in "Street Address" with "Clifden Road, Brentford, Greater London"
