@@ -41,7 +41,8 @@
         "barryvdh/laravel-ide-helper": "^2.7",
         "behat/behat": "^3.7",
         "behat/mink": "^1.8",
-        "behat/mink-goutte-driver": "^1.2"
+        "behat/mink-goutte-driver": "^1.2",
+        "friends-of-behat/mink-extension": "^2.4"
     },
     "config": {
         "optimize-autoloader": true,
