@@ -9,6 +9,7 @@ Feature: Venues
 
     Scenario: Creating a new venue for all to see
         When I go to "venues/create"
+        Then print last response
         And I fill in "Name" with "Cyberdelia"
         And I fill in "Street Address" with "Clifden Road, Brentford, Greater London"
         And I fill in "Description" with "The ultimate cyberpunk club lounge"
