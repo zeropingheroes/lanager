@@ -54,9 +54,12 @@ Route::get('/games/recent', 'GameController@recent')
     ->name('games.recent');
 Route::get('/games/owned', 'GameController@owned')
     ->name('games.owned');
-Route::get('/games/fullscreen', function () {
-    return view('pages.games.fullscreen');
-})->name('games.fullscreen');
+Route::get(
+    '/games/fullscreen',
+    function () {
+        return view('pages.games.fullscreen');
+    }
+)->name('games.fullscreen');
 
 /**
  * LANs.
@@ -75,9 +78,12 @@ Route::get('lans/{lan}/guides/{guide}/{slug?}', 'GuideController@show')
  */
 Route::resource('lans.events', 'EventController');
 Route::resource('lans.events.signups', 'EventSignupController', ['only' => ['store', 'destroy']]);
-Route::get('/events/fullscreen', function () {
-    return view('pages.events.fullscreen');
-})->name('events.fullscreen');
+Route::get(
+    '/events/fullscreen',
+    function () {
+        return view('pages.events.fullscreen');
+    }
+)->name('events.fullscreen');
 
 /**
  * LAN Games & LAN Game Votes.
@@ -115,13 +121,16 @@ Route::resource('venues', 'VenueController');
 /**
  * Slides.
  */
-Route::get('lans/{lan}/slides/play', function (Zeropingheroes\Lanager\Lan $lan) {
-    return view('pages.slides.play', ['lan' => $lan]);
-})->name('lans.slides.play');
+Route::get(
+    'lans/{lan}/slides/play',
+    function (Zeropingheroes\Lanager\Lan $lan) {
+        return view('pages.slides.play', ['lan' => $lan]);
+    }
+)->name('lans.slides.play');
 Route::resource('lans.slides', 'SlideController');
 
 /**
- * Whitelisted IP Ranges.
+ * Allowed IP Ranges.
  */
 Route::resource(
     'allowed-ip-ranges',
@@ -129,6 +138,8 @@ Route::resource(
     ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]
 );
 
-Route::fallback(function () {
-    return view('errors.404');
-})->name('fallback');
+Route::fallback(
+    function () {
+        return view('errors.404');
+    }
+)->name('fallback');
