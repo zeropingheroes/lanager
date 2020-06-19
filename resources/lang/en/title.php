@@ -31,7 +31,7 @@ return [
     'unknown' => 'Unknown',
     'actions' => 'Actions',
     'api' => 'API',
-    'colour' =>  'Colour',
+    'colour' => 'Colour',
     'status' => 'Status',
     'type' => 'Type',
     'description' => 'Description',

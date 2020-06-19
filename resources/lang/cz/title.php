@@ -31,7 +31,7 @@ return [
     'unknown' => 'Neznámý',
     'actions' => 'Akce',
     'api' => 'API',
-    'colour' =>  'Barva',
+    'colour' => 'Barva',
     'status' => 'Stav',
     'type' => 'Typ',
     'description' => 'Popis',
