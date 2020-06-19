@@ -15,6 +15,7 @@ before_script:
     - php artisan key:generate
     - php artisan storage:link
     - php artisan lanager:import-steam-apps-csv
+    - cp .env.travis .env
     - php artisan serve &
 
 script: vendor/bin/behat
