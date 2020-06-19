@@ -12,6 +12,6 @@ before_install:
 before_script:
     - composer self-update
     - composer install --no-interaction
-    - php artisan serve --port 80 &
+    - php artisan serve &
 
 script: vendor/bin/behat
