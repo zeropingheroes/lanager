@@ -1,0 +1,18 @@
+language: php
+
+php:
+    7.4
+
+services:
+    - mysql
+
+mysql:
+    database: lanager
+    username: lanager
+    encoding: secret
+
+before_script:
+    - composer self-update
+    - composer install --no-interaction
+
+script: vendor/bin/behat
