@@ -12,10 +12,10 @@ before_install:
 before_script:
     - composer self-update
     - composer install --no-interaction
+    - cp .env.travis .env
     - php artisan key:generate
     - php artisan storage:link
     - php artisan lanager:import-steam-apps-csv
-    - cp .env.travis .env
     - php artisan serve &
 
 script: vendor/bin/behat
