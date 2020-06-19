@@ -6,10 +6,8 @@ php:
 services:
     - mysql
 
-mysql:
-    database: lanager
-    username: lanager
-    encoding: secret
+before_install:
+    - mysql -e 'CREATE DATABASE lanager;'
 
 before_script:
     - composer self-update
