@@ -80,7 +80,7 @@ class ReleaseV200 extends Migration
             }
         );
         Schema::create(
-            'whitelisted_ip_ranges',
+            'allowed_ip_ranges',
             function (Blueprint $table) {
                 $table->increments('id')
                     ->unsigned();
@@ -563,7 +563,7 @@ class ReleaseV200 extends Migration
         Schema::dropIfExists('roles');
         Schema::dropIfExists('user_oauth_accounts');
         Schema::dropIfExists('users');
-        Schema::dropIfExists('whitelisted_ip_ranges');
+        Schema::dropIfExists('allowed_ip_ranges');
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('phpdebugbar');
     }

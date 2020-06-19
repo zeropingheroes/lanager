@@ -166,8 +166,8 @@ return [
     'play' => 'Play',
     'active' => 'Active',
 
-    // Whitelisted IP Ranges
-    'whitelisted-ip-ranges' => 'Whitelisted IP Ranges',
-    'whitelisted-ip-range' => 'Whitelisted IP Range',
+    // Allowed IP Ranges
+    'allowed-ip-ranges' => 'Allowed IP Ranges',
+    'allowed-ip-range' => 'Allowed IP Range',
     'ip-range' => 'IP Range',
 ];

@@ -5,9 +5,9 @@ namespace Zeropingheroes\Lanager\Listeners;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\IpUtils;
+use Zeropingheroes\Lanager\AllowedIpRange;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\UserAchievement;
-use Zeropingheroes\Lanager\WhitelistedIpRange;
 
 class AwardLanAchievementToAttendee
 {
@@ -38,7 +38,7 @@ class AwardLanAchievementToAttendee
         }
         $isAtLan = false;
 
-        foreach (WhitelistedIpRange::pluck('ip_range') as $ipRange) {
+        foreach (AllowedIpRange::pluck('ip_range') as $ipRange) {
             if (IpUtils::checkIp($this->request->ip(), $ipRange)) {
                 $isAtLan = true;
                 break;

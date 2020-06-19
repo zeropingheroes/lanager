@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-class StoreWhitelistedIpRangeRequest extends Request
+class StoreAllowedIpRangeRequest extends Request
 {
     use LaravelValidation;
 

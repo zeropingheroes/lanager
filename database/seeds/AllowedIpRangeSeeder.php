@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Zeropingheroes\Lanager\WhitelistedIpRange;
+use Zeropingheroes\Lanager\AllowedIpRange;
 
-class WhitelistedIpRangeSeeder extends Seeder
+class AllowedIpRangeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,18 +13,18 @@ class WhitelistedIpRangeSeeder extends Seeder
     public function run()
     {
         // don't seed if table is not empty
-        if (WhitelistedIpRange::count()) {
+        if (AllowedIpRange::count()) {
             return;
         }
 
-        $whitelistedIps = [
+        $allowedIpRanges = [
             '10.0.0.0/8',
             '172.16.0.0/12',
             '192.168.0.0/16',
         ];
 
-        foreach ($whitelistedIps as $whitelistedIp) {
-            WhitelistedIpRange::create(['ip_range' => $whitelistedIp, 'description' => 'LAN']);
+        foreach ($allowedIpRanges as $allowedIpRange) {
+            AllowedIpRange::create(['ip_range' => $allowedIpRange, 'description' => 'LAN']);
         }
     }
 }

@@ -2,19 +2,19 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
+use Zeropingheroes\Lanager\AllowedIpRange;
 use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\WhitelistedIpRange;
 
-class WhitelistedIpRangePolicy extends BasePolicy
+class AllowedIpRangePolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can view a given item.
      *
      * @param User|null $authUser
-     * @param WhitelistedIpRange $whitelistedIpRange
+     * @param AllowedIpRange $allowedIpRange
      * @return bool
      */
-    public function view(?User $authUser, WhitelistedIpRange $whitelistedIpRange)
+    public function view(?User $authUser, AllowedIpRange $allowedIpRange)
     {
         return $authUser->hasRole('admin');
     }
@@ -34,10 +34,10 @@ class WhitelistedIpRangePolicy extends BasePolicy
      * Determine whether the logged-in user can edit a given item.
      *
      * @param User $authUser
-     * @param WhitelistedIpRange $whitelistedIpRange
+     * @param AllowedIpRange $allowedIpRange
      * @return bool
      */
-    public function update(User $authUser, WhitelistedIpRange $whitelistedIpRange)
+    public function update(User $authUser, AllowedIpRange $allowedIpRange)
     {
         return $authUser->hasRole('admin');
     }
@@ -46,10 +46,10 @@ class WhitelistedIpRangePolicy extends BasePolicy
      * Determine whether the logged-in user can delete a given item.
      *
      * @param User $authUser
-     * @param WhitelistedIpRange $whitelistedIpRange
+     * @param AllowedIpRange $allowedIpRange
      * @return bool
      */
-    public function delete(User $authUser, WhitelistedIpRange $whitelistedIpRange)
+    public function delete(User $authUser, AllowedIpRange $allowedIpRange)
     {
         return $authUser->hasRole('admin');
     }

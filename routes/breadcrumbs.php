@@ -220,21 +220,29 @@ Breadcrumbs::for('lans.slides.edit', function ($trail, $lan, $slide) {
     $trail->parent('lans.slides.index', $lan);
     $trail->push($slide->name, route('lans.slides.edit', ['lan' => $lan, 'slide' => $slide]));
 });
+// Home > AllowedIpRange
+Breadcrumbs::for(
+    'allowed-ip-ranges.index',
+    function ($trail) {
+        $trail->parent('home');
+        $trail->push(__('title.allowed-ip-ranges'), route('allowed-ip-ranges.index'));
+    }
+);
 
-// Home > WhitelistedIpRange
-Breadcrumbs::for('whitelisted-ip-ranges.index', function ($trail) {
-    $trail->parent('home');
-    $trail->push(__('title.whitelisted-ip-ranges'), route('whitelisted-ip-ranges.index'));
-});
+// Home > AllowedIpRange > [AllowedIpRange] > Edit
+Breadcrumbs::for(
+    'allowed-ip-ranges.edit',
+    function ($trail, $allowedIpRange) {
+        $trail->parent('allowed-ip-ranges.index');
+        $trail->push($allowedIpRange->ip_range, route('allowed-ip-ranges.edit', $allowedIpRange));
+    }
+);
 
-// Home > WhitelistedIpRange > [WhitelistedIpRange] > Edit
-Breadcrumbs::for('whitelisted-ip-ranges.edit', function ($trail, $whitelistedIpRange) {
-    $trail->parent('whitelisted-ip-ranges.index');
-    $trail->push($whitelistedIpRange->ip_range, route('whitelisted-ip-ranges.edit', $whitelistedIpRange));
-});
-
-// Home > WhitelistedIpRange > Create
-Breadcrumbs::for('whitelisted-ip-ranges.create', function ($trail) {
-    $trail->parent('whitelisted-ip-ranges.index');
-    $trail->push(__('title.create'), route('whitelisted-ip-ranges.create'));
-});
+// Home > AllowedIpRange > Create
+Breadcrumbs::for(
+    'allowed-ip-ranges.create',
+    function ($trail) {
+        $trail->parent('allowed-ip-ranges.index');
+        $trail->push(__('title.create'), route('allowed-ip-ranges.create'));
+    }
+);

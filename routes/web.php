@@ -123,7 +123,11 @@ Route::resource('lans.slides', 'SlideController');
 /**
  * Whitelisted IP Ranges.
  */
-Route::resource('whitelisted-ip-ranges', 'WhitelistedIpRangeController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]);
+Route::resource(
+    'allowed-ip-ranges',
+    'AllowedIpRangeController',
+    ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]
+);
 
 Route::fallback(function () {
     return view('errors.404');

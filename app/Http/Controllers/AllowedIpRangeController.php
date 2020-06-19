@@ -7,10 +7,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
 use View;
-use Zeropingheroes\Lanager\Requests\StoreWhitelistedIpRangeRequest;
-use Zeropingheroes\Lanager\WhitelistedIpRange;
+use Zeropingheroes\Lanager\AllowedIpRange;
+use Zeropingheroes\Lanager\Requests\StoreAllowedIpRangeRequest;
 
-class WhitelistedIpRangeController extends Controller
+class AllowedIpRangeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,10 @@ class WhitelistedIpRangeController extends Controller
      */
     public function index()
     {
-        $whitelistedIpRanges = WhitelistedIpRange::all();
+        $allowedIpRanges = AllowedIpRange::all();
 
-        return View::make('pages.whitelisted-ip-ranges.index')
-            ->with('whitelistedIpRanges', $whitelistedIpRanges);
+        return View::make('pages.allowed-ip-ranges.index')
+            ->with('allowedIpRanges', $allowedIpRanges);
     }
 
     /**
@@ -33,10 +33,10 @@ class WhitelistedIpRangeController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', WhitelistedIpRange::class);
+        $this->authorize('create', AllowedIpRange::class);
 
-        return View::make('pages.whitelisted-ip-ranges.create')
-            ->with('whitelistedIpRange', new WhitelistedIpRange());
+        return View::make('pages.allowed-ip-ranges.create')
+            ->with('allowedIpRange', new AllowedIpRange());
     }
 
     /**
@@ -48,14 +48,14 @@ class WhitelistedIpRangeController extends Controller
      */
     public function store(Request $httpRequest)
     {
-        $this->authorize('create', WhitelistedIpRange::class);
+        $this->authorize('create', AllowedIpRange::class);
 
         $input = [
             'ip_range' => $httpRequest->input('ip_range'),
             'description' => $httpRequest->input('description'),
         ];
 
-        $request = new StoreWhitelistedIpRangeRequest($input);
+        $request = new StoreAllowedIpRangeRequest($input);
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
@@ -63,46 +63,46 @@ class WhitelistedIpRangeController extends Controller
             return redirect()->back()->withInput();
         }
 
-        WhitelistedIpRange::create($input);
+        AllowedIpRange::create($input);
 
         return redirect()
-            ->route('whitelisted-ip-ranges.index');
+            ->route('allowed-ip-ranges.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param WhitelistedIpRange $whitelistedIpRange
+     * @param AllowedIpRange $allowedIpRange
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function edit(WhitelistedIpRange $whitelistedIpRange)
+    public function edit(AllowedIpRange $allowedIpRange)
     {
-        $this->authorize('update', $whitelistedIpRange);
+        $this->authorize('update', $allowedIpRange);
 
-        return View::make('pages.whitelisted-ip-ranges.edit')
-            ->with('whitelistedIpRange', $whitelistedIpRange);
+        return View::make('pages.allowed-ip-ranges.edit')
+            ->with('allowedIpRange', $allowedIpRange);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $httpRequest
-     * @param WhitelistedIpRange $whitelistedIpRange
+     * @param AllowedIpRange $allowedIpRange
      * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function update(Request $httpRequest, WhitelistedIpRange $whitelistedIpRange)
+    public function update(Request $httpRequest, AllowedIpRange $allowedIpRange)
     {
-        $this->authorize('update', $whitelistedIpRange);
+        $this->authorize('update', $allowedIpRange);
 
         $input = [
             'ip_range' => $httpRequest->input('ip_range'),
             'description' => $httpRequest->input('description'),
-            'id' => $whitelistedIpRange->id,
+            'id' => $allowedIpRange->id,
         ];
 
-        $request = new StoreWhitelistedIpRangeRequest($input);
+        $request = new StoreAllowedIpRangeRequest($input);
 
         if ($request->invalid()) {
             Session::flash('error', $request->errors());
@@ -110,35 +110,35 @@ class WhitelistedIpRangeController extends Controller
             return redirect()->back()->withInput();
         }
 
-        $whitelistedIpRange->update($input);
+        $allowedIpRange->update($input);
 
         return redirect()
-            ->route('whitelisted-ip-ranges.index');
+            ->route('allowed-ip-ranges.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param WhitelistedIpRange $whitelistedIpRange
+     * @param AllowedIpRange $allowedIpRange
      * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(WhitelistedIpRange $whitelistedIpRange)
+    public function destroy(AllowedIpRange $allowedIpRange)
     {
-        $this->authorize('delete', $whitelistedIpRange);
+        $this->authorize('delete', $allowedIpRange);
 
-        WhitelistedIpRange::destroy($whitelistedIpRange->id);
+        AllowedIpRange::destroy($allowedIpRange->id);
         Session::flash(
             'success',
             trans(
                 'phrase.item-name-deleted',
                 [
                     'item' => trans('title.ip-range'),
-                    'name' => $whitelistedIpRange->ip_range,
+                    'name' => $allowedIpRange->ip_range,
                 ]
             )
         );
 
-        return redirect()->route('whitelisted-ip-ranges.index');
+        return redirect()->route('allowed-ip-ranges.index');
     }
 }
