@@ -8,6 +8,5 @@ default:
                 - MyMinkContext
     extensions:
         Behat\MinkExtension:
-            base_url: http://lanager
             goutte: ~
 
