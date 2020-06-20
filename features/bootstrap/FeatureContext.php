@@ -5,6 +5,7 @@ use Behat\Gherkin\Node\TableNode;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Zeropingheroes\Lanager\Console\Kernel;
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 use Zeropingheroes\Lanager\Venue;
@@ -61,6 +62,26 @@ class FeatureContext extends TestCase implements Context
                     'name' => $venue['name'],
                     'street_address' => $venue['street_address'],
                     'description' => $venue['description'],
+                ]
+            );
+        }
+    }
+
+    /**
+     * @Given /^The following LAN exists:$/
+     */
+    public function theFollowingLANExists(TableNode $lan)
+    {
+        foreach ($lan as $lan) {
+            $lan['published'] = $lan['published'] == 'yes' ? 1 : 0;
+            Lan::create(
+                [
+                    'name' => $lan['name'],
+                    'description' => $lan['description'],
+                    'start' => $lan['start'],
+                    'end' => $lan['end'],
+                    'venue_id' => Venue::where('name', '=', $lan['venue'])->first()->id,
+                    'published' => $lan['published'],
                 ]
             );
         }
