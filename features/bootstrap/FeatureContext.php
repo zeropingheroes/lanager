@@ -65,5 +65,4 @@ class FeatureContext extends TestCase implements Context
             );
         }
     }
-
 }
