@@ -19,6 +19,6 @@ before_script:
     - cp .env.travis .env
     - php artisan key:generate
     - php artisan storage:link
-    - php artisan serve &
+    - php artisan serve -q &
 
 script: vendor/bin/behat
