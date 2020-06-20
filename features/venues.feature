@@ -7,26 +7,31 @@ Feature: Venues
         Given an admin with username "Lord Nikon" exists
         Given I am logged in as "Lord Nikon"
 
-    Scenario: Creating a new venue for all to see
-        When I go to "venues/create"
+    Scenario: Creating a new venue
+        When I go to the homepage
+        And I follow "Venues"
+        And I follow "Create"
         And I fill in "Name" with "Cyberdelia"
         And I fill in "Street Address" with "Clifden Road, Brentford, Greater London"
         And I fill in "Description" with "The ultimate cyberpunk club lounge"
         And I press "Submit"
-        And I log out
 
-        Then I go to "venues"
-        And I should see "Cyberdelia"
+        Then I should see "Cyberdelia"
+        And I should see "Clifden Road, Brentford, Greater London"
 
-    Scenario: Editing an existing venue's name
-        When I go to "venues"
+    Scenario: Editing an existing venue's details
+        Given The following venue exists:
+            | name       | street_address                          | description                        |
+            | Cyberdelia | Clifden Road, Brentford, Greater London | The ultimate cyberpunk club lounge |
+
+        When I go to the homepage
+        And I follow "Venues"
+        And I follow "Cyberdelia"
         And I follow "Edit"
         And I fill in "Name" with "Ellingson Mineral Corporation HQ"
         And I fill in "Street Address" with "Lloyd's building, Lime Street, London, EC3M 7AW"
         And I fill in "Description" with "Together, Anything is Possible"
         And I press "Submit"
-        And I log out
 
-        Then I go to "venues"
-        And I should see "Ellingson Mineral Corporation HQ"
+        Then I should see "Ellingson Mineral Corporation HQ"
         And I should see "Lloyd's building, Lime Street, London, EC3M 7AW"
