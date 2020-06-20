@@ -49,7 +49,7 @@ Feature: Venues
 #        Then the url should match "/venues"
 #        And I should not see "Cyberdelia"
 
-    Scenario: Attempting to create a venue with no name or street address
+    Scenario: Attempting to create a venue with no name or street address should show an error
         When I go to the homepage
         And I follow "Venues"
         And I follow "Create"
@@ -57,3 +57,6 @@ Feature: Venues
 
         Then I should see "The name field is required"
         And I should see "The street address field is required"
+
+# TODO:
+# Scenario: Attempting to create a venue with a name and street address that are too long should show an error
