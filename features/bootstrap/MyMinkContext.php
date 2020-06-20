@@ -11,7 +11,6 @@ use Zeropingheroes\Lanager\User;
  */
 class MyMinkContext extends MinkContext implements Context
 {
-
     /**
      * @Given I am logged in as :username
      * @When I log in as :username
@@ -39,9 +38,13 @@ class MyMinkContext extends MinkContext implements Context
      */
     public function iLogOut()
     {
-        $this->visit('logout');
-        if ($this->getSession()->getStatusCode() != 200) {
-            throw new \Exception('HTTP ' . $this->getSession()->getStatusCode());
-        }
+        // Log out page uses HTTP DELETE so GET /logout does not work
+        // $this->visit('logout');
+        // if ($this->getSession()->getStatusCode() != 200) {
+        //     throw new \Exception('HTTP ' . $this->getSession()->getStatusCode());
+        // }
+
+        // Workaround: unset the cookie on the browser
+        $this->getSession()->setCookie(LaravelSession::getName(), null);
     }
 }
