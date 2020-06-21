@@ -5,6 +5,7 @@ use Behat\Gherkin\Node\TableNode;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Zeropingheroes\Lanager\Console\Kernel;
+use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\UserOAuthAccount;
@@ -82,6 +83,28 @@ class FeatureContext extends TestCase implements Context
                     'end' => $lan['end'],
                     'venue_id' => Venue::where('name', '=', $lan['venue'])->first()->id,
                     'published' => $lan['published'],
+                ]
+            );
+        }
+    }
+
+    /**
+     * @Given /^The following event exists:$/
+     */
+    public function theFollowingEventExists(TableNode $event)
+    {
+        foreach ($event as $event) {
+            $event['published'] = $event['published'] == 'yes' ? 1 : 0;
+            Event::create(
+                [
+                    'name' => $event['name'],
+                    'description' => $event['description'],
+                    'start' => $event['start'],
+                    'end' => $event['end'],
+                    'signups_open' => $event['signups_open'] ?? $event['signups_open'] ?? null,
+                    'signups_close' => $event['signups_close'] ?? $event['signups_close'] ?? null,
+                    'lan_id' => Lan::where('name', '=', $event['lan'])->first()->id,
+                    'published' => $event['published'],
                 ]
             );
         }
