@@ -1,6 +1,6 @@
 Feature: Events
     In order to inform LAN attendees about what is going on at the LAN
-    As an admin
+    As a LAN organiser
     I need to be able to create, edit and delete events
 
     Background:

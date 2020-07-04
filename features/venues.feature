@@ -1,6 +1,6 @@
 Feature: Venues
     In order to inform attendees where a LAN is taking place
-    As an admin
+    As a LAN organiser
     I need to be able to create, edit and delete venues
 
     Background:
