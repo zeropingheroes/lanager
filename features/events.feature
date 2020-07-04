@@ -223,3 +223,7 @@ Feature: Events
         And I press "Submit"
 
         Then I should see "The signups open must be a date before or equal to start."
+
+    Scenario: When a user attempts to edit an event, they are not permitted
+
+    Scenario: When a user attempts to delete an event, they are not permitted

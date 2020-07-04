@@ -19,3 +19,4 @@ Feature: Event signups
 
     Scenario: When a user attempts to sign up for an event which is no longer open for signups, they see an error
 
+    Scenario: When a user attempts to delete another user's signup, they are not permitted

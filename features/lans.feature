@@ -92,8 +92,14 @@ Feature: LANs
 
         Then I should see "LANs cannot overlap"
 
-# TODO:
-# Scenario: A super admin should be able to delete an existing LAN
-# Scenario: Attempting to create a LAN with a venue that doesn't exist should show an error
-# Scenario: Attempting to create a LAN with an achievement that doesn't exist should show an error
-# Scenario: Attempting to create a LAN with a name that is too long should show an error
+    Scenario: A super admin should be able to delete an existing LAN
+
+    Scenario: Attempting to create a LAN with a venue that doesn't exist should show an error
+
+    Scenario: Attempting to create a LAN with an achievement that doesn't exist should show an error
+
+    Scenario: Attempting to create a LAN with a name that is too long should show an error
+
+    Scenario: When a user attempts to edit a LAN, they are not permitted
+
+    Scenario: When a user attempts to delete a LAN, they are not permitted
