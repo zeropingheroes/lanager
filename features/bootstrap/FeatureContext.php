@@ -1,6 +1,7 @@
 <?php
 
 use Behat\Behat\Context\Context;
+use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -50,6 +51,25 @@ class FeatureContext extends TestCase implements Context
         // Currently not required as UserObserver::class assigns super admin role when first user created
         // $role = Role::where('name', 'super-admin')->first();
         // $user->roles()->attach($role->id, ['assigned_by' => $user->id]);
+    }
+
+    /**
+     * @Given /^a user with username "([^"]*)" exists$/
+     */
+    public function aUserWithUsernameExists($username)
+    {
+        $user = factory(User::class)->create(
+            [
+                'username' => $username,
+            ]
+        )->each(
+            function ($user) {
+                $user->accounts()->save(factory(UserOAuthAccount::class)->make());
+            }
+        );
+
+        // Ensure user has no roles
+        User::where('username', '=', $username)->first()->roles()->delete();
     }
 
     /**
@@ -108,5 +128,13 @@ class FeatureContext extends TestCase implements Context
                 ]
             );
         }
+    }
+
+    /**
+     * @Given the LAN :lan is happening all day today at :venue on :streetAddress
+     */
+    public function theLanIsHappeningAllDayTodayAtOn($lan, $venue, $streetAddress)
+    {
+        throw new PendingException();
     }
 }
