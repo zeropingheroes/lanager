@@ -68,6 +68,19 @@ Feature: Events
         And I follow "Hack the planet!"
 
         Then I should not see "wipE'out"
+        And I should see "0"
+
+    Scenario: Unpublished events should be labelled for admins
+        Given The following event exists:
+            | name     | description       | start               | end                 | lan              | published |
+            | wipE'out | A dangerous game. | 2025-09-15 18:00:00 | 2025-09-17 18:00:00 | Hack the planet! | no        |
+
+        When I go to the homepage
+        And I follow "LANs"
+        And I follow "Hack the planet!"
+
+        Then I should see "wipE'out"
+        And I should see "Unpublished"
 
     Scenario: Creating an event which allows attendee signups up until the event start time
         When I go to the homepage
@@ -104,7 +117,6 @@ Feature: Events
         And I fill in "End" with "2025-09-16 23:59:00"
         And I fill in "Signups Open" with "2025-09-15 17:00:00"
         And I fill in "Signups Close" with "2025-09-15 18:00:00"
-        And I uncheck "Published"
         And I press "Submit"
 
         Then I should see "Kate vs Dade"
