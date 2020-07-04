@@ -53,7 +53,7 @@ class FeatureContext extends TestCase implements Context
     }
 
     /**
-     * @Given /^The following venue exists:$/
+     * @Given /^the following venue exists:$/
      */
     public function theFollowingVenueExists(TableNode $venues)
     {
@@ -69,7 +69,7 @@ class FeatureContext extends TestCase implements Context
     }
 
     /**
-     * @Given /^The following LAN exists:$/
+     * @Given /^the following LAN exists:$/
      */
     public function theFollowingLANExists(TableNode $lan)
     {
@@ -89,7 +89,7 @@ class FeatureContext extends TestCase implements Context
     }
 
     /**
-     * @Given /^The following event exists:$/
+     * @Given /^the following event exists:$/
      */
     public function theFollowingEventExists(TableNode $event)
     {

@@ -20,7 +20,7 @@ Feature: Venues
         And I should see "Clifden Road, Brentford, Greater London"
 
     Scenario: Editing an existing venue's details
-        Given The following venue exists:
+        Given the following venue exists:
             | name       | street_address                          | description                        |
             | Cyberdelia | Clifden Road, Brentford, Greater London | The ultimate cyberpunk club lounge |
 
@@ -37,7 +37,7 @@ Feature: Venues
         And I should see "Lloyd's building, Lime Street, London, EC3M 7AW"
 
 #    Scenario: Deleting an existing venue
-#        Given The following venue exists:
+#        Given the following venue exists:
 #            | name       | street_address                          | description                        |
 #            | Cyberdelia | Clifden Road, Brentford, Greater London | The ultimate cyberpunk club lounge |
 #

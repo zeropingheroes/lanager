@@ -6,10 +6,10 @@ Feature: Events
     Background:
         Given an admin with username "Zero Cool" exists
         Given I am logged in as "Zero Cool"
-        Given The following venue exists:
+        Given the following venue exists:
             | name       | street_address                          | description                        |
             | Cyberdelia | Clifden Road, Brentford, Greater London | The ultimate cyberpunk club lounge |
-        Given The following LAN exists:
+        Given the following LAN exists:
             | name             | description            | start               | end                 | venue      | published |
             | Hack the planet! | This is our world now. | 2025-09-15 18:00:00 | 2025-09-17 18:00:00 | Cyberdelia | yes       |
 
@@ -30,7 +30,7 @@ Feature: Events
         And I should see "A dangerous game."
 
     Scenario: Editing an existing event's details
-        Given The following event exists:
+        Given the following event exists:
             | name     | description       | start               | end                 | lan              | published |
             | wipE'out | A dangerous game. | 2025-09-15 18:00:00 | 2025-09-17 18:00:00 | Hack the planet! | yes       |
 
@@ -50,7 +50,7 @@ Feature: Events
         And I should see "Everybody dies."
 
     Scenario: Un-publishing an existing event should mean it is not visible to guests
-        Given The following event exists:
+        Given the following event exists:
             | name     | description       | start               | end                 | lan              | published |
             | wipE'out | A dangerous game. | 2025-09-15 18:00:00 | 2025-09-17 18:00:00 | Hack the planet! | yes       |
 
@@ -71,7 +71,7 @@ Feature: Events
         And I should see "0"
 
     Scenario: Unpublished events should be labelled for admins
-        Given The following event exists:
+        Given the following event exists:
             | name     | description       | start               | end                 | lan              | published |
             | wipE'out | A dangerous game. | 2025-09-15 18:00:00 | 2025-09-17 18:00:00 | Hack the planet! | no        |
 
@@ -101,7 +101,7 @@ Feature: Events
         And I should see "A dangerous game."
 
     Scenario: Changing an existing event's start, end and signup times
-        Given The following event exists:
+        Given the following event exists:
             | name     | description       | start               | end                 | lan              | published |
             | wipE'out | A dangerous game. | 2025-09-15 18:00:00 | 2025-09-17 18:00:00 | Hack the planet! | yes       |
 
@@ -123,7 +123,7 @@ Feature: Events
         And I should see "Mess with the best, die like the rest."
 
     Scenario: A guest viewing the events list should not be able to see an unpublished event
-        Given The following event exists:
+        Given the following event exists:
             | name     | description       | start               | end                 | lan              | published |
             | wipE'out | A dangerous game. | 2025-09-15 18:00:00 | 2025-09-17 18:00:00 | Hack the planet! | no        |
 
