@@ -242,8 +242,6 @@ Click ⚙ > **Navigation** to customise the links shown on the navigation bar. Y
 We're using Laravel Homestead (which uses Vagrant) to set up a virtual machine with a consistent environment for LANager
 to run in, regardless of the host operating system you use for development.
 
-### Development on Ubuntu 20.04
-
 1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 
 2. Install [Vagrant](https://www.vagrantup.com/downloads.html)
 3. Install PHP 7.4:
@@ -283,16 +281,11 @@ to run in, regardless of the host operating system you use for development.
     ```bash
     composer install --ignore-platform-reqs
     ```
-13. Edit the Homestead configuration file:
-    ```bash
-    nano Homestead.yaml
-    ```
-14. In Homestead.yaml, uncomment the section below "VirtualBox Configuration"
-15. Provision the Vagrant virtual environment
+13. Provision the Vagrant virtual environment
     ```bash
     vagrant up
     ```
-16. Add an entry to `/etc/hosts` to map lanager.localhost to 127.0.0.1:
+14. Add an entry to `/etc/hosts` to map lanager.localhost to 127.0.0.1:
     ```bash
     nano /etc/hosts
     ```
@@ -301,55 +294,6 @@ to run in, regardless of the host operating system you use for development.
     ```
 
 LANAger should now be available at [lanager.localhost:8000](http://lanager.localhost:8000/).
-
-
-### Development on Windows 10
-
-1. Install [Vagrant](https://www.vagrantup.com/downloads.html)
-2. Install [PHP 7.4](https://windows.php.net/download#php-7.4)
-3. Install [Composer](https://getcomposer.org/)
-4. Enable [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v)
-5. In Hyper-V, create a [Virtual Switch](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/create-a-virtual-switch-for-hyper-v-virtual-machines)
-   1. For **Type** choose **External**
-   2. For **Name** enter **External Switch**
-   3. For **External network** choose your network interface that is connected to the internet
-6. Clone the LANager repository
-7. In the repository folder, make a copy of the environment settings file `.env.example` into a new file named `.env`
-8. Create a [Steam API Key](http://steamcommunity.com/dev/apikey)
-9. Create a [Google API Key](https://cloud.google.com/maps-platform/?apis=maps) enabled for the "Maps Embed API"
-10. Find your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
-11. Edit the following lines in your environment file `.env`
-    ```bash
-    APP_ENV=local
-    APP_DEBUG=true
-    APP_URL=http://lanager.localhost
-    APP_TIMEZONE= # Your timezone
-    STEAM_API_KEY= # Your Steam API key
-    GOOGLE_API_KEY= # Your Google API key enabled for the "Maps Embed API"
-    DB_USERNAME=homestead
-    ```
-12. Install the project dependencies, ignoring platform requirements
-    ```bash
-    composer install --ignore-platform-reqs
-    ```
-13. Use `lusrmgr.msc` to create a new user to share the LANager folder over SMB
-14. Share the folder with the user containing the LANager repository using [Windows 10 SMB sharing](https://support.microsoft.com/en-us/windows/file-sharing-over-a-network-in-windows-10-b58704b2-f53a-4b82-7bc1-80f9994725bf) 
-15. Edit the `Homestead.yaml` file:
-    1. Uncomment the section below "Hyper-V Configuration"
-    2. Under the `folders:` section
-       1. Update the `map:` path to the location of the LANager repository
-       2. Update `smb_username` and `smb_password` to the credentials of the user you created earlier
-16. Open Windows Command Prompt or PowerShell and run `vagrant up` to provision the Vagrant virtual environment:
-    ```bash
-    vagrant up
-    ```
-17. Note down the IP address given to the virtual machine, shown in the console output
-18. Edit `C:\windows\system32\drivers\etc\hosts` and add an entry to map lanager.localhost to the IP address of the virtual machine:
-    ```bash
-    [VM's IP address]    lanager.localhost
-    ```
-
-LANAger should now be available at [lanager.localhost](http://lanager.localhost/).
 
 ## Feedback & Contributions
 
