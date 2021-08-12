@@ -6,6 +6,11 @@
 
 cd /home/vagrant/lanager/
 
+sudo update-alternatives --set php /usr/bin/php7.4
+sudo update-alternatives --set php-config /usr/bin/php-config7.4
+
+rm -rf vendor
+
 composer install
 
 php artisan key:generate
@@ -13,3 +18,4 @@ php artisan migrate:fresh
 php artisan db:seed
 php artisan storage:link
 php artisan lanager:import-steam-apps-csv
+php artisan db:seed --class=TestDataSeeder

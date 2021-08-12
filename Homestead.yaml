@@ -1,15 +1,50 @@
+###############################################################################
+# VirtualBox Configuration                                                    #
+# If you are using VirtualBox, uncomment the below                            #
+###############################################################################
 ip: 192.168.13.37
 memory: 4096
 cpus: 4
 provider: virtualbox
+name: lanager
+hostname: lanager
 folders:
     -   map: ./
         to: /home/vagrant/lanager
 sites:
     -   map: lanager.localhost
         to: /home/vagrant/lanager/public
+        php: "7.4"
         schedule: true
 databases:
     - lanager
-name: lanager
-hostname: lanager
+features:
+    - mariadb: true
+
+###############################################################################
+# Hyper-V Configuration                                                       #
+# If you are using Hyper-V, uncomment the below                               #
+###############################################################################
+#memory: 4096
+#cpus: 4
+#provider: hyperv
+#name: lanager
+#hostname: lanager
+#networks:
+#    - type: "public_network"
+#      bridge: "External Switch"
+#folders:
+#    - map: C:\lanager
+#      to: /home/vagrant/lanager
+#      smb_username: username
+#      smb_password: password
+#sites:
+#    - map: lanager.localhost
+#      to: /home/vagrant/lanager/public
+#      php: "7.4"
+#      schedule: true
+#databases:
+#    - lanager
+#
+#features:
+#    - mariadb: true

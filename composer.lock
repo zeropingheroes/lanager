@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "661cf24fc1c0befa7ccd5b2ab022f601",
+    "content-hash": "05cfe704f4db10becf86f0f6f92c7a49",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6618,26 +6618,27 @@
         },
         {
             "name": "laravel/homestead",
-            "version": "v10.8.1",
+            "version": "v12.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/homestead.git",
-                "reference": "489c6942cb9fa7f57231e89c0b01cdedde6f4b47"
+                "reference": "47ce12224b198fd226e29702f7f94a9641e8e22d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/homestead/zipball/489c6942cb9fa7f57231e89c0b01cdedde6f4b47",
-                "reference": "489c6942cb9fa7f57231e89c0b01cdedde6f4b47",
+                "url": "https://api.github.com/repos/laravel/homestead/zipball/47ce12224b198fd226e29702f7f94a9641e8e22d",
+                "reference": "47ce12224b198fd226e29702f7f94a9641e8e22d",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1",
-                "symfony/console": "~3.0||~4.0||~5.0",
-                "symfony/process": "~3.0||~4.0||~5.0",
-                "symfony/yaml": "~3.0||~4.0||~5.0"
+                "php": "^7.4 || ^8.0",
+                "symfony/console": "~5.1",
+                "symfony/process": "~5.1",
+                "symfony/yaml": "~5.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.0"
+                "dms/phpunit-arraysubset-asserts": "^0.2.1",
+                "phpunit/phpunit": "^9.5"
             },
             "bin": [
                 "bin/homestead"
@@ -6659,7 +6660,11 @@
                 }
             ],
             "description": "A virtual machine for web artisans.",
-            "time": "2020-05-23T12:51:56+00:00"
+            "support": {
+                "issues": "https://github.com/laravel/homestead/issues",
+                "source": "https://github.com/laravel/homestead/tree/v12.3.0"
+            },
+            "time": "2021-05-29T01:23:00+00:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -9002,5 +9007,5 @@
         "php": "^7.4.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
