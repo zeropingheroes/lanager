@@ -11,6 +11,7 @@ use bandwidthThrottle\tokenBucket\TokenBucket;
 use Carbon\CarbonInterval;
 use Illuminate\Console\Command;
 use Log;
+use Syntax\SteamApi\Facades\SteamApi;
 use Syntax\SteamApi\Exceptions\ApiCallFailedException;
 use Zeropingheroes\Lanager\SteamApp;
 
