@@ -124,25 +124,31 @@ While it's possible to run LANager on a server at your venue and make it only ac
     sudo chmod 777 -R /var/www/lanager/storage
     ```
 
-8. Install LANager's dependencies:
+8. Check LANager's dependencies are installed:
 
-    ```bash
-    composer install --no-dev --working-dir=/var/www/lanager
-    ```
+     ```bash
+     composer check-platform-reqs --no-dev
+     ```
 
-9. Configure LANager:
+10. Install LANager's dependencies:
+
+     ```bash
+     composer install --no-dev --working-dir=/var/www/lanager
+     ```
+
+11. Configure LANager:
     
-    ```bash
-    cd /var/www/lanager/ && cp .env.example .env && nano .env
-    ```
+     ```bash
+     cd /var/www/lanager/ && cp .env.example .env && nano .env
+     ```
     
-    - `APP_URL` - The full URL
-    - `APP_TIMEZONE` - Your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
-    - `STEAM_API_KEY` - Your [Steam API Key](http://steamcommunity.com/dev/apikey)
-    - `GOOGLE_API_KEY` - Your [Google API Key](https://console.cloud.google.com/apis/)
-    - `DB_PASSWORD` - The password you chose for the `lanager` MySQL user above
+     - `APP_URL` - The full URL
+     - `APP_TIMEZONE` - Your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
+     - `STEAM_API_KEY` - Your [Steam API Key](http://steamcommunity.com/dev/apikey)
+     - `GOOGLE_API_KEY` - Your [Google API Key](https://console.cloud.google.com/apis/)
+     - `DB_PASSWORD` - The password you chose for the `lanager` MySQL user above
 
-10. Run first-time setup commands:
+12. Run first-time setup commands:
 
     ```bash
     php artisan key:generate
@@ -156,9 +162,9 @@ While it's possible to run LANager on a server at your venue and make it only ac
     php artisan config:cache
     ```
 
-11. Visit the app URL to check that the installation was successful.
+13. Visit the app URL to check that the installation was successful.
 
-12. Enable the scheduled commands:
+14. Enable the scheduled commands:
 
     ```bash
     crontab -e
