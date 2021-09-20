@@ -14,8 +14,26 @@
         "party"
     ],
     "license": "AGPL-3.0",
+    "config": {
+        "platform": {
+            "php": "7.4.0",
+            "ext-bcmath": "7.4.3",
+            "ext-curl": "7.4.3",
+            "ext-dom": "20031129",
+            "ext-fileinfo": "7.4.3",
+            "ext-json": "7.4.3",
+            "ext-libxml": "7.4.3",
+            "ext-mbstring": "7.4.3",
+            "ext-openssl": "7.4.3",
+            "ext-pdo": "7.4.3",
+            "ext-simplexml": "7.4.3",
+            "ext-tokenizer": "7.4.3",
+            "ext-zip": "7.4.3"
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist"
+    },
     "require": {
-        "php": "^7.4.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
@@ -43,10 +61,6 @@
         "behat/mink": "^1.8",
         "behat/mink-goutte-driver": "^1.2",
         "friends-of-behat/mink-extension": "^2.4"
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist"
     },
     "extra": {
         "laravel": {
