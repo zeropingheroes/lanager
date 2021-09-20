@@ -13,7 +13,7 @@
         "lan",
         "party"
     ],
-    "license": "AGPL-3.0",
+    "license": "AGPL-3.0-only",
     "config": {
         "platform": {
             "php": "7.4.0",
