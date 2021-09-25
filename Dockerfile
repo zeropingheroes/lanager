@@ -4,13 +4,14 @@ COPY composer.lock composer.json /var/www/
 
 WORKDIR /var/www
 
+# Install package dependencies
 RUN apt-get update && apt-get install -y \
-    zip \
-    unzip \
+    curl \
     libzip-dev \
-    curl
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+    unzip \
+    zip \
+    netcat \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo_mysql zip pcntl bcmath
 
