@@ -19,7 +19,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy in app code with permissions
 COPY --chown=www-data:www-data . /var/www
 
-USER www
 
 # TODO: fix permissions issues so container is not run as root
 # Set correct permissions for storage directory
