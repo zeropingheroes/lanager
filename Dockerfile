@@ -32,4 +32,6 @@ RUN composer install && composer dump-autoload
 
 # Open PHP-FPM port
 EXPOSE 9000
-CMD ["php-fpm"]
+
+# Initialise (if needed) and run php-fpm
+CMD ["/var/www/docker-entrypoint.sh"]
