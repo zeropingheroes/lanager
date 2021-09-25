@@ -1,7 +1,5 @@
 FROM php:7.4-fpm
 
-WORKDIR /var/www
-
 # Install package dependencies
 RUN apt-get update && apt-get install -y \
     curl \
@@ -18,6 +16,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy in app code with permissions
 COPY --chown=www-data:www-data . /var/www
+
+# Change directory to www directory
+WORKDIR /var/www
 
 
 # TODO: fix permissions issues so container is not run as root
