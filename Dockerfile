@@ -1,7 +1,5 @@
 FROM php:7.4-fpm
 
-COPY composer.lock composer.json /var/www/
-
 WORKDIR /var/www
 
 # Install package dependencies
@@ -19,6 +17,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
+# Copy in app code with permissions
+COPY --chown=www-data:www-data . /var/www
 
 USER www
 
