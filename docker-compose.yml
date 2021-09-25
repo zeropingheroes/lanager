@@ -49,6 +49,7 @@ services:
             SERVICE_NAME: mysql
         volumes:
             - dbdata:/var/lib/mysql
+            - db-data:/var/lib/mysql
             - ./docker/mysql/conf.d:/etc/mysql/conf.d
         networks:
             - app-network
@@ -58,4 +59,5 @@ networks:
         driver: bridge
 volumes:
     dbdata:
+    db-data:
         driver: local
