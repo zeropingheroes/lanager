@@ -46,7 +46,6 @@ services:
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
         volumes:
-            - dbdata:/var/lib/mysql
             - db-data:/var/lib/mysql
             - ./docker/mysql/conf.d:/etc/mysql/conf.d
         networks:
@@ -56,7 +55,6 @@ networks:
     app-network:
         driver: bridge
 volumes:
-    dbdata:
     db-data:
         driver: local
     laravel-storage:
