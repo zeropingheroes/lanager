@@ -15,6 +15,7 @@ services:
         working_dir: /var/www
         volumes:
             - ./:/var/www
+            - laravel-storage:/var/www/storage
             - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
         networks:
             - app-network
@@ -60,4 +61,6 @@ networks:
 volumes:
     dbdata:
     db-data:
+        driver: local
+    laravel-storage:
         driver: local
