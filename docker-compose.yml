@@ -11,7 +11,6 @@ services:
         tty: true
         working_dir: /var/www
         volumes:
-            - ./:/var/www
             - laravel-storage:/var/www/storage
             - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
         networks:
