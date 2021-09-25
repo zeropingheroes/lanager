@@ -16,7 +16,8 @@ services:
             - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
         networks:
             - app-network
-
+        depends_on:
+            - db
     webserver:
         image: nginx:alpine
         container_name: webserver
@@ -30,6 +31,8 @@ services:
             - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
         networks:
             - app-network
+        depends_on:
+            - app
 
     db:
         image: mysql:8
