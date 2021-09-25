@@ -20,6 +20,8 @@ COPY --chown=www-data:www-data . /var/www
 # Change directory to www directory
 WORKDIR /var/www
 
+# Install dependencies with Composer
+RUN composer install && composer dump-autoload
 
 # TODO: fix permissions issues so container is not run as root
 # Set correct permissions for storage directory
