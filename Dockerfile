@@ -23,15 +23,10 @@ WORKDIR /var/www
 # Install dependencies with Composer
 RUN composer install && composer dump-autoload
 
-# TODO: fix permissions issues so container is not run as root
-# Set correct permissions for storage directory
-#RUN chmod 770 /var/www/storage /var/www/bootstrap/cache && \
-#    chown -R www-data:www-data /var/www/
 # Change to non-privileged user
-#USER www-data
+USER www-data
 
 # Open PHP-FPM port
 EXPOSE 9000
 
-# Initialise (if needed) and run php-fpm
 CMD ["/var/www/docker-entrypoint.sh"]
