@@ -17,3 +17,5 @@ yarn-error.log
 /.idea
 /.vscode
 /.vagrant
+docker-compose.override.yml
+/storage/.install-completed
