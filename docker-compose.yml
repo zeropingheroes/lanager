@@ -31,7 +31,6 @@ services:
             - app-network
         depends_on:
             - app
-
     db:
         image: mysql:8
         container_name: db
@@ -51,7 +50,6 @@ services:
             - ./docker/db/mysql/conf.d:/etc/mysql/conf.d
         networks:
             - app-network
-
 networks:
     app-network:
         driver: bridge
