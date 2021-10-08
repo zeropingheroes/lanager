@@ -75,7 +75,7 @@ class UpdateSteamAppsMetadata extends Command
 
         $progress = $this->output->createProgressBar($appCount);
         $progress->setFormat('%current%/%max% %bar% %percent%% - %elapsed% ' . trans('title.elapsed') . ' - %message%');
-        $progress->setMessage('Average requests over 5 minutes: ');
+        $progress->setMessage(trans('phrase.requests-made-in-last-five-minutes', ['x' => 0]));
 
         // Prevent hitting Steam's API rate limits of 200 requests every 5 minutes
         // Store state in storage directory
@@ -93,15 +93,16 @@ class UpdateSteamAppsMetadata extends Command
 
         $updatedCount = 0;
         $failedCount = 0;
+        $requestLog = array();
         foreach ($steamAppIds as &$appId) {
-
-            $requestStartTime = microtime(true);
 
             // Query Steam API to get app details
             try {
                 $consumer->consume(1);
                 $app = SteamApi::app()->appDetails($appId);
 
+                // Add current timestamp to array of requests, to calculate requests made in last 5 minutes
+                $requestLog[] = time();
             } catch (ApiCallFailedException $e) {
                 // If the API call failed, empty the bucket and skip the app
                 $failedCount++;
@@ -151,10 +152,12 @@ class UpdateSteamAppsMetadata extends Command
             $updatedCount++;
             $progress->advance();
 
-            $requestEndTime = microtime(true);
-            $requestTime = $requestEndTime-$requestStartTime;
-            $averageRequestsOver5minutes = round(((1/$requestTime)*300),2);
-            $progress->setMessage('Average requests over 5 minutes: ' . $averageRequestsOver5minutes);
+            $requestLog = array_filter($requestLog,function($value){
+                return ($value >= (time()-300));
+            });
+
+            $progress->setMessage(trans('phrase.requests-made-in-last-five-minutes', ['x' => count($requestLog)]));
+
         }
         // Unset variable passed by reference
         unset($appId);
