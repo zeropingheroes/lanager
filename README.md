@@ -22,161 +22,50 @@ more enjoyable for attendees and organisers alike.
 
 ## Requirements
 
-* A server running Ubuntu Server 18.04 (_with shell access - basic web hosting is not supported_)
+* A server running [Docker](https://docker.com)
 * A [Steam API Key](http://steamcommunity.com/dev/apikey)
 * A [Google API Key](https://cloud.google.com/maps-platform/?apis=maps) enabled for the Maps Embed API
 * Internet access
 
-While it's possible to run LANager on a server at your venue and make it only accessible internally, we recommend you cloud host. This allows you to easily update the site outside of your events (for example, to prepare for your next LAN), and allows your attendees to use it to find information ahead of the event.
+## Setup
 
-## Installation
-
-1. Install required packages:
+1. Clone the project:
 
     ```bash
-    sudo apt-get install software-properties-common
-    sudo add-apt-repository ppa:ondrej/php
-    sudo apt update
-    sudo apt install php7.4-common php7.4-fpm php7.4-mysql php7.4-mbstring php7.4-bcmath php7.4-xml php7.4-zip php7.4-curl
-    sudo apt install zip composer mysql-server nginx
+    git clone https://github.com/zeropingheroes/lanager
     ```
 
-2. Create a Nginx site configuration:
+2. Edit the environment configuration file:
 
     ```bash
-    sudo nano /etc/nginx/sites-available/lanager
+    cd lanager
+    cp .env.example .env
+    nano .env
     ```
 
-    ```
-    server {
-            listen 80;
-    
-            root /var/www/lanager/public;
-    
-            index index.html index.htm index.php;
-    
-            # Change to your domain:
-            server_name lanager.example.com;
-    
-            location / {
-                try_files $uri $uri/ /index.php?$query_string;
-            }
-    
-            location ~ \.php$ {
-                    include snippets/fastcgi-php.conf;
-    
-                    fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
-            }
-            client_max_body_size 20M;
-    }
-    ```
+    - `APP_URL` - The full URL, including the trailing slash, e.g. `https://example.com`
+    - `APP_TIMEZONE` - Your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
+    - `STEAM_API_KEY` - Your [Steam API Key](http://steamcommunity.com/dev/apikey)
+    - `GOOGLE_API_KEY` - Your [Google API Key](https://console.cloud.google.com/apis/)
+    - `DB_PASSWORD` - The password you chose for the `lanager` MySQL user above
 
-3. Increase PHP's upload file size limit:
+3. Bring up the application:
 
     ```bash
-    sudo nano /etc/php/7.4/fpm/php.ini
-    ```
-
-    Find and update the lines:
-
-    ```
-    upload_max_filesize = 20M
-    post_max_size = 8M
-    ```
-
-    Restart PHP
-    ```bash
-    sudo systemctl restart php7.4-fpm
-    ```
-
-4. Enable the site:
-
-    ```bash
-    rm /etc/nginx/sites-enabled/default
-    ln -s /etc/nginx/sites-available/lanager /etc/nginx/sites-enabled/lanager
-    nginx -s reload
-    ```
-
-5. Configure MySQL:
-
-    ```bash
-    mysql
-    ```
-    
-    ```mysql
-    CREATE DATABASE lanager;
-    CREATE USER 'lanager'@'%' IDENTIFIED BY 'YOUR-PASSWORD-HERE';
-    GRANT ALL PRIVILEGES ON lanager.* TO 'lanager'@'%';
-    FLUSH PRIVILEGES;
-    QUIT;
-    ```
-
-6. Clone a copy of LANager:
-
-    ```bash
-    git clone https://github.com/zeropingheroes/lanager /var/www/lanager/
-    ``` 
-
-7. Grant permissions:
-
-    ```bash
-    sudo chgrp www-data -R /var/www/lanager/
-    sudo chmod 777 -R /var/www/lanager/storage
-    ```
-
-8. Check LANager's dependencies are installed:
-
-     ```bash
-     composer check-platform-reqs --no-dev
-     ```
-
-10. Install LANager's dependencies:
-
-     ```bash
-     composer install --no-dev --working-dir=/var/www/lanager
-     ```
-
-11. Configure LANager:
-    
-     ```bash
-     cd /var/www/lanager/ && cp .env.example .env && nano .env
-     ```
-    
-     - `APP_URL` - The full URL
-     - `APP_TIMEZONE` - Your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
-     - `STEAM_API_KEY` - Your [Steam API Key](http://steamcommunity.com/dev/apikey)
-     - `GOOGLE_API_KEY` - Your [Google API Key](https://console.cloud.google.com/apis/)
-     - `DB_PASSWORD` - The password you chose for the `lanager` MySQL user above
-
-12. Run first-time setup commands:
-
-    ```bash
-    php artisan key:generate
-    php artisan migrate:fresh
-    php artisan db:seed
-    php artisan storage:link
-    php artisan lanager:import-steam-apps-csv
-    php artisan lanager:update-steam-apps
-    php artisan lanager:update-steam-apps-metadata
-    php artisan lanager:update-origin-games
-    php artisan config:cache
-    ```
-
-13. Visit the app URL to check that the installation was successful.
-
-14. Enable the scheduled commands:
-
-    ```bash
-    crontab -e
-    ```
-
-    ```
-    * * * * * php /var/www/lanager/artisan schedule:run >> /dev/null 2>&1
+   docker compose up --detach
     ```
 
 ## Troubleshooting
 
-- [Create an issue](https://github.com/zeropingheroes/lanager/issues) with error messages from the browser or the log files in `/var/www/lanager/storage/logs/`
+- Run `docker compose down --rmi local --volumes` to delete the database data and LANager container image, and then 
+  retry the setup steps above
+
+If you get stuck, [create an issue](https://github.com/zeropingheroes/lanager/issues) with the details of what 
+you're experincing:
+- The commands you've run
+- The output of `docker compose up`
+- The output of `docker logs app`
+- Any errors displayed in your browser
     
 ## Getting started
 
@@ -245,61 +134,36 @@ Click ⚙ > **Navigation** to customise the links shown on the navigation bar. Y
 
 ## Development
 
-We're using Laravel Homestead (which uses Vagrant) to set up a virtual machine with a consistent environment for LANager
-to run in, regardless of the host operating system you use for development.
+### Development environment setup
 
-1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) 
-2. Install [Vagrant](https://www.vagrantup.com/downloads.html)
-3. Install PHP 7.4:
-   ```bash
-   sudo apt install php7.4
+To get LANager set up in a development environment, the steps are nearly identical to the production setup guide, but 
+before running `docker compose up`, follow these steps:
+1. Update these values in the `.env` file:
    ```
-4. Install [Composer](https://getcomposer.org/)
+   APP_ENV=local
+   APP_DEBUG=true
+   ```
+2. Make a copy of `docker-compose.override.yml.example` and name it `docker-compose.override.yml`, to configure 
+   Docker to bind-mount the project directory on your host computer into the Docker container
+3. Run the command `UID=$(id -u) GID=$(id -g)` to give Docker your user's ID and group ID, so it can read and write 
+   to the project directory on your host computer
+4. Run  `docker compose up --detach`
+5. Visit `http://localhost`
 
-5. Clone the LANager repository:
-   ```bash
-   git clone https://github.com/zeropingheroes/lanager
-   ```
-6. Move into the repository's directory:
-   ```bash
-   cd lanager
-   ```
-7. Make a copy of the environment settings file:
-   ```bash
-   cp .env.example .env
-   ```
-8. Create a [Steam API Key](http://steamcommunity.com/dev/apikey)
-9. Create a [Google API Key](https://cloud.google.com/maps-platform/?apis=maps) enabled for the "Maps Embed API"
-10. Find your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
-10. Edit the following lines in your environment file `.env`
-    ```bash
-    nano .env
-    ```
-    ```bash
-    APP_ENV=local
-    APP_DEBUG=true
-    APP_TIMEZONE= # Your timezone
-    STEAM_API_KEY= # Your Steam API key
-    GOOGLE_API_KEY= # Your Google API key enabled for the "Maps Embed API"
-    DB_USERNAME=homestead
-    ```
-12. Install the project dependencies, ignoring platform requirements
-    ```bash
-    composer install --ignore-platform-reqs
-    ```
-13. Provision the Vagrant virtual environment
-    ```bash
-    vagrant up
-    ```
-14. Add an entry to `/etc/hosts` to map lanager.localhost to 127.0.0.1:
-    ```bash
-    nano /etc/hosts
-    ```
-    ```bash
-    127.0.0.1    lanager.localhost
-    ```
+The container will run the code from your host computer, rather than the static copy of the code in the container's
+image, so any changes you make to the files in the project directory will be seen by the running containers.
 
-LANAger should now be available at [lanager.localhost:8000](http://lanager.localhost:8000/).
+### Start and stop the development environment
+
+To stop the development environment run `docker compose stop`. When you're ready to start developing again run 
+`docker compose start`.
+
+### Destroy the development environment
+
+To destroy the development environment and the database data volume, run:
+1. `docker compose down --volumes db-data && rm storage/.install-completed`
+
+Follow the setup steps above to get a fresh development environment.  
 
 ## Feedback & Contributions
 
