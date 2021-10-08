@@ -45,6 +45,9 @@ class UpdateSteamApps extends Command
      */
     private function import($apps): void
     {
+        // Temporarily increase memory limit
+        ini_set('memory_limit', '256M');
+
         $this->info(trans('phrase.database-empty-batch-import'));
 
         // Create an array ready for batch inserting
