@@ -44,7 +44,7 @@ more enjoyable for attendees and organisers alike.
     nano .env
     ```
 
-    - `APP_URL` - The full URL, including the trailing slash, e.g. `https://example.com`
+    - `APP_URL` - The full URL, including the trailing slash, e.g. `https://example.com/`
     - `APP_TIMEZONE` - Your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
     - `STEAM_API_KEY` - Your [Steam API Key](http://steamcommunity.com/dev/apikey)
     - `GOOGLE_API_KEY` - Your [Google API Key](https://console.cloud.google.com/apis/)
