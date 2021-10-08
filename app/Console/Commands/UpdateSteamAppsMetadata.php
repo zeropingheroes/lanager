@@ -83,14 +83,12 @@ class UpdateSteamAppsMetadata extends Command
         // add 40 tokens every minute (= 200 over 5 minutes)
         $rate = new Rate(40, Rate::MINUTE);
 
-        // bucket can never have more than 200 tokens saved up
-        $bucket = new TokenBucket(200, $rate, $storage);
+        // bucket can never have more than 40 tokens saved up
+        $bucket = new TokenBucket(40, $rate, $storage);
 
         // if no tokens are available, block further execution until there are tokens
         $consumer = new BlockingConsumer($bucket);
-
-        // fill the bucket with 200 tokens initially
-        $bucket->bootstrap(200);
+        $bucket->bootstrap();
 
         $updatedCount = 0;
         $failedCount = 0;
@@ -102,7 +100,7 @@ class UpdateSteamAppsMetadata extends Command
                 // If the API call failed, empty the bucket and skip the app
             } catch (ApiCallFailedException $e) {
                 $failedCount++;
-                $consumer->consume(10);
+                $consumer->consume(40);
                 $message = trans(
                     'phrase.error-updating-metadata-for-steam-app-id-message',
                     ['id' => $appId, 'message' => $e->getMessage()]
