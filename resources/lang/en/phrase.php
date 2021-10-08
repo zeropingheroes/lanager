@@ -202,12 +202,6 @@ return [
     'pruning-historical-steam-data' => 'Deleting historical Steam user status and gameplay data that did not occur during any of the LANs in the database',
     'x-entries-deleted-and-y-entries-retained' => 'Deleted :x and retained :y historical entries of Steam user status and gameplay',
 
-    // lanager:update-origin-apps
-    'update-origin-games' => 'Update the database with the latest list of games from Origin',
-    'requesting-list-of-all-games-from-origin-api' => 'Requesting list of all games from Origin API',
-    'updating-x-origin-games' => 'Updating :x Origin games',
-    'x-origin-games-updated' => ':x Origin games updated',
-
     // lanager:backup
     'output-dir' => 'Where to store the backup file',
     'backup-lanager-to-file' => 'Back up LANager data to a file',
