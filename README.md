@@ -16,7 +16,8 @@ more enjoyable for attendees and organisers alike.
 * **Games recently played** - showing the top games most recently played by attendees at the LAN
 
 ### Broadcast useful information 
-* **Live Dashboard** - showing games attendees are currently playing, and current and upcoming events, for TVs/projectors around your venue 
+* **Live Dashboard** - showing games attendees are currently playing, and current and upcoming events, for TVs or 
+  projectors around your venue 
 * **Guides** - written by you, to help attendees learn about things like venue facilities, rules, or gameplay guides
 * **Links** - to other websites, such as your organisation's website, or a game statistics page
 
@@ -69,53 +70,69 @@ you're experincing:
     
 ## Getting started
 
-To set up the LANager for your next LAN party, you need to create a LAN page, then add Events (such as scheduled games or lunch breaks) and Guides (such as game rules) to that LAN page.
+To set up the LANager for your next LAN party, you need to create a LAN page, then add Events (such as scheduled games
+or lunch breaks) and Guides (such as game rules) to that LAN page.
 
 ### Become a Super Admin
 
-The LANager assigns the "Super Admin" role to the first account that logs into it, so make sure you log in as soon as you have completed installation.
+The LANager assigns the "Super Admin" role to the first account that logs into it, so make sure you log in as soon as
+you have completed installation.
 
 Super Admins can perform any action on the site, including assigning roles to other users. 
 
 ### Create your LAN page
 
-The first thing you need to do is to create a LAN page in the LANager. This process is the same whether your LAN party is one day or multiple days. You need to do this before you can create an event schedule, publish any guides or award achievements.
+The first thing you need to do is to create a LAN page in the LANager. This process is the same whether your LAN party
+is one day or multiple days. You need to do this before you can create an event schedule, publish any guides or award
+achievements.
 
-Log into the LANanger, and go to ⚙ > **LANs**, then select the **+** button to go to the LAN page creation form. Enter your LAN's details, and add a description with [markdown formatting](https://en.wikipedia.org/wiki/Markdown#Example) if you want to.
+Log into the LANanger, and go to ⚙ > **LANs**, then select the **+** button to go to the LAN page creation form. Enter
+your LAN's details, and add a description with [markdown formatting](https://en.wikipedia.org/wiki/Markdown#Example)
+if you want to.
 
-The LANager automatically adds anyone who signs into the LANager during the LAN party to the LAN's list of attendees. For each attendee it displays the current LAN page, which contains the LAN's timetabled events, guides and attendees list.
+The LANager automatically adds anyone who signs into the LANager during the LAN party to the LAN's list of attendees.
+For each attendee it displays the current LAN page, which contains the LAN's timetabled events, guides and attendees
+list.
 
 ### Create Events & Guides
 
 Once you have a LAN page for your LAN party, you can create Events and Guides to help attendees enjoy your party.
 
-* **Events** are a useful way to timetable game tournaments, highlight big game sessions, schedule breaks and mealtimes, and let people know when it's time to go home
-* **Guides** are a useful way to provide people with the rules and download links to the games you're playing, to let them know where the nearest shops and restaurants are, to provide a code of conduct for your event, and to communicate any other information you think your guests might need.
+* **Events** are a useful way to timetable game tournaments, highlight big game sessions, schedule breaks and mealtimes, 
+and let people know when it's time to go home
+* **Guides** are a useful way to provide people with the rules and download links to the games you're playing, to let
+them know where the nearest shops and restaurants are, to provide a code of conduct for your event, and to communicate
+any other information you think your guests might need.
 
 From the LAN page, click the **+** button next to the **Events** and **Guides** headings to go to their creation forms.
 
 #### Using links
 
-You can use markdown-formatted links in LANs, guides and events. For example, you can write a single guide, and insert a link to it on several event pages:
+You can use markdown-formatted links in LANs, guides and events. For example, you can write a single guide, and insert
+a link to it on several event pages:
 
     If you need any help, please contact one of our [tournament staff](/lans/4/guides/3) 
 
-Where possible, it's good practice to use relative links as demonstrated above, so that if you change your domain, the links continue to work.
+Where possible, it's good practice to use relative links as demonstrated above, so that if you change your domain, the
+links continue to work.
 
 #### Using images
 
 You can upload images to LAN pages, Events and Guides. To do this, follow these steps:
 
-* Below the "description" text box, select "upload images".
-* Upload the image you want to use.
-* Next to the image, select ⚙ > **Copy Markdown** 
-* Paste the markdown into the guide, event or LAN's **description** field, in the location you want it to appear in the text.
+1. Below the "description" text box, select "upload images".
+2. Upload the image you want to use.
+3. Next to the image, select ⚙ > **Copy Markdown** 
+4. Paste the markdown into the guide, event or LAN's **description** field, in the location you want it to appear in the
+text.
 
 ### Display the Live Dashboard
 
-The Live Dashboard make it easy for your attendees to see at a glance which games are being played, events that are in progress, and any that are upcoming.
+The Live Dashboard make it easy for your attendees to see at a glance which games are being played, events that are in
+progress, and any that are upcoming.
 
-To display the Live Dashboard, go to ⚙ > **Dashboard**. Alternatively, if you aren't logged in, visit the following URL:
+To display the Live Dashboard, go to ⚙ > **Dashboard**. Alternatively, if you aren't logged in, visit the following
+URL:
 
 `http://(your LANager install's address)/dashboard`
 
@@ -125,12 +142,15 @@ It's useful to display this on a TV or projector that everyone can see.
 
 Click ⚙ > **Achievements** and then click the **+** button to create achievements that you can award to users. 
 
-To award an Achievement to an attendee, go to the navigation bar and select **Achievements**. This opens the list of Achievements you have awarded to attendees of the current LAN. At the bottom of the page, choose the Achievement and the
+To award an Achievement to an attendee, go to the navigation bar and select **Achievements**. This opens the list of
+Achievements you have awarded to attendees of the current LAN. At the bottom of the page, choose the Achievement and the
 attendee to award it to, then select **Award**.
 
 ### Customise the navigation bar
 
-Click ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager or to third-party sites, organise the links into drop-down menus, and choose the order that the links appear in the navbar or dropdown.
+Click ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager or
+to third-party sites, organise the links into drop-down menus, and choose the order that the links appear in the navbar
+or dropdown.
 
 ## Development
 
