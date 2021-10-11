@@ -6,3 +6,12 @@ services:
             - "./:/var/www"
             - "./storage:/var/www/storage"
         user: "${UID}:${GID}"
+    npm:
+        image: node:14-alpine
+        container_name: npm
+        volumes:
+            - .:/var/www/html
+        working_dir: /var/www/html
+        entrypoint: [ 'npm' ]
+        networks:
+            - default

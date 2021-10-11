@@ -185,6 +185,15 @@ To destroy the development environment and the database data volume, run:
 
 Follow the setup steps above to get a fresh development environment.  
 
+### Recompiling JavaScript & CSS assets
+
+To recompile JavaScript & CSS assets, run:
+1. `docker compose run --rm npm install`
+2. `docker compose run --rm npm run`
+
+To recompile whenever changes to files are detected, run:
+1. `docker compose run --rm npm watch-poll`
+
 ## Feedback & Contributions
 
 * Found a bug? Got a great feature idea? Post it to the [issue tracker](https://github.com/zeropingheroes/lanager/issues)!
