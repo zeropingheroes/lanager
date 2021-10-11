@@ -30,8 +30,9 @@
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0",
         "tempusdominus-bootstrap-4": "^5.1.2",
-        "vue": "^2.5.7",
-        "vue-full-calendar": "^2.5.4"
+        "vue": "^2.5.17",
+        "vue-full-calendar": "^2.5.4",
+        "vue-template-compiler": "^2.5.17"
     },
     "dependencies": {
         "is-image-url": "^1.1.8",
