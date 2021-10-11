@@ -29,4 +29,4 @@ USER www-data
 # Open PHP-FPM port
 EXPOSE 9000
 
-CMD ["/var/www/docker-entrypoint.sh"]
+ENTRYPOINT ["/var/www/docker-entrypoint.sh"]
