@@ -166,6 +166,7 @@ return [
     // lanager:export-steam-apps-csv
     'export-steam-apps-csv' => 'Export to steam_apps.csv',
     'overwrite-existing-csv' => 'Overwrite existing steam_apps.csv?',
+    'exporting-x-steam-apps-to-csv' => 'Exporting :x Steam apps to CSV file',
     'x-steam-apps-exported' => ':x Steam apps exported',
 
     // Used by:
