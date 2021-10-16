@@ -13,3 +13,4 @@ docker-compose.yml
 docker-compose.override.yml
 docker-compose.override.yml.example
 /storage/.install-completed
+.env*
