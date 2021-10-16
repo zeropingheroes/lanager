@@ -69,8 +69,8 @@ services:
         container_name: db
         restart: unless-stopped
         tty: true
-        ports:
-            - "3306:3306"
+        expose:
+            - "3306"
         environment:
             MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
             MYSQL_DATABASE: ${DB_DATABASE}
