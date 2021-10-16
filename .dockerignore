@@ -14,3 +14,4 @@ docker-compose.override.yml
 docker-compose.override.yml.example
 /storage/.install-completed
 .env*
+_ide_helper.php
