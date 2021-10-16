@@ -12,6 +12,27 @@ services:
         volumes:
             - laravel-storage:/var/www/storage
             - ./docker/app/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        environment:
+            APP_NAME: ${APP_NAME}
+            APP_ENV: ${APP_ENV}
+            APP_KEY: ${APP_KEY}
+            APP_DEBUG: ${APP_DEBUG}
+            APP_URL: ${APP_URL}
+            APP_TIMEZONE: ${APP_TIMEZONE}
+            APP_LOCALE: ${APP_LOCALE}
+            STEAM_API_KEY: ${STEAM_API_KEY}
+            GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+            DB_CONNECTION: ${DB_CONNECTION}
+            DB_HOST: ${DB_HOST}
+            DB_PORT: ${DB_PORT}
+            DB_DATABASE: ${DB_DATABASE}
+            DB_USERNAME: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+            CACHE_DRIVER: ${CACHE_DRIVER}
+            SESSION_DRIVER: ${SESSION_DRIVER}
+            SESSION_LIFETIME: ${SESSION_LIFETIME}
+            LOG_CHANNEL: ${LOG_CHANNEL}
         networks:
             - app-network
         depends_on:
