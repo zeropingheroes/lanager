@@ -24,8 +24,6 @@ more enjoyable for attendees and organisers alike.
 ## Requirements
 
 * A server running [Docker](https://docker.com)
-* A [Steam API Key](http://steamcommunity.com/dev/apikey)
-* A [Google API Key](https://cloud.google.com/maps-platform/?apis=maps) enabled for the Maps Embed API
 * Internet access
 
 ## Setup
@@ -36,25 +34,38 @@ more enjoyable for attendees and organisers alike.
     git clone https://github.com/zeropingheroes/lanager
     ```
 
-2. Edit the environment configuration file:
+2. Copy `.env.example` to a new file named `.env`:
 
     ```bash
     cd lanager
     cp .env.example .env
-    nano .env
     ```
 
-    - `APP_URL` - The full URL, including the trailing slash, e.g. `https://example.com/`
-    - `APP_TIMEZONE` - Your [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
-    - `STEAM_API_KEY` - Your [Steam API Key](http://steamcommunity.com/dev/apikey)
-    - `GOOGLE_API_KEY` - Your [Google API Key](https://console.cloud.google.com/apis/)
-    - `DB_PASSWORD` - The password you chose for the `lanager` MySQL user above
+3. Open the environment configuration file in a text editor:
+   ```bash
+   nano .env
+   ```
 
-3. Bring up the application:
+4. Set the following configuration items:
+   1. Set `APP_KEY` to a [randomly generated 32 character base64 string](https://www.google.com/search?q=random+base64)
+   2. Set `APP_URL` to the URL you will access LANager through, including the trailing slash, e.g. `https://example.com/`
+   3. Set `APP_TIMEZONE` to your location's [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
+   4. Set `STEAM_API_KEY` to your [Steam API Key](http://steamcommunity.com/dev/apikey)
+   5. Set `GOOGLE_API_KEY` to your [Google API Key](https://console.cloud.google.com/apis/) with access to the [Maps 
+  embed API](https://developers.google.com/maps/documentation/embed/map-generator)
+   6. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator)
+   7. Set `DB_ROOT_PASSWORD` to a different randomly generated password
+
+
+5. Bring up the application:
 
     ```bash
    docker compose up --detach
     ```
+
+LANager should now be accessible at http://localhost, or at the URL you specified in `APP_URL`, providing you've 
+created a corresponding DNS `A` record for the Docker host's IP address, and allowed ports `80` and `443` through 
+the Docker host's firewall.
 
 ## Troubleshooting
 
