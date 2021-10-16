@@ -165,34 +165,11 @@ or dropdown.
 
 ## Backup
 
-Follow the below steps to back up LANager's data from the running containers to the host.
-
-1. Load database credentials from the `.env` file into environment variables: 
-   ```bash
-   source .env
-   ```
-2. Dump the database data into a file:
-   ```bash
-   docker run -it -e MYSQL_PWD=$DB_ROOT_PASSWORD --network lanager_app-network --rm mysql:8
-   mysqldump -h$DB_HOST -uroot --add-drop-database --databases $DB_DATABASE > lanager.sql
-   ```
+Run `./backup.sh` to back up LANager's configuration, database data and uploaded images.   
 
 ### Restore a backup
 
-Only restore a backup that was made using the same version of LANager that you're restoring the backup to. You can 
-check this by running `docker images --filter="reference=lanager_app" --quiet` on the source and destination systems,
-and checking the output is the same.
-
-To restore a backup:
-1. Load database credentials from the `.env` file into environment variables:
-   ```bash
-   source .env
-   ```
-2. Load the database data from the datbase dump file:
-   ```bash
-   docker run -i -e MYSQL_PWD=$DB_ROOT_PASSWORD --network lanager_app-network --rm mysql:8
-   mysql -h$DB_HOST -uroot lanager < lanager.sql
-   ```
+Run `./backup-restore.sh FILE` to restore a backup.
 
 ## Development
 
