@@ -2,6 +2,13 @@
 
 set -e
 
+CONTAINER_NAME="app"
+
+if [ "$( docker container inspect -f '{{.State.Status}}' $CONTAINER_NAME )" != "running" ]; then
+    echo "Error: Container \"$CONTAINER_NAME\" is not running"
+    exit 1;
+fi
+
 echo "Getting image ID for local LANager image"
 LANAGER_IMAGE_ID=$(docker images --filter="reference=lanager_app" --quiet)
 
