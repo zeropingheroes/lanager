@@ -2,6 +2,51 @@
 
 set -e
 
+if [ "$#" -ne 1 ]
+then
+    echo "Usage: ./backup-restore.sh <file>"
+    echo ""
+    echo "Restore a LANager backup file"
+    exit 1
+fi
+
+if [[ ! -f $1 ]]; then
+    echo "Error: File not found: $1"
+    exit 1
+fi
+
+CONTAINER_NAME="app"
+
+if [ "$( docker container inspect -f '{{.State.Status}}' $CONTAINER_NAME )" != "running" ]; then
+    echo "Error: Container \"$CONTAINER_NAME\" is not running"
+    exit 1;
+fi
+
+echo "Getting image ID for local LANager image"
+LOCAL_IMAGE_ID=$(docker images --filter="reference=lanager_app" --quiet)
+
+if [[ -z "$LOCAL_IMAGE_ID" ]]; then
+    echo "Error: could not find image ID for local LANager image"
+    exit 1
+fi
+
+echo "Getting image ID from backup filename"
+
+if [[ $1 =~ ([0-9a-fA-F]{12}) ]]; then
+  BACKUP_IMAGE_ID="${BASH_REMATCH[1]}"
+else
+  echo "Error: could not find image ID in backup filename"
+  exit 1
+fi
+
+echo "Checking LANager backup image ID matches local LANager image ID"
+if [[ "$BACKUP_IMAGE_ID" != "$LOCAL_IMAGE_ID" ]]; then
+    echo "Error: Local image ID ($LOCAL_IMAGE_ID) is different to backup image ID ($BACKUP_IMAGE_ID)"
+    exit 1
+else
+    echo "Image IDs match: $BACKUP_IMAGE_ID"
+fi
+
 exit
 
 TEMP_DIR="/tmp"
@@ -9,12 +54,6 @@ STORAGE_BACKUP_FILENAME="lanager-storage.tar"
 DB_BACKUP_FILENAME="lanager-database.sql"
 ENV_BACKUP_FILENAME="lanager-environment.env"
 ENV_FILENAME=".env"
-
-echo "Getting image ID for local LANager image"
-LANAGER_IMAGE_ID=$(docker images --filter="reference=lanager_app" --quiet)
-
-echo "Getting image ID from backup file"
-BACKUP_IMAGE_ID=
 
 echo "Extracting backup file"
 #TODO
