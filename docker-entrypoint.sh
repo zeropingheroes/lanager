@@ -4,7 +4,7 @@
 set -e
 
 # Wait for db connection to be up before continuing
-/var/www/docker/app/wait-for.sh "db:3306"
+/var/www/docker-wait-for.sh "db:3306"
 
 FILE="/var/www/storage/.install-completed"
 
