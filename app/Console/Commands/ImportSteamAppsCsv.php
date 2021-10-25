@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 use League\Csv\Exception;
 use League\Csv\Reader;
 use Zeropingheroes\Lanager\SteamApp;
@@ -30,7 +31,7 @@ class ImportSteamAppsCsv extends Command
     public function handle()
     {
         try {
-            $reader = Reader::createFromPath($this::$filename, 'r');
+            $reader = Reader::createFromPath(Storage::path($this::$filename), 'r');
         } catch (Exception $e) {
             $this->info(trans('phrase.csv-not-found-aborting'));
 
