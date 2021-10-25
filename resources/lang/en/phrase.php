@@ -203,23 +203,6 @@ return [
     'pruning-historical-steam-data' => 'Deleting historical Steam user status and gameplay data that did not occur during any of the LANs in the database',
     'x-entries-deleted-and-y-entries-retained' => 'Deleted :x and retained :y historical entries of Steam user status and gameplay',
 
-    // lanager:backup
-    'output-dir' => 'Where to store the backup file',
-    'backup-lanager-to-file' => 'Back up LANager data to a file',
-    'output-directory-not-writable' => 'The specified output directory is not writable',
-    'output-directory-not-empty' => 'The specified output directory is not empty',
-    'backup-created-successfully' => 'Backup created successfully',
-    'process-exit-code-x' => 'Process exit code: :x',
-
-    // lanager:restore-backup
-    'restore-lanager-backup-from-file' => 'Restore a LANager backup from a file',
-    'backup-file' => 'Path to the backup file',
-    'backup-file-not-found' => 'The specified backup file was not found',
-    'this-will-delete-all-lanager-data' => 'This will delete all LANager data!',
-    'are-you-sure' => 'Are you sure you want to continue?',
-    'deleting-all-lanager-data' => 'Deleting all LANager data',
-    'backup-restored-successfully' => 'Backup restored successfully',
-
     // lanager:upgrade-database
     'upgrade-database' => 'Upgrade the LANager database from v0.5.x, retaining existing data',
     'manually-backup-before-continuing' => 'Manually backup your LANager database before continuing',

@@ -173,23 +173,6 @@ return [
     'pruning-historical-steam-data' => 'Odstraňování minulé aktivity a stavů Steam uživatele, která neproběhla v rámci žádné LANky v databázi',
     'x-entries-deleted-and-y-entries-retained' => 'Odstraněno :x a zachováno :y záznamů minulé aktivity Steam uživatele a jeho stavů',
 
-    // lanager:backup
-    'output-dir' => 'Kam uložit soubor zálohy',
-    'backup-lanager-to-file' => 'Zálohovat data z rozhraní LANager do souboru',
-    'output-directory-not-writable' => 'LANager nemá povolení zapisovat do zvoleného adresáře',
-    'output-directory-not-empty' => 'Zvolený adresář není prázdný',
-    'backup-created-successfully' => 'Záloha vytvořena úspěšně',
-    'process-exit-code-x' => 'Kód ukončení procesu: :x',
-
-    // lanager:restore-backup
-    'restore-lanager-backup-from-file' => 'Obnovit zálohu rozhraní LANager ze souboru',
-    'backup-file' => 'Cesta k souboru se zálohou',
-    'backup-file-not-found' => 'Zvolený soubor se zálohou nebyl nalezen na dané adrese',
-    'this-will-delete-all-lanager-data' => 'Tento krok odstaní všechna data z rozhraní LANager!',
-    'are-you-sure' => 'Opravdu chcete pokračovat?',
-    'deleting-all-lanager-data' => 'Odstaňování všech dat z rozhraní LANager',
-    'backup-restored-successfully' => 'Záloha obnovena úspěšně',
-
     // lanager:upgrade-database
     'upgrade-database' => 'Aktualizovat databázi z verze 0.5.x při zachování dat',
     'manually-backup-before-continuing' => 'Ručně zálohovat databázi před pokračováním',
