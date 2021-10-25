@@ -169,7 +169,7 @@ Run `./backup.sh` to back up LANager's configuration, database data and uploaded
 
 ### Restore a backup
 
-Run `./backup-restore.sh FILE` to restore a backup.
+Run `./backup-restore.sh <file>` to restore a backup.
 
 ## Development
 
