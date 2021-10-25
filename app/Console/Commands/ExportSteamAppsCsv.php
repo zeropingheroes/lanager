@@ -41,6 +41,9 @@ class ExportSteamAppsCsv extends Command
                 return 1;
             }
         }
+        // Temporarily increase memory limit
+        ini_set('memory_limit', '256M');
+
         $steamApps = SteamApp::all()->toArray();
         $this->info(trans('phrase.exporting-x-steam-apps-to-csv', ['x' => count($steamApps)]));
         $csv = Writer::createFromPath(Storage::path($this::$filename), 'w+');

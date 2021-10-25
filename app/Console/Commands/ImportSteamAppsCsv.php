@@ -57,6 +57,9 @@ class ImportSteamAppsCsv extends Command
 
         $arrayApps = [];
 
+        // Temporarily increase memory limit
+        ini_set('memory_limit', '256M');
+
         // Convert CSV object to array
         foreach ($csvApps as $csvApp) {
             $arrayApps[] = [
