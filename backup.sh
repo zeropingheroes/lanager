@@ -37,10 +37,10 @@ docker run --rm --volumes-from app -v "$TEMP_DIR":/backup php:7.4-fpm tar cf /ba
 echo "Backing up the .env file into $ENV_BACKUP_FILE"
 cp .env "$ENV_BACKUP_FILE"
 
-echo "Compressing all backup files into $BACKUP_NAME"
+echo "Compressing all backup files into $BACKUP_NAME.tar.gz"
 tar czf $BACKUP_FILE -C "$TEMP_DIR" "$BACKUP_NAME"
 
-echo "Removing temporary directory $TEMP_DIR"
+echo "Removing temporary directory"
 rm -rf "${TEMP_DIR:?}/$BACKUP_NAME"
 
-echo "Successfully created backup archive $BACKUP_FILE"
+echo "Successfully created backup archive"
