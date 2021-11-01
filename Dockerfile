@@ -14,8 +14,8 @@ RUN docker-php-ext-install pdo_mysql zip pcntl bcmath
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy in app code with permissions
-COPY --chown=www-data:www-data . /var/www
+# Copy in app code, only allowing root user to modify
+COPY --chown=root:www-data . /var/www
 
 # Change directory to www directory
 WORKDIR /var/www
