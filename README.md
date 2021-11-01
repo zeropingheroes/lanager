@@ -207,11 +207,14 @@ Follow the setup steps above to get a fresh development environment.
 ### Recompiling JavaScript & CSS assets
 
 To recompile JavaScript & CSS assets, run:
-1. `docker compose run --rm npm install`
-2. `docker compose run --rm npm run`
+1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm install`
+2. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run dev`
 
 To recompile whenever changes to files are detected, run:
-1. `docker compose run --rm npm watch-poll`
+1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run watch-poll`
+
+To recompile minified versions suitable for committing, run:
+1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run prod`
 
 ## Feedback & Contributions
 
