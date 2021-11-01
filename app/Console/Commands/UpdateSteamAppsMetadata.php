@@ -95,7 +95,6 @@ class UpdateSteamAppsMetadata extends Command
         $failedCount = 0;
         $requestLog = array();
         foreach ($steamAppIds as &$appId) {
-
             // Query Steam API to get app details
             try {
                 $consumer->consume(1);
@@ -148,16 +147,16 @@ class UpdateSteamAppsMetadata extends Command
             } else {
                 $type = 'unknown';
             }
+
             SteamApp::where('id', $appId)->update(['type' => $type]);
             $updatedCount++;
             $progress->advance();
 
-            $requestLog = array_filter($requestLog,function($value){
-                return ($value >= (time()-300));
+            $requestLog = array_filter($requestLog, function ($value) {
+                return ($value >= (time() - 300));
             });
 
             $progress->setMessage(trans('phrase.requests-made-in-last-five-minutes', ['x' => count($requestLog)]));
-
         }
         // Unset variable passed by reference
         unset($appId);
