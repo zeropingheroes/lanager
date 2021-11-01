@@ -7,9 +7,13 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zip \
     netcat \
+    libfcgi-bin \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo_mysql zip pcntl bcmath
+
+# Enable PHP FPM status page
+RUN set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -25,6 +29,9 @@ RUN composer install && composer dump-autoload
 
 # Change to non-privileged user
 USER www-data
+
+# Check PHP FPM status via script every 30 seconds
+HEALTHCHECK --interval=30s --timeout=3s CMD /var/www/docker-php-fpm-healthcheck.sh
 
 # Open PHP-FPM port
 EXPOSE 9000
