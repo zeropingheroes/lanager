@@ -32,9 +32,11 @@ class AppServiceProvider extends ServiceProvider
         // - env set to local
         // - debug enabled
         // - class exists
-        if ($this->app->environment('local') &&
+        if (
+            $this->app->environment('local') &&
             config('app.debug') == true &&
-            class_exists(DebugbarServiceProvider::class)) {
+            class_exists(DebugbarServiceProvider::class)
+        ) {
             $this->app->register(DebugbarServiceProvider::class);
             $this->app->alias('Debugbar', DebugbarFacade::class);
             $this->app->register(IdeHelperServiceProvider::class);
@@ -45,7 +47,8 @@ class AppServiceProvider extends ServiceProvider
         // Check required environment variables are set, unless:
         // - the config has been cached
         // - a setup command is being run
-        if (!$this->app->configurationIsCached() && !in_array(
+        if (
+            !$this->app->configurationIsCached() && !in_array(
                 $command,
                 [
                     'package:discover',
@@ -54,8 +57,10 @@ class AppServiceProvider extends ServiceProvider
                     'view:clear',
                     'ide-helper:generate',
                     'ide-helper:meta',
+
                 ]
-            )) {
+            )
+        ) {
             if (!env('STEAM_API_KEY')) {
                 throw new Exception('STEAM_API_KEY not set in .env file');
             }
