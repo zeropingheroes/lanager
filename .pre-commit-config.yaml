@@ -1,0 +1,18 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+-   repo: https://github.com/digitalpulp/pre-commit-php.git
+    rev: 1.4.0
+    hooks:
+    -   id: php-lint
+    -   id: php-cs
+        files: \.(php)$
+        exclude: \.(blade\.php)$
+        args: [--standard=PSR12 -p]
