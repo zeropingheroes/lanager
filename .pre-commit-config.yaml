@@ -14,6 +14,10 @@ repos:
     -   id: php-lint
         files: \.(php)$
         exclude: \.(blade\.php)$
+    -   id: php-cbf
+        files: \.(php)$
+        exclude: \.(blade\.php)$
+        args: [--standard=PSR12 -p]
     -   id: php-cs
         files: \.(php)$
         exclude: \.(blade\.php)$
