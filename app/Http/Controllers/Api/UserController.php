@@ -13,7 +13,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return AnonymousResourceCollection
      */
     public function index(Request $request)
@@ -30,7 +30,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param User $user
+     * @param  User $user
      * @return UserResource
      */
     public function show(User $user)

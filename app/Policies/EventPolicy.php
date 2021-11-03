@@ -10,8 +10,8 @@ class EventPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User|null $authUser
-     * @param Event $event
+     * @param  User|null $authUser
+     * @param  Event     $event
      * @return bool
      */
     public function view(?User $authUser, Event $event)
@@ -27,7 +27,7 @@ class EventPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can create an item.
      *
-     * @param User $authUser
+     * @param  User $authUser
      * @return bool
      */
     public function create(User $authUser)
@@ -38,8 +38,8 @@ class EventPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can edit a given item.
      *
-     * @param User $authUser
-     * @param Event $event
+     * @param  User  $authUser
+     * @param  Event $event
      * @return bool
      */
     public function update(User $authUser, Event $event)
@@ -50,8 +50,8 @@ class EventPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $authUser
-     * @param Event $event
+     * @param  User  $authUser
+     * @param  Event $event
      * @return bool
      */
     public function delete(User $authUser, Event $event)

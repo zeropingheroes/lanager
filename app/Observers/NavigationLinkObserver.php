@@ -10,7 +10,7 @@ class NavigationLinkObserver
     /**
      * Listen to the NavigationLink saving event.
      *
-     * @param NavigationLink $navigationLink
+     * @param  NavigationLink $navigationLink
      * @return void
      */
     public function saving(NavigationLink $navigationLink)
@@ -22,7 +22,7 @@ class NavigationLinkObserver
     /**
      * Listen to the NavigationLink saved event.
      *
-     * @param NavigationLink $navigationLink
+     * @param  NavigationLink $navigationLink
      * @return void
      */
     public function saved(NavigationLink $navigationLink)
@@ -34,7 +34,7 @@ class NavigationLinkObserver
     /**
      * Listen to the NavigationLink deleted event.
      *
-     * @param NavigationLink $navigationLink
+     * @param  NavigationLink $navigationLink
      * @return void
      */
     public function deleted(NavigationLink $navigationLink)

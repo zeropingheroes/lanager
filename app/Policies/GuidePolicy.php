@@ -10,8 +10,8 @@ class GuidePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User|null $authUser
-     * @param Guide $guide
+     * @param  User|null $authUser
+     * @param  Guide     $guide
      * @return bool
      */
     public function view(?User $authUser, Guide $guide)
@@ -28,7 +28,7 @@ class GuidePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can create an item.
      *
-     * @param User $authUser
+     * @param  User $authUser
      * @return bool
      */
     public function create(User $authUser)
@@ -39,8 +39,8 @@ class GuidePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can edit a given item.
      *
-     * @param User $authUser
-     * @param Guide $guide
+     * @param  User  $authUser
+     * @param  Guide $guide
      * @return bool
      */
     public function update(User $authUser, Guide $guide)
@@ -51,8 +51,8 @@ class GuidePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $authUser
-     * @param Guide $guide
+     * @param  User  $authUser
+     * @param  Guide $guide
      * @return bool
      */
     public function delete(User $authUser, Guide $guide)

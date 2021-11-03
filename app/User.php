@@ -50,7 +50,7 @@ class User extends Authenticatable
     /**
      * Check if the user has the specified role(s).
      *
-     * @param string $role
+     * @param  string $role
      * @return bool
      */
     public function hasRole(string $role)

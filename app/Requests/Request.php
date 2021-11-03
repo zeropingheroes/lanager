@@ -62,7 +62,7 @@ abstract class Request implements RequestContract
     }
 
     /**
-     * @param bool $valid
+     * @param  bool $valid
      * @return bool
      */
     protected function setValid(bool $valid): bool
@@ -82,6 +82,7 @@ abstract class Request implements RequestContract
 
     /**
      * Request errors.
+     *
      * @return array
      */
     public function errors(): array

@@ -43,7 +43,7 @@ class SteamUserAppSession extends Model
     }
 
     /**
-     * @param Builder $query
+     * @param  Builder $query
      * @return Builder
      */
     public function scopeActive($query)

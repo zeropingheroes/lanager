@@ -17,7 +17,7 @@ class GuideController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
     public function index(Lan $lan)
@@ -34,7 +34,7 @@ class GuideController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
     public function create(Lan $lan)
@@ -47,8 +47,8 @@ class GuideController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Lan $lan
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -80,9 +80,9 @@ class GuideController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Lan $lan
-     * @param Guide $guide
-     * @param string $slug
+     * @param  Lan    $lan
+     * @param  Guide  $guide
+     * @param  string $slug
      * @return \Illuminate\Contracts\View\View|RedirectResponse
      * @throws AuthorizationException
      */
@@ -113,8 +113,8 @@ class GuideController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Lan $lan
-     * @param Guide $guide
+     * @param  Lan   $lan
+     * @param  Guide $guide
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -137,9 +137,9 @@ class GuideController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Lan $lan
-     * @param Guide $guide
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
+     * @param  Guide   $guide
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -176,8 +176,8 @@ class GuideController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Lan $lan
-     * @param Guide $guide
+     * @param  Lan   $lan
+     * @param  Guide $guide
      * @return RedirectResponse
      * @throws AuthorizationException
      */

@@ -40,7 +40,7 @@ class UpdateSteamApps extends Command
     }
 
     /**
-     * @param $apps
+     * @param  $apps
      * @return void
      */
     private function import($apps): void
@@ -79,7 +79,7 @@ class UpdateSteamApps extends Command
     }
 
     /**
-     * @param $apps
+     * @param  $apps
      * @return void
      */
     private function update($apps): void

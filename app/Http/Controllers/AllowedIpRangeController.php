@@ -42,7 +42,7 @@ class AllowedIpRangeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
+     * @param  Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -72,7 +72,7 @@ class AllowedIpRangeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param AllowedIpRange $allowedIpRange
+     * @param  AllowedIpRange $allowedIpRange
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -87,8 +87,8 @@ class AllowedIpRangeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $httpRequest
-     * @param AllowedIpRange $allowedIpRange
+     * @param  Request        $httpRequest
+     * @param  AllowedIpRange $allowedIpRange
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -119,7 +119,7 @@ class AllowedIpRangeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param AllowedIpRange $allowedIpRange
+     * @param  AllowedIpRange $allowedIpRange
      * @return RedirectResponse
      * @throws AuthorizationException
      */

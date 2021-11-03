@@ -42,7 +42,7 @@ class VenueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
+     * @param  Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -73,7 +73,7 @@ class VenueController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Venue $venue
+     * @param  Venue $venue
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -88,7 +88,7 @@ class VenueController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Venue $venue
+     * @param  Venue $venue
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -103,8 +103,8 @@ class VenueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Venue $venue
+     * @param  Request $httpRequest
+     * @param  Venue   $venue
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -135,7 +135,7 @@ class VenueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Venue $venue
+     * @param  Venue $venue
      * @return RedirectResponse
      * @throws AuthorizationException
      */

@@ -10,8 +10,8 @@ class AllowedIpRangePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User|null $authUser
-     * @param AllowedIpRange $allowedIpRange
+     * @param  User|null      $authUser
+     * @param  AllowedIpRange $allowedIpRange
      * @return bool
      */
     public function view(?User $authUser, AllowedIpRange $allowedIpRange)
@@ -22,7 +22,7 @@ class AllowedIpRangePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can create an item.
      *
-     * @param User $authUser
+     * @param  User $authUser
      * @return bool
      */
     public function create(User $authUser)
@@ -33,8 +33,8 @@ class AllowedIpRangePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can edit a given item.
      *
-     * @param User $authUser
-     * @param AllowedIpRange $allowedIpRange
+     * @param  User           $authUser
+     * @param  AllowedIpRange $allowedIpRange
      * @return bool
      */
     public function update(User $authUser, AllowedIpRange $allowedIpRange)
@@ -45,8 +45,8 @@ class AllowedIpRangePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $authUser
-     * @param AllowedIpRange $allowedIpRange
+     * @param  User           $authUser
+     * @param  AllowedIpRange $allowedIpRange
      * @return bool
      */
     public function delete(User $authUser, AllowedIpRange $allowedIpRange)

@@ -17,9 +17,9 @@ class EventSignupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Lan $lan
-     * @param Event $event
-     * @param Request $httpRequest
+     * @param  Lan     $lan
+     * @param  Event   $event
+     * @param  Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -54,9 +54,9 @@ class EventSignupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Lan $lan
-     * @param Event $event
-     * @param EventSignup $eventSignup
+     * @param  Lan         $lan
+     * @param  Event       $event
+     * @param  EventSignup $eventSignup
      * @return RedirectResponse
      * @throws AuthorizationException
      */

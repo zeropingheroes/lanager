@@ -17,7 +17,7 @@ class LanGameVoteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
+     * @param  Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -46,9 +46,9 @@ class LanGameVoteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Lan $lan
-     * @param LanGame $lanGame
-     * @param LanGameVote $vote
+     * @param  Lan         $lan
+     * @param  LanGame     $lanGame
+     * @param  LanGameVote $vote
      * @return RedirectResponse
      * @throws AuthorizationException
      */

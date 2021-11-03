@@ -22,6 +22,7 @@ class GetGamesPlayedBetweenService
 
     /**
      * GetGamesPlayedBetweenService constructor.
+     *
      * @param Carbon $start
      * @param Carbon $end
      */

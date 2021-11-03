@@ -13,7 +13,7 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return AnonymousResourceCollection
      */
     public function index(Request $request)
@@ -41,7 +41,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Event $event
+     * @param  Event $event
      * @return EventResource
      */
     public function show(Event $event)

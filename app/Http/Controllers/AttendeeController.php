@@ -10,7 +10,7 @@ class AttendeeController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
     public function index(Lan $lan)

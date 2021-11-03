@@ -10,7 +10,7 @@ class UserAchievementPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can list all items.
      *
-     * @param User|null $authUser
+     * @param  User|null $authUser
      * @return bool
      */
     public function index(?User $authUser)
@@ -21,8 +21,8 @@ class UserAchievementPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User|null $authUser
-     * @param UserAchievement $userAchievement
+     * @param  User|null       $authUser
+     * @param  UserAchievement $userAchievement
      * @return bool
      */
     public function view(?User $authUser, UserAchievement $userAchievement)
@@ -33,7 +33,7 @@ class UserAchievementPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can create an item.
      *
-     * @param User $authUser
+     * @param  User $authUser
      * @return bool
      */
     public function create(User $authUser)
@@ -44,8 +44,8 @@ class UserAchievementPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $authUser
-     * @param UserAchievement $userAchievement
+     * @param  User            $authUser
+     * @param  UserAchievement $userAchievement
      * @return bool
      */
     public function delete(User $authUser, UserAchievement $userAchievement)

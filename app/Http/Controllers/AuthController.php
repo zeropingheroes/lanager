@@ -34,7 +34,7 @@ class AuthController extends Controller
     /**
      * Redirect the user to the external authentication provider.
      *
-     * @param $OAuthProvider string
+     * @param  $OAuthProvider string
      * @return RedirectResponse
      */
     public function redirectToProvider($OAuthProvider)
@@ -50,7 +50,7 @@ class AuthController extends Controller
     /**
      * Obtain the user information from the external authentication provider.
      *
-     * @param $OAuthProvider
+     * @param  $OAuthProvider
      * @return RedirectResponse
      * @throws Throwable
      */
@@ -101,7 +101,7 @@ class AuthController extends Controller
     /**
      * Log the user out of the application.
      *
-     * @param Request $request
+     * @param  Request $request
      * @return RedirectResponse
      */
     public function logout(Request $request)

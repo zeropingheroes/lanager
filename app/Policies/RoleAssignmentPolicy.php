@@ -10,7 +10,7 @@ class RoleAssignmentPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can list all items.
      *
-     * @param User $authUser
+     * @param  User $authUser
      * @return bool
      */
     public function index(User $authUser)
@@ -21,8 +21,8 @@ class RoleAssignmentPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User|null $authUser
-     * @param RoleAssignment $roleAssignment
+     * @param  User|null      $authUser
+     * @param  RoleAssignment $roleAssignment
      * @return bool
      */
     public function view(?User $authUser, RoleAssignment $roleAssignment)
@@ -34,7 +34,7 @@ class RoleAssignmentPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can create an item.
      *
-     * @param User $authUser
+     * @param  User $authUser
      * @return bool
      */
     public function create(User $authUser)
@@ -46,8 +46,8 @@ class RoleAssignmentPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $authUser
-     * @param RoleAssignment $roleAssignment
+     * @param  User           $authUser
+     * @param  RoleAssignment $roleAssignment
      * @return bool
      */
     public function delete(User $authUser, RoleAssignment $roleAssignment)

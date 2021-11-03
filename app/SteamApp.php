@@ -17,7 +17,7 @@ class SteamApp extends Model
     public $timestamps = false;
 
     /**
-     * @param string $size
+     * @param  string $size
      * @return string
      */
     public function logo(string $size = 'small'): string

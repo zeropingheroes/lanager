@@ -10,7 +10,7 @@ class LanGameVotePolicy extends BasePolicy
     /**
      * Determine whether the user can create an item.
      *
-     * @param User $user
+     * @param  User $user
      * @return mixed
      */
     public function create(User $user)
@@ -21,8 +21,8 @@ class LanGameVotePolicy extends BasePolicy
     /**
      * Determine whether the user can delete a given item.
      *
-     * @param User $authUser
-     * @param LanGameVote $lanGameVote
+     * @param  User        $authUser
+     * @param  LanGameVote $lanGameVote
      * @return mixed
      */
     public function delete(User $authUser, LanGameVote $lanGameVote)

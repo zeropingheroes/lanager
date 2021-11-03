@@ -51,7 +51,7 @@ class NavigationLinkController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
+     * @param  Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -82,7 +82,7 @@ class NavigationLinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param NavigationLink $navigationLink
+     * @param  NavigationLink $navigationLink
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -102,8 +102,8 @@ class NavigationLinkController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $httpRequest
-     * @param NavigationLink $navigationLink
+     * @param  Request        $httpRequest
+     * @param  NavigationLink $navigationLink
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -136,7 +136,7 @@ class NavigationLinkController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param NavigationLink $navigationLink
+     * @param  NavigationLink $navigationLink
      * @return RedirectResponse
      * @throws AuthorizationException
      */

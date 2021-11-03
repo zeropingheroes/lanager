@@ -62,7 +62,7 @@ class ImageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
+     * @param  Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -102,7 +102,7 @@ class ImageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param string $filename
+     * @param  string $filename
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -129,8 +129,8 @@ class ImageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $httpRequest
-     * @param string $filename
+     * @param  Request $httpRequest
+     * @param  string  $filename
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -166,7 +166,7 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param string $filename
+     * @param  string $filename
      * @return RedirectResponse
      * @throws AuthorizationException
      */

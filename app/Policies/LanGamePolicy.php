@@ -10,8 +10,8 @@ class LanGamePolicy extends BasePolicy
     /**
      * Determine whether the user can view a given item.
      *
-     * @param User|null $authUser
-     * @param LanGame $lanGame
+     * @param  User|null $authUser
+     * @param  LanGame   $lanGame
      * @return mixed
      */
     public function view(?User $authUser, LanGame $lanGame)
@@ -27,7 +27,7 @@ class LanGamePolicy extends BasePolicy
     /**
      * Determine whether the user can create an item.
      *
-     * @param User $user
+     * @param  User $user
      * @return mixed
      */
     public function create(User $user)
@@ -38,8 +38,8 @@ class LanGamePolicy extends BasePolicy
     /**
      * Determine whether the user can edit a given item.
      *
-     * @param User $authUser
-     * @param LanGame $lanGame
+     * @param  User    $authUser
+     * @param  LanGame $lanGame
      * @return mixed
      */
     public function update(User $authUser, LanGame $lanGame)
@@ -60,8 +60,8 @@ class LanGamePolicy extends BasePolicy
     /**
      * Determine whether the user can delete a given item.
      *
-     * @param User $authUser
-     * @param LanGame $lanGame
+     * @param  User    $authUser
+     * @param  LanGame $lanGame
      * @return mixed
      */
     public function delete(User $authUser, LanGame $lanGame)

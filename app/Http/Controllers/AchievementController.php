@@ -47,7 +47,7 @@ class AchievementController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
+     * @param  Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -85,7 +85,7 @@ class AchievementController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Achievement $achievement
+     * @param  Achievement $achievement
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -100,7 +100,7 @@ class AchievementController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Achievement $achievement
+     * @param  Achievement $achievement
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -115,8 +115,8 @@ class AchievementController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Achievement $achievement
+     * @param  Request     $httpRequest
+     * @param  Achievement $achievement
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -154,7 +154,7 @@ class AchievementController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Achievement $achievement
+     * @param  Achievement $achievement
      * @return RedirectResponse
      * @throws AuthorizationException
      */

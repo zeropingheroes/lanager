@@ -10,8 +10,8 @@ class SlidePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User|null $authUser
-     * @param Slide $slide
+     * @param  User|null $authUser
+     * @param  Slide     $slide
      * @return bool
      */
     public function view(?User $authUser, Slide $slide)
@@ -27,7 +27,7 @@ class SlidePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can list all items.
      *
-     * @param User $authUser
+     * @param  User $authUser
      * @return bool
      */
     public function index(User $authUser)
@@ -38,7 +38,7 @@ class SlidePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can create an item.
      *
-     * @param User $authUser
+     * @param  User $authUser
      * @return bool
      */
     public function create(User $authUser)
@@ -49,8 +49,8 @@ class SlidePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can edit a given item.
      *
-     * @param User $authUser
-     * @param Slide $slide
+     * @param  User  $authUser
+     * @param  Slide $slide
      * @return bool
      */
     public function update(User $authUser, Slide $slide)
@@ -61,8 +61,8 @@ class SlidePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $authUser
-     * @param Slide $slide
+     * @param  User  $authUser
+     * @param  Slide $slide
      * @return bool
      */
     public function delete(User $authUser, Slide $slide)

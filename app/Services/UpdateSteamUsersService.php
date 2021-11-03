@@ -45,12 +45,13 @@ class UpdateSteamUsersService
 
     /**
      * User IDs who are attending the current LAN.
+     *
      * @var Collection
      */
     private $currentLanAttendees;
 
     /**
-     * @param array|int $steamIds
+     * @param  array|int $steamIds
      * @throws Exception
      */
     public function __construct($steamIds)
@@ -100,6 +101,7 @@ class UpdateSteamUsersService
 
     /**
      * Update Steam users.
+     *
      * @return void
      * @throws Throwable
      */
@@ -140,7 +142,7 @@ class UpdateSteamUsersService
     /**
      * Update a single Steam user.
      *
-     * @param $steamUser
+     * @param  $steamUser
      * @return bool
      * @throws Throwable
      */

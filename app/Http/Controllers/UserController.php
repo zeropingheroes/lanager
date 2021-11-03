@@ -16,7 +16,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param User $user
+     * @param  User $user
      * @return \Illuminate\Contracts\View\View
      */
     public function show(User $user)

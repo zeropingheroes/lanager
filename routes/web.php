@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * Web routes
+ */
+
 use Illuminate\Support\Facades\Route;
 
 /**
  * Current LAN.
  */
+
 Route::get('/', 'CurrentLanController@show')
     ->name('home');
 Route::get('/guides', 'CurrentLanController@guides')

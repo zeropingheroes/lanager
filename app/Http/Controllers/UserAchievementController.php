@@ -17,7 +17,7 @@ class UserAchievementController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -43,8 +43,8 @@ class UserAchievementController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Lan $lan
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -79,8 +79,8 @@ class UserAchievementController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Lan $lan
-     * @param UserAchievement $userAchievement
+     * @param  Lan             $lan
+     * @param  UserAchievement $userAchievement
      * @return RedirectResponse
      * @throws AuthorizationException
      */

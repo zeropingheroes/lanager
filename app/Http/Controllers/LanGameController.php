@@ -37,7 +37,7 @@ class LanGameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
+     * @param  Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -67,7 +67,7 @@ class LanGameController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param LanGame $lanGame
+     * @param  LanGame $lanGame
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -82,9 +82,9 @@ class LanGameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Lan $lan
-     * @param LanGame $lanGame
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
+     * @param  LanGame $lanGame
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -114,8 +114,8 @@ class LanGameController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Lan $lan
-     * @param LanGame $lanGame
+     * @param  Lan     $lan
+     * @param  LanGame $lanGame
      * @return Response
      * @throws AuthorizationException
      */

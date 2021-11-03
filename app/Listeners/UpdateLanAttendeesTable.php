@@ -11,7 +11,7 @@ class UpdateLanAttendeesTable
     /**
      * Handle the event.
      *
-     * @param Login $login
+     * @param  Login $login
      * @return void
      */
     public function handle(Login $login)

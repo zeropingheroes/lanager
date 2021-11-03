@@ -13,7 +13,7 @@ class MyMinkContext extends MinkContext implements Context
 {
     /**
      * @Given I am logged in as :username
-     * @When I log in as :username
+     * @When  I log in as :username
      */
     public function logInAs($username)
     {

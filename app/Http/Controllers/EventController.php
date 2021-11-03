@@ -16,8 +16,8 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
-     * @param Lan $lan
+     * @param  Request $request
+     * @param  Lan     $lan
      * @return \Illuminate\Contracts\View\View
      */
     public function index(Request $request, Lan $lan)
@@ -39,7 +39,7 @@ class EventController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -55,8 +55,8 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Lan $lan
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -91,8 +91,8 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Lan $lan
-     * @param Event $event
+     * @param  Lan   $lan
+     * @param  Event $event
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -113,8 +113,8 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Lan $lan
-     * @param Event $event
+     * @param  Lan   $lan
+     * @param  Event $event
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -135,9 +135,9 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Lan $lan
-     * @param Event $event
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
+     * @param  Event   $event
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -173,8 +173,8 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Lan $lan
-     * @param Event $event
+     * @param  Lan   $lan
+     * @param  Event $event
      * @return RedirectResponse
      * @throws AuthorizationException
      */

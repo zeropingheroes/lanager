@@ -53,7 +53,7 @@ class LanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -67,7 +67,7 @@ class LanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
+     * @param  Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -102,7 +102,7 @@ class LanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -119,8 +119,8 @@ class LanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Lan $lan
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -156,7 +156,7 @@ class LanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return RedirectResponse
      * @throws AuthorizationException
      */

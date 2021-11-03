@@ -15,7 +15,7 @@ class SlideController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return AnonymousResourceCollection
      */
     public function index(Lan $lan)
@@ -45,8 +45,8 @@ class SlideController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Lan $lan
-     * @param Slide $slide
+     * @param  Lan   $lan
+     * @param  Slide $slide
      * @return SlideResource
      * @throws AuthorizationException
      */

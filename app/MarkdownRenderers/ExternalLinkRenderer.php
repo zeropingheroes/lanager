@@ -27,8 +27,8 @@ class ExternalLinkRenderer implements InlineRendererInterface
     /**
      * Render external links to open in a new window.
      *
-     * @param AbstractInline $inline
-     * @param ElementRendererInterface $htmlRenderer
+     * @param  AbstractInline           $inline
+     * @param  ElementRendererInterface $htmlRenderer
      * @return HtmlElement
      * @throws InvalidArgumentException
      */
@@ -56,7 +56,7 @@ class ExternalLinkRenderer implements InlineRendererInterface
     /**
      * Check if supplied URL is to another site.
      *
-     * @param $url
+     * @param  $url
      * @return bool
      */
     private function isExternalUrl($url)

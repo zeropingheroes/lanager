@@ -39,7 +39,7 @@ class RoleAssignmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
+     * @param  Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -75,7 +75,7 @@ class RoleAssignmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param RoleAssignment $roleAssignment
+     * @param  RoleAssignment $roleAssignment
      * @return RedirectResponse
      * @throws AuthorizationException
      */

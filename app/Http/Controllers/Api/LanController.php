@@ -23,8 +23,8 @@ class LanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Lan $lan
-     * @param Request $request
+     * @param  Lan     $lan
+     * @param  Request $request
      * @return LanResource
      */
     public function show(Lan $lan, Request $request)

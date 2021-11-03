@@ -39,7 +39,7 @@ class UpdateSteamUserAppsService
     protected $errors;
 
     /**
-     * @param Collection $users
+     * @param  Collection $users
      * @throws Exception
      */
     public function __construct(Collection $users)
@@ -78,6 +78,7 @@ class UpdateSteamUserAppsService
 
     /**
      * Update Steam users apps.
+     *
      * @return void
      * @throws Throwable
      */

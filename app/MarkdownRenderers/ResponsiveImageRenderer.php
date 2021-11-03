@@ -27,8 +27,8 @@ class ResponsiveImageRenderer implements InlineRendererInterface
     /**
      * Render images with responsive classes added.
      *
-     * @param AbstractInline $inline
-     * @param ElementRendererInterface $htmlRenderer
+     * @param  AbstractInline           $inline
+     * @param  ElementRendererInterface $htmlRenderer
      * @return HtmlElement
      * @throws InvalidArgumentException
      */

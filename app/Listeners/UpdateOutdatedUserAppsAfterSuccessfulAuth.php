@@ -12,7 +12,7 @@ class UpdateOutdatedUserAppsAfterSuccessfulAuth
     /**
      * Handle the event.
      *
-     * @param Login $login
+     * @param  Login $login
      * @return void
      * @throws Throwable
      */

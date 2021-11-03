@@ -29,7 +29,7 @@ class Lan extends Model
     ];
 
     /**
-     * @param Builder $query
+     * @param  Builder $query
      * @return Builder
      */
     public function scopeHappeningNow($query)
@@ -39,7 +39,7 @@ class Lan extends Model
     }
 
     /**
-     * @param Builder $query
+     * @param  Builder $query
      * @return Builder
      */
     public function scopePast($query)
@@ -48,7 +48,7 @@ class Lan extends Model
     }
 
     /**
-     * @param Builder $query
+     * @param  Builder $query
      * @return Builder
      */
     public function scopeFuture($query)
@@ -57,7 +57,7 @@ class Lan extends Model
     }
 
     /**
-     * @param Builder $query
+     * @param  Builder $query
      * @return Builder
      */
     public function scopePresentAndPast($query)
