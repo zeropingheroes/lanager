@@ -10,12 +10,9 @@ RUN apt-get update && apt-get install -y \
     zip \
     netcat \
     libfcgi-bin \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-RUN docker-php-ext-install pdo_mysql zip pcntl bcmath
-
-# Enable PHP FPM status page
-RUN set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
+    && docker-php-ext-install pdo_mysql zip pcntl bcmath \
+    && set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
 # Install Composer
 COPY --from=composer2 /usr/bin/composer /usr/bin/composer
