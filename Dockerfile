@@ -4,11 +4,11 @@ FROM php:7.4-fpm
 
 # Install package dependencies
 RUN apt-get update && apt-get install -y \
-    curl \
-    libzip-dev \
-    zip \
-    netcat \
-    libfcgi-bin \
+    curl=7.74.0-1.3+b1 \
+    libzip-dev=1.7.3-1 \
+    zip=3.0-12 \
+    netcat=1.10-46 \
+    libfcgi-bin=2.4.2-2 \
     --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install pdo_mysql zip pcntl bcmath \
