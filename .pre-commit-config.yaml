@@ -37,3 +37,7 @@ repos:
                 (.*resources\/lang.*)
             )$
         args: [--standard=PSR12 -p]
+-   repo: https://github.com/hadolint/hadolint
+    rev: master
+    hooks:
+      - id: hadolint-docker
