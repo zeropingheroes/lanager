@@ -60,7 +60,8 @@
         "behat/mink-goutte-driver": "^1.2",
         "friends-of-behat/mink-extension": "^2.4",
         "phpro/grumphp": "^1.5",
-        "squizlabs/php_codesniffer": "^3.6"
+        "squizlabs/php_codesniffer": "^3.6",
+        "phpunit/phpunit": "^9.5"
     },
     "extra": {
         "laravel": {
