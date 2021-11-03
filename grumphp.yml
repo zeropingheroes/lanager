@@ -1,4 +1,0 @@
-grumphp:
-    tasks:
-        phpcs:
-            standard: ['PSR12']
