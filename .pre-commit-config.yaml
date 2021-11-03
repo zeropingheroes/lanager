@@ -22,6 +22,7 @@ repos:
             (?x)^(
                 (.*blade\.php)|
                 (.*public\/index.php)|
+                (.*migrations\/.*)|
                 (.*resources\/lang.*)
             )$
         args: [--standard=PSR12 -p]
