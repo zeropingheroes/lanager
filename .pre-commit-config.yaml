@@ -13,20 +13,8 @@ repos:
     hooks:
     -   id: php-lint
         files: \.(php)$
-        exclude: |
-            (?x)^(
-                (.*blade\.php)|
-                (.*public\/index.php)|
-                (.*resources\/lang.*)
-            )$
     -   id: php-cbf
         files: \.(php)$
-        exclude: |
-            (?x)^(
-                (.*blade\.php)|
-                (.*public\/index.php)|
-                (.*resources\/lang.*)
-            )$
         args: [--standard=PSR12 -p]
     -   id: php-cs
         files: \.(php)$
