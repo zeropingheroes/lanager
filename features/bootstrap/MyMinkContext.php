@@ -1,5 +1,7 @@
 <?php
 
+namespace Features\bootstrap;
+
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\MinkContext;
 use Illuminate\Support\Facades\Auth;

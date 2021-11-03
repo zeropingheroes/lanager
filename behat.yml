@@ -4,8 +4,8 @@ default:
     suites:
         default:
             contexts:
-                - FeatureContext
-                - MyMinkContext
+                - Features\bootstrap\FeatureContext
+                - Features\bootstrap\MyMinkContext
     extensions:
         Behat\MinkExtension:
             goutte: ~
