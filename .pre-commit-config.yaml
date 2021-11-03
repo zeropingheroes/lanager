@@ -12,6 +12,8 @@ repos:
     rev: 1.4.0
     hooks:
     -   id: php-lint
+        files: \.(php)$
+        exclude: \.(blade\.php)$
     -   id: php-cs
         files: \.(php)$
         exclude: \.(blade\.php)$
