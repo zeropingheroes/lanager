@@ -12,7 +12,7 @@ FILE="/var/www/storage/.install-completed"
 if ! [[ -f $FILE ]]; then
 
     php artisan migrate:fresh
-    php artisan db:seed
+    php artisan db:seed --class=Database\\Seeders\\DatabaseSeeder
     php artisan storage:link
     php artisan lanager:import-steam-apps-csv
 

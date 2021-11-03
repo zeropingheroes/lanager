@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Slide;

@@ -70,12 +70,10 @@
     },
     "autoload": {
         "psr-4": {
-            "Zeropingheroes\\Lanager\\": "app/"
-        },
-        "classmap": [
-            "database/seeds",
-            "database/factories"
-        ]
+            "Zeropingheroes\\Lanager\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
     },
     "autoload-dev": {
         "psr-4": {

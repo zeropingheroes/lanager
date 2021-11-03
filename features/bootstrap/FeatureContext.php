@@ -29,7 +29,7 @@ class FeatureContext extends TestCase implements Context
     public function __construct()
     {
         parent::setUp();
-        $this->artisan('db:seed');
+        $this->artisan('db:seed', ['--class' => 'Database\\Seeders\\DatabaseSeeder']);
         $this->app[Kernel::class]->setArtisan(null);
     }
 
