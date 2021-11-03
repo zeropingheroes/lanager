@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     netcat \
     libfcgi-bin \
+    --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install pdo_mysql zip pcntl bcmath \
     && set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
