@@ -31,14 +31,14 @@ docker run -it -e MYSQL_PWD="$DB_ROOT_PASSWORD" --network lanager_app-network --
        mysqldump -h"$DB_HOST" -uroot --add-drop-database --databases "$DB_DATABASE" > "$DB_BACKUP_FILE"
 
 echo "Backing up the storage/ directory stored in the lanager_laravel-storage volume into $TEMP_DIR/$BACKUP_NAME/$STORAGE_BACKUP_FILE"
-docker run --rm --volumes-from app -v "$TEMP_DIR":/backup php:7.4-fpm tar cf /backup/$BACKUP_NAME/$STORAGE_BACKUP_FILE \
+docker run --rm --volumes-from app -v "$TEMP_DIR":/backup php:7.4-fpm tar cf "/backup/$BACKUP_NAME/$STORAGE_BACKUP_FILE" \
    /var/www/storage
 
 echo "Backing up the .env file into $ENV_BACKUP_FILE"
 cp .env "$ENV_BACKUP_FILE"
 
 echo "Compressing all backup files into $BACKUP_NAME.tar.gz"
-tar czf $BACKUP_FILE -C "$TEMP_DIR" "$BACKUP_NAME"
+tar czf "$BACKUP_FILE" -C "$TEMP_DIR" "$BACKUP_NAME"
 
 echo "Removing temporary directory"
 rm -rf "${TEMP_DIR:?}/$BACKUP_NAME"
