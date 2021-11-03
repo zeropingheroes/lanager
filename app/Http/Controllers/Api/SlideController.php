@@ -30,8 +30,10 @@ class SlideController extends Controller
                 if (($value->start == null) && ($value->end == null)) {
                     return true;
                 }
-                if (($value->start == null || $value->start <= Carbon::now(
-                        )) && ($value->end == null || $value->end >= Carbon::now())) {
+                if (
+                    ($value->start == null || $value->start <= Carbon::now())
+                    && ($value->end == null || $value->end >= Carbon::now())
+                ) {
                     return true;
                 } else {
                     return false;

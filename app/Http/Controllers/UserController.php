@@ -32,8 +32,10 @@ class UserController extends Controller
             ->first();
 
         // If the user's apps are visible, and they're attending the current LAN (or there isn't a current LAN)
-        if (($user->steamMetadata && $user->steamMetadata->apps_visible == 1) &&
-            (! $lan || $lansAttended->contains('id', $lan->id))) {
+        if (
+            ($user->steamMetadata && $user->steamMetadata->apps_visible == 1)
+            && (! $lan || $lansAttended->contains('id', $lan->id))
+        ) {
             // Get games in common so long as the logged in user is not viewing their own profile
             if (Auth::check() && $user->id != Auth::user()->id) {
                 $authUserGames = Auth::user()
@@ -78,7 +80,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $user
+     * @param  User $user
      * @return RedirectResponse
      * @throws AuthorizationException
      */

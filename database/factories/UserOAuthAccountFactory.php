@@ -7,8 +7,10 @@
 use Faker\Generator as Faker;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
-$factory->define(UserOAuthAccount::class, function (Faker $faker) {
-    return [
+$factory->define(
+    UserOAuthAccount::class,
+    function (Faker $faker) {
+        return [
         'username' => $faker->userName,
         'provider' => $faker->domainWord,
         'provider_id' => $faker->randomNumber(5),
@@ -16,5 +18,6 @@ $factory->define(UserOAuthAccount::class, function (Faker $faker) {
         'access_token' => $faker->md5,
         'token_expiry' => $faker->dateTimeThisYear,
         'refresh_token' => $faker->md5,
-    ];
-});
+        ];
+    }
+);

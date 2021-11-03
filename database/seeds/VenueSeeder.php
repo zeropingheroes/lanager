@@ -17,10 +17,12 @@ class VenueSeeder extends Seeder
             return;
         }
 
-        Venue::create([
+        Venue::create(
+            [
             'name' => __('seeder.example-venue'),
             'street_address' => 'Elmiavägen 15, 554 54 Jönköping, Sweden',
             'description' => __('seeder.example-venue-description'),
-        ]);
+            ]
+        );
     }
 }

@@ -47,8 +47,9 @@ class StoreEventRequest extends Request
         $eventStart = Carbon::make($this->input['start']);
         $eventEnd = Carbon::make($this->input['end']);
 
-        if (! $eventStart->between($lan->start, $lan->end) ||
-            ! $eventEnd->between($lan->start, $lan->end)
+        if (
+            ! $eventStart->between($lan->start, $lan->end)
+            || ! $eventEnd->between($lan->start, $lan->end)
         ) {
             $this->addError(trans('phrase.event-times-must-be-within-lan-times'));
 

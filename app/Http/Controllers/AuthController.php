@@ -63,8 +63,10 @@ class AuthController extends Controller
             $service->update();
 
             // Check if the user wasn't updated, or if there are errors
-            if (! array_key_exists($OAuthUser->id, $service->getUpdated()) ||
-                $service->errors()->isNotEmpty()) {
+            if (
+                ! array_key_exists($OAuthUser->id, $service->getUpdated())
+                || $service->errors()->isNotEmpty()
+            ) {
                 Log::error($service->errors()->first());
                 Session::flash('error', $service->errors()->first());
 

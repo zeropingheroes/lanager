@@ -152,9 +152,12 @@ class UpdateSteamAppsMetadata extends Command
             $updatedCount++;
             $progress->advance();
 
-            $requestLog = array_filter($requestLog, function ($value) {
-                return ($value >= (time() - 300));
-            });
+            $requestLog = array_filter(
+                $requestLog,
+                function ($value) {
+                    return ($value >= (time() - 300));
+                }
+            );
 
             $progress->setMessage(trans('phrase.requests-made-in-last-five-minutes', ['x' => count($requestLog)]));
         }

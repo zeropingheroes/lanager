@@ -9,9 +9,12 @@ use Zeropingheroes\Lanager\Attendee;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
 
-$factory->define(Attendee::class, function (Faker $faker) {
-    return [
+$factory->define(
+    Attendee::class,
+    function (Faker $faker) {
+        return [
         'lan_id' => Lan::all()->random()->id,
         'user_id' => User::all()->random()->id,
-    ];
-});
+        ];
+    }
+);

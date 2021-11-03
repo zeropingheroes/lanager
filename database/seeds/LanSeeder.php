@@ -19,12 +19,14 @@ class LanSeeder extends Seeder
             return;
         }
 
-        Lan::create([
+        Lan::create(
+            [
             'venue_id' => Venue::first()->id,
             'name' => __('seeder.example-lan'),
             'start' => Carbon::parse('next Friday')->addHours(18),
             'end' => Carbon::parse('next Sunday')->addHours(18),
             'published' => true,
-        ]);
+            ]
+        );
     }
 }

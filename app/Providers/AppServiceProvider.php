@@ -33,9 +33,9 @@ class AppServiceProvider extends ServiceProvider
         // - debug enabled
         // - class exists
         if (
-            $this->app->environment('local') &&
-            config('app.debug') == true &&
-            class_exists(DebugbarServiceProvider::class)
+            $this->app->environment('local')
+            && config('app.debug') == true
+            && class_exists(DebugbarServiceProvider::class)
         ) {
             $this->app->register(DebugbarServiceProvider::class);
             $this->app->alias('Debugbar', DebugbarFacade::class);

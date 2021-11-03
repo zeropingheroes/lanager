@@ -18,10 +18,13 @@ use Zeropingheroes\Lanager\User;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
-    return [
+$factory->define(
+    User::class,
+    function (Faker $faker) {
+        return [
         'username' => $faker->userName,
         'api_token' => $faker->md5,
         'remember_token' => Str::random(10),
-    ];
-});
+        ];
+    }
+);
