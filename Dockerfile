@@ -1,3 +1,5 @@
+FROM composer:2 as composer2
+
 FROM php:7.4-fpm
 
 # Install package dependencies
@@ -16,7 +18,7 @@ RUN docker-php-ext-install pdo_mysql zip pcntl bcmath
 RUN set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
 # Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer2 /usr/bin/composer /usr/bin/composer
 
 # Copy in app code, only allowing root user to modify
 COPY --chown=root:www-data . /var/www
