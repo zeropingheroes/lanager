@@ -19,4 +19,3 @@
         <option @if($value == $selected) selected @endif value="{{ $value }}">{{ $label }}</option>
     @endforeach
 </select>
-

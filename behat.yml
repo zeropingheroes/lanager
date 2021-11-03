@@ -9,4 +9,3 @@ default:
     extensions:
         Behat\MinkExtension:
             goutte: ~
-

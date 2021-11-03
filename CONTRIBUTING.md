@@ -13,8 +13,8 @@ This will then be reviewed, and, if found as good, merged into the main reposito
 
 # Copyright ownership
 
-By contributing code to this project, you hereby assign copyright in 
-this code to the project, to be licensed under the same terms as the 
+By contributing code to this project, you hereby assign copyright in
+this code to the project, to be licensed under the same terms as the
 rest of the code.
 
 This is to prevent the logistical and legal nightmare if contributors

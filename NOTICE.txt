@@ -4,10 +4,10 @@ Copyright © 2017 Zero Ping Heroes Ltd
 This product includes software ("Software") developed by Oliver Baker.
 
 The copyright in the bundled LANager software release (including the
-Software) is owned by Oliver Baker. The Software developed 
-and owned by Oliver Baker. is licensed under the GNU AFFERO 
-GENERAL PUBLIC LICENSE Version 3 
-(http://www.fsf.org/licensing/licenses/agpl-3.0.html) ("AGPL") to all 
+Software) is owned by Oliver Baker. The Software developed
+and owned by Oliver Baker. is licensed under the GNU AFFERO
+GENERAL PUBLIC LICENSE Version 3
+(http://www.fsf.org/licensing/licenses/agpl-3.0.html) ("AGPL") to all
 third parties and that license, as required by the AGPL, is included
 in the LICENSE.txt file.
 

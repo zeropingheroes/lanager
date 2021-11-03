@@ -10,14 +10,14 @@ more enjoyable for attendees and organisers alike.
 
 * **Games being played** - by your LAN's attendees, updated every minute from Steam
 * **Events timetable** - so your attendees know what's on at the LAN
-* **Achievements** - created by you and awarded to attendees 
+* **Achievements** - created by you and awarded to attendees
 * **Attendee profiles** - with a link to their Steam profile, and their gameplay history at the LAN
 * **Games in common** - when viewing another attendee's profile
 * **Games recently played** - showing the top games most recently played by attendees at the LAN
 
-### Broadcast useful information 
-* **Live Dashboard** - showing games attendees are currently playing, and current and upcoming events, for TVs or 
-  projectors around your venue 
+### Broadcast useful information
+* **Live Dashboard** - showing games attendees are currently playing, and current and upcoming events, for TVs or
+  projectors around your venue
 * **Guides** - written by you, to help attendees learn about things like venue facilities, rules, or gameplay guides
 * **Links** - to other websites, such as your organisation's website, or a game statistics page
 
@@ -51,7 +51,7 @@ more enjoyable for attendees and organisers alike.
    2. Set `APP_URL` to the URL you will access LANager through, including the trailing slash, e.g. `https://example.com/`
    3. Set `APP_TIMEZONE` to your location's [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
    4. Set `STEAM_API_KEY` to your [Steam API Key](http://steamcommunity.com/dev/apikey)
-   5. Set `GOOGLE_API_KEY` to your [Google API Key](https://console.cloud.google.com/apis/) with access to the [Maps 
+   5. Set `GOOGLE_API_KEY` to your [Google API Key](https://console.cloud.google.com/apis/) with access to the [Maps
   embed API](https://developers.google.com/maps/documentation/embed/map-generator)
    6. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator)
    7. Set `DB_ROOT_PASSWORD` to a different randomly generated password
@@ -63,22 +63,22 @@ more enjoyable for attendees and organisers alike.
    docker compose up --detach
     ```
 
-LANager should now be accessible at http://localhost, or at the URL you specified in `APP_URL`, providing you've 
-created a corresponding DNS `A` record for the Docker host's IP address, and allowed ports `80` and `443` through 
+LANager should now be accessible at http://localhost, or at the URL you specified in `APP_URL`, providing you've
+created a corresponding DNS `A` record for the Docker host's IP address, and allowed ports `80` and `443` through
 the Docker host's firewall.
 
 ## Troubleshooting
 
-- Run `docker compose down --rmi local --volumes` to delete the database data and LANager container image, and then 
+- Run `docker compose down --rmi local --volumes` to delete the database data and LANager container image, and then
   retry the setup steps above
 
-If you get stuck, [create an issue](https://github.com/zeropingheroes/lanager/issues) with the details of what 
+If you get stuck, [create an issue](https://github.com/zeropingheroes/lanager/issues) with the details of what
 you're experincing:
 - The commands you've run
 - The output of `docker compose up`
 - The output of `docker logs app`
 - Any errors displayed in your browser
-    
+
 ## Getting started
 
 To set up the LANager for your next LAN party, you need to create a LAN page, then add Events (such as scheduled games
@@ -89,7 +89,7 @@ or lunch breaks) and Guides (such as game rules) to that LAN page.
 The LANager assigns the "Super Admin" role to the first account that logs into it, so make sure you log in as soon as
 you have completed installation.
 
-Super Admins can perform any action on the site, including assigning roles to other users. 
+Super Admins can perform any action on the site, including assigning roles to other users.
 
 ### Create your LAN page
 
@@ -109,7 +109,7 @@ list.
 
 Once you have a LAN page for your LAN party, you can create Events and Guides to help attendees enjoy your party.
 
-* **Events** are a useful way to timetable game tournaments, highlight big game sessions, schedule breaks and mealtimes, 
+* **Events** are a useful way to timetable game tournaments, highlight big game sessions, schedule breaks and mealtimes,
 and let people know when it's time to go home
 * **Guides** are a useful way to provide people with the rules and download links to the games you're playing, to let
 them know where the nearest shops and restaurants are, to provide a code of conduct for your event, and to communicate
@@ -122,7 +122,7 @@ From the LAN page, click the **+** button next to the **Events** and **Guides** 
 You can use markdown-formatted links in LANs, guides and events. For example, you can write a single guide, and insert
 a link to it on several event pages:
 
-    If you need any help, please contact one of our [tournament staff](/lans/4/guides/3) 
+    If you need any help, please contact one of our [tournament staff](/lans/4/guides/3)
 
 Where possible, it's good practice to use relative links as demonstrated above, so that if you change your domain, the
 links continue to work.
@@ -133,7 +133,7 @@ You can upload images to LAN pages, Events and Guides. To do this, follow these 
 
 1. Below the "description" text box, select "upload images".
 2. Upload the image you want to use.
-3. Next to the image, select ⚙ > **Copy Markdown** 
+3. Next to the image, select ⚙ > **Copy Markdown**
 4. Paste the markdown into the guide, event or LAN's **description** field, in the location you want it to appear in the
 text.
 
@@ -151,7 +151,7 @@ It's useful to display this on a TV or projector that everyone can see.
 
 ### Create and award Achievements
 
-Click ⚙ > **Achievements** and then click the **+** button to create achievements that you can award to users. 
+Click ⚙ > **Achievements** and then click the **+** button to create achievements that you can award to users.
 
 To award an Achievement to an attendee, go to the navigation bar and select **Achievements**. This opens the list of
 Achievements you have awarded to attendees of the current LAN. At the bottom of the page, choose the Achievement and the
@@ -165,7 +165,7 @@ or dropdown.
 
 ## Backup
 
-Run `./backup.sh` to back up LANager's configuration, database data and uploaded images.   
+Run `./backup.sh` to back up LANager's configuration, database data and uploaded images.
 
 ### Restore a backup
 
@@ -175,16 +175,16 @@ Run `./backup-restore.sh <file>` to restore a backup.
 
 ### Development environment setup
 
-To get LANager set up in a development environment, the steps are nearly identical to the production setup guide, but 
+To get LANager set up in a development environment, the steps are nearly identical to the production setup guide, but
 before running `docker compose up`, follow these steps:
 1. Update these values in the `.env` file:
    ```
    APP_ENV=local
    APP_DEBUG=true
    ```
-2. Make a copy of `docker-compose.override.yml.example` and name it `docker-compose.override.yml`, to configure 
+2. Make a copy of `docker-compose.override.yml.example` and name it `docker-compose.override.yml`, to configure
    Docker to bind-mount the project directory on your host computer into the Docker container
-3. Run the command `UID=$(id -u) GID=$(id -g)` to give Docker your user's ID and group ID, so it can read and write 
+3. Run the command `UID=$(id -u) GID=$(id -g)` to give Docker your user's ID and group ID, so it can read and write
    to the project directory on your host computer
 4. Run  `docker compose up --detach`
 5. Visit `http://localhost`
@@ -194,7 +194,7 @@ image, so any changes you make to the files in the project directory will be see
 
 ### Start and stop the development environment
 
-To stop the development environment run `docker compose stop`. When you're ready to start developing again run 
+To stop the development environment run `docker compose stop`. When you're ready to start developing again run
 `docker compose start`.
 
 ### Destroy the development environment
@@ -202,7 +202,7 @@ To stop the development environment run `docker compose stop`. When you're ready
 To destroy the development environment and the database data volume, run:
 1. `docker compose down --volumes db-data && rm storage/.install-completed`
 
-Follow the setup steps above to get a fresh development environment.  
+Follow the setup steps above to get a fresh development environment.
 
 ### Recompiling JavaScript & CSS assets
 
