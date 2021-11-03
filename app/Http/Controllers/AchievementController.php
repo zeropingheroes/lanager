@@ -15,7 +15,7 @@ class AchievementController extends Controller
     /**
      * Uploaded image storage location.
      */
-    public const directory = 'public/images/achievements';
+    public const DIRECTORY = 'public/images/achievements';
 
     /**
      * Display a listing of the resource.
@@ -74,7 +74,7 @@ class AchievementController extends Controller
         if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
             $newFileName = $achievement->id . '.' . strtolower($extension);
-            $httpRequest->image->storeAs($this::directory, $newFileName);
+            $httpRequest->image->storeAs($this::DIRECTORY, $newFileName);
             $achievement->update(['image_filename' => $newFileName]);
         }
 
@@ -141,7 +141,7 @@ class AchievementController extends Controller
         if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
             $newFileName = $achievement->id . '.' . strtolower($extension);
-            $httpRequest->image->storeAs($this::directory, $newFileName);
+            $httpRequest->image->storeAs($this::DIRECTORY, $newFileName);
             $input['image_filename'] = $newFileName;
         }
 

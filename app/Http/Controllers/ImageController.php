@@ -18,12 +18,12 @@ class ImageController extends Controller
     /**
      * Permitted extensions.
      */
-    public const permittedExtensions = ['gif', 'jpg', 'jpeg', 'png', 'bmp'];
+    public const PERMITTED_EXTENSIONS = ['gif', 'jpg', 'jpeg', 'png', 'bmp'];
 
     /**
      * Uploaded image storage location.
      */
-    public const directory = 'public/images';
+    public const DIRECTORY = 'public/images';
 
     /**
      * Display a listing of the resource.
@@ -36,12 +36,12 @@ class ImageController extends Controller
         $this->authorize('images.view');
 
         // Get all files in image path
-        $files = collect(Storage::files($this::directory));
+        $files = collect(Storage::files($this::DIRECTORY));
 
         // Only show image files
         $images = $files->filter(
             function ($value) {
-                return in_array(strtolower(File::extension($value)), $this::permittedExtensions);
+                return in_array(strtolower(File::extension($value)), $this::PERMITTED_EXTENSIONS);
             }
         );
 
@@ -91,7 +91,7 @@ class ImageController extends Controller
 
             $newFileName = Str::slug($fileName) . '.' . strtolower($extension);
 
-            $image->storeAs($this::directory, $newFileName);
+            $image->storeAs($this::DIRECTORY, $newFileName);
         }
 
         Session::flash('success', trans('phrase.images-successfully-uploaded'));
@@ -110,7 +110,7 @@ class ImageController extends Controller
     {
         $this->authorize('images.update');
 
-        $filePath = $this::directory . '/' . $filename;
+        $filePath = $this::DIRECTORY . '/' . $filename;
         if (! Storage::exists($filePath)) {
             abort(404);
         }
@@ -138,10 +138,10 @@ class ImageController extends Controller
     {
         $this->authorize('images.update');
 
-        $originalFilePath = $this::directory . '/' . $filename;
+        $originalFilePath = $this::DIRECTORY . '/' . $filename;
         $originalFileExtension = File::extension($originalFilePath);
         $newFilenameWithoutExtension = Str::before($httpRequest->input('filename'), '.' . $originalFileExtension);
-        $newFilePath = $this::directory . '/' . $newFilenameWithoutExtension . '.' . $originalFileExtension;
+        $newFilePath = $this::DIRECTORY . '/' . $newFilenameWithoutExtension . '.' . $originalFileExtension;
 
         $input = [
             'original_file_path' => $originalFilePath,
@@ -174,7 +174,7 @@ class ImageController extends Controller
     {
         $this->authorize('images.delete');
 
-        $file = $this::directory . '/' . $filename;
+        $file = $this::DIRECTORY . '/' . $filename;
         if (! Storage::exists($file)) {
             abort(404);
         }
