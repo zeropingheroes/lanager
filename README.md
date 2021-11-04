@@ -1,5 +1,9 @@
 LANager
 =======
+[![Build Status](https://app.travis-ci.com/zeropingheroes/lanager.svg?branch=develop)](
+https://app.travis-ci.com/zeropingheroes/lanager)
+[![StyleCI](https://github.styleci.io/repos/14088050/shield?branch=develop)](
+https://github.styleci.io/repos/14088050?branch=develop)
 
 LANager is a web application designed to make [LAN parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
