@@ -3,8 +3,12 @@
 namespace Features\bootstrap;
 
 use Behat\Behat\Context\Context;
+use Behat\Behat\Hook\Scope\AfterStepScope;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
+use Behat\MinkExtension\Context\MinkContext;
+use Behat\Testwork\Tester\Result\TestResult;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Zeropingheroes\Lanager\Console\Kernel;
@@ -21,6 +25,9 @@ class FeatureContext extends TestCase implements Context
 {
     use DatabaseMigrations;
 
+    /** @var MinkContext */
+    private MinkContext $minkContext;
+
     /**
      * Initializes context.
      *
@@ -33,6 +40,27 @@ class FeatureContext extends TestCase implements Context
         parent::setUp();
         $this->artisan('db:seed', ['--class' => 'Database\\Seeders\\DatabaseSeeder']);
         $this->app[Kernel::class]->setArtisan(null);
+    }
+
+    /**
+     * @BeforeScenario
+     * http://behat.readthedocs.org/en/v3.0/cookbooks/context_communication.html
+     */
+    public function gatherContexts(BeforeScenarioScope $scope)
+    {
+        $environment = $scope->getEnvironment();
+        $this->minkContext = $environment->getContext('Features\bootstrap\MyMinkContext');
+    }
+
+    /**
+     * @AfterStep
+     */
+    public function outputFailureDetails(AfterStepScope $scope)
+    {
+        if (TestResult::FAILED === $scope->getTestResult()->getResultCode()) {
+            print 'URL: ' . $this->minkContext->getSession()->getCurrentUrl() . "\n";
+            print 'Content: ' . "\n" . $this->minkContext->getSession()->getPage()->getContent() . "\n";
+        }
     }
 
     /**
