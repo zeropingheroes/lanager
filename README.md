@@ -216,6 +216,21 @@ To recompile whenever changes to files are detected, run:
 To recompile minified versions suitable for committing, run:
 1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run prod`
 
+### Running tests
+
+To run the functional test suite, run:
+1. `docker exec -it bash`
+2. `php artisan serve --env=testing &`
+3. `export BEHAT_PARAMS='{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://localhost:8000/"}}}';`
+4. `vendor/bin/behat`
+
+To re-run tests, simply re-run `vendor/bin/behat`.
+
+Once you've finished running tests:
+1. Run `fg` to bring Laravel's built-in webserver to the foreground
+2. Press ctrl + C to exit it
+3. Press ctrl + D to exit the container's shell
+
 ## Feedback & Contributions
 
 * Found a bug? Got a great feature idea? Post it to the [issue tracker](https://github.com/zeropingheroes/lanager/issues)!
