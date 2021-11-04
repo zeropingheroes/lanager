@@ -135,7 +135,6 @@ Feature: Events
 
         Then I should not see "wipE'out"
         And I should not see "A dangerous game."
-        And I should not see "1"
 
     Scenario: Attempting to create an event with a start time after end time should show an error
         When I go to the homepage
