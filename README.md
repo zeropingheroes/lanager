@@ -35,7 +35,7 @@ more enjoyable for attendees and organisers alike.
 1. Clone the project:
 
     ```bash
-    git clone https://github.com/zeropingheroes/lanager
+    git clone --branch develop https://github.com/zeropingheroes/lanager-docker-compose
     ```
 
 2. Copy `.env.example` to a new file named `.env`:
@@ -60,7 +60,6 @@ more enjoyable for attendees and organisers alike.
    6. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator)
    7. Set `DB_ROOT_PASSWORD` to a different randomly generated password
 
-
 5. Bring up the application:
 
     ```bash
@@ -75,6 +74,12 @@ the Docker host's firewall.
 
 - Run `docker compose down --rmi local --volumes` to delete the database data and LANager container image, and then
   retry the setup steps above
+- Edit your `.env` file and enable debugging:
+  ```bash
+  APP_ENV=staging
+  APP_DEBUG=true
+  ```
+  **Important:** Remove these lines after troubleshooting to avoid leaking sensitive data
 
 If you get stuck, [create an issue](https://github.com/zeropingheroes/lanager/issues) with the details of what
 you're experincing:

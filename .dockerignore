@@ -7,13 +7,7 @@
 /.styleci.yml
 /.travis.yml
 /_ide_helper.php
-/backup-restore.sh
-/backup.sh
 /behat.yml
-/docker-compose.override.yml
-/docker-compose.override.yml.example
-/docker-compose.yml
-/docker/
 /Dockerfile
 /features/
 /node_modules
