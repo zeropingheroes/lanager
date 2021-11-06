@@ -1,26 +1,25 @@
-LANager - LAN Party Administration System
-Copyright © 2017 Zero Ping Heroes Ltd
+LANager - LAN party management web application
+Copyright © 2021 Zero Ping Heroes Ltd
 
-This product includes software ("Software") developed by Oliver Baker.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, version 3 of the License.
 
-The copyright in the bundled LANager software release (including the
-Software) is owned by Oliver Baker. The Software developed
-and owned by Oliver Baker. is licensed under the GNU AFFERO
-GENERAL PUBLIC LICENSE Version 3
-(http://www.fsf.org/licensing/licenses/agpl-3.0.html) ("AGPL") to all
-third parties and that license, as required by the AGPL, is included
-in the LICENSE.txt file.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
 
 However, if you have executed an End User Software License and Services
 Agreement or an OEM Software License and Support Services Agreement, or
-another commercial license agreement with Oliver Baker or one of his
+another commercial license agreement with Zero Ping Heroes Ltd or one of its
 affiliates (each, a "Commercial Agreement"), the terms of the license in
 such Commercial Agreement will supersede the AGPL and you may use the
 software solely pursuant to the terms of the relevant Commercial
 Agreement.
 
-Plain English explanation of the AGPLv3:
-http://www.tldrlegal.com/license/gnu-affero-general-public-license-v3-(agpl-3.0)
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 Third party libraries
 ---------------------
