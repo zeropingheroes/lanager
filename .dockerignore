@@ -1,9 +1,10 @@
 /.dockerignore
 /.editorconfig
-/.env*
+
 /.git*
 /.idea*
 /.phpstorm.meta.php
+/.pre-commit-config.yaml
 /.styleci.yml
 /.travis.yml
 /_ide_helper.php
@@ -16,7 +17,6 @@
 /resources/js
 /resources/sass
 /server.php
-/storage/.install-completed
 /storage/debugbar/*
 /storage/framework/cache/data/*
 /storage/framework/sessions/*

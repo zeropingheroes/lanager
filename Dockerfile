@@ -1,38 +1,28 @@
 FROM composer:2 as composer2
 
-FROM php:7.4-fpm
+# Copy in project code
+COPY . /app
 
-# Install package dependencies
-RUN apt-get update && apt-get install -y \
-    curl=7.74.0-1.3+b1 \
-    libzip-dev=1.7.3-1 \
-    zip=3.0-12 \
-    netcat=1.10-46 \
-    libfcgi-bin=2.4.2-2 \
-    --no-install-recommends \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-install pdo_mysql zip pcntl bcmath \
-    && set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+# Install PHP dependencies
+RUN composer install \
+  --optimize-autoloader \
+  --no-interaction \
+  --no-progress \
+  --no-dev
 
-# Install Composer
-COPY --from=composer2 /usr/bin/composer /usr/bin/composer
+FROM trafex/alpine-nginx-php7:1.10.0
 
-# Copy in app code, only allowing root user to modify
-COPY --chown=root:www-data . /var/www
+USER root
 
-# Change directory to www directory
-WORKDIR /var/www
+# Install binary dependencies
+RUN apk --no-cache add php7-xmlwriter php7-zip php7-pdo php7-pdo_mysql php7-tokenizer php7-simplexml php7-bcmath
 
-# Install dependencies with Composer
-RUN composer install && composer dump-autoload
+# Copy in project code and dependencies from composer2 build stage
+COPY --chown=nginx --from=composer2 /app /var/www/lanager
+
+RUN chmod -R 777 /var/www/lanager/storage
+
+WORKDIR /var/www/lanager
 
 # Change to non-privileged user
-USER www-data
-
-# Check PHP FPM status via script every 30 seconds
-HEALTHCHECK --interval=30s --timeout=3s CMD /var/www/docker-php-fpm-healthcheck.sh
-
-# Open PHP-FPM port
-EXPOSE 9000
-
-ENTRYPOINT ["/var/www/docker-entrypoint.sh"]
+USER nobody

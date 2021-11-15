@@ -10,7 +10,6 @@
 /public/storage
 /storage/*.bucket
 /storage/*.key
-/storage/.install-completed
 /vendor
 npm-debug.log
 yarn-error.log
