@@ -41,7 +41,7 @@ more enjoyable for attendees and organisers alike.
 2. Copy `.env.example` to a new file named `.env`:
 
     ```bash
-    cd lanager
+    cd lanager-docker-compose
     cp .env.example .env
     ```
 
