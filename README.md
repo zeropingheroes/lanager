@@ -27,8 +27,9 @@ more enjoyable for attendees and organisers alike.
 
 ## Requirements
 
-* A server running [Docker](https://docker.com)
 * Internet access
+* [Docker Engine](https://docs.docker.com/engine/install/#server)
+* [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Setup
 
