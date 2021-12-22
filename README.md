@@ -63,7 +63,7 @@ more enjoyable for attendees and organisers alike.
 5. Bring up the application:
 
     ```bash
-   docker compose up --detach
+   docker-compose up --detach
     ```
 
 6. After waiting a minute for the database container to be ready, initialise the database:
@@ -78,7 +78,7 @@ the Docker host's firewall.
 
 ## Troubleshooting
 
-- Run `docker compose down --rmi local --volumes` to delete the database data and LANager container image, and then
+- Run `docker-compose down --rmi local --volumes` to delete the database data and LANager container image, and then
   retry the setup steps above
 - Edit your `.env` file and enable debugging:
   ```bash
@@ -90,7 +90,7 @@ the Docker host's firewall.
 If you get stuck, [create an issue](https://github.com/zeropingheroes/lanager/issues) with the details of what
 you're experincing:
 - The commands you've run
-- The output of `docker compose up`
+- The output of `docker-compose up`
 - The output of `docker logs app`
 - Any errors displayed in your browser
 
@@ -191,7 +191,7 @@ Run `./backup-restore.sh <file>` to restore a backup.
 ### Development environment setup
 
 To get LANager set up in a development environment, the steps are nearly identical to the production setup guide, but
-before running `docker compose up`, follow these steps:
+before running `docker-compose up`, follow these steps:
 1. Update these values in the `.env` file:
    ```
    APP_ENV=local
@@ -201,7 +201,7 @@ before running `docker compose up`, follow these steps:
    Docker to bind-mount the project directory on your host computer into the Docker container
 3. Run the command `UID=$(id -u) GID=$(id -g)` to give Docker your user's ID and group ID, so it can read and write
    to the project directory on your host computer
-4. Run  `docker compose up --detach`
+4. Run  `docker-compose up --detach`
 5. Visit `http://localhost`
 
 The container will run the code from your host computer, rather than the static copy of the code in the container's
@@ -209,13 +209,13 @@ image, so any changes you make to the files in the project directory will be see
 
 ### Start and stop the development environment
 
-To stop the development environment run `docker compose stop`. When you're ready to start developing again run
-`docker compose start`.
+To stop the development environment run `docker-compose stop`. When you're ready to start developing again run
+`docker-compose start`.
 
 ### Destroy the development environment
 
 To destroy the development environment and the database data volume, run:
-1. `docker compose down --volumes db-data && rm storage/.install-completed`
+1. `docker-compose down --volumes db-data && rm storage/.install-completed`
 
 Follow the setup steps above to get a fresh development environment.
 
