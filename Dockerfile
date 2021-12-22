@@ -8,7 +8,7 @@ RUN composer install \
   --optimize-autoloader \
   --no-interaction \
   --no-progress \
-  --no-dev
+  --no-scripts
 
 FROM trafex/alpine-nginx-php7:1.10.0
 
