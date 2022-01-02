@@ -187,6 +187,81 @@ Run `./backup.sh` to back up LANager's configuration, database data and uploaded
 
 Run `./backup-restore.sh <file>` to restore a backup.
 
+## Migrating an existing installation to Docker
+
+If you have an existing LANager installation that you would like to migrate to docker, follow the below steps.
+
+1. Create a temporary directory 
+  ```bash
+   mkdir -p /tmp/lanager/images
+   ```
+
+2. Dump your existing MySQL data into a file:
+  ```bash
+  sudo mysqldump -uroot --add-drop-database --databases lanager > /tmp/lanager/lanager.sql
+  ```
+
+3. Stop MySQL, Nginx & PHP running on your server:
+  ```bash
+  sudo systemctl stop mysql nginx php7.2-fpm
+  sudo systemctl start mysql nginx php7.2-fpm
+  ```
+
+4. Copy your existing uploaded images into the temporary directory:
+  ```bash
+  cp /var/www/lanager/storage/app/public/images/* /tmp/lanager/images
+  ```
+
+5. Back up your existing `.env` file:
+  ```bash
+  cp .env .env.original
+  ```
+
+6. Update your existing `.env` file:
+  ```bash
+  nano .env
+  ```
+  ```
+  APP_ENV=staging
+  DB_DATABASE=lanager
+  DB_HOST=db
+  DB_ROOT_PASSWORD= (generate a root password)
+  LOG_CHANNEL=stdout
+  APP_LOCALE=en
+  ```
+
+7. Bring the containers up:
+  ```bash
+  docker-compose up --detach
+  ```
+
+8. Load the environment file containing the database details into the current shell
+  ```bash
+  source .env
+  ```
+
+9. Restore the database data dump into the `db` container using a temporary mysql image:
+  ```bash
+  docker run -i -e "MYSQL_PWD=$DB_ROOT_PASSWORD" --network lanager_app-network --rm mysql:8 \
+  mysql "-h$DB_HOST" -uroot "$DB_DATABASE" < /tmp/lanager/lanager.sql
+  ```
+
+10. Restore the uploaded images into the Laravel storage volume:
+  ```bash
+    docker run --rm --volumes-from app -v /tmp/lanager/:/restore php:7.4-fpm cp /restore/images/* \
+  /var/www/lanager/storage/public/images/
+  ```
+
+11. Open your browser and test, and if all is well, uninstall MySQL, PHP and NGINX:
+  ```bash
+  sudo apt remove mysql nginx php7.2
+  ```
+
+13. Remove the temporary directory:
+  ```bash
+  rm -rf /tmp/lanager
+  ```
+
 ## Development
 
 ### Development environment setup
