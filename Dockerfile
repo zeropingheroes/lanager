@@ -20,7 +20,8 @@ RUN apk --no-cache add php7-xmlwriter php7-zip php7-pdo php7-pdo_mysql php7-toke
 # Copy in project code and dependencies from composer2 build stage
 COPY --chown=nginx --from=composer2 /app /var/www/lanager
 
-RUN chmod -R 777 /var/www/lanager/storage
+RUN chmod -R 777 /var/www/lanager/storage && \
+    ln -s /var/www/lanager/storage/app/public /var/www/lanager/public/storage
 
 WORKDIR /var/www/lanager
 
