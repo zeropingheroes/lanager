@@ -5,7 +5,7 @@ on:
     push:
         branches: [develop]
 
-defaults:
+jobs:
     # define job to build and publish docker image
     build-and-push-docker-image:
         name: Build Docker image and push to Docker hub
