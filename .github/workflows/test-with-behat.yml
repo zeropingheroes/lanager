@@ -55,4 +55,4 @@ jobs:
                 run: php artisan serve > /dev/null 2>&1 &
 
             -   name: Run Behat tests
-                run: vendor/bin/behat --config behat.yml features/events.feature
+                run: vendor/bin/behat --config behat.yml
