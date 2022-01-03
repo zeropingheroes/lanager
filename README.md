@@ -1,7 +1,9 @@
 LANager
 =======
-[![Build Status](https://app.travis-ci.com/zeropingheroes/lanager.svg?branch=develop)](
-https://app.travis-ci.com/zeropingheroes/lanager)
+[![Docker](https://github.com/zeropingheroes/lanager/actions/workflows/build-docker.yml/badge.svg?branch=develop)](
+https://github.com/zeropingheroes/lanager/actions/workflows/build-docker.yml)
+[![Behat](https://github.com/zeropingheroes/lanager/actions/workflows/run-behat.yml/badge.svg?branch=develop)](
+https://github.com/zeropingheroes/lanager/actions/workflows/run-behat.yml)
 [![StyleCI](https://github.styleci.io/repos/14088050/shield?branch=develop)](
 https://github.styleci.io/repos/14088050?branch=develop)
 
