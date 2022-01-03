@@ -193,7 +193,7 @@ Run `./backup-restore.sh <file>` to restore a backup.
 
 If you have an existing LANager installation that you would like to migrate to docker, follow the below steps.
 
-1. Create a temporary directory 
+1. Create a temporary directory
   ```bash
    mkdir -p /tmp/lanager/images
    ```
@@ -296,6 +296,15 @@ To destroy the development environment and the database data volume, run:
 1. `docker-compose down --volumes db-data && rm storage/.install-completed`
 
 Follow the setup steps above to get a fresh development environment.
+
+### Enable pre-commit hooks
+
+To automatically check for and fix problems with your code before you commit:
+1. Install [pre-commit](https://pre-commit.com/)
+2. Install [PHP Codesniffer & Code beautifier](https://github.com/squizlabs/PHP_CodeSniffer)
+3. From the `lanager/` directory, run `pre-commit install`
+
+To check your code, run `pre-commit run --all-files` or attempt to run `git commit`
 
 ### Recompiling JavaScript & CSS assets
 
