@@ -34,7 +34,7 @@ jobs:
                 run: sudo /etc/init.d/mysql start
 
             -   name: Create database
-                run: echo #mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }} -p${{ env.DB_PASSWORD }}
+                run: mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }} -p${{ env.DB_PASSWORD }}
 
             -   name: Checkout code
                 uses: actions/checkout@v2
