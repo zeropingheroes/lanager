@@ -1,0 +1,58 @@
+name: Test with Behat
+
+on:
+    push:
+        branches: [ develop ]
+
+jobs:
+    behat:
+        name: Test with Behat
+        runs-on: ubuntu-latest
+        env:
+            APP_KEY: ${{ secrets.APP_KEY }}
+            APP_URL: http://localhost:8000/
+            APP_ENV: testing
+            APP_TIMEZONE: UTC
+            APP_LOCALE: en
+            APP_DEBUG: true
+            STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+            GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+            DB_CONNECTION: mysql
+            DB_HOST: localhost
+            DB_PORT: 3306
+            DB_DATABASE: lanager
+            DB_USERNAME: root
+            DB_PASSWORD: root
+            CACHE_DRIVER: file
+            SESSION_DRIVER: database
+            SESSION_LIFETIME: 7200
+            LOG_CHANNEL: file
+            BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://localhost:8000/"}}}'
+
+        steps:
+            -   name: Start MySQL
+                run: sudo /etc/init.d/mysql start
+
+            -   name: Create database
+                run: echo #mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }} -p${{ env.DB_PASSWORD }}
+
+            -   name: Checkout code
+                uses: actions/checkout@v2
+
+            -   name: Set up PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '7.4'
+                    extensions: xmlwriter, zip, pdo, pdo_mysql, tokenizer, simplexml, bcmath
+
+            -   name: Install Composer dependencies
+                run: composer install --prefer-dist --no-scripts --no-interaction
+
+            -   name: Link Laravel storage directory
+                run: php artisan storage:link
+
+            -   name: Start built-in webserver
+                run: php artisan serve > /dev/null 2>&1 &
+
+            -   name: Run Behat tests
+                run: vendor/bin/behat --config behat.yml features/events.feature
