@@ -3,7 +3,10 @@ name: Behat
 on:
     push:
         branches: [ develop ]
-
+        paths:
+            - '**.php'
+            - '**.json'
+            - '**.lock'
 jobs:
     behat:
         name: Test with Behat
