@@ -15,7 +15,13 @@ FROM trafex/alpine-nginx-php7:1.10.0
 USER root
 
 # Install binary dependencies
-RUN apk --no-cache add php7-xmlwriter php7-zip php7-pdo php7-pdo_mysql php7-tokenizer php7-simplexml php7-bcmath
+RUN apk --no-cache add php7-xmlwriter=7.4.26-r0 \
+                       php7-zip=7.4.26-r0 \
+                       php7-pdo=7.4.26-r0 \
+                       php7-pdo_mysql=7.4.26-r0 \
+                       php7-tokenizer=7.4.26-r0 \
+                       php7-simplexml=7.4.26-r0 \
+                       php7-bcmath=7.4.26-r0
 
 # Copy in project code and dependencies from composer2 build stage
 COPY --chown=nginx --from=composer2 /app /var/www/lanager
