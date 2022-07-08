@@ -22,7 +22,7 @@
         "laravel-localization-loader": "^1.0.5",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.11",
-        "moment": "^2.22.1",
+        "moment": "^2.29.4",
         "moment-timezone": "^0.5.17",
         "open-iconic": "^1.1.1",
         "popper.js": "^1.12",
