@@ -22,7 +22,7 @@ more enjoyable for attendees and organisers alike.
 * **Games recently played** - showing the top games most recently played by attendees at the LAN
 
 ### Broadcast useful information
-* **Live Dashboard** - showing games attendees are currently playing, and current and upcoming events, for TVs or
+* **Slides** - showing games attendees are currently playing, and current and upcoming events, for TVs or
   projectors around your venue
 * **Guides** - written by you, to help attendees learn about things like venue facilities, rules, or gameplay guides
 * **Links** - to other websites, such as your organisation's website, or a game statistics page
@@ -155,17 +155,14 @@ You can upload images to LAN pages, Events and Guides. To do this, follow these 
 4. Paste the markdown into the guide, event or LAN's **description** field, in the location you want it to appear in the
 text.
 
-### Display the Live Dashboard
+### Display slides
 
-The Live Dashboard make it easy for your attendees to see at a glance which games are being played, events that are in
-progress, and any that are upcoming.
+The slides feature allows you to display a looping slideshow of live data and useful info for your attendees, such as
+which event is starting next, which games people are playing, and how to log into the LANager.
 
-To display the Live Dashboard, go to ⚙ > **Dashboard**. Alternatively, if you aren't logged in, visit the following
-URL:
+To display the slideshow, log in as an admin, and navigate to ⚙ > **LANs** > *(your LAN)* > **Slides**.
 
-`http://(your LANager install's address)/dashboard`
-
-It's useful to display this on a TV or projector that everyone can see.
+Load the slideshow on a big TV or projector so that attendees can see the info easily. 
 
 ### Create and award Achievements
 
@@ -360,6 +357,8 @@ To recompile minified versions suitable for committing, run:
 1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run prod`
 
 ### Running tests
+
+WARNING: Running the test suite will clear the database
 
 To run the functional test suite, run:
 1. `docker exec -it app sh`
