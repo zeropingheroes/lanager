@@ -358,20 +358,54 @@ To recompile minified versions suitable for committing, run:
 
 ### Running tests
 
-WARNING: Running the test suite will clear the database
+Before submitting pull requests, please run the functional test suite to check your changes don't break existing
+functionality.
 
-To run the functional test suite, run:
-1. `docker exec -it app sh`
-2. `php artisan serve --env=testing &`
-3. `export BEHAT_PARAMS='{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://localhost:8000/"}}}';`
-4. `vendor/bin/behat`
+**WARNING**: Running the test suite will clear the database.
 
-To re-run tests, simply re-run `vendor/bin/behat`.
+
+1. Edit `lanager-docker-compose/.env` and set the following variables:
+
+   ```bash
+   APP_ENV=testing
+   APP_DEBUG=false
+   ```
+
+2. Restart the containers with the new variables
+
+   ```bash
+   docker-compose down
+   docker-compose up --detach
+   ```
+
+3. Open an interactive shell in the `app` container
+
+   ```bash
+   docker exec -it app sh
+   ```
+
+4. Start Laravel's built-in webserver, and send it into the background
+
+   ```bash
+   php artisan serve --env=testing &
+   ```
+
+5. Set the base URL for Behat & Mink
+
+   ```bash
+   export BEHAT_PARAMS='{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://localhost:8000/"}}}';
+   ```
+
+6. Run the Behat tests
+
+   ```bash
+   vendor/bin/behat
+   ```
 
 Once you've finished running tests:
 1. Run `fg` to bring Laravel's built-in webserver to the foreground
-2. Press ctrl + C to exit Laravel's built-in webserver
-3. Press ctrl + D to exit the container's shell
+2. Press `ctrl + C` to exit Laravel's built-in webserver
+3. Press `ctrl + D` to exit the container's shell
 
 ## Feedback & Contributions
 
