@@ -91,7 +91,7 @@ the Docker host's firewall.
   **Important:** Remove these lines after troubleshooting to avoid leaking sensitive data
 
 If you get stuck, [create an issue](https://github.com/zeropingheroes/lanager/issues) with the details of what
-you're experincing:
+you're experiencing:
 - The commands you've run
 - The output of `docker-compose up`
 - The output of `docker logs app`
@@ -115,11 +115,11 @@ The first thing you need to do is to create a LAN page in the LANager. This proc
 is one day or multiple days. You need to do this before you can create an event schedule, publish any guides or award
 achievements.
 
-Log into the LANanger, and go to ⚙ > **LANs**, then select the **+** button to go to the LAN page creation form. Enter
-your LAN's details, and add a description with [markdown formatting](https://en.wikipedia.org/wiki/Markdown#Example)
+Log into the LANager, and go to ⚙ > **LANs**, then select the **+** button to go to the LAN page creation form. Enter
+your LAN's details, and add a description with [Markdown formatting](https://en.wikipedia.org/wiki/Markdown#Example)
 if you want to.
 
-The LANager automatically adds anyone who signs into the LANager during the LAN party to the LAN's list of attendees.
+The LANager automatically adds anyone who logs into the LANager during the LAN party to the LAN's list of attendees.
 For each attendee it displays the current LAN page, which contains the LAN's timetabled events, guides and attendees
 list.
 
@@ -268,32 +268,69 @@ If you have an existing LANager installation that you would like to migrate to d
 
 ### Development environment setup
 
-To get LANager set up in a development environment, the steps are nearly identical to the production setup guide, but
-before running `docker-compose up`, follow these steps:
-1. Update these values in the `.env` file:
+1. Follow the steps from the *Setup* section above
+
+2. Stop the running containers
+
+   ```bash
+   docker-compose down
    ```
+
+3. Edit `lanager-docker-compose/.env` and update the following variables:
+
+   ```bash
    APP_ENV=local
    APP_DEBUG=true
    ```
-2. Make a copy of `docker-compose.override.yml.example` and name it `docker-compose.override.yml`, to configure
-   Docker to bind-mount the project directory on your host computer into the Docker container
-3. Run the command `UID=$(id -u) GID=$(id -g)` to give Docker your user's ID and group ID, so it can read and write
-   to the project directory on your host computer
-4. Run  `docker-compose up --detach`
-5. Visit `http://localhost`
+
+4. In a directory outside of `lanager-docker-compose`, clone the `lanager` repository:
+
+    ```bash
+    git clone --branch develop https://github.com/zeropingheroes/lanager
+    ```
+
+5. Install [`composer`](https://getcomposer.org/download/) on your host computer
+
+6. From the `lanager` directory, install composer dependencies:
+
+   ```bash
+   composer install --no-scripts
+   ```
+
+7. Set an environment variable with the path to where you cloned the `lanager` repository (without a trailing slash)
+
+   ```bash
+   export PATH_TO_LANAGER=/path/to/lanager
+   ```
+
+8. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into
+   `docker-compose.override.yml`:
+
+   ```bash
+   envsubst < docker-compose.override.yml.example > docker-compose.override.yml
+   ```
+
+9. Run `docker-compose up --detach`
+
+10. After a minute or so, visit `http://localhost`
 
 The container will run the code from your host computer, rather than the static copy of the code in the container's
-image, so any changes you make to the files in the project directory will be seen by the running containers.
+image, so any changes you make to the files in the project directory (except for the `storage/` directory)
+will be seen by the running containers.
 
 ### Start and stop the development environment
 
-To stop the development environment run `docker-compose stop`. When you're ready to start developing again run
-`docker-compose start`.
+To stop the development environment run `docker-compose stop`.
+
+When you're ready to start developing again run `docker-compose start`.
 
 ### Destroy the development environment
 
-To destroy the development environment and the database data volume, run:
-1. `docker-compose down --volumes db-data && rm storage/.install-completed`
+To destroy the development environment and all volumes that store lanager data, run:
+
+```bash
+docker-compose down --volumes
+```
 
 Follow the setup steps above to get a fresh development environment.
 
@@ -321,7 +358,7 @@ To recompile minified versions suitable for committing, run:
 ### Running tests
 
 To run the functional test suite, run:
-1. `docker exec -it bash`
+1. `docker exec -it app sh`
 2. `php artisan serve --env=testing &`
 3. `export BEHAT_PARAMS='{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://localhost:8000/"}}}';`
 4. `vendor/bin/behat`
@@ -330,7 +367,7 @@ To re-run tests, simply re-run `vendor/bin/behat`.
 
 Once you've finished running tests:
 1. Run `fg` to bring Laravel's built-in webserver to the foreground
-2. Press ctrl + C to exit it
+2. Press ctrl + C to exit Laravel's built-in webserver
 3. Press ctrl + D to exit the container's shell
 
 ## Feedback & Contributions
