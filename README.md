@@ -276,7 +276,7 @@ If you have an existing LANager installation that you would like to migrate to d
    docker-compose down
    ```
 
-3. Edit `lanager-docker-compose/.env` and update the following variables:
+3. Edit `lanager-docker-compose/.env` and add the following lines:
 
    ```bash
    APP_ENV=local
@@ -310,7 +310,11 @@ If you have an existing LANager installation that you would like to migrate to d
    envsubst < docker-compose.override.yml.example > docker-compose.override.yml
    ```
 
-9. Run `docker-compose up --detach`
+9. Start the containers
+
+    ```bash
+    docker-compose up --detach
+    ```
 
 10. After a minute or so, visit `http://localhost`
 
