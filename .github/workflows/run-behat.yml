@@ -58,7 +58,7 @@ jobs:
                 run: php artisan migrate
 
             -   name: Seed database
-                run: php artisan db:seed
+                run: php artisan db:seed --class="Database\\Seeders\\DatabaseSeeder"
 
             -   name: Start built-in webserver
                 run: php artisan serve > /dev/null 2>&1 &
