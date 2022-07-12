@@ -9,9 +9,8 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Testwork\Tester\Result\TestResult;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
-use Zeropingheroes\Lanager\Console\Kernel;
 use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
@@ -23,7 +22,6 @@ use Zeropingheroes\Lanager\Venue;
  */
 class FeatureContext extends TestCase implements Context
 {
-    use DatabaseMigrations;
 
     /** @var MinkContext */
     private MinkContext $minkContext;
@@ -38,8 +36,6 @@ class FeatureContext extends TestCase implements Context
     public function __construct()
     {
         parent::setUp();
-        $this->artisan('db:seed', ['--class' => 'Database\\Seeders\\DatabaseSeeder']);
-        $this->app[Kernel::class]->setArtisan(null);
     }
 
     /**
@@ -50,6 +46,33 @@ class FeatureContext extends TestCase implements Context
     {
         $environment = $scope->getEnvironment();
         $this->minkContext = $environment->getContext('Features\bootstrap\MyMinkContext');
+    }
+
+    /**
+     * @BeforeScenario
+     */
+    public function deleteDatabaseData()
+    {
+        DB::table('achievements')->delete();
+        DB::table('allowed_ip_ranges')->delete();
+        DB::table('event_signups')->delete();
+        DB::table('events')->delete();
+        DB::table('guides')->delete();
+        DB::table('lan_attendees')->delete();
+        DB::table('lan_game_votes')->delete();
+        DB::table('lan_games')->delete();
+        DB::table('lans')->delete();
+        DB::table('navigation_links')->delete();
+        DB::table('role_assignments')->delete();
+        DB::table('sessions')->delete();
+        DB::table('slides')->delete();
+        DB::table('steam_user_app_sessions')->delete();
+        DB::table('steam_user_apps')->delete();
+        DB::table('steam_user_metadata')->delete();
+        DB::table('user_achievements')->delete();
+        DB::table('user_oauth_accounts')->delete();
+        DB::table('users')->delete();
+        DB::table('venues')->delete();
     }
 
     /**
