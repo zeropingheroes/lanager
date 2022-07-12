@@ -22,7 +22,6 @@ use Zeropingheroes\Lanager\Venue;
  */
 class FeatureContext extends TestCase implements Context
 {
-
     /** @var MinkContext */
     private MinkContext $minkContext;
 
