@@ -54,6 +54,12 @@ jobs:
             -   name: Link Laravel storage directory
                 run: php artisan storage:link
 
+            -   name: Run database migrations
+                run: php artisan migrate
+
+            -   name: Seed database
+                run: php artisan db:seed
+
             -   name: Start built-in webserver
                 run: php artisan serve > /dev/null 2>&1 &
 
