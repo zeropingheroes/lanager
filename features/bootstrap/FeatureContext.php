@@ -143,9 +143,9 @@ class FeatureContext extends TestCase implements Context
     /**
      * @Given /^the following LAN exists:$/
      */
-    public function theFollowingLANExists(TableNode $lan)
+    public function theFollowingLANExists(TableNode $lans)
     {
-        foreach ($lan as $lan) {
+        foreach ($lans as $lan) {
             $lan['published'] = $lan['published'] == 'yes' ? 1 : 0;
             Lan::create(
                 [
@@ -163,9 +163,9 @@ class FeatureContext extends TestCase implements Context
     /**
      * @Given /^the following event exists:$/
      */
-    public function theFollowingEventExists(TableNode $event)
+    public function theFollowingEventExists(TableNode $events)
     {
-        foreach ($event as $event) {
+        foreach ($events as $event) {
             $event['published'] = $event['published'] == 'yes' ? 1 : 0;
             Event::create(
                 [
