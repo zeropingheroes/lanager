@@ -22,6 +22,7 @@ more enjoyable for attendees and organisers alike.
 * **Games recently played** - showing the top games most recently played by attendees at the LAN
 
 ### Broadcast useful information
+
 * **Slides** - showing games attendees are currently playing, and current and upcoming events, for TVs or
   projectors around your venue
 * **Guides** - written by you, to help attendees learn about things like venue facilities, rules, or gameplay guides
@@ -49,24 +50,28 @@ more enjoyable for attendees and organisers alike.
     ```
 
 3. Open the environment configuration file in a text editor:
-   ```bash
-   nano .env
-   ```
+
+    ```bash
+    nano .env
+    ```
 
 4. Set the following configuration items:
-   1. Set `APP_KEY` to `base64:` followed by a [randomly generated 32 character base64 string](https://www.google.com/search?q=random+base64)
-   2. Set `APP_URL` to the URL you will access LANager through, including the trailing slash, e.g. `https://example.com/`
-   3. Set `APP_TIMEZONE` to your location's [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
-   4. Set `STEAM_API_KEY` to your [Steam API Key](http://steamcommunity.com/dev/apikey)
-   5. Set `GOOGLE_API_KEY` to your [Google API Key](https://console.cloud.google.com/apis/) with access to the [Maps
-  embed API](https://developers.google.com/maps/documentation/embed/map-generator)
-   6. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator)
-   7. Set `DB_ROOT_PASSWORD` to a different randomly generated password
+    1. Set `APP_KEY` to `base64:` followed by
+       a [randomly generated 32 character base64 string](https://www.google.com/search?q=random+base64)
+    2. Set `APP_URL` to the URL you will access LANager through, including the trailing slash,
+       e.g. `https://example.com/`
+    3. Set `APP_TIMEZONE` to your
+       location's [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
+    4. Set `STEAM_API_KEY` to your [Steam API Key](http://steamcommunity.com/dev/apikey)
+    5. Set `GOOGLE_API_KEY` to your [Google API Key](https://console.cloud.google.com/apis/) with access to the [Maps
+       embed API](https://developers.google.com/maps/documentation/embed/map-generator)
+    6. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator)
+    7. Set `DB_ROOT_PASSWORD` to a different randomly generated password
 
 5. Bring up the application:
 
     ```bash
-   docker-compose up --detach
+    docker-compose up --detach
     ```
 
 6. After waiting a minute for the database container to be ready, initialise the database:
@@ -84,14 +89,15 @@ the Docker host's firewall.
 - Run `docker-compose down --rmi local --volumes` to delete the database data and LANager container image, and then
   retry the setup steps above
 - Edit your `.env` file and enable debugging:
-  ```bash
-  APP_ENV=staging
-  APP_DEBUG=true
-  ```
+    ```bash
+    APP_ENV=staging
+    APP_DEBUG=true
+    ```
   **Important:** Remove these lines after troubleshooting to avoid leaking sensitive data
 
 If you get stuck, [create an issue](https://github.com/zeropingheroes/lanager/issues) with the details of what
 you're experiencing:
+
 - The commands you've run
 - The output of `docker-compose up`
 - The output of `docker logs app`
@@ -128,10 +134,10 @@ list.
 Once you have a LAN page for your LAN party, you can create Events and Guides to help attendees enjoy your party.
 
 * **Events** are a useful way to timetable game tournaments, highlight big game sessions, schedule breaks and mealtimes,
-and let people know when it's time to go home
+  and let people know when it's time to go home
 * **Guides** are a useful way to provide people with the rules and download links to the games you're playing, to let
-them know where the nearest shops and restaurants are, to provide a code of conduct for your event, and to communicate
-any other information you think your guests might need.
+  them know where the nearest shops and restaurants are, to provide a code of conduct for your event, and to communicate
+  any other information you think your guests might need.
 
 From the LAN page, click the **+** button next to the **Events** and **Guides** headings to go to their creation forms.
 
@@ -153,7 +159,7 @@ You can upload images to LAN pages, Events and Guides. To do this, follow these 
 2. Upload the image you want to use.
 3. Next to the image, select ⚙ > **Copy Markdown**
 4. Paste the markdown into the guide, event or LAN's **description** field, in the location you want it to appear in the
-text.
+   text.
 
 ### Display slides
 
@@ -162,7 +168,7 @@ which event is starting next, which games people are playing, and how to log int
 
 To display the slideshow, log in as an admin, and navigate to ⚙ > **LANs** > *(your LAN)* > **Slides**.
 
-Load the slideshow on a big TV or projector so that attendees can see the info easily. 
+Load the slideshow on a big TV or projector so that attendees can see the info easily.
 
 ### Create and award Achievements
 
@@ -191,75 +197,88 @@ Run `./backup-restore.sh <file>` to restore a backup.
 If you have an existing LANager installation that you would like to migrate to docker, follow the below steps.
 
 1. Create a temporary directory
-  ```bash
-   mkdir -p /tmp/lanager/images
-   ```
+
+    ```bash
+    mkdir -p /tmp/lanager/images
+    ```
 
 2. Dump your existing MySQL data into a file:
-  ```bash
-  sudo mysqldump -uroot --add-drop-database --databases lanager > /tmp/lanager/lanager.sql
-  ```
+
+    ```bash
+    sudo mysqldump -uroot --add-drop-database --databases lanager > /tmp/lanager/lanager.sql
+    ```
 
 3. Stop MySQL, Nginx & PHP running on your server:
-  ```bash
-  sudo systemctl stop mysql nginx php7.2-fpm
-  sudo systemctl start mysql nginx php7.2-fpm
-  ```
+
+    ```bash
+    sudo systemctl stop mysql nginx php7.2-fpm
+    sudo systemctl start mysql nginx php7.2-fpm
+    ```
 
 4. Copy your existing uploaded images into the temporary directory:
-  ```bash
-  cp /var/www/lanager/storage/app/public/images/* /tmp/lanager/images
-  ```
+
+    ```bash
+    cp /var/www/lanager/storage/app/public/images/* /tmp/lanager/images
+    ```
 
 5. Back up your existing `.env` file:
-  ```bash
-  cp .env .env.original
-  ```
+
+    ```bash
+    cp .env .env.original
+    ```
 
 6. Update your existing `.env` file:
-  ```bash
-  nano .env
-  ```
-  ```
-  APP_ENV=staging
-  DB_DATABASE=lanager
-  DB_HOST=db
-  DB_ROOT_PASSWORD= (generate a root password)
-  LOG_CHANNEL=stdout
-  APP_LOCALE=en
-  ```
+
+    ```bash
+    nano .env
+    ```
+
+    ```
+    APP_ENV=staging
+    DB_DATABASE=lanager
+    DB_HOST=db
+    DB_ROOT_PASSWORD= (generate a root password)
+    LOG_CHANNEL=stdout
+    APP_LOCALE=en
+    ```
 
 7. Bring the containers up:
-  ```bash
-  docker-compose up --detach
-  ```
+
+    ```bash
+    docker-compose up --detach
+    ```
 
 8. Load the environment file containing the database details into the current shell
-  ```bash
-  source .env
-  ```
+
+    ```bash
+    source .env
+    ```
 
 9. Restore the database data dump into the `db` container using a temporary mysql image:
-  ```bash
-  docker run -i -e "MYSQL_PWD=$DB_ROOT_PASSWORD" --network lanager_app-network --rm mysql:8 \
-  mysql "-h$DB_HOST" -uroot "$DB_DATABASE" < /tmp/lanager/lanager.sql
-  ```
+
+    ```bash
+    docker run -i -e "MYSQL_PWD=$DB_ROOT_PASSWORD" --network lanager_app-network --rm mysql:8 \
+    mysql "-h$DB_HOST" -uroot "$DB_DATABASE" < /tmp/lanager/lanager.sql
+    ```
 
 10. Restore the uploaded images into the Laravel storage volume:
-  ```bash
-    docker run --rm --volumes-from app -v /tmp/lanager/:/restore php:7.4-fpm cp /restore/images/* \
-  /var/www/lanager/storage/public/images/
-  ```
+
+    ```bash
+      docker run --rm --volumes-from app -v /tmp/lanager/:/restore php:7.4-fpm cp /restore/images/* \
+    /var/www/lanager/storage/public/images/
+    ```
 
 11. Open your browser and test, and if all is well, uninstall MySQL, PHP and NGINX:
-  ```bash
-  sudo apt remove mysql nginx php7.2
-  ```
 
-13. Remove the temporary directory:
-  ```bash
-  rm -rf /tmp/lanager
-  ```
+    ```bash
+    sudo apt remove mysql nginx php7.2
+    ```
+
+12. Remove the temporary directory:
+
+    ```bash
+    rm -rf /tmp/lanager
+    ```
 
 ## Development
 
@@ -269,43 +288,43 @@ If you have an existing LANager installation that you would like to migrate to d
 
 2. Stop the running containers
 
-   ```bash
-   docker-compose down
-   ```
+    ```bash
+    docker-compose down
+    ```
 
 3. Edit `lanager-docker-compose/.env` and add the following lines:
 
-   ```bash
-   APP_ENV=local
-   APP_DEBUG=true
-   ```
+    ```bash
+    APP_ENV=local
+    APP_DEBUG=true
+    ```
 
 4. In a directory outside of `lanager-docker-compose`, clone the `lanager` repository:
 
     ```bash
     git clone --branch develop https://github.com/zeropingheroes/lanager
-    ```
+     ```
 
 5. Install [`composer`](https://getcomposer.org/download/) on your host computer
 
 6. From the `lanager` directory, install composer dependencies:
 
-   ```bash
-   composer install --no-scripts
-   ```
+    ```bash
+    composer install --no-scripts
+    ```
 
 7. Set an environment variable with the path to where you cloned the `lanager` repository (without a trailing slash)
 
-   ```bash
-   export PATH_TO_LANAGER=/path/to/lanager
-   ```
+    ```bash
+    export PATH_TO_LANAGER=/path/to/lanager
+    ```
 
 8. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into
    `docker-compose.override.yml`:
 
-   ```bash
-   envsubst < docker-compose.override.yml.example > docker-compose.override.yml
-   ```
+    ```bash
+    envsubst < docker-compose.override.yml.example > docker-compose.override.yml
+    ```
 
 9. Start the containers
 
@@ -338,6 +357,7 @@ Follow the setup steps above to get a fresh development environment.
 ### Enable pre-commit hooks
 
 To automatically check for and fix problems with your code before you commit:
+
 1. Install [pre-commit](https://pre-commit.com/)
 2. Install [PHP Codesniffer & Code beautifier](https://github.com/squizlabs/PHP_CodeSniffer)
 3. From the `lanager/` directory, run `pre-commit install`
@@ -347,13 +367,16 @@ To check your code, run `pre-commit run --all-files` or attempt to run `git comm
 ### Recompiling JavaScript & CSS assets
 
 To recompile JavaScript & CSS assets, run:
+
 1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm install`
 2. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run dev`
 
 To recompile whenever changes to files are detected, run:
+
 1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run watch-poll`
 
 To recompile minified versions suitable for committing, run:
+
 1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run prod`
 
 ### Running tests
@@ -365,7 +388,8 @@ Run `./run-tests.sh` to run LANager's functional test suite.
 
 ## Feedback & Contributions
 
-* Found a bug? Got a great feature idea? Post it to the [issue tracker](https://github.com/zeropingheroes/lanager/issues)!
+* Found a bug? Got a great feature idea? Post it to
+  the [issue tracker](https://github.com/zeropingheroes/lanager/issues)!
 * Want to contribute?
     * [Fork the project](https://github.com/zeropingheroes/lanager/fork) and add the features you want to see.
     * Work on new features / bug fixes in the [issue tracker](https://github.com/zeropingheroes/lanager/issues).
