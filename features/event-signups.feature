@@ -18,11 +18,13 @@ Feature: Event signups
             | name     | description       | start  | end     | signups_open | signups_close | lan              | published |
             | wipE'out | A dangerous game. | 1 hour | 2 hours | now          | 30 minutes    | Hack the planet! | yes       |
         And I am logged in as "Cereal Killer"
+
         When I go to the homepage
         And I follow "Events"
         And I follow "List"
         And I follow "wipE'out"
         And I press "Sign up"
+
         Then I should see "Cereal Killer"
 
     Scenario: When a user removes their signup from an event which is open for signups, they do not show on the event page
@@ -32,11 +34,13 @@ Feature: Event signups
 #            | wipE'out | A dangerous game. | 1 hour | 2 hours | now          | 30 minutes    | Hack the planet! | yes       |
 #        And "Cereal Killer" is signed up to event "wipE'out"
 #        And I am logged in as "Cereal Killer"
+#
 #        When I go to the homepage
 #        And I follow "Events"
 #        And I follow "List"
 #        And I follow "wipE'out"
 #        And I follow "Delete"
+#
 #        Then I should not see "Cereal Killer"
 
     Scenario: When a user visits the page for an event which is not yet open for signups, they do not see the signup button
@@ -44,10 +48,12 @@ Feature: Event signups
             | name     | description       | start  | end     | signups_open | signups_close | lan              | published |
             | wipE'out | A dangerous game. | 1 hour | 2 hours | 30 minutes   | 45 minutes    | Hack the planet! | yes       |
         And I am logged in as "Cereal Killer"
+
         When I go to the homepage
         And I follow "Events"
         And I follow "List"
         And I follow "wipE'out"
+
         Then I should not see "Sign up"
 
     Scenario: When a user visits the page for an event which is no longer open for signups, they do not see the signup button
@@ -55,8 +61,10 @@ Feature: Event signups
             | name     | description       | start  | end     | signups_open | signups_close  | lan              | published |
             | wipE'out | A dangerous game. | 1 hour | 2 hours | 1 hour ago   | 30 minutes ago | Hack the planet! | yes       |
         And I am logged in as "Cereal Killer"
+
         When I go to the homepage
         And I follow "Events"
         And I follow "List"
         And I follow "wipE'out"
+
         Then I should not see "Sign up"

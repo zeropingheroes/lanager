@@ -15,6 +15,7 @@ Feature: Guides
 
     Scenario: Admin publishes a guide
         Given I am logged in as "Zero Cool"
+
         When I go to the homepage
         And I follow "Guides"
         And I follow "Create"
@@ -30,6 +31,7 @@ Feature: Guides
         And I press "Submit"
         And I go to the homepage
         And I follow "Guides"
+
         Then I should see "Acid Burn's Laptop"
 
     Scenario: Unauthenticated user visits the guide page and can't see an unpublished guide
@@ -37,8 +39,10 @@ Feature: Guides
             | title              | content                                          | published | lan              |
             | Acid Burn's Laptop | RISC architecture is going to change everything. | no        | Hack the planet! |
             | Guide to IBM PCs   | The Pink Shirt Book.                             | yes       | Hack the planet! |
+
         When I go to the homepage
         And I follow "Guides"
+
         Then I should not see "Acid Burn's Laptop"
         And I should see "Guide to IBM PCs"
 
@@ -47,6 +51,7 @@ Feature: Guides
             | title              | content                                          | published | lan              |
             | Acid Burn's Laptop | RISC architecture is going to change everything. | no        | Hack the planet! |
         And I am logged in as "Zero Cool"
+
         When I go to the homepage
         And I follow "Guides"
         And I follow "Acid Burn's Laptop"
@@ -59,6 +64,7 @@ Feature: Guides
         And I go to the homepage
         And I follow "Guides"
         And I follow "Acid Burn's Laptop"
+
         Then I should see "It's got a 28.8 bps modem"
         And I should not see "RISC architecture"
 
@@ -70,10 +76,12 @@ Feature: Guides
             | title              | content                                          | published | lan              |
             | Acid Burn's Laptop | RISC architecture is going to change everything. | no        | Hack the planet! |
         And I am logged in as "Zero Cool"
+
         When I go to the homepage
         And I follow "Guides"
         And I follow "Acid Burn's Laptop"
         And I follow "Edit"
         And I uncheck "Published"
         And I press "Submit"
+
         Then I should see "This guide is unpublished and only visible to administrators"

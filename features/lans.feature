@@ -12,6 +12,7 @@ Feature: LANs
 
     Scenario: Creating a new LAN
         When I go to the homepage
+
         And I follow "LANs"
         And I follow "Create"
         And I fill in "Name" with "Hack the planet!"
