@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use Zeropingheroes\Lanager\Achievement;
+use Zeropingheroes\Lanager\Attendee;
 use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\Guide;
 use Zeropingheroes\Lanager\Lan;
@@ -226,5 +227,18 @@ class FeatureContext extends TestCase implements Context
                 ]
             );
         }
+    }
+
+    /**
+     * @Given /^the user "([^"]*)" has attended the LAN "([^"]*)"$/
+     */
+    public function theUserHasAttendedTheLAN($username, $lanName)
+    {
+        Attendee::create(
+            [
+                'user_id' => User::where('username', $username)->first()->id,
+                'lan_id' => Lan::where('name', $lanName)->first()->id,
+            ]
+        )->touch();
     }
 }
