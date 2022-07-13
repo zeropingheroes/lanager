@@ -9,6 +9,7 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Testwork\Tester\Result\TestResult;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use Zeropingheroes\Lanager\Event;
@@ -151,8 +152,8 @@ class FeatureContext extends TestCase implements Context
                 [
                     'name' => $lan['name'],
                     'description' => $lan['description'],
-                    'start' => $lan['start'],
-                    'end' => $lan['end'],
+                    'start' => Carbon::parse($lan['start']),
+                    'end' => Carbon::parse($lan['end']),
                     'venue_id' => Venue::where('name', '=', $lan['venue'])->first()->id,
                     'published' => $lan['published'],
                 ]
@@ -171,10 +172,10 @@ class FeatureContext extends TestCase implements Context
                 [
                     'name' => $event['name'],
                     'description' => $event['description'],
-                    'start' => $event['start'],
-                    'end' => $event['end'],
-                    'signups_open' => $event['signups_open'] ?? $event['signups_open'] ?? null,
-                    'signups_close' => $event['signups_close'] ?? $event['signups_close'] ?? null,
+                    'start' => Carbon::parse($event['start']),
+                    'end' => Carbon::parse($event['end']),
+                    'signups_open' => isset($event['signups_open']) ? Carbon::parse($event['signups_open']) : null,
+                    'signups_close' => isset($event['signups_close']) ? Carbon::parse($event['signups_close']) : null,
                     'lan_id' => Lan::where('name', '=', $event['lan'])->first()->id,
                     'published' => $event['published'],
                 ]
