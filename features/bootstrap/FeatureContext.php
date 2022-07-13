@@ -12,6 +12,7 @@ use Behat\Testwork\Tester\Result\TestResult;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
+use Zeropingheroes\Lanager\Achievement;
 use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\Guide;
 use Zeropingheroes\Lanager\Lan;
@@ -206,6 +207,22 @@ class FeatureContext extends TestCase implements Context
                     'content' => $guide['content'],
                     'lan_id' => Lan::where('name', '=', $guide['lan'])->first()->id,
                     'published' => $guide['published'],
+                ]
+            );
+        }
+    }
+
+    /**
+     * @Given /^the following achievements exist:$/
+     */
+    public function theFollowingAchievementsExist(TableNode $achievements)
+    {
+        foreach ($achievements as $achievement) {
+            Achievement::create(
+                [
+                    'name' => $achievement['name'],
+                    'description' => $achievement['description'],
+                    'lan_id' => Lan::where('name', '=', $achievement['lan'])->first()->id,
                 ]
             );
         }
