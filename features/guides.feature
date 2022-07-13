@@ -68,8 +68,8 @@ Feature: Guides
         Then I should see "It's got a 28.8 bps modem"
         And I should not see "RISC architecture"
 
-    Scenario: Admin deletes an existing guide
-        # TODO: Requires Selenium due to Javascript being used for "delete" button
+#    TODO: Requires Selenium due to Javascript being used for "delete" button
+#    Scenario: Admin deletes an existing guide
 
     Scenario: Admin un-publishes existing guide
         Given the following guides exist:

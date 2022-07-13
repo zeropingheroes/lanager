@@ -40,15 +40,14 @@ Feature:
 
         Then I should see "A Minor Glitch"
 
-    Scenario: Deleting an achievement
-        # TODO: Requires Selenium due to Javascript being used for "delete" button
-
-    Scenario: Awarding an achievement
-
-        # TODO: Feature currently broken
-        # Given the following achievements exist:
-        #     | name              | description                     | lan              |
-        #    | Hacked The Gibson | "God" wouldn't be up this late. | Hack the planet! |
-
-    Scenario: Revoking an achievement
-        # TODO: Feature currently broken
+#    TODO: Requires Selenium due to Javascript being used for "delete" button
+#    Scenario: Deleting an achievement
+#
+#    TODO: Feature currently broken
+#    Scenario: Awarding an achievement
+#         Given the following achievements exist:
+#             | name              | description                     | lan              |
+#            | Hacked The Gibson | "God" wouldn't be up this late. | Hack the planet! |
+#
+#    TODO: Feature currently broken
+#    Scenario: Revoking an achievement

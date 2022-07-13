@@ -27,8 +27,8 @@ Feature: Event signups
 
         Then I should see "Cereal Killer"
 
-    Scenario: When a user removes their signup from an event which is open for signups, they do not show on the event page
-#        TODO: Requires Selenium due to Javascript being used for "delete" button
+#    TODO: Requires Selenium due to Javascript being used for "delete" button
+#    Scenario: When a user removes their signup from an event which is open for signups, they do not show on the event page
 #        Given the following event exists:
 #            | name     | description       | start  | end     | signups_open | signups_close | lan              | published |
 #            | wipE'out | A dangerous game. | 1 hour | 2 hours | now          | 30 minutes    | Hack the planet! | yes       |

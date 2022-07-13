@@ -3,4 +3,5 @@ Feature:
     As a LAN organiser
     I need the LANager to get the latest Steam game information from Steam
 
-    Scenario:
+#    TODO
+#    Scenario:

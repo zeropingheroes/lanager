@@ -3,4 +3,5 @@ Feature:
     As a LAN organiser
     I need to assign and withdraw roles to users
 
-    Scenario:
+#    TODO
+#    Scenario:

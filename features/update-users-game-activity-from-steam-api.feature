@@ -3,4 +3,5 @@ Feature:
     As an attendee
     I need to see what attendees at the event are playing
 
-    Scenario:
+#    TODO
+#    Scenario:

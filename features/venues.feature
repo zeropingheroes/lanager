@@ -36,6 +36,7 @@ Feature: Venues
         Then I should see "Ellingson Mineral Corporation HQ"
         And I should see "Lloyd's building, Lime Street, London, EC3M 7AW"
 
+#    TODO: Requires Selenium due to Javascript being used for "delete" button
 #    Scenario: Deleting an existing venue
 #        Given the following venue exists:
 #            | name       | street_address                          | description                        |
@@ -58,5 +59,5 @@ Feature: Venues
         Then I should see "The name field is required"
         And I should see "The street address field is required"
 
-# TODO:
-# Scenario: Attempting to create a venue with a name and street address that are too long should show an error
+#    TODO:
+#    Scenario: Attempting to create a venue with a name and street address that are too long should show an error

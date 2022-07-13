@@ -3,4 +3,5 @@ Feature:
     As a LAN organiser
     I need the LANager to get Steam users' current username and online status from Steam
 
-    Scenario:
+#    TODO
+#    Scenario:

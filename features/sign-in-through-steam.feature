@@ -3,4 +3,5 @@ Feature:
     As an attendee
     I need to be able to sign in through Steam
 
-    Scenario:
+#    TODO
+#    Scenario:

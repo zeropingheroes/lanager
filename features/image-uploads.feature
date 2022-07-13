@@ -17,5 +17,5 @@ Feature:
         Then I should see "Image(s) successfully uploaded"
         And I should see "bg.jpg"
 
-    Scenario: Admin deletes an image
-        # TODO: Requires Selenium due to Javascript being used for "delete" button
+#    TODO: Requires Selenium due to Javascript being used for "delete" button
+#    Scenario: Admin deletes an image
