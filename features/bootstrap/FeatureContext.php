@@ -5,6 +5,7 @@ namespace Features\bootstrap;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Testwork\Tester\Result\TestResult;
@@ -12,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use Zeropingheroes\Lanager\Event;
+use Zeropingheroes\Lanager\Guide;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\UserOAuthAccount;
@@ -189,5 +191,23 @@ class FeatureContext extends TestCase implements Context
     {
         $user = User::where('username', $username)->first();
         Event::where('name', $eventName)->first()->signups()->create(['user_id' => $user->id]);
+    }
+
+    /**
+     * @Given /^the following guides exist:$/
+     */
+    public function theFollowingGuidesExist(TableNode $guides)
+    {
+        foreach ($guides as $guide) {
+            $guide['published'] = $guide['published'] == 'yes' ? 1 : 0;
+            Guide::create(
+                [
+                    'title' => $guide['title'],
+                    'content' => $guide['content'],
+                    'lan_id' => Lan::where('name', '=', $guide['lan'])->first()->id,
+                    'published' => $guide['published'],
+                ]
+            );
+        }
     }
 }
