@@ -93,8 +93,9 @@ Feature: LANs
 
         Then I should see "LANs cannot overlap"
 
-    Scenario: Attempting to create a LAN with a venue that doesn't exist should show an error
-
-    Scenario: Attempting to create a LAN with an achievement that doesn't exist should show an error
-
-    Scenario: Attempting to create a LAN with a name that is too long should show an error
+#    TODO
+#    Scenario: Attempting to create a LAN with a venue that doesn't exist should show an error
+#
+#    Scenario: Attempting to create a LAN with an achievement that doesn't exist should show an error
+#
+#    Scenario: Attempting to create a LAN with a name that is too long should show an error
