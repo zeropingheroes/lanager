@@ -21,7 +21,8 @@ RUN apk --no-cache add php7-xmlwriter=7.4.26-r0 \
                        php7-pdo_mysql=7.4.26-r0 \
                        php7-tokenizer=7.4.26-r0 \
                        php7-simplexml=7.4.26-r0 \
-                       php7-bcmath=7.4.26-r0
+                       php7-bcmath=7.4.26-r0 \
+                       php7-fileinfo=7.4.26-r0
 
 # Copy in project code and dependencies from composer2 build stage
 COPY --chown=nginx --from=composer2 /app /var/www/lanager
