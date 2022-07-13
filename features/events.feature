@@ -160,8 +160,8 @@ Feature: Events
         And I press "Submit"
 
         Then I should see "The name field is required."
-        Then I should see "The start field is required."
-        Then I should see "The end field is required."
+        And I should see "The start field is required."
+        And I should see "The end field is required."
 
     Scenario: Attempting to create an event which starts after the LAN finishes should show an error
         When I go to the homepage
