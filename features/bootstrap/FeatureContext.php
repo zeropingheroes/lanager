@@ -1,11 +1,10 @@
-<?php /** @noinspection PhpMissingParentConstructorInspection */
+<?php
 
 namespace Features\bootstrap;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Testwork\Tester\Result\TestResult;
@@ -183,4 +182,12 @@ class FeatureContext extends TestCase implements Context
         }
     }
 
+    /**
+     * @Given /^"([^"]*)" is signed up to event "([^"]*)"$/
+     */
+    public function isSignedUpToEvent($username, $eventName)
+    {
+        $user = User::where('username', $username)->first();
+        Event::where('name', $eventName)->first()->signups()->create(['user_id' => $user->id]);
+    }
 }
