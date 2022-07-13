@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpMissingParentConstructorInspection */
 
 namespace Features\bootstrap;
 
@@ -183,11 +183,4 @@ class FeatureContext extends TestCase implements Context
         }
     }
 
-    /**
-     * @Given the LAN :lan is happening all day today at :venue on :streetAddress
-     */
-    public function theLanIsHappeningAllDayTodayAtOn($lan, $venue, $streetAddress)
-    {
-        throw new PendingException();
-    }
 }
