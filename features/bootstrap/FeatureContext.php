@@ -17,6 +17,8 @@ use Zeropingheroes\Lanager\Attendee;
 use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\Guide;
 use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\NavigationLink;
+use Zeropingheroes\Lanager\Slide;
 use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 use Zeropingheroes\Lanager\Venue;
@@ -129,9 +131,9 @@ class FeatureContext extends TestCase implements Context
     }
 
     /**
-     * @Given /^the following venue exists:$/
+     * @Given /^the following venues exist:$/
      */
-    public function theFollowingVenueExists(TableNode $venues)
+    public function theFollowingVenuesExist(TableNode $venues)
     {
         foreach ($venues as $venue) {
             Venue::create(
@@ -145,16 +147,16 @@ class FeatureContext extends TestCase implements Context
     }
 
     /**
-     * @Given /^the following LAN exists:$/
+     * @Given /^the following LANs exist:$/
      */
-    public function theFollowingLANExists(TableNode $lans)
+    public function theFollowingLANsExist(TableNode $lans)
     {
         foreach ($lans as $lan) {
             $lan['published'] = $lan['published'] == 'yes' ? 1 : 0;
             Lan::create(
                 [
                     'name' => $lan['name'],
-                    'description' => $lan['description'],
+                    'description' => $lan['description'] ?? null,
                     'start' => Carbon::parse($lan['start']),
                     'end' => Carbon::parse($lan['end']),
                     'venue_id' => Venue::where('name', '=', $lan['venue'])->first()->id,
@@ -165,9 +167,9 @@ class FeatureContext extends TestCase implements Context
     }
 
     /**
-     * @Given /^the following event exists:$/
+     * @Given /^the following events exist:$/
      */
-    public function theFollowingEventExists(TableNode $events)
+    public function theFollowingEventsExist(TableNode $events)
     {
         foreach ($events as $event) {
             $event['published'] = $event['published'] == 'yes' ? 1 : 0;
@@ -240,5 +242,44 @@ class FeatureContext extends TestCase implements Context
                 'lan_id' => Lan::where('name', $lanName)->first()->id,
             ]
         )->touch();
+    }
+
+    /**
+     * @Given /^the following slides exist:$/
+     */
+    public function theFollowingSlidesExist(TableNode $slides)
+    {
+        foreach ($slides as $slide) {
+            $slide['published'] = $slide['published'] == 'yes' ? 1 : 0;
+
+            Slide::create(
+                [
+                    'name' => $slide['name'],
+                    'content' => $slide['content'],
+                    'position' => $slide['position'],
+                    'duration' => $slide['duration'],
+                    'published' => $slide['published'],
+                    'lan_id' => Lan::where('name', '=', $slide['lan'])->first()->id,
+                ]
+            );
+        }
+    }
+
+    /**
+     * @Given /^the following navigation links exist:$/
+     */
+    public function theFollowingNavigationLinksExist(TableNode $navigationLinks)
+    {
+        foreach ($navigationLinks as $navigationLink) {
+
+            NavigationLink::create(
+                [
+                    'title' => $navigationLink['title'],
+                    'position' => $navigationLink['position'],
+                    'url' => $navigationLink['url'],
+                    'parent_id' => $navigationLink['parent_id'] ?? null,
+                ]
+            );
+        }
     }
 }
