@@ -51,7 +51,7 @@
         @include('components.form.create', ['route' => route('lans.user-achievements.store', $lan)])
         <div class="form-inline">
             <div class="form-group">
-                <label for="user_id" class="custom-control-label mr-sm-2">@lang('title.user')</label>
+                <label for="user_id" class="mr-sm-2">@lang('title.user')</label>
                 @include('components.form.select', [
                     'name' => 'user_id',
                     'items' => $users,
@@ -60,7 +60,7 @@
                 ])
             </div>
             <div class="form-group">
-                <label for="achievement_id" class="custom-control-label mr-sm-2">@lang('title.achievement')</label>
+                <label for="achievement_id" class="mr-sm-2">@lang('title.achievement')</label>
                 @include('components.form.select', [
                     'name' => 'achievement_id',
                     'items' => $achievements,
