@@ -271,7 +271,6 @@ class FeatureContext extends TestCase implements Context
     public function theFollowingNavigationLinksExist(TableNode $navigationLinks)
     {
         foreach ($navigationLinks as $navigationLink) {
-
             NavigationLink::create(
                 [
                     'title' => $navigationLink['title'],
