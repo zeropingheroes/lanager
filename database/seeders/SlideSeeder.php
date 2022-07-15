@@ -34,7 +34,7 @@ class SlideSeeder extends Seeder
             [
                 'lan_id' => $lan_id,
                 'name' => __('title.events'),
-                'content' => __('seeder.slide-events', ['app-url' => config('app.url')]),
+                'content' => url('/events/fullscreen'),
                 'position' => 0,
                 'duration' => 10,
                 'published' => true,
@@ -42,7 +42,7 @@ class SlideSeeder extends Seeder
             [
                 'lan_id' => $lan_id,
                 'name' => __('title.games'),
-                'content' => __('seeder.slide-games', ['app-url' => config('app.url')]),
+                'content' => url('/games/fullscreen'),
                 'position' => 0,
                 'duration' => 10,
                 'published' => true,

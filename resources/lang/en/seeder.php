@@ -33,6 +33,4 @@ return [
 
     // Slides
     'slide-lanager' => '# Log into :app-url to join the party!',
-    'slide-events' => ':app-url/events/fullscreen',
-    'slide-games' => ':app-url/games/fullscreen',
 ];
