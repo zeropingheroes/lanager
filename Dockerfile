@@ -27,7 +27,7 @@ RUN apk --no-cache add php7-xmlwriter=7.4.26-r0 \
 # Copy in project code and dependencies from composer2 build stage
 COPY --chown=nginx --from=composer2 /app /var/www/lanager
 
-RUN chmod -R 777 /var/www/lanager/storage && \
+RUN chmod -R 777 /var/www/lanager/storage /var/www/lanager/bootstrap/cache && \
     ln -s /var/www/lanager/storage/app/public /var/www/lanager/public/storage
 
 WORKDIR /var/www/lanager
