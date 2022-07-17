@@ -18,8 +18,8 @@ class StoreRoleAssignmentRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'user_id' => ['exists:users,id'],
-            'role_id' => ['exists:roles,id'],
+            'user_id' => ['required', 'exists:users,id'],
+            'role_id' => ['required', 'exists:roles,id'],
         ];
 
         if (! $this->laravelValidationPasses()) {

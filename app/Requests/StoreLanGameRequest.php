@@ -16,7 +16,7 @@ class StoreLanGameRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'lan_id' => ['exists:lans,id'],
+            'lan_id' => ['required', 'exists:lans,id'],
             'game_name' => ['required', 'max:255'],
         ];
 
