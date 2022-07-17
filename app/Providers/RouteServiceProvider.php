@@ -4,7 +4,6 @@ namespace Zeropingheroes\Lanager\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Route;
-use Zeropingheroes\Lanager\EventSignup;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -31,8 +30,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Route::model('signup', EventSignup::class);
-
         parent::boot();
     }
 
