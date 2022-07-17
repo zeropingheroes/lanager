@@ -32,9 +32,8 @@ return [
 
     'steam' => [
         'client_id' => null,
-        'client_secret' => null,
+        'client_secret' => env('STEAM_API_KEY'),
         'redirect' => env('APP_URL') . 'auth/steam/callback',
-        'api_key' => env('STEAM_API_KEY'),
     ],
 
 ];
