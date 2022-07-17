@@ -20,9 +20,11 @@
                     </td>
                     <td>
                         @if($userAchievement->achievement->image_filename)
-                            <img src="/storage/images/achievements/{{ $userAchievement->achievement->image_filename }}" height="32px" width=32px">
+                            <img src="/storage/images/achievements/{{ $userAchievement->achievement->image_filename }}"
+                                 height="32px" width=32px">
                         @endif
-                        <span title="{{ $userAchievement->achievement->description }}">{{ $userAchievement->achievement->name }}</span>
+                        <span
+                            title="{{ $userAchievement->achievement->description }}">{{ $userAchievement->achievement->name }}</span>
                     </td>
                     <td>
                         @include('components.time-relative', ['datetime' => $userAchievement->created_at])
@@ -30,8 +32,9 @@
                     <td>
                         @can('delete', $userAchievement)
                             @component('components.actions-dropdown')
-                                <form action="{{ route('lans.user-achievements.destroy', ['lan' => $userAchievement->lan, 'userAchievement' => $userAchievement]) }}"
-                                      method="POST" class="confirm-deletion">
+                                <form
+                                    action="{{ route('lans.user-achievements.destroy', ['lan' => $userAchievement->lan, 'user_achievement' => $userAchievement]) }}"
+                                    method="POST" class="confirm-deletion">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <a class="dropdown-item" href="#"
