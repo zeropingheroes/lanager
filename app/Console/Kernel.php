@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
 
         // Many rate-limited Steam API calls
         $schedule->command(UpdateSteamAppsMetadata::class)
-            ->twiceDaily();
+            ->dailyAt('07:00');
     }
 
     /**
