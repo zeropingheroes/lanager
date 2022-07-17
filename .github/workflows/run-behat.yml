@@ -13,7 +13,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             APP_KEY: ${{ secrets.APP_KEY }}
-            APP_URL: http://localhost:8000/
+            APP_URL: http://localhost:8000
             APP_ENV: testing
             APP_TIMEZONE: UTC
             APP_LOCALE: en

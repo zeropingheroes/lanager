@@ -58,8 +58,8 @@ more enjoyable for attendees and organisers alike.
 4. Set the following configuration items:
     1. Set `APP_KEY` to `base64:` followed by
        a [randomly generated 32 character base64 string](https://www.google.com/search?q=random+base64)
-    2. Set `APP_URL` to the URL you will access LANager through, including the trailing slash,
-       e.g. `https://example.com/`
+    2. Set `APP_URL` to the URL you will access LANager through, without a trailing slash,
+       e.g. `https://example.com`
     3. Set `APP_TIMEZONE` to your
        location's [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
     4. Set `STEAM_API_KEY` to your [Steam API Key](http://steamcommunity.com/dev/apikey)
