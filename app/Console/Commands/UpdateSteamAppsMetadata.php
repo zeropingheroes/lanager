@@ -9,6 +9,7 @@ use bandwidthThrottle\tokenBucket\storage\StorageException;
 use bandwidthThrottle\tokenBucket\TimeoutException;
 use bandwidthThrottle\tokenBucket\TokenBucket;
 use Carbon\CarbonInterval;
+use ErrorException;
 use Illuminate\Console\Command;
 use Log;
 use Syntax\SteamApi\Facades\SteamApi;
@@ -38,7 +39,7 @@ class UpdateSteamAppsMetadata extends Command
      */
     public function handle()
     {
-        if (! SteamApp::count()) {
+        if (!SteamApp::count()) {
             $message = trans('phrase.database-empty-aborting');
             $this->error($message);
             Log::error($message);
@@ -55,7 +56,7 @@ class UpdateSteamAppsMetadata extends Command
         }
 
         $appCount = count($steamAppIds);
-        if (! $appCount) {
+        if (!$appCount) {
             $message = trans('phrase.steam-app-metadata-up-to-date');
             $this->info($message);
             Log::info($message);
@@ -102,7 +103,7 @@ class UpdateSteamAppsMetadata extends Command
 
                 // Add current timestamp to array of requests, to calculate requests made in last 5 minutes
                 $requestLog[] = time();
-            } catch (ApiCallFailedException $e) {
+            } catch (ApiCallFailedException | ErrorException $e) {
                 // If the API call failed, empty the bucket and skip the app
                 $failedCount++;
                 $consumer->consume(40);
