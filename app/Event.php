@@ -28,10 +28,6 @@ class Event extends Model
         'signups_close',
     ];
 
-    protected $with = [
-        'lan',
-    ];
-
     /**
      * @return belongsTo
      */
