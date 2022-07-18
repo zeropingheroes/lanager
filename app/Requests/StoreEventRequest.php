@@ -20,6 +20,7 @@ class StoreEventRequest extends Request
             'name' => ['required', 'max:255'],
             'start' => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
             'end' => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
+            'description' => ['nullable'],
             'signups_open' => [
                 'nullable',
                 'date_format:Y-m-d H:i:s',
