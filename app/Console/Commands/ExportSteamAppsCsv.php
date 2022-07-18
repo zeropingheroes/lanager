@@ -10,6 +10,7 @@ use Zeropingheroes\Lanager\SteamApp;
 class ExportSteamAppsCsv extends Command
 {
     private static $filename = 'steam_apps.csv';
+    private static $chunkSize = 10000;
 
     /**
      * Set command signature and description.
@@ -30,25 +31,34 @@ class ExportSteamAppsCsv extends Command
      */
     public function handle()
     {
-        if (! SteamApp::count()) {
+        if (!SteamApp::count()) {
             $this->error(trans('phrase.database-empty-aborting'));
 
             return 1;
         }
 
         if (file_exists(Storage::path($this::$filename))) {
-            if (! $this->option('yes') && ! $this->confirm(trans('phrase.overwrite-existing-csv'))) {
+            if (!$this->option('yes') && !$this->confirm(trans('phrase.overwrite-existing-csv'))) {
                 return 1;
             }
         }
-        // Temporarily increase memory limit
-        ini_set('memory_limit', '256M');
+        $totalApps = SteamApp::count();
 
-        $steamApps = SteamApp::all()->toArray();
-        $this->info(trans('phrase.exporting-x-steam-apps-to-csv', ['x' => count($steamApps)]));
+        $this->info(trans('phrase.exporting-x-steam-apps-to-csv', ['x' => $totalApps]));
+
+        $progress = $this->output->createProgressBar(floor($totalApps / $this::$chunkSize));
+        $progress->setFormat('%bar% %percent%% - %estimated%');
+
         $csv = Writer::createFromPath(Storage::path($this::$filename), 'w+');
-        $csv->insertAll($steamApps);
-        $this->info(trans('phrase.x-steam-apps-exported', ['x' => count($steamApps)]));
+
+        SteamApp::chunk($this::$chunkSize, function ($apps) use ($progress, $csv) {
+            $csv->insertAll($apps->toArray());
+            $progress->advance();
+        });
+
+        $progress->finish();
+
+        $this->info(PHP_EOL . trans('phrase.x-steam-apps-exported', ['x' => $totalApps]));
 
         return 0;
     }
