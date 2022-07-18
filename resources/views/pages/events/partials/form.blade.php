@@ -25,7 +25,6 @@
             var startDate = moment(start.val(), format).toDate();
             var endDate = moment(end.val(), format).toDate();
             var lanStart = moment('{{ $lan->start }}');
-            var lanEnd = moment('{{ $lan->end }}');
 
             if(signups_open.val()) {
                 var signups_open_old = moment(signups_open.val(), format).toDate();
@@ -38,8 +37,6 @@
             start.datetimepicker({
                 format: format,
                 date: lanStart,
-                minDate: lanStart,
-                maxDate: lanEnd,
                 sideBySide: true,
                 useCurrent: false
             });
@@ -49,8 +46,6 @@
             end.datetimepicker({
                 format: format,
                 date: lanStart.add(1, 'hours'),
-                minDate: lanStart,
-                maxDate: lanEnd,
                 sideBySide: true,
                 useCurrent: false
             });
@@ -63,9 +58,6 @@
 
             signups_open.datetimepicker({
                 format: format,
-                defaultDate: lanStart,
-                minDate: lanStart,
-                maxDate: lanEnd,
                 sideBySide: true,
                 useCurrent: false
             });
@@ -76,9 +68,6 @@
 
             signups_close.datetimepicker({
                 format: format,
-                defaultDate: lanStart,
-                minDate: lanStart,
-                maxDate: lanEnd,
                 sideBySide: true,
                 useCurrent: false
             });

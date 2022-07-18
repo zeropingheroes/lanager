@@ -29,13 +29,6 @@
             });
 
             end.datetimepicker('date', endDate);
-
-            $("#start").on("change.datetimepicker", function (e) {
-                $('#end').datetimepicker('minDate', e.date);
-            });
-            $("#end").on("change.datetimepicker", function (e) {
-                $('#start').datetimepicker('maxDate', e.date);
-            });
         });
     </script>
     <div class="form-group col-md-6">
