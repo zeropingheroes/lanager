@@ -13,12 +13,10 @@ Feature: Venues
         When I go to "/venues/create"
         And I fill in "Name" with "Cyberdelia"
         And I fill in "Street Address" with "Clifden Road, Brentford, Greater London"
-        And I fill in "Description" with "The ultimate cyberpunk club lounge"
         And I press "Submit"
 
         Then I should see "Cyberdelia"
         And I should see "Clifden Road, Brentford, Greater London"
-        And I should see "The ultimate cyberpunk club lounge"
 
     Scenario: Editing an existing venue
         Given I am logged in as "Zero Cool"
@@ -31,7 +29,6 @@ Feature: Venues
         And I follow "Edit"
         And I fill in "Name" with "Ellingson Mineral Corporation HQ"
         And I fill in "Street Address" with "Lloyd's building, Lime Street, London, EC3M 7AW"
-        And I fill in "Description" with "Together, Anything is Possible"
         And I press "Submit"
 
         Then I should see "Ellingson Mineral Corporation HQ"

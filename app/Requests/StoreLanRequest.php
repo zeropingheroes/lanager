@@ -17,7 +17,6 @@ class StoreLanRequest extends Request
     {
         $this->validationRules = [
             'name' => ['required', 'max:255'],
-            'description' => ['nullable'],
             'start' => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
             'end' => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
             'venue_id' => ['nullable', 'numeric', 'exists:venues,id'],

@@ -77,7 +77,6 @@ class LanController extends Controller
 
         $input = [
             'name' => $httpRequest->input('name'),
-            'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
             'venue_id' => $httpRequest->input('venue_id'),
@@ -130,7 +129,6 @@ class LanController extends Controller
 
         $input = [
             'name' => $httpRequest->input('name'),
-            'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
             'venue_id' => $httpRequest->input('venue_id'),

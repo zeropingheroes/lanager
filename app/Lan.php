@@ -17,7 +17,6 @@ class Lan extends Model
         'venue_id',
         'achievement_id',
         'name',
-        'description',
         'start',
         'end',
         'published',

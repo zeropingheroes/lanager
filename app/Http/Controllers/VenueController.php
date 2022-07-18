@@ -53,7 +53,6 @@ class VenueController extends Controller
         $input = [
             'name' => $httpRequest->input('name'),
             'street_address' => $httpRequest->input('street_address'),
-            'description' => $httpRequest->input('description'),
         ];
 
         $request = new StoreVenueRequest($input);
@@ -115,7 +114,6 @@ class VenueController extends Controller
         $input = [
             'name' => $httpRequest->input('name'),
             'street_address' => $httpRequest->input('street_address'),
-            'description' => $httpRequest->input('description'),
             'id' => $venue->id,
         ];
 
