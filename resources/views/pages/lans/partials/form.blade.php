@@ -6,7 +6,7 @@
 <div class="form-row">
     <script>
         $(function () {
-            var format = 'YYYY-MM-DD HH:mm:00';
+            var format = 'YYYY-MM-DD HH:mm';
 
             var start = $('#start');
             var end = $('#end');

@@ -2,7 +2,7 @@
     $(function () {
         var start = $('#start');
         var end = $('#end');
-        var format = 'YYYY-MM-DD HH:mm:00';
+        var format = 'YYYY-MM-DD HH:mm';
 
         var startDate = moment(start.val(), format).toDate();
         var endDate = moment(end.val(), format).toDate();

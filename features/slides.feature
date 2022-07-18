@@ -11,7 +11,7 @@ Feature: Slides
             | Cyberdelia | Clifden Road, Brentford, Greater London | The ultimate cyberpunk club lounge |
         And the following LANs exist:
             | name             | start               | end                 | venue      | published |
-            | Hack the planet! | 2025-09-15 18:00:00 | 2025-09-17 18:00:00 | Cyberdelia | yes       |
+            | Hack the planet! | 2025-09-15 18:00 | 2025-09-17 18:00 | Cyberdelia | yes       |
 
     Scenario: Creating a new slide
         Given I am logged in as "Zero Cool"
@@ -44,4 +44,3 @@ Feature: Slides
 
         Then I should see "Cookie Monster"
         And I should see "Rabbit"
-

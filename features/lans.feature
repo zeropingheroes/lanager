@@ -15,8 +15,8 @@ Feature: LANs
 
         When I go to "/lans/create"
         And I fill in "Name" with "Hack the planet!"
-        And I fill in "Start" with "2025-09-15 18:00:00"
-        And I fill in "End" with "2025-09-17 18:00:00"
+        And I fill in "Start" with "2025-09-15 18:00"
+        And I fill in "End" with "2025-09-17 18:00"
         And I select "Cyberdelia" from "Venue"
         And I check "Published"
         And I press "Submit"
@@ -28,15 +28,15 @@ Feature: LANs
     Scenario: Editing an existing LAN
         Given I am logged in as "Zero Cool"
         And the following LANs exist:
-            | name             | start               | end                 | venue      | published |
-            | Hack the planet! | 2025-09-15 18:00:00 | 2025-09-17 18:00:00 | Cyberdelia | yes       |
+            | name             | start               | end              | venue      | published |
+            | Hack the planet! | 2025-09-15 18:00:00 | 2025-09-17 18:00 | Cyberdelia | yes       |
 
         When I go to "/lans"
         And I follow "Hack the planet!"
         And I follow "Edit"
         And I fill in "Name" with "Hack the Gibson"
-        And I fill in "Start" with "2025-08-10 18:00:00"
-        And I fill in "End" with "2025-08-12 18:00:00"
+        And I fill in "Start" with "2025-08-10 18:00"
+        And I fill in "End" with "2025-08-12 18:00"
         And I check "Published"
         And I press "Submit"
         And I go to "/lans"
@@ -46,9 +46,9 @@ Feature: LANs
 
     Scenario: Viewing the LAN list
         Given the following LANs exist:
-            | name             | start               | end                 | venue      | published |
-            | Hack the planet! | 2025-09-15 18:00:00 | 2025-09-17 18:00:00 | Cyberdelia | yes       |
-            | Hack the Gibson  | 2025-08-10 18:00:00 | 2025-08-12 18:00:00 | Cyberdelia | yes       |
+            | name             | start               | end              | venue      | published |
+            | Hack the planet! | 2025-09-15 18:00:00 | 2025-09-17 18:00 | Cyberdelia | yes       |
+            | Hack the Gibson  | 2025-08-10 18:00:00 | 2025-08-12 18:00 | Cyberdelia | yes       |
 
         When I go to "/lans"
 
