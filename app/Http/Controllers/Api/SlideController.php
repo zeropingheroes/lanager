@@ -21,7 +21,7 @@ class SlideController extends Controller
     public function index(Lan $lan)
     {
         $slides = $lan->slides()
-            ->where('published', 1)
+            ->where('published', true)
             ->orderBy('position')
             ->get();
 

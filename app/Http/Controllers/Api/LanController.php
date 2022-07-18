@@ -4,7 +4,6 @@ namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
 use Zeropingheroes\Lanager\Http\Resources\Lan as LanResource;
 use Zeropingheroes\Lanager\Lan;
@@ -35,17 +34,25 @@ class LanController extends Controller
     public function show(Lan $lan, Request $request)
     {
         if (!$lan->published) {
-            throw new NotFoundHttpException();
+            abort(404);
         }
 
         if ($request->has('users')) {
             $lan->load('users');
         }
         if ($request->has('events')) {
-            $lan->load('events');
+            $lan->load([
+                'events' => function ($query) {
+                    $query->where('published', true);
+                }
+            ]);
         }
         if ($request->has('slides')) {
-            $lan->load('slides');
+            $lan->load([
+                'slides' => function ($query) {
+                    $query->where('published', true);
+                }
+            ]);
         }
 
         return new LanResource($lan);

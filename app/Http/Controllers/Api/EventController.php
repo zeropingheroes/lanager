@@ -18,7 +18,10 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        $events = Event::where('published', true);
+        $events = Event::where('published', true)
+            ->whereHas('lan', function ($query) {
+                $query->where('published', true);
+            });
 
         if ($request->filled('after')) {
             $events->where(
@@ -46,7 +49,9 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        $event->load('lan');
+        if (!$event->published || !$event->lan->published) {
+            abort(404);
+        }
 
         return new EventResource($event);
     }
