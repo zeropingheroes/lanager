@@ -366,7 +366,7 @@ To check your code, run `pre-commit run --all-files` or attempt to run `git comm
 
 ### Recompiling JavaScript & CSS assets
 
-To recompile JavaScript & CSS assets, run:
+To recompile JavaScript & CSS assets, from the `lanager` directory, run:
 
 1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm install`
 2. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run dev`
