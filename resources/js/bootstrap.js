@@ -4,6 +4,7 @@
  * code may be modified to fit the specific needs of your application.
  */
 import langs from './langs.js';
+import Vue from 'vue'
 
 try {
     window._ = require('lodash');
@@ -11,6 +12,7 @@ try {
     window.$ = window.jQuery = require('jquery');
     window.moment = require('moment');
     window.Clipboard = require('clipboard');
+    window.Vue = Vue;
 
     var Lang = require('lang.js');
     window.lang = new Lang({messages: langs});
@@ -28,7 +30,6 @@ try {
  */
 
 window.axios = require('axios');
-window.Vue = require('vue');
 import FullCalendar from 'vue-full-calendar';
 Vue.use(FullCalendar);
 

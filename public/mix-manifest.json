@@ -1,7 +1,18 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/css/open-iconic-bootstrap.css": "/css/open-iconic-bootstrap.css",
     "/css/font-awesome.css": "/css/font-awesome.css",
+    "/css/open-iconic-bootstrap.css": "/css/open-iconic-bootstrap.css",
+    "/fonts/FontAwesome.otf": "/fonts/FontAwesome.otf",
+    "/fonts/fontawesome-webfont.eot": "/fonts/fontawesome-webfont.eot",
+    "/fonts/fontawesome-webfont.svg": "/fonts/fontawesome-webfont.svg",
+    "/fonts/fontawesome-webfont.ttf": "/fonts/fontawesome-webfont.ttf",
+    "/fonts/fontawesome-webfont.woff": "/fonts/fontawesome-webfont.woff",
+    "/fonts/fontawesome-webfont.woff2": "/fonts/fontawesome-webfont.woff2",
+    "/fonts/open-iconic.eot": "/fonts/open-iconic.eot",
+    "/fonts/open-iconic.otf": "/fonts/open-iconic.otf",
+    "/fonts/open-iconic.svg": "/fonts/open-iconic.svg",
+    "/fonts/open-iconic.ttf": "/fonts/open-iconic.ttf",
+    "/fonts/open-iconic.woff": "/fonts/open-iconic.woff",
     "/css/tempusdominus-bootstrap-4.css": "/css/tempusdominus-bootstrap-4.css"
 }
