@@ -9,17 +9,17 @@ require('./bootstrap');
 /**
  * Define any JavaScript that should be run on every page
  */
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
 
     // Set up copy to clipboard for any elements with that class
     var clipboard = new Clipboard('.copy-to-clipboard');
-    clipboard.on('error', function(e) {
+    clipboard.on('error', function (e) {
         console.error('Action:', e.action);
         console.error('Trigger:', e.trigger);
     });
 
     // Confirm deletion for any elements with that class
-    $('.confirm-deletion').on('submit', function(){
+    $('.confirm-deletion').on('submit', function () {
         return confirm(window.lang.get('phrase.are-you-sure-delete'));
     });
 })
@@ -30,29 +30,68 @@ window.addEventListener('load', function() {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
 /* Buttons */
-Vue.component('fullscreen-button',      require('./components/fullscreen-button.vue'));
+import FullscreenButton from './components/fullscreen-button.vue';
+
+Vue.component("fullscreen-button", FullscreenButton);
 
 /* General Purpose */
-Vue.component('vue-markdown',           require('vue-markdown').default);
+Vue.component('vue-markdown', require('vue-markdown').default);
 
 /* Events */
-Vue.component('events',                 require('./components/events/events.vue'));
-Vue.component('event',                  require('./components/events/event.vue'));
-Vue.component('event-status',           require('./components/events/event-status.vue'));
-Vue.component('event-relative-time',    require('./components/events/event-relative-time.vue'));
-Vue.component('event-start-and-end',    require('./components/events/event-start-and-end.vue'));
-Vue.component('event-schedule',         require('./components/events/event-schedule.vue'));
+import Events from './components/events/events.vue';
+
+Vue.component("events", Events);
+
+import Event from './components/events/event.vue';
+
+Vue.component("event", Event);
+
+import EventStatus from './components/events/event-status.vue';
+
+Vue.component("event-status", EventStatus);
+
+import EventRelativeTime from './components/events/event-relative-time.vue';
+
+Vue.component("event-relative-time", EventRelativeTime);
+
+import EventStartAndEnd from './components/events/event-start-and-end.vue';
+
+Vue.component("event-start-and-end", EventStartAndEnd);
+
+import EventSchedule from './components/events/event-schedule.vue';
+
+Vue.component("event-schedule", EventSchedule);
+
 
 /* Games */
-Vue.component('game-banner',            require('./components/games/game-banner.vue'));
-Vue.component('active-games',           require('./components/active-games/active-games.vue'));
-Vue.component('active-game',            require('./components/active-games/active-game.vue'));
+import GameBanner from './components/games/game-banner.vue';
+
+Vue.component('game-banner', GameBanner);
+
+import ActiveGames from './components/active-games/active-games.vue';
+
+Vue.component('active-games', ActiveGames);
+
+import ActiveGame from './components/active-games/active-game.vue';
+
+Vue.component('active-game', ActiveGame);
 
 /* Users */
-Vue.component('user-avatar',            require('./components/users/user-avatar.vue'));
+import UserAvatar from './components/users/user-avatar.vue';
+
+Vue.component('user-avatar', UserAvatar);
 
 /* Slides */
-Vue.component('slides',                 require('./components/slides/slides.vue'));
-Vue.component('slides-single',          require('./components/slides/slides-single.vue'));
-Vue.component('slide',                  require('./components/slides/slide.vue'));
+import Slides from './components/slides/slides.vue';
+
+Vue.component('slides', Slides);
+
+import SlidesSingle from './components/slides/slides-single.vue';
+
+Vue.component('slides-single', SlidesSingle);
+
+import Slide from './components/slides/slide.vue';
+
+Vue.component('slide', Slide);
