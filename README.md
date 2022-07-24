@@ -39,7 +39,7 @@ more enjoyable for attendees and organisers alike.
 1. Clone the `lanager-docker-compose` project:
 
     ```bash
-    git clone --branch develop https://github.com/zeropingheroes/lanager-docker-compose
+    git clone https://github.com/zeropingheroes/lanager-docker-compose
     ```
 
 2. Copy `.env.example` to a new file named `.env`:
@@ -292,47 +292,54 @@ If you have an existing LANager installation that you would like to migrate to d
     docker-compose down
     ```
 
-3. Edit `lanager-docker-compose/.env` and add the following lines:
+3. Check out the development branch of `lanager-docker-compose`
+
+    ```bash
+    cd lanager-docker-compose
+    git checkout develop
+    ```
+
+4. Edit `lanager-docker-compose/.env` and add the following lines:
 
     ```bash
     APP_ENV=local
     APP_DEBUG=true
     ```
 
-4. In a directory outside of `lanager-docker-compose`, clone the `lanager` repository:
+5. In a directory outside of `lanager-docker-compose`, clone the `lanager` repository:
 
     ```bash
     git clone --branch develop https://github.com/zeropingheroes/lanager
      ```
 
-5. Install [`composer`](https://getcomposer.org/download/) on your host computer
+6. Install [`composer`](https://getcomposer.org/download/) on your host computer
 
-6. From the `lanager` directory, install composer dependencies:
+7. From the `lanager` directory, install composer dependencies:
 
     ```bash
     composer install --no-scripts
     ```
 
-7. Set an environment variable with the path to where you cloned the `lanager` repository (without a trailing slash)
+8. Set an environment variable with the path to where you cloned the `lanager` repository (without a trailing slash)
 
     ```bash
     export PATH_TO_LANAGER=/path/to/lanager
     ```
 
-8. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into
+9. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into
    `docker-compose.override.yml`:
 
     ```bash
     envsubst < docker-compose.override.yml.example > docker-compose.override.yml
     ```
 
-9. Start the containers
+10. Start the containers
 
-    ```bash
-    docker-compose up --detach
-    ```
+     ```bash
+     docker-compose up --detach
+     ```
 
-10. After a minute or so, visit `http://localhost`
+11. After a minute or so, visit `http://localhost`
 
 The container will run the code from your host computer, rather than the static copy of the code in the container's
 image, so any changes you make to the files in the project directory (except for the `storage/` directory)
