@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
+use View;
 use Zeropingheroes\Lanager\Lan;
 
 class AttendeeController extends Controller
@@ -10,9 +10,8 @@ class AttendeeController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return \Illuminate\Contracts\View\View
-     * @internal param Request $request
      */
     public function index(Lan $lan)
     {
@@ -22,5 +21,4 @@ class AttendeeController extends Controller
             ->with('lan', $lan)
             ->with('users', $users);
     }
-
 }

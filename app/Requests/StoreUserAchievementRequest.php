@@ -7,19 +7,19 @@ class StoreUserAchievementRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
     public function valid(): bool
     {
         $this->validationRules = [
-            'user_id' => ['exists:users,id'],
-            'achievement_id' => ['exists:achievements,id'],
-            'lan_id' => ['exists:lans,id'],
+            'user_id' => ['required', 'exists:users,id'],
+            'achievement_id' => ['required', 'exists:achievements,id'],
+            'lan_id' => ['required', 'exists:lans,id'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

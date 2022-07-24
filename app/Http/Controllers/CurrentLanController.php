@@ -2,34 +2,35 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Zeropingheroes\Lanager\Lan;
 
 class CurrentLanController extends Controller
 {
     /**
-     * @var \Zeropingheroes\Lanager\Lan
+     * @var Lan
      */
     protected $lan;
 
     /**
-     * Determine the current LAN
+     * Determine the current LAN.
      */
     public function __construct()
     {
-        $this->lan = Lan::happeningNow()->where('published', 1)->first()                       // LAN happening now
-                  ?? Lan::future()->where('published', 1)->orderBy('start', 'asc')->first()    // Closest future LAN
-                  ?? Lan::past()->where('published', 1)->orderBy('end', 'desc')->first();      // Most recently ended past LAN
+        // LAN happening now, or closest future LAN, or most recently ended past LAN
+        $this->lan = Lan::happeningNow()->where('published', 1)->first()
+            ?? Lan::future()->where('published', 1)->orderBy('start', 'asc')->first()
+            ?? Lan::past()->where('published', 1)->orderBy('end', 'desc')->first();
 
-        // If there are no LANs, go to the LAN index page
-        if (!$this->lan) {
+        if (! $this->lan) {
             redirect()->route('lans.index')->send();
         }
     }
 
     /**
-     * Redirect to current LAN's page
+     * Redirect to current LAN's page.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function show()
     {
@@ -37,9 +38,9 @@ class CurrentLanController extends Controller
     }
 
     /**
-     * Redirect to current LAN's guides index
+     * Redirect to current LAN's guides index.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function guides()
     {
@@ -47,9 +48,9 @@ class CurrentLanController extends Controller
     }
 
     /**
-     * Redirect to current LAN's events index
+     * Redirect to current LAN's events index.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function events()
     {
@@ -57,9 +58,9 @@ class CurrentLanController extends Controller
     }
 
     /**
-     * Redirect to current LAN's events schedule
+     * Redirect to current LAN's events schedule.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function schedule()
     {
@@ -67,9 +68,9 @@ class CurrentLanController extends Controller
     }
 
     /**
-     * Redirect to current LAN's attendees index
+     * Redirect to current LAN's attendees index.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function users()
     {
@@ -77,9 +78,9 @@ class CurrentLanController extends Controller
     }
 
     /**
-     * Redirect to current LAN's awarded achievements
+     * Redirect to current LAN's awarded achievements.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function userAchievements()
     {

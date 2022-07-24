@@ -33,6 +33,4 @@ return [
 
     // Slides
     'slide-lanager' => '# Přihlašte se na adrese :app-url pro vstup do party!',
-    'slide-events' => ':app-url/events/fullscreen',
-    'slide-games' => ':app-url/games/fullscreen',
 ];

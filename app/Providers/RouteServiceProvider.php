@@ -2,9 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Zeropingheroes\Lanager\EventSignup;
+use Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -18,14 +17,19 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'Zeropingheroes\Lanager\Http\Controllers';
 
     /**
+     * The path to the "home" route for your application.
+     *
+     * @var string
+     */
+    public const HOME = '/';
+
+    /**
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void
      */
     public function boot()
     {
-        Route::model('signup', EventSignup::class);
-
         parent::boot();
     }
 
@@ -37,10 +41,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-
         $this->mapWebRoutes();
-
-        //
     }
 
     /**

@@ -3,19 +3,19 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
-use Syntax\SteamApi\Facades\SteamApi as Steam;
-use Illuminate\Support\Facades\Log;
+use Log;
+use Syntax\SteamApi\Facades\SteamApi;
 use Zeropingheroes\Lanager\SteamApp;
 
 class UpdateSteamApps extends Command
 {
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-apps';
-        $this->description = __('phrase.update-steam-apps');
+        $this->description = trans('phrase.update-steam-apps');
 
         parent::__construct();
     }
@@ -27,30 +27,35 @@ class UpdateSteamApps extends Command
      */
     public function handle()
     {
-        $this->info(__('phrase.requesting-list-of-all-apps-from-steam-api'));
-        $apps = Steam::app()->GetAppList();
+        $this->info(trans('phrase.requesting-list-of-all-apps-from-steam-api'));
+        $apps = SteamApi::app()->GetAppList();
 
-        if (!SteamApp::count()) {
+        if (! SteamApp::count()) {
             $this->import($apps);
         } else {
             $this->update($apps);
         }
+
+        return 0;
     }
 
     /**
-     * @param $apps
+     * @param  $apps
      * @return void
      */
     private function import($apps): void
     {
-        $this->info(__('phrase.database-empty-batch-import'));
+        // Temporarily increase memory limit
+        ini_set('memory_limit', '256M');
+
+        $this->info(trans('phrase.database-empty-batch-import'));
 
         // Create an array ready for batch inserting
         foreach ($apps as $key => $app) {
             $apps[$key] = ['id' => $app->appid, 'name' => $app->name];
         }
 
-        $message = __('phrase.importing-x-steam-apps', ['x' => count($apps)]);
+        $message = trans('phrase.importing-x-steam-apps', ['x' => count($apps)]);
         $this->info($message);
         Log::info($message);
 
@@ -68,18 +73,18 @@ class UpdateSteamApps extends Command
             $progress->advance();
         }
         $progress->finish();
-        $message = __('phrase.x-steam-apps-imported', ['x' => $importedCount]);
+        $message = trans('phrase.x-steam-apps-imported', ['x' => $importedCount]);
         $this->info(PHP_EOL . $message);
         Log::info($message);
     }
 
     /**
-     * @param $apps
+     * @param  $apps
      * @return void
      */
     private function update($apps): void
     {
-        $message = __('phrase.updating-x-steam-apps', ['x' => SteamApp::count()]);
+        $message = trans('phrase.updating-x-steam-apps', ['x' => SteamApp::count()]);
         $this->info($message);
         Log::info($message);
 
@@ -100,7 +105,7 @@ class UpdateSteamApps extends Command
         }
         $progress->finish();
 
-        $message = __('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
+        $message = trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
         $this->info(PHP_EOL . $message);
         Log::info($message);
     }

@@ -2,8 +2,12 @@
 
 namespace Zeropingheroes\Lanager;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/* @mixin Eloquent */
 class SteamUserAppSession extends Model
 {
     protected $fillable = [
@@ -23,7 +27,7 @@ class SteamUserAppSession extends Model
     ];
 
     /**
-     * return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -31,7 +35,7 @@ class SteamUserAppSession extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function app()
     {
@@ -39,8 +43,8 @@ class SteamUserAppSession extends Model
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param  Builder $query
+     * @return Builder
      */
     public function scopeActive($query)
     {

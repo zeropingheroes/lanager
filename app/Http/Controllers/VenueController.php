@@ -2,21 +2,25 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Zeropingheroes\Lanager\Venue;
-use Zeropingheroes\Lanager\Requests\StoreVenueRequest;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+use Session;
+use View;
+use Zeropingheroes\Lanager\Requests\StoreVenueRequest;
+use Zeropingheroes\Lanager\Venue;
 
 class VenueController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
         $venues = Venue::all();
+
         return View::make('pages.venues.index')
             ->with('venues', $venues);
     }
@@ -24,21 +28,23 @@ class VenueController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function create()
     {
         $this->authorize('create', Venue::class);
 
         return View::make('pages.venues.create')
-            ->with('venue', new Venue);
+            ->with('venue', new Venue());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $httpRequest
-     * @return \Illuminate\Http\Response
+     * @param  Request $httpRequest
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest)
     {
@@ -47,16 +53,14 @@ class VenueController extends Controller
         $input = [
             'name' => $httpRequest->input('name'),
             'street_address' => $httpRequest->input('street_address'),
-            'description' => $httpRequest->input('description'),
         ];
 
         $request = new StoreVenueRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+
+            return redirect()->back()->withInput();
         }
 
         $venue = Venue::create($input);
@@ -68,8 +72,9 @@ class VenueController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\Venue $venue
-     * @return \Illuminate\Http\Response
+     * @param  Venue $venue
+     * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function show(Venue $venue)
     {
@@ -82,8 +87,9 @@ class VenueController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\Venue $venue
-     * @return \Illuminate\Http\Response
+     * @param  Venue $venue
+     * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function edit(Venue $venue)
     {
@@ -96,9 +102,10 @@ class VenueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $httpRequest
-     * @param  \Zeropingheroes\Lanager\Venue $venue
-     * @return \Illuminate\Http\Response
+     * @param  Request $httpRequest
+     * @param  Venue   $venue
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Venue $venue)
     {
@@ -107,30 +114,28 @@ class VenueController extends Controller
         $input = [
             'name' => $httpRequest->input('name'),
             'street_address' => $httpRequest->input('street_address'),
-            'description' => $httpRequest->input('description'),
             'id' => $venue->id,
         ];
 
         $request = new StoreVenueRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+
+            return redirect()->back()->withInput();
         }
 
         $venue->update($input);
 
-        return redirect()
-            ->route('venues.show', $venue);
+        return redirect()->route('venues.show', $venue);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\Venue $venue
-     * @return \Illuminate\Http\Response
+     * @param  Venue $venue
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function destroy(Venue $venue)
     {
@@ -138,11 +143,17 @@ class VenueController extends Controller
 
         Venue::destroy($venue->id);
 
-        return redirect()
-            ->route('venues.index')
-            ->withSuccess(__('phrase.item-name-deleted', [
-                'item' => __('title.venue'),
-                'name' => $venue->name
-            ]));
+        Session::flash(
+            'success',
+            trans(
+                'phrase.item-name-deleted',
+                [
+                    'item' => trans('title.venue'),
+                    'name' => $venue->name,
+                ]
+            )
+        );
+
+        return redirect()->route('venues.index');
     }
 }

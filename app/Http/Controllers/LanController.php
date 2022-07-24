@@ -2,12 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Session;
+use View;
 use Zeropingheroes\Lanager\Achievement;
 use Zeropingheroes\Lanager\Lan;
-use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Requests\StoreLanRequest;
-use Zeropingheroes\Lanager\Services\GetGamesPlayedBetweenService;
 use Zeropingheroes\Lanager\Venue;
 
 class LanController extends Controller
@@ -22,9 +24,10 @@ class LanController extends Controller
         $lans = Lan::orderBy('start', 'desc')
             ->get();
 
-        $currentLan = Lan::happeningNow()->first()                      // LAN happening now
-                   ?? Lan::future()->orderBy('start', 'asc')->first()   // Closest future LAN
-                   ?? Lan::past()->orderBy('end', 'desc')->first();     // Most recently ended past LAN
+        // LAN happening now, or closest future LAN, or most recently ended past LAN
+        $currentLan = Lan::happeningNow()->first()
+            ?? Lan::future()->orderBy('start', 'asc')->first()
+            ?? Lan::past()->orderBy('end', 'desc')->first();
 
         return View::make('pages.lans.index')
             ->with('lans', $lans)
@@ -35,6 +38,7 @@ class LanController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function create()
     {
@@ -43,15 +47,15 @@ class LanController extends Controller
         return View::make('pages.lans.create')
             ->with('venues', Venue::orderBy('name')->get())
             ->with('achievements', Achievement::orderBy('name')->get())
-            ->with('lan', new Lan);
+            ->with('lan', new Lan());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Lan $lan
-     * @return \Illuminate\Contracts\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @param  Lan $lan
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function show(Lan $lan)
     {
@@ -63,9 +67,9 @@ class LanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
-     * @return \Illuminate\Http\Response
-     * @internal param Request $request
+     * @param  Request $httpRequest
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest)
     {
@@ -73,7 +77,6 @@ class LanController extends Controller
 
         $input = [
             'name' => $httpRequest->input('name'),
-            'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
             'venue_id' => $httpRequest->input('venue_id'),
@@ -84,11 +87,11 @@ class LanController extends Controller
         $request = new StoreLanRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+
+            return redirect()->back()->withInput();
         }
+
         $lan = Lan::create($input);
 
         return redirect()
@@ -98,8 +101,9 @@ class LanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\Lan $lan
+     * @param  Lan $lan
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function edit(Lan $lan)
     {
@@ -114,10 +118,10 @@ class LanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $httpRequest
-     * @param  \Zeropingheroes\Lanager\Lan $lan
-     * @return \Illuminate\Http\Response
-     * @internal param Request $request
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan)
     {
@@ -125,7 +129,6 @@ class LanController extends Controller
 
         $input = [
             'name' => $httpRequest->input('name'),
-            'description' => $httpRequest->input('description'),
             'start' => $httpRequest->input('start'),
             'end' => $httpRequest->input('end'),
             'venue_id' => $httpRequest->input('venue_id'),
@@ -137,11 +140,11 @@ class LanController extends Controller
         $request = new StoreLanRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+
+            return redirect()->back()->withInput();
         }
+
         $lan->update($input);
 
         return redirect()
@@ -151,8 +154,9 @@ class LanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\Lan $lan
-     * @return \Illuminate\Http\Response
+     * @param  Lan $lan
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function destroy(Lan $lan)
     {
@@ -160,9 +164,11 @@ class LanController extends Controller
 
         Lan::destroy($lan->id);
 
-        return redirect()
-            ->route('lans.index')
-            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.lan'), 'name' => $lan->name]));
+        Session::flash(
+            'success',
+            trans('phrase.item-name-deleted', ['item' => trans('title.lan'), 'name' => $lan->name])
+        );
 
+        return redirect()->route('lans.index');
     }
 }

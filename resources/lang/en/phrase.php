@@ -60,13 +60,8 @@ return [
     'item-already-exists' => ':item already exists!',
 
     /**
-     * Resources
+     * Resources.
      */
-    // Logs
-    'minimum-level' => 'Minimum level',
-    'mark-as-read' => 'Mark as read',
-    'log-entries-marked-as-read' => 'Log entries successfully marked as read',
-    'paste-below-into-github-issue' => 'Paste the content below into a GitHub issue',
 
     // Users
     'your-steam-game-details-are-private' => 'Your Steam game details are currently private',
@@ -121,7 +116,6 @@ return [
     'ended' => 'Ended',
     'starting' => 'Starting',
     'ending' => 'Ending',
-    'ended' => 'Ended',
     'unknown' => 'Unknown',
     'signups' => 'Signups',
     'not-yet-open' => 'Not yet open',
@@ -129,7 +123,6 @@ return [
     'closed' => 'Closed',
     'opening' => 'Opening',
     'closing' => 'Closing',
-    'closed' => 'Closed',
 
     // Images
     'select-files' => 'Select files',
@@ -140,7 +133,7 @@ return [
     'image-already-exists' => 'An image of the same name already exists',
 
     /**
-     * Commands & Services
+     * Commands & Services.
      */
     // General purpose
     'suppress-confirmations' => 'Run command without requesting confirmation',
@@ -156,13 +149,13 @@ return [
     'requesting-list-of-all-apps-from-steam-api' => 'Requesting list of all apps from Steam API',
     'importing-x-steam-apps' => 'Importing :x Steam apps',
 
-
     // lanager:update-steam-apps-metadata
     'update-steam-apps-metadata' => 'Update Steam apps in the database with the latest metadata from Steam',
     'update-all-apps' => 'Update all apps, not just apps missing metadata',
     'steam-app-metadata-up-to-date' => 'Steam app metadata already up-to-date',
     'requesting-metadata-for-x-apps-from-steam-api' => 'Requesting metadata for :x apps from Steam API',
     'this-will-take-approximately-time-to-complete' => 'This will take approximately :time to complete, due to Steam API rate limiting',
+    'requests-made-in-last-five-minutes' => 'Requests made in last 5 minutes: :x',
     'error-updating-metadata-for-steam-app-id-message' => 'Error updating metadata for Steam app with ID :id - :message',
     'x-steam-apps-not-updated-re-run-command' => ':x Steam apps could not be updated - please re-run the command',
 
@@ -173,6 +166,7 @@ return [
     // lanager:export-steam-apps-csv
     'export-steam-apps-csv' => 'Export to steam_apps.csv',
     'overwrite-existing-csv' => 'Overwrite existing steam_apps.csv?',
+    'exporting-x-steam-apps-to-csv' => 'Exporting :x Steam apps to CSV file',
     'x-steam-apps-exported' => ':x Steam apps exported',
 
     // Used by:
@@ -209,29 +203,6 @@ return [
     'pruning-historical-steam-data' => 'Deleting historical Steam user status and gameplay data that did not occur during any of the LANs in the database',
     'x-entries-deleted-and-y-entries-retained' => 'Deleted :x and retained :y historical entries of Steam user status and gameplay',
 
-    // lanager:update-origin-apps
-    'update-origin-games' => 'Update the database with the latest list of games from Origin',
-    'requesting-list-of-all-games-from-origin-api' => 'Requesting list of all games from Origin API',
-    'updating-x-origin-games' => 'Updating :x Origin games',
-    'x-origin-games-updated' => ':x Origin games updated',
-
-    // lanager:backup
-    'output-dir' => 'Where to store the backup file',
-    'backup-lanager-to-file' => 'Back up LANager data to a file',
-    'output-directory-not-writable' => 'The specified output directory is not writable',
-    'output-directory-not-empty' => 'The specified output directory is not empty',
-    'backup-created-successfully' => 'Backup created successfully',
-    'process-exit-code-x' => 'Process exit code: :x',
-
-    // lanager:restore-backup
-    'restore-lanager-backup-from-file' => 'Restore a LANager backup from a file',
-    'backup-file' => 'Path to the backup file',
-    'backup-file-not-found' => 'The specified backup file was not found',
-    'this-will-delete-all-lanager-data' => 'This will delete all LANager data!',
-    'are-you-sure' => 'Are you sure you want to continue?',
-    'deleting-all-lanager-data' => 'Deleting all LANager data',
-    'backup-restored-successfully' => 'Backup restored successfully',
-
     // lanager:upgrade-database
     'upgrade-database' => 'Upgrade the LANager database from v0.5.x, retaining existing data',
     'manually-backup-before-continuing' => 'Manually backup your LANager database before continuing',
@@ -252,6 +223,14 @@ return [
     // Slides
     'slides-content-placeholder' => 'Markdown-formatted text, a single image, or a URL to embed',
     'slides-content-help' => 'Content will be horizontally centered, increased in size, and scaled to fit the screen',
-    'slides-start-end-help' => 'Optionally set when the slide should be displayed'
-];
+    'slides-start-end-help' => 'Optionally set when the slide should be displayed',
 
+    // LAN Games
+    'create-lan-game' => 'Add a game you want to play at :lan',
+    'which-games-would-you-like-to-play' => 'Which games would you like to play at :lan?',
+    'game-already-submitted' => ':game has already been submitted',
+
+    // LAN Game votes
+    'you-have-already-voted-for-this-game' => 'You have already voted for this game',
+    'log-in-to-submit-and-vote-on-games' => 'Log in to submit and vote on games you want to play at :lan',
+];

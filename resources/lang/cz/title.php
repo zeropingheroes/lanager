@@ -31,7 +31,7 @@ return [
     'unknown' => 'Neznámý',
     'actions' => 'Akce',
     'api' => 'API',
-    'colour' =>  'Barva',
+    'colour' => 'Barva',
     'status' => 'Stav',
     'type' => 'Typ',
     'description' => 'Popis',
@@ -160,4 +160,9 @@ return [
     'slide' => 'Snímek',
     'duration' => 'Trvaní',
     'play' => 'Přehrát',
+
+    // Allowed IP Ranges
+    'allowed-ip-ranges' => 'Allowed IP Ranges',
+    'allowed-ip-range' => 'Allowed IP Range',
+    'ip-range' => 'IP Range',
 ];

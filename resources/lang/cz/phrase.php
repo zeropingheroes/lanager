@@ -58,13 +58,8 @@ return [
     'item-already-exists' => ':item již existuje!',
 
     /**
-     * Resources
+     * Resources.
      */
-    // Logs
-    'minimum-level' => 'Minimální level',
-    'mark-as-read' => 'Označit jako přečtené',
-    'log-entries-marked-as-read' => 'Logy úspěšně označeny jako přečtené',
-    'paste-below-into-github-issue' => 'Vložte obsah níže do GitHub issue',
 
     // Users
     'your-steam-game-details-are-private' => 'Informace o Vašich Steam hrách jsou momentálně soukromé',
@@ -115,7 +110,6 @@ return [
     'timespan-to' => 'do',
     'upcoming' => 'Nadcházející',
     'happening-now' => 'Právě probíhající',
-    'ended' => 'Skončilo',
     'starting' => 'Začíná',
     'ending' => 'Končí',
     'ended' => 'Skončilo',
@@ -123,7 +117,6 @@ return [
     'signups' => 'Přihlášky',
     'not-yet-open' => 'Zatím uzavřeno',
     'open' => 'Otevřeno',
-    'closed' => 'Uzavřeno',
     'opening' => 'Otevírající',
     'closing' => 'Uzavírající',
     'closed' => 'Uzavřeno',
@@ -137,7 +130,7 @@ return [
     'image-already-exists' => 'Obrázek se stejným názvem již existuje',
 
     /**
-     * Commands & Services
+     * Commands & Services.
      */
     // General purpose
     'suppress-confirmations' => 'Spustit příkaz bez žádání o povolení',
@@ -180,23 +173,6 @@ return [
     'pruning-historical-steam-data' => 'Odstraňování minulé aktivity a stavů Steam uživatele, která neproběhla v rámci žádné LANky v databázi',
     'x-entries-deleted-and-y-entries-retained' => 'Odstraněno :x a zachováno :y záznamů minulé aktivity Steam uživatele a jeho stavů',
 
-    // lanager:backup
-    'output-dir' => 'Kam uložit soubor zálohy',
-    'backup-lanager-to-file' => 'Zálohovat data z rozhraní LANager do souboru',
-    'output-directory-not-writable' => 'LANager nemá povolení zapisovat do zvoleného adresáře',
-    'output-directory-not-empty' => 'Zvolený adresář není prázdný',
-    'backup-created-successfully' => 'Záloha vytvořena úspěšně',
-    'process-exit-code-x' => 'Kód ukončení procesu: :x',
-
-    // lanager:restore-backup
-    'restore-lanager-backup-from-file' => 'Obnovit zálohu rozhraní LANager ze souboru',
-    'backup-file' => 'Cesta k souboru se zálohou',
-    'backup-file-not-found' => 'Zvolený soubor se zálohou nebyl nalezen na dané adrese',
-    'this-will-delete-all-lanager-data' => 'Tento krok odstaní všechna data z rozhraní LANager!',
-    'are-you-sure' => 'Opravdu chcete pokračovat?',
-    'deleting-all-lanager-data' => 'Odstaňování všech dat z rozhraní LANager',
-    'backup-restored-successfully' => 'Záloha obnovena úspěšně',
-
     // lanager:upgrade-database
     'upgrade-database' => 'Aktualizovat databázi z verze 0.5.x při zachování dat',
     'manually-backup-before-continuing' => 'Ručně zálohovat databázi před pokračováním',
@@ -216,5 +192,15 @@ return [
 
     // Slides
     'slides-content-placeholder' => 'Text ve formátu Markdown, jeden obrázek nebo URL adresa k vložení',
-    'slides-content-help' => 'Obsah bude horizontálně vycentrován, bude zvětšen a škálován, aby se vešel na obrazovku'
+    'slides-content-help' => 'Obsah bude horizontálně vycentrován, bude zvětšen a škálován, aby se vešel na obrazovku',
+    'slides-start-end-help' => 'Volitelně lze nastavit, kdy má být snímek zobrazen',
+
+    // LAN Games
+    'create-lan-game' => 'Přidejte hru, kterou chcete hrát na :lan',
+    'which-games-would-you-like-to-play' => 'Které hry byste chtěli hrát na :lan?',
+    'game-already-submitted' => ':game již byla odeslána',
+
+    // LAN Game votes
+    'you-have-already-voted-for-this-game' => 'Už jste pro tuto hru hlasovali',
+    'log-in-to-submit-and-vote-on-games' => 'Přihlaste se a odešlete a hlasujte o hrách, které chcete hrát na :lan',
 ];

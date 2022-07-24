@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param  Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
 
         // Many rate-limited Steam API calls
         $schedule->command(UpdateSteamAppsMetadata::class)
-            ->twiceDaily();
+            ->dailyAt('07:00');
     }
 
     /**
@@ -54,7 +54,6 @@ class Kernel extends ConsoleKernel
     {
         $this->load(__DIR__ . '/Commands');
 
-        /** @noinspection PhpIncludeInspection */
         require base_path('routes/console.php');
     }
 }

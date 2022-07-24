@@ -5,48 +5,47 @@ namespace Zeropingheroes\Lanager\Services;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
-use Syntax\SteamApi\Facades\SteamApi as Steam;
+use Syntax\SteamApi\Facades\SteamApi;
 use Zeropingheroes\Lanager\UserOAuthAccount;
 
 class UpdateSteamUserAppsService
 {
     /**
-     * LANager users to be updated
+     * LANager users to be updated.
      *
      * @var Collection
      */
     protected $users = [];
 
     /**
-     * Users whose apps were successfully updated
+     * Users whose apps were successfully updated.
      *
      * @var array
      */
     protected $updated = [];
 
     /**
-     * Users whose apps were not updated due to errors
+     * Users whose apps were not updated due to errors.
      *
      * @var array
      */
     protected $failed = [];
 
     /**
-     * Errors
+     * Errors.
      *
-     * @var \Illuminate\Support\MessageBag
+     * @var MessageBag
      */
     protected $errors;
 
     /**
-     * @param Collection $users
+     * @param  Collection $users
      * @throws Exception
-     * @internal param array $users
      */
     public function __construct(Collection $users)
     {
         if ($users->isEmpty()) {
-            throw new Exception(__('phrase.one-or-more-users-must-be-provided'));
+            throw new Exception(trans('phrase.one-or-more-users-must-be-provided'));
         }
 
         $this->users = $users;
@@ -78,9 +77,10 @@ class UpdateSteamUserAppsService
     }
 
     /**
-     * Update Steam users apps
+     * Update Steam users apps.
+     *
      * @return void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(): void
     {
@@ -90,7 +90,7 @@ class UpdateSteamUserAppsService
         // Update games for each user in turn
         foreach ($steamAccounts as $steamAccount) {
             try {
-                $apps = Steam::player($steamAccount->provider_id)->GetOwnedGames();
+                $apps = SteamApi::player($steamAccount->provider_id)->GetOwnedGames();
 
                 $appsVisible = (count($apps) != 0);
 
@@ -98,7 +98,7 @@ class UpdateSteamUserAppsService
                     [],
                     [
                         'apps_visible' => $appsVisible,
-                        'apps_updated_at' => now()
+                        'apps_updated_at' => now(),
                     ]
                 );
 
@@ -108,18 +108,17 @@ class UpdateSteamUserAppsService
                             ['steam_app_id' => $app->appId],
                             [
                                 'playtime_two_weeks' => $app->playtimeTwoWeeks,
-                                'playtime_forever' => $app->playtimeForever
+                                'playtime_forever' => $app->playtimeForever,
                             ]
                         );
                 }
 
                 // Add the user to the updated array
                 $this->updated[$steamAccount->provider_id] = $steamAccount->user->username;
-
             } catch (Exception $e) {
                 $this->errors->add(
                     $steamAccount->provider_id,
-                    __(
+                    trans(
                         'phrase.unable-to-update-data-for-user-x',
                         ['x' => $steamAccount->user->username, 'error' => $e->getMessage()]
                     )

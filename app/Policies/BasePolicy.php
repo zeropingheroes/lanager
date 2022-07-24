@@ -2,17 +2,17 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Zeropingheroes\Lanager\User;
 
 class BasePolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Run checks before calling the individual policies
+     * Run checks before calling the individual policies.
      *
-     * @param User|null $authUser
+     * @param  User|null $authUser
      * @return bool
      */
     public function before(?User $authUser)

@@ -2,29 +2,81 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
+use Arr;
 use Barryvdh\Debugbar\Facade as DebugbarFacade;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
+use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Exception;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\ServiceProvider;
 use League\CommonMark\Inline\Element\Image;
 use League\CommonMark\Inline\Element\Link;
 use Zeropingheroes\Lanager\MarkdownRenderers\ExternalLinkRenderer;
 use Zeropingheroes\Lanager\MarkdownRenderers\ResponsiveImageRenderer;
-use Zeropingheroes\Lanager\Role;
-use Zeropingheroes\Lanager\SteamUserStatusCode;
-use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\Observers\UserObserver;
 use Zeropingheroes\Lanager\NavigationLink;
 use Zeropingheroes\Lanager\Observers\NavigationLinkObserver;
+use Zeropingheroes\Lanager\Observers\UserObserver;
+use Zeropingheroes\Lanager\User;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Register any application services.
+     *
      * @return void
      * @throws Exception
+     */
+    public function register()
+    {
+        // Load debugbar if:
+        // - env set to local
+        // - debug enabled
+        // - class exists
+        if (
+            $this->app->environment('local')
+            && config('app.debug') == true
+            && class_exists(DebugbarServiceProvider::class)
+        ) {
+            $this->app->register(DebugbarServiceProvider::class);
+            $this->app->alias('Debugbar', DebugbarFacade::class);
+            $this->app->register(IdeHelperServiceProvider::class);
+        }
+
+        $command = Arr::get(request()->server(), 'argv.1');
+
+        // Check required environment variables are set, unless:
+        // - the config has been cached
+        // - a setup command is being run
+        if (
+            !$this->app->configurationIsCached() && !in_array(
+                $command,
+                [
+                    'package:discover',
+                    'cache:clear',
+                    'config:clear',
+                    'view:clear',
+                    'ide-helper:generate',
+                    'ide-helper:meta',
+
+                ]
+            )
+        ) {
+            if (!env('STEAM_API_KEY')) {
+                throw new Exception('STEAM_API_KEY not set in .env file');
+            }
+            if (!ctype_xdigit(env('STEAM_API_KEY')) || strlen(env('STEAM_API_KEY')) != 32) {
+                throw new Exception('Invalid STEAM_API_KEY set in .env file');
+            }
+            if (!env('GOOGLE_API_KEY')) {
+                throw new Exception('GOOGLE_API_KEY not set in .env file');
+            }
+        }
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
      */
     public function boot()
     {
@@ -48,40 +100,5 @@ class AppServiceProvider extends ServiceProvider
                 'steam' => 'Zeropingheroes\Lanager\SteamApp',
             ]
         );
-    }
-
-    /**
-     * Register any application services.
-     * @return void
-     * @throws Exception
-     */
-    public function register()
-    {
-        if ($this->app->environment('local')) {
-            $this->app->register(DebugbarServiceProvider::class);
-            $this->app->alias('Debugbar', DebugbarFacade::class);
-        }
-
-        // Check required environment variables are set unless the config has been cached, or the package:discover command is being run
-        if (!$this->app->configurationIsCached() && $this->getCommand() != 'package:discover') {
-            if (!env('STEAM_API_KEY')) {
-                throw new Exception('STEAM_API_KEY not set in .env file');
-            }
-            if (!ctype_xdigit(env('STEAM_API_KEY')) || strlen(env('STEAM_API_KEY')) != 32) {
-                throw new Exception('Invalid STEAM_API_KEY set in .env file');
-            }
-            if (!env('GOOGLE_API_KEY')) {
-                throw new Exception('GOOGLE_API_KEY not set in .env file');
-            }
-        }
-    }
-
-    /**
-     * Get the currently executing command
-     * @return string
-     */
-    private function getCommand()
-    {
-        return array_get(request()->server(), 'argv.1');
     }
 }

@@ -18,6 +18,3 @@
         </span>
     </div>
 </footer>
-
-
-

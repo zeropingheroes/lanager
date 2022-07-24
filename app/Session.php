@@ -2,16 +2,21 @@
 
 namespace Zeropingheroes\Lanager;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\belongsTo;
 
+/* @mixin Eloquent */
 class Session extends Model
 {
     protected $dates = [
         'last_activity',
     ];
 
+    protected $keyType = 'string';
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return belongsTo
      */
     public function user()
     {

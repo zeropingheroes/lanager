@@ -2,8 +2,11 @@
 
 namespace Zeropingheroes\Lanager;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/* @mixin Eloquent */
 class SteamUserMetadata extends Model
 {
     protected $fillable = [
@@ -20,7 +23,7 @@ class SteamUserMetadata extends Model
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -28,7 +31,7 @@ class SteamUserMetadata extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function status()
     {

@@ -2,8 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Observers;
 
-use Zeropingheroes\Lanager\User;
 use Zeropingheroes\Lanager\Role;
+use Zeropingheroes\Lanager\User;
 
 class UserObserver
 {

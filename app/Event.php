@@ -2,8 +2,12 @@
 
 namespace Zeropingheroes\Lanager;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\belongsTo;
+use Illuminate\Database\Eloquent\Relations\hasMany;
 
+/* @mixin Eloquent */
 class Event extends Model
 {
     protected $fillable = [
@@ -24,12 +28,8 @@ class Event extends Model
         'signups_close',
     ];
 
-    protected $with = [
-        'lan',
-    ];
-
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return belongsTo
      */
     public function lan()
     {
@@ -37,7 +37,7 @@ class Event extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return hasMany
      */
     public function signups()
     {

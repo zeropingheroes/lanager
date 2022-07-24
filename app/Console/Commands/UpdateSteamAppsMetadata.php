@@ -2,27 +2,30 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
-use Illuminate\Console\Command;
-use Syntax\SteamApi\Exceptions\ApiCallFailedException;
-use Syntax\SteamApi\Facades\SteamApi as Steam;
-use Zeropingheroes\Lanager\SteamApp;
-use bandwidthThrottle\tokenBucket\Rate;
-use bandwidthThrottle\tokenBucket\TokenBucket;
 use bandwidthThrottle\tokenBucket\BlockingConsumer;
+use bandwidthThrottle\tokenBucket\Rate;
 use bandwidthThrottle\tokenBucket\storage\FileStorage;
+use bandwidthThrottle\tokenBucket\storage\StorageException;
+use bandwidthThrottle\tokenBucket\TimeoutException;
+use bandwidthThrottle\tokenBucket\TokenBucket;
 use Carbon\CarbonInterval;
-use Illuminate\Support\Facades\Log;
+use ErrorException;
+use Illuminate\Console\Command;
+use Log;
+use Syntax\SteamApi\Facades\SteamApi;
+use Syntax\SteamApi\Exceptions\ApiCallFailedException;
+use Zeropingheroes\Lanager\SteamApp;
 
 class UpdateSteamAppsMetadata extends Command
 {
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
-        $this->signature = 'lanager:update-steam-apps-metadata'
-                         . '{--all-apps : ' . __('phrase.update-all-apps') . '}';
-        $this->description = __('phrase.update-steam-apps-metadata');
+        $this->signature = 'lanager:update-steam-apps-metadata '
+            . '{--all-apps : ' . trans('phrase.update-all-apps') . '}';
+        $this->description = trans('phrase.update-steam-apps-metadata');
 
         parent::__construct();
     }
@@ -31,17 +34,20 @@ class UpdateSteamAppsMetadata extends Command
      * Execute the console command.
      *
      * @return mixed
+     * @throws TimeoutException
+     * @throws StorageException
      */
     public function handle()
     {
         if (!SteamApp::count()) {
-            $message = __('phrase.database-empty-aborting');
+            $message = trans('phrase.database-empty-aborting');
             $this->error($message);
             Log::error($message);
-            return;
+
+            return 1;
         }
 
-        if ( $this->option('all-apps')) {
+        if ($this->option('all-apps')) {
             // Get all apps
             $steamAppIds = SteamApp::all()->pluck('id')->toArray();
         } else {
@@ -51,40 +57,60 @@ class UpdateSteamAppsMetadata extends Command
 
         $appCount = count($steamAppIds);
         if (!$appCount) {
-            $message = __('phrase.steam-app-metadata-up-to-date');
+            $message = trans('phrase.steam-app-metadata-up-to-date');
             $this->info($message);
             Log::info($message);
-            return;
+
+            return 0;
         }
 
-        $timeEstimate = CarbonInterval::seconds(ceil($appCount*1.5));
+        $timeEstimate = CarbonInterval::seconds(ceil($appCount * 1.5));
 
-        $this->info(__('phrase.requesting-metadata-for-x-apps-from-steam-api', ['x' => $appCount]));
-        $this->info(__('phrase.this-will-take-approximately-time-to-complete', ['time' => $timeEstimate->cascade()->forHumans()]));
+        $this->info(trans('phrase.requesting-metadata-for-x-apps-from-steam-api', ['x' => $appCount]));
+        $this->info(
+            trans(
+                'phrase.this-will-take-approximately-time-to-complete',
+                ['time' => $timeEstimate->cascade()->forHumans()]
+            )
+        );
 
         $progress = $this->output->createProgressBar($appCount);
-        $progress->setFormat('%current%/%max% %bar% %percent%% - %elapsed% ' . __('title.elapsed'));
+        $progress->setFormat('%current%/%max% %bar% %percent%% - %elapsed% ' . trans('title.elapsed') . ' - %message%');
+        $progress->setMessage(trans('phrase.requests-made-in-last-five-minutes', ['x' => 0]));
 
         // Prevent hitting Steam's API rate limits of 200 requests every 5 minutes
-        $storage = new FileStorage(storage_path('steam-web-api.bucket')); // store state in storage directory
-        $rate = new Rate(40, Rate::MINUTE); // add 40 tokens every minute (= 200 over 5 minutes)
-        $bucket = new TokenBucket(200, $rate, $storage); // bucket can never have more than 200 tokens saved up
-        $consumer = new BlockingConsumer($bucket); // if no tokens are available, block further execution until there are tokens
-        $bucket->bootstrap(200); // fill the bucket with 200 tokens initially
+        // Store state in storage directory
+        $storage = new FileStorage(storage_path('steam-web-api.bucket'));
+
+        // add 40 tokens every minute (= 200 over 5 minutes)
+        $rate = new Rate(40, Rate::MINUTE);
+
+        // bucket can never have more than 40 tokens saved up
+        $bucket = new TokenBucket(40, $rate, $storage);
+
+        // if no tokens are available, block further execution until there are tokens
+        $consumer = new BlockingConsumer($bucket);
+        $bucket->bootstrap();
 
         $updatedCount = 0;
         $failedCount = 0;
+        $requestLog = array();
         foreach ($steamAppIds as &$appId) {
             // Query Steam API to get app details
             try {
                 $consumer->consume(1);
-                $app = Steam::app()->appDetails($appId);
+                $app = SteamApi::app()->appDetails($appId);
 
+                // Add current timestamp to array of requests, to calculate requests made in last 5 minutes
+                $requestLog[] = time();
+            } catch (ApiCallFailedException | ErrorException $e) {
                 // If the API call failed, empty the bucket and skip the app
-            } catch (ApiCallFailedException $e) {
                 $failedCount++;
-                $consumer->consume(10);
-                $message = __('phrase.error-updating-metadata-for-steam-app-id-message', ['id' => $appId, 'message' => $e->getMessage()]);
+                $consumer->consume(40);
+                $message = trans(
+                    'phrase.error-updating-metadata-for-steam-app-id-message',
+                    ['id' => $appId, 'message' => $e->getMessage()]
+                );
                 $this->error($message);
                 Log::error($message);
                 $progress->advance();
@@ -122,22 +148,36 @@ class UpdateSteamAppsMetadata extends Command
             } else {
                 $type = 'unknown';
             }
+
             SteamApp::where('id', $appId)->update(['type' => $type]);
             $updatedCount++;
             $progress->advance();
+
+            $requestLog = array_filter(
+                $requestLog,
+                function ($value) {
+                    return ($value >= (time() - 300));
+                }
+            );
+
+            $progress->setMessage(trans('phrase.requests-made-in-last-five-minutes', ['x' => count($requestLog)]));
         }
         // Unset variable passed by reference
         unset($appId);
         $progress->finish();
 
-        $message = __('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
-        $this->info(PHP_EOL .$message);
+        $message = trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
+        $this->info(PHP_EOL . $message);
         Log::info($message);
 
         if ($failedCount) {
-            $message = __('phrase.x-steam-apps-not-updated-re-run-command', ['x' => $failedCount]);
+            $message = trans('phrase.x-steam-apps-not-updated-re-run-command', ['x' => $failedCount]);
             $this->error($message);
             Log::error($message);
+
+            return 1;
         }
+
+        return 0;
     }
 }

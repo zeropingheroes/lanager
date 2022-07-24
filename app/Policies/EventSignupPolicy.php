@@ -10,8 +10,8 @@ class EventSignupPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can create an item.
      *
-     * @param User $authUser
-     * @return boolean
+     * @param  User $authUser
+     * @return bool
      */
     public function create(User $authUser)
     {
@@ -21,9 +21,9 @@ class EventSignupPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $authUser
-     * @param EventSignup $eventSignup
-     * @return boolean
+     * @param  User        $authUser
+     * @param  EventSignup $eventSignup
+     * @return bool
      */
     public function delete(User $authUser, EventSignup $eventSignup)
     {

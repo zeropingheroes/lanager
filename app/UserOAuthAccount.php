@@ -2,8 +2,11 @@
 
 namespace Zeropingheroes\Lanager;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\belongsTo;
 
+/* @mixin Eloquent */
 class UserOAuthAccount extends Model
 {
     protected $fillable = [
@@ -20,7 +23,7 @@ class UserOAuthAccount extends Model
     protected $table = 'user_oauth_accounts';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return belongsTo
      */
     public function user()
     {
@@ -35,6 +38,7 @@ class UserOAuthAccount extends Model
         if ($this->provider == 'steam') {
             return str_replace('_medium.jpg', '.jpg', $this->avatar);
         }
+
         return '';
     }
 
@@ -46,6 +50,7 @@ class UserOAuthAccount extends Model
         if ($this->provider == 'steam') {
             return $this->avatar;
         }
+
         return '';
     }
 
@@ -57,7 +62,7 @@ class UserOAuthAccount extends Model
         if ($this->provider == 'steam') {
             return str_replace('_medium.jpg', '_full.jpg', $this->avatar);
         }
+
         return '';
     }
-
 }

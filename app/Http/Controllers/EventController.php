@@ -2,9 +2,12 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
-use Zeropingheroes\Lanager\Event;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Session;
+use View;
+use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Requests\StoreEventRequest;
 
@@ -13,8 +16,8 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
-     * @param Lan $lan
+     * @param  Request $request
+     * @param  Lan     $lan
      * @return \Illuminate\Contracts\View\View
      */
     public function index(Request $request, Lan $lan)
@@ -36,8 +39,9 @@ class EventController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function create(Lan $lan)
     {
@@ -45,15 +49,16 @@ class EventController extends Controller
 
         return View::make('pages.events.create')
             ->with('lan', $lan)
-            ->with('event', new Event);
+            ->with('event', new Event());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Lan $lan
-     * @return \Illuminate\Http\Response
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan)
     {
@@ -73,23 +78,23 @@ class EventController extends Controller
         $request = new StoreEventRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+
+            return redirect()->back()->withInput();
         }
+
         $event = Event::create($input);
 
-        return redirect()
-            ->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
+        return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Lan $lan
-     * @param Event $event
+     * @param  Lan   $lan
+     * @param  Event $event
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function show(Lan $lan, Event $event)
     {
@@ -108,9 +113,10 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Lan $lan
-     * @param Event $event
+     * @param  Lan   $lan
+     * @param  Event $event
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function edit(Lan $lan, Event $event)
     {
@@ -129,10 +135,11 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Lan $lan
-     * @param Event $event
-     * @return \Illuminate\Http\Response
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
+     * @param  Event   $event
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan, Event $event)
     {
@@ -152,11 +159,11 @@ class EventController extends Controller
         $request = new StoreEventRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+
+            return redirect()->back()->withInput();
         }
+
         $event->update($input);
 
         return redirect()
@@ -166,9 +173,10 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Lan $lan
-     * @param Event $event
-     * @return \Illuminate\Http\Response
+     * @param  Lan   $lan
+     * @param  Event $event
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Event $event)
     {
@@ -176,8 +184,11 @@ class EventController extends Controller
 
         Event::destroy($event->id);
 
-        return redirect()
-            ->route('lans.events.index', ['lan' => $lan])
-            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.event'), 'name' => $event->name]));
+        Session::flash(
+            'success',
+            trans('phrase.item-name-deleted', ['item' => trans('title.event'), 'name' => $event->name])
+        );
+
+        return redirect()->route('lans.events.index', ['lan' => $lan]);
     }
 }

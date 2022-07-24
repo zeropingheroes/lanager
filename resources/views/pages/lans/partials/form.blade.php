@@ -3,20 +3,10 @@
     <input type="text" class="form-control" id="name" name="name" placeholder="@lang('title.name')"
            value="{{ old('name', $lan->name) }}">
 </div>
-<div class="form-group">
-    <label for="description">@lang('title.description')</label>
-    <textarea class="form-control" id="description" name="description" rows="10" placeholder="@lang('phrase.markdown-help')"
-              aria-describedby="descriptionHelp">{{ old('description', $lan->description) }}</textarea>
-    <small id="descriptionHelp" class="form-text text-muted">
-        <a href="@lang('phrase.markdown-formatting-help-link-url')" target="_blank">@lang('phrase.markdown-formatting-help-link')</a>
-        <br>
-        <a href="{{ route('images.index') }}" target="_blank">@lang('title.upload-images')</a>
-    </small>
-</div>
 <div class="form-row">
     <script>
         $(function () {
-            var format = 'YYYY-MM-DD HH:mm:00';
+            var format = 'YYYY-MM-DD HH:mm';
 
             var start = $('#start');
             var end = $('#end');
@@ -39,13 +29,6 @@
             });
 
             end.datetimepicker('date', endDate);
-
-            $("#start").on("change.datetimepicker", function (e) {
-                $('#end').datetimepicker('minDate', e.date);
-            });
-            $("#end").on("change.datetimepicker", function (e) {
-                $('#start').datetimepicker('maxDate', e.date);
-            });
         });
     </script>
     <div class="form-group col-md-6">

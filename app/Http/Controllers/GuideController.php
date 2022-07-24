@@ -2,11 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\Guide;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Session;
+use Str;
+use View;
+use Zeropingheroes\Lanager\Guide;
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Requests\StoreGuideRequest;
 
 class GuideController extends Controller
@@ -14,7 +17,7 @@ class GuideController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
     public function index(Lan $lan)
@@ -31,22 +34,23 @@ class GuideController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Lan $lan
+     * @param  Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
     public function create(Lan $lan)
     {
         return View::make('pages.guides.create')
             ->with('lan', $lan)
-            ->with('guide', new Guide);
+            ->with('guide', new Guide());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
-     * @param Lan $lan
-     * @return \Illuminate\Http\Response
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan)
     {
@@ -62,11 +66,11 @@ class GuideController extends Controller
         $request = new StoreGuideRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+
+            return redirect()->back()->withInput();
         }
+
         $guide = Guide::create($input);
 
         return redirect()
@@ -76,10 +80,11 @@ class GuideController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Guide $guide
-     * @param string $slug
-     * @return \Illuminate\Contracts\View\View
+     * @param  Lan    $lan
+     * @param  Guide  $guide
+     * @param  string $slug
+     * @return \Illuminate\Contracts\View\View|RedirectResponse
+     * @throws AuthorizationException
      */
     public function show(Lan $lan, Guide $guide, $slug = '')
     {
@@ -93,7 +98,7 @@ class GuideController extends Controller
         // If the guide is accessed without the URL slug
         // or an incorrect slug
         // redirect to the guide with the right slug
-        if (!$slug || $slug != Str::slug($guide->title)) {
+        if (! $slug || $slug != Str::slug($guide->title)) {
             return redirect()->route(
                 'lans.guides.show',
                 ['lan' => $guide->lan_id, 'guide' => $guide, 'slug' => Str::slug($guide->title)]
@@ -108,9 +113,10 @@ class GuideController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Guide $guide
+     * @param  Lan   $lan
+     * @param  Guide $guide
      * @return \Illuminate\Contracts\View\View
+     * @throws AuthorizationException
      */
     public function edit(Lan $lan, Guide $guide)
     {
@@ -131,10 +137,11 @@ class GuideController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $httpRequest
-     * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Guide $guide
-     * @return \Illuminate\Http\Response
+     * @param  Request $httpRequest
+     * @param  Lan     $lan
+     * @param  Guide   $guide
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan, Guide $guide)
     {
@@ -155,11 +162,11 @@ class GuideController extends Controller
         $request = new StoreGuideRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+
+            return redirect()->back()->withInput();
         }
+
         $guide->update($input);
 
         return redirect()
@@ -169,9 +176,10 @@ class GuideController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Guide $guide
-     * @return \Illuminate\Http\Response
+     * @param  Lan   $lan
+     * @param  Guide $guide
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Guide $guide)
     {
@@ -184,8 +192,11 @@ class GuideController extends Controller
 
         Guide::destroy($guide->id);
 
-        return redirect()
-            ->route('lans.guides.index', ['lan' => $lan])
-            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.guide'), 'name' => $guide->title]));
+        Session::flash(
+            'success',
+            trans('phrase.item-name-deleted', ['item' => trans('title.guide'), 'name' => $guide->title])
+        );
+
+        return redirect()->route('lans.guides.index', ['lan' => $lan]);
     }
 }

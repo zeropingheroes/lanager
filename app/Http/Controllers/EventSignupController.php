@@ -2,24 +2,26 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Auth;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Session;
 use Zeropingheroes\Lanager\Event;
+use Zeropingheroes\Lanager\EventSignup;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Requests\StoreEventSignupRequest;
-use Zeropingheroes\Lanager\Requests\DestroyEventSignupRequest;
-use Zeropingheroes\Lanager\EventSignup;
 
 class EventSignupController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @param Lan $lan
-     * @param Event $event
-     * @param Request $httpRequest
-     * @return \Illuminate\Http\Response
-     * @internal param Request|StoreEventSignupRequest $request
+     * @param  Lan     $lan
+     * @param  Event   $event
+     * @param  Request $httpRequest
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Lan $lan, Event $event, Request $httpRequest)
     {
@@ -38,10 +40,9 @@ class EventSignupController extends Controller
         $request = new StoreEventSignupRequest($input);
 
         if ($request->invalid()) {
-            return redirect()
-                ->back()
-                ->withError($request->errors())
-                ->withInput();
+            Session::flash('error', $request->errors());
+
+            return redirect()->back()->withInput();
         }
 
         EventSignup::create($input);
@@ -53,10 +54,11 @@ class EventSignupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Lan $lan
-     * @param Event $event
-     * @param EventSignup $eventSignup
-     * @return \Illuminate\Http\Response
+     * @param  Lan         $lan
+     * @param  Event       $event
+     * @param  EventSignup $eventSignup
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Event $event, EventSignup $eventSignup)
     {

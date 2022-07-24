@@ -4,6 +4,7 @@
  * code may be modified to fit the specific needs of your application.
  */
 import langs from './langs.js';
+import Vue from 'vue'
 
 try {
     window._ = require('lodash');
@@ -11,6 +12,7 @@ try {
     window.$ = window.jQuery = require('jquery');
     window.moment = require('moment');
     window.Clipboard = require('clipboard');
+    window.Vue = Vue;
 
     var Lang = require('lang.js');
     window.lang = new Lang({messages: langs});
@@ -28,7 +30,6 @@ try {
  */
 
 window.axios = require('axios');
-window.Vue = require('vue');
 import FullCalendar from 'vue-full-calendar';
 Vue.use(FullCalendar);
 
@@ -61,7 +62,7 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo'
+// import Echo from 'laravel-echo';
 
 // window.Pusher = require('pusher-js');
 
@@ -69,5 +70,5 @@ if (token) {
 //     broadcaster: 'pusher',
 //     key: process.env.MIX_PUSHER_APP_KEY,
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
+//     forceTLS: true
 // });

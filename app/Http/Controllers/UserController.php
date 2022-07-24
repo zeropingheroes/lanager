@@ -2,9 +2,12 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
+use Auth;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
+use Session;
+use View;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
 
@@ -13,7 +16,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
+     * @param  User $user
      * @return \Illuminate\Contracts\View\View
      */
     public function show(User $user)
@@ -29,11 +32,11 @@ class UserController extends Controller
             ->first();
 
         // If the user's apps are visible, and they're attending the current LAN (or there isn't a current LAN)
-        if (($user->steamMetadata && $user->steamMetadata->apps_visible == 1) &&
-            (!$lan || $lansAttended->contains('id', $lan->id))) {
-
-            // Get games in common so long as the logged
-            // in user is not viewing their own profile
+        if (
+            ($user->steamMetadata && $user->steamMetadata->apps_visible == 1)
+            && (! $lan || $lansAttended->contains('id', $lan->id))
+        ) {
+            // Get games in common so long as the logged in user is not viewing their own profile
             if (Auth::check() && $user->id != Auth::user()->id) {
                 $authUserGames = Auth::user()
                     ->steamApps()
@@ -77,9 +80,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Zeropingheroes\Lanager\User $user
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @param  User $user
+     * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function destroy(User $user)
     {
@@ -91,8 +94,11 @@ class UserController extends Controller
             Auth::logout();
         }
 
-        return redirect()
-            ->route('users')
-            ->withSuccess(__('phrase.item-name-deleted', ['item' => __('title.user'), 'name' => $user->username]));
+        Session::flash(
+            'success',
+            trans('phrase.item-name-deleted', ['item' => trans('title.user'), 'name' => $user->username])
+        );
+
+        return redirect()->route('users');
     }
 }

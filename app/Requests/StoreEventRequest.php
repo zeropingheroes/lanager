@@ -10,7 +10,7 @@ class StoreEventRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
@@ -18,18 +18,19 @@ class StoreEventRequest extends Request
     {
         $this->validationRules = [
             'name' => ['required', 'max:255'],
-            'start' => ['required', 'date_format:Y-m-d H:i:s', 'before:end'],
-            'end' => ['required', 'date_format:Y-m-d H:i:s', 'after:start'],
+            'start' => ['required', 'date_format:Y-m-d H:i', 'before:end'],
+            'end' => ['required', 'date_format:Y-m-d H:i', 'after:start'],
+            'description' => ['nullable'],
             'signups_open' => [
                 'nullable',
-                'date_format:Y-m-d H:i:s',
+                'date_format:Y-m-d H:i',
                 'before:signups_close',
                 'before_or_equal:start',
                 'required_with:signups_close',
             ],
             'signups_close' => [
                 'nullable',
-                'date_format:Y-m-d H:i:s',
+                'date_format:Y-m-d H:i',
                 'after:signups_open',
                 'before_or_equal:start',
                 'required_with:signups_open',
@@ -38,7 +39,7 @@ class StoreEventRequest extends Request
             'published' => ['boolean'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
@@ -47,10 +48,12 @@ class StoreEventRequest extends Request
         $eventStart = Carbon::make($this->input['start']);
         $eventEnd = Carbon::make($this->input['end']);
 
-        if (!$eventStart->between($lan->start, $lan->end) ||
-            !$eventEnd->between($lan->start, $lan->end)
+        if (
+            ! $eventStart->between($lan->start, $lan->end)
+            || ! $eventEnd->between($lan->start, $lan->end)
         ) {
-            $this->addError(__('phrase.event-times-must-be-within-lan-times'));
+            $this->addError(trans('phrase.event-times-must-be-within-lan-times'));
+
             return $this->setValid(false);
         }
 

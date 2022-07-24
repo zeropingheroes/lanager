@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\MarkdownRenderers;
 
+use InvalidArgumentException;
 use League\CommonMark\ElementRendererInterface;
 use League\CommonMark\HtmlElement;
 use League\CommonMark\Inline\Element\AbstractInline;
@@ -14,7 +15,7 @@ class ResponsiveImageRenderer implements InlineRendererInterface
     private $classes;
 
     /**
-     * ExternalLinkRenderer constructor
+     * ExternalLinkRenderer constructor.
      *
      * @param $classes
      */
@@ -24,16 +25,17 @@ class ResponsiveImageRenderer implements InlineRendererInterface
     }
 
     /**
-     * Render images with responsive classes added
+     * Render images with responsive classes added.
      *
-     * @param AbstractInline $inline
-     * @param ElementRendererInterface $htmlRenderer
+     * @param  AbstractInline           $inline
+     * @param  ElementRendererInterface $htmlRenderer
      * @return HtmlElement
+     * @throws InvalidArgumentException
      */
     public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer)
     {
-        if (!($inline instanceof Image)) {
-            throw new \InvalidArgumentException('Incompatible inline type: ' . get_class($inline));
+        if (! ($inline instanceof Image)) {
+            throw new InvalidArgumentException('Incompatible inline type: ' . get_class($inline));
         }
 
         $attributes = [];

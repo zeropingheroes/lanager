@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\MarkdownRenderers;
 
+use InvalidArgumentException;
 use League\CommonMark\ElementRendererInterface;
 use League\CommonMark\HtmlElement;
 use League\CommonMark\Inline\Element\AbstractInline;
@@ -14,7 +15,7 @@ class ExternalLinkRenderer implements InlineRendererInterface
     private $host;
 
     /**
-     * ExternalLinkRenderer constructor
+     * ExternalLinkRenderer constructor.
      *
      * @param $host
      */
@@ -24,16 +25,17 @@ class ExternalLinkRenderer implements InlineRendererInterface
     }
 
     /**
-     * Render external links to open in a new window
+     * Render external links to open in a new window.
      *
-     * @param AbstractInline $inline
-     * @param ElementRendererInterface $htmlRenderer
+     * @param  AbstractInline           $inline
+     * @param  ElementRendererInterface $htmlRenderer
      * @return HtmlElement
+     * @throws InvalidArgumentException
      */
     public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer)
     {
-        if (!($inline instanceof Link)) {
-            throw new \InvalidArgumentException('Incompatible inline type: ' . get_class($inline));
+        if (! ($inline instanceof Link)) {
+            throw new InvalidArgumentException('Incompatible inline type: ' . get_class($inline));
         }
 
         $attributes = [];
@@ -52,9 +54,9 @@ class ExternalLinkRenderer implements InlineRendererInterface
     }
 
     /**
-     * Check if supplied URL is to another site
+     * Check if supplied URL is to another site.
      *
-     * @param $url
+     * @param  $url
      * @return bool
      */
     private function isExternalUrl($url)

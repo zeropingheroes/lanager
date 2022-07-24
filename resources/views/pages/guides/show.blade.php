@@ -32,5 +32,5 @@
 @endsection
 
 @section('content')
-    {!! Markdown::convertToHtml($guide->content) !!}
+    {!! Markdown::convertToHtml( (string) $guide->content) !!}
 @endsection

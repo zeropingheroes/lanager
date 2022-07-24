@@ -6,63 +6,62 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
-use Syntax\SteamApi\Facades\SteamApi as Steam;
-use Zeropingheroes\Lanager\UserOAuthAccount;
-use Zeropingheroes\Lanager\SteamApp;
-use Zeropingheroes\Lanager\SteamAppServer;
+use Syntax\SteamApi\Facades\SteamApi as SteamApi;
+use Throwable;
+use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\SteamUserAppSession;
 use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\UserOAuthAccount;
 
 class UpdateSteamUsersService
 {
-
     /**
-     * Steam ID(s) to be updated
+     * Steam ID(s) to be updated.
      *
      * @var array
      */
     protected $steamIds = [];
 
     /**
-     * Errors
+     * Errors.
      *
-     * @var \Illuminate\Support\MessageBag
+     * @var MessageBag
      */
     protected $errors;
 
     /**
-     * Successfully updated Steam IDs
+     * Successfully updated Steam IDs.
      *
      * @var array
      */
     protected $updated = [];
 
     /**
-     * Steam IDs that were not updated due to failures
+     * Steam IDs that were not updated due to failures.
      *
      * @var array
      */
     protected $failed = [];
 
     /**
-     * User IDs who are attending the current LAN
+     * User IDs who are attending the current LAN.
+     *
      * @var Collection
      */
     private $currentLanAttendees;
 
     /**
-     * @param array|int $steamIds
+     * @param  array|int $steamIds
      * @throws Exception
      */
     public function __construct($steamIds)
     {
         if (empty($steamIds)) {
-            throw new Exception(__('phrase.one-or-more-steam-ids-must-be-provided'));
+            throw new Exception(trans('phrase.one-or-more-steam-ids-must-be-provided'));
         }
 
         // Ensure we have an array, even if only one ID is given
-        $steamIds = (array)$steamIds;
+        $steamIds = (array) $steamIds;
 
         // Remove excess white space and convert strings to integers
         $steamIds = array_map(
@@ -101,15 +100,16 @@ class UpdateSteamUsersService
     }
 
     /**
-     * Update Steam users
+     * Update Steam users.
+     *
      * @return void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(): void
     {
         $this->endStaleAppSessions();
 
-        $steamUsers = Steam::user($this->steamIds)->GetPlayerSummaries();
+        $steamUsers = SteamApi::user($this->steamIds)->GetPlayerSummaries();
 
         // Get the LAN happening now, or the most recently ended LAN
         $lan = Lan::presentAndPast()
@@ -122,28 +122,29 @@ class UpdateSteamUsersService
 
         // Update state for each user in turn
         foreach ($steamUsers as $steamUser) {
-
             try {
                 if ($this->updateUser($steamUser)) {
                     $this->updated[$steamUser->steamId] = $steamUser->personaName;
                 }
-
             } catch (Exception $e) {
                 $this->failed[$steamUser->steamId] = $steamUser->personaName;
                 $this->errors->add(
                     $steamUser->steamId,
-                    __('phrase.unable-to-update-data-for-user-x', ['x' => $steamUser->personaName, 'error' => $e->getMessage()])
+                    trans(
+                        'phrase.unable-to-update-data-for-user-x',
+                        ['x' => $steamUser->personaName, 'error' => $e->getMessage()]
+                    )
                 );
             }
         }
     }
 
     /**
-     * Update a single Steam user
+     * Update a single Steam user.
      *
-     * @param $steamUser
+     * @param  $steamUser
      * @return bool
-     * @throws \Throwable
+     * @throws Throwable
      */
     protected function updateUser($steamUser): bool
     {
@@ -151,12 +152,11 @@ class UpdateSteamUsersService
         $userOAuthAccount = UserOAuthAccount::where('provider_id', $steamUser->steamId)->first();
 
         // If this Steam account is not already in the database
-        if (!$userOAuthAccount) {
+        if (! $userOAuthAccount) {
             // Create a new LANager user account
             $user = User::create(['username' => $steamUser->personaName]);
-
-            // Otherwise just get the associated user
         } else {
+            // Otherwise just get the associated user
             $user = $userOAuthAccount->user;
         }
 
@@ -184,18 +184,17 @@ class UpdateSteamUsersService
         );
 
         // Do not record gameplay info, unless a LAN is in progress
-        if (!$this->currentLanAttendees) {
+        if (! $this->currentLanAttendees) {
             return true;
         }
 
         // Do not record gameplay info if the user is not at the LAN in progress
-        if (!$this->currentLanAttendees->contains('id', $user->id)) {
+        if (! $this->currentLanAttendees->contains('id', $user->id)) {
             return true;
         }
 
         // If the user is running an app/game
         if ($steamUser->gameDetails) {
-
             // Get existing ongoing session for the game
             // or if none exists instantiate a new
             $session = $user->steamAppSessions()->firstOrNew(
@@ -206,17 +205,16 @@ class UpdateSteamUsersService
             );
 
             // If no existing ongoing session was found
-            if (!$session->exists) {
+            if (! $session->exists) {
                 // Create one starting now
                 $session->start = Carbon::now();
-                return $session->saveOrFail();
 
-                // If an existing ongoing session was found
+                return $session->saveOrFail();
             } else {
+                // If an existing ongoing session was found
                 // Update its updated_at timestamp field
                 return $session->touch();
             }
-
             // If the user is not running an app/game
         } else {
             // Add an end time to any sessions without one
@@ -224,12 +222,13 @@ class UpdateSteamUsersService
                 ->whereNull('end')
                 ->update(['end' => Carbon::now()]);
         }
+
         return true;
     }
 
     /**
      * End any unfinished sessions that have
-     * not been updated in the last X minutes
+     * not been updated in the last X minutes.
      *
      * @return mixed
      */

@@ -10,9 +10,9 @@ class LanPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param User $authUser
-     * @param Lan $lan
-     * @return boolean
+     * @param  User|null $authUser
+     * @param  Lan       $lan
+     * @return bool
      */
     public function view(?User $authUser, Lan $lan)
     {
@@ -27,8 +27,8 @@ class LanPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can create an item.
      *
-     * @param User $authUser
-     * @return boolean
+     * @param  User $authUser
+     * @return bool
      */
     public function create(User $authUser)
     {
@@ -38,9 +38,9 @@ class LanPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can edit a given item.
      *
-     * @param User $authUser
-     * @param Lan $lan
-     * @return boolean
+     * @param  User $authUser
+     * @param  Lan  $lan
+     * @return bool
      */
     public function update(User $authUser, Lan $lan)
     {
@@ -50,9 +50,9 @@ class LanPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $authUser
-     * @param Lan $lan
-     * @return boolean
+     * @param  User $authUser
+     * @param  Lan  $lan
+     * @return bool
      */
     public function delete(User $authUser, Lan $lan)
     {

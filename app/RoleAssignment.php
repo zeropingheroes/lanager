@@ -2,8 +2,11 @@
 
 namespace Zeropingheroes\Lanager;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Relations\belongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+/* @mixin Eloquent */
 class RoleAssignment extends Pivot
 {
     protected $fillable = [
@@ -15,7 +18,7 @@ class RoleAssignment extends Pivot
     protected $table = 'role_assignments';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return belongsTo
      */
     public function user()
     {
@@ -23,7 +26,7 @@ class RoleAssignment extends Pivot
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return belongsTo
      */
     public function role()
     {
@@ -31,7 +34,7 @@ class RoleAssignment extends Pivot
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return belongsTo
      */
     public function assigner()
     {

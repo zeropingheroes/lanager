@@ -1,0 +1,11 @@
+# behat.yml
+
+default:
+    suites:
+        default:
+            contexts:
+                - Features\bootstrap\FeatureContext
+                - Features\bootstrap\MyMinkContext
+    extensions:
+        Behat\MinkExtension:
+            goutte: ~

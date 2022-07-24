@@ -2,8 +2,10 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
+use Log;
+use Throwable;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 use Zeropingheroes\Lanager\SteamUserMetadata;
@@ -13,13 +15,13 @@ use Zeropingheroes\Lanager\UserOAuthAccount;
 class UpdateSteamUsers extends Command
 {
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-users
-                            {--all : ' . __('phrase.update-all-users') . '}';
-        $this->description = __('phrase.update-existing-users-profiles-from-steam');
+                            {--all : ' . trans('phrase.update-all-users') . '}';
+        $this->description = trans('phrase.update-existing-users-profiles-from-steam');
 
         parent::__construct();
     }
@@ -28,7 +30,7 @@ class UpdateSteamUsers extends Command
      * Execute the console command.
      *
      * @return mixed
-     * @throws \Exception
+     * @throws Exception|Throwable
      */
     public function handle()
     {
@@ -49,9 +51,8 @@ class UpdateSteamUsers extends Command
                 ->pluck('user_id');
 
             $users = $attendees->merge($staleUsers);
-
-        // Otherwise, get all users
         } else {
+            // Otherwise, get all users
             $users = User::all()->pluck('id');
         }
 
@@ -61,20 +62,22 @@ class UpdateSteamUsers extends Command
             ->pluck('provider_id')
             ->toArray();
 
-        if (!$steamIds) {
-            $message = __('phrase.no-steam-users-to-update');
+        if (! $steamIds) {
+            $message = trans('phrase.no-steam-users-to-update');
             Log::info($message);
             $this->info($message);
-            return;
+
+            return 0;
         }
 
-        $this->info(__('phrase.updating-profiles-and-online-status-for-x-users-from-steam', ['x' => count($steamIds)]));
+        $this->info(
+            trans('phrase.updating-profiles-and-online-status-for-x-users-from-steam', ['x' => count($steamIds)])
+        );
 
-        // TODO: Add progress bar
         $service = new UpdateSteamUsersService($steamIds);
         $service->update();
 
-        $message = __(
+        $message = trans(
             'phrase.successfully-updated-profiles-and-online-status-for-x-of-y-users',
             ['x' => count($service->getUpdated()), 'y' => count($steamIds)]
         );
@@ -82,12 +85,15 @@ class UpdateSteamUsers extends Command
         $this->info($message);
 
         if ($service->errors()->isNotEmpty()) {
-            $this->error(__('phrase.the-following-errors-were-encountered'));
+            $this->error(trans('phrase.the-following-errors-were-encountered'));
             foreach ($service->errors()->getMessages() as $error) {
                 Log::error($error[0]);
                 $this->error($error[0]);
             }
+
+            return 1;
         }
-        return;
+
+        return 0;
     }
 }

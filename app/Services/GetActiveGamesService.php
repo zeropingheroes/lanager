@@ -2,14 +2,13 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
-use Zeropingheroes\Lanager\SteamUserAppSession;
-use Zeropingheroes\Lanager\SteamUserState;
 use Illuminate\Support\Collection;
+use Zeropingheroes\Lanager\SteamUserAppSession;
 
 class GetActiveGamesService
 {
     /**
-     * Get the games that are currently being played
+     * Get the games that are currently being played.
      *
      * @return Collection
      */
@@ -24,20 +23,24 @@ class GetActiveGamesService
         }
 
         // Collect and combine states for the same game
-        $combinedUsage = [];
+        $usage = [];
         foreach ($sessions as $session) {
-            $combinedUsage[$session->steam_app_id] = $combinedUsage[$session->steam_app_id] ?? ['game' => null, 'users' => []];
-            $combinedUsage[$session->steam_app_id]['game'] = $combinedUsage[$session->steam_app_id]['game'] ?? $session->app;
-            $combinedUsage[$session->steam_app_id]['users'][] = $session->user;
+            $usage[$session->steam_app_id] = $usage[$session->steam_app_id] ?? [
+                    'game' => null,
+                    'users' => []
+                ];
+            $usage[$session->steam_app_id]['game'] = $usage[$session->steam_app_id]['game'] ?? $session->app;
+            $usage[$session->steam_app_id]['users'][] = $session->user;
         }
 
         // Sort games array by user count, in descending order (removing key)
         usort(
-            $combinedUsage,
+            $usage,
             function ($a, $b) {
                 return count($b['users']) - count($a['users']);
             }
         );
-        return collect($combinedUsage);
+
+        return collect($usage);
     }
 }

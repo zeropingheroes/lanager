@@ -3,20 +3,21 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
+use Log;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\SteamUserAppSession;
 
 class PruneSteamUserHistory extends Command
 {
     /**
-     * Set command signature and description
+     * Set command signature and description.
      */
     public function __construct()
     {
         $this->signature = 'lanager:prune-steam-user-history';
-        $this->description = __('phrase.delete-steam-user-history-outside-lans');
+        $this->description = trans('phrase.delete-steam-user-history-outside-lans');
 
         parent::__construct();
     }
@@ -25,10 +26,11 @@ class PruneSteamUserHistory extends Command
      * Execute the console command.
      *
      * @return mixed
+     * @throws Exception
      */
     public function handle()
     {
-        $this->info(__('phrase.pruning-historical-steam-data'));
+        $this->info(trans('phrase.pruning-historical-steam-data'));
 
         $periodsToDelete = [];
 
@@ -59,9 +61,13 @@ class PruneSteamUserHistory extends Command
 
         $quantityRemaining = SteamUserAppSession::count();
 
-        $message = __('phrase.x-entries-deleted-and-y-entries-retained', ['x' => $quantityDeleted, 'y' => $quantityRemaining]);
+        $message = trans(
+            'phrase.x-entries-deleted-and-y-entries-retained',
+            ['x' => $quantityDeleted, 'y' => $quantityRemaining]
+        );
         $this->info($message);
         Log::info($message);
-        return;
+
+        return 0;
     }
 }

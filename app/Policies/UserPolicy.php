@@ -9,9 +9,9 @@ class UserPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param null|User $authUser
-     * @param User $requestedUser
-     * @return boolean
+     * @param  User|null $authUser
+     * @param  User      $requestedUser
+     * @return bool
      */
     public function view(?User $authUser, User $requestedUser)
     {
@@ -22,9 +22,9 @@ class UserPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param User $authUser
-     * @param User $requestedUser
-     * @return boolean
+     * @param  User $authUser
+     * @param  User $requestedUser
+     * @return bool
      */
     public function delete(User $authUser, User $requestedUser)
     {

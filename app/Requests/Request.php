@@ -5,14 +5,14 @@ namespace Zeropingheroes\Lanager\Requests;
 abstract class Request implements RequestContract
 {
     /**
-     * Request input data to be validated
+     * Request input data to be validated.
      *
      * @var array
      */
     protected $input = [];
 
     /**
-     * Errors
+     * Errors.
      *
      * @var array
      */
@@ -24,7 +24,7 @@ abstract class Request implements RequestContract
     protected $valid;
 
     /**
-     * Instantiate the class with the request input
+     * Instantiate the class with the request input.
      *
      * @param array $input Request input data
      */
@@ -34,7 +34,7 @@ abstract class Request implements RequestContract
     }
 
     /**
-     * Whether the request is valid
+     * Whether the request is valid.
      *
      * @return bool
      */
@@ -45,7 +45,7 @@ abstract class Request implements RequestContract
     }
 
     /**
-     * Whether the request is invalid
+     * Whether the request is invalid.
      *
      * @return bool
      */
@@ -54,20 +54,21 @@ abstract class Request implements RequestContract
         // If validation has already been run
         // return the result of the validation
         if ($this->valid != null) {
-            return !$this->valid;
+            return ! $this->valid;
         }
 
         // Otherwise run validation and return the result (inverse)
-        return !$this->valid();
+        return ! $this->valid();
     }
 
     /**
-     * @param bool $valid
+     * @param  bool $valid
      * @return bool
      */
     protected function setValid(bool $valid): bool
     {
         $this->valid = $valid;
+
         return $this->valid;
     }
 
@@ -80,7 +81,8 @@ abstract class Request implements RequestContract
     }
 
     /**
-     * Request errors
+     * Request errors.
+     *
      * @return array
      */
     public function errors(): array

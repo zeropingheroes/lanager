@@ -29,7 +29,7 @@
 
 @section('content')
     @if($achievement->description)
-        {!! Markdown::convertToHtml($achievement->description) !!}
+        {!! Markdown::convertToHtml( (string) $achievement->description) !!}
     @endif
 
 @endsection
