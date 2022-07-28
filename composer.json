@@ -38,7 +38,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
-        "laravel/socialite": "^4.3",
+        "laravel/socialite": "^5",
         "bandwidth-throttle/token-bucket": "^2.0",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "doctrine/dbal": "^2.8",
