@@ -45,7 +45,7 @@
         "graham-campbell/markdown": "^13",
         "league/csv": "^9.3",
         "socialiteproviders/steam": "^4",
-        "syntax/steam-api": "^2.1"
+        "syntax/steam-api": "^2.3"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
