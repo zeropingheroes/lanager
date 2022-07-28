@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f5302b1f524b6c652ddc7d0b98e0c5a",
+    "content-hash": "0ed94b2cfaa1d4f0db761dd130e105cc",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6427,35 +6427,37 @@
         },
         {
             "name": "behat/mink-browserkit-driver",
-            "version": "v1.4.1",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/minkphp/MinkBrowserKitDriver.git",
-                "reference": "057926c9da452bac5bfcffb92eb4f3e1ce74dae9"
+                "reference": "d2768e6c17b293d86d8fcff54cbb9e6ad938fee1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/057926c9da452bac5bfcffb92eb4f3e1ce74dae9",
-                "reference": "057926c9da452bac5bfcffb92eb4f3e1ce74dae9",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/d2768e6c17b293d86d8fcff54cbb9e6ad938fee1",
+                "reference": "d2768e6c17b293d86d8fcff54cbb9e6ad938fee1",
                 "shasum": ""
             },
             "require": {
-                "behat/mink": "^1.7.1@dev",
-                "php": ">=5.4",
-                "symfony/browser-kit": "~2.3|~3.0|~4.0",
-                "symfony/dom-crawler": "~2.3|~3.0|~4.0"
+                "behat/mink": "^1.9.0@dev",
+                "php": ">=7.2",
+                "symfony/browser-kit": "^4.4 || ^5.0 || ^6.0",
+                "symfony/dom-crawler": "^4.4 || ^5.0 || ^6.0"
             },
             "require-dev": {
                 "mink/driver-testsuite": "dev-master",
-                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.18 || ^8.5 || ^9.5",
-                "symfony/debug": "^2.7|^3.0|^4.0",
-                "symfony/http-kernel": "~2.3|~3.0|~4.0",
+                "phpunit/phpunit": "^8.5 || ^9.5",
+                "symfony/error-handler": "^4.4 || ^5.0 || ^6.0",
+                "symfony/http-client": "^4.4 || ^5.0 || ^6.0",
+                "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0",
+                "symfony/mime": "^4.4 || ^5.0 || ^6.0",
                 "yoast/phpunit-polyfills": "^1.0"
             },
             "type": "mink-driver",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -6484,36 +6486,37 @@
             ],
             "support": {
                 "issues": "https://github.com/minkphp/MinkBrowserKitDriver/issues",
-                "source": "https://github.com/minkphp/MinkBrowserKitDriver/tree/v1.4.1"
+                "source": "https://github.com/minkphp/MinkBrowserKitDriver/tree/v2.1.0"
             },
-            "time": "2021-12-10T14:17:06+00:00"
+            "time": "2022-03-28T14:33:51+00:00"
         },
         {
             "name": "behat/mink-goutte-driver",
-            "version": "v1.3.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/minkphp/MinkGoutteDriver.git",
-                "reference": "8139f520f417c81bf9d2f9a171fff400f6adc9ea"
+                "reference": "a60fba46520c17d39b839151831cbc0710764b56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/8139f520f417c81bf9d2f9a171fff400f6adc9ea",
-                "reference": "8139f520f417c81bf9d2f9a171fff400f6adc9ea",
+                "url": "https://api.github.com/repos/minkphp/MinkGoutteDriver/zipball/a60fba46520c17d39b839151831cbc0710764b56",
+                "reference": "a60fba46520c17d39b839151831cbc0710764b56",
                 "shasum": ""
             },
             "require": {
-                "behat/mink-browserkit-driver": "~1.2@dev",
-                "fabpot/goutte": "~1.0.4|~2.0|~3.1",
-                "php": ">=5.4"
+                "behat/mink-browserkit-driver": "^2.0@dev",
+                "fabpot/goutte": "^4.0",
+                "php": ">=7.2"
             },
             "require-dev": {
-                "mink/driver-testsuite": "dev-master"
+                "mink/driver-testsuite": "dev-master",
+                "symfony/error-handler": "^4.4 || ^5.0"
             },
             "type": "mink-driver",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -6542,9 +6545,9 @@
             ],
             "support": {
                 "issues": "https://github.com/minkphp/MinkGoutteDriver/issues",
-                "source": "https://github.com/minkphp/MinkGoutteDriver/tree/v1.3.0"
+                "source": "https://github.com/minkphp/MinkGoutteDriver/tree/v2.0.0"
             },
-            "time": "2021-10-12T11:35:46+00:00"
+            "time": "2021-12-29T10:56:50+00:00"
         },
         {
             "name": "behat/transliterator",
@@ -7220,34 +7223,30 @@
         },
         {
             "name": "fabpot/goutte",
-            "version": "v3.3.1",
+            "version": "v4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/Goutte.git",
-                "reference": "80a23b64f44d54dd571d114c473d9d7e9ed84ca5"
+                "reference": "f51940fbe0db060bc4fc0b3f1d19bc4ff3054b17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/Goutte/zipball/80a23b64f44d54dd571d114c473d9d7e9ed84ca5",
-                "reference": "80a23b64f44d54dd571d114c473d9d7e9ed84ca5",
+                "url": "https://api.github.com/repos/FriendsOfPHP/Goutte/zipball/f51940fbe0db060bc4fc0b3f1d19bc4ff3054b17",
+                "reference": "f51940fbe0db060bc4fc0b3f1d19bc4ff3054b17",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "^6.0",
                 "php": ">=7.1.3",
-                "symfony/browser-kit": "^4.4|^5.0",
-                "symfony/css-selector": "^4.4|^5.0",
-                "symfony/dom-crawler": "^4.4|^5.0"
+                "symfony/browser-kit": "^4.4|^5.0|^6.0",
+                "symfony/css-selector": "^4.4|^5.0|^6.0",
+                "symfony/dom-crawler": "^4.4|^5.0|^6.0",
+                "symfony/http-client": "^4.4|^5.0|^6.0",
+                "symfony/mime": "^4.4|^5.0|^6.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^5.0"
+                "symfony/phpunit-bridge": "^5.0|^6.0"
             },
             "type": "application",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.3-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Goutte\\": "Goutte"
@@ -7273,9 +7272,9 @@
             ],
             "support": {
                 "issues": "https://github.com/FriendsOfPHP/Goutte/issues",
-                "source": "https://github.com/FriendsOfPHP/Goutte/tree/v3.3.1"
+                "source": "https://github.com/FriendsOfPHP/Goutte/tree/v4.0.2"
             },
-            "time": "2020-11-01T09:30:18+00:00"
+            "time": "2021-12-17T17:15:01+00:00"
         },
         {
             "name": "facade/flare-client-php",
@@ -7560,16 +7559,16 @@
         },
         {
             "name": "friends-of-behat/mink-extension",
-            "version": "v2.7.1",
+            "version": "dev-goutte-client-4-compatibility",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FriendsOfBehat/MinkExtension.git",
-                "reference": "9f8bcde32e427d9de1a722ee6004529381f8c435"
+                "url": "https://github.com/SwenVanZanten/MinkExtension.git",
+                "reference": "c0aa3e776e6d4a2ac14cbe37a011caeda0081af4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfBehat/MinkExtension/zipball/9f8bcde32e427d9de1a722ee6004529381f8c435",
-                "reference": "9f8bcde32e427d9de1a722ee6004529381f8c435",
+                "url": "https://api.github.com/repos/SwenVanZanten/MinkExtension/zipball/c0aa3e776e6d4a2ac14cbe37a011caeda0081af4",
+                "reference": "c0aa3e776e6d4a2ac14cbe37a011caeda0081af4",
                 "shasum": ""
             },
             "require": {
@@ -7582,7 +7581,7 @@
                 "behat/mink-extension": "self.version"
             },
             "require-dev": {
-                "behat/mink-goutte-driver": "^1.1",
+                "behat/mink-goutte-driver": "^1.1 || ^2.0",
                 "phpspec/phpspec": "^6.0 || ^7.0 || 7.1.x-dev"
             },
             "type": "behat-extension",
@@ -7596,7 +7595,6 @@
                     "Behat\\MinkExtension": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -7619,9 +7617,9 @@
                 "web"
             ],
             "support": {
-                "source": "https://github.com/FriendsOfBehat/MinkExtension/tree/v2.7.1"
+                "source": "https://github.com/SwenVanZanten/MinkExtension/tree/goutte-client-4-compatibility"
             },
-            "time": "2022-07-01T09:37:40+00:00"
+            "time": "2022-04-11T13:02:41+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -9997,28 +9995,28 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.4.37",
+            "version": "v5.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "6e81008cac62369871cb6b8de64576ed138e3998"
+                "reference": "18e73179c6a33d520de1b644941eba108dd811ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/6e81008cac62369871cb6b8de64576ed138e3998",
-                "reference": "6e81008cac62369871cb6b8de64576ed138e3998",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/18e73179c6a33d520de1b644941eba108dd811ad",
+                "reference": "18e73179c6a33d520de1b644941eba108dd811ad",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1.3",
-                "symfony/dom-crawler": "^3.4|^4.0|^5.0",
+                "php": ">=7.2.5",
+                "symfony/dom-crawler": "^4.4|^5.0|^6.0",
                 "symfony/polyfill-php80": "^1.16"
             },
             "require-dev": {
-                "symfony/css-selector": "^3.4|^4.0|^5.0",
-                "symfony/http-client": "^4.3|^5.0",
-                "symfony/mime": "^4.3|^5.0",
-                "symfony/process": "^3.4|^4.0|^5.0"
+                "symfony/css-selector": "^4.4|^5.0|^6.0",
+                "symfony/http-client": "^4.4|^5.0|^6.0",
+                "symfony/mime": "^4.4|^5.0|^6.0",
+                "symfony/process": "^4.4|^5.0|^6.0"
             },
             "suggest": {
                 "symfony/process": ""
@@ -10049,7 +10047,7 @@
             "description": "Simulates the behavior of a web browser, allowing you to make requests, click on links and submit forms programmatically",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/browser-kit/tree/v4.4.37"
+                "source": "https://github.com/symfony/browser-kit/tree/v5.4.3"
             },
             "funding": [
                 {
@@ -10065,7 +10063,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:41:36+00:00"
+            "time": "2022-01-02T09:53:40+00:00"
         },
         {
             "name": "symfony/config",
@@ -10237,20 +10235,21 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v4.4.42",
+            "version": "v5.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "be5a04618e5d44e71d013f177df80d3ec4b192a0"
+                "reference": "a213cbc80382320b0efdccdcdce232f191fafe3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/be5a04618e5d44e71d013f177df80d3ec4b192a0",
-                "reference": "be5a04618e5d44e71d013f177df80d3ec4b192a0",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/a213cbc80382320b0efdccdcdce232f191fafe3a",
+                "reference": "a213cbc80382320b0efdccdcdce232f191fafe3a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1.3",
+                "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.1|^3",
                 "symfony/polyfill-ctype": "~1.8",
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/polyfill-php80": "^1.16"
@@ -10260,7 +10259,7 @@
             },
             "require-dev": {
                 "masterminds/html5": "^2.6",
-                "symfony/css-selector": "^3.4|^4.0|^5.0"
+                "symfony/css-selector": "^4.4|^5.0|^6.0"
             },
             "suggest": {
                 "symfony/css-selector": ""
@@ -10291,7 +10290,7 @@
             "description": "Eases DOM navigation for HTML and XML documents",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/dom-crawler/tree/v4.4.42"
+                "source": "https://github.com/symfony/dom-crawler/tree/v5.4.9"
             },
             "funding": [
                 {
@@ -10307,7 +10306,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-30T18:34:00+00:00"
+            "time": "2022-05-04T14:46:32+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -10372,6 +10371,93 @@
                 }
             ],
             "time": "2022-05-20T13:55:35+00:00"
+        },
+        {
+            "name": "symfony/http-client",
+            "version": "v5.4.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-client.git",
+                "reference": "dc0b15e42b762c040761c1eb9ce86a55d47cf672"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/dc0b15e42b762c040761c1eb9ce86a55d47cf672",
+                "reference": "dc0b15e42b762c040761c1eb9ce86a55d47cf672",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "psr/log": "^1|^2|^3",
+                "symfony/deprecation-contracts": "^2.1|^3",
+                "symfony/http-client-contracts": "^2.4",
+                "symfony/polyfill-php73": "^1.11",
+                "symfony/polyfill-php80": "^1.16",
+                "symfony/service-contracts": "^1.0|^2|^3"
+            },
+            "provide": {
+                "php-http/async-client-implementation": "*",
+                "php-http/client-implementation": "*",
+                "psr/http-client-implementation": "1.0",
+                "symfony/http-client-implementation": "2.4"
+            },
+            "require-dev": {
+                "amphp/amp": "^2.5",
+                "amphp/http-client": "^4.2.1",
+                "amphp/http-tunnel": "^1.0",
+                "amphp/socket": "^1.1",
+                "guzzlehttp/promises": "^1.4",
+                "nyholm/psr7": "^1.0",
+                "php-http/httplug": "^1.0|^2.0",
+                "psr/http-client": "^1.0",
+                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
+                "symfony/http-kernel": "^4.4.13|^5.1.5|^6.0",
+                "symfony/process": "^4.4|^5.0|^6.0",
+                "symfony/stopwatch": "^4.4|^5.0|^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\HttpClient\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/http-client/tree/v5.4.9"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-05-21T08:57:05+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -10560,7 +10646,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "barryvdh/laravel-debugbar": 20
+        "barryvdh/laravel-debugbar": 20,
+        "friends-of-behat/mink-extension": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
