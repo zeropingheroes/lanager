@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ccd0b3e5228ad3997fe5c2cbaf5136eb",
+    "content-hash": "6f5302b1f524b6c652ddc7d0b98e0c5a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2248,16 +2248,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "2.7.0",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "5579edf28aee1190a798bfa5be8bc16c563bd524"
+                "reference": "720488632c590286b88b80e62aa3d3d551ad4a50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5579edf28aee1190a798bfa5be8bc16c563bd524",
-                "reference": "5579edf28aee1190a798bfa5be8bc16c563bd524",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/720488632c590286b88b80e62aa3d3d551ad4a50",
+                "reference": "720488632c590286b88b80e62aa3d3d551ad4a50",
                 "shasum": ""
             },
             "require": {
@@ -2277,11 +2277,10 @@
                 "guzzlehttp/psr7": "^2.2",
                 "mongodb/mongodb": "^1.8",
                 "php-amqplib/php-amqplib": "~2.4 || ^3",
-                "php-console/php-console": "^3.1.3",
                 "phpspec/prophecy": "^1.15",
                 "phpstan/phpstan": "^0.12.91",
                 "phpunit/phpunit": "^8.5.14",
-                "predis/predis": "^1.1",
+                "predis/predis": "^1.1 || ^2.0",
                 "rollbar/rollbar": "^1.3 || ^2 || ^3",
                 "ruflin/elastica": "^7",
                 "swiftmailer/swiftmailer": "^5.3|^6.0",
@@ -2301,7 +2300,6 @@
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
                 "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
                 "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
-                "php-console/php-console": "Allow sending log messages to Google Chrome",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
                 "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
             },
@@ -2336,7 +2334,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/2.7.0"
+                "source": "https://github.com/Seldaek/monolog/tree/2.8.0"
             },
             "funding": [
                 {
@@ -2348,20 +2346,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-09T08:59:12+00:00"
+            "time": "2022-07-24T11:55:47+00:00"
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.59.1",
+            "version": "2.60.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "a9000603ea337c8df16cc41f8b6be95a65f4d0f5"
+                "reference": "00a259ae02b003c563158b54fb6743252b638ea6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/a9000603ea337c8df16cc41f8b6be95a65f4d0f5",
-                "reference": "a9000603ea337c8df16cc41f8b6be95a65f4d0f5",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/00a259ae02b003c563158b54fb6743252b638ea6",
+                "reference": "00a259ae02b003c563158b54fb6743252b638ea6",
                 "shasum": ""
             },
             "require": {
@@ -2450,7 +2448,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-29T21:43:55+00:00"
+            "time": "2022-07-27T15:57:48+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -3249,26 +3247,26 @@
         },
         {
             "name": "socialiteproviders/manager",
-            "version": "v3.6",
+            "version": "v4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SocialiteProviders/Manager.git",
-                "reference": "fc8dbcf0061f12bfe0cc347e9655af932860ad36"
+                "reference": "4e63afbd26dc45ff263591de2a0970436a6a0bf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Manager/zipball/fc8dbcf0061f12bfe0cc347e9655af932860ad36",
-                "reference": "fc8dbcf0061f12bfe0cc347e9655af932860ad36",
+                "url": "https://api.github.com/repos/SocialiteProviders/Manager/zipball/4e63afbd26dc45ff263591de2a0970436a6a0bf9",
+                "reference": "4e63afbd26dc45ff263591de2a0970436a6a0bf9",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^6.0|^7.0|^8.0",
-                "laravel/socialite": "~4.0|~5.0",
-                "php": "^7.2"
+                "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+                "laravel/socialite": "~4.0 || ~5.0",
+                "php": "^7.2 || ^8.0"
             },
             "require-dev": {
                 "mockery/mockery": "^1.2",
-                "phpunit/phpunit": "^8.0"
+                "phpunit/phpunit": "^6.0 || ^9.0"
             },
             "type": "library",
             "extra": {
@@ -3307,31 +3305,38 @@
                 }
             ],
             "description": "Easily add new or override built-in providers in Laravel Socialite.",
-            "homepage": "https://socialiteproviders.com/",
+            "homepage": "https://socialiteproviders.com",
+            "keywords": [
+                "laravel",
+                "manager",
+                "oauth",
+                "providers",
+                "socialite"
+            ],
             "support": {
-                "issues": "https://github.com/SocialiteProviders/Manager/issues",
-                "source": "https://github.com/SocialiteProviders/Manager/tree/master"
+                "issues": "https://github.com/socialiteproviders/manager/issues",
+                "source": "https://github.com/socialiteproviders/manager"
             },
-            "time": "2020-09-08T10:41:06+00:00"
+            "time": "2022-01-23T22:40:23+00:00"
         },
         {
             "name": "socialiteproviders/steam",
-            "version": "v3.1.1",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SocialiteProviders/Steam.git",
-                "reference": "fb8f38db4bcbbdf9602e73fb48ba33f23fe269f3"
+                "reference": "922f82a26fb7243d7e7ff2ec8ba7e957e7b9eeb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Steam/zipball/fb8f38db4bcbbdf9602e73fb48ba33f23fe269f3",
-                "reference": "fb8f38db4bcbbdf9602e73fb48ba33f23fe269f3",
+                "url": "https://api.github.com/repos/SocialiteProviders/Steam/zipball/922f82a26fb7243d7e7ff2ec8ba7e957e7b9eeb7",
+                "reference": "922f82a26fb7243d7e7ff2ec8ba7e957e7b9eeb7",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": "^7.2",
-                "socialiteproviders/manager": "~2.0 || ~3.0"
+                "php": "^7.2 || ^8.0",
+                "socialiteproviders/manager": "~4.0"
             },
             "type": "library",
             "autoload": {
@@ -3350,10 +3355,19 @@
                 }
             ],
             "description": "Steam OpenID Provider for Laravel Socialite",
+            "keywords": [
+                "OpenId",
+                "laravel",
+                "provider",
+                "socialite",
+                "steam"
+            ],
             "support": {
-                "source": "https://github.com/SocialiteProviders/Steam/tree/v3.1.1"
+                "docs": "https://socialiteproviders.com/steam",
+                "issues": "https://github.com/socialiteproviders/providers/issues",
+                "source": "https://github.com/socialiteproviders/providers"
             },
-            "time": "2020-10-25T22:14:52+00:00"
+            "time": "2022-03-28T22:38:40+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
