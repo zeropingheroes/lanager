@@ -39,7 +39,6 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "laravel/framework": "^7.0",
-        "laravel/tinker": "^2.0",
         "laravel/socialite": "^5",
         "bandwidth-throttle/token-bucket": "^2.0",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
