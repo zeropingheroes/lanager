@@ -41,12 +41,12 @@
         "laravel/framework": "^7.0",
         "laravel/socialite": "^5",
         "bandwidth-throttle/token-bucket": "^2.0",
-        "davejamesmiller/laravel-breadcrumbs": "5.x",
         "doctrine/dbal": "^2.8",
         "graham-campbell/markdown": "^13",
         "league/csv": "^9.3",
         "socialiteproviders/steam": "^4",
-        "syntax/steam-api": "^2.3"
+        "syntax/steam-api": "^2.3",
+        "diglactic/laravel-breadcrumbs": "^8.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
