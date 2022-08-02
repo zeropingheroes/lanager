@@ -1,23 +1,26 @@
 <?php
 
-/**
- * @var \Illuminate\Database\Eloquent\Factory $factory
- */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
-use Zeropingheroes\Lanager\UserOAuthAccount;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(
-    UserOAuthAccount::class,
-    function (Faker $faker) {
+class UserOAuthAccountFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
         return [
-        'username' => $faker->userName,
-        'provider' => $faker->domainWord,
-        'provider_id' => $faker->randomNumber(5),
-        'avatar' => $faker->imageUrl(32, 32),
-        'access_token' => $faker->md5,
-        'token_expiry' => $faker->dateTimeThisYear,
-        'refresh_token' => $faker->md5,
+            'username' => $this->faker->userName(),
+            'provider' => $this->faker->domainWord(),
+            'provider_id' => $this->faker->randomNumber(5),
+            'avatar' => $this->faker->imageUrl(32, 32),
+            'access_token' => $this->faker->md5(),
+            'token_expiry' => $this->faker->dateTimeThisYear(),
+            'refresh_token' => $this->faker->md5(),
         ];
     }
-);
+}

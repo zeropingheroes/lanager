@@ -3,12 +3,15 @@
 namespace Zeropingheroes\Lanager;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\belongsTo;
 
 /* @mixin Eloquent */
 class LanGameVote extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'lan_game_id',
         'user_id',

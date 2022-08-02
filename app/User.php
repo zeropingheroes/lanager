@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -13,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasFactory;
 
     protected $fillable = [
         'username',
@@ -50,7 +52,7 @@ class User extends Authenticatable
     /**
      * Check if the user has the specified role(s).
      *
-     * @param  string $role
+     * @param string $role
      * @return bool
      */
     public function hasRole(string $role)

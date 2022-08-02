@@ -1,25 +1,29 @@
 <?php
 
-/**
- * @var \Illuminate\Database\Eloquent\Factory $factory
- */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\Venue;
+use DateInterval;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(
-    Lan::class,
-    function (Faker $faker) {
-        $start = $faker->dateTimeThisDecade;
-        $end = $faker->dateTimeBetween($start, '+ 3 days');
+class LanFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $start = $this->faker->dateTimeThisYear('+3 years');
+        $end = clone $start;
+        $end->add(new DateInterval('P' . rand(1, 7) . 'D'));
 
         return [
-        'name' => $faker->company,
-        'description' => $faker->realText(100),
-        'start' => $start,
-        'end' => $end,
-        'published' => $faker->boolean,
+            'name' => $this->faker->company(),
+            'description' => $this->faker->realText(100),
+            'start' => $start,
+            'end' => $end,
+            'published' => $this->faker->boolean(),
         ];
     }
-);
+}

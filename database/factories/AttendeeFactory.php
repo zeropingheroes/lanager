@@ -1,20 +1,23 @@
 <?php
 
-/**
- * @var \Illuminate\Database\Eloquent\Factory $factory
- */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
-use Zeropingheroes\Lanager\Attendee;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Zeropingheroes\Lanager\Lan;
 use Zeropingheroes\Lanager\User;
 
-$factory->define(
-    Attendee::class,
-    function (Faker $faker) {
+class AttendeeFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
         return [
-        'lan_id' => Lan::all()->random()->id,
-        'user_id' => User::all()->random()->id,
+            'lan_id' => Lan::inRandomOrder()->first()->id,
+            'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
-);
+}

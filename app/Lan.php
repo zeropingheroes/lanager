@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\belongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /* @mixin Eloquent */
 class Lan extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'venue_id',
         'achievement_id',
@@ -28,7 +31,7 @@ class Lan extends Model
     ];
 
     /**
-     * @param  Builder $query
+     * @param Builder $query
      * @return Builder
      */
     public function scopeHappeningNow($query)
@@ -38,7 +41,7 @@ class Lan extends Model
     }
 
     /**
-     * @param  Builder $query
+     * @param Builder $query
      * @return Builder
      */
     public function scopePast($query)
@@ -47,7 +50,7 @@ class Lan extends Model
     }
 
     /**
-     * @param  Builder $query
+     * @param Builder $query
      * @return Builder
      */
     public function scopeFuture($query)
@@ -56,7 +59,7 @@ class Lan extends Model
     }
 
     /**
-     * @param  Builder $query
+     * @param Builder $query
      * @return Builder
      */
     public function scopePresentAndPast($query)

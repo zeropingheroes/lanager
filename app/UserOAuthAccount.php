@@ -3,12 +3,15 @@
 namespace Zeropingheroes\Lanager;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\belongsTo;
 
 /* @mixin Eloquent */
 class UserOAuthAccount extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'username',
