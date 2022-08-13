@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da707900da80abff9b26fce1bf926a30",
+    "content-hash": "cb3b0dbcb7f8dd7c80aea317f2875155",
     "packages": [
         {
             "name": "bandwidth-throttle/token-bucket",
@@ -5687,16 +5687,16 @@
         },
         {
             "name": "syntax/steam-api",
-            "version": "2.3.0",
+            "version": "dev-laravel9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/syntaxerrors/Steam.git",
-                "reference": "8912b9e9d57260fda073bb977aff9958eeed8915"
+                "reference": "d745688fdba833772a4b4ea66e91a4c902f77355"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/syntaxerrors/Steam/zipball/8912b9e9d57260fda073bb977aff9958eeed8915",
-                "reference": "8912b9e9d57260fda073bb977aff9958eeed8915",
+                "url": "https://api.github.com/repos/syntaxerrors/Steam/zipball/d745688fdba833772a4b4ea66e91a4c902f77355",
+                "reference": "d745688fdba833772a4b4ea66e91a4c902f77355",
                 "shasum": ""
             },
             "require": {
@@ -5706,8 +5706,8 @@
                 "ext-libxml": "*",
                 "ext-simplexml": "*",
                 "guzzlehttp/guzzle": "^7.0",
-                "laravel/framework": "^6.20.12|^7.30.3|^8.22.1",
-                "php": "^7.3|^8.0"
+                "laravel/framework": "^6.20.12|^8.83.7|^9.7.0",
+                "php": "^7.4|^8.0|^8.1"
             },
             "require-dev": {
                 "orchestra/testbench": "^6.0",
@@ -5740,9 +5740,9 @@
             "description": "A steam-api client for Laravel 6+",
             "support": {
                 "issues": "https://github.com/syntaxerrors/Steam/issues",
-                "source": "https://github.com/syntaxerrors/Steam/tree/2.3.0"
+                "source": "https://github.com/syntaxerrors/Steam/tree/laravel9"
             },
-            "time": "2021-01-23T10:08:45+00:00"
+            "time": "2022-04-19T00:13:34+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -11069,6 +11069,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "syntax/steam-api": 20,
         "friends-of-behat/mink-extension": 20
     },
     "prefer-stable": true,

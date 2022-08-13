@@ -46,7 +46,7 @@
         "laravel/socialite": "^5",
         "league/csv": "^9.3",
         "socialiteproviders/steam": "^4",
-        "syntax/steam-api": "^2.3"
+        "syntax/steam-api": "dev-laravel9"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
