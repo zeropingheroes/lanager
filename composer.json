@@ -37,16 +37,16 @@
         "sort-packages": true
     },
     "require": {
+        "bandwidth-throttle/token-bucket": "^2.0",
+        "diglactic/laravel-breadcrumbs": "^8.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^3",
+        "graham-campbell/markdown": "^14",
         "laravel/framework": "^8",
         "laravel/socialite": "^5",
-        "bandwidth-throttle/token-bucket": "^2.0",
-        "graham-campbell/markdown": "^13",
         "league/csv": "^9.3",
         "socialiteproviders/steam": "^4",
-        "syntax/steam-api": "^2.3",
-        "diglactic/laravel-breadcrumbs": "^8.0"
+        "syntax/steam-api": "^2.3"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
