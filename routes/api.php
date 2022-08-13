@@ -2,6 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Zeropingheroes\Lanager\Http\Controllers\Api\ActiveGamesController;
+use Zeropingheroes\Lanager\Http\Controllers\Api\EventController;
+use Zeropingheroes\Lanager\Http\Controllers\Api\LanController;
+use Zeropingheroes\Lanager\Http\Controllers\Api\SlideController;
+use Zeropingheroes\Lanager\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +20,10 @@ use Illuminate\Support\Facades\Route;
 */
 Route::name('api.')->group(
     function () {
-        Route::resource('users', 'Api\UserController', ['only' => ['index', 'show']]);
-        Route::resource('lans', 'Api\LanController', ['only' => ['index', 'show']]);
-        Route::resource('lans.slides', 'Api\SlideController', ['only' => ['index', 'show']]);
-        Route::resource('events', 'Api\EventController', ['only' => ['index', 'show']]);
-        Route::resource('active-games', 'Api\ActiveGamesController', ['only' => ['index']]);
+        Route::resource('users', UserController::class, ['only' => ['index', 'show']]);
+        Route::resource('lans', LanController::class, ['only' => ['index', 'show']]);
+        Route::resource('lans.slides', SlideController::class, ['only' => ['index', 'show']]);
+        Route::resource('events', EventController::class, ['only' => ['index', 'show']]);
+        Route::resource('active-games', ActiveGamesController::class, ['only' => ['index']]);
     }
 );

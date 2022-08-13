@@ -26,7 +26,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    protected $namespace = 'Zeropingheroes\\Lanager\\Http\\Controllers';
+    protected $namespace = null;
 
 
     /**
