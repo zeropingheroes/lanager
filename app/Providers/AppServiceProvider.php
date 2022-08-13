@@ -6,13 +6,8 @@ use Illuminate\Pagination\Paginator;
 use Barryvdh\Debugbar\Facade as DebugbarFacade;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
-use Exception;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
-use League\CommonMark\Inline\Element\Image;
-use League\CommonMark\Inline\Element\Link;
-use Zeropingheroes\Lanager\MarkdownRenderers\ExternalLinkRenderer;
-use Zeropingheroes\Lanager\MarkdownRenderers\ResponsiveImageRenderer;
 use Zeropingheroes\Lanager\NavigationLink;
 use Zeropingheroes\Lanager\Observers\NavigationLinkObserver;
 use Zeropingheroes\Lanager\Observers\UserObserver;
@@ -54,15 +49,15 @@ class AppServiceProvider extends ServiceProvider
 
         // Add extended Markdown renderers
         // Open external links in a new window
-        app('markdown.environment')->addInlineRenderer(
-            Link::class,
-            new ExternalLinkRenderer(request()->getHost())
-        );
+//        app('markdown.environment')->addInlineRenderer(
+//            Link::class,
+//            new ExternalLinkRenderer(request()->getHost())
+//        );
         // Make images responsive using Bootstrap 4 class
-        app('markdown.environment')->addInlineRenderer(
-            Image::class,
-            new ResponsiveImageRenderer(['img-fluid'])
-        );
+//        app('markdown.environment')->addInlineRenderer(
+//            Image::class,
+//            new ResponsiveImageRenderer(['img-fluid'])
+//        );
 
         Relation::morphMap(
             [
