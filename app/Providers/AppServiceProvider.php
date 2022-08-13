@@ -47,18 +47,6 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         NavigationLink::observe(NavigationLinkObserver::class);
 
-        // Add extended Markdown renderers
-        // Open external links in a new window
-//        app('markdown.environment')->addInlineRenderer(
-//            Link::class,
-//            new ExternalLinkRenderer(request()->getHost())
-//        );
-        // Make images responsive using Bootstrap 4 class
-//        app('markdown.environment')->addInlineRenderer(
-//            Image::class,
-//            new ResponsiveImageRenderer(['img-fluid'])
-//        );
-
         Relation::morphMap(
             [
                 'steam' => 'Zeropingheroes\Lanager\SteamApp',
