@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
 use Barryvdh\Debugbar\Facade as DebugbarFacade;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
@@ -100,5 +101,7 @@ class AppServiceProvider extends ServiceProvider
                 'steam' => 'Zeropingheroes\Lanager\SteamApp',
             ]
         );
+
+        Paginator::useBootstrap();
     }
 }
