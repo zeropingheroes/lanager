@@ -47,6 +47,8 @@ return [
     'extensions' => [
         League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension::class,
         League\CommonMark\Extension\Table\TableExtension::class,
+        League\CommonMark\Extension\Autolink\AutolinkExtension::class,
+        League\CommonMark\Extension\ExternalLink\ExternalLinkExtension::class,
     ],
 
     /*
@@ -93,6 +95,15 @@ return [
         'use_asterisk' => true,
         'use_underscore' => true,
         'unordered_list_markers' => ['-', '+', '*'],
+    ],
+
+    'external_link' => [
+        'internal_hosts' => parse_url(env('APP_URL'), PHP_URL_HOST),
+        'open_in_new_window' => true,
+        'html_class' => 'external',
+        'nofollow' => '',
+        'noopener' => '',
+        'noreferrer' => '',
     ],
 
     /*
