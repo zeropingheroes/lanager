@@ -50,6 +50,7 @@ return [
         League\CommonMark\Extension\Autolink\AutolinkExtension::class,
         League\CommonMark\Extension\ExternalLink\ExternalLinkExtension::class,
         League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension::class,
+        League\CommonMark\Extension\Strikethrough\StrikethroughExtension::class,
     ],
 
     /*
