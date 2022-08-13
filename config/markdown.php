@@ -49,6 +49,7 @@ return [
         League\CommonMark\Extension\Table\TableExtension::class,
         League\CommonMark\Extension\Autolink\AutolinkExtension::class,
         League\CommonMark\Extension\ExternalLink\ExternalLinkExtension::class,
+        League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension::class,
     ],
 
     /*
@@ -104,6 +105,12 @@ return [
         'nofollow' => '',
         'noopener' => '',
         'noreferrer' => '',
+    ],
+
+    'default_attributes' => [
+        League\CommonMark\Extension\CommonMark\Node\Inline\Image::class => [
+            'class' => 'img-fluid',
+        ],
     ],
 
     /*
