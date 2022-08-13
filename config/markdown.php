@@ -98,7 +98,7 @@ return [
     ],
 
     'external_link' => [
-        'internal_hosts' => parse_url(env('APP_URL'), PHP_URL_HOST),
+        'internal_hosts' => parse_url(env('APP_URL', ''), PHP_URL_HOST),
         'open_in_new_window' => true,
         'html_class' => 'external',
         'nofollow' => '',
