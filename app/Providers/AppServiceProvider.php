@@ -3,7 +3,6 @@
 namespace Zeropingheroes\Lanager\Providers;
 
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Arr;
 use Barryvdh\Debugbar\Facade as DebugbarFacade;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
@@ -25,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
      * Register any application services.
      *
      * @return void
-     * @throws Exception
      */
     public function register()
     {
@@ -41,36 +39,6 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(DebugbarServiceProvider::class);
             $this->app->alias('Debugbar', DebugbarFacade::class);
             $this->app->register(IdeHelperServiceProvider::class);
-        }
-
-        $command = Arr::get(request()->server(), 'argv.1');
-
-        // Check required environment variables are set, unless:
-        // - the config has been cached
-        // - a setup command is being run
-        if (
-            !$this->app->configurationIsCached() && !in_array(
-                $command,
-                [
-                    'package:discover',
-                    'cache:clear',
-                    'config:clear',
-                    'view:clear',
-                    'ide-helper:generate',
-                    'ide-helper:meta',
-
-                ]
-            )
-        ) {
-            if (!env('STEAM_API_KEY')) {
-                throw new Exception('STEAM_API_KEY not set in .env file');
-            }
-            if (!ctype_xdigit(env('STEAM_API_KEY')) || strlen(env('STEAM_API_KEY')) != 32) {
-                throw new Exception('Invalid STEAM_API_KEY set in .env file');
-            }
-            if (!env('GOOGLE_API_KEY')) {
-                throw new Exception('GOOGLE_API_KEY not set in .env file');
-            }
         }
     }
 
