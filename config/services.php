@@ -30,10 +30,4 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'steam' => [
-        'client_id' => null,
-        'client_secret' => env('STEAM_API_KEY'),
-        'redirect' => rtrim(env('APP_URL'), '/') . '/auth/steam/callback',
-    ],
-
 ];

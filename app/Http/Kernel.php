@@ -18,8 +18,8 @@ use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Zeropingheroes\Lanager\Http\Middleware\Authenticate;
-use Zeropingheroes\Lanager\Http\Middleware\CheckForMaintenanceMode;
 use Zeropingheroes\Lanager\Http\Middleware\EncryptCookies;
+use Zeropingheroes\Lanager\Http\Middleware\PreventRequestsDuringMaintenance;
 use Zeropingheroes\Lanager\Http\Middleware\RedirectIfAuthenticated;
 use Zeropingheroes\Lanager\Http\Middleware\TrimStrings;
 use Zeropingheroes\Lanager\Http\Middleware\TrustProxies;
@@ -32,13 +32,13 @@ class Kernel extends HttpKernel
      *
      * These middleware are run during every request to your application.
      *
-     * @var array
+     * @var array<int, class-string|string>
      */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
         TrustProxies::class,
-        HandleCors::class,
-        CheckForMaintenanceMode::class,
+        \Fruitcake\Cors\HandleCors::class,
+        PreventRequestsDuringMaintenance::class,
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
@@ -47,7 +47,7 @@ class Kernel extends HttpKernel
     /**
      * The application's route middleware groups.
      *
-     * @var array
+     * @var array<string, array<int, class-string|string>>
      */
     protected $middlewareGroups = [
         'web' => [
@@ -71,12 +71,11 @@ class Kernel extends HttpKernel
      *
      * These middleware may be assigned to groups or used individually.
      *
-     * @var array
+     * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
         'auth' => Authenticate::class,
         'auth.basic' => AuthenticateWithBasicAuth::class,
-        'bindings' => SubstituteBindings::class,
         'cache.headers' => SetCacheHeaders::class,
         'can' => Authorize::class,
         'guest' => RedirectIfAuthenticated::class,

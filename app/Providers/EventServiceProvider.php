@@ -9,7 +9,7 @@ class EventServiceProvider extends ServiceProvider
     /**
      * The event listener mappings for the application.
      *
-     * @var array
+     * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
         'SocialiteProviders\Manager\SocialiteWasCalled' => [

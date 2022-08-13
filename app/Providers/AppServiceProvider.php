@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
-use Arr;
+use Illuminate\Support\Arr;
 use Barryvdh\Debugbar\Facade as DebugbarFacade;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;

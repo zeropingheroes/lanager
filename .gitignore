@@ -1,5 +1,6 @@
 /*.tar.gz
-/.env
+.env
+.env.backup
 /.idea
 /.phpstorm.meta.php
 /.phpunit.result.cache
@@ -13,3 +14,4 @@
 /vendor
 npm-debug.log
 yarn-error.log
+.phpunit.result.cache
