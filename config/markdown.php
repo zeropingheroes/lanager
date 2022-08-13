@@ -51,6 +51,7 @@ return [
         League\CommonMark\Extension\ExternalLink\ExternalLinkExtension::class,
         League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension::class,
         League\CommonMark\Extension\Strikethrough\StrikethroughExtension::class,
+        League\CommonMark\Extension\Table\TableExtension::class,
     ],
 
     /*
@@ -111,6 +112,9 @@ return [
     'default_attributes' => [
         League\CommonMark\Extension\CommonMark\Node\Inline\Image::class => [
             'class' => 'img-fluid',
+        ],
+        League\CommonMark\Extension\Table\Table::class => [
+            'class' => 'table table-striped table-responsive',
         ],
     ],
 
