@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stderr'),
+    'default' => env('LOG_CHANNEL', 'stdout'),
 
     /*
     |--------------------------------------------------------------------------
@@ -82,6 +82,16 @@ return [
             'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
                 'port' => env('PAPERTRAIL_PORT'),
+            ],
+        ],
+
+        'stdout' => [
+            'driver' => 'monolog',
+            'level' => env('LOG_LEVEL', 'debug'),
+            'handler' => StreamHandler::class,
+            'formatter' => env('LOG_STDOUT_FORMATTER'),
+            'with' => [
+                'stream' => 'php://stdout',
             ],
         ],
 
