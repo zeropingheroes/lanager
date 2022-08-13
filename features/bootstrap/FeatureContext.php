@@ -96,15 +96,14 @@ class FeatureContext extends TestCase implements Context
      */
     public function anAdminWithUsernameExists($username)
     {
-        $user = factory(User::class)->create(
-            [
+        User::factory()
+            ->has(
+                UserOAuthAccount::factory()->count(1),
+                'accounts'
+            )
+            ->count(100)->create([
                 'username' => $username,
-            ]
-        )->each(
-            function ($user) {
-                $user->accounts()->save(factory(UserOAuthAccount::class)->make());
-            }
-        );
+            ]);
 
         // Currently not required as UserObserver::class assigns super admin role when first user created
         // $role = Role::where('name', 'super-admin')->first();
@@ -116,15 +115,14 @@ class FeatureContext extends TestCase implements Context
      */
     public function aUserWithUsernameExists($username)
     {
-        $user = factory(User::class)->create(
-            [
+        User::factory()
+            ->has(
+                UserOAuthAccount::factory()->count(1),
+                'accounts'
+            )
+            ->count(100)->create([
                 'username' => $username,
-            ]
-        )->each(
-            function ($user) {
-                $user->accounts()->save(factory(UserOAuthAccount::class)->make());
-            }
-        );
+            ]);
 
         // Ensure user has no roles
         User::where('username', '=', $username)->first()->roles()->delete();
