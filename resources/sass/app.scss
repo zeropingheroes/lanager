@@ -268,12 +268,19 @@ div.tv {
 div#fullscreen-button {
   position: absolute;
   bottom: 15px;
-  right: 15px;
+    right: 15px;
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+    transition: opacity .5s;
 }
+
 .fade-enter, .fade-leave-to {
-  opacity: 0;
+    opacity: 0;
+}
+
+a[target="_blank"]::after,
+a.external::after {
+    content: " \f08e";
+    font: normal normal normal 11px/1 FontAwesome;
 }
