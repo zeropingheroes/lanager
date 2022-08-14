@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8bd5a735bd8f73acd4733353145f568e",
+    "content-hash": "9e6c9de1a8c4a966f4355a750a4d1cd9",
     "packages": [
         {
             "name": "bandwidth-throttle/token-bucket",
@@ -7669,35 +7669,34 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v4.3.0",
+            "version": "v5.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "7c125dc2463f3e144ddc7e05e63077109508c94e"
+                "reference": "8b610eef8582ccdc05d8f2ab23305e2d37049461"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/7c125dc2463f3e144ddc7e05e63077109508c94e",
-                "reference": "7c125dc2463f3e144ddc7e05e63077109508c94e",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/8b610eef8582ccdc05d8f2ab23305e2d37049461",
+                "reference": "8b610eef8582ccdc05d8f2ab23305e2d37049461",
                 "shasum": ""
             },
             "require": {
                 "facade/ignition-contracts": "^1.0",
-                "filp/whoops": "^2.4",
-                "php": "^7.2.5 || ^8.0",
+                "filp/whoops": "^2.14.3",
+                "php": "^7.3 || ^8.0",
                 "symfony/console": "^5.0"
             },
             "require-dev": {
-                "facade/ignition": "^2.0",
-                "fideloper/proxy": "^4.2",
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "fruitcake/laravel-cors": "^1.0",
-                "laravel/framework": "^7.0",
-                "laravel/tinker": "^2.0",
-                "nunomaduro/larastan": "^0.6",
-                "orchestra/testbench": "^5.0",
-                "phpstan/phpstan": "^0.12.3",
-                "phpunit/phpunit": "^8.5.1 || ^9.0"
+                "brianium/paratest": "^6.1",
+                "fideloper/proxy": "^4.4.1",
+                "fruitcake/laravel-cors": "^2.0.3",
+                "laravel/framework": "8.x-dev",
+                "nunomaduro/larastan": "^0.6.2",
+                "nunomaduro/mock-final-classes": "^1.0",
+                "orchestra/testbench": "^6.0",
+                "phpstan/phpstan": "^0.12.64",
+                "phpunit/phpunit": "^9.5.0"
             },
             "type": "library",
             "extra": {
@@ -7741,7 +7740,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L",
+                    "url": "https://www.paypal.com/paypalme/enunomaduro",
                     "type": "custom"
                 },
                 {
@@ -7753,7 +7752,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2020-10-29T15:12:23+00:00"
+            "time": "2022-01-10T16:22:52+00:00"
         },
         {
             "name": "phar-io/manifest",
