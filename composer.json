@@ -42,6 +42,7 @@
         "fruitcake/laravel-cors": "^3",
         "graham-campbell/markdown": "^14",
         "laravel/framework": "^9",
+        "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5",
         "league/csv": "^9.3",
         "socialiteproviders/steam": "^4",
