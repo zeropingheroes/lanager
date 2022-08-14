@@ -30,22 +30,6 @@ class ReleaseV200 extends Migration
             return;
         }
 
-        // If the migration table is not empty, it means the last migration that was run was not
-        // the most recent migration before the migrations were squashed into this migration
-        if (DB::table('migrations')->count()) {
-            // throw exception:
-            // please git switch to v1.1.3 and run migrate to migrate your existing data
-            // or run migrate:fresh to disgard existing data
-            throw new Exception(
-                'Unable to automatically upgrade your database. ' .
-                'To retain your existing data run: \'git checkout tags/v1.1.3\', ' .
-                '\'php artisan migrate\', ' .
-                '\'git checkout master\'. ' .
-                'Alternatively to upgrade your database but clear existing data, run: ' .
-                '\'php artisan migrate:fresh\' '
-            );
-        }
-
         Schema::create(
             'phpdebugbar',
             function (Blueprint $table) {
