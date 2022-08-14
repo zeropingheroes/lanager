@@ -7,6 +7,7 @@
 /.vscode
 /_ide_helper.php
 /node_modules
+/public/build
 /public/hot
 /public/storage
 /storage/*.bucket
@@ -15,3 +16,4 @@
 npm-debug.log
 yarn-error.log
 .phpunit.result.cache
+auth.json
