@@ -14,6 +14,7 @@
         <vue-markdown
             class="markdown-slide"
             v-else
+            :options="{linkify: true, breaks: true}"
             :source="content">
         </vue-markdown>
     </div>
