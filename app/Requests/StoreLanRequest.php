@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Lan;
 
 class StoreLanRequest extends Request
 {

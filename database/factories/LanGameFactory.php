@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\SteamApp;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\SteamApp;
 
 class LanGameFactory extends Factory
 {

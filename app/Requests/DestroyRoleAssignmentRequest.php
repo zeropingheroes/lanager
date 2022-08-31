@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager\Requests;
 
 use Auth;
-use Zeropingheroes\Lanager\RoleAssignment;
+use Zeropingheroes\Lanager\Models\RoleAssignment;
 
 class DestroyRoleAssignmentRequest extends Request
 {

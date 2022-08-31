@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Exception;
 use Illuminate\Support\Collection;
-use Zeropingheroes\Lanager\SteamUserAppSession;
+use Zeropingheroes\Lanager\Models\SteamUserAppSession;
 
 class GetGamesPlayedBetweenService
 {

@@ -5,9 +5,9 @@ namespace Zeropingheroes\Lanager\Listeners;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\IpUtils;
-use Zeropingheroes\Lanager\AllowedIpRange;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\UserAchievement;
+use Zeropingheroes\Lanager\Models\AllowedIpRange;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\UserAchievement;
 
 class AwardLanAchievementToAttendee
 {

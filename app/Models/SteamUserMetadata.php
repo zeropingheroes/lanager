@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +27,7 @@ class SteamUserMetadata extends Model
      */
     public function user()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\User');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 
     /**
@@ -35,6 +35,6 @@ class SteamUserMetadata extends Model
      */
     public function status()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\SteamUserStatusCode', 'steam_user_status_code_id');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\SteamUserStatusCode', 'steam_user_status_code_id');
     }
 }

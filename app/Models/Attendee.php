@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

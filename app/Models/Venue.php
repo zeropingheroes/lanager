@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,6 +22,6 @@ class Venue extends Model
      */
     public function lans()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Lan');
+        return $this->hasMany('Zeropingheroes\Lanager\Models\Lan');
     }
 }

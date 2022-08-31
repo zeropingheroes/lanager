@@ -2,15 +2,15 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\LanGameVote;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\LanGameVote;
+use Zeropingheroes\Lanager\Models\User;
 
 class LanGameVotePolicy extends BasePolicy
 {
     /**
      * Determine whether the user can create an item.
      *
-     * @param  User $user
+     * @param User $user
      * @return mixed
      */
     public function create(User $user)
@@ -21,8 +21,8 @@ class LanGameVotePolicy extends BasePolicy
     /**
      * Determine whether the user can delete a given item.
      *
-     * @param  User        $authUser
-     * @param  LanGameVote $lanGameVote
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\LanGameVote $lanGameVote
      * @return mixed
      */
     public function delete(User $authUser, LanGameVote $lanGameVote)

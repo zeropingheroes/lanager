@@ -3,14 +3,14 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use View;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Lan;
 
 class AttendeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
     public function index(Lan $lan)

@@ -9,7 +9,7 @@
         <div class="col">
             <h1>@lang('title.venues')</h1>
         </div>
-        @can('create', \Zeropingheroes\Lanager\Venue::class)
+        @can('create', \Zeropingheroes\Lanager\Models\Venue::class)
             <div class="col-auto text-right">
                 <a href="{{ route( 'venues.create') }}" class="btn btn-primary" title="@lang('title.create')"><span
                         class="oi oi-plus"></span></a>

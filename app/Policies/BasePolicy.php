@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\User;
 
 class BasePolicy
 {

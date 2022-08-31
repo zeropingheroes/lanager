@@ -7,17 +7,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
 use View;
-use Zeropingheroes\Lanager\Achievement;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Achievement;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\UserAchievement;
 use Zeropingheroes\Lanager\Requests\StoreUserAchievementRequest;
-use Zeropingheroes\Lanager\UserAchievement;
 
 class UserAchievementController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -43,8 +43,8 @@ class UserAchievementController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request $httpRequest
-     * @param  Lan     $lan
+     * @param Request $httpRequest
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return RedirectResponse
      * @throws AuthorizationException
      */

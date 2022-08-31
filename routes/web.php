@@ -147,7 +147,7 @@ Route::resource('venues', VenueController::class);
  */
 Route::get(
     'lans/{lan}/slides/play',
-    function (Zeropingheroes\Lanager\Lan $lan) {
+    function (\Zeropingheroes\Lanager\Models\Lan $lan) {
         return view('pages.slides.play', ['lan' => $lan]);
     }
 )->name('lans.slides.play');

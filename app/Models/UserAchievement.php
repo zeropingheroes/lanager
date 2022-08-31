@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +24,7 @@ class UserAchievement extends Model
      */
     public function user()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\User');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 
     /**
@@ -32,7 +32,7 @@ class UserAchievement extends Model
      */
     public function achievement()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Achievement');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\Achievement');
     }
 
     /**
@@ -40,6 +40,6 @@ class UserAchievement extends Model
      */
     public function lan()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Lan');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\Lan');
     }
 }

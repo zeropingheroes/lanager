@@ -6,9 +6,9 @@ use Exception;
 use Illuminate\Console\Command;
 use Log;
 use Throwable;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Services\UpdateSteamUserAppsService;
-use Zeropingheroes\Lanager\User;
 
 class UpdateSteamUserApps extends Command
 {

@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\User;
 
 class AttendeeFactory extends Factory
 {

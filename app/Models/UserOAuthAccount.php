@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,7 +30,7 @@ class UserOAuthAccount extends Model
      */
     public function user()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\User');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 
     /**

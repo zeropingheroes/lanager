@@ -2,16 +2,16 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\Event;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\Event;
+use Zeropingheroes\Lanager\Models\User;
 
 class EventPolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param  User|null $authUser
-     * @param  Event     $event
+     * @param User|null $authUser
+     * @param  \Zeropingheroes\Lanager\Models\Event $event
      * @return bool
      */
     public function view(?User $authUser, Event $event)
@@ -38,8 +38,8 @@ class EventPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can edit a given item.
      *
-     * @param  User  $authUser
-     * @param  Event $event
+     * @param User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\Event $event
      * @return bool
      */
     public function update(User $authUser, Event $event)
@@ -50,8 +50,8 @@ class EventPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param  User  $authUser
-     * @param  Event $event
+     * @param User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\Event $event
      * @return bool
      */
     public function delete(User $authUser, Event $event)

@@ -7,9 +7,9 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\LanGame;
-use Zeropingheroes\Lanager\LanGameVote;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\LanGame;
+use Zeropingheroes\Lanager\Models\LanGameVote;
 use Zeropingheroes\Lanager\Requests\StoreLanGameVoteRequest;
 
 class LanGameVoteController extends Controller
@@ -17,7 +17,7 @@ class LanGameVoteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request $httpRequest
+     * @param Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -46,9 +46,9 @@ class LanGameVoteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Lan         $lan
-     * @param  LanGame     $lanGame
-     * @param  LanGameVote $vote
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
+     * @param LanGame $lanGame
+     * @param LanGameVote $vote
      * @return RedirectResponse
      * @throws AuthorizationException
      */

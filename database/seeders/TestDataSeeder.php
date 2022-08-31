@@ -4,13 +4,13 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
-use Zeropingheroes\Lanager\Attendee;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\LanGame;
-use Zeropingheroes\Lanager\LanGameVote;
-use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\UserOAuthAccount;
-use Zeropingheroes\Lanager\Venue;
+use Zeropingheroes\Lanager\Models\Attendee;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\LanGame;
+use Zeropingheroes\Lanager\Models\LanGameVote;
+use Zeropingheroes\Lanager\Models\User;
+use Zeropingheroes\Lanager\Models\UserOAuthAccount;
+use Zeropingheroes\Lanager\Models\Venue;
 
 class TestDataSeeder extends Seeder
 {

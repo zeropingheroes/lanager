@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Zeropingheroes\Lanager\NavigationLink;
+use Zeropingheroes\Lanager\Models\NavigationLink;
 
 class StoreNavigationLinkRequest extends Request
 {

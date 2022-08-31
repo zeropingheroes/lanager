@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +26,7 @@ class NavigationLink extends Model
      */
     public function parent()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\NavigationLink', 'parent_id')
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\NavigationLink', 'parent_id')
             ->withDefault();
     }
 
@@ -35,6 +35,6 @@ class NavigationLink extends Model
      */
     public function children()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\NavigationLink', 'parent_id');
+        return $this->hasMany('Zeropingheroes\Lanager\Models\NavigationLink', 'parent_id');
     }
 }

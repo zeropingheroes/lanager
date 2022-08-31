@@ -5,23 +5,22 @@ namespace Features\bootstrap;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Testwork\Tester\Result\TestResult;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
-use Zeropingheroes\Lanager\Achievement;
-use Zeropingheroes\Lanager\Attendee;
-use Zeropingheroes\Lanager\Event;
-use Zeropingheroes\Lanager\Guide;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\NavigationLink;
-use Zeropingheroes\Lanager\Slide;
-use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\UserOAuthAccount;
-use Zeropingheroes\Lanager\Venue;
+use Zeropingheroes\Lanager\Models\Achievement;
+use Zeropingheroes\Lanager\Models\Attendee;
+use Zeropingheroes\Lanager\Models\Event;
+use Zeropingheroes\Lanager\Models\Guide;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\NavigationLink;
+use Zeropingheroes\Lanager\Models\Slide;
+use Zeropingheroes\Lanager\Models\User;
+use Zeropingheroes\Lanager\Models\UserOAuthAccount;
+use Zeropingheroes\Lanager\Models\Venue;
 
 /**
  * Defines application features from the specific context.

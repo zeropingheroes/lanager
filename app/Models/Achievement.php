@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +20,6 @@ class Achievement extends Model
      */
     public function users()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\UserAchievement');
+        return $this->hasMany('Zeropingheroes\Lanager\Models\UserAchievement');
     }
 }

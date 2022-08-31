@@ -2,16 +2,16 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\LanGame;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\LanGame;
+use Zeropingheroes\Lanager\Models\User;
 
 class LanGamePolicy extends BasePolicy
 {
     /**
      * Determine whether the user can view a given item.
      *
-     * @param  User|null $authUser
-     * @param  LanGame   $lanGame
+     * @param User|null $authUser
+     * @param LanGame $lanGame
      * @return mixed
      */
     public function view(?User $authUser, LanGame $lanGame)
@@ -27,7 +27,7 @@ class LanGamePolicy extends BasePolicy
     /**
      * Determine whether the user can create an item.
      *
-     * @param  User $user
+     * @param  \Zeropingheroes\Lanager\Models\User $user
      * @return mixed
      */
     public function create(User $user)
@@ -60,8 +60,8 @@ class LanGamePolicy extends BasePolicy
     /**
      * Determine whether the user can delete a given item.
      *
-     * @param  User    $authUser
-     * @param  LanGame $lanGame
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
+     * @param LanGame $lanGame
      * @return mixed
      */
     public function delete(User $authUser, LanGame $lanGame)

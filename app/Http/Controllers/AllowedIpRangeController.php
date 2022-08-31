@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
 use View;
-use Zeropingheroes\Lanager\AllowedIpRange;
+use Zeropingheroes\Lanager\Models\AllowedIpRange;
 use Zeropingheroes\Lanager\Requests\StoreAllowedIpRangeRequest;
 
 class AllowedIpRangeController extends Controller
@@ -72,7 +72,7 @@ class AllowedIpRangeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  AllowedIpRange $allowedIpRange
+     * @param  \Zeropingheroes\Lanager\Models\AllowedIpRange $allowedIpRange
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -87,8 +87,8 @@ class AllowedIpRangeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request        $httpRequest
-     * @param  AllowedIpRange $allowedIpRange
+     * @param Request $httpRequest
+     * @param  \Zeropingheroes\Lanager\Models\AllowedIpRange $allowedIpRange
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -119,7 +119,7 @@ class AllowedIpRangeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  AllowedIpRange $allowedIpRange
+     * @param  \Zeropingheroes\Lanager\Models\AllowedIpRange $allowedIpRange
      * @return RedirectResponse
      * @throws AuthorizationException
      */

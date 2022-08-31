@@ -9,7 +9,7 @@
         <div class="col">
             <h1>@lang('title.achievements')</h1>
         </div>
-        @can('create', \Zeropingheroes\Lanager\Achievement::class)
+        @can('create', \Zeropingheroes\Lanager\Models\Achievement::class)
             <div class="col-auto text-right">
                 <a href="{{ route('achievements.create') }}" class="btn btn-primary" title="@lang('title.create')"><span
                             class="oi oi-plus"></span></a>

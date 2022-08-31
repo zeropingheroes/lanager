@@ -2,15 +2,15 @@
 
 namespace Zeropingheroes\Lanager\Observers;
 
-use Zeropingheroes\Lanager\Role;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\Role;
+use Zeropingheroes\Lanager\Models\User;
 
 class UserObserver
 {
     /**
      * Listen to the User created event.
      *
-     * @param  User $user
+     * @param  \Zeropingheroes\Lanager\Models\User $user
      * @return void
      */
     public function created(User $user)

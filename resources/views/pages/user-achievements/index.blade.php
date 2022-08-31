@@ -49,7 +49,7 @@
         </tbody>
     </table>
 
-    @can('create', Zeropingheroes\Lanager\RoleAssignment::class)
+    @can('create', Zeropingheroes\Lanager\Models\RoleAssignment::class)
         <h5>@lang('title.award-an-achievement')</h5>
         @include('components.form.create', ['route' => route('lans.user-achievements.store', $lan)])
         <div class="form-inline">

@@ -6,7 +6,7 @@ use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\MinkContext;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session as LaravelSession;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\User;
 
 /**
  * Defines application features from the specific context.

@@ -6,11 +6,11 @@ use Exception;
 use Illuminate\Console\Command;
 use Log;
 use Throwable;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\SteamUserMetadata;
+use Zeropingheroes\Lanager\Models\User;
+use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
-use Zeropingheroes\Lanager\SteamUserMetadata;
-use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\UserOAuthAccount;
 
 class UpdateSteamUsers extends Command
 {

@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\Exception;
 use League\Csv\Reader;
-use Zeropingheroes\Lanager\SteamApp;
+use Zeropingheroes\Lanager\Models\SteamApp;
 
 class ImportSteamAppsCsv extends Command
 {

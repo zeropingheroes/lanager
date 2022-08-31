@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +25,6 @@ class Guide extends Model
      */
     public function lan()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Lan');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\Lan');
     }
 }

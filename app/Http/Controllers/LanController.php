@@ -7,10 +7,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
 use View;
-use Zeropingheroes\Lanager\Achievement;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Achievement;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\Venue;
 use Zeropingheroes\Lanager\Requests\StoreLanRequest;
-use Zeropingheroes\Lanager\Venue;
 
 class LanController extends Controller
 {
@@ -53,7 +53,7 @@ class LanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -101,7 +101,7 @@ class LanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -154,7 +154,7 @@ class LanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return RedirectResponse
      * @throws AuthorizationException
      */

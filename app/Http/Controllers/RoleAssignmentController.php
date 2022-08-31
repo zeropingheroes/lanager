@@ -8,11 +8,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
 use View;
+use Zeropingheroes\Lanager\Models\Role;
+use Zeropingheroes\Lanager\Models\RoleAssignment;
+use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Requests\DestroyRoleAssignmentRequest;
 use Zeropingheroes\Lanager\Requests\StoreRoleAssignmentRequest;
-use Zeropingheroes\Lanager\Role;
-use Zeropingheroes\Lanager\RoleAssignment;
-use Zeropingheroes\Lanager\User;
 
 class RoleAssignmentController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +28,7 @@ class LanGame extends Model
      */
     public function lan()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Lan');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\Lan');
     }
 
     /**
@@ -36,7 +36,7 @@ class LanGame extends Model
      */
     public function user()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\User', 'created_by');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\User', 'created_by');
     }
 
     /**
@@ -44,6 +44,6 @@ class LanGame extends Model
      */
     public function votes()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\LanGameVote');
+        return $this->hasMany('Zeropingheroes\Lanager\Models\LanGameVote');
     }
 }

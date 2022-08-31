@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Session;
 use View;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\LanGame;
-use Zeropingheroes\Lanager\LanGameVote;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\LanGame;
+use Zeropingheroes\Lanager\Models\LanGameVote;
 use Zeropingheroes\Lanager\Requests\StoreLanGameRequest;
 
 class LanGameController extends Controller
@@ -67,7 +67,7 @@ class LanGameController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  LanGame $lanGame
+     * @param  \Zeropingheroes\Lanager\Models\LanGame $lanGame
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -82,9 +82,9 @@ class LanGameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request $httpRequest
-     * @param  Lan     $lan
-     * @param  LanGame $lanGame
+     * @param Request $httpRequest
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\LanGame $lanGame
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -114,8 +114,8 @@ class LanGameController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Lan     $lan
-     * @param  LanGame $lanGame
+     * @param Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\LanGame $lanGame
      * @return Response
      * @throws AuthorizationException
      */

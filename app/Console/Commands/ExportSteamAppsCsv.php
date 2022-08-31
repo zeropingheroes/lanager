@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\Writer;
-use Zeropingheroes\Lanager\SteamApp;
+use Zeropingheroes\Lanager\Models\SteamApp;
 
 class ExportSteamAppsCsv extends Command
 {

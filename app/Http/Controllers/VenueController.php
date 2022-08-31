@@ -7,8 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
 use View;
+use Zeropingheroes\Lanager\Models\Venue;
 use Zeropingheroes\Lanager\Requests\StoreVenueRequest;
-use Zeropingheroes\Lanager\Venue;
 
 class VenueController extends Controller
 {
@@ -72,7 +72,7 @@ class VenueController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Venue $venue
+     * @param  \Zeropingheroes\Lanager\Models\Venue $venue
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -87,7 +87,7 @@ class VenueController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Venue $venue
+     * @param  \Zeropingheroes\Lanager\Models\Venue $venue
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -102,8 +102,8 @@ class VenueController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request $httpRequest
-     * @param  Venue   $venue
+     * @param Request $httpRequest
+     * @param  \Zeropingheroes\Lanager\Models\Venue $venue
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -133,7 +133,7 @@ class VenueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Venue $venue
+     * @param  \Zeropingheroes\Lanager\Models\Venue $venue
      * @return RedirectResponse
      * @throws AuthorizationException
      */

@@ -2,14 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\User;
 
 class ImagePolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can list all images.
      *
-     * @param  User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
      * @return bool
      */
     public function view(User $authUser)
@@ -20,7 +20,7 @@ class ImagePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can create images.
      *
-     * @param  User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
      * @return bool
      */
     public function create(User $authUser)
@@ -31,7 +31,7 @@ class ImagePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can update images.
      *
-     * @param  User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
      * @return bool
      */
     public function update(User $authUser)

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\belongsTo;
@@ -22,7 +22,7 @@ class RoleAssignment extends Pivot
      */
     public function user()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\User');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 
     /**
@@ -30,7 +30,7 @@ class RoleAssignment extends Pivot
      */
     public function role()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Role');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\Role');
     }
 
     /**
@@ -38,6 +38,6 @@ class RoleAssignment extends Pivot
      */
     public function assigner()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\User', 'assigned_by');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\User', 'assigned_by');
     }
 }

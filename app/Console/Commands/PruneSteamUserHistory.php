@@ -6,8 +6,8 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Console\Command;
 use Log;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\SteamUserAppSession;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\SteamUserAppSession;
 
 class PruneSteamUserHistory extends Command
 {

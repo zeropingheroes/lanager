@@ -3,9 +3,9 @@
 namespace Zeropingheroes\Lanager\Providers;
 
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use Zeropingheroes\Lanager\NavigationLink;
+use Illuminate\Support\ServiceProvider;
+use Zeropingheroes\Lanager\Models\NavigationLink;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {

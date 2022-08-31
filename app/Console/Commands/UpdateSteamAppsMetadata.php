@@ -12,9 +12,9 @@ use Carbon\CarbonInterval;
 use ErrorException;
 use Illuminate\Console\Command;
 use Log;
-use Syntax\SteamApi\Facades\SteamApi;
 use Syntax\SteamApi\Exceptions\ApiCallFailedException;
-use Zeropingheroes\Lanager\SteamApp;
+use Syntax\SteamApi\Facades\SteamApi;
+use Zeropingheroes\Lanager\Models\SteamApp;
 
 class UpdateSteamAppsMetadata extends Command
 {

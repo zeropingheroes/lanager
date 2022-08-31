@@ -2,9 +2,9 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\SteamUserApp;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\SteamUserApp;
+use Zeropingheroes\Lanager\Models\User;
 
 class GetGamesPlayedRecentlyService
 {

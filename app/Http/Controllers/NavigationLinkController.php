@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
 use View;
-use Zeropingheroes\Lanager\NavigationLink;
+use Zeropingheroes\Lanager\Models\NavigationLink;
 use Zeropingheroes\Lanager\Requests\StoreNavigationLinkRequest;
 
 class NavigationLinkController extends Controller

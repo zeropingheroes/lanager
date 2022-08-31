@@ -62,7 +62,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Zeropingheroes\Lanager\User::class,
+            'model' => \Zeropingheroes\Lanager\Models\User::class,
         ],
 
         // 'users' => [

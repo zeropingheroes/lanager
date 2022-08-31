@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Zeropingheroes\Lanager\LanGame;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\LanGame;
+use Zeropingheroes\Lanager\Models\User;
 
 class LanGameVoteFactory extends Factory
 {

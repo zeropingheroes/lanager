@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +14,7 @@ class Role extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('Zeropingheroes\Lanager\User', 'role_assignments')
-            ->using('Zeropingheroes\Lanager\RoleAssignment');
+        return $this->belongsToMany('Zeropingheroes\Lanager\Models\User', 'role_assignments')
+            ->using('Zeropingheroes\Lanager\Models\RoleAssignment');
     }
 }

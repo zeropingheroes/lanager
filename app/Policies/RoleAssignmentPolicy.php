@@ -2,15 +2,15 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\RoleAssignment;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\RoleAssignment;
+use Zeropingheroes\Lanager\Models\User;
 
 class RoleAssignmentPolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can list all items.
      *
-     * @param  User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
      * @return bool
      */
     public function index(User $authUser)
@@ -21,8 +21,8 @@ class RoleAssignmentPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param  User|null      $authUser
-     * @param  RoleAssignment $roleAssignment
+     * @param User|null $authUser
+     * @param  \Zeropingheroes\Lanager\Models\RoleAssignment $roleAssignment
      * @return bool
      */
     public function view(?User $authUser, RoleAssignment $roleAssignment)
@@ -46,8 +46,8 @@ class RoleAssignmentPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param  User           $authUser
-     * @param  RoleAssignment $roleAssignment
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
+     * @param RoleAssignment $roleAssignment
      * @return bool
      */
     public function delete(User $authUser, RoleAssignment $roleAssignment)

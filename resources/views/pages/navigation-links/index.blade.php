@@ -34,7 +34,7 @@
             @endforeach
             </tbody>
         </table>
-        @include('components.buttons.create', ['item' => Zeropingheroes\Lanager\NavigationLink::class])
+        @include('components.buttons.create', ['item' => Zeropingheroes\Lanager\Models\NavigationLink::class])
     @endif
 
 @endsection

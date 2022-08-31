@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
 use View;
-use Zeropingheroes\Lanager\Achievement;
+use Zeropingheroes\Lanager\Models\Achievement;
 use Zeropingheroes\Lanager\Requests\StoreAchievementRequest;
 
 class AchievementController extends Controller

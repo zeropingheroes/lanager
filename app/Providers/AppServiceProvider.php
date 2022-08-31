@@ -2,16 +2,16 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
-use Illuminate\Pagination\Paginator;
 use Barryvdh\Debugbar\Facade as DebugbarFacade;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-use Zeropingheroes\Lanager\NavigationLink;
+use Zeropingheroes\Lanager\Models\NavigationLink;
+use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Observers\NavigationLinkObserver;
 use Zeropingheroes\Lanager\Observers\UserObserver;
-use Zeropingheroes\Lanager\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
 
         Relation::morphMap(
             [
-                'steam' => 'Zeropingheroes\Lanager\SteamApp',
+                'steam' => 'Zeropingheroes\Lanager\Models\SteamApp',
             ]
         );
 

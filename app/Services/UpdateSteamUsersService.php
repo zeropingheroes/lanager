@@ -8,10 +8,10 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
 use Syntax\SteamApi\Facades\SteamApi as SteamApi;
 use Throwable;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\SteamUserAppSession;
-use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\UserOAuthAccount;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\SteamUserAppSession;
+use Zeropingheroes\Lanager\Models\User;
+use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class UpdateSteamUsersService
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +19,7 @@ class EventSignup extends Model
      */
     public function event()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Event');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\Event');
     }
 
     /**
@@ -27,6 +27,6 @@ class EventSignup extends Model
      */
     public function user()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\User');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 }

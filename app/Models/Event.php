@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
@@ -33,7 +33,7 @@ class Event extends Model
      */
     public function lan()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Lan');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\Lan');
     }
 
     /**
@@ -41,6 +41,6 @@ class Event extends Model
      */
     public function signups()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\EventSignup');
+        return $this->hasMany('Zeropingheroes\Lanager\Models\EventSignup');
     }
 }

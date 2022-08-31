@@ -33,14 +33,14 @@
         @endif
 
         @if($event->signups_open->isPast() && $event->signups_close->isFuture())
-            @can('create', [Zeropingheroes\Lanager\EventSignup::class, $event])
-            @if(Auth::user()->eventSignups()->where('event_id', $event->id)->get()->isEmpty())
-                @include('components.form.create', ['route' => route('lans.events.signups.store', ['lan' => $event->lan, 'event' => $event])])
+            @can('create', [Zeropingheroes\Lanager\Models\EventSignup::class, $event])
+                @if(Auth::user()->eventSignups()->where('event_id', $event->id)->get()->isEmpty())
+                    @include('components.form.create', ['route' => route('lans.events.signups.store', ['lan' => $event->lan, 'event' => $event])])
                     <div class="form-group">
-                    <button type="submit" class="btn btn-primary">@lang('title.sign-up')</button>
+                        <button type="submit" class="btn btn-primary">@lang('title.sign-up')</button>
                     </div>
-                @include('components.form.close')
-            @endif
+                    @include('components.form.close')
+                @endif
             @endcan
         @endif
     @endif

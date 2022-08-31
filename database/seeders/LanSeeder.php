@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\Venue;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\Venue;
 
 class LanSeeder extends Seeder
 {

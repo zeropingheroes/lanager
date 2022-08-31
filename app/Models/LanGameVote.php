@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +22,7 @@ class LanGameVote extends Model
      */
     public function lanGame()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\LanGame');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\LanGame');
     }
 
     /**
@@ -30,6 +30,6 @@ class LanGameVote extends Model
      */
     public function user()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\User');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 }

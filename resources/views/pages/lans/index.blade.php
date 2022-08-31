@@ -9,7 +9,7 @@
         <div class="col-auto">
             <h1>@lang('title.lans')</h1>
         </div>
-        @can('create', \Zeropingheroes\Lanager\Lan::class)
+        @can('create', \Zeropingheroes\Lanager\Models\Lan::class)
             <div class="col text-right">
                 <a href="{{ route( 'lans.create') }}" class="btn btn-primary" title="@lang('title.create')">
                     <span class="oi oi-plus"></span>
@@ -42,7 +42,8 @@
                             </small>
                         </td>
                         <td>
-                            {{ $lan->users->count() }} <span class="oi oi-person" title="attendee" aria-hidden="true"></span>
+                            {{ $lan->users->count() }} <span class="oi oi-person" title="attendee"
+                                                             aria-hidden="true"></span>
                         </td>
                         @canany(['edit', 'delete'], $lan)
                             <td class="text-right pr-0">

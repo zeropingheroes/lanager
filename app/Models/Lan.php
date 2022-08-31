@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeropingheroes\Lanager;
+namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -72,7 +72,7 @@ class Lan extends Model
      */
     public function events()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Event');
+        return $this->hasMany('Zeropingheroes\Lanager\Models\Event');
     }
 
     /**
@@ -80,7 +80,7 @@ class Lan extends Model
      */
     public function guides()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Guide');
+        return $this->hasMany('Zeropingheroes\Lanager\Models\Guide');
     }
 
     /**
@@ -88,8 +88,8 @@ class Lan extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('Zeropingheroes\Lanager\User', 'lan_attendees')
-            ->using('Zeropingheroes\Lanager\Attendee')
+        return $this->belongsToMany('Zeropingheroes\Lanager\Models\User', 'lan_attendees')
+            ->using('Zeropingheroes\Lanager\Models\Attendee')
             ->as('attendance')
             ->withTimestamps();
     }
@@ -99,7 +99,7 @@ class Lan extends Model
      */
     public function userAchievements()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\UserAchievement');
+        return $this->hasMany('Zeropingheroes\Lanager\Models\UserAchievement');
     }
 
     /**
@@ -107,7 +107,7 @@ class Lan extends Model
      */
     public function venue()
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Venue');
+        return $this->belongsTo('Zeropingheroes\Lanager\Models\Venue');
     }
 
     /**
@@ -115,7 +115,7 @@ class Lan extends Model
      */
     public function attendanceAchievement()
     {
-        return $this->hasOne('Zeropingheroes\Lanager\Achievement', 'id', 'achievement_id');
+        return $this->hasOne('Zeropingheroes\Lanager\Models\Achievement', 'id', 'achievement_id');
     }
 
     /**
@@ -123,7 +123,7 @@ class Lan extends Model
      */
     public function slides()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Slide');
+        return $this->hasMany('Zeropingheroes\Lanager\Models\Slide');
     }
 
     /**
@@ -131,6 +131,6 @@ class Lan extends Model
      */
     public function games()
     {
-        return $this->hasMany('Zeropingheroes\Lanager\LanGame');
+        return $this->hasMany('Zeropingheroes\Lanager\Models\LanGame');
     }
 }
