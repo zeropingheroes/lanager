@@ -12,6 +12,7 @@ jobs:
         name: Test with Laravel Dusk
         runs-on: ubuntu-latest
         env:
+            APP_NAME: LANager
             APP_KEY: ${{ secrets.APP_KEY }}
             APP_URL: http://localhost:8000
             APP_ENV: testing
