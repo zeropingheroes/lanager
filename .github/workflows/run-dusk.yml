@@ -30,7 +30,7 @@ jobs:
             SESSION_DRIVER: database
             SESSION_LIFETIME: 7200
             LOG_CHANNEL: file
-            DUSK_DRIVER_URL: http://localhost:9515/wd/hub
+            DUSK_DRIVER_URL: http://localhost:9515
 
         steps:
             -   name: Start MySQL
