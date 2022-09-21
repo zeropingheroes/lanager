@@ -74,7 +74,13 @@ more enjoyable for attendees and organisers alike.
     docker-compose up --detach
     ```
 
-6. After waiting a minute for the database container to be ready, initialise the database:
+6. Check the application's status:
+
+    ```bash
+    docker ps --filter name=lanager
+    ```
+
+7. When the container status shows `Up x minutes (healthy)`, initialise the database:
 
     ```bash
    ./initialise-database.sh
