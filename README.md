@@ -100,7 +100,7 @@ you're experiencing:
 
 - The commands you've run
 - The output of `docker-compose up`
-- The output of `docker logs app`
+- The output of `docker logs lanager`
 - Any errors displayed in your browser
 
 ## Getting started
@@ -257,14 +257,14 @@ If you have an existing LANager installation that you would like to migrate to d
 9. Restore the database data dump into the `db` container using a temporary mysql image:
 
     ```bash
-    docker run -i -e "MYSQL_PWD=$DB_ROOT_PASSWORD" --network lanager_app-network --rm mysql:8 \
+    docker run -i -e "MYSQL_PWD=$DB_ROOT_PASSWORD" --network lanager-docker-compose_lanager-network --rm mysql:8 \
     mysql "-h$DB_HOST" -uroot "$DB_DATABASE" < /tmp/lanager/lanager.sql
     ```
 
 10. Restore the uploaded images into the Laravel storage volume:
 
     ```bash
-      docker run --rm --volumes-from app -v /tmp/lanager/:/restore php:7.4-fpm cp /restore/images/* \
+      docker run --rm --volumes-from lanager -v /tmp/lanager/:/restore php:7.4-fpm cp /restore/images/* \
     /var/www/lanager/storage/public/images/
     ```
 
