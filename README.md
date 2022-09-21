@@ -317,6 +317,7 @@ If you have an existing LANager installation that you would like to migrate to d
 
     ```bash
     export PATH_TO_LANAGER=/path/to/lanager
+    export PATH_TO_LANAGER_STORAGE=/path/to/lanager/storage
     ```
 
 8. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into
