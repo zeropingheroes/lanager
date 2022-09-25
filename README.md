@@ -74,7 +74,13 @@ more enjoyable for attendees and organisers alike.
     docker-compose up --detach
     ```
 
-6. After waiting a minute for the database container to be ready, initialise the database:
+6. Check the application's status:
+
+    ```bash
+    docker ps --filter name=lanager
+    ```
+
+7. When the container status shows `Up x minutes (healthy)`, initialise the database:
 
     ```bash
    ./initialise-database.sh
@@ -100,7 +106,7 @@ you're experiencing:
 
 - The commands you've run
 - The output of `docker-compose up`
-- The output of `docker logs app`
+- The output of `docker logs lanager`
 - Any errors displayed in your browser
 
 ## Getting started
@@ -257,14 +263,14 @@ If you have an existing LANager installation that you would like to migrate to d
 9. Restore the database data dump into the `db` container using a temporary mysql image:
 
     ```bash
-    docker run -i -e "MYSQL_PWD=$DB_ROOT_PASSWORD" --network lanager_app-network --rm mysql:8 \
+    docker run -i -e "MYSQL_PWD=$DB_ROOT_PASSWORD" --network lanager-docker-compose_lanager-network --rm mysql:8 \
     mysql "-h$DB_HOST" -uroot "$DB_DATABASE" < /tmp/lanager/lanager.sql
     ```
 
 10. Restore the uploaded images into the Laravel storage volume:
 
     ```bash
-      docker run --rm --volumes-from app -v /tmp/lanager/:/restore php:7.4-fpm cp /restore/images/* \
+      docker run --rm --volumes-from lanager -v /tmp/lanager/:/restore php:7.4-fpm cp /restore/images/* \
     /var/www/lanager/storage/public/images/
     ```
 
@@ -317,6 +323,7 @@ If you have an existing LANager installation that you would like to migrate to d
 
     ```bash
     export PATH_TO_LANAGER=/path/to/lanager
+    export PATH_TO_LANAGER_STORAGE=/path/to/lanager/storage
     ```
 
 8. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into
