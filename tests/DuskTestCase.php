@@ -7,6 +7,8 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
+use Zeropingheroes\Lanager\Models\User;
+use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 abstract class DuskTestCase extends BaseTestCase
 {
