@@ -18,6 +18,7 @@ abstract class DuskTestCase extends BaseTestCase
 
         Browser::$storeScreenshotsAt = storage_path('logs/dusk/screenshots');
         Browser::$storeConsoleLogAt = storage_path('logs/dusk/console');
+        Browser::$storeSourceAt = storage_path('logs/dusk/source');
     }
 
     /**
