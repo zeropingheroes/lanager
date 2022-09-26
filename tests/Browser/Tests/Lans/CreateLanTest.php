@@ -12,6 +12,8 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class CreateLanTest extends DuskTestCase
 {
+    use DatabaseMigrations;
+
     /**
      * A Dusk test example.
      *

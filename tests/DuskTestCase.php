@@ -18,6 +18,9 @@ abstract class DuskTestCase extends BaseTestCase
     {
         parent::setUp();
 
+        $this->artisan('db:seed');
+        $this->artisan('lanager:import-steam-apps-csv');
+
         Browser::$storeScreenshotsAt = storage_path('logs/dusk/screenshots');
         Browser::$storeConsoleLogAt = storage_path('logs/dusk/console');
         Browser::$storeSourceAt = storage_path('logs/dusk/source');
