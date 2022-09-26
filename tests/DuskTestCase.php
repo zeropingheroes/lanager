@@ -7,6 +7,7 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
+use Zeropingheroes\Lanager\Models\Role;
 use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
@@ -87,5 +88,20 @@ abstract class DuskTestCase extends BaseTestCase
     {
         return isset($_SERVER['DUSK_START_MAXIMIZED']) ||
             isset($_ENV['DUSK_START_MAXIMIZED']);
+    }
+
+    protected function createSuperAdmin(): User
+    {
+        $user = User::factory()
+            ->has(
+                UserOAuthAccount::factory()->count(1),
+                'accounts'
+            )
+            ->create();
+
+        $role = Role::where('name', 'super-admin')->first();
+        $user->roles()->attach($role->id, ['assigned_by' => $user->id]);
+
+        return $user;
     }
 }

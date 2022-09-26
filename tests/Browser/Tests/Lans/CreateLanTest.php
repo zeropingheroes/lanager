@@ -6,9 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\Lans\LanIndex;
 use Tests\DuskTestCase;
-use Zeropingheroes\Lanager\Models\Role;
-use Zeropingheroes\Lanager\Models\User;
-use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class CreateLanTest extends DuskTestCase
 {
@@ -21,19 +18,10 @@ class CreateLanTest extends DuskTestCase
      */
     public function testCreatingLan()
     {
-        // TODO: Move superadmin creation to somewhere reusable
-        $user = User::factory()
-            ->has(
-                UserOAuthAccount::factory()->count(1),
-                'accounts'
-            )
-            ->create();
+        $superAdmin = $this->createSuperAdmin();
 
-        $role = Role::where('name', 'super-admin')->first();
-        $user->roles()->attach($role->id, ['assigned_by' => $user->id]);
-
-        $this->browse(function (Browser $browser) use ($user) {
-            $browser->loginAs($user)
+        $this->browse(function (Browser $browser) use ($superAdmin) {
+            $browser->loginAs($superAdmin)
                 ->visit(new LanIndex())
                 ->click('@create')
                 ->waitForRoute('lans.create')
