@@ -64,4 +64,4 @@
         <label class="custom-control-label" for="published">@lang('title.published')</label>
     </div>
 </div>
-<button type="submit" class="btn btn-primary" dusk="submit">@lang('title.submit')</button>
+<button type="submit" class="btn btn-primary">@lang('title.submit')</button>

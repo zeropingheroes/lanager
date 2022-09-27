@@ -5,7 +5,7 @@ namespace Tests\Browser\Pages\Lans;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Page;
 
-class LanIndex extends Page
+class LanCreate extends Page
 {
     /**
      * Get the URL for the page.
@@ -14,7 +14,7 @@ class LanIndex extends Page
      */
     public function url()
     {
-        return '/lans';
+        return '/lans/create';
     }
 
     /**
@@ -36,7 +36,7 @@ class LanIndex extends Page
     public function elements()
     {
         return [
-            '@create' => 'a#create-lan-button',
+            '@submit' => 'button[type=submit]',
         ];
     }
 }
