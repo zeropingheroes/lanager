@@ -2,7 +2,6 @@
 
 namespace Tests\Browser\Tests\Lans;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\Lans\LanEdit;
 use Tests\Browser\Pages\Lans\LanIndex;
@@ -11,8 +10,6 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class EditLanTest extends DuskTestCase
 {
-    use DatabaseMigrations;
-
     /**
      * @return void
      */

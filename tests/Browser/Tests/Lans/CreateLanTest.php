@@ -2,7 +2,6 @@
 
 namespace Tests\Browser\Tests\Lans;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\Lans\LanCreate;
 use Tests\Browser\Pages\Lans\LanIndex;
@@ -10,8 +9,6 @@ use Tests\DuskTestCase;
 
 class CreateLanTest extends DuskTestCase
 {
-    use DatabaseMigrations;
-
     /**
      * A Dusk test example.
      *

@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use DB;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
@@ -19,12 +20,34 @@ abstract class DuskTestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->artisan('db:seed');
-        $this->artisan('lanager:import-steam-apps-csv');
+        $this->initializeDb();
 
         Browser::$storeScreenshotsAt = storage_path('logs/dusk/screenshots');
         Browser::$storeConsoleLogAt = storage_path('logs/dusk/console');
         Browser::$storeSourceAt = storage_path('logs/dusk/source');
+    }
+
+    /**
+     * @return void
+     * @throws \Doctrine\DBAL\Exception
+     */
+    protected function initializeDb(): void
+    {
+        $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
+
+        $keep = [
+            'steam_apps',
+        ];
+
+        $tables = array_diff($tables, $keep);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        foreach ($tables as $table) {
+            DB::table($table)->truncate();
+        }
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        $this->artisan('db:seed');
     }
 
     /**
