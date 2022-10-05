@@ -90,6 +90,11 @@ abstract class DuskTestCase extends BaseTestCase
             isset($_ENV['DUSK_START_MAXIMIZED']);
     }
 
+    /**
+     * Create a super admin for use in a test
+     *
+     * @return User
+     */
     protected function createSuperAdmin(): User
     {
         $user = User::factory()
