@@ -16,9 +16,9 @@ class CreateVenueTest extends DuskTestCase
      */
     public function testCreatingVenue()
     {
-        $superAdmin = $this->createSuperAdmin();
+        $this->browse(function (Browser $browser) {
+            $superAdmin = $this->createSuperAdmin();
 
-        $this->browse(function (Browser $browser) use ($superAdmin) {
             $browser->loginAs($superAdmin)
                 ->visit(new VenueIndex())
                 ->click('@create')

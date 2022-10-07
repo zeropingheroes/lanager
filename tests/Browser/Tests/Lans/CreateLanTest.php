@@ -16,9 +16,9 @@ class CreateLanTest extends DuskTestCase
      */
     public function testCreatingLan()
     {
-        $superAdmin = $this->createSuperAdmin();
+        $this->browse(function (Browser $browser) {
+            $superAdmin = $this->createSuperAdmin();
 
-        $this->browse(function (Browser $browser) use ($superAdmin) {
             $browser->loginAs($superAdmin)
                 ->visit(new LanIndex())
                 ->click('@create')
