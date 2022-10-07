@@ -13,8 +13,9 @@
             <div class="col-auto text-right">
                 <a href="{{ route( 'venues.create') }}"
                    class="btn btn-primary"
-                   title="@lang('title.create')"
-                   id="create-venue-button">
+                   title="@lang('title.create-item', ['item' => trans('title.venue')])"
+                   id="create-venue-button"
+                >
                     <span class="oi oi-plus"></span>
                 </a>
             </div>

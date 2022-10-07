@@ -15,8 +15,10 @@
            target="_blank">
             <span class="oi oi-media-play"></span>
         </a>
-        <a href="{{ route( 'lans.slides.create', ['lan' => $lan]) }}" class="btn btn-primary"
-           title="@lang('title.create')">
+        <a href="{{ route( 'lans.slides.create', ['lan' => $lan]) }}"
+           class="btn btn-primary"
+           title="@lang('title.create-item', ['item' => trans('title.slide')])"
+        >
             <span class="oi oi-plus"></span>
         </a>
     @endcan

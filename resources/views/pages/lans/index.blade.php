@@ -11,8 +11,11 @@
         </div>
         @can('create', \Zeropingheroes\Lanager\Models\Lan::class)
             <div class="col text-right">
-                <a href="{{ route( 'lans.create') }}" class="btn btn-primary" title="@lang('title.create')"
-                   id="create-lan-button">
+                <a href="{{ route( 'lans.create') }}"
+                   class="btn btn-primary"
+                   title="@lang('title.create-item', ['item' => trans('title.lan')])"
+                   id="create-lan-button"
+                >
                     <span class="oi oi-plus"></span>
                 </a>
             </div>
