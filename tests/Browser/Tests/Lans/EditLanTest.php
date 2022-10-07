@@ -18,12 +18,10 @@ class EditLanTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $superAdmin = $this->createSuperAdmin();
             $lan = Lan::factory()->count(1)->create()->first();
-            $lanRowXPath = '//a[text()[contains(.,"' . $lan->name . '")]]//parent::td//parent::tr';
-            $dropdownXPath = '//button[contains(@class, "dropdown-toggle")]';
 
             $browser->loginAs($superAdmin)
                 ->visit(new LanIndex())
-                ->clickAtXPath($lanRowXPath . $dropdownXPath)
+                ->clickAtXPath('//a[text()="' . $lan->name . '"]//..//..//button[@title="Options"]')
                 ->clickLink('Edit')
                 ->assertRouteIs('lans.edit', ['lan' => $lan->id])
                 ->assertSee('Edit LAN')
