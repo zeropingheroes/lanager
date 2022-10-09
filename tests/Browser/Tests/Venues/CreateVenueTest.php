@@ -27,7 +27,6 @@ class CreateVenueTest extends DuskTestCase
                 ->type('name', 'My LAN Venue')
                 ->type('street_address', '1 Example Road, Exampleton, Exampleland')
                 ->press('@submit')
-                ->screenshot('blah')
                 ->assertRouteIs('venues.show', '*')
                 ->assertSee('My LAN Venue')
                 ->assertSee('1 Example Road, Exampleton, Exampleland');
