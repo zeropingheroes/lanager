@@ -15,7 +15,12 @@ class IndexEventTest extends DuskTestCase
     public function testIndexingEvents(): void
     {
         $this->browse(function (Browser $browser) {
-            $lan = Lan::factory()->count(1)->create()->first();
+            $lan = Lan::create([
+                'name' => 'My Great LAN',
+                'start' => '2025-06-01 18:00',
+                'end' => '2025-06-03 18:00',
+                'published' => true,
+            ]);
 
             $event = Event::create([
                 'lan_id' => $lan->id,
