@@ -15,7 +15,7 @@ class IndexLanTest extends DuskTestCase
     public function testIndexingLan(): void
     {
         $this->browse(function (Browser $browser) {
-            $lan = Lan::factory()->count(1)->create()->first();
+            $lan = Lan::factory()->state(['published' => true])->count(1)->create()->first();
 
             $browser->visit(new LanIndex())
                 ->assertSee($lan->name);
