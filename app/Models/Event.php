@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\belongsTo;
 use Illuminate\Database\Eloquent\Relations\hasMany;
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\hasMany;
 /* @mixin Eloquent */
 class Event extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'lan_id',
         'name',
