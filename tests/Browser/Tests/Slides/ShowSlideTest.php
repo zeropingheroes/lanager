@@ -47,11 +47,11 @@ class ShowSlideTest extends DuskTestCase
             // And they click the slide title in the table
             $browser->clickLink($slide->name);
 
-            // They are taken to the show slide page
+            // Then they are taken to the show slide page
             $browser->assertRouteIs('lans.slides.show', ['lan' => $lan, 'slide' => $slide]);
 
             // And they see the slide's content
-            $browser->assertSee($slide->content);
+            $browser->waitFor('div.slide-container')->assertSee($slide->content);
         });
     }
 }
