@@ -22,19 +22,24 @@ class DeleteEventSignupTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             // Given a LAN exists
             // And the LAN has an event
-            $lan = Lan::factory()->has(
-                Event::factory()
-                    ->state(function (array $attributes, Lan $lan) {
-                        return [
-                            'lan_id' => $lan->id,
-                            'start' => $lan->start->addHour(),
-                            'end' => $lan->start->addHours(2),
-                            'signups_open' => $lan->start,
-                            'signups_close' => $lan->start->addHour(),
-                            'published' => true,
-                        ];
-                    })
-            )->count(1)->create()->first();
+            $lan = Lan::factory()->state(function (array $attributes) {
+                return [
+                    'published' => true,
+                ];
+            })
+                ->has(
+                    Event::factory()
+                        ->state(function (array $attributes, Lan $lan) {
+                            return [
+                                'lan_id' => $lan->id,
+                                'start' => $lan->start->addHour(),
+                                'end' => $lan->start->addHours(2),
+                                'signups_open' => $lan->start,
+                                'signups_close' => $lan->start->addHour(),
+                                'published' => true,
+                            ];
+                        })
+                )->count(1)->create()->first();
 
             // And a superadmin exists
             $superAdmin = $this->createSuperAdmin();
