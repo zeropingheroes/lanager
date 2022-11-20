@@ -6,7 +6,9 @@
     export default {
         data() {
             return {
-                slide: [],
+                slide: {
+                    content: '',
+                },
             };
         },
         props: ['id', 'lan_id'],
@@ -20,12 +22,12 @@
         methods: {
             update() {
                 console.log('Getting slide')
-                axios.get('lans/' + this.lan_id + ' /slides/' + this.id)
+                axios.get('lans/' + this.lan_id + '/slides/' + this.id)
                     .then((response) => {
                         console.log('Displaying single slide');
                         this.$data.slide = response.data.data;
                     }, (error) => {
-                        console.log('Error getting slide')
+                        console.log('Error getting slide: ' + error.response)
                     })
             }
         }
