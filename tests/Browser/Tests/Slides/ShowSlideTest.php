@@ -12,7 +12,7 @@ class ShowSlideTest extends DuskTestCase
     /**
      * @return void
      */
-    public function testShowingSlides(): void
+    public function testShowingSlide(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

@@ -17,7 +17,7 @@ class DeleteUserAchievementTest extends DuskTestCase
      *
      * @return void
      */
-    public function testCreatingUserAchievement()
+    public function testDeletingUserAchievement()
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

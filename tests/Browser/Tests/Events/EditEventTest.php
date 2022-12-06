@@ -13,7 +13,7 @@ class EditEventTest extends DuskTestCase
     /**
      * @return void
      */
-    public function testEditingEvents(): void
+    public function testEditingEvent(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"

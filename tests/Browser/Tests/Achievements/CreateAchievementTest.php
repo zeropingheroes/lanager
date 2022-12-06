@@ -11,7 +11,7 @@ class CreateAchievementTest extends DuskTestCase
     /**
      * @return void
      */
-    public function testIndexingAchievements(): void
+    public function testCreatingAchievement(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a super admin
