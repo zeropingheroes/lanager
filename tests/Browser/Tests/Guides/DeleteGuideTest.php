@@ -50,10 +50,10 @@ class DeleteGuideTest extends DuskTestCase
             // And confirms the deletion
             $browser->acceptDialog();
 
-            // Then the super admin should be taken to the guide index page
-            $browser->assertRouteIs('lans.guides.index', ['lan' => $lan]);
+            // And waits to be redirected to the guide index page
+            $browser->waitForRoute('lans.guides.index', ['lan' => $lan]);
 
-            // And should see a deletion confirmation alert
+            // Then they should see a deletion confirmation alert
             $browser->assertSee('Guide "' . $guide->title . '" deleted');
         });
     }
