@@ -16,20 +16,39 @@ class EditVenueTest extends DuskTestCase
     public function testEditingVenue(): void
     {
         $this->browse(function (Browser $browser) {
-            $superAdmin = $this->createSuperAdmin();
+            // Given there is a venue
             $venue = Venue::factory()->count(1)->create()->first();
 
-            $browser->loginAs($superAdmin)
-                ->visit(new VenueIndex())
-                ->clickAtXPath('//a[text()="' . $venue->name . '"]//..//..//button[@title="Options"]')
-                ->clickLink('Edit')
-                ->assertRouteIs('venues.edit', ['venue' => $venue->id])
-                ->assertSee('Edit Venue')
-                ->on(new VenueEdit())
-                ->type('name', 'My LAN Venue')
-                ->press('@submit')
-                ->assertRouteIs('venues.show', ['venue' => $venue->id])
-                ->assertSee('My LAN Venue');
+            // And there is a user with the role "super admin"
+            $superAdmin = $this->createSuperAdmin();
+
+            // And the super admin user is logged in
+            $browser->loginAs($superAdmin);
+
+            // When the super admin visits the venue index page
+            $browser->visit(new VenueIndex());
+
+            // And clicks the "options" dropdown next to the venue's name
+            $browser->clickAtXPath('//a[text()="' . $venue->name . '"]//..//..//button[@title="Options"]');
+
+            // And clicks the "edit" link
+            $browser->clickLink('Edit');
+
+            // And waits for the "edit venue" page to load
+            $browser->waitForRoute('venues.edit', ['venue' => $venue->id]);
+
+            // And updates the field for the venue's name
+            $browser->on(new VenueEdit());
+            $browser->type('name', 'My LAN Venue');
+
+            // And submits the form
+            $browser->press('@submit');
+
+            // Then they should be redirected to the venue's page
+            $browser->assertRouteIs('venues.show', ['venue' => $venue->id]);
+
+            // And they should see the venue's new name
+            $browser->assertSee('My LAN Venue');
         });
     }
 }

@@ -15,10 +15,14 @@ class IndexVenueTest extends DuskTestCase
     public function testIndexingVenue(): void
     {
         $this->browse(function (Browser $browser) {
+            // Given there is a venue
             $venue = Venue::factory()->count(1)->create()->first();
 
-            $browser->visit(new VenueIndex())
-                ->assertSee($venue->name);
+            // When an unauthenticated user visits the venue index page
+            $browser->visit(new VenueIndex());
+
+            // Then they should see the venue's name
+            $browser->assertSee($venue->name);
         });
     }
 }
