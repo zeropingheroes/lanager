@@ -4,7 +4,6 @@ namespace Tests\Browser\Tests\Guides;
 
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\Guides\GuideEdit;
-use Tests\Browser\Pages\Guides\GuideShow;
 use Tests\DuskTestCase;
 use Zeropingheroes\Lanager\Models\Guide;
 use Zeropingheroes\Lanager\Models\Lan;
@@ -19,10 +18,8 @@ class EditGuideTest extends DuskTestCase
     public function testEditingGuide()
     {
         $this->browse(function (Browser $browser) {
-            // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
 
-            // And there is a LAN
+            // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
                 'start' => '2025-06-01 18:00',
@@ -36,6 +33,9 @@ class EditGuideTest extends DuskTestCase
                 'lan_id' => $lan->id,
             ]);
 
+            // And there is a user with the role "super admin"
+            $superAdmin = $this->createSuperAdmin();
+
             // And the super admin user is logged in
             $browser->loginAs($superAdmin);
 
@@ -43,16 +43,18 @@ class EditGuideTest extends DuskTestCase
             $browser->visitRoute('lans.guides.show', ['lan' => $lan, 'guide' => $guide]);
 
             // And clicks the options dropdown button
-            $browser->on(new GuideShow())->clickAtXPath('//button[@title="Options"]');
+            $browser->clickAtXPath('//button[@title="Options"]');
 
             // And clicks the "delete" link
             $browser->clickLink('Edit');
 
+            // And waits for the edit guide page to load
+            $browser->waitForRoute('lans.guides.edit', ['lan' => $lan, 'guide' => $guide]);
+
             // And fills the "edit guide" form
-            $browser->waitForRoute('lans.guides.edit', ['lan' => $lan, 'guide' => $guide])
-                ->on(new GuideEdit())
-                ->type('title', 'Code of conduct')
-                ->type('content', 'Be excellent to each other');
+            $browser->on(new GuideEdit());
+            $browser->type('title', 'Code of conduct');
+            $browser->type('content', 'Be excellent to each other');
 
             // And submits the form
             $browser->press('@submit');

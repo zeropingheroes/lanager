@@ -3,7 +3,6 @@
 namespace Tests\Browser\Tests\EventSignups;
 
 use Laravel\Dusk\Browser;
-use Tests\Browser\Pages\Events\EventShow;
 use Tests\DuskTestCase;
 use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\Lan;
@@ -45,6 +44,10 @@ class CreateEventSignupTest extends DuskTestCase
                 'signups_close' => now()->add('hour', 4),
                 'published' => true,
             ]);
+
+            // And a superadmin exists
+            $superAdmin = $this->createSuperAdmin();
+
             // And a user exists
             $user = User::factory()
                 ->has(
@@ -57,13 +60,16 @@ class CreateEventSignupTest extends DuskTestCase
             $browser->loginAs($user);
 
             // When the user visits the event page
+            $browser->visitRoute('lans.events.show', ['lan' => $lan, 'event' => $event]);
+
             // And clicks the signup button
+            $browser->press('Sign up');
+
+            // And waits for the event's page to load
+            $browser->waitForRoute('lans.events.show', ['lan' => $lan, 'event' => $event]);
+
             // Then their name shows on the list of people who have signed up
-            $browser->visitRoute('lans.events.show', ['lan' => $lan, 'event' => $event])
-                ->on(new EventShow())
-                ->press('Sign up')
-                ->assertRouteIs('lans.events.show', ['lan' => $lan, 'event' => $event])
-                ->assertSee($user->username);
+            $browser->assertSee($user->username);
         });
     }
 }

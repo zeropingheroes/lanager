@@ -3,7 +3,6 @@
 namespace Tests\Browser\Tests\Slides;
 
 use Laravel\Dusk\Browser;
-use Tests\Browser\Pages\Slides\SlideCreate;
 use Tests\Browser\Pages\Slides\SlideEdit;
 use Tests\Browser\Pages\Slides\SlideIndex;
 use Tests\DuskTestCase;
@@ -20,10 +19,8 @@ class EditSlideTest extends DuskTestCase
     public function testEditingSlide()
     {
         $this->browse(function (Browser $browser) {
-            // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
 
-            // And there is a LAN
+            // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
                 'start' => '2025-06-01 18:00',
@@ -38,6 +35,9 @@ class EditSlideTest extends DuskTestCase
                 'position' => 1,
                 'duration' => 1,
             ]);
+
+            // And there is a user with the role "super admin"
+            $superAdmin = $this->createSuperAdmin();
 
             // And the super admin user is logged in
             $browser->loginAs($superAdmin);
@@ -63,10 +63,10 @@ class EditSlideTest extends DuskTestCase
             // And submits the form
             $browser->press('@submit');
 
-            // Then the super admin is redirected to the "show slide" page
+            // Then the super admin should be redirected to the "show slide" page
             $browser->assertRouteIs('lans.slides.index', ['lan' => $lan]);
 
-            // And sees the updated slide name
+            // And should see the updated slide name
             $browser->assertSee('Code of conduct');
         });
     }

@@ -16,6 +16,7 @@ class DeleteAchievementTest extends DuskTestCase
     public function testDeletingAchievement()
     {
         $this->browse(function (Browser $browser) {
+
             // Given there is a user with the role "super admin"
             $superAdmin = $this->createSuperAdmin();
 
@@ -45,7 +46,7 @@ class DeleteAchievementTest extends DuskTestCase
             // And waits to be redirected to the achievement index page
             $browser->waitForRoute('achievements.index');
 
-            // Then they should see a deletion confirmation alert
+            // Then they should see a confirmation message that the achievement was deleted
             $browser->assertSee('Achievement "' . $achievement->name . '" deleted');
         });
     }

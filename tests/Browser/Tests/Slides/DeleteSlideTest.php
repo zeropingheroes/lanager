@@ -18,10 +18,8 @@ class DeleteSlideTest extends DuskTestCase
     public function testDeletingSlide()
     {
         $this->browse(function (Browser $browser) {
-            // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
 
-            // And there is a LAN
+            // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
                 'start' => '2025-06-01 18:00',
@@ -36,6 +34,9 @@ class DeleteSlideTest extends DuskTestCase
                 'position' => 1,
                 'duration' => 1,
             ]);
+
+            // And there is a user with the role "super admin"
+            $superAdmin = $this->createSuperAdmin();
 
             // And the super admin user is logged in
             $browser->loginAs($superAdmin);
@@ -56,7 +57,7 @@ class DeleteSlideTest extends DuskTestCase
             // Then the super admin should be taken to the slide index page
             $browser->assertRouteIs('lans.slides.index', ['lan' => $lan]);
 
-            // And should see a deletion confirmation alert
+            // And should see a confirmation message that the slide was deleted
             $browser->assertSee('Slide "' . $slide->name . '" deleted');
         });
     }

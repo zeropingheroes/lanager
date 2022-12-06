@@ -3,11 +3,9 @@
 namespace Tests\Browser\Tests\Achievements;
 
 use Laravel\Dusk\Browser;
-use Tests\Browser\Pages\Achievements\AchievementCreate;
 use Tests\Browser\Pages\Achievements\AchievementEdit;
 use Tests\Browser\Pages\Achievements\AchievementIndex;
 use Tests\DuskTestCase;
-use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\Achievement;
 
 class EditAchievementTest extends DuskTestCase

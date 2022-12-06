@@ -3,8 +3,6 @@
 namespace Tests\Browser\Tests\EventSignups;
 
 use Laravel\Dusk\Browser;
-use Tests\Browser\Pages\Events\EventShow;
-use Tests\Browser\Pages\Lans\LanIndex;
 use Tests\DuskTestCase;
 use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\EventSignup;

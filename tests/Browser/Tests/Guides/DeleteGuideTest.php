@@ -18,10 +18,8 @@ class DeleteGuideTest extends DuskTestCase
     public function testDeletingGuide()
     {
         $this->browse(function (Browser $browser) {
-            // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
 
-            // And there is a LAN
+            // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
                 'start' => '2025-06-01 18:00',
@@ -34,6 +32,9 @@ class DeleteGuideTest extends DuskTestCase
                 'content' => 'Doritos and Mountain Dew',
                 'lan_id' => $lan->id,
             ]);
+
+            // And there is a user with the role "super admin"
+            $superAdmin = $this->createSuperAdmin();
 
             // And the super admin user is logged in
             $browser->loginAs($superAdmin);

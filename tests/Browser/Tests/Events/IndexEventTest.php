@@ -15,6 +15,8 @@ class IndexEventTest extends DuskTestCase
     public function testIndexingEvents(): void
     {
         $this->browse(function (Browser $browser) {
+            // Given there is a LAN
+            // And it is published
             $lan = Lan::create([
                 'name' => 'My Great LAN',
                 'start' => '2025-06-01 18:00',
@@ -22,6 +24,7 @@ class IndexEventTest extends DuskTestCase
                 'published' => true,
             ]);
 
+            // And the LAN has an event
             $event = Event::create([
                 'lan_id' => $lan->id,
                 'name' => 'My LAN Event',
@@ -30,8 +33,11 @@ class IndexEventTest extends DuskTestCase
                 'published' => true,
             ]);
 
-            $browser->visitRoute('lans.events.index', ['lan' => $lan])
-                ->assertSee($event->name);
+            // When an unauthenticated user visits the LAN's event list page
+            $browser->visitRoute('lans.events.index', ['lan' => $lan]);
+
+            // Then they should see the event's name
+            $browser->assertSee($event->name);
         });
     }
 }
