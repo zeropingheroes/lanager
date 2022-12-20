@@ -12,7 +12,7 @@ class EditNavigationLinkTest extends DuskTestCase
     /**
      * @return void
      */
-    public function testCreatingNavigationLink(): void
+    public function testEditingNavigationLink(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
