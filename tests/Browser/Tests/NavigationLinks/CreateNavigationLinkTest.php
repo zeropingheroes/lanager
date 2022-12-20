@@ -20,10 +20,10 @@ class CreateNavigationLinkTest extends DuskTestCase
             // And the super admin user is logged in
             $browser->loginAs($superAdmin);
 
-            // And the super admin visits the home page
+            // When the super admin visits the home page
             $browser->visit('/');
 
-            // When the super admin clicks the admin menu
+            // And they click the admin menu
             $browser->click('#admin-menu');
 
             // And they click the "navigation" menu item
@@ -45,10 +45,10 @@ class CreateNavigationLinkTest extends DuskTestCase
             // And submits the form
             $browser->press('@submit');
 
-            // Then the super admin is redirected to the "navigation links index" page
+            // Then they are redirected to the "navigation links index" page
             $browser->assertRouteIs('navigation-links.index');
 
-            // And sees the navigation link title
+            // And see the navigation link title
             $browser->assertSeeLink('Code of Conduct');
         });
     }
