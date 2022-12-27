@@ -68,7 +68,7 @@ class DeleteUserAchievementTest extends DuskTestCase
             $browser->acceptDialog();
 
             // And waits for the user achievement index page to load
-            $browser->waitForRoute('user-achievements.index');
+            $browser->waitForRoute('lans.user-achievements.index', ['lan' => $lan]);
 
             // And they should see a confirmation message that the achievement has been revoked
             $browser->assertSee(
