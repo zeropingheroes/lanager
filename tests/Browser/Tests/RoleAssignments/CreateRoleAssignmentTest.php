@@ -37,16 +37,19 @@ class CreateRoleAssignmentTest extends DuskTestCase
             // And waits for the user dropdown to load
             $browser->waitFor('select#user_id');
 
+            // And waits for the role dropdown to load
+            $browser->waitFor('select#role_id');
+
             // And selects the user in the user dropdown
-            $browser->select('user_id', $user->username);
+            $browser->select('user_id', $user->id);
 
             // And selects the role in the role dropdown
-            $browser->select('role_id', 'Admin');
+            $browser->select('role_id', 'admin');
 
             // And clicks the assign role button
             $browser->press('Assign Role');
 
-            // And waits for the event's page to load
+            // And waits for the role assignment index page to load
             $browser->waitForRoute('role-assignments.index');
 
             // Then they should see the user's name inside the table of assigned roles
