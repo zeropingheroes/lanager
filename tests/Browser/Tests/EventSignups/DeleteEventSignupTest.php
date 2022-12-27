@@ -69,6 +69,9 @@ class DeleteEventSignupTest extends DuskTestCase
             // And accepts the confirmation dialog
             $browser->acceptDialog();
 
+            // And waits for the event page to load
+            $browser->waitForRoute('lans.events.show', ['lan' => $lan, 'event' => $event]);
+
             // Then their name no longer shows on the list of people who have signed up
             $browser->assertDontSee($user->username);
         });
