@@ -2,8 +2,6 @@ LANager
 =======
 [![Docker](https://github.com/zeropingheroes/lanager/actions/workflows/build-docker.yml/badge.svg?branch=develop)](
 https://github.com/zeropingheroes/lanager/actions/workflows/build-docker.yml)
-[![Behat](https://github.com/zeropingheroes/lanager/actions/workflows/run-behat.yml/badge.svg?branch=develop)](
-https://github.com/zeropingheroes/lanager/actions/workflows/run-behat.yml)
 [![StyleCI](https://github.styleci.io/repos/14088050/shield?branch=develop)](
 https://github.styleci.io/repos/14088050?branch=develop)
 
@@ -391,7 +389,7 @@ To recompile minified versions suitable for committing, run:
 Before submitting pull requests, please run the functional test suite to check your changes don't break existing
 functionality.
 
-Run `./run-tests.sh` to run LANager's functional test suite.
+Run `docker exec -it lanager php artisan dusk` to run LANager's browser test suite.
 
 ## Feedback & Contributions
 

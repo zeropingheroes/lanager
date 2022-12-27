@@ -8,7 +8,7 @@ on:
             - '**.json'
             - '**.lock'
 jobs:
-    behat:
+    dusk:
         name: Test with Laravel Dusk
         runs-on: ubuntu-latest
         env:
