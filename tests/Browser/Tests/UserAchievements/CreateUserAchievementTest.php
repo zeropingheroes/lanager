@@ -49,10 +49,10 @@ class CreateUserAchievementTest extends DuskTestCase
             $browser->visitRoute('lans.user-achievements.index', ['lan' => $lan]);
 
             // And selects the user in the user dropdown
-            $browser->select('user_id', $user->username);
+            $browser->select('user_id', $user->id);
 
             // And selects the achievement in the achievement dropdown
-            $browser->select('achievement_id', $achievement->name);
+            $browser->select('achievement_id', $achievement->id);
 
             // And clicks the award achievement button
             $browser->press('Award');
