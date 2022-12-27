@@ -1,5 +1,7 @@
 LANager
 =======
+[![Laravel Dusk](https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=develop)](
+https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml)
 [![Docker](https://github.com/zeropingheroes/lanager/actions/workflows/build-docker.yml/badge.svg?branch=develop)](
 https://github.com/zeropingheroes/lanager/actions/workflows/build-docker.yml)
 [![StyleCI](https://github.styleci.io/repos/14088050/shield?branch=develop)](
