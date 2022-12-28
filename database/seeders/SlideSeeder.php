@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\Slide;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\Slide;
 
 class SlideSeeder extends Seeder
 {

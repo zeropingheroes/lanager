@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Laravel Markdown.
  *
- * (c) Graham Campbell <graham@alt-three.com>
+ * (c) Graham Campbell <hello@gjcampbell.co.uk>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -37,11 +37,22 @@ return [
     | This option specifies what extensions will be automatically enabled.
     | Simply provide your extension class names here.
     |
-    | Default: []
+    | Default: [
+    |              League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension::class,
+    |              League\CommonMark\Extension\Table\TableExtension::class,
+    |          ]
     |
     */
 
-    'extensions' => [],
+    'extensions' => [
+        League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension::class,
+        League\CommonMark\Extension\Table\TableExtension::class,
+        League\CommonMark\Extension\Autolink\AutolinkExtension::class,
+        League\CommonMark\Extension\ExternalLink\ExternalLinkExtension::class,
+        League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension::class,
+        League\CommonMark\Extension\Strikethrough\StrikethroughExtension::class,
+        League\CommonMark\Extension\Table\TableExtension::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -66,55 +77,46 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Enable Em Tag Parsing
+    | Commonmark Configuration
     |--------------------------------------------------------------------------
     |
-    | This option specifies if `<em>` parsing is enabled.
+    | This option specifies an array of options for commonmark.
     |
-    | Default: true
+    | Default: [
+    |              'enable_em' => true,
+    |              'enable_strong' => true,
+    |              'use_asterisk' => true,
+    |              'use_underscore' => true,
+    |              'unordered_list_markers' => ['-', '+', '*'],
+    |          ]
     |
     */
 
-    'enable_em' => true,
+    'commonmark' => [
+        'enable_em' => true,
+        'enable_strong' => true,
+        'use_asterisk' => true,
+        'use_underscore' => true,
+        'unordered_list_markers' => ['-', '+', '*'],
+    ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Enable Strong Tag Parsing
-    |--------------------------------------------------------------------------
-    |
-    | This option specifies if `<strong>` parsing is enabled.
-    |
-    | Default: true
-    |
-    */
+    'external_link' => [
+        'internal_hosts' => parse_url(env('APP_URL', ''), PHP_URL_HOST),
+        'open_in_new_window' => true,
+        'html_class' => 'external',
+        'nofollow' => '',
+        'noopener' => '',
+        'noreferrer' => '',
+    ],
 
-    'enable_strong' => true,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Enable Asterisk Parsing
-    |--------------------------------------------------------------------------
-    |
-    | This option specifies if `*` should be parsed for emphasis.
-    |
-    | Default: true
-    |
-    */
-
-    'use_asterisk' => true,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Enable Underscore Parsing
-    |--------------------------------------------------------------------------
-    |
-    | This option specifies if `_` should be parsed for emphasis.
-    |
-    | Default: true
-    |
-    */
-
-    'use_underscore' => true,
+    'default_attributes' => [
+        League\CommonMark\Extension\CommonMark\Node\Inline\Image::class => [
+            'class' => 'img-fluid',
+        ],
+        League\CommonMark\Extension\Table\Table::class => [
+            'class' => 'table table-striped table-responsive',
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -127,7 +129,7 @@ return [
     |
     */
 
-    'html_input' => 'allow',
+    'html_input' => 'strip',
 
     /*
     |--------------------------------------------------------------------------
@@ -140,6 +142,38 @@ return [
     |
     */
 
-    'allow_unsafe_links' => true,
+    'allow_unsafe_links' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Maximum Nesting Level
+    |--------------------------------------------------------------------------
+    |
+    | This option specifies the maximum permitted block nesting level.
+    |
+    | Default: PHP_INT_MAX
+    |
+    */
+
+    'max_nesting_level' => PHP_INT_MAX,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Slug Normalizer
+    |--------------------------------------------------------------------------
+    |
+    | This option specifies an array of options for slug normalization.
+    |
+    | Default: [
+    |              'max_length' => 255,
+    |              'unique' => 'document',
+    |          ]
+    |
+    */
+
+    'slug_normalizer' => [
+        'max_length' => 255,
+        'unique' => 'document',
+    ],
 
 ];

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Zeropingheroes\Lanager\Role;
+use Zeropingheroes\Lanager\Models\Role;
 
 class RoleSeeder extends Seeder
 {

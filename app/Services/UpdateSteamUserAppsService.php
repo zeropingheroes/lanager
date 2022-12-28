@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
 use Syntax\SteamApi\Facades\SteamApi;
-use Zeropingheroes\Lanager\UserOAuthAccount;
+use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class UpdateSteamUserAppsService
 {

@@ -9,17 +9,17 @@
             </td>
             <td>
                 @can('delete', $signup)
-                    @component('components.actions-dropdown')
-                        <form action="{{ route('lans.events.signups.destroy',
-                        ['lan' => $signup->event->lan,
-                        'event' => $signup->event,
-                        'signup' => $signup]) }}"
-                              method="POST" class="confirm-deletion">
-                            {{ method_field('DELETE') }}
-                            {{ csrf_field() }}
-                            <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
-                        </form>
-                    @endcomponent
+                    <form action="{{ route('lans.events.signups.destroy',
+                    ['lan' => $signup->event->lan,
+                    'event' => $signup->event,
+                    'signup' => $signup]) }}"
+                          method="POST" class="confirm-deletion">
+                        {{ method_field('DELETE') }}
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-danger btn-sm" title="@lang('title.delete')">
+                            Delete
+                        </button>
+                    </form>
                 @endcan
             </td>
         </tr>

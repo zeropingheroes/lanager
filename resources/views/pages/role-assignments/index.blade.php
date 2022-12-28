@@ -43,7 +43,7 @@
         </tbody>
     </table>
 
-    @can('create', Zeropingheroes\Lanager\RoleAssignment::class)
+    @can('create', Zeropingheroes\Lanager\Models\RoleAssignment::class)
         <h5>@lang('title.assign-a-role')</h5>
         @include('components.form.create', ['route' => route('role-assignments.store')])
         <div class="form-inline">

@@ -1,19 +1,22 @@
 <?php
 
-/**
- * @var \Illuminate\Database\Eloquent\Factory $factory
- */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
-use Zeropingheroes\Lanager\Venue;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(
-    Venue::class,
-    function (Faker $faker) {
+class VenueFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
         return [
-        'name' => $faker->company,
-        'street_address' => $faker->address,
-        'description' => $faker->realText(100),
+            'name' => $this->faker->company(),
+            'street_address' => $this->faker->address(),
+            'description' => $this->faker->realText(100),
         ];
     }
-);
+}

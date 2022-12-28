@@ -3,15 +3,15 @@
 namespace Zeropingheroes\Lanager\Listeners;
 
 use Illuminate\Auth\Events\Login;
-use Zeropingheroes\Lanager\Attendee;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Attendee;
+use Zeropingheroes\Lanager\Models\Lan;
 
 class UpdateLanAttendeesTable
 {
     /**
      * Handle the event.
      *
-     * @param  Login $login
+     * @param Login $login
      * @return void
      */
     public function handle(Login $login)

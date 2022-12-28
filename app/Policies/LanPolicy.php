@@ -2,16 +2,16 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\User;
 
 class LanPolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param  User|null $authUser
-     * @param  Lan       $lan
+     * @param  \Zeropingheroes\Lanager\Models\User|null $authUser
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return bool
      */
     public function view(?User $authUser, Lan $lan)
@@ -27,7 +27,7 @@ class LanPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can create an item.
      *
-     * @param  User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
      * @return bool
      */
     public function create(User $authUser)
@@ -38,8 +38,8 @@ class LanPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can edit a given item.
      *
-     * @param  User $authUser
-     * @param  Lan  $lan
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return bool
      */
     public function update(User $authUser, Lan $lan)
@@ -50,8 +50,8 @@ class LanPolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param  User $authUser
-     * @param  Lan  $lan
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return bool
      */
     public function delete(User $authUser, Lan $lan)

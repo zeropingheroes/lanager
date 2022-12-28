@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Zeropingheroes\Lanager\SteamUserStatusCode;
+use Zeropingheroes\Lanager\Models\SteamUserStatusCode;
 
 class SteamUserStatusCodeSeeder extends Seeder
 {

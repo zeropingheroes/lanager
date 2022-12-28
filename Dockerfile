@@ -10,21 +10,21 @@ RUN composer install \
   --no-progress \
   --no-scripts
 
-FROM trafex/alpine-nginx-php7:1.10.0
+FROM trafex/php-nginx:2.5.0
 
 USER root
 
-# Install binary dependencies
-RUN apk --no-cache add php7-xmlwriter=7.4.26-r0 \
-                       php7-zip=7.4.26-r0 \
-                       php7-pdo=7.4.26-r0 \
-                       php7-pdo_mysql=7.4.26-r0 \
-                       php7-tokenizer=7.4.26-r0 \
-                       php7-simplexml=7.4.26-r0 \
-                       php7-bcmath=7.4.26-r0 \
-                       php7-fileinfo=7.4.26-r0
+# Install PHP extensions
+RUN apk --no-cache add php8-xmlwriter=8.0.24-r0 \
+                       php8-zip=8.0.24-r0 \
+                       php8-pdo=8.0.24-r0 \
+                       php8-pdo_mysql=8.0.24-r0 \
+                       php8-tokenizer=8.0.24-r0 \
+                       php8-simplexml=8.0.24-r0 \
+                       php8-bcmath=8.0.24-r0 \
+                       php8-fileinfo=8.0.24-r0
 
-# Copy in project code and dependencies from composer2 build stage
+# Copy in app code and Composer packages from composer2 build stage
 COPY --chown=nginx --from=composer2 /app /var/www/lanager
 
 RUN chmod -R 777 /var/www/lanager/storage /var/www/lanager/bootstrap/cache && \

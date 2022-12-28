@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Zeropingheroes\Lanager\NavigationLink;
+use Zeropingheroes\Lanager\Models\NavigationLink;
 
 class NavigationLinkSeeder extends Seeder
 {

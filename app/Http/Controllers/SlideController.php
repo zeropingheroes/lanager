@@ -8,16 +8,16 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Session;
 use View;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\Slide;
 use Zeropingheroes\Lanager\Requests\StoreSlideRequest;
-use Zeropingheroes\Lanager\Slide;
 
 class SlideController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -53,8 +53,8 @@ class SlideController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request $httpRequest
-     * @param  Lan     $lan
+     * @param Request $httpRequest
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -90,8 +90,8 @@ class SlideController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Lan   $lan
-     * @param  Slide $slide
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
+     * @param Slide $slide
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -112,8 +112,8 @@ class SlideController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Lan   $lan
-     * @param  Slide $slide
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
+     * @param Slide $slide
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -134,9 +134,9 @@ class SlideController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request $httpRequest
-     * @param  Lan     $lan
-     * @param  Slide   $slide
+     * @param Request $httpRequest
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
+     * @param Slide $slide
      * @return RedirectResponse
      * @throws AuthorizationException
      */

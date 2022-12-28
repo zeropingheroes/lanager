@@ -7,9 +7,9 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
-use Zeropingheroes\Lanager\Event;
-use Zeropingheroes\Lanager\EventSignup;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Event;
+use Zeropingheroes\Lanager\Models\EventSignup;
+use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Requests\StoreEventSignupRequest;
 
 class EventSignupController extends Controller
@@ -17,9 +17,9 @@ class EventSignupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Lan     $lan
-     * @param  Event   $event
-     * @param  Request $httpRequest
+     * @param Lan $lan
+     * @param Event $event
+     * @param Request $httpRequest
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -54,22 +54,22 @@ class EventSignupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Lan         $lan
-     * @param  Event       $event
-     * @param  EventSignup $eventSignup
+     * @param Lan $lan
+     * @param Event $event
+     * @param EventSignup $eventSignup
      * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan, Event $event, EventSignup $eventSignup)
+    public function destroy(Lan $lan, Event $event, EventSignup $signup)
     {
-        $this->authorize('delete', $eventSignup);
+        $this->authorize('delete', $signup);
 
         // If the event is accessed via the wrong LAN ID, show 404
-        if ($event->lan_id != $lan->id || $eventSignup->event_id != $event->id) {
+        if ($event->lan_id != $lan->id || $signup->event_id != $event->id) {
             abort(404);
         }
 
-        EventSignup::destroy($eventSignup->id);
+        EventSignup::destroy($signup->id);
 
         return redirect()
             ->route('lans.events.show', ['lan' => $event->lan, 'event' => $event]);

@@ -8,12 +8,11 @@
 /.styleci.yml
 /.travis.yml
 /_ide_helper.php
-/behat.yml
 /Dockerfile
-/features/
 /node_modules
 /package-*.json
 /phpunit.xml
+/phpunit.dusk.xml
 /resources/js
 /resources/sass
 /server.php

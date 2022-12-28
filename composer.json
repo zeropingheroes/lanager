@@ -16,50 +16,53 @@
     "license": "AGPL-3.0-only",
     "config": {
         "platform": {
-            "php": "7.4.0",
-            "ext-bcmath": "7.4.3",
-            "ext-curl": "7.4.3",
-            "ext-dom": "20031129",
-            "ext-fileinfo": "7.4.3",
-            "ext-json": "7.4.3",
-            "ext-libxml": "7.4.3",
-            "ext-mbstring": "7.4.3",
-            "ext-openssl": "7.4.3",
-            "ext-pdo": "7.4.3",
-            "ext-simplexml": "7.4.3",
-            "ext-tokenizer": "7.4.3",
-            "ext-zip": "7.4.3"
+            "php": "8.0.13",
+            "ext-bcmath": "8.0.13",
+            "ext-curl": "8.0.13",
+            "ext-dom": "8.0.13",
+            "ext-fileinfo": "8.0.13",
+            "ext-json": "8.0.13",
+            "ext-libxml": "8.0.13",
+            "ext-mbstring": "8.0.13",
+            "ext-openssl": "8.0.13",
+            "ext-pdo": "8.0.13",
+            "ext-xml": "8.0.13",
+            "ext-simplexml": "8.0.13",
+            "ext-xmlwriter": "8.0.13",
+            "ext-tokenizer": "8.0.13",
+            "ext-zip": "8.0.13"
         },
         "optimize-autoloader": true,
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "require": {
-        "fideloper/proxy": "^4.2",
-        "fruitcake/laravel-cors": "^2.0",
-        "laravel/framework": "^7.0",
-        "laravel/tinker": "^2.0",
-        "laravel/socialite": "^4.3",
+        "php": "^8.0.2",
         "bandwidth-throttle/token-bucket": "^2.0",
-        "davejamesmiller/laravel-breadcrumbs": "5.x",
-        "doctrine/dbal": "^2.8",
-        "graham-campbell/markdown": "^12.0",
+        "diglactic/laravel-breadcrumbs": "^8.0",
+        "fruitcake/laravel-cors": "^3",
+        "graham-campbell/markdown": "^14",
+        "guzzlehttp/guzzle": "^7.2",
+        "laravel/framework": "^9.19",
+        "laravel/sanctum": "^3.0",
+        "laravel/socialite": "^5",
         "league/csv": "^9.3",
-        "socialiteproviders/steam": "^3.0.1",
-        "syntax/steam-api": "^2.1"
+        "socialiteproviders/steam": "^4",
+        "syntax/steam-api": "dev-laravel9"
     },
     "require-dev": {
-        "facade/ignition": "^2.0",
-        "fzaninotto/faker": "^1.9.1",
-        "mockery/mockery": "^1.3.1",
-        "nunomaduro/collision": "^4.1",
-        "barryvdh/laravel-debugbar": "dev-master",
+        "barryvdh/laravel-debugbar": "^3.7",
         "barryvdh/laravel-ide-helper": "^2.7",
-        "behat/behat": "^3.7",
-        "behat/mink": "^1.8",
-        "behat/mink-goutte-driver": "^1.2",
-        "friends-of-behat/mink-extension": "^2.4",
-        "squizlabs/php_codesniffer": "^3.6",
-        "phpunit/phpunit": "^9.5"
+        "fakerphp/faker": "^1.20",
+        "laravel/dusk": "^7.0",
+        "mockery/mockery": "^1.3.1",
+        "nunomaduro/collision": "^6.1",
+        "phpunit/phpunit": "^9.5.10",
+        "spatie/laravel-ignition": "^1.3",
+        "squizlabs/php_codesniffer": "^3.6"
     },
     "extra": {
         "laravel": {
@@ -75,8 +78,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "Features\\": "features/"
+            "Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
@@ -84,15 +86,16 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan cache:clear",
-            "@php artisan config:clear",
-            "@php artisan view:clear",
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:meta"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
         ]
     }
 }

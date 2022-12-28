@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Lan;
 
 class CurrentLanController extends Controller
 {

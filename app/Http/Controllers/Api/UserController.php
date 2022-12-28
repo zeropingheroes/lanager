@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
 use Zeropingheroes\Lanager\Http\Resources\User as UserResource;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\User;
 
 class UserController extends Controller
 {

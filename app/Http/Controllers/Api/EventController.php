@@ -4,9 +4,9 @@ namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Zeropingheroes\Lanager\Event;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
 use Zeropingheroes\Lanager\Http\Resources\Event as EventResource;
+use Zeropingheroes\Lanager\Models\Event;
 
 class EventController extends Controller
 {
@@ -44,7 +44,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Event $event
+     * @param  \Zeropingheroes\Lanager\Models\Event $event
      * @return EventResource
      */
     public function show(Event $event)

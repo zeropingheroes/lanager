@@ -1,22 +1,25 @@
 <?php
 
-/**
- * @var \Illuminate\Database\Eloquent\Factory $factory
- */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\LanGame;
-use Zeropingheroes\Lanager\SteamApp;
-use Zeropingheroes\Lanager\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\SteamApp;
 
-$factory->define(
-    LanGame::class,
-    function (Faker $faker) {
+class LanGameFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $lan = Lan::all()->random();
         return [
-        'lan_id' => Lan::all()->random()->id,
-        'game_name' => SteamApp::where('type', '=', 'game')->inRandomOrder()->first()->name,
-        'created_by' => User::all()->random()->id,
+            'lan_id' => $lan->id,
+            'game_name' => SteamApp::where('type', '=', 'game')->inRandomOrder()->first()->name,
+            'created_by' => $lan->users()->inRandomOrder()->first()->id,
         ];
     }
-);
+}

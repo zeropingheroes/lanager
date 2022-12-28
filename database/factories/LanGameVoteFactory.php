@@ -1,20 +1,23 @@
 <?php
 
-/**
- * @var \Illuminate\Database\Eloquent\Factory $factory
- */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
-use Zeropingheroes\Lanager\LanGame;
-use Zeropingheroes\Lanager\LanGameVote;
-use Zeropingheroes\Lanager\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Zeropingheroes\Lanager\Models\LanGame;
+use Zeropingheroes\Lanager\Models\User;
 
-$factory->define(
-    LanGameVote::class,
-    function (Faker $faker) {
+class LanGameVoteFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
         return [
-        'lan_game_id' => LanGame::all()->random()->id,
-        'user_id' => User::all()->random()->id,
+            'lan_game_id' => LanGame::inRandomOrder()->first()->id,
+            'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
-);
+}

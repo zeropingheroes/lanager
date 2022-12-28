@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager\Services;
 
 use Illuminate\Support\Collection;
-use Zeropingheroes\Lanager\SteamUserAppSession;
+use Zeropingheroes\Lanager\Models\SteamUserAppSession;
 
 class GetActiveGamesService
 {

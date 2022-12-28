@@ -7,8 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
 use View;
-use Zeropingheroes\Lanager\Event;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Event;
+use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Requests\StoreEventRequest;
 
 class EventController extends Controller
@@ -16,8 +16,8 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Request $request
-     * @param  Lan     $lan
+     * @param Request $request
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return \Illuminate\Contracts\View\View
      */
     public function index(Request $request, Lan $lan)
@@ -39,7 +39,7 @@ class EventController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -55,8 +55,8 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request $httpRequest
-     * @param  Lan     $lan
+     * @param Request $httpRequest
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -91,8 +91,8 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Lan   $lan
-     * @param  Event $event
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\Event $event
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -113,8 +113,8 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Lan   $lan
-     * @param  Event $event
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
+     * @param Event $event
      * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
@@ -135,9 +135,9 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request $httpRequest
-     * @param  Lan     $lan
-     * @param  Event   $event
+     * @param Request $httpRequest
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\Event $event
      * @return RedirectResponse
      * @throws AuthorizationException
      */
@@ -173,8 +173,8 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Lan   $lan
-     * @param  Event $event
+     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\Event $event
      * @return RedirectResponse
      * @throws AuthorizationException
      */

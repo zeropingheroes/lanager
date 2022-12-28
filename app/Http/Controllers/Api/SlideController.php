@@ -7,15 +7,15 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
 use Zeropingheroes\Lanager\Http\Resources\Slide as SlideResource;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\Slide;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\Slide;
 
 class SlideController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param  Lan $lan
+     * @param Lan $lan
      * @return AnonymousResourceCollection
      */
     public function index(Lan $lan)
@@ -47,8 +47,8 @@ class SlideController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Lan   $lan
-     * @param  Slide $slide
+     * @param Lan $lan
+     * @param  \Zeropingheroes\Lanager\Models\Slide $slide
      * @return SlideResource
      * @throws AuthorizationException
      */

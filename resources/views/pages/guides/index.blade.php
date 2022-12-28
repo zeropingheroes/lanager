@@ -10,7 +10,7 @@
 
 @section('content')
     @include('pages.guides.partials.list', ['guides' => $guides])
-    @can('create', Zeropingheroes\Lanager\Guide::class)
+    @can('create', Zeropingheroes\Lanager\Models\Guide::class)
         <a href="{{ route( 'lans.guides.create', $lan) }}" class="btn btn-primary">@lang('title.create')</a>
     @endcan
 @endsection

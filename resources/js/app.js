@@ -37,7 +37,7 @@ import FullscreenButton from './components/fullscreen-button.vue';
 Vue.component("fullscreen-button", FullscreenButton);
 
 /* General Purpose */
-Vue.component('vue-markdown', require('vue-markdown').default);
+Vue.component('vue-markdown', require('vue-markdown-render').default);
 
 /* Events */
 import Events from './components/events/events.vue';

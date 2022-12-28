@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager\Requests;
 
 use Carbon\Carbon;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Lan;
 
 class StoreEventRequest extends Request
 {

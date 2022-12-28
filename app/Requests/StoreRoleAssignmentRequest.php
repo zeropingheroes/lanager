@@ -3,8 +3,8 @@
 namespace Zeropingheroes\Lanager\Requests;
 
 use Auth;
-use Zeropingheroes\Lanager\Role;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\Role;
+use Zeropingheroes\Lanager\Models\User;
 
 class StoreRoleAssignmentRequest extends Request
 {

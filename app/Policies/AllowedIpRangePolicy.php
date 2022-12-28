@@ -2,16 +2,16 @@
 
 namespace Zeropingheroes\Lanager\Policies;
 
-use Zeropingheroes\Lanager\AllowedIpRange;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\AllowedIpRange;
+use Zeropingheroes\Lanager\Models\User;
 
 class AllowedIpRangePolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can view a given item.
      *
-     * @param  User|null      $authUser
-     * @param  AllowedIpRange $allowedIpRange
+     * @param  \Zeropingheroes\Lanager\Models\User|null $authUser
+     * @param AllowedIpRange $allowedIpRange
      * @return bool
      */
     public function view(?User $authUser, AllowedIpRange $allowedIpRange)
@@ -33,8 +33,8 @@ class AllowedIpRangePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can edit a given item.
      *
-     * @param  User           $authUser
-     * @param  AllowedIpRange $allowedIpRange
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\AllowedIpRange $allowedIpRange
      * @return bool
      */
     public function update(User $authUser, AllowedIpRange $allowedIpRange)
@@ -45,8 +45,8 @@ class AllowedIpRangePolicy extends BasePolicy
     /**
      * Determine whether the logged-in user can delete a given item.
      *
-     * @param  User           $authUser
-     * @param  AllowedIpRange $allowedIpRange
+     * @param  \Zeropingheroes\Lanager\Models\User $authUser
+     * @param  \Zeropingheroes\Lanager\Models\AllowedIpRange $allowedIpRange
      * @return bool
      */
     public function delete(User $authUser, AllowedIpRange $allowedIpRange)

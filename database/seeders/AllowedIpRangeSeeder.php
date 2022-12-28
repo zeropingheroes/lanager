@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Zeropingheroes\Lanager\AllowedIpRange;
+use Zeropingheroes\Lanager\Models\AllowedIpRange;
 
 class AllowedIpRangeSeeder extends Seeder
 {

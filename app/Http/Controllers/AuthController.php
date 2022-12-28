@@ -12,9 +12,9 @@ use Session;
 use Socialite;
 use Throwable;
 use View;
-use Zeropingheroes\Lanager\Lan;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
-use Zeropingheroes\Lanager\UserOAuthAccount;
 
 /**
  * Class AuthController.

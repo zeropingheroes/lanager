@@ -4,13 +4,13 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
-use Zeropingheroes\Lanager\Attendee;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\LanGame;
-use Zeropingheroes\Lanager\LanGameVote;
-use Zeropingheroes\Lanager\User;
-use Zeropingheroes\Lanager\UserOAuthAccount;
-use Zeropingheroes\Lanager\Venue;
+use Zeropingheroes\Lanager\Models\Attendee;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\LanGame;
+use Zeropingheroes\Lanager\Models\LanGameVote;
+use Zeropingheroes\Lanager\Models\User;
+use Zeropingheroes\Lanager\Models\UserOAuthAccount;
+use Zeropingheroes\Lanager\Models\Venue;
 
 class TestDataSeeder extends Seeder
 {
@@ -27,31 +27,30 @@ class TestDataSeeder extends Seeder
         // Import Steam apps
         Artisan::call('lanager:import-steam-apps-csv');
 
-        // Seed users & OAuth accounts
-        factory(User::class, 100)->create()
-            ->each(
-                function ($user) {
-                    $user->accounts()->save(factory(UserOAuthAccount::class)->make());
-                }
-            );
+        // Seed users
+        User::factory()
+            ->has(
+                UserOAuthAccount::factory()->count(1),
+                'accounts'
+            )
+            ->count(100)->create();
 
         // Seed venues & LANs
-        factory(Venue::class, 10)->create()
-            ->each(
-                function ($venue) {
-                    $venue->lans()->save(factory(Lan::class)->make());
-                    $venue->lans()->save(factory(Lan::class)->make());
-                    $venue->lans()->save(factory(Lan::class)->make());
-                }
-            );
+        Venue::factory()
+            ->has(
+                Lan::factory()->count(5)
+            )
+            ->count(3)->create();
 
         // Seed attendees
-        factory(Attendee::class, 300)->create();
+        Attendee::factory()
+            ->count(500)
+            ->create();
 
         // Seed LAN games
-        factory(LanGame::class, 300)->create();
+        LanGame::factory()->count(200)->create();
 
         // Seed LAN game votes
-        factory(LanGameVote::class, 1000)->create();
+        LanGameVote::factory()->count(1000)->create();
     }
 }

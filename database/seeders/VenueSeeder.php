@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Zeropingheroes\Lanager\Venue;
+use Zeropingheroes\Lanager\Models\Venue;
 
 class VenueSeeder extends Seeder
 {

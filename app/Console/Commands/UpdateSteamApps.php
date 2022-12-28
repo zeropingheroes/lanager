@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 use Illuminate\Console\Command;
 use Log;
 use Syntax\SteamApi\Facades\SteamApi;
-use Zeropingheroes\Lanager\SteamApp;
+use Zeropingheroes\Lanager\Models\SteamApp;
 
 class UpdateSteamApps extends Command
 {

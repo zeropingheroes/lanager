@@ -8,15 +8,15 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 use Session;
 use View;
-use Zeropingheroes\Lanager\Lan;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\User;
 
 class UserController extends Controller
 {
     /**
      * Display the specified resource.
      *
-     * @param  User $user
+     * @param  \Zeropingheroes\Lanager\Models\User $user
      * @return \Illuminate\Contracts\View\View
      */
     public function show(User $user)

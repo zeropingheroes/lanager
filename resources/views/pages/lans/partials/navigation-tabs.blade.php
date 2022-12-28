@@ -29,7 +29,7 @@
             @lang('title.attendees') <span class="badge">{{ $lan->users->count() }}</span>
         </a>
     </li>
-    @can('create', \Zeropingheroes\Lanager\Slide::class)
+    @can('create', \Zeropingheroes\Lanager\Models\Slide::class)
         <li class="nav-item">
             <a class="nav-link {{ Request::route()->getName() == 'lans.slides.index' ? 'active' : '' }}"
                href="{{ route('lans.slides.index', $lan) }}">

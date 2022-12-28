@@ -3,8 +3,8 @@
 namespace Zeropingheroes\Lanager\Requests;
 
 use Auth;
-use Zeropingheroes\Lanager\Event;
-use Zeropingheroes\Lanager\User;
+use Zeropingheroes\Lanager\Models\Event;
+use Zeropingheroes\Lanager\Models\User;
 
 class StoreEventSignupRequest extends Request
 {
