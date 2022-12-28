@@ -1,11 +1,9 @@
 LANager
 =======
-[![Laravel Dusk](https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=develop)](
+[![Laravel Dusk](https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=stable)](
 https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml)
-[![Docker](https://github.com/zeropingheroes/lanager/actions/workflows/build-docker.yml/badge.svg?branch=develop)](
-https://github.com/zeropingheroes/lanager/actions/workflows/build-docker.yml)
-[![StyleCI](https://github.styleci.io/repos/14088050/shield?branch=develop)](
-https://github.styleci.io/repos/14088050?branch=develop)
+[![StyleCI](https://github.styleci.io/repos/14088050/shield?branch=stable)](
+https://github.styleci.io/repos/14088050?branch=stable)
 
 LANager is a web application designed to make [LAN parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
