@@ -41,6 +41,9 @@ class DeleteNavigationLinkTest extends DuskTestCase
             // And accepts the confirmation dialog
             $browser->acceptDialog();
 
+            // And waits for the page to load
+            $browser->waitForRoute('navigation-links.index');
+
             // And they should see a confirmation message that the navigation link has been deleted
             $browser->assertSee('Navigation Link "' . $navigationLink->title . '" deleted');
         });
