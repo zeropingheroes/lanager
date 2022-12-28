@@ -2,7 +2,7 @@ name: Laravel Dusk
 
 on:
     push:
-        branches: [ develop ]
+        branches: [ develop, stable ]
         paths:
             - '**.php'
             - '**.json'
