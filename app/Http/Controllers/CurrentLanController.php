@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Zeropingheroes\Lanager\Models\Lan;
 
 class CurrentLanController extends Controller
@@ -22,7 +23,7 @@ class CurrentLanController extends Controller
             ?? Lan::future()->where('published', 1)->orderBy('start', 'asc')->first()
             ?? Lan::past()->where('published', 1)->orderBy('end', 'desc')->first();
 
-        if (! $this->lan) {
+        if (!$this->lan) {
             redirect()->route('lans.index')->send();
         }
     }
@@ -32,9 +33,9 @@ class CurrentLanController extends Controller
      *
      * @return RedirectResponse
      */
-    public function show()
+    public function show(Request $request)
     {
-        return redirect()->route('lans.show', $this->lan);
+        return redirect()->route('lans.show', $this->lan)->with($request->session()->all());
     }
 
     /**
@@ -42,9 +43,9 @@ class CurrentLanController extends Controller
      *
      * @return RedirectResponse
      */
-    public function guides()
+    public function guides(Request $request)
     {
-        return redirect()->route('lans.guides.index', $this->lan);
+        return redirect()->route('lans.guides.index', $this->lan)->with($request->session()->all());
     }
 
     /**
@@ -52,9 +53,9 @@ class CurrentLanController extends Controller
      *
      * @return RedirectResponse
      */
-    public function events()
+    public function events(Request $request)
     {
-        return redirect()->route('lans.events.index', $this->lan);
+        return redirect()->route('lans.events.index', $this->lan)->with($request->session()->all());
     }
 
     /**
@@ -62,9 +63,11 @@ class CurrentLanController extends Controller
      *
      * @return RedirectResponse
      */
-    public function schedule()
+    public function schedule(Request $request)
     {
-        return redirect()->route('lans.events.index', ['lan' => $this->lan, 'schedule']);
+        return redirect()->route('lans.events.index', ['lan' => $this->lan, 'schedule'])->with(
+            $request->session()->all()
+        );
     }
 
     /**
@@ -72,9 +75,9 @@ class CurrentLanController extends Controller
      *
      * @return RedirectResponse
      */
-    public function users()
+    public function users(Request $request)
     {
-        return redirect()->route('lans.attendees.index', $this->lan);
+        return redirect()->route('lans.attendees.index', $this->lan)->with($request->session()->all());
     }
 
     /**
@@ -82,8 +85,8 @@ class CurrentLanController extends Controller
      *
      * @return RedirectResponse
      */
-    public function userAchievements()
+    public function userAchievements(Request $request)
     {
-        return redirect()->route('lans.user-achievements.index', $this->lan);
+        return redirect()->route('lans.user-achievements.index', $this->lan)->with($request->session()->all());
     }
 }
