@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Requests;
 
 use Auth;
+use Illuminate\Validation\Rule;
 use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\User;
 
@@ -19,10 +20,17 @@ class StoreEventSignupRequest extends Request
     {
         $this->validationRules = [
             'event_id' => ['required', 'numeric', 'exists:events,id'],
-            'user_id' => ['required', 'numeric', 'exists:users,id'],
+            'user_id' => [
+                'required',
+                'numeric',
+                'exists:users,id',
+                Rule::unique('event_signups')->where(
+                    fn($query) => $query->where('event_id', $this->input['event_id'])
+                )
+            ],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
@@ -35,7 +43,7 @@ class StoreEventSignupRequest extends Request
             return $this->setValid(false);
         }
 
-        if (Auth::user()->id != $user->id && ! Auth::user()->hasRole('super-admin')) {
+        if (Auth::user()->id != $user->id && !Auth::user()->hasRole('super-admin')) {
             $this->addError(trans('phrase.you-can-only-sign-yourself-up-to-event'));
 
             return $this->setValid(false);
