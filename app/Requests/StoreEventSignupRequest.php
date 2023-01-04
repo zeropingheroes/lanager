@@ -25,7 +25,9 @@ class StoreEventSignupRequest extends Request
                 'numeric',
                 'exists:users,id',
                 Rule::unique('event_signups')->where(
-                    fn($query) => $query->where('event_id', $this->input['event_id'])
+                    function ($query) {
+                        return $query->where('event_id', $this->input['event_id']);
+                    }
                 )
             ],
         ];
