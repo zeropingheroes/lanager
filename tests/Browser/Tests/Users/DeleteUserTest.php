@@ -3,6 +3,7 @@
 namespace Tests\Browser\Tests\Users;
 
 use Laravel\Dusk\Browser;
+use Tests\Browser\Pages\LanAttendees\LanAttendeeIndex;
 use Tests\DuskTestCase;
 use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
@@ -38,8 +39,8 @@ class DeleteUserTest extends DuskTestCase
             // And accepts the confirmation dialog
             $browser->acceptDialog();
 
-            // Then they should be redirected to the LAN's attendees page
-            $browser->assertRouteIs('lans.attendees.index', ['lan' => '*']);
+            // Then they should see a confirmation message that the slide was deleted
+            $browser->on(new LanAttendeeIndex())->assertSee('User "' . $user->username . '" deleted');
         });
     }
 }
