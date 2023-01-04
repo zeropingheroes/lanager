@@ -16,7 +16,7 @@ class StoreLanRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'name' => ['required', 'max:255'],
+            'name' => ['required', 'max:255', 'unique:lans'],
             'start' => ['required', 'date_format:Y-m-d H:i', 'before:end'],
             'end' => ['required', 'date_format:Y-m-d H:i', 'after:start'],
             'venue_id' => ['nullable', 'numeric', 'exists:venues,id'],
