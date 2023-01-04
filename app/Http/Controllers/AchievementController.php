@@ -128,6 +128,7 @@ class AchievementController extends Controller
             'name' => $httpRequest->input('name'),
             'description' => $httpRequest->input('description'),
             'image' => $httpRequest->image,
+            'id' => $achievement->id,
         ];
 
         $request = new StoreAchievementRequest($input);
