@@ -2,6 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
+use Illuminate\Validation\Rule;
 use Zeropingheroes\Lanager\Models\Lan;
 
 class StoreLanRequest extends Request
@@ -16,7 +17,11 @@ class StoreLanRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'name' => ['required', 'max:255', 'unique:lans'],
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('lans')->ignore($this->input['id'] ?? ''),
+            ],
             'start' => ['required', 'date_format:Y-m-d H:i', 'before:end'],
             'end' => ['required', 'date_format:Y-m-d H:i', 'after:start'],
             'venue_id' => ['nullable', 'numeric', 'exists:venues,id'],
@@ -24,7 +29,7 @@ class StoreLanRequest extends Request
             'published' => ['nullable', 'boolean'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

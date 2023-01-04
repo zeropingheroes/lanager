@@ -2,6 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
+use Illuminate\Validation\Rule;
+
 class StoreVenueRequest extends Request
 {
     use LaravelValidation;
@@ -14,11 +16,15 @@ class StoreVenueRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'name' => ['required', 'max:255', 'unique:venues'],
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('venues')->ignore($this->input['id'] ?? ''),
+            ],
             'street_address' => ['required', 'max:255'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
