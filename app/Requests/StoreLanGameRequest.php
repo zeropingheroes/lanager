@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Zeropingheroes\Lanager\Models\LanGame;
+use Illuminate\Validation\Rule;
 
 class StoreLanGameRequest extends Request
 {
@@ -17,23 +17,16 @@ class StoreLanGameRequest extends Request
     {
         $this->validationRules = [
             'lan_id' => ['required', 'exists:lans,id'],
-            'game_name' => ['required', 'max:255'],
+            'game_name' => [
+                'required',
+                'max:255',
+                Rule::unique('lan_games')->where(
+                    fn($query) => $query->where('lan_id', $this->input['lan_id'])
+                )->ignore($this->input['id'] ?? '')
+            ],
         ];
 
-        if (! $this->laravelValidationPasses()) {
-            return $this->setValid(false);
-        }
-
-        $lanGamesWithSameName = LanGame::where(
-            [
-                ['lan_id', '=', $this->input['lan_id']],
-                ['game_name', '=', $this->input['game_name']],
-            ]
-        )->count();
-
-        if ($lanGamesWithSameName != 0) {
-            $this->addError(trans('phrase.game-already-submitted', ['game' => $this->input['game_name']]));
-
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
