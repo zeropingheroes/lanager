@@ -38,6 +38,7 @@ return [
     'copy-markdown-link' => 'Copy Markdown Link',
     'fullscreen' => 'Fullscreen',
     'elapsed' => 'elapsed',
+    'duration' => 'Duration',
 
     // CRUD
     'create-item' => 'Create :Item',
@@ -131,7 +132,6 @@ return [
     'lan' => 'LAN',
     'dates' => 'Dates',
     'times' => 'Times',
-    'duration' => 'Duration',
     'x-hours' => ':x hours',
     'attendees' => 'Attendees',
     'attendee' => 'Attendee',
@@ -151,7 +151,7 @@ return [
     'achievement' => 'Achievement',
     'award-an-achievement' => 'Award an Achievement',
     'award' => 'Award',
-    'image' => 'Achievement Image',
+    'achievement-image' => 'Achievement Image',
 
     // Venues
     'venues' => 'Venues',
@@ -162,7 +162,6 @@ return [
     // Slides
     'slides' => 'Slides',
     'slide' => 'Slide',
-    'duration' => 'Duration',
     'play' => 'Play',
     'active' => 'Active',
 
