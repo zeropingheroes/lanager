@@ -41,7 +41,7 @@ class DeleteImageTest extends DuskTestCase
             // And should not see the image file name in the table
             $browser->assertDontSeeIn('table', 'bg.jpg');
 
-            $browser->assertSee('Achievement Image "bg.jpg" deleted');
+            $browser->assertSee('Image "bg.jpg" deleted');
         });
     }
 }

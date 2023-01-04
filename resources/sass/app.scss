@@ -244,20 +244,12 @@ div.markdown-slide {
   overflow: hidden;
 }
 
-img.image-slide {
-  /* make image fill all available space */
-  width: inherit;
-  height: inherit;
-
-  /* display image at maximum size of parent without changing aspect ratio or cropping */
-  object-fit: contain;
-}
-
 iframe.website-slide {
-  /* make iframe fill all available space */
-  width: inherit;
-  height: inherit;
-  border: none;
+    /* make iframe fill all available space */
+    width: inherit;
+    height: inherit;
+    border: none;
+    overflow: hidden;
 }
 
 div.tv {

@@ -14,7 +14,7 @@ class StoreVenueRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'name' => ['required', 'max:255'],
+            'name' => ['required', 'max:255', 'unique:venues'],
             'street_address' => ['required', 'max:255'],
         ];
 

@@ -5,21 +5,23 @@
            value="{{ old('name', $achievement->name) }}">
 </div>
 <div class="form-group">
-    <label for="image">@lang('title.image')</label>
+    <label for="image">@lang('title.achievement-image')</label>
     <div class="input-group">
         <div class="custom-file mr-2">
             <input type="file" class="custom-file-input" id="image" name="image">
             <label class="custom-file-label" for="images">@lang('phrase.select-file')</label>
         </div>
     </div>
-    <span>@lang('phrase.image-help')</span>
+    <span>@lang('phrase.achievement-image-help')</span>
 </div>
 <div class="form-group">
     <label for="description">@lang('title.description')</label>
-    <textarea class="form-control" id="description" name="description" rows="10" placeholder="@lang('phrase.markdown-help')"
+    <textarea class="form-control" id="description" name="description" rows="10"
+              placeholder="@lang('phrase.markdown-help')"
               aria-describedby="descriptionHelp">{{ old('description', $achievement->description) }}</textarea>
     <small id="descriptionHelp" class="form-text text-muted">
-        <a href="@lang('phrase.markdown-formatting-help-link-url')" target="_blank">@lang('phrase.markdown-formatting-help-link')</a>
+        <a href="@lang('phrase.markdown-formatting-help-link-url')"
+           target="_blank">@lang('phrase.markdown-formatting-help-link')</a>
         <br>
         <a href="{{ route('images.index') }}" target="_blank">@lang('title.upload-images')</a>
     </small>

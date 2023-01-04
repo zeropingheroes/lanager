@@ -14,7 +14,7 @@ class StoreAchievementRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'name' => ['required', 'max:255'],
+            'name' => ['required', 'max:255', 'unique:achievements'],
             'description' => ['nullable'],
             'image' => ['nullable', 'image', 'max:5000'],
         ];

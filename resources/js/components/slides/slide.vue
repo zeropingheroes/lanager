@@ -1,19 +1,13 @@
 <template>
     <div class="slide-container">
-        <img
-             class="image-slide"
-             v-if="type() === 'image'"
-             :src="content">
         <iframe
             class="website-slide"
-            v-else-if="type() === 'website'"
-            :src="content"
-            scrolling="no"
-            seamless>
+            v-if="type === 'website'"
+            :src="content">
         </iframe>
         <vue-markdown
             class="markdown-slide"
-            v-else
+            v-else-if="type === 'markdown'"
             :options="{linkify: true, breaks: true}"
             :source="content">
         </vue-markdown>
@@ -21,20 +15,16 @@
 </template>
 
 <script>
-    export default {
-        props: ['content'],
-        methods: {
-            type() {
-                const isImageUrl = require('is-image-url');
-                const isUrl = require('is-url');
-                if(isImageUrl(this.content)) {
-                    return 'image';
-                } else if(isUrl(this.content)) {
-                    return 'website';
-                } else {
-                    return 'markdown';
-                }
-            },
-        },
+export default {
+    props: ['content'],
+    computed: {
+        type() {
+            if (validator.isURL(this.content, {require_tld: false})) {
+                return 'website'
+            } else {
+                return 'markdown'
+            }
+        }
     }
+}
 </script>

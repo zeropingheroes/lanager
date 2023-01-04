@@ -17,7 +17,8 @@ class StoreAllowedIpRangeRequest extends Request
             'ip_range' => [
                 'required',
                 'max:255',
-                'regex:^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$/g'
+                'unique:allowed_ip_ranges',
+                'regex:^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$/g',
             ],
             'description' => ['nullable', 'max:255'],
         ];

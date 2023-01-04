@@ -45,8 +45,8 @@ return [
     // Achievements
     'achievement-successfully-awarded' => 'You have awarded :user the achievement ":achievement"',
     'achievement-successfully-revoked' => 'You have revoked the achievement ":achievement" from :user',
+    'achievement-image-help' => 'Recommended image size is 128x128',
     'select-file' => 'Select file',
-    'image-help' => 'Recommended image size is 128x128',
 
     // General purpose
     'no-items-found' => 'No :item found',
