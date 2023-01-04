@@ -1,9 +1,9 @@
 LANager
 =======
 
-| Service | Stable Branch                                    | Develop Branch                                     |
-|---------|--------------------------------------------------|----------------------------------------------------|
-| Dusk    | [![Dusk][duskStableImg]][duskStableUrl]          | [![Dusk][duskDevelopImg]][duskDevelopUrl]          |
+| Service |                                    Stable Branch |                                     Develop Branch |
+|--------:|-------------------------------------------------:|---------------------------------------------------:|
+|    Dusk |          [![Dusk][duskStableImg]][duskStableUrl] |          [![Dusk][duskDevelopImg]][duskDevelopUrl] |
 | StyleCI | [![StyleCI][styleciStableImg]][styleciStableUrl] | [![StyleCI][styleciDevelopImg]][styleciDevelopUrl] |
 
 [duskStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=stable
