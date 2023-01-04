@@ -14,7 +14,7 @@
         "bootstrap": "^4.6.2",
         "clipboard": "^2.0.11",
         "font-awesome": "^4.7.0",
-        "jquery": "^3.4.1",
+        "jquery": "^3.5.0",
         "lang.js": "^1.1.14",
         "laravel-localization-loader": "^1.0.5",
         "laravel-mix": "^6.0.49",
