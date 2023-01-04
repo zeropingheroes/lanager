@@ -11,10 +11,9 @@ try {
     window.moment = require('moment');
     window.Clipboard = require('clipboard');
     window.Vue = Vue;
-
+    window.validator = require('validator');
     var Lang = require('lang.js');
     window.lang = new Lang({messages: langs});
-
     require('tempusdominus-bootstrap-4');
     require('bootstrap');
 } catch (e) {

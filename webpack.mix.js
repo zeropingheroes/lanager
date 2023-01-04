@@ -1,4 +1,6 @@
 const mix = require('laravel-mix');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+
 
 /*
  |--------------------------------------------------------------------------
@@ -20,6 +22,22 @@ mix.webpackConfig({
                 loader: 'laravel-localization-loader',
             }
         ]
+    },
+    plugins: [
+        new NodePolyfillPlugin()
+    ],
+    resolve: {
+        fallback: {
+            "fs": false,
+            // "https": false,
+            // "http": false,
+            "tls": false,
+            "net": false,
+            // "crypto": false,
+            // "stream": false,
+            // "zlib": false,
+            // "path": false,
+        },
     }
 });
 
