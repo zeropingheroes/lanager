@@ -16,7 +16,7 @@
         props: ['game', 'users'],
         computed: {
             userCount() {
-                return _.size(this.users);
+                return this.users.size;
             },
         }
     }
