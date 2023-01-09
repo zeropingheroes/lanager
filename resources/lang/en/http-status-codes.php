@@ -35,4 +35,7 @@ return [
     '500-title' => 'Internal Server Error',
     '500-description' => 'The server encountered an unexpected condition which prevented it from fulfilling the request.',
 
+    '503-title' => 'Service Unavailable',
+    '503-description' => 'The server is currently unable to handle the request due to a temporary overload or scheduled maintenance, which will likely be alleviated after some delay.',
+
 ];
