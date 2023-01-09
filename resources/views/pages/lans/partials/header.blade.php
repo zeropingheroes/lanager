@@ -10,7 +10,12 @@
         </div>
     @endcanany
 </div>
-@if( $lan->venue )
-    <h5><a href="{{ route('venues.show', $lan->venue) }}">{{ $lan->venue->name }}</a></h5>
-@endif
+<h5>
+    @if( $lan->venue )
+        <a href="{{ route('venues.show', $lan->venue) }}">{{ $lan->venue->name }}</a>
+    @endif
+    <small class="text-muted">
+        {{ $lan->start->format('H:i D j M Y') }} &ndash; {{ $lan->end->format('H:i D j M Y') }}
+    </small>
+</h5>
 @include('pages.lans.partials.navigation-tabs', ['lan' => $lan])
