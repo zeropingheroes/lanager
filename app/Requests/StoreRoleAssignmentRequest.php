@@ -38,7 +38,7 @@ class StoreRoleAssignmentRequest extends Request
         }
 
         if ($user == Auth::user()) {
-            $this->addError(trans('phrase.cannot-assign-role-to-self'));
+            $this->addError(trans('phrase.cannot-change-own-role-assignments'));
 
             return $this->setValid(false);
         }
