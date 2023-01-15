@@ -35,6 +35,11 @@
                     <tr @if($currentLan && $lan->id == $currentLan->id) class="table-active" @endif>
                         <td>
                             <a href="{{ route('lans.show', $lan->id) }}">{{ $lan->name }}</a>
+                            @canany(['update', 'delete'], $lan)
+                                @if(!$lan->published)
+                                    <small>&ndash; @lang('title.unpublished')</small>
+                                @endif
+                            @endcanany
                         </td>
                         <td>
                             {{ $lan->start->format('H:i D j M Y') }} &ndash; {{ $lan->end->format('H:i D j M Y') }}
