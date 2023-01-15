@@ -212,9 +212,6 @@ div.container-1920x1080 {
   width: 1920px;
   max-height: 1080px;
   height: 1080px;
-
-  /* disable scrollbars */
-  overflow: hidden;
 }
 
 div.slide-container {
@@ -228,20 +225,48 @@ div.slide-container {
   /* horizontally center-align child elements */
   justify-content: center;
   display: flex;
-
-  /* make text easier to read when on a white background */
-  text-shadow: 1px 0 5px #000, 0 -1px 5px #000, 0 1px 5px #000, -1px 0 5px #000;
 }
 
 div.markdown-slide {
-  /* horizontally center-align contained text */
-  text-align: center !important;
+    /* horizontally center-align contained text */
+    text-align: center !important;
 
-  /* vertically center align div in parent */
-  align-self: center;
-  max-width: 1920px;
-  max-height: 1080px;
-  overflow: hidden;
+    /* vertically center align div in parent */
+    align-self: center;
+    max-width: 1920px;
+    max-height: 1080px;
+    overflow: hidden;
+
+    /* make text easier to read when on a white background */
+    text-shadow: 1px 0 5px #000, 0 -1px 5px #000, 0 1px 5px #000, -1px 0 5px #000;
+}
+
+div.markdown-slide {
+    font-size: $font-size-base * 3;
+}
+
+div.markdown-slide h1 {
+    font-size: $h1-font-size * 3;
+}
+
+div.markdown-slide h2 {
+    font-size: $h2-font-size * 3;
+}
+
+div.markdown-slide h3 {
+    font-size: $h3-font-size * 3;
+}
+
+div.markdown-slide h4 {
+    font-size: $h4-font-size * 3;
+}
+
+div.markdown-slide h5 {
+    font-size: $h5-font-size * 3;
+}
+
+div.markdown-slide h6 {
+    font-size: $h6-font-size * 3;
 }
 
 iframe.website-slide {
@@ -253,15 +278,11 @@ iframe.website-slide {
     pointer-events: none;
 }
 
-div.tv {
-  /* set font size to be readable from 10ft / 3m away */
-  font-size: 54px;
-}
-
 div#fullscreen-button {
-  position: absolute;
-  bottom: 15px;
+    position: absolute;
+    bottom: 15px;
     right: 15px;
+    font-size: $font-size-base * 2.5;
 }
 
 .fade-enter-active, .fade-leave-active {
