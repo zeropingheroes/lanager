@@ -43,7 +43,7 @@ class StoreRoleAssignmentRequest extends Request
             return $this->setValid(false);
         }
 
-        if ($user->hasRole('Super Admin')) {
+        if ($user->hasRole('super-admin')) {
             $this->addError(trans('phrase.cannot-assign-role-to-super-admin'));
 
             return $this->setValid(false);
