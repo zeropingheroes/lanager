@@ -40,6 +40,7 @@ return [
     'cannot-change-own-role-assignments' => 'You cannot change your own role assignments',
     'cannot-assign-role-to-super-admin' => 'Super Admins cannot be assigned additional roles',
     'assigned' => 'assigned',
+    'admin-vs-superadmin' => 'Admins are able to do everything a super admin can do, with the exception of changing other users\' roles',
 
     // Achievements
     'achievement-successfully-awarded' => 'You have awarded :user the achievement ":achievement"',

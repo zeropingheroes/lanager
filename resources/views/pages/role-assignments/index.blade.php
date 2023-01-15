@@ -42,6 +42,9 @@
         @endforeach
         </tbody>
     </table>
+    <p>
+        @lang('phrase.admin-vs-superadmin').
+    </p>
 
     @can('create', Zeropingheroes\Lanager\Models\RoleAssignment::class)
         <h5>@lang('title.assign-a-role')</h5>
