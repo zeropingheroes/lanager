@@ -37,9 +37,8 @@ return [
     'user-already-has-role' => ':user is already assigned the :role role',
     'role-successfully-assigned' => 'You have assigned :user the role :role',
     'role-successfully-unassigned' => ':user is no longer assigned the role :role',
-    'cannot-assign-role-to-self' => 'You cannot assign roles to yourself',
-    'cannot-unassign-role-from-self' => 'You cannot unassign roles from yourself',
-    'cannot-assign-role-to-super-admin' => 'Super Admins cannot change roles',
+    'cannot-change-own-role-assignments' => 'You cannot change your own role assignments',
+    'cannot-assign-role-to-super-admin' => 'Super Admins cannot be assigned additional roles',
     'assigned' => 'assigned',
 
     // Achievements
