@@ -250,6 +250,7 @@ iframe.website-slide {
     height: inherit;
     border: none;
     overflow: hidden;
+    pointer-events: none;
 }
 
 div.tv {

@@ -1,56 +1,64 @@
 <template>
-    <div id="fullscreen-button" v-show="!fullscreen">
-        <span class="oi oi-fullscreen-enter" title="Enter full screen" aria-hidden="true"></span>
-    </div>
+    <transition name="fade">
+        <div id="fullscreen-button" v-show="visible">
+            <span class="oi oi-fullscreen-enter" title="Enter full screen" aria-hidden="true"></span>
+        </div>
+    </transition>
 </template>
 
 <script>
     export default {
         data() {
             return {
-                fullscreen: false,
+                visible: false,
             };
         },
         mounted: function () {
-            this.$el.addEventListener('click', this.enterFullScreen)
-            document.addEventListener('webkitfullscreenchange', this.showFullScreenButtonOnExit);
-            document.addEventListener('mozfullscreenchange', this.showFullScreenButtonOnExit);
-            document.addEventListener('fullscreenchange', this.showFullScreenButtonOnExit);
-            document.addEventListener('MSFullscreenChange', this.showFullScreenButtonOnExit);
-
-            // Hide fullscreen button when fullscreen triggered by keyboard shortcut / menu click
-            var self = this;
-            window.addEventListener('resize', function () {
-                if(window.innerHeight == screen.height) {
-                    self.$data.fullscreen = true;
-                } else {
-                    self.$data.fullscreen = false;
-                }
-            });
+            this.$el.addEventListener('click', this.toggleFullscreen)
+            window.addEventListener('mousemove', this.showFullscreenButton)
         },
         beforeDestroy: function () {
-            this.$el.removeEventListener('click', this.enterFullScreen)
+            this.$el.removeEventListener('click', this.toggleFullscreen)
+            window.removeEventListener('mousemove', this.showFullscreenButton)
         },
         methods: {
-            enterFullScreen: function () {
-                var elem = document.documentElement;
-                if (elem.requestFullscreen) {
-                    elem.requestFullscreen();
-                } else if (elem.mozRequestFullScreen) { /* Firefox */
-                    elem.mozRequestFullScreen();
-                } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-                    elem.webkitRequestFullscreen();
-                } else if (elem.msRequestFullscreen) { /* IE/Edge */
-                    elem.msRequestFullscreen();
+            toggleFullscreen: function () {
+                if (
+                    document.fullscreenElement ||
+                    document.webkitFullscreenElement ||
+                    document.msFullscreenElement
+                ) {
+                    this.exitFullscreen();
+                } else {
+                    this.enterFullscreen();
                 }
-                this.$data.fullscreen = true;
             },
-            showFullScreenButtonOnExit: function () {
-                if (document.webkitIsFullScreen === false ||
-                    document.mozFullScreen === false ||
-                    document.msFullscreenElement === null) {
-                    this.$data.fullscreen = false;
+            enterFullscreen: function () {
+                var d = document.documentElement;
+                if (d.requestFullscreen) {
+                    d.requestFullscreen();
+                } else if (d.mozRequestFullScreen) { /* Firefox */
+                    d.mozRequestFullScreen();
+                } else if (d.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    d.webkitRequestFullscreen();
+                } else if (d.msRequestFullscreen) { /* IE/Edge */
+                    d.msRequestFullscreen();
                 }
+            },
+            exitFullscreen: function () {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { /* Safari */
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { /* IE11 */
+                    document.msExitFullscreen();
+                }
+            },
+            showFullscreenButton: function () {
+                this.visible = true;
+                setTimeout(() => {
+                    this.visible = false;
+                }, 2000);
             }
         }
     }
