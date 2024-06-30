@@ -1,5 +1,6 @@
 /.dockerignore
 /.editorconfig
+/.env*
 /public/storage
 /.git*
 /.idea*
