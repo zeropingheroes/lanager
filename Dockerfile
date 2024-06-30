@@ -1,4 +1,4 @@
-FROM composer:2 as composer2
+FROM composer:2.7 as composer2
 
 # Copy in project code
 COPY . /app
@@ -10,19 +10,16 @@ RUN composer install \
   --no-progress \
   --no-scripts
 
-FROM trafex/php-nginx:2.5.0
+FROM trafex/php-nginx:3.5.0
 
 USER root
 
 # Install PHP extensions
-RUN apk --no-cache add php8-xmlwriter=8.0.24-r0 \
-                       php8-zip=8.0.24-r0 \
-                       php8-pdo=8.0.24-r0 \
-                       php8-pdo_mysql=8.0.24-r0 \
-                       php8-tokenizer=8.0.24-r0 \
-                       php8-simplexml=8.0.24-r0 \
-                       php8-bcmath=8.0.24-r0 \
-                       php8-fileinfo=8.0.24-r0
+RUN apk --no-cache add php83-zip=8.3.8-r0 \
+                       php83-pdo=8.3.8-r0 \
+                       php83-pdo_mysql=8.3.8-r0 \
+                       php83-simplexml=8.3.8-r0 \
+                       php83-bcmath=8.3.8-r0
 
 # Copy in app code and Composer packages from composer2 build stage
 COPY --chown=nginx --from=composer2 /app /var/www/lanager

@@ -24,11 +24,11 @@ class Event extends Model
         'signups_close',
     ];
 
-    protected $dates = [
-        'start',
-        'end',
-        'signups_open',
-        'signups_close',
+    protected $casts = [
+        'start' => 'datetime',
+        'end' => 'datetime',
+        'signups_open' => 'datetime',
+        'signups_close' => 'datetime',
     ];
 
     /**

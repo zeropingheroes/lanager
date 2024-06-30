@@ -17,9 +17,9 @@ class SteamUserAppSession extends Model
         'end',
     ];
 
-    protected $dates = [
-        'start',
-        'end',
+    protected $casts = [
+        'start' => 'datetime',
+        'end' => 'datetime',
     ];
 
     protected $with = [

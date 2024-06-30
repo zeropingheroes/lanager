@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Relations\belongsTo;
 /* @mixin Eloquent */
 class Session extends Model
 {
-    protected $dates = [
-        'last_activity',
+    protected $casts = [
+        'last_activity' => 'datetime',
     ];
 
     protected $keyType = 'string';
