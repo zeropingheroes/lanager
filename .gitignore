@@ -3,7 +3,7 @@
 .env.backup
 /.idea
 /.phpstorm.meta.php
-/.phpunit.result.cache
+/storage/.phpunit.cache/
 /.vscode
 /_ide_helper.php
 /node_modules
