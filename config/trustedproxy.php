@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'proxies' => explode(',', env('TRUSTED_PROXIES')),
+    'proxies' => explode(',', env('TRUSTED_PROXIES', '')),
 ];
