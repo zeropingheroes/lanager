@@ -20,7 +20,7 @@ class StoreGuideRequest extends Request
             'published' => ['nullable', 'boolean'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

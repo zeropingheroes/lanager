@@ -18,7 +18,6 @@ class DeleteSlideTest extends DuskTestCase
     public function testDeletingSlide()
     {
         $this->browse(function (Browser $browser) {
-
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',

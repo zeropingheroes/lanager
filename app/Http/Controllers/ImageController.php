@@ -111,7 +111,7 @@ class ImageController extends Controller
         $this->authorize('images.update');
 
         $filePath = $this::DIRECTORY . '/' . $filename;
-        if (! Storage::exists($filePath)) {
+        if (!Storage::exists($filePath)) {
             abort(404);
         }
 
@@ -175,7 +175,7 @@ class ImageController extends Controller
         $this->authorize('images.delete');
 
         $file = $this::DIRECTORY . '/' . $filename;
-        if (! Storage::exists($file)) {
+        if (!Storage::exists($file)) {
             abort(404);
         }
 

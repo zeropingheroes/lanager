@@ -18,7 +18,6 @@ class EditGuideTest extends DuskTestCase
     public function testEditingGuide()
     {
         $this->browse(function (Browser $browser) {
-
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',

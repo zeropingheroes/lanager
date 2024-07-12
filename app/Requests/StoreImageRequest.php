@@ -23,7 +23,7 @@ class StoreImageRequest extends Request
             'images.*.max' => trans('phrase.submitted-file-exceeded-max-file-size-of-x', ['x' => '5MB']),
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

@@ -20,7 +20,7 @@ class UpdateOutdatedUserAppsAfterSuccessfulAuth
     {
         $steamMetadata = $login->user->SteamMetadata;
 
-        if (! $steamMetadata) {
+        if (!$steamMetadata) {
             return;
         }
 

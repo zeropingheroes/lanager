@@ -33,7 +33,7 @@ class UpgradeDatabase extends Command
         $this->checkDatabaseStructure();
 
         $this->warn(trans('phrase.manually-backup-before-continuing'));
-        if (! $this->confirm(trans('phrase.are-you-sure'))) {
+        if (!$this->confirm(trans('phrase.are-you-sure'))) {
             return 1;
         }
 
@@ -99,7 +99,7 @@ class UpgradeDatabase extends Command
         ];
 
         foreach ($expectedTables as $table) {
-            if (! Schema::hasTable($table)) {
+            if (!Schema::hasTable($table)) {
                 $this->error(trans('phrase.database-structure-does-not-match-table-x-missing', ['x' => $table]));
 
                 return 1;
@@ -566,7 +566,7 @@ class UpgradeDatabase extends Command
     private function getLatestLan()
     {
         // If the LANs table is empty, create a LAN
-        if (! DB::table('lans')->count()) {
+        if (!DB::table('lans')->count()) {
             DB::table('lans')->insert(
                 [
                     'name' => 'Example LAN',

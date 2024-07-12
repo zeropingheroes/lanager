@@ -152,7 +152,7 @@ class UpdateSteamUsersService
         $userOAuthAccount = UserOAuthAccount::where('provider_id', $steamUser->steamId)->first();
 
         // If this Steam account is not already in the database
-        if (! $userOAuthAccount) {
+        if (!$userOAuthAccount) {
             // Create a new LANager user account
             $user = User::create(['username' => $steamUser->personaName]);
         } else {
@@ -184,12 +184,12 @@ class UpdateSteamUsersService
         );
 
         // Do not record gameplay info, unless a LAN is in progress
-        if (! $this->currentLanAttendees) {
+        if (!$this->currentLanAttendees) {
             return true;
         }
 
         // Do not record gameplay info if the user is not at the LAN in progress
-        if (! $this->currentLanAttendees->contains('id', $user->id)) {
+        if (!$this->currentLanAttendees->contains('id', $user->id)) {
             return true;
         }
 
@@ -205,7 +205,7 @@ class UpdateSteamUsersService
             );
 
             // If no existing ongoing session was found
-            if (! $session->exists) {
+            if (!$session->exists) {
                 // Create one starting now
                 $session->start = Carbon::now();
 

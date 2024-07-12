@@ -19,7 +19,7 @@ class StoreUserAchievementRequest extends Request
             'lan_id' => ['required', 'exists:lans,id'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

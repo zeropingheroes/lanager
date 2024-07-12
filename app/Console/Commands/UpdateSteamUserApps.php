@@ -38,7 +38,7 @@ class UpdateSteamUserApps extends Command
             ->first();
 
         // If there is a current LAN, and the "update all users" option is not set
-        if ($lan && ! $this->option('all')) {
+        if ($lan && !$this->option('all')) {
             // Get the attendees for the LAN
             $users = $lan->users()->get();
         } else {

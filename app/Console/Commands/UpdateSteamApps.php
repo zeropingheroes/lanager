@@ -30,7 +30,7 @@ class UpdateSteamApps extends Command
         $this->info(trans('phrase.requesting-list-of-all-apps-from-steam-api'));
         $apps = SteamApi::app()->GetAppList();
 
-        if (! SteamApp::count()) {
+        if (!SteamApp::count()) {
             $this->import($apps);
         } else {
             $this->update($apps);

@@ -41,7 +41,7 @@ class ImportSteamUsers extends Command
             $steamIds = explode("\n", trim($steamIds));
         }
 
-        if (! $steamIds) {
+        if (!$steamIds) {
             $message = trans('phrase.no-steam-users-to-import');
             Log::error($message);
             $this->error($message);

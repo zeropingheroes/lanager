@@ -39,7 +39,7 @@ class ImportSteamAppsCsv extends Command
         }
         $csvApps = $reader->getRecords(['id', 'name', 'type']);
 
-        if (! SteamApp::count()) {
+        if (!SteamApp::count()) {
             $this->import($csvApps);
         } else {
             $this->update($csvApps, count($reader));

@@ -25,7 +25,7 @@ class StoreAllowedIpRangeRequest extends Request
             'description' => ['nullable', 'max:255'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

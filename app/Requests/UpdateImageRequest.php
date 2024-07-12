@@ -15,7 +15,7 @@ class UpdateImageRequest extends Request
      */
     public function valid(): bool
     {
-        if (! Storage::exists($this->input['original_file_path'])) {
+        if (!Storage::exists($this->input['original_file_path'])) {
             abort(404);
 
             return $this->setValid(false);
@@ -25,7 +25,7 @@ class UpdateImageRequest extends Request
             'new_filename_without_extension' => ['required', 'alpha_dash'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

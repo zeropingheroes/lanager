@@ -22,11 +22,11 @@ class StoreNavigationLinkRequest extends Request
             'parent_id' => ['nullable', 'exists:navigation_links,id'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
-        if (! empty($this->input['parent_id'])) {
+        if (!empty($this->input['parent_id'])) {
             if ($this->input['id'] ?? 0 === $this->input['parent_id']) {
                 $this->addError(trans('phrase.a-navigation-link-cannot-be-its-own-parent'));
 

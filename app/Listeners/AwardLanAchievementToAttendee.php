@@ -33,7 +33,7 @@ class AwardLanAchievementToAttendee
     {
         $lanHappeningNow = Lan::happeningNow()->first();
 
-        if (! $lanHappeningNow) {
+        if (!$lanHappeningNow) {
             return;
         }
         $isAtLan = false;
