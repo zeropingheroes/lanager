@@ -82,7 +82,6 @@ jobs:
                     path: storage/logs/dusk/screenshots
 
             -   name: Upload Console Logs
-                if: failure()
                 uses: actions/upload-artifact@v2
                 with:
                     name: console
