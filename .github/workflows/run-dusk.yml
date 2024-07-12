@@ -48,6 +48,7 @@ jobs:
                 with:
                     php-version: '8.3'
                     extensions: xmlwriter, zip, pdo, pdo_mysql, tokenizer, simplexml, bcmath, fileinfo
+                    ini-values: error_reporting=22527
 
             -   name: Install Composer dependencies
                 run: composer install --optimize-autoloader --no-interaction --no-progress --no-scripts
