@@ -215,9 +215,8 @@ class UpdateSteamUsersService
                 // Update its updated_at timestamp field
                 return $session->touch();
             }
-            // If the user is not running an app/game
         } else {
-            // Add an end time to any sessions without one
+            // If the user is not running an app/game, add an end time to any sessions without one
             $user->steamAppSessions()
                 ->whereNull('end')
                 ->update(['end' => Carbon::now()]);
