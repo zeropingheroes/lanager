@@ -50,7 +50,7 @@ jobs:
                     extensions: xmlwriter, zip, pdo, pdo_mysql, tokenizer, simplexml, bcmath, fileinfo
 
             -   name: Install Composer dependencies
-                run: composer install --prefer-dist --no-scripts --no-interaction
+                run: composer install --optimize-autoloader --no-interaction --no-progress --no-scripts
 
             -   name: Link Laravel storage directory
                 run: php artisan storage:link
