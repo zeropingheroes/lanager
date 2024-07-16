@@ -1,7 +1,10 @@
 /*.tar.gz
 .env
 .env.backup
+.env.production
+/.fleet
 /.idea
+/.vscode
 /.phpstorm.meta.php
 /storage/.phpunit.cache/
 /.vscode
