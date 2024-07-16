@@ -36,8 +36,11 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        },
+        "minimum-stability": "stable",
+        "prefer-stable": true
     },
     "require": {
         "php": "^8.3",
@@ -82,7 +85,6 @@
             "Tests\\": "tests/"
         }
     },
-    "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",

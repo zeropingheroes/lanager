@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         backupGlobals="false"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
          cacheDirectory="storage/.phpunit.cache"
-         backupStaticProperties="false">
+>
     <testsuites>
         <testsuite name="Browser Test Suite">
-            <directory suffix="Test.php">./tests/Browser</directory>
+            <directory>./tests/Browser</directory>
         </testsuite>
     </testsuites>
 </phpunit>
