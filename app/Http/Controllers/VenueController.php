@@ -3,10 +3,11 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Session;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Venue;
 use Zeropingheroes\Lanager\Requests\StoreVenueRequest;
 
@@ -14,10 +15,8 @@ class VenueController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(): ViewContract
     {
         $venues = Venue::all();
 
@@ -27,11 +26,9 @@ class VenueController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function create()
+    public function create(): ViewContract
     {
         $this->authorize('create', Venue::class);
 
@@ -41,12 +38,9 @@ class VenueController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  Request $httpRequest
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $httpRequest)
+    public function store(Request $httpRequest): RedirectResponse
     {
         $this->authorize('create', Venue::class);
 
@@ -71,12 +65,9 @@ class VenueController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Venue $venue
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function show(Venue $venue)
+    public function show(Venue $venue): ViewContract
     {
         $this->authorize('view', $venue);
 
@@ -86,12 +77,9 @@ class VenueController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Venue $venue
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function edit(Venue $venue)
+    public function edit(Venue $venue): ViewContract
     {
         $this->authorize('update', $venue);
 
@@ -101,13 +89,9 @@ class VenueController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param Request $httpRequest
-     * @param  \Zeropingheroes\Lanager\Models\Venue $venue
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function update(Request $httpRequest, Venue $venue)
+    public function update(Request $httpRequest, Venue $venue): RedirectResponse
     {
         $this->authorize('update', $venue);
 
@@ -132,12 +116,9 @@ class VenueController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Venue $venue
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(Venue $venue)
+    public function destroy(Venue $venue): RedirectResponse
     {
         $this->authorize('delete', $venue);
 

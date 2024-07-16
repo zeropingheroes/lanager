@@ -8,9 +8,6 @@ use Tests\DuskTestCase;
 
 class DeleteNavigationLinkTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testDeletingNavigationLink(): void
     {
         $this->browse(function (Browser $browser) {

@@ -9,9 +9,6 @@ use Zeropingheroes\Lanager\Models\Venue;
 
 class DeleteVenueTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testDeletingVenue(): void
     {
         $this->browse(function (Browser $browser) {

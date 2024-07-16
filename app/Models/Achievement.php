@@ -16,9 +16,9 @@ class Achievement extends Model
     ];
 
     /**
-     * @return HasMany
+     * Users who have been awarded the achievement
      */
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\UserAchievement');
     }

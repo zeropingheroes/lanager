@@ -11,12 +11,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class CreateEventSignupTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testCreatingEventSignup()
+    public function testCreatingEventSignup(): void
     {
         $this->browse(function (Browser $browser) {
             // Given a LAN exists

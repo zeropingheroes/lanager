@@ -3,10 +3,11 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Session;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Requests\StoreEventRequest;
@@ -15,12 +16,8 @@ class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @return \Illuminate\Contracts\View\View
      */
-    public function index(Request $request, Lan $lan)
+    public function index(Request $request, Lan $lan): ViewContract
     {
         if ($request->has('schedule')) {
             return View::make('pages.events.schedule')
@@ -38,12 +35,9 @@ class EventController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function create(Lan $lan)
+    public function create(Lan $lan): ViewContract
     {
         $this->authorize('create', Event::class);
 
@@ -54,13 +48,9 @@ class EventController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param Request $httpRequest
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $httpRequest, Lan $lan)
+    public function store(Request $httpRequest, Lan $lan): RedirectResponse
     {
         $this->authorize('create', Event::class);
 
@@ -90,13 +80,9 @@ class EventController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @param  \Zeropingheroes\Lanager\Models\Event $event
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function show(Lan $lan, Event $event)
+    public function show(Lan $lan, Event $event): ViewContract
     {
         $this->authorize('view', $event);
 
@@ -112,13 +98,9 @@ class EventController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @param Event $event
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function edit(Lan $lan, Event $event)
+    public function edit(Lan $lan, Event $event): ViewContract
     {
         $this->authorize('update', $event);
 
@@ -134,14 +116,9 @@ class EventController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param Request $httpRequest
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @param  \Zeropingheroes\Lanager\Models\Event $event
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function update(Request $httpRequest, Lan $lan, Event $event)
+    public function update(Request $httpRequest, Lan $lan, Event $event): RedirectResponse
     {
         $this->authorize('update', $event);
 
@@ -172,13 +149,9 @@ class EventController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @param  \Zeropingheroes\Lanager\Models\Event $event
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan, Event $event)
+    public function destroy(Lan $lan, Event $event): RedirectResponse
     {
         $this->authorize('delete', $event);
 

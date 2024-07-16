@@ -6,27 +6,21 @@ abstract class Request implements RequestContract
 {
     /**
      * Request input data to be validated.
-     *
-     * @var array
      */
-    protected $input = [];
+    protected array $input = [];
 
     /**
      * Errors.
-     *
-     * @var array
      */
-    protected $errors = [];
+    protected array $errors = [];
 
     /**
-     * @var bool|null
+     * Whether the request is valid.
      */
-    protected $valid;
+    protected bool $valid = false;
 
     /**
      * Instantiate the class with the request input.
-     *
-     * @param array $input Request input data
      */
     public function __construct(array $input)
     {
@@ -35,8 +29,6 @@ abstract class Request implements RequestContract
 
     /**
      * Whether the request is valid.
-     *
-     * @return bool
      */
     public function valid(): bool
     {
@@ -46,8 +38,6 @@ abstract class Request implements RequestContract
 
     /**
      * Whether the request is invalid.
-     *
-     * @return bool
      */
     public function invalid(): bool
     {
@@ -62,8 +52,7 @@ abstract class Request implements RequestContract
     }
 
     /**
-     * @param  bool $valid
-     * @return bool
+     * Set the request to "valid"
      */
     protected function setValid(bool $valid): bool
     {
@@ -73,17 +62,15 @@ abstract class Request implements RequestContract
     }
 
     /**
-     * @param $error
+     * Add an error to the error array
      */
-    protected function addError($error): void
+    protected function addError(string $error): void
     {
-        array_push($this->errors, $error);
+        $this->errors[] = $error;
     }
 
     /**
-     * Request errors.
-     *
-     * @return array
+     * Get the request errors.
      */
     public function errors(): array
     {

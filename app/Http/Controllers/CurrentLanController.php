@@ -8,9 +8,6 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class CurrentLanController extends Controller
 {
-    /**
-     * @var Lan
-     */
     protected $lan;
 
     /**
@@ -30,40 +27,32 @@ class CurrentLanController extends Controller
 
     /**
      * Redirect to current LAN's page.
-     *
-     * @return RedirectResponse
      */
-    public function show(Request $request)
+    public function show(Request $request): RedirectResponse
     {
         return redirect()->route('lans.show', $this->lan)->with($request->session()->all());
     }
 
     /**
      * Redirect to current LAN's guides index.
-     *
-     * @return RedirectResponse
      */
-    public function guides(Request $request)
+    public function guides(Request $request): RedirectResponse
     {
         return redirect()->route('lans.guides.index', $this->lan)->with($request->session()->all());
     }
 
     /**
      * Redirect to current LAN's events index.
-     *
-     * @return RedirectResponse
      */
-    public function events(Request $request)
+    public function events(Request $request): RedirectResponse
     {
         return redirect()->route('lans.events.index', $this->lan)->with($request->session()->all());
     }
 
     /**
      * Redirect to current LAN's events schedule.
-     *
-     * @return RedirectResponse
      */
-    public function schedule(Request $request)
+    public function schedule(Request $request): RedirectResponse
     {
         return redirect()->route('lans.events.index', ['lan' => $this->lan, 'schedule'])->with(
             $request->session()->all()
@@ -72,20 +61,16 @@ class CurrentLanController extends Controller
 
     /**
      * Redirect to current LAN's attendees index.
-     *
-     * @return RedirectResponse
      */
-    public function users(Request $request)
+    public function users(Request $request): RedirectResponse
     {
         return redirect()->route('lans.attendees.index', $this->lan)->with($request->session()->all());
     }
 
     /**
      * Redirect to current LAN's awarded achievements.
-     *
-     * @return RedirectResponse
      */
-    public function userAchievements(Request $request)
+    public function userAchievements(Request $request): RedirectResponse
     {
         return redirect()->route('lans.user-achievements.index', $this->lan)->with($request->session()->all());
     }

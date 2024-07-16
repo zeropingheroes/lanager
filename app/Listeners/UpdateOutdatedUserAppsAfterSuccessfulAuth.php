@@ -4,19 +4,14 @@ namespace Zeropingheroes\Lanager\Listeners;
 
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Collection;
-use Throwable;
 use Zeropingheroes\Lanager\Services\UpdateSteamUserAppsService;
 
 class UpdateOutdatedUserAppsAfterSuccessfulAuth
 {
     /**
      * Handle the event.
-     *
-     * @param  Login $login
-     * @return void
-     * @throws Throwable
      */
-    public function handle(Login $login)
+    public function handle(Login $login): void
     {
         $steamMetadata = $login->user->SteamMetadata;
 

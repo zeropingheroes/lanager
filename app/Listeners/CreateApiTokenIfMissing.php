@@ -3,17 +3,14 @@
 namespace Zeropingheroes\Lanager\Listeners;
 
 use Illuminate\Auth\Events\Login;
-use Str;
+use Illuminate\Support\Str;
 
 class CreateApiTokenIfMissing
 {
     /**
      * Handle the event.
-     *
-     * @param  Login $login
-     * @return void
      */
-    public function handle(Login $login)
+    public function handle(Login $login): void
     {
         $user = $login->user;
         if (!$user->api_token) {

@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
-use Illuminate\Database\Eloquent\Relations\belongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /* @mixin Eloquent */
@@ -18,25 +18,22 @@ class RoleAssignment extends Pivot
     protected $table = 'role_assignments';
 
     /**
-     * @return belongsTo
+     * User who has been assigned the role
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 
     /**
-     * @return belongsTo
+     * Role that has been assigned to the user
      */
-    public function role()
+    public function role(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\Role');
     }
 
-    /**
-     * @return belongsTo
-     */
-    public function assigner()
+    public function assigner(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\User', 'assigned_by');
     }

@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\User;
@@ -12,9 +12,7 @@ class StoreEventSignupRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function valid(): bool
     {

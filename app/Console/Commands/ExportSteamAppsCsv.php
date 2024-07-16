@@ -9,8 +9,8 @@ use Zeropingheroes\Lanager\Models\SteamApp;
 
 class ExportSteamAppsCsv extends Command
 {
-    private static $filename = 'steam_apps.csv';
-    private static $chunkSize = 10000;
+    private static string $filename = 'steam_apps.csv';
+    private static int $chunkSize = 10000;
 
     /**
      * Set command signature and description.
@@ -26,10 +26,8 @@ class ExportSteamAppsCsv extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): int
     {
         if (!SteamApp::count()) {
             $this->error(trans('phrase.database-empty-aborting'));
@@ -37,7 +35,7 @@ class ExportSteamAppsCsv extends Command
             return 1;
         }
 
-        if (file_exists(Storage::path($this::$filename))) {
+        if (file_exists(Storage::path(self::$filename))) {
             if (!$this->option('yes') && !$this->confirm(trans('phrase.overwrite-existing-csv'))) {
                 return 1;
             }
@@ -46,12 +44,12 @@ class ExportSteamAppsCsv extends Command
 
         $this->info(trans('phrase.exporting-x-steam-apps-to-csv', ['x' => $totalApps]));
 
-        $progress = $this->output->createProgressBar(floor($totalApps / $this::$chunkSize));
+        $progress = $this->output->createProgressBar(floor($totalApps / self::$chunkSize));
         $progress->setFormat('%bar% %percent%% - %estimated%');
 
-        $csv = Writer::createFromPath(Storage::path($this::$filename), 'w+');
+        $csv = Writer::createFromPath(Storage::path(self::$filename), 'w+');
 
-        SteamApp::chunk($this::$chunkSize, function ($apps) use ($progress, $csv) {
+        SteamApp::chunk(self::$chunkSize, function ($apps) use ($progress, $csv) {
             $csv->insertAll($apps->toArray());
             $progress->advance();
         });

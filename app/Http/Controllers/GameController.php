@@ -2,7 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use View;
+use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Services\GetActiveGamesService;
 use Zeropingheroes\Lanager\Services\GetGamesOwnedService;
 use Zeropingheroes\Lanager\Services\GetGamesPlayedRecentlyService;
@@ -11,10 +12,8 @@ class GameController extends Controller
 {
     /**
      * Display games in progress.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
-    public function inProgress()
+    public function inProgress(): ViewContract
     {
         $games = (new GetActiveGamesService())->get();
 
@@ -24,10 +23,8 @@ class GameController extends Controller
 
     /**
      * Display recently played games.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
-    public function recent()
+    public function recent(): ViewContract
     {
         $games = (new GetGamesPlayedRecentlyService())->get();
 
@@ -37,10 +34,8 @@ class GameController extends Controller
 
     /**
      * Display games owned.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
-    public function owned()
+    public function owned(): ViewContract
     {
         $games = (new GetGamesOwnedService())->get();
 

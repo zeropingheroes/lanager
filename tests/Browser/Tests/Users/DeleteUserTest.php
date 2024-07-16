@@ -10,9 +10,6 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteUserTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testDeletingUser(): void
     {
         $this->browse(function (Browser $browser) {

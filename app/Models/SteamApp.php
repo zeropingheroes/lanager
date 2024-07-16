@@ -17,8 +17,7 @@ class SteamApp extends Model
     public $timestamps = false;
 
     /**
-     * @param  string $size
-     * @return string
+     * Game logo image
      */
     public function logo(string $size = 'small'): string
     {
@@ -36,7 +35,7 @@ class SteamApp extends Model
     }
 
     /**
-     * @return string
+     * URL to open game in Steam app store
      */
     public function url(): string
     {

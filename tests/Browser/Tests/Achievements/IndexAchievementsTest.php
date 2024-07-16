@@ -8,9 +8,6 @@ use Zeropingheroes\Lanager\Models\Achievement;
 
 class IndexAchievementsTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testIndexingAchievements(): void
     {
         $this->browse(function (Browser $browser) {

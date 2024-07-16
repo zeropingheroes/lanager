@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Http\Middleware;
 
-use App;
+use Illuminate\Support\Facades\App;
 use Closure;
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 

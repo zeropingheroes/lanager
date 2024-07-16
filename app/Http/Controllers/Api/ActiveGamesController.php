@@ -12,11 +12,8 @@ class ActiveGamesController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param  Request $request
-     * @return AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
         $activeGames = (new GetActiveGamesService())->get();
 

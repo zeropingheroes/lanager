@@ -22,18 +22,18 @@ class NavigationLink extends Model
     ];
 
     /**
-     * @return BelongsTo
+     * Parent navigation link
      */
-    public function parent()
+    public function parent(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\NavigationLink', 'parent_id')
             ->withDefault();
     }
 
     /**
-     * @return HasMany
+     * Child navigation links
      */
-    public function children()
+    public function children(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\NavigationLink', 'parent_id');
     }

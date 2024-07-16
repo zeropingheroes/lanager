@@ -3,10 +3,11 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Session;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Achievement;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\UserAchievement;
@@ -16,12 +17,9 @@ class UserAchievementController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function index(Lan $lan)
+    public function index(Lan $lan): ViewContract
     {
         $this->authorize('index', UserAchievement::class);
 
@@ -42,13 +40,9 @@ class UserAchievementController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param Request $httpRequest
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $httpRequest, Lan $lan)
+    public function store(Request $httpRequest, Lan $lan): RedirectResponse
     {
         $this->authorize('create', UserAchievement::class);
 
@@ -78,13 +72,9 @@ class UserAchievementController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  Lan             $lan
-     * @param  UserAchievement $userAchievement
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan, UserAchievement $userAchievement)
+    public function destroy(Lan $lan, UserAchievement $userAchievement): RedirectResponse
     {
         $this->authorize('delete', $userAchievement);
 

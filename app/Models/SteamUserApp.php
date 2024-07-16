@@ -17,17 +17,17 @@ class SteamUserApp extends Model
     ];
 
     /**
-     * @return BelongsTo
+     * User who has the app in their library
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 
     /**
-     * @return BelongsTo
+     * App in the user's library
      */
-    public function app()
+    public function app(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\SteamApp', 'steam_app_id')->withDefault();
     }

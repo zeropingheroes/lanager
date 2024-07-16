@@ -10,12 +10,7 @@ use Zeropingheroes\Lanager\Models\Achievement;
 
 class EditAchievementTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testEditingAchievement()
+    public function testEditingAchievement(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"

@@ -12,12 +12,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteLanGameVoteTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testDeletingLanGameVote()
+    public function testDeletingLanGameVote(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

@@ -7,12 +7,7 @@ use Tests\DuskTestCase;
 
 class EditImageTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testEditingImage()
+    public function testEditingImage(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"

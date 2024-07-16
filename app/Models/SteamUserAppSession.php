@@ -27,26 +27,25 @@ class SteamUserAppSession extends Model
     ];
 
     /**
-     * @return BelongsTo
+     * User who had the session in the app (played the game)
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 
     /**
-     * @return BelongsTo
+     * App the user had the session in (game played)
      */
-    public function app()
+    public function app(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\SteamApp', 'steam_app_id')->withDefault();
     }
 
     /**
-     * @param  Builder $query
-     * @return Builder
+     * Active sessions (have not yet ended)
      */
-    public function scopeActive($query)
+    public function scopeActive(Builder $query): Builder
     {
         return $query->whereNull('end');
     }

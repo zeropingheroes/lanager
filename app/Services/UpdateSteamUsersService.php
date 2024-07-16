@@ -17,44 +17,34 @@ class UpdateSteamUsersService
 {
     /**
      * Steam ID(s) to be updated.
-     *
-     * @var array
      */
-    protected $steamIds = [];
+    protected array $steamIds = [];
 
     /**
      * Errors.
-     *
-     * @var MessageBag
      */
-    protected $errors;
+    protected MessageBag $errors;
 
     /**
      * Successfully updated Steam IDs.
-     *
-     * @var array
      */
-    protected $updated = [];
+    protected array $updated = [];
 
     /**
      * Steam IDs that were not updated due to failures.
-     *
-     * @var array
      */
-    protected $failed = [];
+    protected array $failed = [];
 
     /**
      * User IDs who are attending the current LAN.
-     *
-     * @var Collection
      */
-    private $currentLanAttendees;
+    private Collection $currentLanAttendees;
 
     /**
-     * @param  array|int $steamIds
+     * Construct the class
      * @throws Exception
      */
-    public function __construct($steamIds)
+    public function __construct(array|int $steamIds)
     {
         if (empty($steamIds)) {
             throw new Exception(trans('phrase.one-or-more-steam-ids-must-be-provided'));
@@ -75,24 +65,27 @@ class UpdateSteamUsersService
         $this->errors = new MessageBag();
     }
 
+
     /**
-     * @return array
+     * Get the users who were updated.
      */
     public function getUpdated(): array
     {
         return $this->updated;
     }
 
+
     /**
-     * @return array
+     * Get the users who were not updated.
      */
     public function getFailed(): array
     {
         return $this->failed;
     }
 
+
     /**
-     * @return MessageBag
+     * Get the errors
      */
     public function errors(): MessageBag
     {
@@ -100,9 +93,7 @@ class UpdateSteamUsersService
     }
 
     /**
-     * Update Steam users.
-     *
-     * @return void
+     * Update the Steam users in the database.
      * @throws Throwable
      */
     public function update(): void
@@ -141,9 +132,6 @@ class UpdateSteamUsersService
 
     /**
      * Update a single Steam user.
-     *
-     * @param  $steamUser
-     * @return bool
      * @throws Throwable
      */
     protected function updateUser($steamUser): bool
@@ -226,14 +214,11 @@ class UpdateSteamUsersService
     }
 
     /**
-     * End any unfinished sessions that have
-     * not been updated in the last X minutes.
-     *
-     * @return mixed
+     * End any unfinished sessions that have not been updated in the last X minutes.
      */
-    private function endStaleAppSessions()
+    private function endStaleAppSessions(): void
     {
-        return SteamUserAppSession::where('updated_at', '<', Carbon::now()->subMinutes(10))
+        SteamUserAppSession::where('updated_at', '<', Carbon::now()->subMinutes(10))
             ->whereNull('end')
             ->update(['end' => Carbon::now()]);
     }

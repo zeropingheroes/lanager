@@ -8,11 +8,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class LanFactory extends Factory
 {
     /**
-     * Define the model's default state.
-     *
-     * @return array
+     * @inheritDoc
      */
-    public function definition()
+    public function definition(): array
     {
         $start = $this->faker->dateTimeThisYear('+3 years');
         $end = clone $start;

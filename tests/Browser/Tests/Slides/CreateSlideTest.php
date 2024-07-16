@@ -10,12 +10,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class CreateSlideTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testCreatingSlide()
+    public function testCreatingSlide(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

@@ -8,11 +8,9 @@ use Ottaviano\Faker\Gravatar;
 class UserOAuthAccountFactory extends Factory
 {
     /**
-     * Define the model's default state.
-     *
-     * @return array
+     * @inheritDoc
      */
-    public function definition()
+    public function definition(): array
     {
         $this->faker->addProvider(new Gravatar($this->faker));
 

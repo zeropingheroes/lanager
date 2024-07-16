@@ -31,6 +31,9 @@ class User extends Authenticatable
         'steamMetadata.status',
     ];
 
+    /**
+     * Create a new Eloquent model instance.
+     */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -41,37 +44,34 @@ class User extends Authenticatable
     }
 
     /**
-     * @return BelongsToMany
+     * Roles assigned to the user
      */
-    public function roles()
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany('Zeropingheroes\Lanager\Models\Role', 'role_assignments')
             ->using('Zeropingheroes\Lanager\Models\RoleAssignment');
     }
 
     /**
-     * Check if the user has the specified role(s).
-     *
-     * @param string $role
-     * @return bool
+     * Check if the user has a role
      */
-    public function hasRole(string $role)
+    public function hasRole(string $role): bool
     {
         return in_array($role, $this->roles->pluck('name')->toArray());
     }
 
     /**
-     * @return HasMany
+     * OAuth acocunts owned by the user
      */
-    public function accounts()
+    public function accounts(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\UserOAuthAccount');
     }
 
     /**
-     * @return BelongsToMany
+     * LANs the user has attended
      */
-    public function lans()
+    public function lans(): BelongsToMany
     {
         return $this->belongsToMany('Zeropingheroes\Lanager\Models\Lan', 'lan_attendees')
             ->using('Zeropingheroes\Lanager\Models\Attendee')
@@ -80,66 +80,66 @@ class User extends Authenticatable
     }
 
     /**
-     * @return HasMany
+     * Event signups belonging to the user
      */
-    public function eventSignups()
+    public function eventSignups(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\EventSignup');
     }
 
     /**
-     * @return HasMany
+     * LAN games submitted by the user
      */
-    public function lanGames()
+    public function lanGames(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\LanGame');
     }
 
     /**
-     * @return HasMany
+     * LAN game votes cast by the user
      */
-    public function lanGameVotes()
+    public function lanGameVotes(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\LanGameVote');
     }
 
     /**
-     * @return HasMany
+     * Achievements awarded to the user
      */
-    public function achievements()
+    public function achievements(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\UserAchievement');
     }
 
     /**
-     * @return HasMany
+     * Steam apps in the user's Steam library
      */
-    public function steamApps()
+    public function steamApps(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\SteamUserApp');
     }
 
     /**
-     * @return HasOne
+     * User's Steam account metadata record
      */
-    public function steamMetadata()
+    public function steamMetadata(): HasOne
     {
         return $this->hasOne('Zeropingheroes\Lanager\Models\SteamUserMetadata')
             ->withDefault();
     }
 
     /**
-     * @return HasMany
+     * User's Steam app sessions (gameplay sessions)
      */
-    public function steamAppSessions()
+    public function steamAppSessions(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\SteamUserAppSession');
     }
 
     /**
-     * @return HasMany
+     * User's web browser sessions
      */
-    public function sessions()
+    public function sessions(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\Session');
     }

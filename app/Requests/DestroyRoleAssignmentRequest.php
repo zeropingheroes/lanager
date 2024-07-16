@@ -2,15 +2,13 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Models\RoleAssignment;
 
 class DestroyRoleAssignmentRequest extends Request
 {
     /**
-     * Whether the request is valid.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function valid(): bool
     {

@@ -2,10 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
-use Exception;
 use Illuminate\Console\Command;
-use Log;
-use Throwable;
+use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 
 class ImportSteamUsers extends Command
@@ -16,7 +14,7 @@ class ImportSteamUsers extends Command
     public function __construct()
     {
         $this->signature = sprintf(
-            "lanager:import-steam-users {steamIds* : %s}",
+            'lanager:import-steam-users {steamIds* : %s}',
             trans('phrase.steamids-to-import-list-or-file')
         );
         $this->description = trans('phrase.import-users-from-steam-into-lanager');
@@ -26,11 +24,8 @@ class ImportSteamUsers extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
-     * @throws Exception|Throwable
      */
-    public function handle()
+    public function handle(): int
     {
         $steamIds = $this->argument('steamIds');
 

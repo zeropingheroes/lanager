@@ -2,10 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
-use Exception;
 use Illuminate\Console\Command;
-use Log;
-use Throwable;
+use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\SteamUserMetadata;
 use Zeropingheroes\Lanager\Models\User;
@@ -28,11 +26,8 @@ class UpdateSteamUsers extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
-     * @throws Exception|Throwable
      */
-    public function handle()
+    public function handle(): int
     {
         // Get the LAN happening now, or the most recently ended LAN
         $lan = Lan::presentAndPast()

@@ -23,17 +23,17 @@ class SteamUserMetadata extends Model
     public $timestamps = false;
 
     /**
-     * @return BelongsTo
+     * User who the metadata record belongs to
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 
     /**
-     * @return BelongsTo
+     * Status code of the user
      */
-    public function status()
+    public function status(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\SteamUserStatusCode', 'steam_user_status_code_id');
     }

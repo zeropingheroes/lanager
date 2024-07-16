@@ -2,11 +2,11 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Session;
+use Illuminate\Support\Facades\Session;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\LanGame;
 use Zeropingheroes\Lanager\Models\LanGameVote;
@@ -16,12 +16,9 @@ class LanGameVoteController extends Controller
 {
     /**
      * Store a newly created resource in storage.
-     *
-     * @param Request $httpRequest
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $httpRequest)
+    public function store(Request $httpRequest): RedirectResponse
     {
         $this->authorize('create', LanGameVote::class);
 
@@ -45,14 +42,9 @@ class LanGameVoteController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @param LanGame $lanGame
-     * @param LanGameVote $vote
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan, LanGame $lanGame, LanGameVote $vote)
+    public function destroy(Lan $lan, LanGame $lanGame, LanGameVote $vote): RedirectResponse
     {
         $this->authorize('delete', $vote);
 

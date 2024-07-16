@@ -10,8 +10,6 @@ class GetGamesOwnedService
 {
     /**
      * Get the top 10 games that users own.
-     *
-     * @return array
      */
     public function get(): array
     {

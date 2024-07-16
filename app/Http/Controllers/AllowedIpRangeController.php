@@ -3,10 +3,11 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Session;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\AllowedIpRange;
 use Zeropingheroes\Lanager\Requests\StoreAllowedIpRangeRequest;
 
@@ -14,10 +15,8 @@ class AllowedIpRangeController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(): ViewContract
     {
         $allowedIpRanges = AllowedIpRange::all();
 
@@ -27,11 +26,9 @@ class AllowedIpRangeController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function create()
+    public function create(): ViewContract
     {
         $this->authorize('create', AllowedIpRange::class);
 
@@ -41,12 +38,9 @@ class AllowedIpRangeController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  Request $httpRequest
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $httpRequest)
+    public function store(Request $httpRequest): RedirectResponse
     {
         $this->authorize('create', AllowedIpRange::class);
 
@@ -71,12 +65,9 @@ class AllowedIpRangeController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\AllowedIpRange $allowedIpRange
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function edit(AllowedIpRange $allowedIpRange)
+    public function edit(AllowedIpRange $allowedIpRange): ViewContract
     {
         $this->authorize('update', $allowedIpRange);
 
@@ -86,13 +77,9 @@ class AllowedIpRangeController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param Request $httpRequest
-     * @param  \Zeropingheroes\Lanager\Models\AllowedIpRange $allowedIpRange
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function update(Request $httpRequest, AllowedIpRange $allowedIpRange)
+    public function update(Request $httpRequest, AllowedIpRange $allowedIpRange): RedirectResponse
     {
         $this->authorize('update', $allowedIpRange);
 
@@ -118,12 +105,9 @@ class AllowedIpRangeController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\AllowedIpRange $allowedIpRange
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(AllowedIpRange $allowedIpRange)
+    public function destroy(AllowedIpRange $allowedIpRange): RedirectResponse
     {
         $this->authorize('delete', $allowedIpRange);
 

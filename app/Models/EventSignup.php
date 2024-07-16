@@ -15,17 +15,17 @@ class EventSignup extends Model
     ];
 
     /**
-     * @return BelongsTo
+     * Event the signups are for
      */
-    public function event()
+    public function event(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\Event');
     }
 
     /**
-     * @return BelongsTo
+     * User who signed up to the event
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }

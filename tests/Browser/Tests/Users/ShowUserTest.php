@@ -9,9 +9,6 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class ShowUserTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testShowingUser(): void
     {
         $this->browse(function (Browser $browser) {

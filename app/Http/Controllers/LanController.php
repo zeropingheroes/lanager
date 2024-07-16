@@ -3,10 +3,11 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Session;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Achievement;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\Venue;
@@ -16,10 +17,8 @@ class LanController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(): ViewContract
     {
         $lans = Lan::orderBy('start', 'desc')
             ->get();
@@ -36,11 +35,9 @@ class LanController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function create()
+    public function create(): ViewContract
     {
         $this->authorize('create', Lan::class);
 
@@ -52,12 +49,9 @@ class LanController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function show(Lan $lan)
+    public function show(Lan $lan): RedirectResponse
     {
         $this->authorize('view', $lan);
 
@@ -66,12 +60,9 @@ class LanController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  Request $httpRequest
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $httpRequest)
+    public function store(Request $httpRequest): RedirectResponse
     {
         $this->authorize('create', Lan::class);
 
@@ -100,12 +91,9 @@ class LanController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function edit(Lan $lan)
+    public function edit(Lan $lan): ViewContract
     {
         $this->authorize('update', $lan);
 
@@ -117,13 +105,9 @@ class LanController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  Request $httpRequest
-     * @param  Lan     $lan
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function update(Request $httpRequest, Lan $lan)
+    public function update(Request $httpRequest, Lan $lan): RedirectResponse
     {
         $this->authorize('update', $lan);
 
@@ -153,12 +137,9 @@ class LanController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan)
+    public function destroy(Lan $lan): RedirectResponse
     {
         $this->authorize('delete', $lan);
 

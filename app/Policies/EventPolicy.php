@@ -9,12 +9,8 @@ class EventPolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can view a given item.
-     *
-     * @param User|null $authUser
-     * @param  \Zeropingheroes\Lanager\Models\Event $event
-     * @return bool
      */
-    public function view(?User $authUser, Event $event)
+    public function view(?User $authUser, Event $event): bool
     {
         // Admins can view any event
         if ($authUser && $authUser->hasRole('admin')) {
@@ -26,35 +22,24 @@ class EventPolicy extends BasePolicy
 
     /**
      * Determine whether the logged-in user can create an item.
-     *
-     * @param  User $authUser
-     * @return bool
      */
-    public function create(User $authUser)
+    public function create(User $authUser): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can edit a given item.
-     *
-     * @param User $authUser
-     * @param  \Zeropingheroes\Lanager\Models\Event $event
-     * @return bool
      */
-    public function update(User $authUser, Event $event)
+    public function update(User $authUser, Event $event): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can delete a given item.
-     *
-     * @param User $authUser
-     * @param  \Zeropingheroes\Lanager\Models\Event $event
-     * @return bool
      */
-    public function delete(User $authUser, Event $event)
+    public function delete(User $authUser, Event $event): bool
     {
         return $authUser->hasRole('admin');
     }

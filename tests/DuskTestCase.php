@@ -3,6 +3,7 @@
 namespace Tests;
 
 use DB;
+use Doctrine\DBAL\Exception;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
@@ -30,8 +31,7 @@ abstract class DuskTestCase extends BaseTestCase
     }
 
     /**
-     * @return void
-     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
      */
     protected function initializeDb(): void
     {
@@ -54,11 +54,9 @@ abstract class DuskTestCase extends BaseTestCase
 
     /**
      * Prepare for Dusk test execution.
-     *
      * @beforeClass
-     * @return void
      */
-    public static function prepare()
+    public static function prepare(): void
     {
         // if (! static::runningInSail()) {
         //     static::startChromeDriver();
@@ -67,10 +65,8 @@ abstract class DuskTestCase extends BaseTestCase
 
     /**
      * Create the RemoteWebDriver instance.
-     *
-     * @return \Facebook\WebDriver\Remote\RemoteWebDriver
      */
-    protected function driver()
+    protected function driver(): RemoteWebDriver
     {
         $options = (new ChromeOptions())->addArguments(
             collect([
@@ -95,8 +91,6 @@ abstract class DuskTestCase extends BaseTestCase
 
     /**
      * Determine whether the Dusk command has disabled headless mode.
-     *
-     * @return bool
      */
     protected function hasHeadlessDisabled(): bool
     {
@@ -106,8 +100,6 @@ abstract class DuskTestCase extends BaseTestCase
 
     /**
      * Determine if the browser window should start maximized.
-     *
-     * @return bool
      */
     protected function shouldStartMaximized(): bool
     {
@@ -117,8 +109,6 @@ abstract class DuskTestCase extends BaseTestCase
 
     /**
      * Create a super admin for use in a test
-     *
-     * @return User
      */
     protected function createSuperAdmin(): User
     {

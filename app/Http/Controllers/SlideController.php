@@ -3,11 +3,11 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Session;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\Slide;
 use Zeropingheroes\Lanager\Requests\StoreSlideRequest;
@@ -16,12 +16,9 @@ class SlideController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function index(Lan $lan)
+    public function index(Lan $lan): ViewContract
     {
         $this->authorize('index', Slide::class);
 
@@ -36,12 +33,9 @@ class SlideController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @param  Lan $lan
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function create(Lan $lan)
+    public function create(Lan $lan): ViewContract
     {
         $this->authorize('create', Slide::class);
 
@@ -52,13 +46,9 @@ class SlideController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param Request $httpRequest
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $httpRequest, Lan $lan)
+    public function store(Request $httpRequest, Lan $lan): RedirectResponse
     {
         $this->authorize('create', Slide::class);
 
@@ -89,13 +79,9 @@ class SlideController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @param Slide $slide
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function show(Lan $lan, Slide $slide)
+    public function show(Lan $lan, Slide $slide): ViewContract
     {
         $this->authorize('view', $slide);
 
@@ -111,13 +97,9 @@ class SlideController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @param Slide $slide
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function edit(Lan $lan, Slide $slide)
+    public function edit(Lan $lan, Slide $slide): ViewContract
     {
         $this->authorize('update', $slide);
 
@@ -133,14 +115,9 @@ class SlideController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param Request $httpRequest
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @param Slide $slide
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function update(Request $httpRequest, Lan $lan, Slide $slide)
+    public function update(Request $httpRequest, Lan $lan, Slide $slide): RedirectResponse
     {
         $this->authorize('update', $slide);
 
@@ -171,13 +148,9 @@ class SlideController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  Lan   $lan
-     * @param  Slide $slide
-     * @return Response
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan, Slide $slide)
+    public function destroy(Lan $lan, Slide $slide): RedirectResponse
     {
         $this->authorize('delete', $slide);
 

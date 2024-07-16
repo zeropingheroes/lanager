@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Providers;
 
-use Barryvdh\Debugbar\Facade as DebugbarFacade;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -17,10 +17,8 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         // Load debugbar if:
         // - env set to local
@@ -28,21 +26,19 @@ class AppServiceProvider extends ServiceProvider
         // - class exists
         if (
             $this->app->environment('local')
-            && config('app.debug') == true
+            && config('app.debug')
             && class_exists(DebugbarServiceProvider::class)
         ) {
             $this->app->register(DebugbarServiceProvider::class);
-            $this->app->alias('Debugbar', DebugbarFacade::class);
+            $this->app->alias('Debugbar', Debugbar::class);
             $this->app->register(IdeHelperServiceProvider::class);
         }
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         User::observe(UserObserver::class);
         NavigationLink::observe(NavigationLinkObserver::class);

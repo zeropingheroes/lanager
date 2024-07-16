@@ -9,12 +9,8 @@ class GuidePolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can view a given item.
-     *
-     * @param User|null $authUser
-     * @param  \Zeropingheroes\Lanager\Models\Guide $guide
-     * @return bool
      */
-    public function view(?User $authUser, Guide $guide)
+    public function view(?User $authUser, Guide $guide): bool
     {
         // admins can view any guide
         if ($authUser && $authUser->hasRole('admin')) {
@@ -27,35 +23,24 @@ class GuidePolicy extends BasePolicy
 
     /**
      * Determine whether the logged-in user can create an item.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $authUser
-     * @return bool
      */
-    public function create(User $authUser)
+    public function create(User $authUser): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can edit a given item.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $authUser
-     * @param Guide $guide
-     * @return bool
      */
-    public function update(User $authUser, Guide $guide)
+    public function update(User $authUser, Guide $guide): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can delete a given item.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $authUser
-     * @param Guide $guide
-     * @return bool
      */
-    public function delete(User $authUser, Guide $guide)
+    public function delete(User $authUser, Guide $guide): bool
     {
         return $authUser->hasRole('admin');
     }

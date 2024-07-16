@@ -9,11 +9,9 @@ use Zeropingheroes\Lanager\Models\User;
 class LanGameVoteFactory extends Factory
 {
     /**
-     * Define the model's default state.
-     *
-     * @return array
+     * @inheritDoc
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'lan_game_id' => LanGame::inRandomOrder()->first()->id,

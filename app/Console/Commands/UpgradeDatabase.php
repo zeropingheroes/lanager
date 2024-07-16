@@ -3,12 +3,12 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
-use Schema;
-use Str;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class UpgradeDatabase extends Command
 {
@@ -25,10 +25,8 @@ class UpgradeDatabase extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): int
     {
         $this->checkDatabaseStructure();
 
@@ -63,9 +61,9 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Check that the existing database structure matches v0.5.3.
+     * Check that the existing database structure matches v0.5.3.
      */
-    private function checkDatabaseStructure()
+    private function checkDatabaseStructure(): void
     {
         $migrationAlreadyRun = DB::table('migrations')
             ->where('migration', '=', '2018_11_17_205759_release_v1_0_0')
@@ -74,7 +72,7 @@ class UpgradeDatabase extends Command
         if ($migrationAlreadyRun) {
             $this->error(trans('phrase.database-structure-already-up-to-date'));
 
-            return 1;
+            return;
         }
 
         $expectedTables = [
@@ -102,15 +100,15 @@ class UpgradeDatabase extends Command
             if (!Schema::hasTable($table)) {
                 $this->error(trans('phrase.database-structure-does-not-match-table-x-missing', ['x' => $table]));
 
-                return 1;
+                return;
             }
         }
     }
 
     /**
-     *  Drop tables that are not needed.
+     * Drop tables that are not needed.
      */
-    private function dropTables()
+    private function dropTables(): void
     {
         $tablesToDrop = [
             'states',
@@ -131,9 +129,9 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Fix timestamp columns with default zero dates.
+     * Fix timestamp columns with default zero dates.
      */
-    private function fixTimestamps()
+    private function fixTimestamps(): void
     {
         $this->info(trans('phrase.fixing-timestamp-columns'));
 
@@ -175,9 +173,9 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Upgrade users table and data.
+     * Upgrade users table and data.
      */
-    private function upgradeUsers()
+    private function upgradeUsers(): void
     {
         $this->info(trans('phrase.upgrading-x', ['x' => 'users']));
 
@@ -232,9 +230,9 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Upgrade LANs table and data.
+     * Upgrade LANs table and data.
      */
-    private function upgradeLans()
+    private function upgradeLans(): void
     {
         $this->info(trans('phrase.upgrading-x', ['x' => 'LANs']));
         Schema::table(
@@ -250,9 +248,9 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Upgrade guides table and data.
+     * Upgrade guides table and data.
      */
-    private function upgradeGuides()
+    private function upgradeGuides(): void
     {
         $this->info(trans('phrase.upgrading-x', ['x' => 'guides']));
 
@@ -293,9 +291,9 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Upgrade events table and data.
+     * Upgrade events table and data.
      */
-    private function upgradeEvents()
+    private function upgradeEvents(): void
     {
         $this->info(trans('phrase.upgrading-x', ['x' => 'events']));
         // Add lan_id field
@@ -325,9 +323,9 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Upgrade roles tables and data.
+     * Upgrade roles tables and data.
      */
-    private function upgradeRoles()
+    private function upgradeRoles(): void
     {
         $this->info(trans('phrase.upgrading-x', ['x' => 'roles']));
 
@@ -370,9 +368,9 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Create new tables.
+     * Create new tables.
      */
-    private function createNewTables()
+    private function createNewTables(): void
     {
         $this->info(trans('phrase.creating-new-tables'));
 
@@ -560,10 +558,8 @@ class UpgradeDatabase extends Command
 
     /**
      * Get the latest LAN, or create an example LAN.
-     *
-     * @return Model
      */
-    private function getLatestLan()
+    private function getLatestLan(): Model
     {
         // If the LANs table is empty, create a LAN
         if (!DB::table('lans')->count()) {
@@ -588,9 +584,9 @@ class UpgradeDatabase extends Command
     }
 
     /**
-     *  Spoof the initial migration.
+     * Spoof the initial migration.
      */
-    private function spoofInitialMigration()
+    private function spoofInitialMigration(): void
     {
         $this->call('migrate:install');
         $this->info(trans('phrase.spoofing-initial-migration'));

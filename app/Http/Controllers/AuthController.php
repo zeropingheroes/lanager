@@ -2,42 +2,35 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Auth;
+use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
-use Log;
-use Session;
-use Socialite;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
 use Throwable;
-use View;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 
-/**
- * Class AuthController.
- */
 class AuthController extends Controller
 {
     /**
      * Show the login page.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
-    public function showLoginForm()
+    public function showLoginForm(): ViewContract
     {
         return View::make('pages.auth.login');
     }
 
     /**
      * Redirect the user to the external authentication provider.
-     *
-     * @param  $OAuthProvider string
-     * @return RedirectResponse
      */
-    public function redirectToProvider($OAuthProvider)
+    public function redirectToProvider(string $OAuthProvider): RedirectResponse
     {
         if ($OAuthProvider == 'steam') {
             return Socialite::with('steam')->redirect();
@@ -49,12 +42,9 @@ class AuthController extends Controller
 
     /**
      * Obtain the user information from the external authentication provider.
-     *
-     * @param  $OAuthProvider
-     * @return RedirectResponse
      * @throws Throwable
      */
-    public function handleProviderCallback($OAuthProvider)
+    public function handleProviderCallback($OAuthProvider): RedirectResponse
     {
         if ($OAuthProvider == 'steam') {
             $OAuthUser = Socialite::with('steam')->user();
@@ -102,11 +92,8 @@ class AuthController extends Controller
 
     /**
      * Log the user out of the application.
-     *
-     * @param  Request $request
-     * @return RedirectResponse
      */
-    public function logout(Request $request)
+    public function logout(Request $request): RedirectResponse
     {
         $user = Auth::user();
         $this->guard()->logout();
@@ -118,10 +105,8 @@ class AuthController extends Controller
 
     /**
      * Get the guard to be used during authentication.
-     *
-     * @return StatefulGuard
      */
-    protected function guard()
+    protected function guard(): StatefulGuard
     {
         return Auth::guard();
     }

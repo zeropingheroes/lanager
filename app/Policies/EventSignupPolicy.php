@@ -9,23 +9,16 @@ class EventSignupPolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can create an item.
-     *
-     * @param User $authUser
-     * @return bool
      */
-    public function create(User $authUser)
+    public function create(User $authUser): bool
     {
         return true;
     }
 
     /**
      * Determine whether the logged-in user can delete a given item.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $authUser
-     * @param  \Zeropingheroes\Lanager\Models\EventSignup $eventSignup
-     * @return bool
      */
-    public function delete(User $authUser, EventSignup $eventSignup)
+    public function delete(User $authUser, EventSignup $eventSignup): bool
     {
         // Users can delete their own signups
         return $authUser->id == $eventSignup->user->id;

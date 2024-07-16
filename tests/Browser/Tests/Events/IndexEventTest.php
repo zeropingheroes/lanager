@@ -9,9 +9,6 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class IndexEventTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testIndexingEvents(): void
     {
         $this->browse(function (Browser $browser) {

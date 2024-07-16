@@ -9,12 +9,8 @@ class SlidePolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can view a given item.
-     *
-     * @param User|null $authUser
-     * @param Slide $slide
-     * @return bool
      */
-    public function view(?User $authUser, Slide $slide)
+    public function view(?User $authUser, Slide $slide): bool
     {
         // Admins can view any slide
         if ($authUser && $authUser->hasRole('admin')) {
@@ -26,46 +22,32 @@ class SlidePolicy extends BasePolicy
 
     /**
      * Determine whether the logged-in user can list all items.
-     *
-     * @param  User $authUser
-     * @return bool
      */
-    public function index(User $authUser)
+    public function index(User $authUser): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can create an item.
-     *
-     * @param  User $authUser
-     * @return bool
      */
-    public function create(User $authUser)
+    public function create(User $authUser): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can edit a given item.
-     *
-     * @param  User  $authUser
-     * @param  Slide $slide
-     * @return bool
      */
-    public function update(User $authUser, Slide $slide)
+    public function update(User $authUser, Slide $slide): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can delete a given item.
-     *
-     * @param User $authUser
-     * @param  \Zeropingheroes\Lanager\Models\Slide $slide
-     * @return bool
      */
-    public function delete(User $authUser, Slide $slide)
+    public function delete(User $authUser, Slide $slide): bool
     {
         return $authUser->hasRole('admin');
     }

@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Models\Role;
 use Zeropingheroes\Lanager\Models\User;
 
@@ -11,9 +11,7 @@ class StoreRoleAssignmentRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function valid(): bool
     {

@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\Models\SteamApp;
 
 class ImportSteamAppsCsv extends Command
 {
-    private static $filename = 'steam_apps.csv';
+    private static string $filename = 'steam_apps.csv';
 
     /**
      * Set command signature and description.
@@ -25,13 +25,11 @@ class ImportSteamAppsCsv extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): int
     {
         try {
-            $reader = Reader::createFromPath(Storage::path($this::$filename), 'r');
+            $reader = Reader::createFromPath(Storage::path(self::$filename), 'r');
         } catch (Exception $e) {
             $this->info(trans('phrase.csv-not-found-aborting'));
 
@@ -49,7 +47,7 @@ class ImportSteamAppsCsv extends Command
     }
 
     /**
-     * @param $csvApps
+     * Import the apps into an empty database
      */
     private function import($csvApps): void
     {
@@ -88,8 +86,7 @@ class ImportSteamAppsCsv extends Command
     }
 
     /**
-     * @param int $csvCount
-     * @param $csvApps
+     * Update apps already in the database, and add new
      */
     private function update($csvApps, int $csvCount): void
     {

@@ -9,11 +9,9 @@ use Zeropingheroes\Lanager\Models\SteamApp;
 class LanGameFactory extends Factory
 {
     /**
-     * Define the model's default state.
-     *
-     * @return array
+     * @inheritDoc
      */
-    public function definition()
+    public function definition(): array
     {
         $lan = Lan::all()->random();
         return [

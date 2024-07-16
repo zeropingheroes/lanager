@@ -8,9 +8,6 @@ use Zeropingheroes\Lanager\Models\NavigationLink;
 
 class IndexNavigationLinksTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testIndexingAchievements(): void
     {
         $this->browse(function (Browser $browser) {

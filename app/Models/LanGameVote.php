@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\belongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /* @mixin Eloquent */
 class LanGameVote extends Model
@@ -18,17 +18,17 @@ class LanGameVote extends Model
     ];
 
     /**
-     * @return belongsTo
+     * Game the vote is for
      */
-    public function lanGame()
+    public function lanGame(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\LanGame');
     }
 
     /**
-     * @return BelongsTo
+     * User who casted the vote
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }

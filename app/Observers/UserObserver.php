@@ -9,11 +9,8 @@ class UserObserver
 {
     /**
      * Listen to the User created event.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $user
-     * @return void
      */
-    public function created(User $user)
+    public function created(User $user): void
     {
         // The first user to log in should be assigned the super admin role
         if (User::count() == 1) {

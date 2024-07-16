@@ -12,11 +12,8 @@ class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param  Request $request
-     * @return AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
         $events = Event::where('published', true)
             ->whereHas('lan', function ($query) {
@@ -43,11 +40,8 @@ class EventController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Event $event
-     * @return EventResource
      */
-    public function show(Event $event)
+    public function show(Event $event): EventResource
     {
         if (!$event->published || !$event->lan->published) {
             abort(404);

@@ -10,9 +10,6 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class IndexLanAttendeesTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testIndexingAchievements(): void
     {
         $this->browse(function (Browser $browser) {

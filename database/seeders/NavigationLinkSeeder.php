@@ -9,10 +9,8 @@ class NavigationLinkSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         // don't seed if table is not empty
         if (NavigationLink::count()) {

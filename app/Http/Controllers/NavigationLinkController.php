@@ -3,10 +3,11 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Session;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\NavigationLink;
 use Zeropingheroes\Lanager\Requests\StoreNavigationLinkRequest;
 
@@ -14,11 +15,9 @@ class NavigationLinkController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function index()
+    public function index(): ViewContract
     {
         $this->authorize('index', NavigationLink::class);
 
@@ -32,11 +31,9 @@ class NavigationLinkController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function create()
+    public function create(): ViewContract
     {
         $this->authorize('create', NavigationLink::class);
 
@@ -50,12 +47,9 @@ class NavigationLinkController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  Request $httpRequest
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $httpRequest)
+    public function store(Request $httpRequest): RedirectResponse
     {
         $this->authorize('create', NavigationLink::class);
 
@@ -81,12 +75,9 @@ class NavigationLinkController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  NavigationLink $navigationLink
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function edit(NavigationLink $navigationLink)
+    public function edit(NavigationLink $navigationLink): ViewContract
     {
         $this->authorize('update', $navigationLink);
 
@@ -101,13 +92,9 @@ class NavigationLinkController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  Request        $httpRequest
-     * @param  NavigationLink $navigationLink
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function update(Request $httpRequest, NavigationLink $navigationLink)
+    public function update(Request $httpRequest, NavigationLink $navigationLink): RedirectResponse
     {
         $this->authorize('update', $navigationLink);
 
@@ -135,12 +122,9 @@ class NavigationLinkController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  NavigationLink $navigationLink
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(NavigationLink $navigationLink)
+    public function destroy(NavigationLink $navigationLink): RedirectResponse
     {
         $this->authorize('delete', $navigationLink);
 

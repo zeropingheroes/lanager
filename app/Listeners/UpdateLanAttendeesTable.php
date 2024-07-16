@@ -10,11 +10,8 @@ class UpdateLanAttendeesTable
 {
     /**
      * Handle the event.
-     *
-     * @param Login $login
-     * @return void
      */
-    public function handle(Login $login)
+    public function handle(Login $login): void
     {
         $lanHappeningNow = Lan::where('start', '<', now())
             ->where('end', '>', now())->first();

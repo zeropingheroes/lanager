@@ -12,12 +12,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteUserAchievementTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testDeletingUserAchievement()
+    public function testDeletingUserAchievement(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

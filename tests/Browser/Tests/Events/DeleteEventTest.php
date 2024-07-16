@@ -9,9 +9,6 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class DeleteEventTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testDeletingEvent(): void
     {
         $this->browse(function (Browser $browser) {

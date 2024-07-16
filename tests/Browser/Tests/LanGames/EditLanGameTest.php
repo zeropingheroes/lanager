@@ -11,12 +11,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class EditLanGameTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testEditingLanGame()
+    public function testEditingLanGame(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

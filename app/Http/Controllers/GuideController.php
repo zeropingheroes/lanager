@@ -3,11 +3,12 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Session;
-use Str;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Guide;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Requests\StoreGuideRequest;
@@ -16,11 +17,8 @@ class GuideController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param Lan $lan
-     * @return \Illuminate\Contracts\View\View
      */
-    public function index(Lan $lan)
+    public function index(Lan $lan): ViewContract
     {
         $guides = $lan->guides()
             ->orderBy('title', 'asc')
@@ -33,11 +31,8 @@ class GuideController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @param  Lan $lan
-     * @return \Illuminate\Contracts\View\View
      */
-    public function create(Lan $lan)
+    public function create(Lan $lan): ViewContract
     {
         return View::make('pages.guides.create')
             ->with('lan', $lan)
@@ -46,13 +41,9 @@ class GuideController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  Request $httpRequest
-     * @param  Lan     $lan
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $httpRequest, Lan $lan)
+    public function store(Request $httpRequest, Lan $lan): RedirectResponse
     {
         $this->authorize('create', Guide::class);
 
@@ -79,14 +70,9 @@ class GuideController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Models\Guide $guide
-     * @param string $slug
-     * @return \Illuminate\Contracts\View\View|RedirectResponse
      * @throws AuthorizationException
      */
-    public function show(Lan $lan, Guide $guide, $slug = '')
+    public function show(Lan $lan, Guide $guide, string $slug = ''): ViewContract|RedirectResponse
     {
         $this->authorize('view', $guide);
 
@@ -112,13 +98,9 @@ class GuideController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  Lan   $lan
-     * @param  Guide $guide
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function edit(Lan $lan, Guide $guide)
+    public function edit(Lan $lan, Guide $guide): ViewContract
     {
         $this->authorize('update', $guide);
 
@@ -136,14 +118,9 @@ class GuideController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param Request $httpRequest
-     * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Models\Guide $guide
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function update(Request $httpRequest, Lan $lan, Guide $guide)
+    public function update(Request $httpRequest, Lan $lan, Guide $guide): RedirectResponse
     {
         $this->authorize('update', $guide);
 
@@ -175,13 +152,9 @@ class GuideController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  Lan   $lan
-     * @param  Guide $guide
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan, Guide $guide)
+    public function destroy(Lan $lan, Guide $guide): RedirectResponse
     {
         $this->authorize('delete', $guide);
 
