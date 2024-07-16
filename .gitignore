@@ -15,8 +15,10 @@
 /public/storage
 /storage/*.bucket
 /storage/*.key
+/storage/logs/*
 /vendor
 npm-debug.log
 yarn-error.log
 .phpunit.result.cache
+/.php-cs-fixer.cache
 auth.json
