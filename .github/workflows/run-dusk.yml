@@ -78,13 +78,13 @@ jobs:
 
             -   name: Upload Screenshots
                 if: failure()
-                uses: actions/upload-artifact@v2
+                uses: actions/upload-artifact@v4
                 with:
                     name: screenshots
                     path: storage/logs/dusk/screenshots
 
             -   name: Upload Console Logs
-                uses: actions/upload-artifact@v2
+                uses: actions/upload-artifact@v4
                 with:
                     name: console
                     path: storage/logs/dusk/console
