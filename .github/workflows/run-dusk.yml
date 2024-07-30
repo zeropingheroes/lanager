@@ -71,6 +71,9 @@ jobs:
             -   name: Start Chrome Driver
                 run: ./vendor/laravel/dusk/bin/chromedriver-linux &
 
+            -   name: Create empty .env file
+                run: touch .env
+
             -   name: Start built-in webserver
                 run: php artisan serve > /dev/null 2>&1 &
 
