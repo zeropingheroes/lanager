@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Observers;
 
-use Cache;
+use Illuminate\Support\Facades\Cache;
 use Zeropingheroes\Lanager\Models\NavigationLink;
 
 class NavigationLinkObserver

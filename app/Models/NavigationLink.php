@@ -3,11 +3,14 @@
 namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Zeropingheroes\Lanager\Observers\NavigationLinkObserver;
 
 /* @mixin Eloquent */
+#[ObservedBy([NavigationLinkObserver::class])]
 class NavigationLink extends Model
 {
     protected $fillable = [

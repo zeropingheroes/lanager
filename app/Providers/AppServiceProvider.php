@@ -40,9 +40,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        User::observe(UserObserver::class);
-        NavigationLink::observe(NavigationLinkObserver::class);
-
         Relation::morphMap(
             [
                 'steam' => 'Zeropingheroes\Lanager\Models\SteamApp',
