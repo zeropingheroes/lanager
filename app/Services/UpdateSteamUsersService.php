@@ -172,7 +172,7 @@ class UpdateSteamUsersService
         );
 
         // Do not record gameplay info, unless a LAN is in progress
-        if (!$this->currentLanAttendees) {
+        if (!isset($this->currentLanAttendees)) {
             return true;
         }
 
