@@ -2,11 +2,11 @@
 
 namespace Tests;
 
-use DB;
-use Doctrine\DBAL\Exception;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use Zeropingheroes\Lanager\Models\Role;
@@ -31,11 +31,11 @@ abstract class DuskTestCase extends BaseTestCase
     }
 
     /**
-     * @throws Exception
+     * @return void
      */
     protected function initializeDb(): void
     {
-        $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
+        $tables = Schema::getTableListing();
 
         $keep = [
             'steam_apps',
