@@ -29,7 +29,7 @@ jobs:
             DB_DATABASE: lanager
             DB_USERNAME: root
             DB_PASSWORD: root
-            CACHE_DRIVER: file
+            CACHE_STORE: file
             SESSION_DRIVER: database
             SESSION_LIFETIME: 7200
             LOG_CHANNEL: file
