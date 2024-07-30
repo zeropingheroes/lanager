@@ -96,3 +96,4 @@ jobs:
                 with:
                     name: laravel-log
                     path: storage/logs/laravel.log
+                    if-no-files-found: ignore
