@@ -21,7 +21,7 @@
         @endif
     @endcanany
 
-    {!! Markdown::convertToHtml( (string) $event->description) !!}
+    {!! GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( (string) $event->description) !!}
 
     @if($event->signups_open && $event->signups_close)
         <h4>
