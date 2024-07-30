@@ -45,7 +45,7 @@
                             {{ $lan->start->format('H:i D j M Y') }} &ndash; {{ $lan->end->format('H:i D j M Y') }}
                         </td>
                         <td>
-                            @lang('title.x-hours', ['x' => $lan->start->diffInHours($lan->end)])
+                            @lang('title.x-hours', ['x' => (int) $lan->start->diffInHours($lan->end)])
                         </td>
                         <td>
                             {{ $lan->users->count() }} <span class="oi oi-person" title="attendee"
