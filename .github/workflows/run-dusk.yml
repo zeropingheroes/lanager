@@ -76,11 +76,11 @@ jobs:
             -   name: Run Laravel Dusk tests
                 run: php artisan dusk
 
-            -   name: Upload Screenshots
+            -   name: Upload Browser Screenshots
                 if: failure()
                 uses: actions/upload-artifact@v4
                 with:
-                    name: screenshots
+                    name: browser-screenshots
                     path: storage/logs/dusk/screenshots
 
             -   name: Upload Console Logs
