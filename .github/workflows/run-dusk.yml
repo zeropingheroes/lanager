@@ -86,5 +86,11 @@ jobs:
             -   name: Upload Console Logs
                 uses: actions/upload-artifact@v4
                 with:
-                    name: console
+                    name: console-logs
                     path: storage/logs/dusk/console
+
+            -   name: Upload Laravel Log
+                uses: actions/upload-artifact@v4
+                with:
+                    name: laravel-log
+                    path: storage/logs/laravel.log
