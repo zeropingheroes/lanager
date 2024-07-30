@@ -34,7 +34,7 @@ jobs:
             SESSION_LIFETIME: 7200
             LOG_CHANNEL: file
             DUSK_DRIVER_URL: http://localhost:9515
-            COLUMNS: 120
+            COLUMNS: 240
 
         steps:
             -   name: Start MySQL
