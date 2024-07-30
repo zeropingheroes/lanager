@@ -86,6 +86,7 @@ jobs:
 
             -   name: Upload Console Logs
                 uses: actions/upload-artifact@v4
+                if: failure()
                 with:
                     name: console-logs
                     path: storage/logs/dusk/console
