@@ -7,9 +7,11 @@ use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
 use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Http\Middleware\SetCacheHeaders;
@@ -20,12 +22,10 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Zeropingheroes\Lanager\Http\Middleware\Authenticate;
-use Zeropingheroes\Lanager\Http\Middleware\EncryptCookies;
 use Zeropingheroes\Lanager\Http\Middleware\PreventRequestsDuringMaintenance;
 use Zeropingheroes\Lanager\Http\Middleware\RedirectIfAuthenticated;
 use Zeropingheroes\Lanager\Http\Middleware\TrimStrings;
 use Zeropingheroes\Lanager\Http\Middleware\TrustProxies;
-use Zeropingheroes\Lanager\Http\Middleware\VerifyCsrfToken;
 
 class Kernel extends HttpKernel
 {
@@ -57,7 +57,7 @@ class Kernel extends HttpKernel
             AddQueuedCookiesToResponse::class,
             StartSession::class,
             ShareErrorsFromSession::class,
-            VerifyCsrfToken::class,
+            ValidateCsrfToken::class,
             SubstituteBindings::class,
         ],
 
