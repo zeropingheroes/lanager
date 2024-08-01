@@ -15,8 +15,6 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 abstract class DuskTestCase extends BaseTestCase
 {
-    use CreatesApplication;
-
     protected function setUp(): void
     {
         parent::setUp();
