@@ -2,6 +2,6 @@
 
 return [
     GrahamCampbell\Markdown\MarkdownServiceProvider::class,
-    \Zeropingheroes\Lanager\Providers\ViewComposerServiceProvider::class,
-    \Zeropingheroes\Lanager\Providers\AuthServiceProvider::class,
+    Zeropingheroes\Lanager\Providers\ViewComposerServiceProvider::class,
+    Zeropingheroes\Lanager\Providers\AuthServiceProvider::class,
 ];
