@@ -8,10 +8,6 @@ use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-use Zeropingheroes\Lanager\Models\NavigationLink;
-use Zeropingheroes\Lanager\Models\User;
-use Zeropingheroes\Lanager\Observers\NavigationLinkObserver;
-use Zeropingheroes\Lanager\Observers\UserObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
