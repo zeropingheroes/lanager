@@ -14,6 +14,8 @@ class UpdateSteamApps extends Command
      */
     public function __construct()
     {
+        ini_set('memory_limit', '256M');
+
         $this->signature = 'lanager:update-steam-apps';
         $this->description = trans('phrase.update-steam-apps');
 
