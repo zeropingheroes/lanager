@@ -44,7 +44,7 @@
     },
     "require": {
         "php": "^8.3",
-        "bandwidth-throttle/token-bucket": "^0.3",
+        "bandwidth-throttle/token-bucket": "dev-patch-1",
         "diglactic/laravel-breadcrumbs": "^9.0",
         "graham-campbell/markdown": "^15.2",
         "guzzlehttp/guzzle": "^7",
@@ -67,6 +67,12 @@
         "spatie/laravel-ignition": "^2.0",
         "squizlabs/php_codesniffer": "^3.10"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/uezjk/token-bucket"
+        }
+    ],
     "extra": {
         "laravel": {
             "dont-discover": []
