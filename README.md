@@ -78,10 +78,8 @@ more enjoyable for attendees and organisers alike.
     3. Set `APP_TIMEZONE` to your
        location's [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
     4. Set `STEAM_API_KEY` to your [Steam API Key](http://steamcommunity.com/dev/apikey)
-    5. Set `GOOGLE_API_KEY` to your [Google API Key](https://console.cloud.google.com/apis/) with access to the [Maps
-       embed API](https://developers.google.com/maps/documentation/embed/map-generator)
-    6. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator)
-    7. Set `DB_ROOT_PASSWORD` to a different randomly generated password
+   5. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator)
+   6. Set `DB_ROOT_PASSWORD` to a different randomly generated password
 
 5. Bring up the application:
 

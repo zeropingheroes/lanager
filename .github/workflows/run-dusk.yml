@@ -22,7 +22,6 @@ jobs:
             APP_LOCALE: en
             APP_DEBUG: true
             STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
-            GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
             DB_CONNECTION: mysql
             DB_HOST: localhost
             DB_PORT: 3306
