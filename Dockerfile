@@ -1,4 +1,4 @@
-FROM composer:2.7 as composer2
+FROM composer:2.7 AS composer2
 
 # Copy in project code
 COPY . /app
