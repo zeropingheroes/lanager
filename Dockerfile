@@ -10,7 +10,7 @@ RUN composer install \
   --no-progress \
   --no-scripts
 
-FROM trafex/php-nginx:3.5.0
+FROM trafex/php-nginx:3.5.0 AS base
 
 USER root
 
@@ -30,4 +30,15 @@ RUN chmod -R 777 /var/www/lanager/storage /var/www/lanager/bootstrap/cache && \
 WORKDIR /var/www/lanager
 
 # Change to non-privileged user
+USER nobody
+
+FROM base AS dev
+
+# Temporary switch to root
+USER root
+
+# Install xdebug
+RUN apk --no-cache add php83-pecl-xdebug=3.3.2-r0
+
+# Switch back to non-root user
 USER nobody
