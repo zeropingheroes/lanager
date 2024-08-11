@@ -21,17 +21,12 @@ class SteamApp extends Model
      */
     public function logo(string $size = 'small'): string
     {
-        switch ($size) {
-            case 'large':
-                return 'http://cdn.akamai.steamstatic.com/steam/apps/' . $this->id . '/header.jpg'; // 460x215
-            case 'medium':
-                return 'http://cdn.akamai.steamstatic.com/steam/apps/' . $this->id . '/header_292x136.jpg';
-            case 'small':
-                return 'http://cdn.akamai.steamstatic.com/steam/apps/' . $this->id . '/capsule_184x69.jpg';
-
-            default:
-                return $this->logo('small');
-        }
+        return match ($size) {
+            'large' => 'http://cdn.akamai.steamstatic.com/steam/apps/' . $this->id . '/header.jpg',
+            'medium' => 'http://cdn.akamai.steamstatic.com/steam/apps/' . $this->id . '/header_292x136.jpg',
+            'small' => 'http://cdn.akamai.steamstatic.com/steam/apps/' . $this->id . '/capsule_184x69.jpg',
+            default => $this->logo('small'),
+        };
     }
 
     /**
