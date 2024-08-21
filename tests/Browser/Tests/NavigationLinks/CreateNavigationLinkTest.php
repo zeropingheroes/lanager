@@ -8,9 +8,6 @@ use Tests\DuskTestCase;
 
 class CreateNavigationLinkTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testCreatingNavigationLink(): void
     {
         $this->browse(function (Browser $browser) {

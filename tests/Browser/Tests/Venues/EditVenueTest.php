@@ -10,9 +10,6 @@ use Zeropingheroes\Lanager\Models\Venue;
 
 class EditVenueTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testEditingVenue(): void
     {
         $this->browse(function (Browser $browser) {

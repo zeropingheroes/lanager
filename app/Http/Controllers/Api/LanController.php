@@ -12,10 +12,8 @@ class LanController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         $lans = Lan::where('published', true)
             ->orderBy('start', 'desc')
@@ -26,12 +24,8 @@ class LanController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @param Request $request
-     * @return LanResource
      */
-    public function show(Lan $lan, Request $request)
+    public function show(Lan $lan, Request $request): LanResource
     {
         if (!$lan->published) {
             abort(404);

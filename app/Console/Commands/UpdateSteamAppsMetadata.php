@@ -5,13 +5,11 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 use bandwidthThrottle\tokenBucket\BlockingConsumer;
 use bandwidthThrottle\tokenBucket\Rate;
 use bandwidthThrottle\tokenBucket\storage\FileStorage;
-use bandwidthThrottle\tokenBucket\storage\StorageException;
-use bandwidthThrottle\tokenBucket\TimeoutException;
 use bandwidthThrottle\tokenBucket\TokenBucket;
 use Carbon\CarbonInterval;
 use ErrorException;
 use Illuminate\Console\Command;
-use Log;
+use Illuminate\Support\Facades\Log;
 use Syntax\SteamApi\Exceptions\ApiCallFailedException;
 use Syntax\SteamApi\Facades\SteamApi;
 use Zeropingheroes\Lanager\Models\SteamApp;
@@ -32,12 +30,8 @@ class UpdateSteamAppsMetadata extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
-     * @throws TimeoutException
-     * @throws StorageException
      */
-    public function handle()
+    public function handle(): int
     {
         if (!SteamApp::count()) {
             $message = trans('phrase.database-empty-aborting');

@@ -8,15 +8,9 @@ use Zeropingheroes\Lanager\Models\Achievement;
 
 class DeleteAchievementTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testDeletingAchievement()
+    public function testDeletingAchievement(): void
     {
         $this->browse(function (Browser $browser) {
-
             // Given there is a user with the role "super admin"
             $superAdmin = $this->createSuperAdmin();
 

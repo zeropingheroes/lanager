@@ -7,9 +7,7 @@ class StoreGuideRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function valid(): bool
     {
@@ -20,7 +18,7 @@ class StoreGuideRequest extends Request
             'published' => ['nullable', 'boolean'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

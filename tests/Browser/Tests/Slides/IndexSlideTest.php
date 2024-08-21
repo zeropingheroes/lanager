@@ -9,9 +9,6 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class IndexSlideTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testIndexingSlides(): void
     {
         $this->browse(function (Browser $browser) {

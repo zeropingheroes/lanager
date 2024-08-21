@@ -2,14 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
+use Illuminate\Validation\Rule;
+
 class StoreAllowedIpRangeRequest extends Request
 {
     use LaravelValidation;
 
     /**
-     * Whether the request is valid.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function valid(): bool
     {
@@ -17,13 +17,13 @@ class StoreAllowedIpRangeRequest extends Request
             'ip_range' => [
                 'required',
                 'max:255',
-                'unique:allowed_ip_ranges',
+                Rule::unique('allowed_ip_ranges')->ignore($this->input['id'] ?? ''),
                 'regex:^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$/g',
             ],
             'description' => ['nullable', 'max:255'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

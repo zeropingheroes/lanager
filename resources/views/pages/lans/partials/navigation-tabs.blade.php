@@ -29,6 +29,12 @@
             @lang('title.attendees') <span class="badge">{{ $lan->users->count() }}</span>
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link {{ Request::route()->getName() == 'lans.user-achievements.index' ? 'active' : '' }}"
+           href="{{ route('lans.user-achievements.index', $lan) }}">
+            @lang('title.achievements') <span class="badge">{{ $lan->userAchievements->count() }}</span>
+        </a>
+    </li>
     @can('create', \Zeropingheroes\Lanager\Models\Slide::class)
         <li class="nav-item">
             <a class="nav-link {{ Request::route()->getName() == 'lans.slides.index' ? 'active' : '' }}"

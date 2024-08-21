@@ -9,11 +9,9 @@ use Zeropingheroes\Lanager\Models\User;
 class AttendeeFactory extends Factory
 {
     /**
-     * Define the model's default state.
-     *
-     * @return array
+     * @inheritDoc
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'lan_id' => Lan::inRandomOrder()->first()->id,

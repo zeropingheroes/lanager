@@ -11,12 +11,10 @@ use Zeropingheroes\Lanager\Models\UserAchievement;
 
 class AwardLanAchievementToAttendee
 {
-    protected $request;
+    protected Request $request;
 
     /**
      * Create the event listener.
-     *
-     * @param Request $request
      */
     public function __construct(Request $request)
     {
@@ -25,15 +23,12 @@ class AwardLanAchievementToAttendee
 
     /**
      * Handle the event.
-     *
-     * @param  Login $login
-     * @return void
      */
-    public function handle(Login $login)
+    public function handle(Login $login): void
     {
         $lanHappeningNow = Lan::happeningNow()->first();
 
-        if (! $lanHappeningNow) {
+        if (!$lanHappeningNow) {
             return;
         }
         $isAtLan = false;

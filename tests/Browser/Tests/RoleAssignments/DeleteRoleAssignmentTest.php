@@ -10,12 +10,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteRoleAssignmentTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testDeletingRoleAssignment()
+    public function testDeletingRoleAssignment(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"

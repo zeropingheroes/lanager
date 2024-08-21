@@ -4,7 +4,7 @@ namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\belongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /* @mixin Eloquent */
 class Guide extends Model
@@ -21,9 +21,9 @@ class Guide extends Model
     ];
 
     /**
-     * @return belongsTo
+     * LAN the guide is a part of
      */
-    public function lan()
+    public function lan(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\Lan');
     }

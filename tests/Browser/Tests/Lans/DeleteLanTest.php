@@ -9,9 +9,6 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class DeleteLanTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testDeletingLan(): void
     {
         $this->browse(function (Browser $browser) {

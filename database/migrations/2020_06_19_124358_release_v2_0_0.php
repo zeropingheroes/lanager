@@ -9,11 +9,9 @@ class ReleaseV200 extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      * @throws Exception
      */
-    public function up()
+    public function up(): void
     {
         $migratingFromV1_1_3 = DB::table('migrations')->where(
             'migration',
@@ -522,9 +520,8 @@ class ReleaseV200 extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('lan_game_votes');
         Schema::dropIfExists('lan_games');

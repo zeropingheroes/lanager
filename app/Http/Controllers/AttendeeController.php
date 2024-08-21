@@ -2,18 +2,16 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use View;
+use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Lan;
 
 class AttendeeController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @return \Illuminate\Contracts\View\View
      */
-    public function index(Lan $lan)
+    public function index(Lan $lan): ViewContract
     {
         $users = $lan->users()->orderBy('username')->get();
 

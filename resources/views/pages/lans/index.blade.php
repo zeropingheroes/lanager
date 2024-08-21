@@ -35,15 +35,17 @@
                     <tr @if($currentLan && $lan->id == $currentLan->id) class="table-active" @endif>
                         <td>
                             <a href="{{ route('lans.show', $lan->id) }}">{{ $lan->name }}</a>
+                            @canany(['update', 'delete'], $lan)
+                                @if(!$lan->published)
+                                    <small>&ndash; @lang('title.unpublished')</small>
+                                @endif
+                            @endcanany
                         </td>
                         <td>
-                            @include('pages.lans.partials.dates', ['lan' => $lan])
+                            {{ $lan->start->format('H:i D j M Y') }} &ndash; {{ $lan->end->format('H:i D j M Y') }}
                         </td>
                         <td>
-                            @include('pages.lans.partials.timespan', ['lan' => $lan])
-                            <small class="text-muted">
-                                @include('pages.lans.partials.duration', ['lan' => $lan])
-                            </small>
+                            @lang('title.x-hours', ['x' => (int) $lan->start->diffInHours($lan->end)])
                         </td>
                         <td>
                             {{ $lan->users->count() }} <span class="oi oi-person" title="attendee"

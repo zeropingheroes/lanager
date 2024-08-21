@@ -9,23 +9,16 @@ class LanGameVotePolicy extends BasePolicy
 {
     /**
      * Determine whether the user can create an item.
-     *
-     * @param User $user
-     * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return true;
     }
 
     /**
      * Determine whether the user can delete a given item.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $authUser
-     * @param  \Zeropingheroes\Lanager\Models\LanGameVote $lanGameVote
-     * @return mixed
      */
-    public function delete(User $authUser, LanGameVote $lanGameVote)
+    public function delete(User $authUser, LanGameVote $lanGameVote): bool
     {
         return $authUser->id == $lanGameVote->user_id;
     }

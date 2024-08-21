@@ -3,10 +3,11 @@
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Session;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Achievement;
 use Zeropingheroes\Lanager\Requests\StoreAchievementRequest;
 
@@ -15,14 +16,12 @@ class AchievementController extends Controller
     /**
      * Uploaded image storage location.
      */
-    public const DIRECTORY = 'public/images/achievements';
+    public const string DIRECTORY = 'public/images/achievements';
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(): ViewContract
     {
         $achievements = Achievement::all();
 
@@ -32,11 +31,9 @@ class AchievementController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function create()
+    public function create(): ViewContract
     {
         $this->authorize('create', Achievement::class);
 
@@ -46,12 +43,9 @@ class AchievementController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  Request $httpRequest
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $httpRequest)
+    public function store(Request $httpRequest): RedirectResponse
     {
         $this->authorize('create', Achievement::class);
 
@@ -74,7 +68,7 @@ class AchievementController extends Controller
         if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
             $newFileName = $achievement->id . '.' . strtolower($extension);
-            $httpRequest->image->storeAs($this::DIRECTORY, $newFileName);
+            $httpRequest->image->storeAs(self::DIRECTORY, $newFileName);
             $achievement->update(['image_filename' => $newFileName]);
         }
 
@@ -84,12 +78,9 @@ class AchievementController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  Achievement $achievement
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function show(Achievement $achievement)
+    public function show(Achievement $achievement): ViewContract
     {
         $this->authorize('view', $achievement);
 
@@ -99,12 +90,9 @@ class AchievementController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  Achievement $achievement
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function edit(Achievement $achievement)
+    public function edit(Achievement $achievement): ViewContract
     {
         $this->authorize('update', $achievement);
 
@@ -114,13 +102,9 @@ class AchievementController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  Request     $httpRequest
-     * @param  Achievement $achievement
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function update(Request $httpRequest, Achievement $achievement)
+    public function update(Request $httpRequest, Achievement $achievement): RedirectResponse
     {
         $this->authorize('update', $achievement);
 
@@ -128,6 +112,7 @@ class AchievementController extends Controller
             'name' => $httpRequest->input('name'),
             'description' => $httpRequest->input('description'),
             'image' => $httpRequest->image,
+            'id' => $achievement->id,
         ];
 
         $request = new StoreAchievementRequest($input);
@@ -141,7 +126,7 @@ class AchievementController extends Controller
         if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
             $newFileName = $achievement->id . '.' . strtolower($extension);
-            $httpRequest->image->storeAs($this::DIRECTORY, $newFileName);
+            $httpRequest->image->storeAs(self::DIRECTORY, $newFileName);
             $input['image_filename'] = $newFileName;
         }
 
@@ -153,12 +138,9 @@ class AchievementController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  Achievement $achievement
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(Achievement $achievement)
+    public function destroy(Achievement $achievement): RedirectResponse
     {
         $this->authorize('delete', $achievement);
 

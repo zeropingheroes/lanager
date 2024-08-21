@@ -1,6 +1,7 @@
 /.dockerignore
 /.editorconfig
-
+/.env*
+/public/storage
 /.git*
 /.idea*
 /.phpstorm.meta.php

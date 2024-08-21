@@ -9,47 +9,32 @@ class AllowedIpRangePolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can view a given item.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User|null $authUser
-     * @param AllowedIpRange $allowedIpRange
-     * @return bool
      */
-    public function view(?User $authUser, AllowedIpRange $allowedIpRange)
+    public function view(?User $authUser, AllowedIpRange $allowedIpRange): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can create an item.
-     *
-     * @param  User $authUser
-     * @return bool
      */
-    public function create(User $authUser)
+    public function create(User $authUser): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can edit a given item.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $authUser
-     * @param  \Zeropingheroes\Lanager\Models\AllowedIpRange $allowedIpRange
-     * @return bool
      */
-    public function update(User $authUser, AllowedIpRange $allowedIpRange)
+    public function update(User $authUser, AllowedIpRange $allowedIpRange): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can delete a given item.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $authUser
-     * @param  \Zeropingheroes\Lanager\Models\AllowedIpRange $allowedIpRange
-     * @return bool
      */
-    public function delete(User $authUser, AllowedIpRange $allowedIpRange)
+    public function delete(User $authUser, AllowedIpRange $allowedIpRange): bool
     {
         return $authUser->hasRole('admin');
     }

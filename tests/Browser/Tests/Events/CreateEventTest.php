@@ -9,12 +9,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class CreateEventTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testCreatingEvent()
+    public function testCreatingEvent(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"

@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Models\Role;
 use Zeropingheroes\Lanager\Models\User;
 
@@ -11,9 +11,7 @@ class StoreRoleAssignmentRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function valid(): bool
     {
@@ -22,7 +20,7 @@ class StoreRoleAssignmentRequest extends Request
             'role_id' => ['required', 'exists:roles,id'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
@@ -38,12 +36,12 @@ class StoreRoleAssignmentRequest extends Request
         }
 
         if ($user == Auth::user()) {
-            $this->addError(trans('phrase.cannot-assign-role-to-self'));
+            $this->addError(trans('phrase.cannot-change-own-role-assignments'));
 
             return $this->setValid(false);
         }
 
-        if ($user->hasRole('Super Admin')) {
+        if ($user->hasRole('super-admin')) {
             $this->addError(trans('phrase.cannot-assign-role-to-super-admin'));
 
             return $this->setValid(false);

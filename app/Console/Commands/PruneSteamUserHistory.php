@@ -3,9 +3,8 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Console\Command;
-use Log;
+use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\SteamUserAppSession;
 
@@ -24,11 +23,8 @@ class PruneSteamUserHistory extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
-     * @throws Exception
      */
-    public function handle()
+    public function handle(): int
     {
         $this->info(trans('phrase.pruning-historical-steam-data'));
 

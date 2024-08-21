@@ -2,30 +2,26 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class UpdateImageRequest extends Request
 {
     use LaravelValidation;
 
     /**
-     * Whether the request is valid.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function valid(): bool
     {
-        if (! Storage::exists($this->input['original_file_path'])) {
+        if (!Storage::exists($this->input['original_file_path'])) {
             abort(404);
-
-            return $this->setValid(false);
         }
 
         $this->validationRules = [
             'new_filename_without_extension' => ['required', 'alpha_dash'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

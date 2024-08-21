@@ -9,9 +9,7 @@ class StoreLanGameVoteRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function valid(): bool
     {
@@ -20,7 +18,7 @@ class StoreLanGameVoteRequest extends Request
             'user_id' => ['required', 'numeric', 'exists:users,id'],
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

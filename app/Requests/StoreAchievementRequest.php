@@ -2,19 +2,23 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
+use Illuminate\Validation\Rule;
+
 class StoreAchievementRequest extends Request
 {
     use LaravelValidation;
 
     /**
-     * Whether the request is valid.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function valid(): bool
     {
         $this->validationRules = [
-            'name' => ['required', 'max:255', 'unique:achievements'],
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('achievements')->ignore($this->input['id'] ?? ''),
+            ],
             'description' => ['nullable'],
             'image' => ['nullable', 'image', 'max:5000'],
         ];
@@ -24,7 +28,7 @@ class StoreAchievementRequest extends Request
             'image.max' => trans('phrase.submitted-file-exceeded-max-file-size-of-x', ['x' => '5MB']),
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

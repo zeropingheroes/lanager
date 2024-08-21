@@ -9,12 +9,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class CreateGuideTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testCreatingGuide()
+    public function testCreatingGuide(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

@@ -12,9 +12,6 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteEventSignupTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testDeletingEventSignup(): void
     {
         $this->browse(function (Browser $browser) {

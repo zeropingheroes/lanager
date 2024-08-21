@@ -10,15 +10,9 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class DeleteSlideTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testDeletingSlide()
+    public function testDeletingSlide(): void
     {
         $this->browse(function (Browser $browser) {
-
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',

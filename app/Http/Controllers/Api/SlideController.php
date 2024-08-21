@@ -14,11 +14,8 @@ class SlideController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param Lan $lan
-     * @return AnonymousResourceCollection
      */
-    public function index(Lan $lan)
+    public function index(Lan $lan): AnonymousResourceCollection
     {
         $slides = $lan->slides()
             ->where('published', true)
@@ -46,13 +43,9 @@ class SlideController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Models\Slide $slide
-     * @return SlideResource
      * @throws AuthorizationException
      */
-    public function show(Lan $lan, Slide $slide)
+    public function show(Lan $lan, Slide $slide): SlideResource
     {
         $this->authorize('view', $slide);
 

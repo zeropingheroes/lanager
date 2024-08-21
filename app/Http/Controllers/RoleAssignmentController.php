@@ -2,12 +2,13 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Auth;
+use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Session;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Role;
 use Zeropingheroes\Lanager\Models\RoleAssignment;
 use Zeropingheroes\Lanager\Models\User;
@@ -18,11 +19,9 @@ class RoleAssignmentController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function index()
+    public function index(): ViewContract
     {
         $this->authorize('index', RoleAssignment::class);
 
@@ -38,12 +37,9 @@ class RoleAssignmentController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  Request $httpRequest
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $httpRequest)
+    public function store(Request $httpRequest): RedirectResponse
     {
         $this->authorize('create', RoleAssignment::class);
 
@@ -74,12 +70,9 @@ class RoleAssignmentController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  RoleAssignment $roleAssignment
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(RoleAssignment $roleAssignment)
+    public function destroy(RoleAssignment $roleAssignment): RedirectResponse
     {
         $this->authorize('delete', $roleAssignment);
 

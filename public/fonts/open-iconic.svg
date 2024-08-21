@@ -10,21 +10,21 @@ Created by FontForge 20120731 at Tue Jul  1 20:39:22 2014
 Created by P.J. Onori with FontForge 2.0 (http://fontforge.sf.net)
 </metadata>
 <defs>
-<font id="open-iconic" horiz-adv-x="800" >
-  <font-face
-      font-family="Icons"
-      font-weight="400"
-      font-stretch="normal"
-      units-per-em="800"
-      panose-1="2 0 5 3 0 0 0 0 0 0"
-      ascent="800"
-      descent="0"
-      bbox="-0.5 -101 802 800.126"
-      underline-thickness="50"
-      underline-position="-100"
-      unicode-range="U+E000-E0DE"
-  />
-    <missing-glyph />
+<font id="open-iconic" horiz-adv-x="800">
+    <font-face
+        font-family="Icons"
+        font-weight="400"
+        font-stretch="normal"
+        units-per-em="800"
+        panose-1="2 0 5 3 0 0 0 0 0 0"
+        ascent="800"
+        descent="0"
+        bbox="-0.5 -101 802 800.126"
+        underline-thickness="50"
+        underline-position="-100"
+        unicode-range="U+E000-E0DE"
+    />
+    <missing-glyph/>
     <glyph glyph-name="" unicode="&#xe000;"
            d="M300 700h500v-700h-500v100h400v500h-400v100zM400 500l200 -150l-200 -150v100h-400v100h400v100z"/>
     <glyph glyph-name="1" unicode="&#xe001;"
@@ -539,5 +539,5 @@ c-139 0 -250 -111 -250 -250s111 -250 250 -250c62 0 119 23 163 60c7 11 19 25 31 3
     <glyph glyph-name="de" unicode="&#xe0de;" horiz-adv-x="900"
            d="M350 800c193 0 350 -157 350 -350c0 -61 -17 -119 -44 -169c4 -2 10 -6 13 -9l103 -100c16 -16 30 -49 30 -72c0 -56 -46 -102 -102 -102c-23 0 -56 14 -72 30l-100 103c-3 3 -7 9 -9 13c-50 -28 -108 -44 -169 -44c-193 0 -350 157 -350 350s157 350 350 350zM350 700
 c-139 0 -250 -111 -250 -250s111 -250 250 -250c62 0 119 23 163 60c7 11 19 25 31 31l3 3c34 43 53 97 53 156c0 139 -111 250 -250 250zM200 500h300v-100h-300v100z"/>
-  </font>
+</font>
 </defs></svg>

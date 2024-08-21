@@ -5,8 +5,8 @@ namespace Zeropingheroes\Lanager\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\belongsTo;
-use Illuminate\Database\Eloquent\Relations\hasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /* @mixin Eloquent */
 class Event extends Model
@@ -24,25 +24,25 @@ class Event extends Model
         'signups_close',
     ];
 
-    protected $dates = [
-        'start',
-        'end',
-        'signups_open',
-        'signups_close',
+    protected $casts = [
+        'start' => 'datetime',
+        'end' => 'datetime',
+        'signups_open' => 'datetime',
+        'signups_close' => 'datetime',
     ];
 
     /**
-     * @return belongsTo
+     * LAN the event is a part of
      */
-    public function lan()
+    public function lan(): belongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\Lan');
     }
 
     /**
-     * @return hasMany
+     * Event's signups
      */
-    public function signups()
+    public function signups(): hasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\EventSignup');
     }

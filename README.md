@@ -1,9 +1,26 @@
 LANager
 =======
-[![Laravel Dusk](https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=stable)](
-https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml)
-[![StyleCI](https://github.styleci.io/repos/14088050/shield?branch=stable)](
-https://github.styleci.io/repos/14088050?branch=stable)
+
+|                                    Stable Branch |                                     Develop Branch |
+|-------------------------------------------------:|---------------------------------------------------:|
+|          [![Dusk][duskStableImg]][duskStableUrl] |          [![Dusk][duskDevelopImg]][duskDevelopUrl] |
+| [![StyleCI][styleciStableImg]][styleciStableUrl] | [![StyleCI][styleciDevelopImg]][styleciDevelopUrl] |
+
+[duskStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=stable
+
+[duskStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml
+
+[styleciStableImg]:https://github.styleci.io/repos/14088050/shield?branch=stable
+
+[styleciStableUrl]:https://github.styleci.io/repos/14088050?branch=stable
+
+[duskDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=develop
+
+[duskDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml
+
+[styleciDevelopImg]:https://github.styleci.io/repos/14088050/shield?branch=develop
+
+[styleciDevelopUrl]:https://github.styleci.io/repos/14088050?branch=develop
 
 LANager is a web application designed to make [LAN parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
@@ -61,10 +78,8 @@ more enjoyable for attendees and organisers alike.
     3. Set `APP_TIMEZONE` to your
        location's [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
     4. Set `STEAM_API_KEY` to your [Steam API Key](http://steamcommunity.com/dev/apikey)
-    5. Set `GOOGLE_API_KEY` to your [Google API Key](https://console.cloud.google.com/apis/) with access to the [Maps
-       embed API](https://developers.google.com/maps/documentation/embed/map-generator)
-    6. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator)
-    7. Set `DB_ROOT_PASSWORD` to a different randomly generated password
+   5. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator)
+   6. Set `DB_ROOT_PASSWORD` to a different randomly generated password
 
 5. Bring up the application:
 
@@ -196,94 +211,6 @@ Run `./backup.sh` to back up LANager's configuration, database data and uploaded
 
 Run `./backup-restore.sh <file>` to restore a backup.
 
-## Migrating an existing installation to Docker
-
-If you have an existing LANager installation that you would like to migrate to docker, follow the below steps.
-
-1. Create a temporary directory
-
-    ```bash
-    mkdir -p /tmp/lanager/images
-    ```
-
-2. Dump your existing MySQL data into a file:
-
-    ```bash
-    sudo mysqldump -uroot --add-drop-database --databases lanager > /tmp/lanager/lanager.sql
-    ```
-
-3. Stop MySQL, Nginx & PHP running on your server:
-
-    ```bash
-    sudo systemctl stop mysql nginx php7.2-fpm
-    sudo systemctl start mysql nginx php7.2-fpm
-    ```
-
-4. Copy your existing uploaded images into the temporary directory:
-
-    ```bash
-    cp /var/www/lanager/storage/app/public/images/* /tmp/lanager/images
-    ```
-
-5. Back up your existing `.env` file:
-
-    ```bash
-    cp .env .env.original
-    ```
-
-6. Update your existing `.env` file:
-
-    ```bash
-    nano .env
-    ```
-
-    ```
-    APP_ENV=staging
-    DB_DATABASE=lanager
-    DB_HOST=db
-    DB_ROOT_PASSWORD= (generate a root password)
-    LOG_CHANNEL=stdout
-    APP_LOCALE=en
-    ```
-
-7. Bring the containers up:
-
-    ```bash
-    docker-compose up --detach
-    ```
-
-8. Load the environment file containing the database details into the current shell
-
-    ```bash
-    source .env
-    ```
-
-9. Restore the database data dump into the `db` container using a temporary mysql image:
-
-    ```bash
-    docker run -i -e "MYSQL_PWD=$DB_ROOT_PASSWORD" --network lanager-docker-compose_lanager-network --rm mysql:8 \
-    mysql "-h$DB_HOST" -uroot "$DB_DATABASE" < /tmp/lanager/lanager.sql
-    ```
-
-10. Restore the uploaded images into the Laravel storage volume:
-
-    ```bash
-      docker run --rm --volumes-from lanager -v /tmp/lanager/:/restore php:7.4-fpm cp /restore/images/* \
-    /var/www/lanager/storage/public/images/
-    ```
-
-11. Open your browser and test, and if all is well, uninstall MySQL, PHP and NGINX:
-
-    ```bash
-    sudo apt remove mysql nginx php7.2
-    ```
-
-12. Remove the temporary directory:
-
-    ```bash
-    rm -rf /tmp/lanager
-    ```
-
 ## Development
 
 ### Development environment setup
@@ -328,7 +255,6 @@ If you have an existing LANager installation that you would like to migrate to d
 
     ```bash
     export PATH_TO_LANAGER=/path/to/lanager
-    export PATH_TO_LANAGER_STORAGE=/path/to/lanager/storage
     ```
 
 9. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into

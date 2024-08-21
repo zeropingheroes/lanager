@@ -11,15 +11,9 @@ use Zeropingheroes\Lanager\Models\Slide;
 
 class EditSlideTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testEditingSlide()
+    public function testEditingSlide(): void
     {
         $this->browse(function (Browser $browser) {
-
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',

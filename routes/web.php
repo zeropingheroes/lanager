@@ -24,6 +24,7 @@ use Zeropingheroes\Lanager\Http\Controllers\SlideController;
 use Zeropingheroes\Lanager\Http\Controllers\UserAchievementController;
 use Zeropingheroes\Lanager\Http\Controllers\UserController;
 use Zeropingheroes\Lanager\Http\Controllers\VenueController;
+use Zeropingheroes\Lanager\Models\Lan;
 
 /**
  * Current LAN.
@@ -147,7 +148,7 @@ Route::resource('venues', VenueController::class);
  */
 Route::get(
     'lans/{lan}/slides/play',
-    function (\Zeropingheroes\Lanager\Models\Lan $lan) {
+    function (Lan $lan) {
         return view('pages.slides.play', ['lan' => $lan]);
     }
 )->name('lans.slides.play');

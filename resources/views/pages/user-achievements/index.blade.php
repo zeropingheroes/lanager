@@ -5,8 +5,7 @@
 @endsection
 
 @section('content-header')
-    <h1>@lang('title.achievements')</h1>
-    {{ Breadcrumbs::render('lans.user-achievements.index', $lan) }}
+    @include('pages.lans.partials.header', ['lan', $lan])
 @endsection
 
 @section('content')

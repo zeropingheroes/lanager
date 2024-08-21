@@ -9,9 +9,6 @@ use Zeropingheroes\Lanager\Models\Venue;
 
 class IndexVenueTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testIndexingVenue(): void
     {
         $this->browse(function (Browser $browser) {

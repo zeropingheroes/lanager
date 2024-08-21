@@ -9,9 +9,6 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class ShowSlideTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testShowingSlide(): void
     {
         $this->browse(function (Browser $browser) {

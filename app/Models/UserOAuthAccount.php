@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\belongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /* @mixin Eloquent */
 class UserOAuthAccount extends Model
@@ -26,15 +26,15 @@ class UserOAuthAccount extends Model
     protected $table = 'user_oauth_accounts';
 
     /**
-     * @return belongsTo
+     * User who owns the OAuth account
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 
     /**
-     * @return string
+     * Small avatar URL
      */
     public function avatarSmall(): string
     {
@@ -46,7 +46,7 @@ class UserOAuthAccount extends Model
     }
 
     /**
-     * @return string
+     * Medium avatar URL
      */
     public function avatarMedium(): string
     {
@@ -58,7 +58,7 @@ class UserOAuthAccount extends Model
     }
 
     /**
-     * @return string
+     * Large avatar URL
      */
     public function avatarLarge(): string
     {

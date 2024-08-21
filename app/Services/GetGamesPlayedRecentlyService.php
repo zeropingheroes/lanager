@@ -10,8 +10,6 @@ class GetGamesPlayedRecentlyService
 {
     /**
      * Get the top 10 games that users have played in the last 2 weeks.
-     *
-     * @return array
      */
     public function get(): array
     {

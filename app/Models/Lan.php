@@ -6,7 +6,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\belongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -25,68 +25,64 @@ class Lan extends Model
         'published',
     ];
 
-    protected $dates = [
-        'start',
-        'end',
+    protected $casts = [
+        'start' => 'datetime',
+        'end' => 'datetime',
     ];
 
     /**
-     * @param Builder $query
-     * @return Builder
+     * LANs happening now
      */
-    public function scopeHappeningNow($query)
+    public function scopeHappeningNow(Builder $query): Builder
     {
         return $query->where('start', '<', now())
             ->where('end', '>', now());
     }
 
     /**
-     * @param Builder $query
-     * @return Builder
+     * LANs that have ended
      */
-    public function scopePast($query)
+    public function scopePast(Builder $query): Builder
     {
         return $query->where('end', '<', now());
     }
 
     /**
-     * @param Builder $query
-     * @return Builder
+     * LANs that have not yet started
      */
-    public function scopeFuture($query)
+    public function scopeFuture(Builder $query): Builder
     {
         return $query->where('start', '>', now());
     }
 
     /**
-     * @param Builder $query
-     * @return Builder
+     * LANs that have ended or have not started
      */
-    public function scopePresentAndPast($query)
+    public function scopePresentAndPast(Builder $query): Builder
     {
         return $query->where('start', '<', now());
     }
 
     /**
-     * @return HasMany
+     * Events belonging to the LAN
      */
-    public function events()
+    public function events(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\Event');
     }
 
     /**
-     * @return HasMany
+     * Guides belonging to the LAN
      */
-    public function guides()
+    public function guides(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\Guide');
     }
 
     /**
-     * @return BelongsToMany
+     * LAN attendees
      */
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany('Zeropingheroes\Lanager\Models\User', 'lan_attendees')
             ->using('Zeropingheroes\Lanager\Models\Attendee')
@@ -95,41 +91,41 @@ class Lan extends Model
     }
 
     /**
-     * @return HasMany
+     * LAN attendee achievements
      */
-    public function userAchievements()
+    public function userAchievements(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\UserAchievement');
     }
 
     /**
-     * @return belongsTo
+     * LAN's venue
      */
-    public function venue()
+    public function venue(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\Venue');
     }
 
     /**
-     * @return HasOne
+     * LAN's attendance achievement
      */
-    public function attendanceAchievement()
+    public function attendanceAchievement(): HasOne
     {
         return $this->hasOne('Zeropingheroes\Lanager\Models\Achievement', 'id', 'achievement_id');
     }
 
     /**
-     * @return HasMany
+     * Slides belonging to the LAN
      */
-    public function slides()
+    public function slides(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\Slide');
     }
 
     /**
-     * @return HasMany
+     * Games suggested for the LAN
      */
-    public function games()
+    public function games(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\LanGame');
     }

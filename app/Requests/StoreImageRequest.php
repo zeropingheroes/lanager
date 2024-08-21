@@ -7,9 +7,7 @@ class StoreImageRequest extends Request
     use LaravelValidation;
 
     /**
-     * Whether the request is valid.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function valid(): bool
     {
@@ -23,7 +21,7 @@ class StoreImageRequest extends Request
             'images.*.max' => trans('phrase.submitted-file-exceeded-max-file-size-of-x', ['x' => '5MB']),
         ];
 
-        if (! $this->laravelValidationPasses()) {
+        if (!$this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

@@ -2,12 +2,13 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Auth;
+use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
-use Session;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\User;
 
@@ -15,11 +16,8 @@ class UserController extends Controller
 {
     /**
      * Display the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $user
-     * @return \Illuminate\Contracts\View\View
      */
-    public function show(User $user)
+    public function show(User $user): ViewContract
     {
         $lansAttended = $user->lans;
         $gamesOwned = new Collection();
@@ -34,7 +32,7 @@ class UserController extends Controller
         // If the user's apps are visible, and they're attending the current LAN (or there isn't a current LAN)
         if (
             ($user->steamMetadata && $user->steamMetadata->apps_visible == 1)
-            && (! $lan || $lansAttended->contains('id', $lan->id))
+            && (!$lan || $lansAttended->contains('id', $lan->id))
         ) {
             // Get games in common so long as the logged in user is not viewing their own profile
             if (Auth::check() && $user->id != Auth::user()->id) {
@@ -79,12 +77,9 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  User $user
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(User $user)
+    public function destroy(User $user): RedirectResponse
     {
         $this->authorize('delete', $user);
 

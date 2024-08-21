@@ -40,13 +40,14 @@
                     firstDay: 1,
                     theme: false,
                     height: "auto",
+                    eventColor: '#157800',
+                    eventTextColor: '#000',
                     eventDataTransform(event) {
                         return {
                             id: event.id,
                             title: event.name,
                             start: event.start,
                             end: event.end,
-                            // color: event.type.colour,
                             url: event.links.self_gui,
                         }
                     },

@@ -10,9 +10,6 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class EditLanTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testEditingLan(): void
     {
         $this->browse(function (Browser $browser) {

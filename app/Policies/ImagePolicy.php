@@ -8,44 +8,32 @@ class ImagePolicy extends BasePolicy
 {
     /**
      * Determine whether the logged-in user can list all images.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $authUser
-     * @return bool
      */
-    public function view(User $authUser)
+    public function view(User $authUser): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can create images.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $authUser
-     * @return bool
      */
-    public function create(User $authUser)
+    public function create(User $authUser): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can update images.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $authUser
-     * @return bool
      */
-    public function update(User $authUser)
+    public function update(User $authUser): bool
     {
         return $authUser->hasRole('admin');
     }
 
     /**
      * Determine whether the logged-in user can delete images.
-     *
-     * @param  User $authUser
-     * @return bool
      */
-    public function delete(User $authUser)
+    public function delete(User $authUser): bool
     {
         return $authUser->hasRole('admin');
     }

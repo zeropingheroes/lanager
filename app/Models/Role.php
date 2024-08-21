@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Role extends Model
 {
     /**
-     * @return BelongsToMany
+     * Users with the role
      */
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany('Zeropingheroes\Lanager\Models\User', 'role_assignments')
             ->using('Zeropingheroes\Lanager\Models\RoleAssignment');

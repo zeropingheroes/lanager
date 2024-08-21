@@ -37,10 +37,10 @@ return [
     'user-already-has-role' => ':user is already assigned the :role role',
     'role-successfully-assigned' => 'You have assigned :user the role :role',
     'role-successfully-unassigned' => ':user is no longer assigned the role :role',
-    'cannot-assign-role-to-self' => 'You cannot assign roles to yourself',
-    'cannot-unassign-role-from-self' => 'You cannot unassign roles from yourself',
-    'cannot-assign-role-to-super-admin' => 'Super Admins cannot change roles',
+    'cannot-change-own-role-assignments' => 'You cannot change your own role assignments',
+    'cannot-assign-role-to-super-admin' => 'Super Admins cannot be assigned additional roles',
     'assigned' => 'assigned',
+    'admin-vs-superadmin' => 'Admins are able to do everything a super admin can do, with the exception of changing other users\' roles',
 
     // Achievements
     'achievement-successfully-awarded' => 'You have awarded :user the achievement ":achievement"',
@@ -65,7 +65,7 @@ return [
 
     // Users
     'your-steam-game-details-are-private' => 'Your Steam game details are currently private',
-    'please-consider-public-visibility' => 'This means the games you\’re playing won\'t appear in LANager with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
+    'please-consider-public-visibility' => 'This means the games you\'re playing won\'t appear in LANager with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
     'edit-steam-profile' => 'Edit Steam Profile',
     'avatar-for-username' => 'Avatar for :username',
     'hours-played-total' => 'hours total',

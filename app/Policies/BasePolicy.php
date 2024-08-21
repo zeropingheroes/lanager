@@ -11,9 +11,6 @@ class BasePolicy
 
     /**
      * Run checks before calling the individual policies.
-     *
-     * @param  User|null $authUser
-     * @return bool
      */
     public function before(?User $authUser)
     {

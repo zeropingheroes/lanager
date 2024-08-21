@@ -2,37 +2,32 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Validator;
+use Illuminate\Support\Facades\Validator as ValidatorFacade;
+use Illuminate\Validation\Validator;
 
 trait LaravelValidation
 {
     /**
-     * @var Validator
+     * Laravel validator class.
      */
-    protected $validator;
+    protected Validator $validator;
 
     /**
      * Validation rules for the Laravel validator.
-     *
-     * @var array
      */
-    protected $validationRules = [];
+    protected array $validationRules = [];
 
     /**
      * Custom validation error messages for the Laravel validator.
-     *
-     * @var array
      */
-    protected $validationMessages = [];
+    protected array $validationMessages = [];
 
     /**
      * Validate the input against rules using Laravel's validation.
-     *
-     * @return bool
      */
     protected function laravelValidationPasses(): bool
     {
-        $this->validator = Validator::make($this->input, $this->validationRules, $this->validationMessages);
+        $this->validator = ValidatorFacade::make($this->input, $this->validationRules, $this->validationMessages);
 
         if ($this->validator->fails()) {
             foreach ($this->validator->errors()->all() as $error) {

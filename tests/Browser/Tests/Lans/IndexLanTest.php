@@ -9,9 +9,6 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class IndexLanTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testIndexingLan(): void
     {
         $this->browse(function (Browser $browser) {

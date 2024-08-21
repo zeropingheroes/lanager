@@ -9,12 +9,7 @@ use Tests\DuskTestCase;
 
 class CreateVenueTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testCreatingVenue()
+    public function testCreatingVenue(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"

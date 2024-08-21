@@ -8,9 +8,6 @@ use Tests\DuskTestCase;
 
 class CreateAchievementTest extends DuskTestCase
 {
-    /**
-     * @return void
-     */
     public function testCreatingAchievement(): void
     {
         $this->browse(function (Browser $browser) {

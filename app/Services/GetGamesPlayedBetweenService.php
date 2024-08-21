@@ -11,20 +11,17 @@ use Zeropingheroes\Lanager\Models\SteamUserAppSession;
 class GetGamesPlayedBetweenService
 {
     /**
-     * @var Carbon
+     * Start date and time
      */
-    protected $start;
+    protected Carbon $start;
 
     /**
-     * @var Carbon
+     * End date and time
      */
-    protected $end;
+    protected Carbon $end;
 
     /**
-     * GetGamesPlayedBetweenService constructor.
-     *
-     * @param Carbon $start
-     * @param Carbon $end
+     * Construct the class.
      */
     public function __construct(Carbon $start, Carbon $end)
     {
@@ -34,8 +31,6 @@ class GetGamesPlayedBetweenService
 
     /**
      * Get the games that were played between two dates.
-     *
-     * @return Collection
      * @throws Exception
      */
     public function get(): Collection

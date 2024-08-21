@@ -4,7 +4,7 @@ namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\belongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /* @mixin Eloquent */
 class UserAchievement extends Model
@@ -20,25 +20,25 @@ class UserAchievement extends Model
     ];
 
     /**
-     * @return belongsTo
+     * User who was awarded the achievement
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
 
     /**
-     * @return belongsTo
+     * Achievement awarded to the user
      */
-    public function achievement()
+    public function achievement(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\Achievement');
     }
 
     /**
-     * @return belongsTo
+     * LAN the achievement was awarded at
      */
-    public function lan()
+    public function lan(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\Lan');
     }

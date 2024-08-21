@@ -11,10 +11,8 @@ class ViewComposerServiceProvider extends ServiceProvider
 {
     /**
      * Register bindings in the container.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         View::composer(
             'layouts.partials.nav.primary',
@@ -29,15 +27,5 @@ class ViewComposerServiceProvider extends ServiceProvider
                 $view->with('navigationLinks', $navigationLinks);
             }
         );
-    }
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
     }
 }

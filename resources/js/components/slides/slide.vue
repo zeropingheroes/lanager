@@ -8,7 +8,7 @@
         <vue-markdown
             class="markdown-slide"
             v-else-if="type === 'markdown'"
-            :options="{linkify: true, breaks: true}"
+            :options="{linkify: true, breaks: true, html: true}"
             :source="content">
         </vue-markdown>
     </div>

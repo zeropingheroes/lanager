@@ -9,12 +9,8 @@ class LanGamePolicy extends BasePolicy
 {
     /**
      * Determine whether the user can view a given item.
-     *
-     * @param User|null $authUser
-     * @param LanGame $lanGame
-     * @return mixed
      */
-    public function view(?User $authUser, LanGame $lanGame)
+    public function view(?User $authUser, LanGame $lanGame): mixed
     {
         // Admins can view any
         if ($authUser && $authUser->hasRole('admin')) {
@@ -26,23 +22,16 @@ class LanGamePolicy extends BasePolicy
 
     /**
      * Determine whether the user can create an item.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $user
-     * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user): true
     {
         return true;
     }
 
     /**
      * Determine whether the user can edit a given item.
-     *
-     * @param  User    $authUser
-     * @param  LanGame $lanGame
-     * @return mixed
      */
-    public function update(User $authUser, LanGame $lanGame)
+    public function update(User $authUser, LanGame $lanGame): bool
     {
         // Admins can update any
         if ($authUser->hasRole('admin')) {
@@ -59,12 +48,8 @@ class LanGamePolicy extends BasePolicy
 
     /**
      * Determine whether the user can delete a given item.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\User $authUser
-     * @param LanGame $lanGame
-     * @return mixed
      */
-    public function delete(User $authUser, LanGame $lanGame)
+    public function delete(User $authUser, LanGame $lanGame): mixed
     {
         // Same permissions as updating
         return $this->update($authUser, $lanGame);

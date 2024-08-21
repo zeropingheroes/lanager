@@ -7,14 +7,13 @@ assignees: ''
 
 ---
 
-**Describe the problem you'd like to solve**
-For example, _Currently it's difficult to [...]_
+<!-- DO NOT THROW THIS AWAY! FILL IT OUT SO WE CAN HELP :) -->
 
-**Describe the solution you'd like**
-For example, _Add a button that, when pressed, automatically [...]_
+**Feature description**
+<!-- Describe the feature you would like, in detail -->
 
-**Describe alternatives you've considered**
-For example, _Instead of a button, a new page that [...]_
+**Motivation**
+<!-- Describe why you want this feature, and who it will benefit -->
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**Screenshots**
+<!-- Add screenshots or mock-ups to help us understand the feature -->

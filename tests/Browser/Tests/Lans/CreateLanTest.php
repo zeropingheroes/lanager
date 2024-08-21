@@ -9,12 +9,7 @@ use Tests\DuskTestCase;
 
 class CreateLanTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testCreatingLan()
+    public function testCreatingLan(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"

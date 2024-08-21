@@ -2,13 +2,13 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Auth;
+use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Session;
-use View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\LanGame;
 use Zeropingheroes\Lanager\Models\LanGameVote;
@@ -18,10 +18,8 @@ class LanGameController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
-    public function index(Lan $lan)
+    public function index(Lan $lan): ViewContract
     {
         $lanGames = $lan->games()
             ->withCount('votes')
@@ -36,12 +34,9 @@ class LanGameController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  Request $httpRequest
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Lan $lan, Request $httpRequest)
+    public function store(Lan $lan, Request $httpRequest): RedirectResponse
     {
         $this->authorize('create', LanGame::class);
 
@@ -66,12 +61,9 @@ class LanGameController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \Zeropingheroes\Lanager\Models\LanGame $lanGame
-     * @return \Illuminate\Contracts\View\View
      * @throws AuthorizationException
      */
-    public function edit(Lan $lan, LanGame $lanGame)
+    public function edit(Lan $lan, LanGame $lanGame): ViewContract
     {
         $this->authorize('update', $lanGame);
 
@@ -81,14 +73,9 @@ class LanGameController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param Request $httpRequest
-     * @param  \Zeropingheroes\Lanager\Models\Lan $lan
-     * @param  \Zeropingheroes\Lanager\Models\LanGame $lanGame
-     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function update(Request $httpRequest, Lan $lan, LanGame $lanGame)
+    public function update(Request $httpRequest, Lan $lan, LanGame $lanGame): RedirectResponse
     {
         $this->authorize('update', $lanGame);
 
@@ -113,13 +100,9 @@ class LanGameController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param Lan $lan
-     * @param  \Zeropingheroes\Lanager\Models\LanGame $lanGame
-     * @return Response
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan, LanGame $lanGame)
+    public function destroy(Lan $lan, LanGame $lanGame): RedirectResponse
     {
         $this->authorize('delete', $lanGame);
 

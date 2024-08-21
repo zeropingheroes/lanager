@@ -9,8 +9,6 @@ class GetActiveGamesService
 {
     /**
      * Get the games that are currently being played.
-     *
-     * @return Collection
      */
     public function get(): Collection
     {

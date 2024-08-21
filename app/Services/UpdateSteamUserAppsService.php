@@ -6,40 +6,33 @@ use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
 use Syntax\SteamApi\Facades\SteamApi;
+use Throwable;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class UpdateSteamUserAppsService
 {
     /**
      * LANager users to be updated.
-     *
-     * @var Collection
      */
-    protected $users = [];
+    protected Collection $users;
 
     /**
      * Users whose apps were successfully updated.
-     *
-     * @var array
      */
-    protected $updated = [];
+    protected array $updated = [];
 
     /**
      * Users whose apps were not updated due to errors.
-     *
-     * @var array
      */
-    protected $failed = [];
+    protected array $failed = [];
 
     /**
      * Errors.
-     *
-     * @var MessageBag
      */
-    protected $errors;
+    protected MessageBag $errors;
 
     /**
-     * @param  Collection $users
+     * Construct the class
      * @throws Exception
      */
     public function __construct(Collection $users)
@@ -52,24 +45,27 @@ class UpdateSteamUserAppsService
         $this->errors = new MessageBag();
     }
 
+
     /**
-     * @return MessageBag
+     * Get the errors
      */
     public function errors(): MessageBag
     {
         return $this->errors;
     }
 
+
     /**
-     * @return array
+     * Get the users who were updated
      */
     public function getUpdated(): array
     {
         return $this->updated;
     }
 
+
     /**
-     * @return array
+     * Get the users who were not updated
      */
     public function getFailed(): array
     {
@@ -78,8 +74,6 @@ class UpdateSteamUserAppsService
 
     /**
      * Update Steam users apps.
-     *
-     * @return void
      * @throws Throwable
      */
     public function update(): void

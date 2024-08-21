@@ -4,21 +4,21 @@ namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\belongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /* @mixin Eloquent */
 class Session extends Model
 {
-    protected $dates = [
-        'last_activity',
+    protected $casts = [
+        'last_activity' => 'datetime',
     ];
 
     protected $keyType = 'string';
 
     /**
-     * @return belongsTo
+     * User whose session it is
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }

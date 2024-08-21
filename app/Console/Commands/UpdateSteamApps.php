@@ -3,7 +3,7 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
-use Log;
+use Illuminate\Support\Facades\Log;
 use Syntax\SteamApi\Facades\SteamApi;
 use Zeropingheroes\Lanager\Models\SteamApp;
 
@@ -14,6 +14,8 @@ class UpdateSteamApps extends Command
      */
     public function __construct()
     {
+        ini_set('memory_limit', '256M');
+
         $this->signature = 'lanager:update-steam-apps';
         $this->description = trans('phrase.update-steam-apps');
 
@@ -22,15 +24,13 @@ class UpdateSteamApps extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): int
     {
         $this->info(trans('phrase.requesting-list-of-all-apps-from-steam-api'));
         $apps = SteamApi::app()->GetAppList();
 
-        if (! SteamApp::count()) {
+        if (!SteamApp::count()) {
             $this->import($apps);
         } else {
             $this->update($apps);
@@ -40,8 +40,7 @@ class UpdateSteamApps extends Command
     }
 
     /**
-     * @param  $apps
-     * @return void
+     * Import the apps
      */
     private function import($apps): void
     {
@@ -79,8 +78,7 @@ class UpdateSteamApps extends Command
     }
 
     /**
-     * @param  $apps
-     * @return void
+     * Execute the console command.
      */
     private function update($apps): void
     {

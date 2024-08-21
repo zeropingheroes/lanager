@@ -8,32 +8,25 @@ use Laravel\Dusk\Page;
 class AchievementEdit extends Page
 {
     /**
-     * Get the URL for the page.
-     *
-     * @return string
+     * @inheritDoc
      */
-    public function url()
+    public function url(): string
     {
         return '/achievements/*/edit';
     }
 
     /**
-     * Assert that the browser is on the page.
-     *
-     * @param Browser $browser
-     * @return void
+     * @inheritDoc
      */
-    public function assert(Browser $browser)
+    public function assert(Browser $browser): void
     {
         $browser->assertPathIs($this->url());
     }
 
     /**
-     * Get the element shortcuts for the page.
-     *
-     * @return array
+     * @inheritDoc
      */
-    public function elements()
+    public function elements(): array
     {
         return [
             '@submit' => 'button[type=submit]',

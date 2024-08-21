@@ -2,22 +2,20 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Zeropingheroes\Lanager\Models\RoleAssignment;
 
 class DestroyRoleAssignmentRequest extends Request
 {
     /**
-     * Whether the request is valid.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function valid(): bool
     {
         $roleAssignment = RoleAssignment::find($this->input['id']);
 
         if ($roleAssignment->user->id == Auth::user()->id) {
-            $this->addError(trans('phrase.cannot-unassign-role-from-self'));
+            $this->addError(trans('phrase.cannot-change-own-role-assignments'));
 
             return $this->setValid(false);
         }

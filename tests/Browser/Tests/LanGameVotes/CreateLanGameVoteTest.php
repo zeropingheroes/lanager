@@ -11,12 +11,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class CreateLanGameVoteTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
-    public function testCreatingLanGameVote()
+    public function testCreatingLanGameVote(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

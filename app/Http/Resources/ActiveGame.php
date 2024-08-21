@@ -9,11 +9,8 @@ class ActiveGame extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
-     * @param  Request $request
-     * @return array
      */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         return [
             'game' => new Game($this->resource['game']),
