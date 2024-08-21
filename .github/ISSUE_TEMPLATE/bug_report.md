@@ -7,24 +7,20 @@ assignees: ''
 
 ---
 
-<!-- DO NOT THROW THIS AWAY -->
-**Docker image version**
-Output of `docker images zeropingheroes/lanager`. You must be using the LANager Docker image to receive support.
+<!-- DO NOT THROW THIS AWAY! FILL IT OUT SO WE CAN HELP :) -->
+
+**Docker image information**
+<!-- Run `docker images zeropingheroes/lanager` and paste the output -->
+<!-- You must be using the LANager Docker image to receive support. -->
 
 **Bug description**
-A clear and concise description of what the bug is.
+<!-- Describe the issue you are experiencing -->
 
 **Reproduction steps**
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+<!-- List the steps anyone can take to reproduce the issue -->
 
 **Expected behavior**
-A clear and concise description of what you expected to happen.
+<!-- Describe what you expected to happen -->
 
 **Screenshots**
-Add screenshots to help explain your problem.
-
-**Additional context**
-Add any other context about the problem here.
+<!-- Add screenshots to help everyone understand the issue -->
