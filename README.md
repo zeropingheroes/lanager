@@ -255,7 +255,6 @@ Run `./backup-restore.sh <file>` to restore a backup.
 
     ```bash
     export PATH_TO_LANAGER=/path/to/lanager
-    export PATH_TO_LANAGER_STORAGE=/path/to/lanager/storage
     ```
 
 9. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into
