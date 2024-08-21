@@ -7,22 +7,22 @@ Created by FontForge 20120731 at Mon Oct 24 17:37:40 2016
 Copyright Dave Gandy 2016. All rights reserved.
 </metadata>
 <defs>
-<font id="FontAwesome" horiz-adv-x="1536">
-    <font-face
-        font-family="FontAwesome"
-        font-weight="400"
-        font-stretch="normal"
-        units-per-em="1792"
-        panose-1="0 0 0 0 0 0 0 0 0 0"
-        ascent="1536"
-        descent="-256"
-        bbox="-1.02083 -256.962 2304.6 1537.02"
-        underline-thickness="0"
-        underline-position="0"
-        unicode-range="U+0020-F500"
-    />
-    <missing-glyph horiz-adv-x="896"
-                   d="M224 112h448v1312h-448v-1312zM112 0v1536h672v-1536h-672z"/>
+    <font id="FontAwesome" horiz-adv-x="1536">
+        <font-face
+            font-family="FontAwesome"
+            font-weight="400"
+            font-stretch="normal"
+            units-per-em="1792"
+            panose-1="0 0 0 0 0 0 0 0 0 0"
+            ascent="1536"
+            descent="-256"
+            bbox="-1.02083 -256.962 2304.6 1537.02"
+            underline-thickness="0"
+            underline-position="0"
+            unicode-range="U+0020-F500"
+        />
+        <missing-glyph horiz-adv-x="896"
+                       d="M224 112h448v1312h-448v-1312zM112 0v1536h672v-1536h-672z"/>
     <glyph glyph-name=".notdef" horiz-adv-x="896"
            d="M224 112h448v1312h-448v-1312zM112 0v1536h672v-1536h-672z"/>
     <glyph glyph-name=".null" horiz-adv-x="0"
@@ -2667,5 +2667,5 @@ q14 3 26.5 -5t15.5 -23zM1691 1033q15 -22 10.5 -49t-26.5 -43q-22 -15 -49 -10t-42 
     />
     <glyph glyph-name="lessequal" unicode="&#xf500;" horiz-adv-x="1792"
     />
-</font>
+    </font>
 </defs></svg>
