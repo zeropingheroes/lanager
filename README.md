@@ -311,11 +311,11 @@ To recompile JavaScript & CSS assets, from the `lanager` directory, run:
 
 To recompile whenever changes to files are detected, run:
 
-1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run watch-poll`
+1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run dev-poll`
 
 To recompile minified versions suitable for committing, run:
 
-1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run prod`
+1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run build`
 
 ### Running tests
 
