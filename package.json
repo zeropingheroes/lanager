@@ -17,7 +17,6 @@
         "jquery": "^3.7.1",
         "lang.js": "^1.1.14",
         "laravel-localization-loader": "^1.0.5",
-        "laravel-mix": "^6.0.49",
         "moment": "^2.30.1",
         "node-polyfill-webpack-plugin": "^2.0.1",
         "open-iconic": "^1.1.1",
@@ -29,7 +28,9 @@
         "vue-full-calendar": "^2.8.0",
         "vue-loader": "^15.11.1",
         "vue-markdown-render": "^1.1.3",
-        "vue-template-compiler": "^2.7.16"
-    },
-    "dependencies": {}
+        "vue-template-compiler": "^2.7.16",
+        "vite": "^3.0.2",
+        "laravel-vite-plugin": "^0.6.0",
+        "@vitejs/plugin-vue2": "^1.1.2"
+    }
 }
