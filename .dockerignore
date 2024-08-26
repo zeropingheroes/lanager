@@ -13,8 +13,6 @@
 /node_modules
 /phpunit.xml
 /phpunit.dusk.xml
-/resources/js
-/resources/sass
 /server.php
 /storage/debugbar/*
 /storage/framework/cache/data/*
