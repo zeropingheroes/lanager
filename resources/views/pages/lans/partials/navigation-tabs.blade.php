@@ -20,7 +20,8 @@
     <li class="nav-item">
         <a class="nav-link {{ Request::route()->getName() == 'lans.guides.index' ? 'active' : '' }}"
            href="{{ route('lans.guides.index', $lan) }}">
-            @lang('title.guides') <span class="badge text-bg-primary">{{ $lan->guides()->where('published', '=', '1')->count() }}</span>
+            @lang('title.guides') <span
+                class="badge text-bg-primary">{{ $lan->guides()->where('published', '=', '1')->count() }}</span>
         </a>
     </li>
     <li class="nav-item">

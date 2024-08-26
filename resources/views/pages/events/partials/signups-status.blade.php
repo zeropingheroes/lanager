@@ -14,6 +14,7 @@
     }
 @endphp
 
-<span class="badge text-bg-{{ $class }}" title="@include('pages.events.partials.signups-status-relative', ['event' => $event])">
+<span class="badge text-bg-{{ $class }}"
+      title="@include('pages.events.partials.signups-status-relative', ['event' => $event])">
     {{ $status }}
 </span>

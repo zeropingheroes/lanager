@@ -6,8 +6,8 @@
 </div>
 <div class="form-group mb-3">
     <label for="image">@lang('title.achievement-image')</label>
-        <div class="input-group">
-            <input type="file" class="form-control" id="image" name="image">
+    <div class="input-group">
+        <input type="file" class="form-control" id="image" name="image">
         </div>
     <small>@lang('phrase.achievement-image-help')</small>
 </div>
