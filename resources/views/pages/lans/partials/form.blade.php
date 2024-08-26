@@ -1,9 +1,9 @@
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="name">@lang('title.name')</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="@lang('title.name')"
            value="{{ old('name', $lan->name) }}">
 </div>
-<div class="form-row">
+<div class="form-row mb-3">
     <script>
         $(function () {
             var format = 'YYYY-MM-DD HH:mm';
@@ -31,7 +31,7 @@
             end.datetimepicker('date', endDate);
         });
     </script>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-6 mb-3">
         <label for="start">@lang('title.start')</label>
         <input type="text" class="form-control datetimepicker-input" id="start" name="start"
                placeholder="YYYY-MM-DD HH:MM:SS" value="{{ old('start', $lan->start) }}"
@@ -45,19 +45,19 @@
                data-toggle="datetimepicker" data-target="#end">
     </div>
 </div>
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="venue_id">@lang('title.venue')</label>
     @include('components.form.select', ['name' => 'venue_id', 'item' => $lan, 'items' => $venues, 'labelField' => 'name', 'blank' => true])
 </div>
 
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="achievement_id">@lang('title.lan-achievement')</label>
     @include('components.form.select', ['name' => 'achievement_id', 'item' => $lan, 'items' => $achievements, 'labelField' => 'name', 'blank' => true])
     <small id="achievement_id_help" class="form-text">
         @lang('phrase.lan-achievement-help')
     </small>
 </div>
-<div class="form-group">
+<div class="form-group mb-3">
     <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id="published" name="published"
                value="1" {{ old('published', $lan->published) ? 'checked' : null}}>

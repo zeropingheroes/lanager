@@ -11,7 +11,7 @@
 
 @section('content')
     @include('components.form.edit', ['route' => route('images.update', $image['filename'])])
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="filename">@lang('title.filename')</label>
         <input name="filename" type="text" class="form-control" placeholder="@lang('title.filename')" aria-describedby="extension"
                value="{{ old('filename', $image['filename']) }}">

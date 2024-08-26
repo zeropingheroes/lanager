@@ -17,7 +17,7 @@
     <h2>@lang('title.linked-accounts')</h2>
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 border border-secondary rounded py-2 mr-2">
+            <div class="col-lg-4 border border-secondary rounded py-2 me-2">
                 @include('pages.users.partials.accounts.steam', ['user' => $user])
             </div>
         </div>
@@ -30,7 +30,7 @@
         <h2>@lang('title.lans-attended')</h2>
         @foreach($user->lans()->orderBy('start', 'desc')->get() as $lan)
             <a href="{{ route('lans.show', $lan->id) }}">
-                <span class="badge badge-primary">{{ $lan->name }}</span>
+                <span class="badge text-bg-primary">{{ $lan->name }}</span>
             </a>
         @endforeach
     @endif

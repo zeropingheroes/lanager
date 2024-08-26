@@ -1,9 +1,9 @@
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="title">@lang('title.title')</label>
     <input type="text" class="form-control" id="title" name="title" placeholder="@lang('title.title')"
            value="{{ old('title', $guide->title) }}">
 </div>
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="content">@lang('title.content')</label>
     <textarea class="form-control" id="content" name="content" rows="10" placeholder="@lang('phrase.markdown-help')"
               aria-describedby="contentHelp">{{ old('content', $guide->content) }}</textarea>
@@ -13,7 +13,7 @@
         <a href="{{ route('images.index') }}" target="_blank">@lang('title.upload-images')</a>
     </small>
 </div>
-<div class="form-group">
+<div class="form-group mb-3">
     <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id="published" name="published"
                value="1" {{ old('published', $guide->published) ? 'checked' : null}}>

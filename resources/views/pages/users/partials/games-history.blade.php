@@ -1,7 +1,7 @@
 @if ($gameSessions->isEmpty())
     @lang('phrase.username-has-not-played-any-games-this-lan', ['username' => $user->username])
 @else
-    <table class="table games-history">
+    <table class="table table-striped align-middle">
         @foreach($gameSessions as $gameSession)
             <tr>
                 <td class="game">

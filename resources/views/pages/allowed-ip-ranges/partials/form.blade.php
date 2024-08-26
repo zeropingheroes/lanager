@@ -1,9 +1,9 @@
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="ip_range">@lang('title.ip-range')</label>
     <input type="text" class="form-control" id="ip_range" name="ip_range" placeholder="@lang('title.ip-range')"
            value="{{ old('ip_range', $allowedIpRange->ip_range) }}">
 </div>
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="description">@lang('title.description')</label>
     <input type="text" class="form-control" id="description" name="description" placeholder="@lang('title.description')"
            value="{{ old('description', $allowedIpRange->description) }}">

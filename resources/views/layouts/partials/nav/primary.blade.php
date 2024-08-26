@@ -1,8 +1,8 @@
-<ul class="navbar-nav mr-auto">
+<ul class="navbar-nav me-auto">
     @foreach($navigationLinks as $navigationLink)
         @if($navigationLink->children->count())
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ $navigationLink->title }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">

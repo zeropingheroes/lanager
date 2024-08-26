@@ -1,9 +1,9 @@
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="name">@lang('title.name')</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="@lang('title.name')"
            value="{{ old('name', $event->name) }}">
 </div>
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="description">@lang('title.description')</label>
     <textarea class="form-control" id="description" name="description" rows="10" placeholder="@lang('phrase.markdown-help')"
               aria-describedby="descriptionHelp">{{ old('description', $event->description) }}</textarea>
@@ -112,7 +112,7 @@
     </div>
 </div>
 
-<div class="form-group">
+<div class="form-group mb-3">
     <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id="published" name="published"
                value="1" {{ old('published', $event->published) ? 'checked' : null}}>

@@ -10,7 +10,7 @@
             <h1>@lang('title.achievements')</h1>
         </div>
         @can('create', \Zeropingheroes\Lanager\Models\Achievement::class)
-            <div class="col-auto text-right">
+            <div class="col-auto text-end">
                 <a href="{{ route('achievements.create') }}"
                    class="btn btn-primary"
                    title="@lang('title.create-item', ['item' => trans('title.achievement')])"

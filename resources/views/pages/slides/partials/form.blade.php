@@ -24,12 +24,12 @@
 
     });
 </script>
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="name">@lang('title.name')</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="@lang('title.name')"
            value="{{ old('name', $slide->name) }}">
 </div>
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="content">@lang('title.content')</label>
     <textarea class="form-control" id="content" name="content" rows="10" placeholder="@lang('phrase.slides-content-placeholder')"
               aria-describedby="contentHelp">{{ old('content', $slide->content) }}</textarea>
@@ -41,12 +41,12 @@
         <a href="{{ route('images.index') }}" target="_blank">@lang('title.upload-images')</a>
     </small>
 </div>
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="position">@lang('title.position')</label>
     <input type="text" class="form-control" id="position" name="position" placeholder="@lang('title.position')"
            value="{{ old('position', $slide->position) }}">
 </div>
-<div class="form-group">
+<div class="form-group mb-3">
     <label for="duration">@lang('title.duration')</label>
     <input type="text" class="form-control" id="duration" name="duration" placeholder="@lang('title.duration')"
            value="{{ old('duration', $slide->duration) }}">
@@ -68,7 +68,7 @@
     </div>
 </div>
 
-<div class="form-group">
+<div class="form-group mb-3">
     <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" id="published" name="published"
                value="1" {{ old('published', $slide->published) ? 'checked' : null}}>

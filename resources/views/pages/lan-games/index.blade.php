@@ -14,7 +14,7 @@
             'type' => 'info',
             'message' => __('phrase.log-in-to-submit-and-vote-on-games', ['lan' => $lan->name])
         ])
-        <table class="table table-striped">
+        <table class="table align-middle table-striped">
             <tbody>
             @foreach($lanGames as $lanGame)
                 <tr>
@@ -50,7 +50,7 @@
                 form.submit()
             }
         </script>
-        <table class="table table-striped">
+        <table class="table align-middle table-striped">
             <tbody>
             @foreach($lanGames as $lanGame)
                 @php

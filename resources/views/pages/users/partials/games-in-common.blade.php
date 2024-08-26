@@ -6,7 +6,7 @@
 @else
     {{--Show games in common to users other than --}}
     {{--the user whose profile this is--}}
-    <table class="table games-in-common">
+    <table class="table table-striped align-middle">
     @foreach($gamesInCommon as $userGame)
             <tr>
                 <td class="game">

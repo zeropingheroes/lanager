@@ -10,7 +10,7 @@
             <h1>{{ $guide->title }}</h1>
         </div>
         @canany(['update', 'delete'], $guide)
-            <div class="col text-right">
+            <div class="col text-end">
                 @include('pages.guides.partials.actions-dropdown', ['guide' => $guide])
             </div>
         @endcanany

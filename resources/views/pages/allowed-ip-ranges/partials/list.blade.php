@@ -13,7 +13,7 @@
                     @lang('title.updated') @include('components.time-relative', ['datetime' => $allowedIpRange->updated_at])
                 </td>
                 @canany(['update', 'delete'], $allowedIpRange)
-                    <td class="text-right pr-0">
+                    <td class="text-end pe-0">
                         @include('pages.allowed-ip-ranges.partials.actions-dropdown', ['allowedIpRange' => $allowedIpRange])
                     </td>
                 @endcanany

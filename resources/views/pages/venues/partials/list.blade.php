@@ -13,7 +13,7 @@
                     @lang('title.updated') @include('components.time-relative', ['datetime' => $venue->updated_at])
                 </td>
                 @canany(['update', 'delete'], $venue)
-                    <td class="text-right pr-0">
+                    <td class="text-end pe-0">
                         @include('pages.venues.partials.actions-dropdown', ['venue' => $venue])
                     </td>
                 @endcanany

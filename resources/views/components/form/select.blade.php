@@ -11,7 +11,7 @@
         $options = $options->prepend('','');
     }
 
-    $classes = $classes ?? 'custom-select';
+    $classes = $classes ?? 'form-select';
 @endphp
 
 <select class="{{ $classes }}" id="{{ $name }}" name="{{ $name }}">

@@ -18,7 +18,7 @@
                     @include('pages.events.partials.start-and-end', ['event' => $event])
                 </td>
                 @canany(['update', 'delete'], $event)
-                    <td class="text-right pr-0">
+                    <td class="text-end pe-0">
                         @include('pages.events.partials.actions-dropdown', ['event' => $event])
                     </td>
                 @endcanany

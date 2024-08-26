@@ -15,7 +15,7 @@
                     @lang('title.updated') @include('components.time-relative', ['datetime' => $guide->updated_at])
                 </td>
                 @canany(['update', 'delete'], $guide)
-                    <td class="text-right pr-0">
+                    <td class="text-end pe-0">
                         @include('pages.guides.partials.actions-dropdown', ['guide' => $guide])
                     </td>
                 @endcanany

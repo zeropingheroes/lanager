@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <table class="table live-games">
+    <table class="table align-middle games">
         @foreach($games as $game)
             <tr>
                 <td class="game">
@@ -24,7 +24,7 @@
                 <td class="user-count">
                     @lang('phrase.x-in-game', ['x' => count($game['users'])])
                 </td>
-                <td>
+                <td class="users">
                     @foreach($game['users'] as $user)
                         <a href="{{ route('users.show', $user->id) }}">
                             @include('pages.users.partials.avatar', ['user' => $user])

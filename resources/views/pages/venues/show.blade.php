@@ -10,7 +10,7 @@
             <h1>{{ $venue->name }}</h1>
         </div>
         @canany(['update', 'delete'], $venue)
-            <div class="col text-right">
+            <div class="col text-end">
                 @include('pages.venues.partials.actions-dropdown', ['venue' => $venue])
             </div>
         @endcanany

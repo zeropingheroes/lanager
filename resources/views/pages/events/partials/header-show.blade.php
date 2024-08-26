@@ -2,7 +2,7 @@
     <div class="col-md-auto">
         <h1>{{ $event->name }}</h1>
     </div>
-    <div class="col text-right">
+    <div class="col text-end">
         <h2>
             @include('pages.events.partials.status', ['event' => $event])
         </h2>
@@ -15,7 +15,7 @@
         </h4>
     </div>
     @canany(['update', 'delete'], $event)
-        <div class="col text-right">
+        <div class="col text-end">
             @include('pages.events.partials.actions-dropdown', ['event' => $event])
         </div>
     @endcanany

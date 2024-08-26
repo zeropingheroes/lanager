@@ -10,7 +10,7 @@
             <h1>@lang('title.lans')</h1>
         </div>
         @can('create', \Zeropingheroes\Lanager\Models\Lan::class)
-            <div class="col text-right">
+            <div class="col text-end">
                 <a href="{{ route( 'lans.create') }}"
                    class="btn btn-primary"
                    title="@lang('title.create-item', ['item' => trans('title.lan')])"
@@ -52,7 +52,7 @@
                                                              aria-hidden="true"></span>
                         </td>
                         @canany(['edit', 'delete'], $lan)
-                            <td class="text-right pr-0">
+                            <td class="text-end pe-0">
                                 @component('components.actions-dropdown')
                                     @include('components.actions-dropdown.edit', ['item' => $lan])
                                     @include('components.actions-dropdown.delete', ['item' => $lan])
