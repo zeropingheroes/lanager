@@ -1,35 +1,18 @@
 {
     "private": true,
+    "type": "module",
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
+        "dev": "vite --host",
+        "build": "vite build"
     },
     "devDependencies": {
-        "axios": "^0.27.2",
-        "bootstrap": "^4.6.2",
-        "clipboard": "^2.0.11",
-        "font-awesome": "^4.7.0",
-        "jquery": "^3.7.1",
-        "lang.js": "^1.1.14",
-        "laravel-localization-loader": "^1.0.5",
-        "laravel-mix": "^6.0.49",
-        "moment": "^2.30.1",
-        "node-polyfill-webpack-plugin": "^2.0.1",
-        "open-iconic": "^1.1.1",
+        "axios": "^1.7.4",
+        "laravel-vite-plugin": "^1.0",
         "sass": "^1.77.8",
-        "sass-loader": "^12.6.0",
-        "tempusdominus-bootstrap-4": "^5.39.2",
-        "validator": "^13.12.0",
-        "vue": "^2.7.16",
-        "vue-full-calendar": "^2.8.0",
-        "vue-loader": "^15.11.1",
-        "vue-markdown-render": "^1.1.3",
-        "vue-template-compiler": "^2.7.16"
+        "vite": "^5.4.2"
     },
-    "dependencies": {}
+    "dependencies": {
+        "@popperjs/core": "^2.11.8",
+        "bootstrap": "^5.3.3"
+    }
 }
