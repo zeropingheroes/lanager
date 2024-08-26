@@ -5,30 +5,45 @@
 </div>
 <div class="form-row mb-3">
     <script>
-        $(function () {
-            var format = 'YYYY-MM-DD HH:mm';
+        document.addEventListener("DOMContentLoaded", function () {
 
-            var start = $('#start');
-            var end = $('#end');
-            var startDate = moment(start.val(), format).toDate();
-            var endDate = moment(end.val(), format).toDate();
-
-            start.datetimepicker({
-                format: format,
-                date: moment(),
-                sideBySide: true
+            const startInput = document.getElementById('start');
+            const start = new TempusDominus(startInput, {
+                localization: {
+                    format: 'yyyy-MM-dd HH:mm',
+                    dayViewHeaderFormat: {month: 'long', year: 'numeric'},
+                },
+                display: {
+                    sideBySide: true,
+                    theme: "dark",
+                    buttons: {
+                        today: true,
+                        clear: true,
+                    },
+                },
             });
+            if (startInput.value) {
+                start.dates.setValue(start.dates.parseInput(startInput.value));
+            }
 
-            start.datetimepicker('date', startDate);
-
-            end.datetimepicker({
-                format: format,
-                date: moment(),
-                sideBySide: true,
-                useCurrent: false
+            const endInput = document.getElementById('end');
+            const end = new TempusDominus(endInput, {
+                localization: {
+                    format: 'yyyy-MM-dd HH:mm',
+                    dayViewHeaderFormat: {month: 'long', year: 'numeric'},
+                },
+                display: {
+                    sideBySide: true,
+                    theme: "dark",
+                    buttons: {
+                        today: true,
+                        clear: true,
+                    },
+                },
             });
-
-            end.datetimepicker('date', endDate);
+            if (endInput.value) {
+                end.dates.setValue(end.dates.parseInput(endInput.value));
+            }
         });
     </script>
     <div class="form-group col-md-6 mb-3">
