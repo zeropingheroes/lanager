@@ -11,7 +11,6 @@
 /_ide_helper.php
 /Dockerfile
 /node_modules
-/package-*.json
 /phpunit.xml
 /phpunit.dusk.xml
 /resources/js
