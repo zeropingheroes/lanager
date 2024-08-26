@@ -7,7 +7,7 @@
        aria-expanded="false"
        id="admin-menu"
     >
-        <span class="oi oi-cog" title="Cog" aria-hidden="true"></span>
+        <i class="fa-solid fa-gear"></i>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
         <li><a class="dropdown-item" href="{{ route('lans.index') }}">@lang('title.lans')</a></li>

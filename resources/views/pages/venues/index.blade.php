@@ -16,7 +16,7 @@
                    title="@lang('title.create-item', ['item' => trans('title.venue')])"
                    id="create-venue-button"
                 >
-                    <span class="oi oi-plus"></span>
+                    <i class="fa-solid fa-plus"></i>
                 </a>
             </div>
         @endcan

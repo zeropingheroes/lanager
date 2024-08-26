@@ -16,7 +16,7 @@
                    title="@lang('title.create-item', ['item' => trans('title.lan')])"
                    id="create-lan-button"
                 >
-                    <span class="oi oi-plus"></span>
+                    <i class="fa-solid fa-plus"></i>
                 </a>
             </div>
         @endcan
@@ -48,8 +48,7 @@
                             @lang('title.x-hours', ['x' => (int) $lan->start->diffInHours($lan->end)])
                         </td>
                         <td>
-                            {{ $lan->users->count() }} <span class="oi oi-person" title="attendee"
-                                                             aria-hidden="true"></span>
+                            {{ $lan->users->count() }} <i class="fa-solid fa-user"></i>
                         </td>
                         @canany(['edit', 'delete'], $lan)
                             <td class="text-end pe-0">

@@ -93,7 +93,7 @@
                             @can('update', $lanGame)
                                 <a href="{{ route('lans.lan-games.edit', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]) }}"
                                    title="Edit">
-                                    <span class="oi oi-pencil" aria-hidden="true"></span>
+                                    <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             @endcan
                             @can('delete', $lanGame)
@@ -104,7 +104,7 @@
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <a href="#" onclick="$(this).closest('form').submit();" title="Delete">
-                                        <span class="oi oi-trash" aria-hidden="true"></span>
+                                        <i class="fa-solid fa-trash-can"></i>
                                     </a>
                                 </form>
                             @endcan

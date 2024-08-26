@@ -15,7 +15,7 @@
                    class="btn btn-primary"
                    title="@lang('title.create-item', ['item' => trans('title.allowed-ip-range')])"
                 >
-                    <span class="oi oi-plus"></span>
+                    <i class="fa-solid fa-plus"></i>
                 </a>
             </div>
         @endcan
