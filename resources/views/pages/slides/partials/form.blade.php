@@ -1,27 +1,43 @@
 <script>
-    $(function () {
-        var start = $('#start');
-        var end = $('#end');
-        var format = 'YYYY-MM-DD HH:mm';
+    document.addEventListener("DOMContentLoaded", function () {
 
-        var startDate = moment(start.val(), format).toDate();
-        var endDate = moment(end.val(), format).toDate();
-
-        start.datetimepicker({
-            format: format,
-            sideBySide: true,
-            useCurrent: false
+        const startInput = document.getElementById('start');
+        const start = new TempusDominus(startInput, {
+            localization: {
+                format: 'yyyy-MM-dd HH:mm',
+                dayViewHeaderFormat: {month: 'long', year: 'numeric'},
+            },
+            display: {
+                sideBySide: true,
+                theme: "dark",
+                buttons: {
+                    today: true,
+                    clear: true,
+                },
+            },
         });
+        if (startInput.value) {
+            start.dates.setValue(start.dates.parseInput(startInput.value));
+        }
 
-        end.datetimepicker({
-            format: format,
-            sideBySide: true,
-            useCurrent: false
+        const endInput = document.getElementById('end');
+        const end = new TempusDominus(endInput, {
+            localization: {
+                format: 'yyyy-MM-dd HH:mm',
+                dayViewHeaderFormat: {month: 'long', year: 'numeric'},
+            },
+            display: {
+                sideBySide: true,
+                theme: "dark",
+                buttons: {
+                    today: true,
+                    clear: true,
+                },
+            },
         });
-
-        start.datetimepicker('date', startDate);
-        end.datetimepicker('date', endDate);
-
+        if (endInput.value) {
+            end.dates.setValue(end.dates.parseInput(endInput.value));
+        }
     });
 </script>
 <div class="form-group mb-3">
