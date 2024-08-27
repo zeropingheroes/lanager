@@ -101,6 +101,11 @@
                         minDate: e.detail.date,
                     },
                 });
+                signupsOpen.updateOptions({
+                    restrictions: {
+                        maxDate: e.detail.date,
+                    },
+                });
             });
         });
     </script>
