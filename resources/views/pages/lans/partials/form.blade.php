@@ -44,6 +44,14 @@
             if (endInput.value) {
                 end.dates.setValue(end.dates.parseInput(endInput.value));
             }
+
+            startInput.addEventListener(Namespace.events.change, (e) => {
+                end.updateOptions({
+                    restrictions: {
+                        minDate: e.detail.date,
+                    },
+                });
+            });
         });
     </script>
     <div class="form-group col-md-6 mb-3">

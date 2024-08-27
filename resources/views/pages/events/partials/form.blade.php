@@ -94,6 +94,14 @@
             if (signupsCloseInput.value) {
                 signupsClose.dates.setValue(signupsClose.dates.parseInput(signupsCloseInput.value));
             }
+
+            startInput.addEventListener(Namespace.events.change, (e) => {
+                end.updateOptions({
+                    restrictions: {
+                        minDate: e.detail.date,
+                    },
+                });
+            });
         });
     </script>
     <div class="form-group col-md-6">

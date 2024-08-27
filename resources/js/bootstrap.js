@@ -7,5 +7,6 @@ window.Popper = Popper;
 
 import 'bootstrap'
 
-import {TempusDominus} from '@eonasdan/tempus-dominus';
+import {TempusDominus, Namespace} from '@eonasdan/tempus-dominus';
 window.TempusDominus = TempusDominus;
+window.Namespace = Namespace;
