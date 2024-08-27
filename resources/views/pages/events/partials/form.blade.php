@@ -107,6 +107,14 @@
                     },
                 });
             });
+
+            signupsOpenInput.addEventListener(Namespace.events.change, (e) => {
+                signupsClose.updateOptions({
+                    restrictions: {
+                        minDate: e.detail.date,
+                    },
+                });
+            });
         });
     </script>
     <div class="form-group col-md-6">
