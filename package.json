@@ -15,6 +15,8 @@
         "@eonasdan/tempus-dominus": "^6.9.10",
         "@fortawesome/fontawesome-free": "^6.6.0",
         "@popperjs/core": "^2.11.8",
-        "bootstrap": "^5.3.3"
+        "@vitejs/plugin-vue": "^5.1.2",
+        "bootstrap": "^5.3.3",
+        "vue": "^3.4.38"
     }
 }
