@@ -15,70 +15,85 @@
 </div>
 <div class="form-row">
     <script>
-        $(function () {
-            var format = 'YYYY-MM-DD HH:mm';
+        document.addEventListener("DOMContentLoaded", function () {
 
-            var start = $('#start');
-            var end = $('#end');
-            var signups_open = $('#signups_open');
-            var signups_close = $('#signups_close');
-            var startDate = moment(start.val(), format).toDate();
-            var endDate = moment(end.val(), format).toDate();
-            var lanStart = moment('{{ $lan->start }}');
-
-            if(signups_open.val()) {
-                var signups_open_old = moment(signups_open.val(), format).toDate();
+            const startInput = document.getElementById('start');
+            const start = new TempusDominus(startInput, {
+                localization: {
+                    format: 'yyyy-MM-dd HH:mm',
+                    dayViewHeaderFormat: {month: 'long', year: 'numeric'},
+                },
+                display: {
+                    sideBySide: true,
+                    theme: "dark",
+                    buttons: {
+                        today: true,
+                        clear: true,
+                    },
+                },
+            });
+            if (startInput.value) {
+                start.dates.setValue(start.dates.parseInput(startInput.value));
             }
 
-            if(signups_close.val()) {
-                var signups_close_old = moment(signups_close.val(), format).toDate();
+            const endInput = document.getElementById('end');
+            const end = new TempusDominus(endInput, {
+                localization: {
+                    format: 'yyyy-MM-dd HH:mm',
+                    dayViewHeaderFormat: {month: 'long', year: 'numeric'},
+                },
+                display: {
+                    sideBySide: true,
+                    theme: "dark",
+                    buttons: {
+                        today: true,
+                        clear: true,
+                    },
+                },
+                useCurrent: false,
+            });
+            if (endInput.value) {
+                end.dates.setValue(end.dates.parseInput(endInput.value));
             }
 
-            start.datetimepicker({
-                format: format,
-                date: lanStart,
-                sideBySide: true,
-                useCurrent: false
+            const signupsOpenInput = document.getElementById('signups_open');
+            const signupsOpen = new TempusDominus(signupsOpenInput, {
+                localization: {
+                    format: 'yyyy-MM-dd HH:mm',
+                    dayViewHeaderFormat: {month: 'long', year: 'numeric'},
+                },
+                display: {
+                    sideBySide: true,
+                    theme: "dark",
+                    buttons: {
+                        today: true,
+                        clear: true,
+                    },
+                },
             });
-
-            start.datetimepicker('date', startDate);
-
-            end.datetimepicker({
-                format: format,
-                date: lanStart.add(1, 'hours'),
-                sideBySide: true,
-                useCurrent: false
-            });
-
-            end.datetimepicker('date', endDate);
-
-            $("#start").on("change.datetimepicker", function (e) {
-                $('#end').datetimepicker('minDate', e.date);
-            });
-
-            signups_open.datetimepicker({
-                format: format,
-                sideBySide: true,
-                useCurrent: false
-            });
-
-            if(signups_open_old) {
-                signups_open.datetimepicker('date', signups_open_old);
+            if (signupsOpenInput.value) {
+                signupsOpen.dates.setValue(signupsOpen.dates.parseInput(signupsOpenInput.value));
             }
 
-            signups_close.datetimepicker({
-                format: format,
-                sideBySide: true,
-                useCurrent: false
+            const signupsCloseInput = document.getElementById('signups_close');
+            const signupsClose = new TempusDominus(signupsCloseInput, {
+                localization: {
+                    format: 'yyyy-MM-dd HH:mm',
+                    dayViewHeaderFormat: {month: 'long', year: 'numeric'},
+                },
+                display: {
+                    sideBySide: true,
+                    theme: "dark",
+                    buttons: {
+                        today: true,
+                        clear: true,
+                    },
+                },
+                useCurrent: false,
             });
-
-            if(signups_close_old) {
-                signups_close.datetimepicker('date', signups_close_old);
+            if (signupsCloseInput.value) {
+                signupsClose.dates.setValue(signupsClose.dates.parseInput(signupsCloseInput.value));
             }
-
-            $("#signups_open").on("change.datetimepicker", function (e) {
-                $('#signups_close').datetimepicker('minDate', e.date);
-            });
         });
     </script>
     <div class="form-group col-md-6">
