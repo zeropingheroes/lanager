@@ -12,5 +12,4 @@ window.TempusDominus = TempusDominus;
 window.Namespace = Namespace;
 
 import {createApp} from 'vue';
-
 window.createApp = createApp;
