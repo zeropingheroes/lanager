@@ -7,6 +7,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/js/app.js',
+                'resources/js/pages/active-games.js',
                 'resources/css/app.scss',
             ],
             refresh: true,
