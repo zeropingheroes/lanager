@@ -5,14 +5,16 @@
 @endsection
 
 @section('content')
-    <script>
-        window.addEventListener('load', function() {
-            const app = new Vue({
-                el: '#app'
-            });
-        });
-    </script>
-    <div id="app" class="tv">
-        <active-games></active-games>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg">
+                <h1 class="text-center">Games</h1>
+            </div>
+        </div>
+        @vite(['resources/js/pages/active-games.js'])
+        <div id="app">
+            <active-games/>
+        </div>
     </div>
 @endsection

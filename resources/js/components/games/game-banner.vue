@@ -1,25 +1,21 @@
-<template>
-    <img :src="src" v-bind:title="game.name"/>
-</template>
+<script setup>
+import {computed} from 'vue';
 
-<script>
-    export default {
-        props: {
-            size: {
-                type: String,
-                validator: function (value) {
-                    return ['small', 'medium', 'large'].indexOf(value) !== -1
-                },
-                default: 'medium',
-            },
-            game: {
-                type: Object,
-            },
-        },
-        computed: {
-            src() {
-                return this.game.logo[this.size]
-            }
-        }
-    }
+const props = defineProps({
+    size: {
+        type: String,
+        validator: (value) => ['small', 'medium', 'large'].includes(value),
+        default: 'medium',
+    },
+    game: {
+        type: Object,
+        required: true,
+    },
+});
+
+const src = computed(() => props.game.logo[props.size]);
 </script>
+
+<template>
+    <img :src="src" :title="game.name"/>
+</template>

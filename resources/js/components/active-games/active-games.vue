@@ -1,41 +1,46 @@
+<script setup>
+import {ref, onMounted, onUnmounted} from 'vue'
+import axios from 'axios'
+import ActiveGame from './active-game.vue'
+
+const activeGames = ref([])
+
+const update = () => {
+    axios.get('active-games?limit=5')
+        .then((response) => {
+            activeGames.value = response.data.data
+        })
+        .catch((error) => {
+            console.log('Error getting active games')
+        })
+}
+
+let intervalId
+
+onMounted(() => {
+    update()
+    intervalId = setInterval(update, 30000)
+})
+
+onUnmounted(() => {
+    clearInterval(intervalId)
+})
+</script>
+
 <template>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg">
-                <h1 class="text-center">Games</h1>
-            </div>
-        </div>
-        <table class="table">
+    <table>
             <tbody>
-            <active-game v-for="activeGame in activeGames" :key="activeGame.id" v-bind="activeGame"></active-game>
+            <active-game
+                v-for="activeGame in activeGames"
+                :key="activeGame.id"
+                v-bind="activeGame"
+            ></active-game>
             </tbody>
         </table>
-    </div>
 </template>
 
-<script>
-    export default {
-        data() {
-            return {
-                activeGames: [],
-            };
-        },
-        created() {
-            var self = this;
-            self.update();
-            setInterval(function () {
-                self.update()
-            }, 30000)
-        },
-        methods: {
-            update() {
-                axios.get('active-games?limit=5')
-                    .then((response) => {
-                        this.$data.activeGames = response.data.data;
-                    }, (error) => {
-                        console.log('Error getting active games')
-                    })
-            }
-        }
-    }
-</script>
+<style>
+table {
+    width: 100%;
+}
+</style>
