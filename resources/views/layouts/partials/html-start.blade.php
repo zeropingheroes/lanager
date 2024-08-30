@@ -9,7 +9,6 @@
     <meta name="api-base-url" content="{{ url('/api') }}">
     @if(Auth::user())
         <meta name="api-user-id" content="{{ Auth::user()->id }}">
-        <meta name="api-token" content="{{ Auth::user()->api_token }}">
     @endif
 
     <title>@yield('title') | {{ config('app.name') }}</title>
