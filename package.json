@@ -17,6 +17,7 @@
         "@popperjs/core": "^2.11.8",
         "@vitejs/plugin-vue": "^5.1.2",
         "bootstrap": "^5.3.3",
+        "moment": "^2.30.1",
         "vue": "^3.4.38"
     }
 }
