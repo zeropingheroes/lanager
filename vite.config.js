@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/pages/active-games.js',
                 'resources/js/pages/events.js',
+                'resources/js/pages/slides.js',
                 'resources/css/app.scss',
             ],
             refresh: true,

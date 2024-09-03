@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
-        <div id="fullscreen-button" v-show="visible">
-            <span class="oi oi-fullscreen-enter" title="Enter full screen" aria-hidden="true"></span>
+        <div id="fullscreen-button" class="btn" v-show="visible">
+            <span class="fa fa-solid fa-expand" title="Enter full screen" aria-hidden="true"></span>
         </div>
     </transition>
 </template>
@@ -55,11 +55,23 @@
                 }
             },
             showFullscreenButton: function () {
-                this.visible = true;
-                setTimeout(() => {
-                    this.visible = false;
-                }, 2000);
+                if (this.visible != true) {
+                    this.visible = true;
+                    setTimeout(() => {
+                        this.visible = false;
+                    }, 2000);
+                }
+
             }
         }
     }
 </script>
+
+<style>
+div#fullscreen-button {
+    font-size: 400%;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+</style>

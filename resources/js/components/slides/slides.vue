@@ -1,69 +1,73 @@
+<script setup>
+import {ref, onMounted, onUnmounted} from 'vue';
+import axios from 'axios';
+import Slide from './slide.vue'
+
+const props = defineProps(['lan_id']);
+
+const slides = ref([]);
+const indexToShow = ref(null);
+
+let updateInterval;
+let cycleTimeout;
+
+const update = async () => {
+    try {
+        const response = await axios.get(`lans/${props.lan_id}/slides/`);
+        slides.value = response.data.data;
+
+        if (slides.value.length !== 0 && indexToShow.value === null) {
+            cycle();
+        }
+    } catch (error) {
+        console.log('Error getting slides', error);
+    }
+};
+
+const cycle = () => {
+    if (slides.value.length === 0) {
+        indexToShow.value = null;
+    } else {
+        if (indexToShow.value === null) {
+            indexToShow.value = 0;
+        } else {
+            indexToShow.value = (indexToShow.value + 1) % slides.value.length;
+        }
+
+        cycleTimeout = setTimeout(() => {
+            cycle();
+        }, slides.value[indexToShow.value].duration * 1000);
+    }
+};
+
+onMounted(() => {
+    update();
+    updateInterval = setInterval(update, 30000);
+});
+
+onUnmounted(() => {
+    clearInterval(updateInterval);
+    clearTimeout(cycleTimeout);
+});
+</script>
+
 <template>
-    <transition-group name="fade" class="inherit-size" tag="div">
-        <slide v-for="(slide, index) in slides" :key="slide.id" v-bind:content="slide.content" v-show="indexToShow == index"></slide>
+    <transition-group name="fade" class="container-1920x1080" tag="div">
+        <slide
+            v-for="(slide, index) in slides"
+            :key="slide.id"
+            :content="slide.content"
+            v-show="indexToShow === index"
+        ></slide>
     </transition-group>
 </template>
 
-<script>
-    export default {
-        data() {
-            return {
-                slides: [],
-                indexToShow: null,
-            };
-        },
-        props: ['lan_id'],
-        created() {
-            // Get slides from API for the first time
-            this.update();
-
-            // Get slides from API periodically
-            var self = this;
-            setInterval(function () {
-                self.update()
-            }, 30000);
-        },
-        methods: {
-            update() {
-                axios.get('lans/' + this.lan_id + '/slides/')
-                    .then((response) => {
-                        this.$data.slides = response.data.data;
-
-                        // If slides were retrieved and no slide is currently being displayed
-                        if (this.$data.slides.length != 0 && this.$data.indexToShow == null) {
-                            // Begin cycling slides
-                            this.cycle();
-                        }
-                    }, (error) => {
-                        console.log('Error getting slides')
-                    })
-            },
-            cycle() {
-                // If there are no slides to show
-                if (this.$data.slides.length == 0) {
-
-                    // Reset the index
-                    this.$data.indexToShow = null;
-
-                // If there are slides to show
-                } else {
-                    // If no slide is currently showing
-                    if (this.$data.indexToShow == null) {
-                        // Display the first slide
-                        this.$data.indexToShow = 0;
-
-                    // If a slide is currently being shown
-                    } else {
-                        // Display the next slide (looping back to the first slide if needed)
-                        this.$data.indexToShow = (this.$data.indexToShow + 1) % this.$data.slides.length;
-                    }
-                    // Call this function again after the current slide has been shown for its duration
-                    self = this;
-                    setTimeout(function () {
-                        self.cycle()
-                    }, (self.$data.slides[self.$data.indexToShow].duration * 1000));
-                }
-            },
-        }
-    }
-</script>
+<style>
+div.container-1920x1080 {
+    /* set container initial and maximum sizes */
+    max-width: 1920px;
+    width: 1920px;
+    max-height: 1080px;
+    height: 1080px;
+}
+</style>
