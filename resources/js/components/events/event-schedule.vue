@@ -1,65 +1,74 @@
+<script setup>
+import {reactive} from 'vue';
+import FullCalendar from '@fullcalendar/vue3';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+
+const calendarOptions = reactive({
+    plugins: [timeGridPlugin, bootstrap5Plugin],
+    themeSystem: 'bootstrap5',
+    initialView: 'timeGridThreeDay',
+    views: {
+        timeGridThreeDay: {
+            type: 'timeGrid',
+            duration: {days: 3}
+        }
+    },
+    height: 'auto',
+    stickyHeaderDates: false,
+    allDaySlot: false,
+    nowIndicator: true,
+    headerToolbar: false,
+    footerToolbar: {
+        start: '',
+        center: '',
+        end: 'today prev,next',
+    },
+    buttonIcons: false,
+    buttonText: {
+        today: 'Today',
+        month: 'Month',
+        week: 'Week',
+        day: 'Day',
+        list: 'List',
+        next: '>',
+        prev: '<',
+    },
+    eventColor: '#157800',
+    eventTextColor: '#fff',
+    eventBorderColor: '#157800',
+    eventSourceSuccess: function (content, response) {
+        return content.data;
+    },
+    eventDataTransform(event) {
+        return {
+            id: event.id,
+            title: event.name,
+            start: event.start,
+            end: event.end,
+            url: event.links.self_gui,
+        }
+    },
+    events: '/api/events/',
+});
+</script>
+
 <template>
-    <div id="schedule">
-        <full-calendar :events="events"
-                       :config="config"
-                       :header="header"
-                       :event-sources="eventSources">
-        </full-calendar>
-    </div>
+    <FullCalendar :options="calendarOptions"/>
 </template>
 
-<script>
-    export default {
-        data() {
-            return {
-                events: [],
-                eventSources: [
-                    {
-                        events(start, end, timezone, callback) {
-                            axios.get('events')
-                                .then((response) => {
-                                    callback(response.data.data);
-                                }, (error) => {
-                                    console.log('Error getting events')
-                                })
-                        }
-                    }
-                ],
-                header: {
-                    left: '',
-                    center: '',
-                    right: ' agendaDay agendaThreeDay agendaWeek today prev,next'
-                },
-                config: {
-                    slotEventOverlap: false,
-                    editable: false,
-                    selectable: false,
-                    allDaySlot: false,
-                    defaultView: 'agendaThreeDay',
-                    nowIndicator: true,
-                    firstDay: 1,
-                    theme: false,
-                    height: "auto",
-                    eventColor: '#157800',
-                    eventTextColor: '#000',
-                    eventDataTransform(event) {
-                        return {
-                            id: event.id,
-                            title: event.name,
-                            start: event.start,
-                            end: event.end,
-                            url: event.links.self_gui,
-                        }
-                    },
-                    views: {
-                        agendaThreeDay: {
-                            type: 'agenda',
-                            duration: { days: 3 },
-                            buttonText: '3 day'
-                        }
-                    }
-                }
-            }
-        }
-    }
-</script>
+<style>
+.fc-timegrid-event {
+    box-shadow: 0 0 0 1px #000 !important;
+}
+
+.fc-theme-bootstrap5 td,
+.fc-theme-bootstrap5 th,
+.fc-theme-bootstrap5 .fc-scrollgrid {
+    border-color: #444;
+}
+
+.fc .fc-timegrid-col.fc-day-today {
+    background-color: rgb(0 171 4 / 30%);
+}
+</style>

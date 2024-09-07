@@ -80,50 +80,6 @@ table.games td.users a {
     text-decoration: none;
 }
 
-///**
-// * events.schedule
-// */
-//div#schedule {
-//
-//  div.fc-toolbar {
-//    margin-right: 0.5em; /* move toolbar left */
-//  }
-//
-//  td.fc-state-highlight { /* remove schedule background */
-//    background-color: transparent;
-//  }
-//
-//  .fc-today {
-//    background-color: #1a1a1a;
-//  }
-//
-//  thead {
-//    border: none;
-//  }
-//
-//  th.fc-widget-header,
-//  td.fc-widget-header { /* remove outer borders */
-//    border: none;
-//  }
-//
-//  td.fc-widget-content { /* subtle inner borders*/
-//    border: 1px dotted #444;
-//  }
-//
-//  hr.fc-widget-header {
-//    border: 1px dotted #444;
-//    background-color: #222;
-//  }
-//
-//  .fc-event-bg { /* hide event overlay */
-//    display: none;
-//  }
-//}
-//
-///**
-// * slides.display
-// */
-
 div.markdown-slide {
     font-size: $font-size-base * 3;
 }
