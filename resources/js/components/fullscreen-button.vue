@@ -1,13 +1,14 @@
 <template>
     <transition name="fade">
         <div id="fullscreen-button" class="btn" v-show="visible" @click="toggleFullscreen">
-            <span class="fa fa-solid fa-expand" :title="Fullscreen" aria-hidden="true"></span>
+            <span class="fa fa-solid fa-expand" :title="trans('phrase.fullscreen')" aria-hidden="true"></span>
         </div>
     </transition>
 </template>
 
 <script setup>
 import {ref, onMounted, onBeforeUnmount} from 'vue';
+import {trans} from 'laravel-vue-i18n';
 
 const visible = ref(false);
 

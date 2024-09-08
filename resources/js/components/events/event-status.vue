@@ -1,22 +1,19 @@
-<template>
-    <span :class="className">{{ statusName }}</span>
-</template>
-
 <script setup>
 import { computed } from 'vue';
+import {trans} from 'laravel-vue-i18n';
 
 const props = defineProps(['status']);
 
 const statusName = computed(() => {
     switch (props.status) {
         case 'past':
-            return 'Ended';
+            return trans('phrase.ended');
         case 'present':
-            return 'Now';
+            return trans('phrase.now');
         case 'future':
-            return 'Next';
+            return trans('phrase.next');
         default:
-            return 'Unknown';
+            return trans('phrase.unknown');
     }
 });
 
@@ -33,3 +30,7 @@ const className = computed(() => {
     }
 });
 </script>
+
+<template>
+    <span :class="className">{{ statusName }}</span>
+</template>

@@ -25,3 +25,4 @@ yarn-error.log
 /.php-cs-fixer.cache
 /storage/*.bucket
 /*.tar.gz
+/resources/lang/php_*.json

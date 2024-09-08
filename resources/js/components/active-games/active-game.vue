@@ -18,7 +18,7 @@ const userCount = computed(() => props.users.length);
         </td>
         <td>{{ game.name }}</td>
         <td>
-            {{ userCount }} In Game
+            {{ $t('phrase.x-in-game', {x: userCount}) }}
         </td>
         <td class="users">
             <user-avatar v-for="user in users" :key="user.id" :user="user"></user-avatar>

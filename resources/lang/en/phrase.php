@@ -58,6 +58,7 @@ return [
     'item-created-successfully' => ':Item created successfully',
     'item-not-found' => ':item not found',
     'item-already-exists' => ':item already exists!',
+    'fullscreen' => 'Fullscreen',
 
     /**
      * Resources.
@@ -112,7 +113,10 @@ return [
     'you-can-only-sign-yourself-up-to-event' => 'You can only sign yourself up to an event',
     'timespan-to' => 'to',
     'upcoming' => 'Upcoming',
+    'next' => 'Next',
     'happening-now' => 'Happening now',
+    'now' => 'Now',
+    'started' => 'Started',
     'ended' => 'Ended',
     'starting' => 'Starting',
     'ending' => 'Ending',
@@ -123,6 +127,11 @@ return [
     'closed' => 'Closed',
     'opening' => 'Opening',
     'closing' => 'Closing',
+    'today' => 'Today',
+    'month' => 'Month',
+    'week' => 'Week',
+    'day' => 'Day',
+    'list' => 'List',
 
     // Images
     'select-files' => 'Select files',

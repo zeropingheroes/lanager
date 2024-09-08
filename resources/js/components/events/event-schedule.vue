@@ -1,10 +1,11 @@
 <script setup>
-import {reactive} from 'vue';
+import {reactive, watch, computed} from 'vue';
 import FullCalendar from '@fullcalendar/vue3';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+import {trans, isLoaded} from 'laravel-vue-i18n';
 
-const calendarOptions = reactive({
+const baseCalendarOptions = reactive({
     plugins: [timeGridPlugin, bootstrap5Plugin],
     themeSystem: 'bootstrap5',
     initialView: 'timeGridThreeDay',
@@ -25,15 +26,6 @@ const calendarOptions = reactive({
         end: 'today prev,next',
     },
     buttonIcons: false,
-    buttonText: {
-        today: 'Today',
-        month: 'Month',
-        week: 'Week',
-        day: 'Day',
-        list: 'List',
-        next: '>',
-        prev: '<',
-    },
     eventColor: '#157800',
     eventTextColor: '#fff',
     eventBorderColor: '#157800',
@@ -51,6 +43,29 @@ const calendarOptions = reactive({
     },
     events: '/api/events/',
 });
+
+// Create a computed property for buttonText
+const buttonText = computed(() => ({
+    today: trans('phrase.today'),
+    month: trans('phrase.month'),
+    week: trans('phrase.week'),
+    day: trans('phrase.day'),
+    list: trans('phrase.list'),
+    next: '>',
+    prev: '<',
+}));
+
+const calendarOptions = computed(() => ({
+    ...baseCalendarOptions,
+    buttonText: buttonText.value
+}));
+
+watch(isLoaded, (loaded) => {
+    if (loaded) {
+        buttonText.value;
+        calendarOptions.value;
+    }
+}, {immediate: true});
 </script>
 
 <template>
