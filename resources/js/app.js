@@ -10,17 +10,16 @@ clipboard.on('error', function (e) {
     console.error('Trigger:', e.trigger);
 });
 
-window.submitClosestForm = function (event) {
-    // Prevent the default action of the event
+window.submitDeletionForm = function (event) {
     event.preventDefault();
 
-    // Find the closest form to the clicked element
     const form = event.target.closest('form');
 
-    // If a form is found, submit it
     if (form) {
-        form.submit();
+        if (confirm('Are you sure you want to delete this?')) {
+            form.submit();
+        }
     } else {
         console.error('No form found');
     }
-}
+};
