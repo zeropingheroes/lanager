@@ -14,3 +14,7 @@ window.Namespace = Namespace;
 
 import {createApp} from 'vue';
 window.createApp = createApp;
+
+import ClipboardJS from 'clipboard';
+
+window.ClipboardJS = ClipboardJS;

@@ -21,6 +21,7 @@
         "@popperjs/core": "^2.11.8",
         "@vitejs/plugin-vue": "^5.1.2",
         "bootstrap": "^5.3.3",
+        "clipboard": "^2.0.11",
         "moment": "^2.30.1",
         "vue": "^3.4.38",
         "vue-markdown-render": "^2.2.1"
