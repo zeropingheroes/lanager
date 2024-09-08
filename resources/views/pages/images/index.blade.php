@@ -34,7 +34,8 @@
                         <form action="{{ route( 'images.destroy', $image['filename']) }}" method="POST">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
-                            <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
+                            <a class="dropdown-item" href="#"
+                               onclick="submitClosestForm(event);">@lang('title.delete')</a>
                         </form>
                     @endcomponent
                 </td>

@@ -103,7 +103,7 @@
                                     class="confirm-deletion d-inline ml-1">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
-                                    <a href="#" onclick="$(this).closest('form').submit();" title="Delete">
+                                    <a href="#" onclick="submitClosestForm(event);" title="Delete">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </a>
                                 </form>

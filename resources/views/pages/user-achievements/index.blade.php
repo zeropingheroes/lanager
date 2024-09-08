@@ -37,7 +37,7 @@
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <a class="dropdown-item" href="#"
-                                       onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
+                                       onclick="submitClosestForm(event);">@lang('title.delete')</a>
                                 </form>
                             @endcomponent
                         @endcan
