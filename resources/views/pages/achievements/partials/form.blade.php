@@ -24,16 +24,3 @@
     </small>
 </div>
 <button type="submit" class="btn btn-primary">@lang('title.submit')</button>
-
-<script>
-    window.addEventListener('load', function() {
-        // Show selected files in file input label
-        $("input[type=file]").change(function () {
-            var files = $(this).prop("files");
-            var fieldVal = $.map(files, function(val) { return ' ' + val.name; });
-            if (fieldVal != undefined || fieldVal != "") {
-                $(this).next(".custom-file-label").text(fieldVal);
-            }
-        });
-    })
-</script>
