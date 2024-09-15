@@ -68,7 +68,7 @@ jobs:
                 run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
 
             -   name: Start Chrome Driver
-                run: ./vendor/laravel/dusk/bin/chromedriver-linux &
+                run: ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
 
             -   name: Create empty .env file
                 run: touch .env
