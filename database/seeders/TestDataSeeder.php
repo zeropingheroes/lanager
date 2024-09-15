@@ -19,6 +19,8 @@ class TestDataSeeder extends Seeder
      */
     public function run(): void
     {
+        Artisan::call('migrate:fresh');
+
         // Seed required data
         $this->call(DatabaseSeeder::class);
 
