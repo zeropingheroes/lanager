@@ -33,7 +33,7 @@
                             @component('components.actions-dropdown')
                                 <form
                                     action="{{ route('lans.user-achievements.destroy', ['lan' => $userAchievement->lan, 'user_achievement' => $userAchievement]) }}"
-                                    method="POST" class="confirm-deletion">
+                                    method="POST">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <a class="dropdown-item" href="#"
