@@ -17,7 +17,7 @@ class EditImageTest extends DuskTestCase
             $browser->loginAs($superAdmin);
 
             // And there is an image in the image uploads directory
-            copy(base_path('public/img/bg.jpg'), storage_path('app/public/images/bg.jpg'));
+            copy(base_path('resources/images/bg.jpg'), storage_path('app/public/images/bg.jpg'));
 
             // When the super admin navigates to the image index page
             $browser->visitRoute('images.index');

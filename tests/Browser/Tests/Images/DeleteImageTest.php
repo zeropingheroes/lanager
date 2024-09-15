@@ -17,7 +17,7 @@ class DeleteImageTest extends DuskTestCase
             $browser->loginAs($superAdmin);
 
             // And there is an image in the image uploads directory
-            copy(base_path('public/img/bg.jpg'), storage_path('app/public/images/bg.jpg'));
+            copy(base_path('resources/images/bg.jpg'), storage_path('app/public/images/bg.jpg'));
 
             // When the super admin navigates to the image index page
             $browser->visitRoute('images.index');
@@ -29,6 +29,9 @@ class DeleteImageTest extends DuskTestCase
 
             // And clicks the "delete" button
             $browser->clickLink('Delete');
+
+            // And accept the deletion confirmation dialog
+            $browser->acceptDialog();
 
             // Then the super admin should be redirected to the image index page
             $browser->assertRouteIs('images.index');

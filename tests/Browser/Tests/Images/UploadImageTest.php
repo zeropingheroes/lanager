@@ -20,7 +20,7 @@ class UploadImageTest extends DuskTestCase
             $browser->visitRoute('images.index');
 
             // And selects a file to upload
-            $browser->attach('images[]', base_path('public/img/bg.jpg'));
+            $browser->attach('images[]', base_path('resources/images/bg.jpg'));
 
             // And clicks the "upload" button
             $browser->press('Upload');
