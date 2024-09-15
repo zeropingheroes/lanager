@@ -106,7 +106,7 @@ jobs:
                 uses: actions/upload-artifact@v4
                 if: failure()
                 with:
-                    name: console-logs
+                    name: page-source
                     path: storage/logs/dusk/source
 
             -   name: Upload Laravel Log
