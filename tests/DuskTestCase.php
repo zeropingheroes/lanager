@@ -8,6 +8,7 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
+use Mockery\Exception\InvalidCountException;
 use Zeropingheroes\Lanager\Models\Role;
 use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
@@ -29,6 +30,16 @@ abstract class DuskTestCase extends BaseTestCase
         Browser::$storeScreenshotsAt = storage_path('logs/dusk/screenshots');
         Browser::$storeConsoleLogAt = storage_path('logs/dusk/console');
         Browser::$storeSourceAt = storage_path('logs/dusk/source');
+    }
+
+    protected function tearDown(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $sourceFilename = sprintf('%s-source', class_basename($this));
+            $browser->storeSource($sourceFilename);
+        });
+
+        parent::tearDown();
     }
 
     /**
