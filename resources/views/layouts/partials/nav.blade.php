@@ -8,7 +8,7 @@
                  class="d-inline-block align-text-top">
             {{ config('app.name') }}
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="@lang('phrase.toggle-navigation')">
             <span class="navbar-toggler-icon"></span>
