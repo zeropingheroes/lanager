@@ -5,8 +5,8 @@ namespace Tests;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Foundation\Testing\DatabaseTruncation;
+use Illuminate\Support\Facades\Artisan;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use Zeropingheroes\Lanager\Models\Role;
@@ -15,13 +15,15 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 abstract class DuskTestCase extends BaseTestCase
 {
+    use DatabaseTruncation;
+
+    protected array $exceptTables = ['steam_apps'];
+
     protected function setUp(): void
     {
         parent::setUp();
 
         restore_error_handler();
-
-        $this->initializeDb();
 
         Browser::$storeScreenshotsAt = storage_path('logs/dusk/screenshots');
         Browser::$storeConsoleLogAt = storage_path('logs/dusk/console');
@@ -29,25 +31,13 @@ abstract class DuskTestCase extends BaseTestCase
     }
 
     /**
+     * Perform any work that should take place once the database has finished truncating.
+     *
      * @return void
      */
-    protected function initializeDb(): void
+    protected function afterTruncatingDatabase(): void
     {
-        $tables = Schema::getTableListing();
-
-        $keep = [
-            'steam_apps',
-        ];
-
-        $tables = array_diff($tables, $keep);
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        foreach ($tables as $table) {
-            DB::table($table)->truncate();
-        }
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        $this->artisan('db:seed');
+        Artisan::call('db:seed');
     }
 
     /**
