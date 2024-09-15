@@ -6,7 +6,6 @@ use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
-use Illuminate\Support\Facades\Artisan;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use Zeropingheroes\Lanager\Models\Role;
@@ -19,6 +18,8 @@ abstract class DuskTestCase extends BaseTestCase
 
     protected array $exceptTables = ['steam_apps'];
 
+    protected bool $seed = true;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -28,16 +29,6 @@ abstract class DuskTestCase extends BaseTestCase
         Browser::$storeScreenshotsAt = storage_path('logs/dusk/screenshots');
         Browser::$storeConsoleLogAt = storage_path('logs/dusk/console');
         Browser::$storeSourceAt = storage_path('logs/dusk/source');
-    }
-
-    /**
-     * Perform any work that should take place once the database has finished truncating.
-     *
-     * @return void
-     */
-    protected function afterTruncatingDatabase(): void
-    {
-        Artisan::call('db:seed');
     }
 
     /**
