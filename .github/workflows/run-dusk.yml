@@ -95,12 +95,19 @@ jobs:
                     name: browser-screenshots
                     path: storage/logs/dusk/screenshots
 
-            -   name: Upload Console Logs
+            -   name: Upload Browser Console Logs
                 uses: actions/upload-artifact@v4
                 if: failure()
                 with:
                     name: console-logs
                     path: storage/logs/dusk/console
+
+            -   name: Upload Page Source
+                uses: actions/upload-artifact@v4
+                if: failure()
+                with:
+                    name: console-logs
+                    path: storage/logs/dusk/source
 
             -   name: Upload Laravel Log
                 uses: actions/upload-artifact@v4
