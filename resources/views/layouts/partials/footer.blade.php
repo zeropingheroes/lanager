@@ -1,4 +1,4 @@
-<footer class="footer fixed-bottom mt-auto py-3 bg-dark">
+<footer class="footer mt-auto py-3 bg-dark">
     <div class="container">
         <span class="text-muted">
             <a href="https://github.com/zeropingheroes/lanager" target="_blank">{{ config('app.name') }}</a>

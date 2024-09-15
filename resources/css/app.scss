@@ -9,7 +9,7 @@ body {
 
 body > main > .container {
     margin-top: 70px; /* stop navbar covering content */
-    margin-bottom: 70px; /* ensure footer does not cover bottom of page */
+    margin-bottom: 25px;
 }
 
 nav a#admin-menu {
