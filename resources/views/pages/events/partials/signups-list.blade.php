@@ -13,10 +13,13 @@
                     ['lan' => $signup->event->lan,
                     'event' => $signup->event,
                     'signup' => $signup]) }}"
-                          method="POST" class="confirm-deletion">
+                          method="POST">
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
-                        <button type="submit" class="btn btn-danger btn-sm" title="@lang('title.delete')">
+                        <button type="submit"
+                                class="btn btn-danger btn-sm"
+                                title="@lang('title.delete')"
+                                onclick="submitDeletionForm(event)">
                             Delete
                         </button>
                     </form>
