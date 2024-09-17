@@ -2,29 +2,16 @@
     @php
         $steamAccount = $user->accounts->where('provider','steam')->first();
 
+        $size = $size ?? 'small';
+
         if($steamAccount) {
-
-            $size = $size ?? 'small';
-
-            switch($size) {
-                case('small'):
-                    $avatar = str_replace('_medium.jpg', '.jpg', $steamAccount->avatar);
-                    break;
-
-                case('medium'):
-                    $avatar = $steamAccount->avatar;
-                    break;
-
-                case('large'):
-                    $avatar = str_replace('_medium.jpg', '_full.jpg', $steamAccount->avatar);
-                    break;
-
-                default:
-                    $avatar = str_replace('_medium.jpg', '.jpg', $steamAccount->avatar);
-            }
+            $avatar = match ($size) {
+                'medium' => $steamAccount->avatar,
+                'large' => str_replace('_medium.jpg', '_full.jpg', $steamAccount->avatar),
+                default => str_replace('_medium.jpg', '.jpg', $steamAccount->avatar),
+            };
         } else {
             $avatar = $user->accounts->first()->avatar;
-            $size = 'small';
         }
 
         $activeSession = $user->steamAppSessions->first();
