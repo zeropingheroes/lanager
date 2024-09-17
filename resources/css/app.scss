@@ -17,19 +17,28 @@ nav a#admin-menu {
 }
 
 /**
- * Steam Avatars
+ * Profile Avatars
  */
-img.avatar,
+img.avatar {
+    border: 1px solid;
+}
+
 img.avatar-small {
     border: 1px solid;
+    width: 32px;
+    height: 32px;
 }
 
 img.avatar-medium {
     border-width: 2px;
+    width: 64px;
+    height: 64px;
 }
 
 img.avatar-large {
     border-width: 3px;
+    width: 184px;
+    height: 184px;
 }
 
 img.avatar-in-game {
