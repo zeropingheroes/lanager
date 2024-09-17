@@ -257,11 +257,11 @@ Run `./backup-restore.sh <file>` to restore a backup.
     export PATH_TO_LANAGER=/path/to/lanager
     ```
 
-9. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into
-   `docker-compose.override.yml`:
+9. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into the override
+   compose file:
 
     ```bash
-    envsubst < docker-compose.override.yml.example > docker-compose.override.yml
+    envsubst < compose.override.yaml.example > compose.override.yaml
     ```
 
 10. Start the containers
