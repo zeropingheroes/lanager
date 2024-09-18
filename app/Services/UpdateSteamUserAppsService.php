@@ -84,7 +84,7 @@ class UpdateSteamUserAppsService
         // Update games for each user in turn
         foreach ($steamAccounts as $steamAccount) {
             try {
-                $apps = SteamApi::player($steamAccount->provider_id)->GetOwnedGames();
+                $apps = SteamApi::player($steamAccount->provider_id)->GetOwnedGames(includePlayedFreeGames: true);
 
                 $appsVisible = (count($apps) != 0);
 
