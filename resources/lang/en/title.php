@@ -69,6 +69,8 @@ return [
     'linked-accounts' => 'Linked Accounts',
     'delete-account' => 'Delete Account',
     'lans-attended' => 'LANs Attended',
+    'available' => 'Available',
+    'unavailable' => 'Unavailable',
 
     // Roles
     'roles' => 'Roles',
