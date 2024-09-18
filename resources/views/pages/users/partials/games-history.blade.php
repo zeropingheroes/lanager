@@ -24,9 +24,7 @@
                     @endif
                 </td>
                 <td class="time">
-                    @if($gameSession->end)
-                        {{ $gameSession->end->format('D g:ia') }}
-                    @endif
+                    {{ $gameSession->start->format('D jS M g:ia') }}
                 </td>
             </tr>
         @endforeach
