@@ -18,6 +18,11 @@ class SteamUserMetadata extends Model
         'apps_updated_at',
     ];
 
+    protected $casts = [
+        'profile_updated_at' => 'datetime',
+        'apps_updated_at' => 'datetime',
+    ];
+
     protected $table = 'steam_user_metadata';
 
     public $timestamps = false;
