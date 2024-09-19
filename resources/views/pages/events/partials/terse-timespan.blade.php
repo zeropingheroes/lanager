@@ -1,32 +1,31 @@
 @php
-
     $start = (new \Carbon\Carbon($start));
     $end = (new \Carbon\Carbon($end));
 
-    // if timespan start falls on the hour, don't display minutes
-    if ( $start->minute == 0)
-    {
-        $startFormat = 'D ga';
-    }
-    else
-    {
-        $startFormat = 'D g:ia';
-    }
-    // if timespan end falls on the hour, don't display minutes
-    if ( $end->minute == 0)
-    {
-        $endFormat = 'ga';
-    }
-    else
-    {
-        $endFormat = 'g:ia';
-    }
-    // if timespan does not start and end on the same day, display the end day
-    if ( $start->day != $end->day )
-    {
-        $endFormat = 'D '.$endFormat;
-    }
+    $formatTime = function (\Carbon\Carbon $time) {
+        return $time->minute === 0 ? $time->format('ga') : $time->format('g:ia');
+    };
+
+    $getRelativeDay = function(\Carbon\Carbon $date) {
+        $now = \Carbon\Carbon::now();
+        if ($date->isSameDay($now)) {
+            return 'Today';
+        } elseif ($date->isSameDay($now->copy()->addDay())) {
+            return 'Tomorrow';
+        } else {
+            return $date->format('D'); // Returns the abbreviated day name
+        }
+    };
+
+    $formatDateRange = function (\Carbon\Carbon $start, \Carbon\Carbon $end) use ($formatTime, $getRelativeDay) {
+        if ($start->isSameDay($end)) {
+            return $getRelativeDay($start) . ' ' . $formatTime($start) . ' ' . __('phrase.timespan-to') . ' ' .$formatTime($end);
+        } else {
+            return $getRelativeDay($start) . ' ' . $formatTime($start) . ' ' . __('phrase.timespan-to') . ' ' .$getRelativeDay($end) . ' ' . $formatTime($end);
+        }
+    };
+
 @endphp
 <span title="{{ $start }} @lang('phrase.timespan-to') {{ $end }}">
-    {{ $start->format($startFormat) }} @lang('phrase.timespan-to') {{  $end->format($endFormat) }}
+    {{ $formatDateRange($start, $end) }}
 </span>
