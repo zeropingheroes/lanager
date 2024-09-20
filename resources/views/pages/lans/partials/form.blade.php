@@ -80,7 +80,7 @@
             'blank' => true,
         ])
         <small id="achievement_id_help"
-            class="form-text"
+               class="form-text"
         >
             @lang('phrase.lan-achievement-help')
         </small>
