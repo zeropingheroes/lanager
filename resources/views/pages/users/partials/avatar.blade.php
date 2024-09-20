@@ -21,6 +21,7 @@
             $statusDisplayName = __('phrase.status-in-game-x', ['x' => $activeSession->app->name]);
         } elseif(
             $user->steamMetadata->exists &&
+            $user->steamMetadata->profile_updated_at != null &&
             $user->steamMetadata->profile_updated_at->greaterThan(now()->subMinutes(3))
         ) {
             $statusName = $user->steamMetadata->status->name;
