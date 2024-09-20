@@ -118,7 +118,7 @@ return [
     'owned' => 'Owned',
     'games-library' => 'Games Library',
     'games-in-common' => 'Games In Common',
-    'games-history' => 'Games History',
+    'games-history' => 'Gameplay History',
     'popular-games' => 'Popular Games',
 
     // Navigation Links
