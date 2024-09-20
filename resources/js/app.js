@@ -15,7 +15,7 @@ window.submitDeletionForm = function (event) {
 
     const form = event.target.closest('form');
     if (form) {
-        if (confirm(I18n.trans('phrase.are-you-sure-delete'))) {
+        if (confirm(I18n.trans('phrase.are-you-sure'))) {
             form.submit();
         }
     } else {

@@ -54,6 +54,7 @@ return [
     'item-unpublished' => 'This :item is unpublished and only visible to administrators',
     'oh-no' => 'Oh no!',
     'item-name-deleted' => ':Item ":name" deleted',
+    'are-you-sure' => 'Are you sure?',
     'are-you-sure-delete' => 'Are you sure you want to delete this?',
     'item-created-successfully' => ':Item created successfully',
     'item-not-found' => ':item not found',
