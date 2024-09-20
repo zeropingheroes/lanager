@@ -25,4 +25,4 @@
         @include('components.form.select', ['name' => 'parent_id', 'item' => $navigationLink, 'items' => $navigationLinks, 'labelField' => 'title', 'blank' => true])
     </div>
 </div>
-<button type="submit" class="btn btn-primary">@lang('title.submit')</button>
+@include('components.form.inputs.submit')
