@@ -12,8 +12,8 @@
         <h1>
             {{ $user->username }}
         </h1>
-        @if($user->lans)
-            @foreach($user->lans()->orderBy('start', 'desc')->get() as $lan)
+        @if($lansAttended->isNotEmpty())
+            @foreach($lansAttended->where('published') as $lan)
                 <a href="{{ route('lans.show', $lan->id) }}"><span class="badge text-bg-primary">{{ $lan->name }}</span></a>
             @endforeach
         @endif
