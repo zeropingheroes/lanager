@@ -1,26 +1,17 @@
 {{csrf_field()}}
-<div class="form-group mb-3">
-    <label for="name">@lang('title.name')</label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="@lang('title.name')"
-           value="{{ old('name', $achievement->name) }}">
-</div>
-<div class="form-group mb-3">
-    <label for="image">@lang('title.achievement-image')</label>
-    <div class="input-group">
+
+@include('components.form.inputs.name', ['value' => $achievement->name])
+
+<div class="row mb-3">
+    <label for="image"
+           class="col-sm-2 col-form-label">
+        @lang('title.achievement-image')
+    </label>
+    <div class="col-sm-10">
         <input type="file" class="form-control" id="image" name="image">
-        </div>
     <small>@lang('phrase.achievement-image-help')</small>
+    </div>
 </div>
-<div class="form-group mb-3">
-    <label for="description">@lang('title.description')</label>
-    <textarea class="form-control" id="description" name="description" rows="10"
-              placeholder="@lang('phrase.markdown-help')"
-              aria-describedby="descriptionHelp">{{ old('description', $achievement->description) }}</textarea>
-    <small id="descriptionHelp" class="form-text text-muted">
-        <a href="@lang('phrase.markdown-formatting-help-link-url')"
-           target="_blank">@lang('phrase.markdown-formatting-help-link')</a>
-        <br>
-        <a href="{{ route('images.index') }}" target="_blank">@lang('title.upload-images')</a>
-    </small>
-</div>
-<button type="submit" class="btn btn-primary">@lang('title.submit')</button>
+
+@include('components.form.inputs.description', ['value' => $achievement->description])
+@include('components.form.inputs.submit')
