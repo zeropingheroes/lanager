@@ -32,9 +32,18 @@
                     </td>
                     <td>
                         @can('delete', $roleAssignment)
-                            @component('components.actions-dropdown')
-                                @include('components.actions-dropdown.delete', ['item' => $roleAssignment])
-                            @endcomponent
+                            <form action="{{ route( 'role-assignments.destroy', $roleAssignment->id) }}"
+                                  method="POST"
+                                  class="d-inline">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <button type="submit"
+                                        class="btn btn-sm btn-danger"
+                                        onclick="submitDeletionForm(event)"
+                                        title="@lang('title.delete')">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </form>
                         @endcan
                     </td>
                 </tr>
