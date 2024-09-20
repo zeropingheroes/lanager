@@ -95,7 +95,7 @@ return [
 
     // Guides
     'markdown-formatting-help-link' => 'Markdown formatting help',
-    'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Example',
+    'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Examples',
     'markdown-help' => 'Tip: use relative links, e.g. [Install Guide](/guides/3), to easily link to other pages',
     'viewing-guide-from-past-lan' => 'This guide is from a LAN that has ended, so information might be irrelevant and/or incorrect',
 
