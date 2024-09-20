@@ -42,10 +42,10 @@
                 const form = document.getElementById('lan_game_' + lan_game_id + '_form')
                 if (checkbox.checked) {
                     checkbox.checked = false
-                    row.classList.remove("bg-secondary")
+                    row.classList.remove("table-dark")
                 } else {
                     checkbox.checked = true
-                    row.classList.add("bg-secondary")
+                    row.classList.add("table-dark")
                 }
                 form.submit()
             }
@@ -63,7 +63,7 @@
                         $route = route('lans.lan-games.votes.store', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]);
                     }
                 @endphp
-                <tr class="{{ $voted ? 'bg-secondary' : '' }}" id="lan_game_{{ $lanGame->id }}_row">
+                <tr class="lan-game-row {{ $voted ? 'table-dark' : '' }}" id="lan_game_{{ $lanGame->id }}_row">
                     <td onclick="toggleVote({{ $lanGame->id }})">
                         <form id="lan_game_{{ $lanGame->id }}_form" method="POST" action="{{ $route }}">
                             {{ csrf_field() }}
@@ -92,9 +92,7 @@
                         <div id="lan_game_{{ $lanGame->id }}_actions">
                             @can('update', $lanGame)
                                 <a href="{{ route('lans.lan-games.edit', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]) }}"
-                                   title="Edit">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                   title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
                             @endcan
                             @can('delete', $lanGame)
                                 <form
@@ -103,9 +101,8 @@
                                     class="d-inline ml-1">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
-                                    <a href="#" onclick="submitDeletionForm(event);" title="Delete">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </a>
+                                    <a href="#" onclick="submitDeletionForm(event);" title="Delete"><i
+                                            class="fa-solid fa-trash-can"></i></a>
                                 </form>
                             @endcan
                         </div>
