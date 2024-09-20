@@ -51,7 +51,7 @@
     >
         @lang('title.start')
     </label>
-    <div class="col-sm-10">
+    <div class="col-sm-4">
         <input type="text"
                class="form-control datetimepicker-input"
                id="start"
@@ -62,14 +62,12 @@
                data-target="#start"
         >
     </div>
-</div>
-<div class="row mb-3">
     <label for="end"
            class="col-sm-2 col-form-label"
     >
         @lang('title.end')
     </label>
-    <div class="col-sm-10">
+    <div class="col-sm-4">
         <input type="text"
                class="form-control datetimepicker-input"
                id="end"
@@ -81,14 +79,13 @@
         >
     </div>
 </div>
-
 <div class="row mb-3">
     <label for="signups_open"
            class="col-sm-2 col-form-label"
     >
         @lang('title.signups-open')
     </label>
-    <div class="col-sm-10">
+    <div class="col-sm-4">
         <input type="text"
                class="form-control datetimepicker-input"
                id="signups_open"
@@ -99,14 +96,12 @@
                data-target="#signups_open"
         >
     </div>
-</div>
-<div class="row mb-3">
     <label for="signups_close"
            class="col-sm-2 col-form-label"
     >
         @lang('title.signups-close')
     </label>
-    <div class="col-sm-10">
+    <div class="col-sm-4">
         <input type="text"
                class="form-control datetimepicker-input"
                id="signups_close"
@@ -137,7 +132,10 @@
         </div>
     </div>
 </div>
-<button type="submit" class="btn btn-primary">@lang('title.submit')</button>
+<div class="row mb-3">
+    <div class="offset-sm-2 d-grid col-sm-10 gap-2">
+        <button type="submit" class="btn btn-primary">@lang('title.submit')</button>
+    </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
