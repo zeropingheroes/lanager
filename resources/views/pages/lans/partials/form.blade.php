@@ -1,3 +1,4 @@
+@vite('resources/js/pages/lan-form.js')
 @include('components.form.inputs.name', ['value' => $lan->name])
 @include('components.form.inputs.start-end', ['start' => $lan->start, 'end' => $lan->end])
 <div class="row mb-3">
@@ -39,52 +40,3 @@
 </div>
 @include('components.form.inputs.published', ['value' => $lan->published])
 @include('components.form.inputs.submit')
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const startInput = document.getElementById('start');
-        const start = new TempusDominus(startInput, {
-            localization: {
-                format: 'yyyy-MM-dd HH:mm',
-                dayViewHeaderFormat: {month: 'long', year: 'numeric'},
-            },
-            display: {
-                sideBySide: true,
-                theme: "dark",
-                buttons: {
-                    today: true,
-                    clear: true,
-                },
-            },
-        });
-        if (startInput.value) {
-            start.dates.setValue(start.dates.parseInput(startInput.value));
-        }
-
-        const endInput = document.getElementById('end');
-        const end = new TempusDominus(endInput, {
-            localization: {
-                format: 'yyyy-MM-dd HH:mm',
-                dayViewHeaderFormat: {month: 'long', year: 'numeric'},
-            },
-            display: {
-                sideBySide: true,
-                theme: "dark",
-                buttons: {
-                    today: true,
-                    clear: true,
-                },
-            },
-        });
-        if (endInput.value) {
-            end.dates.setValue(end.dates.parseInput(endInput.value));
-        }
-
-        startInput.addEventListener(Namespace.events.change, (e) => {
-            end.updateOptions({
-                restrictions: {
-                    minDate: e.detail.date,
-                },
-            });
-        });
-    });
-</script>
