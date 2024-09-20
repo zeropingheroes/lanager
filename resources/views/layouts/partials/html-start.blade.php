@@ -11,7 +11,7 @@
         <meta name="api-user-id" content="{{ Auth::user()->id }}">
     @endif
 
-    <title>@yield('title') | {{ config('app.name') }}</title>
+    <title>@yield('title') &ndash; {{ config('app.name') }}</title>
 
     @vite([
         'resources/js/app.js',
