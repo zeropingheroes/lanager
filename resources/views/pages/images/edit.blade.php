@@ -11,12 +11,22 @@
 
 @section('content')
     @include('components.form.edit', ['route' => route('images.update', $image['filename'])])
-    <div class="form-group mb-3">
-        <label for="filename">@lang('title.filename')</label>
-        <input name="filename" type="text" class="form-control" placeholder="@lang('title.filename')" aria-describedby="extension"
-               value="{{ old('filename', $image['filename']) }}">
+    <div class="row mb-3">
+        <label for="filename"
+               class="col-sm-2 col-form-label"
+        >
+            @lang('title.filename')
+        </label>
+        <div class="col-sm-10">
+            <input name="filename"
+                   type="text"
+                   class="form-control"
+                   placeholder="@lang('title.filename')"
+                   aria-describedby="extension"
+                   value="{{ old('filename', $image['filename']) }}"
+            >
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">@lang('title.submit')</button>
+    @include('components.form.inputs.submit')
     @include('components.form.close')
-
 @endsection
