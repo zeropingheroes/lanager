@@ -80,6 +80,7 @@ more enjoyable for attendees and organisers alike.
     4. Set `STEAM_API_KEY` to your [Steam API Key](http://steamcommunity.com/dev/apikey)
    5. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator)
    6. Set `DB_ROOT_PASSWORD` to a different randomly generated password
+   7. If you will run LANager behind a reverse proxy, set `TRUSTED_PROXIES` to the IP ranges used by Docker, typically `172.16.0.0/12,192.168.0.0/16`
 
 5. Bring up the application:
 
