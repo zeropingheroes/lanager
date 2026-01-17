@@ -78,8 +78,9 @@ more enjoyable for attendees and organisers alike.
     3. Set `APP_TIMEZONE` to your
        location's [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
     4. Set `STEAM_API_KEY` to your [Steam API Key](http://steamcommunity.com/dev/apikey)
-   5. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator)
+   5. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator) without special characters
    6. Set `DB_ROOT_PASSWORD` to a different randomly generated password
+   7. If you will run LANager behind a reverse proxy, set `TRUSTED_PROXIES` to the IP ranges used by Docker, typically `172.16.0.0/12,192.168.0.0/16`
 
 5. Bring up the application:
 
@@ -332,9 +333,5 @@ Run `docker exec -it lanager php artisan dusk` to run LANager's browser test sui
     * [Fork the project](https://github.com/zeropingheroes/lanager/fork) and add the features you want to see.
     * Work on new features / bug fixes in the [issue tracker](https://github.com/zeropingheroes/lanager/issues).
     * If you're really hardcore, request commit access.
-
-If you want to support the project in a non-technical way, we'd love it if you donated to us:
-
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=zeropingheroes&url=https%3A%2F%2Fgithub.com%2Fzeropingheroes%2Flanager)
 
 Enjoy using the LANager!
