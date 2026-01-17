@@ -265,16 +265,36 @@ Run `./backup-restore.sh <file>` to restore a backup.
     envsubst < compose.override.yaml.example > compose.override.yaml
     ```
 
-10. Start the containers
+10. Set the correct permissions for the `storage` and `bootstrap/cache` directories:
+
+    ```bash
+    chmod -R 777 "$PATH_TO_LANAGER/storage" "$PATH_TO_LANAGER/bootstrap/cache"
+    ```
+
+11. Create a symbolic link from the app storage directory into the public directory:
+
+    ```bash
+    ln -s "$PATH_TO_LANAGER/storage/app/public" "$PATH_TO_LANAGER/public/storage"
+    ```
+
+12. Use `nodejs` to build the static assets:
+
+    ```bash
+    docker run -it --rm --name npm-build -v "$PWD":/usr/src/app -w /usr/src/app node:22 npm clean-install
+    docker run -it --rm --name npm-build -v "$PWD":/usr/src/app -w /usr/src/app node:22 npm cache clean --force
+    docker run -it --rm --name npm-build -v "$PWD":/usr/src/app -w /usr/src/app node:22 npm run build
+    ```
+
+13. Start the containers
 
      ```bash
      docker-compose up --detach
      ```
 
-11. After a minute or so, visit `http://localhost`
+14. After a minute or so, visit `http://localhost:8080`
 
 The container will run the code from your host computer, rather than the static copy of the code in the container's
-image, so any changes you make to the files in the project directory (except for the `storage/` directory)
+image. Any changes you make to the files in the project directory (except for the `storage/` directory)
 will be seen by the running containers.
 
 ### Start and stop the development environment
