@@ -4,19 +4,19 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2befe9b96adf72ab967bf0a02a0305c",
+    "content-hash": "bf6f51ea89348965b917bc78f0e35f1f",
     "packages": [
         {
             "name": "bandwidth-throttle/token-bucket",
             "version": "dev-patch-1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/uezjk/token-bucket.git",
+                "url": "https://github.com/ifmein/token-bucket.git",
                 "reference": "831b1608359b3506a3b57ef0fdbde360bf6c4548"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/uezjk/token-bucket/zipball/831b1608359b3506a3b57ef0fdbde360bf6c4548",
+                "url": "https://api.github.com/repos/ifmein/token-bucket/zipball/831b1608359b3506a3b57ef0fdbde360bf6c4548",
                 "reference": "831b1608359b3506a3b57ef0fdbde360bf6c4548",
                 "shasum": ""
             },
@@ -2575,12 +2575,12 @@
             "version": "3.7.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/briannesbitt/Carbon.git",
+                "url": "https://github.com/CarbonPHP/carbon.git",
                 "reference": "cb4374784c87d0a0294e8513a52eb63c0aff3139"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/cb4374784c87d0a0294e8513a52eb63c0aff3139",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/cb4374784c87d0a0294e8513a52eb63c0aff3139",
                 "reference": "cb4374784c87d0a0294e8513a52eb63c0aff3139",
                 "shasum": ""
             },
@@ -6611,12 +6611,12 @@
             "version": "v3.13.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/barryvdh/laravel-debugbar.git",
+                "url": "https://github.com/fruitcake/laravel-debugbar.git",
                 "reference": "92d86be45ee54edff735e46856f64f14b6a8bb07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/92d86be45ee54edff735e46856f64f14b6a8bb07",
+                "url": "https://api.github.com/repos/fruitcake/laravel-debugbar/zipball/92d86be45ee54edff735e46856f64f14b6a8bb07",
                 "reference": "92d86be45ee54edff735e46856f64f14b6a8bb07",
                 "shasum": ""
             },
@@ -9912,23 +9912,23 @@
     "platform": {
         "php": "^8.3"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.3.1",
-        "ext-bcmath": "8.3.8",
-        "ext-curl": "8.3.8",
-        "ext-dom": "8.3.8",
-        "ext-fileinfo": "8.3.8",
-        "ext-json": "8.3.8",
-        "ext-libxml": "8.3.8",
-        "ext-mbstring": "8.3.8",
-        "ext-openssl": "8.3.8",
-        "ext-pdo": "8.3.8",
-        "ext-xml": "8.3.8",
-        "ext-simplexml": "8.3.8",
-        "ext-xmlwriter": "8.3.8",
-        "ext-tokenizer": "8.3.8",
-        "ext-zip": "8.3.8"
+        "ext-bcmath": "8.3.15",
+        "ext-curl": "8.3.15",
+        "ext-dom": "8.3.15",
+        "ext-fileinfo": "8.3.15",
+        "ext-json": "8.3.15",
+        "ext-libxml": "8.3.15",
+        "ext-mbstring": "8.3.15",
+        "ext-openssl": "8.3.15",
+        "ext-pdo": "8.3.15",
+        "ext-xml": "8.3.15",
+        "ext-simplexml": "8.3.15",
+        "ext-xmlwriter": "8.3.15",
+        "ext-tokenizer": "8.3.15",
+        "ext-zip": "8.3.15"
     },
     "plugin-api-version": "2.6.0"
 }
