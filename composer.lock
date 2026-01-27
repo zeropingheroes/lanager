@@ -9930,5 +9930,5 @@
         "ext-tokenizer": "8.3.15",
         "ext-zip": "8.3.15"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
