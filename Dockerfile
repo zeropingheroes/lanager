@@ -35,7 +35,8 @@ RUN apk --no-cache add php83-zip=8.3.15-r0 \
                        php83-pdo=8.3.15-r0 \
                        php83-pdo_mysql=8.3.15-r0 \
                        php83-simplexml=8.3.15-r0 \
-                       php83-bcmath=8.3.15-r0
+                       php83-bcmath=8.3.15-r0 \
+                       php83-gmp=8.3.15-r0
 
 # Copy in app code and Composer packages from composer2 build stage
 COPY --chown=nginx --from=composer2 /app /var/www/lanager

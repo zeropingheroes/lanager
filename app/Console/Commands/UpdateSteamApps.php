@@ -2,9 +2,11 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
+use Astrotomic\SteamSdk\SteamConnector;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Syntax\SteamApi\Facades\SteamApi;
+use Illuminate\Support\Str;
 use Zeropingheroes\Lanager\Models\SteamApp;
 
 class UpdateSteamApps extends Command
@@ -28,7 +30,17 @@ class UpdateSteamApps extends Command
     public function handle(): int
     {
         $this->info(trans('phrase.requesting-list-of-all-apps-from-steam-api'));
-        $apps = SteamApi::app()->GetAppList();
+
+        $steamConnector = app(SteamConnector::class);
+
+        $maxResults = 50000;
+        $apps = new Collection();
+        $appList = $steamConnector->GetAppList($maxResults, null, true, false, true);
+
+        while($appList->have_more_results) {
+            $appList = $steamConnector->GetAppList($maxResults, $appList->last_appid);
+            $apps = $apps->concat($appList->apps);
+        }
 
         if (!SteamApp::count()) {
             $this->import($apps);
@@ -49,9 +61,11 @@ class UpdateSteamApps extends Command
 
         $this->info(trans('phrase.database-empty-batch-import'));
 
+        $databaseApp = [];
+
         // Create an array ready for batch inserting
-        foreach ($apps as $key => $app) {
-            $apps[$key] = ['id' => $app->appid, 'name' => $app->name];
+        foreach ($apps as $app) {
+            $databaseApp[] = ['id' => $app->appid, 'name' => $app->name];
         }
 
         $message = trans('phrase.importing-x-steam-apps', ['x' => count($apps)]);
@@ -59,7 +73,7 @@ class UpdateSteamApps extends Command
         Log::info($message);
 
         // Chunk the apps into blocks of 500
-        $chunkedApps = array_chunk($apps, 500);
+        $chunkedApps = array_chunk($databaseApp, 500);
 
         $progress = $this->output->createProgressBar(count($chunkedApps));
         $progress->setFormat('%current%/%max% %bar% %percent%% - %estimated%');

@@ -16,7 +16,7 @@ class LanGameFactory extends Factory
         $lan = Lan::all()->random();
         return [
             'lan_id' => $lan->id,
-            'game_name' => SteamApp::where('type', '=', 'game')->inRandomOrder()->first()->name,
+            'game_name' => SteamApp::inRandomOrder()->first()->name,
             'created_by' => $lan->users()->inRandomOrder()->first()->id,
         ];
     }

@@ -10,8 +10,7 @@ class SteamApp extends Model
 {
     protected $fillable = [
         'id',
-        'name',
-        'type',
+        'name'
     ];
 
     public $timestamps = false;

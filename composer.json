@@ -30,7 +30,8 @@
             "ext-simplexml": "8.3.15",
             "ext-xmlwriter": "8.3.15",
             "ext-tokenizer": "8.3.15",
-            "ext-zip": "8.3.15"
+            "ext-zip": "8.3.15",
+            "ext-gmp": "8.3.15"
         },
         "optimize-autoloader": true,
         "preferred-install": "dist",
@@ -44,7 +45,6 @@
     },
     "require": {
         "php": "^8.3",
-        "bandwidth-throttle/token-bucket": "dev-patch-1",
         "diglactic/laravel-breadcrumbs": "^9.0",
         "graham-campbell/markdown": "^15.2",
         "guzzlehttp/guzzle": "^7",
@@ -53,7 +53,7 @@
         "laravel/socialite": "^5",
         "league/csv": "^9.9",
         "socialiteproviders/steam": "^4.2",
-        "syntax/steam-api": "^3.0"
+        "astrotomic/steam-sdk": "dev-main"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",
@@ -70,7 +70,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/uezjk/token-bucket"
+            "url": "https://github.com/zeropingheroes/steam-sdk"
         }
     ],
     "extra": {

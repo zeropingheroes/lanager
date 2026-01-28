@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Schedule;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamApps;
-use Zeropingheroes\Lanager\Console\Commands\UpdateSteamAppsMetadata;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUserApps;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUsers;
 
@@ -32,10 +31,6 @@ Schedule::command(UpdateSteamUsers::class)
 Schedule::command(UpdateSteamUserApps::class)
     ->everyThirtyMinutes();
 
-// 1 Steam API call total
+// ~3 Steam API calls total
 Schedule::command(UpdateSteamApps::class)
     ->hourly();
-
-// Many rate-limited Steam API calls
-Schedule::command(UpdateSteamAppsMetadata::class)
-    ->dailyAt('07:00');
