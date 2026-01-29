@@ -108,7 +108,7 @@ class UpdateSteamUserAppsService
                     // which does not return apps that Valve have delisted from Steam.
                     // However, Valve's IPlayerService/GetOwnedGames API does return delisted apps
                     // owned by users, so when we encounter them, add them to the database.
-                    if (! SteamApp::find($ownedGame->appid)) {
+                    if (!SteamApp::find($ownedGame->appid)) {
                         SteamApp::create(['id' => $ownedGame->appid, 'name' => $ownedGame->name]);
                     }
                     $steamAccount->user->steamApps()
@@ -125,7 +125,7 @@ class UpdateSteamUserAppsService
                 );
 
                 foreach ($recentlyPlayedGames as $recentlyPlayedGame) {
-                    if (! SteamApp::find($recentlyPlayedGame->appid)) {
+                    if (!SteamApp::find($recentlyPlayedGame->appid)) {
                         SteamApp::create(['id' => $recentlyPlayedGame->appid, 'name' => $recentlyPlayedGame->name]);
                     }
                     $steamAccount->user->steamApps()
