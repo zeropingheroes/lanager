@@ -51,7 +51,6 @@
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5",
-        "league/csv": "^9.9",
         "socialiteproviders/steam": "^4.2",
         "astrotomic/steam-sdk": "dev-main"
     },
