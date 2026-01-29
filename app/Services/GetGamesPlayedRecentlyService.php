@@ -29,6 +29,7 @@ class GetGamesPlayedRecentlyService
         $steamUserApps = SteamUserApp::with('user', 'app', 'user.steamMetadata', 'user.accounts')
             ->where('playtime_two_weeks', '>', 0)
             ->whereIn('user_id', $users->pluck('id'))
+            ->orderBy('playtime_two_weeks', 'desc')
             ->get();
 
         if (empty($steamUserApps)) {

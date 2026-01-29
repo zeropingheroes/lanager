@@ -29,6 +29,7 @@ class GetGamesOwnedService
         $steamUserApps = SteamUserApp::with('user', 'app', 'user.steamMetadata', 'user.accounts')
             ->where('playtime_forever', '>', 60)
             ->whereIn('user_id', $users->pluck('id'))
+            ->orderBy('playtime_forever', 'desc')
             ->get();
 
         if (empty($steamUserApps)) {
