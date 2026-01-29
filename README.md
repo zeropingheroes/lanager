@@ -318,7 +318,7 @@ Follow the setup steps above to get a fresh development environment.
 To automatically check for and fix problems with your code before you commit:
 
 1. Install [pre-commit](https://pre-commit.com/)
-2. Install [PHP Codesniffer & Code beautifier](https://github.com/squizlabs/PHP_CodeSniffer)
+2. Install [PHP Codesniffer & Code beautifier](https://github.com/PHPCSStandards/PHP_CodeSniffer/)
 3. From the `lanager/` directory, run `pre-commit install`
 
 To check your code, run `pre-commit run --all-files` or attempt to run `git commit`
