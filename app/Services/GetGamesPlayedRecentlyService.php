@@ -9,9 +9,9 @@ use Zeropingheroes\Lanager\Models\User;
 class GetGamesPlayedRecentlyService
 {
     /**
-     * Get the top 10 games that users have played in the last 2 weeks.
+     * Get the top games that users have played in the last 2 weeks.
      */
-    public function get(): array
+    public function get(int $count = 10): array
     {
         // Get the LAN happening now, or the most recently ended LAN
         $lan = Lan::presentAndPast()
@@ -54,16 +54,6 @@ class GetGamesPlayedRecentlyService
             }
         );
 
-        // Remove any recently played games that have only been played by one user
-        $usage = array_filter(
-            $usage,
-            function ($game) {
-                return count($game['users']) > 1;
-            }
-        );
-
-        $usage = array_slice($usage, 0, 10);
-
-        return $usage;
+        return array_slice($usage, 0, $count);
     }
 }
