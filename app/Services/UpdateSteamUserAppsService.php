@@ -2,11 +2,12 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
+use Astrotomic\SteamSdk\SteamConnector;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
-use Syntax\SteamApi\Facades\SteamApi;
 use Throwable;
+use Zeropingheroes\Lanager\Models\SteamApp;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class UpdateSteamUserAppsService
@@ -81,12 +82,18 @@ class UpdateSteamUserAppsService
         $steamAccounts = UserOAuthAccount::where('provider', 'steam')
             ->whereIn('user_id', $this->users->pluck('id'))->get();
 
+        $steamConnector = app(SteamConnector::class);
+
         // Update games for each user in turn
         foreach ($steamAccounts as $steamAccount) {
             try {
-                $apps = SteamApi::player($steamAccount->provider_id)->GetOwnedGames(includePlayedFreeGames: true);
+                $ownedGames = $steamConnector->GetOwnedGames(
+                    steamid:                   $steamAccount->provider_id,
+                    include_played_free_games: true,
+                    include_appinfo: true
+                );
 
-                $appsVisible = (count($apps) != 0);
+                $appsVisible = (count($ownedGames) != 0);
 
                 $steamAccount->user->steamMetadata()->updateOrCreate(
                     [],
@@ -96,13 +103,36 @@ class UpdateSteamUserAppsService
                     ]
                 );
 
-                foreach ($apps as $app) {
+                foreach ($ownedGames as $ownedGame) {
+                    // LANager populates the apps table from Valve's IStoreService/GetAppList API
+                    // which does not return apps that Valve have delisted from Steam.
+                    // However, Valve's IPlayerService/GetOwnedGames API does return delisted apps
+                    // owned by users, so when we encounter them, add them to the database.
+                    if (! SteamApp::find($ownedGame->appid)) {
+                        SteamApp::create(['id' => $ownedGame->appid, 'name' => $ownedGame->name]);
+                    }
                     $steamAccount->user->steamApps()
                         ->updateOrCreate(
-                            ['steam_app_id' => $app->appId],
+                            ['steam_app_id' => $ownedGame->appid],
                             [
-                                'playtime_two_weeks' => $app->playtimeTwoWeeks,
-                                'playtime_forever' => $app->playtimeForever,
+                                'playtime_forever' => $ownedGame->playtime_forever,
+                            ]
+                        );
+                }
+
+                $recentlyPlayedGames = $steamConnector->GetRecentlyPlayedGames(
+                    steamid: $steamAccount->provider_id,
+                );
+
+                foreach ($recentlyPlayedGames as $recentlyPlayedGame) {
+                    if (! SteamApp::find($recentlyPlayedGame->appid)) {
+                        SteamApp::create(['id' => $recentlyPlayedGame->appid, 'name' => $recentlyPlayedGame->name]);
+                    }
+                    $steamAccount->user->steamApps()
+                        ->updateOrCreate(
+                            ['steam_app_id' => $recentlyPlayedGame->appid],
+                            [
+                                'playtime_two_weeks' => $recentlyPlayedGame->playtime_2weeks,
                             ]
                         );
                 }

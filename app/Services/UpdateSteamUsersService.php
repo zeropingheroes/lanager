@@ -2,11 +2,12 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
+use Astrotomic\SteamSdk\SteamConnector;
+use Astrotomic\SteamSdk\Enums\CommunityVisibilityState;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
-use Syntax\SteamApi\Facades\SteamApi as SteamApi;
 use Throwable;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\SteamUserAppSession;
@@ -100,7 +101,9 @@ class UpdateSteamUsersService
     {
         $this->endStaleAppSessions();
 
-        $steamUsers = SteamApi::user($this->steamIds)->GetPlayerSummaries();
+        $steamConnector = app(SteamConnector::class);
+
+        $steamUsers = $steamConnector->GetPlayerSummaries($this->steamIds);
 
         // Get the LAN happening now, or the most recently ended LAN
         $lan = Lan::presentAndPast()
@@ -115,15 +118,15 @@ class UpdateSteamUsersService
         foreach ($steamUsers as $steamUser) {
             try {
                 if ($this->updateUser($steamUser)) {
-                    $this->updated[$steamUser->steamId] = $steamUser->personaName;
+                    $this->updated[$steamUser->steamid] = $steamUser->personaname;
                 }
             } catch (Exception $e) {
-                $this->failed[$steamUser->steamId] = $steamUser->personaName;
+                $this->failed[$steamUser->steamid] = $steamUser->personaname;
                 $this->errors->add(
-                    $steamUser->steamId,
+                    $steamUser->steamid,
                     trans(
                         'phrase.unable-to-update-data-for-user-x',
-                        ['x' => $steamUser->personaName, 'error' => $e->getMessage()]
+                        ['x' => $steamUser->personaname, 'error' => $e->getMessage()]
                     )
                 );
             }
@@ -137,12 +140,12 @@ class UpdateSteamUsersService
     protected function updateUser($steamUser): bool
     {
         // Check if the Steam account already exists in the database
-        $userOAuthAccount = UserOAuthAccount::where('provider_id', $steamUser->steamId)->first();
+        $userOAuthAccount = UserOAuthAccount::where('provider_id', $steamUser->steamid)->first();
 
         // If this Steam account is not already in the database
         if (!$userOAuthAccount) {
             // Create a new LANager user account
-            $user = User::create(['username' => $steamUser->personaName]);
+            $user = User::create(['username' => $steamUser->personaname]);
         } else {
             // Otherwise just get the associated user
             $user = $userOAuthAccount->user;
@@ -153,11 +156,11 @@ class UpdateSteamUsersService
             ->updateOrCreate(
                 [
                     'provider' => 'steam',
-                    'provider_id' => $steamUser->steamId,
+                    'provider_id' => $steamUser->steamid,
                 ],
                 [
-                    'username' => $steamUser->personaName,
-                    'avatar' => $steamUser->avatarMediumUrl,
+                    'username' => $steamUser->personaname,
+                    'avatar' => $steamUser->avatarmedium,
                 ]
             );
 
@@ -165,8 +168,8 @@ class UpdateSteamUsersService
         $user->steamMetadata()->updateOrCreate(
             [],
             [
-                'steam_user_status_code_id' => $steamUser->personaStateId,
-                'profile_visible' => ($steamUser->communityVisibilityState == 3),
+                'steam_user_status_code_id' => $steamUser->personastate,
+                'profile_visible' => ($steamUser->communityvisibilitystate == CommunityVisibilityState::Public),
                 'profile_updated_at' => now(),
             ]
         );
@@ -182,13 +185,13 @@ class UpdateSteamUsersService
         }
 
         // If the user is running an app/game
-        if ($steamUser->gameDetails) {
+        if (isset($steamUser->gameid)) {
             // Get existing ongoing session for the game
             // or if none exists instantiate a new
             $session = $user->steamAppSessions()->firstOrNew(
                 [
                     'end' => null,
-                    'steam_app_id' => $steamUser->gameDetails->gameId,
+                    'steam_app_id' => $steamUser->gameid,
                 ]
             );
 

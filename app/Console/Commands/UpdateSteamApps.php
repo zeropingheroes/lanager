@@ -6,7 +6,6 @@ use Astrotomic\SteamSdk\SteamConnector;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Zeropingheroes\Lanager\Models\SteamApp;
 
 class UpdateSteamApps extends Command
@@ -34,10 +33,10 @@ class UpdateSteamApps extends Command
         $steamConnector = app(SteamConnector::class);
 
         $maxResults = 50000;
-        $apps = new Collection();
         $appList = $steamConnector->GetAppList($maxResults, null, true, false, true);
+        $apps = collect($appList->apps);
 
-        while($appList->have_more_results) {
+        while ($appList->have_more_results) {
             $appList = $steamConnector->GetAppList($maxResults, $appList->last_appid);
             $apps = $apps->concat($appList->apps);
         }
