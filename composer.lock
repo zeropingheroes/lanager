@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zeropingheroes/steam-sdk.git",
-                "reference": "817bfc3c62c0ceeec60913ae96e006413a16a5e9"
+                "reference": "72bd72e38214923079c7ae5cf9a6c2209a8da598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zeropingheroes/steam-sdk/zipball/817bfc3c62c0ceeec60913ae96e006413a16a5e9",
-                "reference": "817bfc3c62c0ceeec60913ae96e006413a16a5e9",
+                "url": "https://api.github.com/repos/zeropingheroes/steam-sdk/zipball/72bd72e38214923079c7ae5cf9a6c2209a8da598",
+                "reference": "72bd72e38214923079c7ae5cf9a6c2209a8da598",
                 "shasum": ""
             },
             "require": {
@@ -112,7 +112,7 @@
                     "url": "https://forest.astrotomic.info"
                 }
             ],
-            "time": "2026-01-31T14:11:47+00:00"
+            "time": "2026-01-31T15:00:06+00:00"
         },
         {
             "name": "brick/math",
