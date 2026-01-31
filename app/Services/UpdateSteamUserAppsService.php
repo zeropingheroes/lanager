@@ -89,8 +89,8 @@ class UpdateSteamUserAppsService
             try {
                 $ownedGames = $steamConnector->GetOwnedGames(
                     steamid:                   $steamAccount->provider_id,
-                    include_played_free_games: true,
-                    include_appinfo: true
+                    include_appinfo:           true,
+                    include_played_free_games: true
                 );
 
                 $appsVisible = (count($ownedGames) != 0);
