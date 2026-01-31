@@ -3,8 +3,8 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Astrotomic\SteamSdk\SteamConnector;
+use Astrotomic\SteamSdk\Requests\GetAppListRequest;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\Models\SteamApp;
 
@@ -32,19 +32,14 @@ class UpdateSteamApps extends Command
 
         $steamConnector = app(SteamConnector::class);
 
-        $maxResults = 50000;
-        $appList = $steamConnector->GetAppList($maxResults, null, true, false, true);
-        $apps = collect($appList->apps);
-
-        while ($appList->have_more_results) {
-            $appList = $steamConnector->GetAppList($maxResults, $appList->last_appid);
-            $apps = $apps->concat($appList->apps);
-        }
+        $request = new GetAppListRequest();
+        $appPaginator = $request->paginate($steamConnector);
+        $appPaginator->setPerPageLimit(50000);
 
         if (!SteamApp::count()) {
-            $this->import($apps);
+            $this->import($appPaginator);
         } else {
-            $this->update($apps);
+            $this->update($appPaginator);
         }
 
         return 0;
@@ -53,26 +48,32 @@ class UpdateSteamApps extends Command
     /**
      * Import the apps
      */
-    private function import($apps): void
+    private function import($appPaginator): void
     {
         // Temporarily increase memory limit
         ini_set('memory_limit', '256M');
 
         $this->info(trans('phrase.database-empty-batch-import'));
 
-        $databaseApp = [];
+        $databaseApps = [];
 
-        // Create an array ready for batch inserting
-        foreach ($apps as $app) {
-            $databaseApp[] = ['id' => $app->appid, 'name' => $app->name];
+        foreach ($appPaginator as $response) {
+            $apps = array_map(function ($app) {
+                return array(
+                    'id' => $app['appid'],
+                    'name' => $app['name'],
+                );
+            }, $response->json('response.apps'));
+
+            $databaseApps = array_merge($apps, $databaseApps);
         }
 
-        $message = trans('phrase.importing-x-steam-apps', ['x' => count($apps)]);
+        $message = trans('phrase.importing-x-steam-apps', ['x' => count($databaseApps)]);
         $this->info($message);
         Log::info($message);
 
         // Chunk the apps into blocks of 500
-        $chunkedApps = array_chunk($databaseApp, 500);
+        $chunkedApps = array_chunk($databaseApps, 500);
 
         $progress = $this->output->createProgressBar(count($chunkedApps));
         $progress->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
@@ -93,14 +94,16 @@ class UpdateSteamApps extends Command
     /**
      * Execute the console command.
      */
-    private function update($apps): void
+    private function update($appPaginator): void
     {
-        $message = trans('phrase.updating-x-steam-apps', ['x' => SteamApp::count()]);
+        $apps = $appPaginator->collect();
+
+        $message = trans('phrase.updating-x-steam-apps', ['x' => $apps->count()]);
         $this->info($message);
         Log::info($message);
 
         // Initialise counter and progress bar
-        $progress = $this->output->createProgressBar(count($apps));
+        $progress = $this->output->createProgressBar($apps->count());
         $progress->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
         $updatedCount = 0;
 
