@@ -126,7 +126,12 @@ class UpdateSteamUserAppsService
 
                 foreach ($recentlyPlayedGames as $recentlyPlayedGame) {
                     if (!SteamApp::find($recentlyPlayedGame->appid)) {
-                        SteamApp::create(['id' => $recentlyPlayedGame->appid, 'name' => $recentlyPlayedGame->name]);
+                        SteamApp::create(
+                            [
+                                'id' => $recentlyPlayedGame->appid,
+                                'name' => $recentlyPlayedGame->name ?? $recentlyPlayedGame->appid,
+                            ]
+                        );
                     }
                     $steamAccount->user->steamApps()
                         ->updateOrCreate(
