@@ -18,7 +18,6 @@ class LanFactory extends Factory
 
         return [
             'name' => $this->faker->company(),
-            'description' => $this->faker->realText(100),
             'start' => $start,
             'end' => $end,
             'published' => $this->faker->boolean(),
