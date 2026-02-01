@@ -34,13 +34,10 @@ class DeleteRoleAssignmentTest extends DuskTestCase
             // When the super admin visits the role assignments index page
             $browser->visitRoute('role-assignments.index');
 
-            // And clicks the "options" dropdown next to the user's name
+            // And clicks the "Delete" button next to the role assignment
             $browser->clickAtXPath(
-                '//a[contains(string(), "' . $user->username . '")]//..//..//button[@title="Options"]'
+                '//a[contains(string(), "' . $user->username . '")]//..//..//button[@title="Delete"]'
             );
-
-            // And clicks the "delete" link
-            $browser->clickLink('Delete');
 
             // And accepts the confirmation dialog
             $browser->acceptDialog();
