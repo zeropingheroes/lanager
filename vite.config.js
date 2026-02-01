@@ -9,8 +9,11 @@ export default defineConfig({
             input: [
                 'resources/js/app.js',
                 'resources/js/pages/active-games.js',
+                'resources/js/pages/event-form.js',
                 'resources/js/pages/events.js',
+                'resources/js/pages/lan-form.js',
                 'resources/js/pages/schedule.js',
+                'resources/js/pages/slide-form.js',
                 'resources/js/pages/slides.js',
                 'resources/css/app.scss',
             ],
