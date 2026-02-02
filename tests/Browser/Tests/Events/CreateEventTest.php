@@ -41,7 +41,9 @@ class CreateEventTest extends DuskTestCase
             $browser->type('end', '2025-06-01 21:00');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then they should be on the event show page
             $browser->assertRouteIs('lans.events.show', ['lan' => $lan, 'event' => '*']);

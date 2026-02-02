@@ -34,7 +34,9 @@ class CreateLanTest extends DuskTestCase
             $browser->type('end', '2022-09-25 18:00');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then they should be redirected to the LAN's event index page
             $browser->assertRouteIs('lans.events.index', '*');

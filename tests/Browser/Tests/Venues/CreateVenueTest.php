@@ -33,7 +33,9 @@ class CreateVenueTest extends DuskTestCase
             $browser->type('street_address', '1 Example Road, Exampleton, Exampleland');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then they should be redirected to the venue's page
             $browser->assertRouteIs('venues.show', '*');

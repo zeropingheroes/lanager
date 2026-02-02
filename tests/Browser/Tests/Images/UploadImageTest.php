@@ -23,7 +23,9 @@ class UploadImageTest extends DuskTestCase
             $browser->attach('images[]', base_path('resources/images/bg.jpg'));
 
             // And clicks the "upload" button
-            $browser->press('Upload');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('Upload');
+            });
 
             // Then the super admin should be redirected to the image index page
             $browser->assertRouteIs('images.index');

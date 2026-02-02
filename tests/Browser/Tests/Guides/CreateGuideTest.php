@@ -40,7 +40,9 @@ class CreateGuideTest extends DuskTestCase
             $browser->type('content', 'Be excellent to each other');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then the super admin should be redirected to the "show guide" page
             $browser->assertRouteIs('lans.guides.show', ['lan' => $lan, 'guide' => '*']);

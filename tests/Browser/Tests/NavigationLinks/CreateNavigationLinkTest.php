@@ -40,7 +40,9 @@ class CreateNavigationLinkTest extends DuskTestCase
                 ->type('position', '10');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then they are redirected to the "navigation links index" page
             $browser->assertRouteIs('navigation-links.index');

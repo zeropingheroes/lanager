@@ -30,7 +30,9 @@ class CreateAchievementTest extends DuskTestCase
                 ->type('description', 'Get a BSOD');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then the super admin is redirected to the "show achievement" page
             $browser->assertRouteIs('achievements.show', ['achievement' => '*']);

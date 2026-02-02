@@ -39,7 +39,9 @@ class EditVenueTest extends DuskTestCase
             $browser->type('name', 'My LAN Venue');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then they should be redirected to the venue's page
             $browser->assertRouteIs('venues.show', ['venue' => $venue->id]);

@@ -44,7 +44,9 @@ class EditAchievementTest extends DuskTestCase
                 ->type('description', 'Be the first person to arrive at the LAN');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then the super admin is redirected to the "show achievement" page
             $browser->assertRouteIs('achievements.show', ['achievement' => $achievement]);

@@ -43,8 +43,10 @@ class EditNavigationLinkTest extends DuskTestCase
                 ->type('url', '/lans/1/guides/123')
                 ->type('position', '65');
 
-            // And they submit the form
-            $browser->press('@submit');
+            // And submits the form
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then the super admin is redirected to the "navigation links index" page
             $browser->assertRouteIs('navigation-links.index');

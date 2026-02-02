@@ -51,7 +51,9 @@ class EditEventTest extends DuskTestCase
             $browser->type('name', 'My Edited Event');
 
             // And submits the "edit event" form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then they should be redirected to the event's page
             $browser->assertRouteIs('lans.events.show', ['lan' => $lan, 'event' => $event->id]);

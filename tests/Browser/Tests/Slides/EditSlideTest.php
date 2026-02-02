@@ -55,7 +55,9 @@ class EditSlideTest extends DuskTestCase
                 ->type('duration', 10);
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then the super admin should be redirected to the "show slide" page
             $browser->assertRouteIs('lans.slides.index', ['lan' => $lan]);

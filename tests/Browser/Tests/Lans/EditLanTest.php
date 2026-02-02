@@ -39,7 +39,9 @@ class EditLanTest extends DuskTestCase
             $browser->type('name', 'My Great LAN');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('@submit');
+            });
 
             // Then they should be redirected to the LAN's event list page
             $browser->assertRouteIs('lans.events.index', ['lan' => $lan->id]);

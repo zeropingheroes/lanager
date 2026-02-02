@@ -34,10 +34,12 @@ class EditImageTest extends DuskTestCase
             $browser->waitForRoute('images.edit', ['image' => 'bg.jpg']);
 
             // And types in a new filename for the image
-            $browser->type('filename', 'background.jpg');
+            $browser->type('filename', rand(1, 1000) . '.jpg');
 
             // And clicks "submit"
-            $browser->press('Submit');
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('Submit');
+            });
 
             // Then they should be redirected to the image index page
             $browser->assertRouteIs('images.index');
