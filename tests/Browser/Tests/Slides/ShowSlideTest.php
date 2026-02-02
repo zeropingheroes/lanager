@@ -42,7 +42,7 @@ class ShowSlideTest extends DuskTestCase
             $browser->visitRoute('lans.slides.index', ['lan' => $lan]);
 
             // And they click the slide title in the table
-                $browser->clickLink($slide->name);
+            $browser->clickLink($slide->name);
 
             // Then they are taken to the show slide page
             $browser->assertRouteIs('lans.slides.show', ['lan' => $lan, 'slide' => $slide]);
