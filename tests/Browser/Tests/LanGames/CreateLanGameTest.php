@@ -43,6 +43,9 @@ class CreateLanGameTest extends DuskTestCase
             // And clicks submit
             $browser->press('Submit');
 
+            // And refreshes the page
+            $browser->refresh();
+
             // Then they should see the name of the game in the list
             $browser->assertSeeIn('table', 'PUBG');
         });
