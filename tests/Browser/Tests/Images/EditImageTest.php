@@ -34,7 +34,7 @@ class EditImageTest extends DuskTestCase
             $browser->waitForRoute('images.edit', ['image' => 'bg.jpg']);
 
             // And types in a new filename for the image
-            $browser->type('filename', rand(1, 1000) . '.jpg');
+            $browser->type('filename', 'background.jpg');
 
             // And clicks "submit"
             $browser->waitForReload(function (Browser $browser) {
