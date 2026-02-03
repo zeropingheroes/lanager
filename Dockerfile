@@ -26,17 +26,17 @@ COPY . /app/
 # Build
 RUN npm run build
 
-FROM trafex/php-nginx:3.6.0 AS base
+FROM trafex/php-nginx:3.10.0 AS base
 
 USER root
 
 # Install PHP extensions
-RUN apk --no-cache add php83-zip=8.3.15-r0 \
-                       php83-pdo=8.3.15-r0 \
-                       php83-pdo_mysql=8.3.15-r0 \
-                       php83-simplexml=8.3.15-r0 \
-                       php83-bcmath=8.3.15-r0 \
-                       php83-gmp=8.3.15-r0
+RUN apk --no-cache add php84-zip=8.4.17-r0 \
+                       php84-pdo=8.4.17-r0 \
+                       php84-pdo_mysql=8.4.17-r0 \
+                       php84-simplexml=8.4.17-r0 \
+                       php84-bcmath=8.4.17-r0 \
+                       php84-gmp=8.4.17-r0
 
 # Copy in app code and Composer packages from composer2 build stage
 COPY --chown=nginx --from=composer2 /app /var/www/lanager
@@ -58,7 +58,7 @@ FROM base AS dev
 USER root
 
 # Install xdebug
-RUN apk --no-cache add php83-pecl-xdebug=3.3.2-r0
+RUN apk --no-cache add php84-pecl-xdebug=3.5.0-r0
 
 # Switch back to non-root user
 USER nobody
