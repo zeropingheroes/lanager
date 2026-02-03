@@ -56,7 +56,7 @@ jobs:
                 run: composer install --optimize-autoloader --no-interaction --no-progress --no-scripts
 
             -   name: Setup Node
-                uses: actions/setup-node@v3
+                uses: actions/setup-node@v6
 
             -   name: Install Node dependencies
                 run: npm ci
