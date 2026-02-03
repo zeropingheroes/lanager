@@ -1,6 +1,7 @@
 {
     "name": "zeropingheroes/lanager",
     "description": "A LAN party management web application",
+    "type": "project",
     "authors": [
         {
             "name": "Olly Baker",
@@ -44,7 +45,7 @@
         "prefer-stable": true
     },
     "require": {
-        "laravel/framework": "^11.0",
+        "laravel/framework": "^12.0",
         "diglactic/laravel-breadcrumbs": "^10.0",
         "graham-campbell/markdown": "^16.0",
         "guzzlehttp/guzzle": "^7.10",
@@ -62,6 +63,7 @@
         "nunomaduro/collision":  "^8.8",
         "ottaviano/faker-gravatar": "^0.3",
         "phpunit/phpunit":  "^12.5",
+        "pestphp/pest": "^4.3",
         "spatie/laravel-ignition": "^2.10",
         "squizlabs/php_codesniffer":  "^4.0"
     },
@@ -101,6 +103,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ]
     }
 }
