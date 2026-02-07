@@ -2,6 +2,7 @@
 
 namespace Tests\Browser\Tests\Images;
 
+use Illuminate\Support\Facades\Storage;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -16,11 +17,16 @@ class EditImageTest extends DuskTestCase
             // And the super admin user is logged in
             $browser->loginAs($superAdmin);
 
-            // And there is an image in the image uploads directory
-            copy(base_path('resources/images/bg.jpg'), storage_path('app/public/images/bg.jpg'));
-
             // When the super admin navigates to the image index page
             $browser->visitRoute('images.index');
+
+            // And selects a file to upload
+            $browser->attach('images[]', base_path('resources/images/bg.jpg'));
+
+            // And clicks the "upload" button
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('Upload');
+            });
 
             // And clicks the "options" dropdown next to the user's name
             $browser->clickAtXPath(
@@ -34,7 +40,7 @@ class EditImageTest extends DuskTestCase
             $browser->waitForRoute('images.edit', ['image' => 'bg.jpg']);
 
             // And types in a new filename for the image
-            $browser->type('filename', 'background.jpg');
+            $browser->type('filename', 'newfilename.jpg');
 
             // And clicks "submit"
             $browser->waitForReload(function (Browser $browser) {
@@ -48,7 +54,7 @@ class EditImageTest extends DuskTestCase
             $browser->assertDontSeeIn('table', 'bg.jpg');
 
             // And they should see the new image file name in the table
-            $browser->assertSeeIn('table', 'background.jpg');
+            $browser->assertSeeIn('table', 'newfilename.jpg');
         });
     }
 }

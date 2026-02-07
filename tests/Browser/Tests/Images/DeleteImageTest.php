@@ -7,7 +7,7 @@ use Tests\DuskTestCase;
 
 class DeleteImageTest extends DuskTestCase
 {
-    public function testDeleteingImage(): void
+    public function testDeletingImage(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
@@ -16,11 +16,16 @@ class DeleteImageTest extends DuskTestCase
             // And the super admin user is logged in
             $browser->loginAs($superAdmin);
 
-            // And there is an image in the image uploads directory
-            copy(base_path('resources/images/bg.jpg'), storage_path('app/public/images/bg.jpg'));
-
             // When the super admin navigates to the image index page
             $browser->visitRoute('images.index');
+
+            // And selects a file to upload
+            $browser->attach('images[]', base_path('resources/images/bg.jpg'));
+
+            // And clicks the "upload" button
+            $browser->waitForReload(function (Browser $browser) {
+                $browser->press('Upload');
+            });
 
             // And clicks the "options" dropdown next to the user's name
             $browser->clickAtXPath(
