@@ -3,7 +3,7 @@
         <span class="text-muted">
             <a href="https://github.com/zeropingheroes/lanager" target="_blank">{{ config('app.name') }}</a>
             @lang('phrase.is-copyright') {{ date('Y') }}
-            <a href="http://www.zeropingheroes.co.uk/" target="_blank">Zero Ping Heroes Ltd</a>
+            <a href="http://www.zeropingheroes.co.uk/" target="_blank">Zero Ping Heroes</a>
             @lang('phrase.and-licensed-under')
             <a href="https://github.com/zeropingheroes/lanager/blob/master/LICENSE.txt" target="_blank">AGPLv3</a>
         </span>
