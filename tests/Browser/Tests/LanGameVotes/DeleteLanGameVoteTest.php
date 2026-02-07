@@ -55,6 +55,9 @@ class DeleteLanGameVoteTest extends DuskTestCase
             // And clicks the text of the game the super admin submitted
             $browser->clickAtXPath('//label[contains(string(),"' . $lanGame->game_name . '")]');
 
+            // And waits for the checkbox to load
+            $browser->waitFor('#lan_game_' . $lanGame->id . '_checkbox');
+
             // Then they should see the checkbox next to the game they voted for is not checked
             $browser->assertNotChecked('#lan_game_' . $lanGame->id . '_checkbox');
         });
