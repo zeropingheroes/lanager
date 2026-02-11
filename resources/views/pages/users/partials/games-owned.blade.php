@@ -9,7 +9,7 @@
                     [
                         'name' => $userGame->app->name,
                         'url' => $userGame->app->url(),
-                        'logo' => $userGame->app->logo(),
+                        'logo' => $userGame->app->logo_small,
                     ])
                 </td>
                 <td class="playtime-forever">

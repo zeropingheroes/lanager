@@ -22,19 +22,6 @@ class SteamApp extends Model
     public $timestamps = false;
 
     /**
-     * Game logo image
-     */
-    public function logo(string $size = 'small'): string
-    {
-        return match ($size) {
-            'large' => 'https://cdn.akamai.steamstatic.com/steam/apps/' . $this->id . '/header.jpg',
-            'medium' => 'https://cdn.akamai.steamstatic.com/steam/apps/' . $this->id . '/header_292x136.jpg',
-            'small' => 'https://cdn.akamai.steamstatic.com/steam/apps/' . $this->id . '/capsule_184x69.jpg',
-            default => $this->logo('small'),
-        };
-    }
-
-    /**
      * URL to open game in Steam app store
      */
     public function url(): string

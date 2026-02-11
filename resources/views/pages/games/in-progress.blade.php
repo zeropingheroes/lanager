@@ -18,7 +18,7 @@
                     [
                         'name' => $game['game']->name,
                         'url' => $game['game']->url(),
-                        'logo' => $game['game']->logo(),
+                        'logo' => $game['game']->logo_small,
                     ])
                 </td>
                 <td class="user-count">

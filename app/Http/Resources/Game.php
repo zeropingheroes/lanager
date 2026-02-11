@@ -18,9 +18,9 @@ class Game extends JsonResource
             'id_type' => $this->id_type,
             'url' => $this->url(),
             'logo' => [
-                'small' => $this->logo('small'),
-                'medium' => $this->logo('medium'),
-                'large' => $this->logo('large'),
+                'small' => $this->logo_small,
+                'medium' => $this->logo_medium,
+                'large' => $this->logo_large,
             ],
         ];
     }

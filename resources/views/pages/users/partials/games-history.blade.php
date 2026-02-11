@@ -9,7 +9,7 @@
                     [
                         'name' => $gameSession->app->name,
                         'url' => $gameSession->app->url(),
-                        'logo' => $gameSession->app->logo(),
+                        'logo' => $gameSession->app->logo_small,
                     ])
                 </td>
                 <td class="duration">
