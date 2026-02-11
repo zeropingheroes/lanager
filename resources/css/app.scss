@@ -89,6 +89,20 @@ table.games td.users a {
     text-decoration: none;
 }
 
+a.game-logo-not-found {
+    width: 184px;
+    height: 69px;
+    background-image: url('../images/default-steam-app-logo-small.svg');
+    font-size: 20px;
+    font-weight: bold;
+    color: #ccc;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
 div.markdown-slide {
     font-size: $font-size-base * 3;
 }
