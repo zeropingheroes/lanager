@@ -19,8 +19,6 @@ class SteamApp extends Model
         'logo_large',
     ];
 
-    public $timestamps = false;
-
     /**
      * URL to open game in Steam app store
      */
