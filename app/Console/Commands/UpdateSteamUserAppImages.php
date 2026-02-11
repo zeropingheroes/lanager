@@ -31,9 +31,13 @@ class UpdateSteamUserAppImages extends Command
         $appsWithOwners = SteamApp::has('owners')->get();
         $appsWithPlayers = SteamApp::has('players')->get();
 
-        // TODO: Order by app age / playtime / number of owners
-        // TODO: Prioritise apps with no URLs in database at all
         $apps = $appsWithOwners->merge($appsWithPlayers);
+
+        // TODO: Improve prioritisation of apps with no logo URLs
+        $apps = $apps->sortBy([
+            ['updated_at', 'asc'], // NULL first, then oldest updated_at to newest
+            ['id', 'asc'], // Oldest apps first
+        ]);
 
         $steamCdnBaseUrl = 'https://cdn.akamai.steamstatic.com/steam/apps/';
 
@@ -61,6 +65,7 @@ class UpdateSteamUserAppImages extends Command
                     $this->info(
                         '✅ App ' . $app->id . ' (' . $app->name . '): logo URLs from database are accessible. Skipping.'
                     );
+                    $app->touch();
                     $successfulAppCount++;
                     continue;
                 }
@@ -90,6 +95,7 @@ class UpdateSteamUserAppImages extends Command
                     $this->error(
                         '❌ App ' . $app->id . ' (' . $app->name . '): Failed to get logo URLs from API. Skipping.'
                     );
+                    $app->touch();
                     $failedApps = $failedApps->push($app);
                     continue;
                 }
