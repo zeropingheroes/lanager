@@ -15,7 +15,8 @@ class UpdateSteamUserAppImages extends Command
      */
     public function __construct()
     {
-        $this->signature = 'lanager:update-steam-user-app-images';
+        $this->signature = 'lanager:update-steam-user-app-images
+        {--limit=} : ' . trans('phrase.limit-number-of-apps-to-update');
         $this->description = trans('phrase.update-app-images-for-apps-played-by-users');
 
         parent::__construct();
@@ -32,9 +33,18 @@ class UpdateSteamUserAppImages extends Command
         // TODO: Order by app age / playtime / number of owners
         $apps = $appsWithOwners->merge($appsWithPlayers);
 
-        $this->info('Updating ' . $apps->count() . ' apps');
-
         $steamCdnBaseUrl = 'https://cdn.akamai.steamstatic.com/steam/apps/';
+
+        $successfulAppCount = 0;
+        $failedApps = new Collection();
+        $processedAppCount = 0;
+
+        $limit = $this->option('limit');
+        if ($limit) {
+            $apps = $apps->take($limit);
+        }
+
+        $this->info('Updating ' . $apps->count() . ' apps');
 
         foreach ($apps as $app) {
             if ($app->logo_small && $app->logo_medium && $app->logo_large) {
