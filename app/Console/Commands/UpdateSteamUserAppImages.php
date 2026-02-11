@@ -49,6 +49,8 @@ class UpdateSteamUserAppImages extends Command
         $this->info('Updating ' . $apps->count() . ' apps');
 
         foreach ($apps as $app) {
+            $processedAppCount++;
+
             if ($app->logo_small && $app->logo_medium && $app->logo_large) {
                 // TODO: Check one by one and on first 404 move to next code block?
                 if (
