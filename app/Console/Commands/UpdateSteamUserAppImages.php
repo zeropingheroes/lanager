@@ -4,6 +4,7 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Astrotomic\SteamSdk\SteamConnector;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Zeropingheroes\Lanager\Models\SteamApp;
 use Illuminate\Http\Client\Response;
@@ -31,6 +32,7 @@ class UpdateSteamUserAppImages extends Command
         $appsWithPlayers = SteamApp::has('players')->get();
 
         // TODO: Order by app age / playtime / number of owners
+        // TODO: Prioritise apps with no URLs in database at all
         $apps = $appsWithOwners->merge($appsWithPlayers);
 
         $steamCdnBaseUrl = 'https://cdn.akamai.steamstatic.com/steam/apps/';
@@ -57,6 +59,7 @@ class UpdateSteamUserAppImages extends Command
                     $this->info(
                         '✅ App ' . $app->id . ' (' . $app->name . '): logo URLs from database are accessible. Skipping.'
                     );
+                    $successfulAppCount++;
                     continue;
                 }
             }
@@ -82,10 +85,10 @@ class UpdateSteamUserAppImages extends Command
                     $app->logo_medium = $logoUrls['medium'];
                     $app->logo_large = $logoUrls['large'];
                 } else {
-                    // TODO: Count failed apps (and mark in DB so we don't unnecessarily retry?)
                     $this->error(
                         '❌ App ' . $app->id . ' (' . $app->name . '): Failed to get logo URLs from API. Skipping.'
                     );
+                    $failedApps = $failedApps->push($app);
                     continue;
                 }
             }
@@ -93,7 +96,21 @@ class UpdateSteamUserAppImages extends Command
             $app->save();
         }
 
-        return 0;
+        if ($successfulAppCount > 0) {
+            $this->info('Successfully updated logo image URLs for ' . $successfulAppCount . ' apps.');
+
+            if ($failedApps->count() > 0) {
+                $this->warn('Failed to update logo image URLs for ' . $failedApps->count() . ' apps:');
+                foreach ($failedApps as $failedApp) {
+                    $this->warn('App ' . $failedApp->id . ': ' . $failedApp->name);
+                }
+                return 1;
+            }
+            return 0;
+        } else {
+            $this->error('Failed to update logo image URLs for ' . $processedAppCount . ' apps.');
+            return 1;
+        }
     }
 
     private function requestLogoUrl(string $url): Response
