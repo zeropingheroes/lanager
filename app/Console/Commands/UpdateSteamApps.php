@@ -2,8 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
-use Astrotomic\SteamSdk\SteamConnector;
-use Astrotomic\SteamSdk\Requests\GetAppListRequest;
+use Zeropingheroes\SteamApis\SteamWebApi\SteamWebApiConnector;
+use Zeropingheroes\SteamApis\SteamWebApi\Requests\IStoreService\GetAppListRequest;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\Models\SteamApp;
@@ -30,10 +30,10 @@ class UpdateSteamApps extends Command
     {
         $this->info(trans('phrase.requesting-list-of-all-apps-from-steam-api'));
 
-        $steamConnector = app(SteamConnector::class);
+        $steamWebApi = app(SteamWebApiConnector::class);
 
         $request = new GetAppListRequest();
-        $appPaginator = $request->paginate($steamConnector);
+        $appPaginator = $request->paginate($steamWebApi);
         $appPaginator->setPerPageLimit(50000);
 
         if (!SteamApp::count()) {

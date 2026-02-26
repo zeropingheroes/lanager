@@ -4,116 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6472ab8c39e385c8f8a5c789270c50a",
+    "content-hash": "f63d9f2be203517b9b879c2166b7830c",
     "packages": [
-        {
-            "name": "astrotomic/steam-sdk",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zeropingheroes/steam-sdk.git",
-                "reference": "715208ff3d31332c8d9c7eefda31b7401ef14ad1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zeropingheroes/steam-sdk/zipball/715208ff3d31332c8d9c7eefda31b7401ef14ad1",
-                "reference": "715208ff3d31332c8d9c7eefda31b7401ef14ad1",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "illuminate/collections": "^9.0 || ^10.0 || ^11.0 || ^12.0",
-                "illuminate/support": "^9.0 || ^10.0 || ^11.0 || ^12.0",
-                "php": "^8.1",
-                "saloonphp/laravel-plugin": "^3.0",
-                "saloonphp/pagination-plugin": "^2.0",
-                "saloonphp/saloon": "^3.0",
-                "spatie/laravel-data": "^4.0",
-                "xpaw/steamid": "^4.0"
-            },
-            "require-dev": {
-                "astrotomic/phpunit-assertions": "^0.12.0",
-                "laravel/pint": "^1.13.6",
-                "orchestra/testbench": "^7.0 || ^8.0 || ^9.0 || ^10.0",
-                "pestphp/pest": "^1.23.1",
-                "pestphp/pest-plugin-laravel": "^1.4"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "composer-normalize": {
-                    "indent-size": 4,
-                    "indent-style": "space"
-                },
-                "laravel": {
-                    "providers": [
-                        "Astrotomic\\SteamSdk\\SteamSdkServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Astrotomic\\SteamSdk\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "post-autoload-dump": [
-                    "@composer normalize --ansi --no-interaction --quiet",
-                    "@composer validate --strict --ansi --no-interaction",
-                    "@composer thanks --ansi --no-interaction --quiet",
-                    "@php vendor/bin/testbench package:discover --ansi"
-                ],
-                "fix": [
-                    "@php vendor/bin/pint"
-                ],
-                "normalize": [
-                    "echo 'composer global require ergebnis/composer-normalize'"
-                ],
-                "phpstan": [
-                    "@php vendor/bin/phpstan analyse --memory-limit=2G"
-                ],
-                "test": [
-                    "@php -d memory_limit=-1 vendor/bin/pest"
-                ],
-                "test-coverage": [
-                    "XDEBUG_MODE=coverage php -d memory_limit=-1 vendor/bin/pest --coverage-html=.coverage"
-                ],
-                "thanks": [
-                    "echo 'composer global require symfony/thanks'"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tom Witkowski",
-                    "email": "gummibeer@astrotomic.info",
-                    "homepage": "https://astrotomic.info",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Interact with Steam API.",
-            "support": {
-                "source": "https://github.com/zeropingheroes/steam-sdk/tree/main"
-            },
-            "funding": [
-                {
-                    "type": "github",
-                    "url": "https://github.com/sponsors/Gummibeer"
-                },
-                {
-                    "type": "other",
-                    "url": "https://forest.astrotomic.info"
-                }
-            ],
-            "time": "2026-02-08T12:37:32+00:00"
-        },
         {
             "name": "brick/math",
             "version": "0.14.5",
@@ -7659,6 +7551,79 @@
                 "source": "https://github.com/xPaw/SteamID.php/tree/4.0.0"
             },
             "time": "2025-05-28T14:04:10+00:00"
+        },
+        {
+            "name": "zeropingheroes/steam-apis",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zeropingheroes/steam-apis.git",
+                "reference": "ec4d3a0032aa76851d2acfa5d7827a3ec88989f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zeropingheroes/steam-apis/zipball/ec4d3a0032aa76851d2acfa5d7827a3ec88989f6",
+                "reference": "ec4d3a0032aa76851d2acfa5d7827a3ec88989f6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/collections": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+                "illuminate/support": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+                "php": "^8.1",
+                "saloonphp/laravel-plugin": "^3.0",
+                "saloonphp/pagination-plugin": "^2.0",
+                "saloonphp/saloon": "^3.0",
+                "spatie/laravel-data": "^4.0",
+                "xpaw/steamid": "^4.0"
+            },
+            "require-dev": {
+                "astrotomic/phpunit-assertions": "^0.12.0",
+                "laravel/pint": "^1.13.6",
+                "orchestra/testbench": "^7.0 || ^8.0 || ^9.0 || ^10.0",
+                "pestphp/pest": "^1.23.1",
+                "pestphp/pest-plugin-laravel": "^1.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Zeropingheroes\\SteamApis\\SteamSdkServiceProvider"
+                    ]
+                },
+                "composer-normalize": {
+                    "indent-size": 4,
+                    "indent-style": "space"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zeropingheroes\\SteamApis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Witkowski",
+                    "email": "gummibeer@astrotomic.info",
+                    "homepage": "https://astrotomic.info",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Olly Baker",
+                    "email": "ilumos@gmail.com",
+                    "homepage": "https://ilumos.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Interface with Steam's APIs.",
+            "support": {
+                "source": "https://github.com/zeropingheroes/steam-apis/tree/2.2.1"
+            },
+            "time": "2026-02-25T21:55:18+00:00"
         }
     ],
     "packages-dev": [
@@ -11536,9 +11501,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "astrotomic/steam-sdk": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {},

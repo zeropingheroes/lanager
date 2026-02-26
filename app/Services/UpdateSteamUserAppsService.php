@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
-use Astrotomic\SteamSdk\SteamConnector;
+use Zeropingheroes\SteamApis\SteamWebApi\SteamWebApiConnector;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
@@ -82,12 +82,12 @@ class UpdateSteamUserAppsService
         $steamAccounts = UserOAuthAccount::where('provider', 'steam')
             ->whereIn('user_id', $this->users->pluck('id'))->get();
 
-        $steamConnector = app(SteamConnector::class);
+        $steamWebApi = app(SteamWebApiConnector::class);
 
         // Update games for each user in turn
         foreach ($steamAccounts as $steamAccount) {
             try {
-                $ownedGames = $steamConnector->GetOwnedGames(
+                $ownedGames = $steamWebApi->GetOwnedGames(
                     steamid:                   $steamAccount->provider_id,
                     include_appinfo:           true,
                     include_played_free_games: true
@@ -120,7 +120,7 @@ class UpdateSteamUserAppsService
                         );
                 }
 
-                $recentlyPlayedGames = $steamConnector->GetRecentlyPlayedGames(
+                $recentlyPlayedGames = $steamWebApi->GetRecentlyPlayedGames(
                     steamid: $steamAccount->provider_id,
                 );
 

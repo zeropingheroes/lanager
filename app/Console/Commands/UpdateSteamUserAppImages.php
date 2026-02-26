@@ -2,7 +2,9 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
-use Astrotomic\SteamSdk\SteamConnector;
+use Spatie\LaravelData\Exceptions\CannotCreateData;
+use Saloon\RateLimitPlugin\Exceptions\RateLimitReachedException;
+use Zeropingheroes\SteamApis\SteamStoreApi\SteamStoreApiConnector;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
@@ -128,16 +130,18 @@ class UpdateSteamUserAppImages extends Command
 
     private function getAppLogoUrlsFromApi(int $appId): array
     {
-        $steamApi = app(SteamConnector::class);
-        // TODO: Handle/pace 429 errors (potentially in library)
+        $steamStoreApi = app(SteamStoreApiConnector::class);
+
         try {
-            $appDetails = $steamApi->appDetails($appId);
+            $appDetails = $steamStoreApi->appDetails($appId);
             return [
                 'small' => $appDetails->capsule_imagev5,
                 'medium' => $appDetails->capsule_image,
                 'large' => $appDetails->header_image
             ];
-        } catch (\Spatie\LaravelData\Exceptions\CannotCreateData $e) {
+
+        // TODO: Handle/pace 429 errors better (potentially in library)
+        } catch (CannotCreateData | RateLimitReachedException $e) {
             return [];
         }
     }

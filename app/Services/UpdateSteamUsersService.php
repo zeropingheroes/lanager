@@ -2,8 +2,8 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
-use Astrotomic\SteamSdk\SteamConnector;
-use Astrotomic\SteamSdk\Enums\CommunityVisibilityState;
+use Zeropingheroes\SteamApis\SteamWebApi\SteamWebApiConnector;
+use Zeropingheroes\SteamApis\SteamWebApi\Enums\CommunityVisibilityState;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Collection;
@@ -101,9 +101,9 @@ class UpdateSteamUsersService
     {
         $this->endStaleAppSessions();
 
-        $steamConnector = app(SteamConnector::class);
+        $steamWebApi = app(SteamWebApiConnector::class);
 
-        $steamUsers = $steamConnector->GetPlayerSummaries($this->steamIds);
+        $steamUsers = $steamWebApi->GetPlayerSummaries($this->steamIds);
 
         // Get the LAN happening now, or the most recently ended LAN
         $lan = Lan::presentAndPast()
