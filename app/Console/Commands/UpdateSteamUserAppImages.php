@@ -83,6 +83,7 @@ class UpdateSteamUserAppImages extends Command
                 $app->logo_medium = $defaultMediumLogoUrl;
                 $app->logo_large = $defaultLargeLogoUrl;
                 $this->info('App ' . $app->id . ' (' . $app->name . '): Default logo URL accessible. Saving...');
+                $successfulAppCount++;
             } else {
                 $this->warn(
                     'App ' . $app->id . ' (' . $app->name . '): Default logo URL not accessible. Querying API...'
@@ -93,6 +94,7 @@ class UpdateSteamUserAppImages extends Command
                     $app->logo_small = $logoUrls['small'];
                     $app->logo_medium = $logoUrls['medium'];
                     $app->logo_large = $logoUrls['large'];
+                    $successfulAppCount++;
                 } else {
                     $this->error(
                         'App ' . $app->id . ' (' . $app->name . '): Failed to get logo URLs from API. Skipping.'
