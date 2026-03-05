@@ -52,7 +52,7 @@
         "laravel/sanctum": "^4.3",
         "laravel/socialite": "^5.24",
         "socialiteproviders/steam": "^4.3",
-        "zeropingheroes/steam-apis": "^2.2"
+        "zeropingheroes/steam-apis": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^4.0",

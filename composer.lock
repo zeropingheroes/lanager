@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f63d9f2be203517b9b879c2166b7830c",
+    "content-hash": "178935f404ba8d8e8edbe0d4b2432259",
     "packages": [
         {
             "name": "brick/math",
@@ -4316,6 +4316,59 @@
             "time": "2025-11-20T23:08:48+00:00"
         },
         {
+            "name": "saloonphp/rate-limit-plugin",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/saloonphp/rate-limit-plugin.git",
+                "reference": "b9b86619513304264e93032c0514d1fbf6be94ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/saloonphp/rate-limit-plugin/zipball/b9b86619513304264e93032c0514d1fbf6be94ef",
+                "reference": "b9b86619513304264e93032c0514d1fbf6be94ef",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2",
+                "saloonphp/saloon": "^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.5",
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^9.15 || ^10.7",
+                "pestphp/pest": "^v3.8.4 || ^v4.1.4",
+                "phpstan/phpstan": "^1.9",
+                "predis/predis": "^2.1",
+                "psr/simple-cache": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Saloon\\RateLimitPlugin\\": "src/",
+                    "Saloon\\RateLimitPlugin\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sam Carré",
+                    "email": "29132017+Sammyjo20@users.noreply.github.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Handle rate limits beautifully in your Saloon API integrations or SDKs",
+            "homepage": "https://github.com/sammyjo20",
+            "support": {
+                "issues": "https://github.com/saloonphp/rate-limit-plugin/issues",
+                "source": "https://github.com/saloonphp/rate-limit-plugin/tree/v2.4.0"
+            },
+            "time": "2025-12-18T22:51:35+00:00"
+        },
+        {
             "name": "saloonphp/saloon",
             "version": "v3.14.2",
             "source": {
@@ -7554,35 +7607,36 @@
         },
         {
             "name": "zeropingheroes/steam-apis",
-            "version": "2.2.1",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zeropingheroes/steam-apis.git",
-                "reference": "ec4d3a0032aa76851d2acfa5d7827a3ec88989f6"
+                "reference": "d453228d0543221cf1d8836dedc078a4ce8af5a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zeropingheroes/steam-apis/zipball/ec4d3a0032aa76851d2acfa5d7827a3ec88989f6",
-                "reference": "ec4d3a0032aa76851d2acfa5d7827a3ec88989f6",
+                "url": "https://api.github.com/repos/zeropingheroes/steam-apis/zipball/d453228d0543221cf1d8836dedc078a4ce8af5a6",
+                "reference": "d453228d0543221cf1d8836dedc078a4ce8af5a6",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "illuminate/collections": "^9.0 || ^10.0 || ^11.0 || ^12.0",
-                "illuminate/support": "^9.0 || ^10.0 || ^11.0 || ^12.0",
-                "php": "^8.1",
+                "illuminate/collections": "^11.0 || ^12.0",
+                "illuminate/support": "^11.0 || ^12.0",
+                "php": "^8.2",
                 "saloonphp/laravel-plugin": "^3.0",
                 "saloonphp/pagination-plugin": "^2.0",
+                "saloonphp/rate-limit-plugin": "^2.0",
                 "saloonphp/saloon": "^3.0",
                 "spatie/laravel-data": "^4.0",
                 "xpaw/steamid": "^4.0"
             },
             "require-dev": {
                 "astrotomic/phpunit-assertions": "^0.12.0",
-                "laravel/pint": "^1.13.6",
-                "orchestra/testbench": "^7.0 || ^8.0 || ^9.0 || ^10.0",
-                "pestphp/pest": "^1.23.1",
-                "pestphp/pest-plugin-laravel": "^1.4"
+                "laravel/pint": "^1.27.1",
+                "orchestra/testbench": "^10.9.0",
+                "pestphp/pest": "^3.8.5",
+                "pestphp/pest-plugin-laravel": "^3.2.0"
             },
             "type": "library",
             "extra": {
@@ -7621,9 +7675,9 @@
             ],
             "description": "Interface with Steam's APIs.",
             "support": {
-                "source": "https://github.com/zeropingheroes/steam-apis/tree/2.2.1"
+                "source": "https://github.com/zeropingheroes/steam-apis/tree/3.0.0"
             },
-            "time": "2026-02-25T21:55:18+00:00"
+            "time": "2026-03-05T09:54:17+00:00"
         }
     ],
     "packages-dev": [
