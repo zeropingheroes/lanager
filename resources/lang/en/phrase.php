@@ -191,6 +191,21 @@ return [
     'requesting-app-ownership-data-for-x-users-from-steam' => 'Updating app ownership data for :x users from Steam',
     'successfully-updated-app-ownership-data-for-x-of-y-users' => 'Successfully updated app ownership data for :x of :y users',
 
+    // lanager:update-steam-user-app-images
+    'limit-number-of-apps-to-update' => 'Limit the number of apps to update',
+    'update-app-images-for-apps-played-by-users' => 'Update app logo image URLs for apps played by users',
+    'updating-x-apps' => 'Updating :x apps',
+    'app-x-name-logo-urls-accessible-skipping' => 'App :id (:name): logo URLs from database are accessible. Skipping.',
+    'app-x-name-no-logo-urls-checking-default' => 'App :id (:name): No logo URLs set. Checking default URL...',
+    'app-x-name-default-logo-accessible-saving' => 'App :id (:name): Default logo URL accessible. Saving...',
+    'app-x-name-default-logo-not-accessible-querying-api' => 'App :id (:name): Default logo URL not accessible. Querying API...',
+    'app-x-name-got-logo-urls-from-api-saving' => 'App :id (:name): Got logo URLs from API. Saving...',
+    'app-x-name-failed-to-get-logo-urls-from-api-skipping' => 'App :id (:name): Failed to get logo URLs from API. Skipping.',
+    'successfully-updated-logo-urls-for-x-apps' => 'Successfully updated logo image URLs for :x apps.',
+    'failed-to-update-logo-urls-for-x-apps' => 'Failed to update logo image URLs for :x apps:',
+    'rate-limit-exceeded-waiting-x-seconds' => 'Rate limit exceeded. Waiting :seconds seconds before retrying (attempt :attempt of :maxAttempts)...',
+    'rate-limit-exceeded-max-retries-reached' => 'Rate limit exceeded and max retry attempts reached.',
+
     // lanager:prune-steam-user-history
     'delete-steam-user-history-outside-lans' => 'Delete historical Steam user status and gameplay data that did not occur during any of the LANs in the database',
     'pruning-historical-steam-data' => 'Deleting historical Steam user status and gameplay data that did not occur during any of the LANs in the database',

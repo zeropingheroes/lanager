@@ -37,9 +37,9 @@ class UpdateSteamUserAppImages extends Command
 
         // TODO: Improve prioritisation of apps with no logo URLs
         $apps = $apps->sortBy([
-            ['updated_at', 'asc'], // NULL first, then oldest updated_at to newest
-            ['id', 'asc'], // Oldest apps first
-        ]);
+                                  ['updated_at', 'asc'], // NULL first, then oldest updated_at to newest
+                                  ['id', 'asc'], // Oldest apps first
+                              ]);
 
         $steamCdnBaseUrl = 'https://cdn.akamai.steamstatic.com/steam/apps/';
 
@@ -52,7 +52,7 @@ class UpdateSteamUserAppImages extends Command
             $apps = $apps->take($limit);
         }
 
-        $this->info('Updating ' . $apps->count() . ' apps');
+        $this->info(trans('phrase.updating-x-apps', ['x' => $apps->count()]));
 
         foreach ($apps as $app) {
             $processedAppCount++;
@@ -65,14 +65,19 @@ class UpdateSteamUserAppImages extends Command
                     $this->requestLogoUrl($app->logo_large)->status() == 200
                 ) {
                     $this->info(
-                        'App ' . $app->id . ' (' . $app->name . '): logo URLs from database are accessible. Skipping.'
+                        trans(
+                            'phrase.app-x-name-logo-urls-accessible-skipping',
+                            ['id' => $app->id, 'name' => $app->name]
+                        )
                     );
                     $app->touch();
                     $successfulAppCount++;
                     continue;
                 }
             }
-            $this->info('App ' . $app->id . ' (' . $app->name . '): No logo URLs set. Checking default URL...');
+            $this->info(
+                trans('phrase.app-x-name-no-logo-urls-checking-default', ['id' => $app->id, 'name' => $app->name])
+            );
 
             $defaultSmallLogoUrl = $steamCdnBaseUrl . $app->id . '/capsule_184x69.jpg';
             $defaultMediumLogoUrl = $steamCdnBaseUrl . $app->id . '/header_292x136.jpg';
@@ -82,22 +87,35 @@ class UpdateSteamUserAppImages extends Command
                 $app->logo_small = $defaultSmallLogoUrl;
                 $app->logo_medium = $defaultMediumLogoUrl;
                 $app->logo_large = $defaultLargeLogoUrl;
-                $this->info('App ' . $app->id . ' (' . $app->name . '): Default logo URL accessible. Saving...');
+                $this->info(
+                    trans('phrase.app-x-name-default-logo-accessible-saving', ['id' => $app->id, 'name' => $app->name])
+                );
                 $successfulAppCount++;
             } else {
                 $this->warn(
-                    'App ' . $app->id . ' (' . $app->name . '): Default logo URL not accessible. Querying API...'
+                    trans(
+                        'phrase.app-x-name-default-logo-not-accessible-querying-api',
+                        ['id' => $app->id, 'name' => $app->name]
+                    )
                 );
                 $logoUrls = $this->getAppLogoUrlsFromApi($app->id);
                 if ($logoUrls) {
-                    $this->info('App ' . $app->id . ' (' . $app->name . '): Got logo URLs from API. Saving...');
+                    $this->info(
+                        trans(
+                            'phrase.app-x-name-got-logo-urls-from-api-saving',
+                            ['id' => $app->id, 'name' => $app->name]
+                        )
+                    );
                     $app->logo_small = $logoUrls['small'];
                     $app->logo_medium = $logoUrls['medium'];
                     $app->logo_large = $logoUrls['large'];
                     $successfulAppCount++;
                 } else {
                     $this->warn(
-                        'App ' . $app->id . ' (' . $app->name . '): Failed to get logo URLs from API. Skipping.'
+                        trans(
+                            'phrase.app-x-name-failed-to-get-logo-urls-from-api-skipping',
+                            ['id' => $app->id, 'name' => $app->name]
+                        )
                     );
                     $app->touch();
                     $failedApps = $failedApps->push($app);
@@ -109,10 +127,10 @@ class UpdateSteamUserAppImages extends Command
         }
 
         if ($successfulAppCount > 0) {
-            $this->info('Successfully updated logo image URLs for ' . $successfulAppCount . ' apps.');
+            $this->info(trans('phrase.successfully-updated-logo-urls-for-x-apps', ['x' => $successfulAppCount]));
 
             if ($failedApps->count() > 0) {
-                $this->warn('Failed to update logo image URLs for ' . $failedApps->count() . ' apps:');
+                $this->warn(trans('phrase.failed-to-update-logo-urls-for-x-apps', ['x' => $failedApps->count()]));
                 foreach ($failedApps as $failedApp) {
                     $this->warn('• App ' . $failedApp->id . ': ' . $failedApp->name);
                 }
@@ -120,7 +138,7 @@ class UpdateSteamUserAppImages extends Command
             }
             return 0;
         } else {
-            $this->warn('Failed to update logo image URLs for ' . $processedAppCount . ' apps.');
+            $this->warn(trans('phrase.failed-to-update-logo-urls-for-x-apps', ['x' => $processedAppCount]));
             return 1;
         }
     }
@@ -151,20 +169,22 @@ class UpdateSteamUserAppImages extends Command
             } catch (NotFoundException $e) {
                 return [];
             } catch (RateLimitReachedException $e) {
-                $seconds = (int) $e->getLimit()->getRemainingSeconds();
+                $seconds = (int)$e->getLimit()->getRemainingSeconds();
 
                 // If the limiter returns 0/negative, still back off a bit to avoid a tight loop.
                 if ($seconds < 1) {
                     $seconds = 1;
                 }
                 if ($attempt >= $maxAttempts) {
-                    $this->warn('Rate limit exceeded and max retry attempts reached.');
+                    $this->warn(trans('phrase.rate-limit-exceeded-max-retries-reached'));
                     break;
                 }
 
                 $this->warn(
-                    'Rate limit exceeded. Waiting ' . $seconds .
-                    ' seconds before retrying (attempt ' . $attempt . ' of ' . $maxAttempts . ')...'
+                    trans(
+                        'phrase.rate-limit-exceeded-waiting-x-seconds',
+                        ['seconds' => $seconds, 'attempt' => $attempt, 'maxAttempts' => $maxAttempts]
+                    )
                 );
                 sleep($seconds);
             }
