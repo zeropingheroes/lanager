@@ -26,39 +26,38 @@ COPY . /app/
 # Build
 RUN npm run build
 
-FROM trafex/php-nginx:3.10.0 AS base
-
-USER root
+FROM dunglas/frankenphp:1-php8.4-alpine AS base
 
 # Install PHP extensions
-RUN apk --no-cache add php84-zip=8.4.17-r0 \
-                       php84-pdo=8.4.17-r0 \
-                       php84-pdo_mysql=8.4.17-r0 \
-                       php84-simplexml=8.4.17-r0 \
-                       php84-bcmath=8.4.17-r0 \
-                       php84-gmp=8.4.17-r0
+RUN install-php-extensions \
+    zip \
+    pdo_mysql \
+    simplexml \
+    bcmath \
+    gmp
 
 # Copy in app code and Composer packages from composer2 build stage
-COPY --chown=nginx --from=composer2 /app /var/www/lanager
+COPY --from=composer2 /app /app
 
 # Copy in built assets from node22 build stage
-COPY --chown=nginx --from=node22 /app/public/build /var/www/lanager/public/build/
+COPY --from=node22 /app/public/build /app/public/build/
 
-RUN chmod -R 777 /var/www/lanager/storage /var/www/lanager/bootstrap/cache && \
-    ln -s /var/www/lanager/storage/app/public /var/www/lanager/public/storage
+# Set permissions and enable PHP production settings
+RUN chmod -R 777 /app/storage /app/bootstrap/cache && \
+    ln -s /app/storage/app/public /app/public/storage && \
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-WORKDIR /var/www/lanager
+# Set default environment variables
+ENV SERVER_NAME=:80
+ENV FRANKENPHP_CONFIG="worker ./public/index.php"
 
-# Change to non-privileged user
-USER nobody
+WORKDIR /app
 
 FROM base AS dev
 
-# Temporary switch to root
-USER root
+# Install xdebug & switch to development PHP configuration
+RUN install-php-extensions xdebug && \
+    mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
-# Install xdebug
-RUN apk --no-cache add php84-pecl-xdebug=3.5.0-r0
-
-# Switch back to non-root user
-USER nobody
+# Disable worker mode for development
+ENV FRANKENPHP_CONFIG=""
