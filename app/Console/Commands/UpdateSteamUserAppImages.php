@@ -96,7 +96,7 @@ class UpdateSteamUserAppImages extends Command
                     $app->logo_large = $logoUrls['large'];
                     $successfulAppCount++;
                 } else {
-                    $this->error(
+                    $this->warn(
                         'App ' . $app->id . ' (' . $app->name . '): Failed to get logo URLs from API. Skipping.'
                     );
                     $app->touch();
@@ -114,7 +114,7 @@ class UpdateSteamUserAppImages extends Command
             if ($failedApps->count() > 0) {
                 $this->warn('Failed to update logo image URLs for ' . $failedApps->count() . ' apps:');
                 foreach ($failedApps as $failedApp) {
-                    $this->warn('App ' . $failedApp->id . ': ' . $failedApp->name);
+                    $this->warn('• App ' . $failedApp->id . ': ' . $failedApp->name);
                 }
                 return 1;
             }
@@ -158,7 +158,7 @@ class UpdateSteamUserAppImages extends Command
                     $seconds = 1;
                 }
                 if ($attempt >= $maxAttempts) {
-                    $this->error('Rate limit exceeded and max retry attempts reached.');
+                    $this->warn('Rate limit exceeded and max retry attempts reached.');
                     break;
                 }
 
