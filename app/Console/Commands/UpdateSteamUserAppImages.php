@@ -134,7 +134,6 @@ class UpdateSteamUserAppImages extends Command
                 foreach ($failedApps as $failedApp) {
                     $this->warn('• App ' . $failedApp->id . ': ' . $failedApp->name);
                 }
-                return 1;
             }
             return 0;
         } else {
