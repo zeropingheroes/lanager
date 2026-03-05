@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
-use Spatie\LaravelData\Exceptions\CannotCreateData;
+use Saloon\Exceptions\Request\Statuses\NotFoundException;
 use Saloon\RateLimitPlugin\Exceptions\RateLimitReachedException;
 use Zeropingheroes\SteamApis\SteamStoreApi\SteamStoreApiConnector;
 use Illuminate\Console\Command;
@@ -132,17 +132,41 @@ class UpdateSteamUserAppImages extends Command
     {
         $steamStoreApi = app(SteamStoreApiConnector::class);
 
-        try {
-            $appDetails = $steamStoreApi->appDetails($appId);
-            return [
-                'small' => $appDetails->capsule_imagev5,
-                'medium' => $appDetails->capsule_image,
-                'large' => $appDetails->header_image
-            ];
+        $maxAttempts = 3;
+        $attempt = 0;
 
-        // TODO: Handle/pace 429 errors better (potentially in library)
-        } catch (CannotCreateData | RateLimitReachedException $e) {
-            return [];
+        while ($attempt < $maxAttempts) {
+            $attempt++;
+
+            try {
+                $appDetails = $steamStoreApi->appDetails($appId);
+
+                return [
+                    'small' => $appDetails->capsule_imagev5,
+                    'medium' => $appDetails->capsule_image,
+                    'large' => $appDetails->header_image,
+                ];
+            } catch (NotFoundException $e) {
+                return [];
+            } catch (RateLimitReachedException $e) {
+                $seconds = (int) $e->getLimit()->getRemainingSeconds();
+
+                // If the limiter returns 0/negative, still back off a bit to avoid a tight loop.
+                if ($seconds < 1) {
+                    $seconds = 1;
+                }
+                if ($attempt >= $maxAttempts) {
+                    $this->error('❌ Rate limit exceeded and max retry attempts reached.');
+                    break;
+                }
+
+                $this->warn(
+                    '⚠️ Rate limit exceeded. Waiting ' . $seconds .
+                    ' seconds before retrying (attempt ' . $attempt . ' of ' . $maxAttempts . ')...'
+                );
+                sleep($seconds);
+            }
         }
+        return [];
     }
 }
