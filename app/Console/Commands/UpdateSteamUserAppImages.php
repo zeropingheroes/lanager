@@ -65,14 +65,14 @@ class UpdateSteamUserAppImages extends Command
                     $this->requestLogoUrl($app->logo_large)->status() == 200
                 ) {
                     $this->info(
-                        '✅ App ' . $app->id . ' (' . $app->name . '): logo URLs from database are accessible. Skipping.'
+                        'App ' . $app->id . ' (' . $app->name . '): logo URLs from database are accessible. Skipping.'
                     );
                     $app->touch();
                     $successfulAppCount++;
                     continue;
                 }
             }
-            $this->info('ℹ️ App ' . $app->id . ' (' . $app->name . '): No logo URLs set. Checking default URL...');
+            $this->info('App ' . $app->id . ' (' . $app->name . '): No logo URLs set. Checking default URL...');
 
             $defaultSmallLogoUrl = $steamCdnBaseUrl . $app->id . '/capsule_184x69.jpg';
             $defaultMediumLogoUrl = $steamCdnBaseUrl . $app->id . '/header_292x136.jpg';
@@ -82,20 +82,20 @@ class UpdateSteamUserAppImages extends Command
                 $app->logo_small = $defaultSmallLogoUrl;
                 $app->logo_medium = $defaultMediumLogoUrl;
                 $app->logo_large = $defaultLargeLogoUrl;
-                $this->info('✅ App ' . $app->id . ' (' . $app->name . '): Default logo URL accessible. Saving...');
+                $this->info('App ' . $app->id . ' (' . $app->name . '): Default logo URL accessible. Saving...');
             } else {
                 $this->warn(
-                    '⚠️ App ' . $app->id . ' (' . $app->name . '): Default logo URL not accessible. Querying API...'
+                    'App ' . $app->id . ' (' . $app->name . '): Default logo URL not accessible. Querying API...'
                 );
                 $logoUrls = $this->getAppLogoUrlsFromApi($app->id);
                 if ($logoUrls) {
-                    $this->info('✅ App ' . $app->id . ' (' . $app->name . '): Got logo URLs from API. Saving...');
+                    $this->info('App ' . $app->id . ' (' . $app->name . '): Got logo URLs from API. Saving...');
                     $app->logo_small = $logoUrls['small'];
                     $app->logo_medium = $logoUrls['medium'];
                     $app->logo_large = $logoUrls['large'];
                 } else {
                     $this->error(
-                        '❌ App ' . $app->id . ' (' . $app->name . '): Failed to get logo URLs from API. Skipping.'
+                        'App ' . $app->id . ' (' . $app->name . '): Failed to get logo URLs from API. Skipping.'
                     );
                     $app->touch();
                     $failedApps = $failedApps->push($app);
@@ -118,7 +118,7 @@ class UpdateSteamUserAppImages extends Command
             }
             return 0;
         } else {
-            $this->error('Failed to update logo image URLs for ' . $processedAppCount . ' apps.');
+            $this->warn('Failed to update logo image URLs for ' . $processedAppCount . ' apps.');
             return 1;
         }
     }
@@ -156,12 +156,12 @@ class UpdateSteamUserAppImages extends Command
                     $seconds = 1;
                 }
                 if ($attempt >= $maxAttempts) {
-                    $this->error('❌ Rate limit exceeded and max retry attempts reached.');
+                    $this->error('Rate limit exceeded and max retry attempts reached.');
                     break;
                 }
 
                 $this->warn(
-                    '⚠️ Rate limit exceeded. Waiting ' . $seconds .
+                    'Rate limit exceeded. Waiting ' . $seconds .
                     ' seconds before retrying (attempt ' . $attempt . ' of ' . $maxAttempts . ')...'
                 );
                 sleep($seconds);
