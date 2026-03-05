@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Schedule;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamApps;
+use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUserAppImages;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUserApps;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUsers;
 
@@ -35,4 +36,9 @@ Schedule::command(UpdateSteamUserApps::class)
 // Example for ~160,000 steam apps:
 // 4 requests * 24 hours = 96 daily requests
 Schedule::command(UpdateSteamApps::class)
+    ->hourly();
+
+// The Steam Store API limits requests to 200 every 5 minutes
+// This command gracefully handles the rate limit
+Schedule::command(UpdateSteamUserAppImages::class)
     ->hourly();
