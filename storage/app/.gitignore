@@ -1,4 +1,4 @@
 *
 !public/
+!steam-api/
 !.gitignore
-!steam_apps.csv
