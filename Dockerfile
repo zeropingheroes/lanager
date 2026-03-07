@@ -43,15 +43,41 @@ COPY --from=composer2 /app /app
 # Copy in built assets from node22 build stage
 COPY --from=node22 /app/public/build /app/public/build/
 
-# Set permissions and enable PHP production settings
-RUN chmod -R 777 /app/storage /app/bootstrap/cache && \
-    ln -s /app/storage/app/public /app/public/storage && \
-    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+# Copy entry point
+COPY docker/entrypoint.sh /app/docker/entrypoint.sh
 
-ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
+# Set a username to use in the image
+ARG APP_USER=lanager
+ARG APP_UID=1000
+ARG APP_GID=1000
+
+# Use PHP configuration for production
+# Remove default FrankenPHP capabilities
+# Create non-root image user and group
+# Give the user write access to caddy and Laravel bootstrap directories
+# Ensure the entrypoint script is present and executable
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    && setcap -r /usr/local/bin/frankenphp \
+    && addgroup -g "${APP_GID}" "${APP_USER}" \
+    && adduser -D -u "${APP_UID}" -G "${APP_USER}" "${APP_USER}" \
+    && chown -R "${APP_USER}":"${APP_USER}" /config/caddy /data/caddy /app/bootstrap/cache \
+    && chmod -R ug+rwX /app/bootstrap/cache \
+    && chmod +x /app/docker/entrypoint.sh
+
+# Switch to non-root user
+USER ${APP_USER}
+
+ENTRYPOINT ["/app/docker/entrypoint.sh"]
+CMD ["php", "artisan", "octane:frankenphp"]
 
 FROM base AS dev
 
+# Switch to root user
+USER root
+
 # Install xdebug & switch to development PHP configuration
-RUN install-php-extensions xdebug && \
-    mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+RUN install-php-extensions xdebug \
+    && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+# Switch to non-root user
+USER ${APP_USER}
