@@ -24,10 +24,5 @@ if [ ! -w /app/storage ]; then
     exit 1
 fi
 
-# If the public storage symlink does not exist, create it
-if [ ! -L /app/public/storage ] && [ ! -e /app/public/storage ]; then
-    ln -s /app/storage/app/public /app/public/storage
-fi
-
 # Pass commands to the shell
 exec "$@"

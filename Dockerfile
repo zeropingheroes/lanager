@@ -62,6 +62,7 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && adduser -D -u "${APP_UID}" -G "${APP_USER}" "${APP_USER}" \
     && chown -R "${APP_USER}":"${APP_USER}" /config/caddy /data/caddy /app/bootstrap/cache \
     && chmod -R ug+rwX /app/bootstrap/cache \
+    && ln -sfn /app/storage/app/public /app/public/storage \
     && chmod +x /app/docker/entrypoint.sh
 
 # Switch to non-root user
