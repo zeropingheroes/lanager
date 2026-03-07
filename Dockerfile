@@ -30,6 +30,7 @@ FROM dunglas/frankenphp:1-php8.4-alpine AS base
 
 # Install PHP extensions
 RUN install-php-extensions \
+    pcntl \
     zip \
     pdo_mysql \
     simplexml \
@@ -47,17 +48,10 @@ RUN chmod -R 777 /app/storage /app/bootstrap/cache && \
     ln -s /app/storage/app/public /app/public/storage && \
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-# Set default environment variables
-ENV SERVER_NAME=:80
-ENV FRANKENPHP_CONFIG="worker ./public/index.php"
-
-WORKDIR /app
+ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
 
 FROM base AS dev
 
 # Install xdebug & switch to development PHP configuration
 RUN install-php-extensions xdebug && \
     mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
-
-# Disable worker mode for development
-ENV FRANKENPHP_CONFIG=""

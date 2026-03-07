@@ -49,6 +49,7 @@
         "graham-campbell/markdown": "^16.0",
         "guzzlehttp/guzzle": "^7.10",
         "laravel/framework": "^12.0",
+        "laravel/octane": "^2.14",
         "laravel/sanctum": "^4.3",
         "laravel/socialite": "^5.24",
         "socialiteproviders/steam": "^4.3",

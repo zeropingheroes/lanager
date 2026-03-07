@@ -26,3 +26,7 @@ yarn-error.log
 /storage/*.bucket
 /*.tar.gz
 /resources/lang/php_*.json
+
+**/caddy
+frankenphp
+frankenphp-worker.php
