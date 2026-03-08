@@ -131,20 +131,6 @@ the Docker host's firewall.
 4. Run `docker exec -it lanager php artisan lanager:update-steam-user-apps`
 5. Run `docker exec -it lanager php artisan lanager:update-steam-user-app-images`
 
-## Troubleshooting
-
-- Run `docker-compose down --rmi local --volumes` to delete all LANager data and the Docker image, and then
-  retry the setup steps above
-- Edit your `.env` file and enable debugging:
-    ```bash
-    APP_ENV=staging
-    APP_DEBUG=true
-    ```
-  **Important:** Remove these lines after troubleshooting to avoid leaking sensitive data
-
-If you get stuck, [create an issue](https://github.com/zeropingheroes/lanager/issues) with the details of what
-you're experiencing.
-
 ## Getting started
 
 To set up the LANager for your next LAN party, you need to create a LAN page, then add Events (such as scheduled games
