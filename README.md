@@ -46,7 +46,6 @@ more enjoyable for attendees and organisers alike.
 ## Requirements
 
 * Internet access
-* [Docker Engine](https://docs.docker.com/engine/install/#server)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Setup
@@ -85,16 +84,10 @@ more enjoyable for attendees and organisers alike.
 5. Bring up the application:
 
     ```bash
-    docker-compose up --detach
+    docker-compose up --detach --wait
     ```
 
-6. Check the application's status:
-
-    ```bash
-    docker ps --filter name=lanager
-    ```
-
-7. When the container status shows `Up x minutes (healthy)`, initialise the database:
+6. Initialise the database:
 
     ```bash
    ./initialise-database.sh
