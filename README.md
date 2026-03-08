@@ -97,6 +97,26 @@ LANager should now be accessible at http://localhost, or at the URL you specifie
 created a corresponding DNS `A` record for the Docker host's IP address, and allowed ports `80` and `443` through
 the Docker host's firewall.
 
+## Update
+
+1. Enter the `lanager-docker-compose` repository:
+
+    ```bash
+    cd lanager-docker-compose
+   ```
+
+2. Get the latest version of the Docker compose files and scripts:
+
+    ```bash
+    git pull
+   ```
+
+3. Run the update script:
+
+    ```bash
+    ./update.sh
+    ````
+
 ## Troubleshooting
 
 - Run `docker-compose down --rmi local --volumes` to delete the database data and LANager container image, and then
