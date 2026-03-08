@@ -119,7 +119,7 @@ the Docker host's firewall.
 
 ## Troubleshooting
 
-- Run `docker-compose down --rmi local --volumes` to delete the database data and LANager container image, and then
+- Run `docker-compose down --rmi local --volumes` to delete all LANager data and the Docker image, and then
   retry the setup steps above
 - Edit your `.env` file and enable debugging:
     ```bash
