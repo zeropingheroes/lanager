@@ -111,7 +111,7 @@ the Docker host's firewall.
     git pull
    ```
 
-3. Run the update script:
+4. Run the update script:
 
     ```bash
     ./update.sh
