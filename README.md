@@ -123,6 +123,14 @@ the Docker host's firewall.
     ./update.sh
     ````
 
+### Update from 1.3.1 to 2.x
+
+1. Follow the steps from the **Update** section above
+2. Run `./fix-permissions.sh` to fix permissions on the `storage` directory
+3. Run `docker exec -it lanager php artisan lanager:update-steam-apps`
+4. Run `docker exec -it lanager php artisan lanager:update-steam-user-apps`
+5. Run `docker exec -it lanager php artisan lanager:update-steam-user-app-images`
+
 ## Troubleshooting
 
 - Run `docker-compose down --rmi local --volumes` to delete all LANager data and the Docker image, and then
