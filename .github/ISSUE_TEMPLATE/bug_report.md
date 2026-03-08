@@ -14,7 +14,7 @@ assignees: ''
 <!-- You must be using the LANager Docker image to receive support. -->
 
 **Docker logs**
-<!-- Run `docker logs <container_id>` and paste the output -->
+<!-- Run `docker logs lanager` and paste the output -->
 
 **Bug description**
 <!-- Describe the issue you are experiencing -->
