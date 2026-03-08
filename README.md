@@ -63,31 +63,39 @@ more enjoyable for attendees and organisers alike.
     cp .env.example .env
     ```
 
-3. Open the environment configuration file in a text editor:
+3. Generate and copy a new application key:
+
+    ```bash
+    docker run --rm --entrypoint php -w /app zeropingheroes/lanager:develop artisan key:generate --show
+    ```
+
+4. Open the environment configuration file in a text editor:
 
     ```bash
     nano .env
     ```
 
-4. Set the following configuration items:
-    1. Set `APP_KEY` to `base64:` followed by
-       a [randomly generated 32 character base64 string](https://www.google.com/search?q=random+base64)
-    2. Set `APP_URL` to the URL you will access LANager through, without a trailing slash,
-       e.g. `https://example.com`
-    3. Set `APP_TIMEZONE` to your
-       location's [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
-    4. Set `STEAM_API_KEY` to your [Steam API Key](http://steamcommunity.com/dev/apikey)
-   5. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator) without special characters
-   6. Set `DB_ROOT_PASSWORD` to a different randomly generated password
-   7. If you will run LANager behind a reverse proxy, set `TRUSTED_PROXIES` to the IP ranges used by Docker, typically `172.16.0.0/12,192.168.0.0/16`
+5. Set the following configuration items:
 
-5. Bring up the application:
+    | Environment variable | Set to                                                                                     |
+    |----------------------|--------------------------------------------------------------------------------------------|
+    | `APP_KEY`            | The application key you generated above                                                    |
+    | `APP_URL`            | The URL you will access LANager through, without a trailing slash                          |
+    | `APP_TIMEZONE`       | Your location's [timezone](https://wikipedia.org/wiki/List_of_tz_database_time_zones#List) |
+    | `STEAM_API_KEY`      | Your [Steam API Key](http://steamcommunity.com/dev/apikey)                                 |
+    | `DB_PASSWORD`        | A randomly generated password                                                              |
+    | `DB_ROOT_PASSWORD`   | A different randomly generated password                                                    |
+
+    If you will LANager behind a reverse proxy, set `TRUSTED_PROXIES` to the IP ranges used by Docker, typically:
+    `172.16.0.0/12,192.168.0.0/16`
+
+6. Bring up the application:
 
     ```bash
     docker-compose up --detach --wait
     ```
 
-6. Initialise the database:
+7. Initialise the database:
 
     ```bash
    ./initialise-database.sh
