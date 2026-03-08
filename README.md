@@ -175,7 +175,7 @@ Once you have a LAN page for your LAN party, you can create Events and Guides to
   them know where the nearest shops and restaurants are, to provide a code of conduct for your event, and to communicate
   any other information you think your guests might need.
 
-From the LAN page, click the **+** button next to the **Events** and **Guides** headings to go to their creation forms.
+From the LAN page, select the **+** button next to the **Events** and **Guides** headings to go to their creation forms.
 
 #### Using links
 
@@ -191,10 +191,10 @@ links continue to work.
 
 You can upload images to LAN pages, Events and Guides. To do this, follow these steps:
 
-1. Below the "description" text box, select "upload images".
+1. Below the **Description** text box, select **Upload images**.
 2. Upload the image you want to use.
 3. Next to the image, select ⚙ > **Copy Markdown**
-4. Paste the markdown into the guide, event or LAN's **description** field, in the location you want it to appear in the
+4. Paste the Markdown into the guide, event or LAN's **description** field, in the location you want it to appear in the
    text.
 
 ### Display slides
@@ -208,7 +208,7 @@ Load the slideshow on a big TV or projector so that attendees can see the info e
 
 ### Create and award Achievements
 
-Click ⚙ > **Achievements** and then click the **+** button to create achievements that you can award to users.
+Select ⚙ > **Achievements** and then select the **+** button to create achievements that you can award to users.
 
 To award an Achievement to an attendee, go to the navigation bar and select **Achievements**. This opens the list of
 Achievements you have awarded to attendees of the current LAN. At the bottom of the page, choose the Achievement and the
@@ -216,7 +216,7 @@ attendee to award it to, then select **Award**.
 
 ### Customise the navigation bar
 
-Click ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager or
+Select ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager or
 to third-party sites, organise the links into drop-down menus, and choose the order that the links appear in the navbar
 or dropdown.
 
