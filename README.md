@@ -143,12 +143,7 @@ the Docker host's firewall.
   **Important:** Remove these lines after troubleshooting to avoid leaking sensitive data
 
 If you get stuck, [create an issue](https://github.com/zeropingheroes/lanager/issues) with the details of what
-you're experiencing:
-
-- The commands you've run
-- The output of `docker-compose up`
-- The output of `docker logs lanager`
-- Any errors displayed in your browser
+you're experiencing.
 
 ## Getting started
 
