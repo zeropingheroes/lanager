@@ -105,7 +105,13 @@ the Docker host's firewall.
     cd lanager-docker-compose
    ```
 
-2. Get the latest version of the Docker compose files and scripts:
+2. Back up your data:
+
+    ```bash
+    ./backup.sh
+   ```
+
+3. Get the latest version of the Docker compose files and scripts:
 
     ```bash
     git pull
