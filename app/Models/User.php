@@ -39,8 +39,8 @@ class User extends Authenticatable
      */
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany('Zeropingheroes\Lanager\Models\Role', 'role_assignments')
-            ->using('Zeropingheroes\Lanager\Models\RoleAssignment');
+        return $this->belongsToMany(Role::class, 'role_assignments')
+            ->using(RoleAssignment::class);
     }
 
     /**
@@ -56,7 +56,7 @@ class User extends Authenticatable
      */
     public function accounts(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\UserOAuthAccount');
+        return $this->hasMany(UserOAuthAccount::class);
     }
 
     /**
@@ -64,8 +64,8 @@ class User extends Authenticatable
      */
     public function lans(): BelongsToMany
     {
-        return $this->belongsToMany('Zeropingheroes\Lanager\Models\Lan', 'lan_attendees')
-            ->using('Zeropingheroes\Lanager\Models\Attendee')
+        return $this->belongsToMany(Lan::class, 'lan_attendees')
+            ->using(Attendee::class)
             ->as('attendance')
             ->withTimestamps();
     }
@@ -75,7 +75,7 @@ class User extends Authenticatable
      */
     public function eventSignups(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\EventSignup');
+        return $this->hasMany(EventSignup::class);
     }
 
     /**
@@ -83,7 +83,7 @@ class User extends Authenticatable
      */
     public function lanGames(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\LanGame');
+        return $this->hasMany(LanGame::class);
     }
 
     /**
@@ -91,7 +91,7 @@ class User extends Authenticatable
      */
     public function lanGameVotes(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\LanGameVote');
+        return $this->hasMany(LanGameVote::class);
     }
 
     /**
@@ -99,7 +99,7 @@ class User extends Authenticatable
      */
     public function achievements(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\UserAchievement');
+        return $this->hasMany(UserAchievement::class);
     }
 
     /**
@@ -107,7 +107,7 @@ class User extends Authenticatable
      */
     public function steamApps(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\SteamUserApp');
+        return $this->hasMany(SteamUserApp::class);
     }
 
     /**
@@ -115,7 +115,7 @@ class User extends Authenticatable
      */
     public function steamMetadata(): HasOne
     {
-        return $this->hasOne('Zeropingheroes\Lanager\Models\SteamUserMetadata')
+        return $this->hasOne(SteamUserMetadata::class)
             ->withDefault();
     }
 
@@ -124,7 +124,7 @@ class User extends Authenticatable
      */
     public function steamAppSessions(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\SteamUserAppSession');
+        return $this->hasMany(SteamUserAppSession::class);
     }
 
     /**
@@ -132,6 +132,6 @@ class User extends Authenticatable
      */
     public function sessions(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\Session');
+        return $this->hasMany(Session::class);
     }
 }

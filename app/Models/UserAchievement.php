@@ -24,7 +24,7 @@ class UserAchievement extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -32,7 +32,7 @@ class UserAchievement extends Model
      */
     public function achievement(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\Achievement');
+        return $this->belongsTo(Achievement::class);
     }
 
     /**
@@ -40,6 +40,6 @@ class UserAchievement extends Model
      */
     public function lan(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\Lan');
+        return $this->belongsTo(Lan::class);
     }
 }

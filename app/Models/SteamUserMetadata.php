@@ -32,7 +32,7 @@ class SteamUserMetadata extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -40,6 +40,6 @@ class SteamUserMetadata extends Model
      */
     public function status(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\SteamUserStatusCode', 'steam_user_status_code_id');
+        return $this->belongsTo(SteamUserStatusCode::class, 'steam_user_status_code_id');
     }
 }

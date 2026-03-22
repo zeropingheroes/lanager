@@ -22,7 +22,7 @@ class RoleAssignment extends Pivot
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -30,11 +30,11 @@ class RoleAssignment extends Pivot
      */
     public function role(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\Role');
+        return $this->belongsTo(Role::class);
     }
 
     public function assigner(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\User', 'assigned_by');
+        return $this->belongsTo(User::class, 'assigned_by');
     }
 }

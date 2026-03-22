@@ -22,7 +22,7 @@ class LanGameVote extends Model
      */
     public function lanGame(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\LanGame');
+        return $this->belongsTo(LanGame::class);
     }
 
     /**
@@ -30,6 +30,6 @@ class LanGameVote extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
+        return $this->belongsTo(User::class);
     }
 }

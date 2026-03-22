@@ -28,7 +28,7 @@ class LanGame extends Model
      */
     public function lan(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\Lan');
+        return $this->belongsTo(Lan::class);
     }
 
     /**
@@ -36,7 +36,7 @@ class LanGame extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\User', 'created_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     /**
@@ -44,6 +44,6 @@ class LanGame extends Model
      */
     public function votes(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\LanGameVote');
+        return $this->hasMany(LanGameVote::class);
     }
 }

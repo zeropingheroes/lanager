@@ -68,7 +68,7 @@ class Lan extends Model
      */
     public function events(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\Event');
+        return $this->hasMany(Event::class);
     }
 
     /**
@@ -76,7 +76,7 @@ class Lan extends Model
      */
     public function guides(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\Guide');
+        return $this->hasMany(Guide::class);
     }
 
     /**
@@ -84,8 +84,8 @@ class Lan extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany('Zeropingheroes\Lanager\Models\User', 'lan_attendees')
-            ->using('Zeropingheroes\Lanager\Models\Attendee')
+        return $this->belongsToMany(User::class, 'lan_attendees')
+            ->using(Attendee::class)
             ->as('attendance')
             ->withTimestamps();
     }
@@ -95,7 +95,7 @@ class Lan extends Model
      */
     public function userAchievements(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\UserAchievement');
+        return $this->hasMany(UserAchievement::class);
     }
 
     /**
@@ -103,7 +103,7 @@ class Lan extends Model
      */
     public function venue(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\Venue');
+        return $this->belongsTo(Venue::class);
     }
 
     /**
@@ -111,7 +111,7 @@ class Lan extends Model
      */
     public function attendanceAchievement(): HasOne
     {
-        return $this->hasOne('Zeropingheroes\Lanager\Models\Achievement', 'id', 'achievement_id');
+        return $this->hasOne(Achievement::class, 'id', 'achievement_id');
     }
 
     /**
@@ -119,7 +119,7 @@ class Lan extends Model
      */
     public function slides(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\Slide');
+        return $this->hasMany(Slide::class);
     }
 
     /**
@@ -127,6 +127,6 @@ class Lan extends Model
      */
     public function games(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\LanGame');
+        return $this->hasMany(LanGame::class);
     }
 }

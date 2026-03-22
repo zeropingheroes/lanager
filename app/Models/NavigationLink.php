@@ -29,7 +29,7 @@ class NavigationLink extends Model
      */
     public function parent(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\NavigationLink', 'parent_id')
+        return $this->belongsTo(NavigationLink::class, 'parent_id')
             ->withDefault();
     }
 
@@ -38,6 +38,6 @@ class NavigationLink extends Model
      */
     public function children(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\NavigationLink', 'parent_id');
+        return $this->hasMany(NavigationLink::class, 'parent_id');
     }
 }

@@ -20,6 +20,6 @@ class Achievement extends Model
      */
     public function users(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\UserAchievement');
+        return $this->hasMany(UserAchievement::class);
     }
 }

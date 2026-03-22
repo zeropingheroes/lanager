@@ -30,6 +30,6 @@ class Slide extends Model
      */
     public function lan(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\Lan');
+        return $this->belongsTo(Lan::class);
     }
 }

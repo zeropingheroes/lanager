@@ -22,6 +22,6 @@ class Venue extends Model
      */
     public function lans(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\Lan');
+        return $this->hasMany(Lan::class);
     }
 }

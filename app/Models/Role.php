@@ -14,7 +14,7 @@ class Role extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany('Zeropingheroes\Lanager\Models\User', 'role_assignments')
-            ->using('Zeropingheroes\Lanager\Models\RoleAssignment');
+        return $this->belongsToMany(User::class, 'role_assignments')
+            ->using(RoleAssignment::class);
     }
 }

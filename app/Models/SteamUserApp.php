@@ -21,7 +21,7 @@ class SteamUserApp extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -29,6 +29,6 @@ class SteamUserApp extends Model
      */
     public function app(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\SteamApp', 'steam_app_id')->withDefault();
+        return $this->belongsTo(SteamApp::class, 'steam_app_id')->withDefault();
     }
 }

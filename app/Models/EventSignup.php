@@ -19,7 +19,7 @@ class EventSignup extends Model
      */
     public function event(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\Event');
+        return $this->belongsTo(Event::class);
     }
 
     /**
@@ -27,6 +27,6 @@ class EventSignup extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
+        return $this->belongsTo(User::class);
     }
 }

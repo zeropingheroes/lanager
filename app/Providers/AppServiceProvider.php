@@ -5,6 +5,7 @@ namespace Zeropingheroes\Lanager\Providers;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Zeropingheroes\Lanager\Models\SteamApp;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Relation::morphMap(
             [
-                'steam' => 'Zeropingheroes\Lanager\Models\SteamApp',
+                'steam' => SteamApp::class,
             ]
         );
 

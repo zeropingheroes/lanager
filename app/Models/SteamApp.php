@@ -32,7 +32,7 @@ class SteamApp extends Model
     public function sessions(): HasMany
     {
         return $this->hasMany(
-            'Zeropingheroes\Lanager\Models\SteamUserAppSession'
+            SteamUserAppSession::class
         );
     }
 
@@ -42,7 +42,7 @@ class SteamApp extends Model
     public function players(): BelongsToMany
     {
         return $this->belongsToMany(
-            'Zeropingheroes\Lanager\Models\User',
+            User::class,
             'steam_user_app_sessions',
         );
     }
@@ -53,7 +53,7 @@ class SteamApp extends Model
     public function owners(): BelongsToMany
     {
         return $this->belongsToMany(
-            'Zeropingheroes\Lanager\Models\User',
+            User::class,
             'steam_user_apps',
         );
     }
