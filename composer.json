@@ -67,6 +67,7 @@
         "ottaviano/faker-gravatar": "^0.3",
         "pestphp/pest": "^4.3",
         "phpunit/phpunit": "^12.5",
+        "rector/rector": "^2.3",
         "spatie/laravel-ignition": "^2.10",
         "squizlabs/php_codesniffer": "^4.0"
     },
