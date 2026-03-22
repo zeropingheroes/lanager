@@ -35,18 +35,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Create a new Eloquent model instance.
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->with['steamAppSessions'] = function ($query) {
-            $query->active();
-        };
-    }
-
-    /**
      * Roles assigned to the user
      */
     public function roles(): BelongsToMany
