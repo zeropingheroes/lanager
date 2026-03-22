@@ -329,16 +329,6 @@ docker-compose down --volumes
 
 Follow the setup steps above to get a fresh development environment.
 
-### Enable pre-commit hooks
-
-To automatically check for and fix problems with your code before you commit:
-
-1. Install [pre-commit](https://pre-commit.com/)
-2. Install [PHP Codesniffer & Code beautifier](https://github.com/PHPCSStandards/PHP_CodeSniffer/)
-3. From the `lanager/` directory, run `pre-commit install`
-
-To check your code, run `pre-commit run --all-files` or attempt to run `git commit`
-
 ### Recompiling JavaScript & CSS assets
 
 To recompile JavaScript & CSS assets, from the `lanager` directory, run:
