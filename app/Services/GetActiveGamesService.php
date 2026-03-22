@@ -30,9 +30,7 @@ class GetActiveGamesService
         // Sort games array by user count, in descending order (removing key)
         usort(
             $usage,
-            function ($a, $b) {
-                return count($b['users']) - count($a['users']);
-            }
+            fn ($a, $b) => count($b['users']) - count($a['users'])
         );
 
         return collect($usage);

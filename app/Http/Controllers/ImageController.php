@@ -40,19 +40,15 @@ class ImageController extends Controller
 
         // Only show image files
         $images = $files->filter(
-            function ($value) {
-                return in_array(strtolower(File::extension($value)), self::PERMITTED_EXTENSIONS);
-            }
+            fn ($value) => in_array(strtolower(File::extension($value)), self::PERMITTED_EXTENSIONS)
         );
 
         // Add fields to collection
         $images = $images->map(
-            function ($item) {
-                return [
-                    'url' => Storage::url($item),
-                    'filename' => File::basename($item),
-                ];
-            }
+            fn ($item) => [
+                'url' => Storage::url($item),
+                'filename' => File::basename($item),
+            ]
         );
 
         return View::make('pages.images.index')

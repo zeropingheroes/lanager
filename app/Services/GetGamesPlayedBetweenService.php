@@ -83,9 +83,7 @@ class GetGamesPlayedBetweenService
             SORT_NUMERIC,
             SORT_DESC,
             array_map(
-                function ($playtime) {
-                    return $playtime->totalSeconds;
-                },
+                fn ($playtime) => $playtime->totalSeconds,
                 $playtime
             ),
             SORT_NUMERIC,

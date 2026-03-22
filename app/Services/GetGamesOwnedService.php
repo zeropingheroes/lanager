@@ -46,9 +46,7 @@ class GetGamesOwnedService
         // Sort games array by user count, in descending order
         usort(
             $usage,
-            function ($a, $b) {
-                return count($b['users']) - count($a['users']);
-            }
+            fn ($a, $b) => count($b['users']) - count($a['users'])
         );
 
         return array_slice($usage, 0, $count);

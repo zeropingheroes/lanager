@@ -61,13 +61,11 @@ abstract class DuskTestCase extends BaseTestCase
         $options = (new ChromeOptions)->addArguments(
             collect([
                 $this->shouldStartMaximized() ? '--start-maximized' : '--window-size=1920,1080',
-            ])->unless($this->hasHeadlessDisabled(), function ($items) {
-                return $items->merge([
-                    '--disable-gpu',
-                    '--headless',
-                    '--remote-debugging-port=9222',
-                ]);
-            })->all()
+            ])->unless($this->hasHeadlessDisabled(), fn ($items) => $items->merge([
+                '--disable-gpu',
+                '--headless',
+                '--remote-debugging-port=9222',
+            ]))->all()
         );
 
         return RemoteWebDriver::create(

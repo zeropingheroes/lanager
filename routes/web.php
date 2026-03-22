@@ -80,9 +80,7 @@ Route::get('/games/owned', [GameController::class, 'owned'])
     ->name('games.owned');
 Route::get(
     '/games/fullscreen',
-    function () {
-        return view('pages.games.fullscreen');
-    }
+    fn () => view('pages.games.fullscreen')
 )->name('games.fullscreen');
 
 /**
@@ -104,9 +102,7 @@ Route::resource('lans.events', EventController::class);
 Route::resource('lans.events.signups', EventSignupController::class, ['only' => ['store', 'destroy']]);
 Route::get(
     '/events/fullscreen',
-    function () {
-        return view('pages.events.fullscreen');
-    }
+    fn () => view('pages.events.fullscreen')
 )->name('events.fullscreen');
 
 /**
@@ -147,9 +143,7 @@ Route::resource('venues', VenueController::class);
  */
 Route::get(
     'lans/{lan}/slides/play',
-    function (Lan $lan) {
-        return view('pages.slides.play', ['lan' => $lan]);
-    }
+    fn (Lan $lan) => view('pages.slides.play', ['lan' => $lan])
 )->name('lans.slides.play');
 Route::resource('lans.slides', SlideController::class);
 
@@ -163,7 +157,5 @@ Route::resource(
 );
 
 Route::fallback(
-    function () {
-        return view('errors.404');
-    }
+    fn () => view('errors.404')
 )->name('fallback');

@@ -58,12 +58,10 @@ class UpdateSteamApps extends Command
         $databaseApps = [];
 
         foreach ($appPaginator as $response) {
-            $apps = array_map(function ($app) {
-                return [
-                    'id' => $app['appid'],
-                    'name' => $app['name'],
-                ];
-            }, $response->json('response.apps'));
+            $apps = array_map(fn ($app) => [
+                'id' => $app['appid'],
+                'name' => $app['name'],
+            ], $response->json('response.apps'));
 
             $databaseApps = array_merge($apps, $databaseApps);
         }
