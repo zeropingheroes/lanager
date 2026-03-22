@@ -59,14 +59,15 @@
         "barryvdh/laravel-debugbar": "^4.0",
         "barryvdh/laravel-ide-helper": "^3.6",
         "fakerphp/faker": "^1.24",
-        "laravel/dusk":  "^8.3",
+        "laravel/dusk": "^8.3",
+        "laravel/pint": "^1.29",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision":  "^8.8",
+        "nunomaduro/collision": "^8.8",
         "ottaviano/faker-gravatar": "^0.3",
-        "phpunit/phpunit":  "^12.5",
         "pestphp/pest": "^4.3",
+        "phpunit/phpunit": "^12.5",
         "spatie/laravel-ignition": "^2.10",
-        "squizlabs/php_codesniffer":  "^4.0"
+        "squizlabs/php_codesniffer": "^4.0"
     },
     "extra": {
         "laravel": {
