@@ -12,15 +12,10 @@ use Zeropingheroes\Lanager\Models\UserAchievement;
 
 class AwardLanAchievementToAttendee
 {
-    protected Request $request;
-
     /**
      * Create the event listener.
      */
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
+    public function __construct(protected Request $request) {}
 
     /**
      * Handle the event.

@@ -5,11 +5,6 @@ namespace Zeropingheroes\Lanager\Requests;
 abstract class Request implements RequestContract
 {
     /**
-     * Request input data to be validated.
-     */
-    protected array $input = [];
-
-    /**
      * Errors.
      */
     protected array $errors = [];
@@ -22,10 +17,12 @@ abstract class Request implements RequestContract
     /**
      * Instantiate the class with the request input.
      */
-    public function __construct(array $input)
-    {
-        $this->input = $input;
-    }
+    public function __construct(
+        /**
+         * Request input data to be validated.
+         */
+        protected array $input
+    ) {}
 
     /**
      * Whether the request is valid.
