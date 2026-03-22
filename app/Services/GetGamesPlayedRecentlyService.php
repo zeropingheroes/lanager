@@ -35,11 +35,11 @@ class GetGamesPlayedRecentlyService
         // Collect and combine games
         $usage = [];
         foreach ($steamUserApps as $app) {
-            $usage[$app->steam_app_id] = $usage[$app->steam_app_id] ?? [
+            $usage[$app->steam_app_id] ??= [
                 'game' => null,
                 'users' => [],
             ];
-            $usage[$app->steam_app_id]['game'] = $usage[$app->steam_app_id]['game'] ?? $app->app;
+            $usage[$app->steam_app_id]['game'] ??= $app->app;
             $usage[$app->steam_app_id]['users'][] = $app->user;
         }
 

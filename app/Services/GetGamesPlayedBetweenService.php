@@ -54,7 +54,7 @@ class GetGamesPlayedBetweenService
         $combinedUsage = [];
         foreach ($sessions as $session) {
             // Initialise entry if this game has not been added before
-            $combinedUsage[$session->steam_app_id] = $combinedUsage[$session->steam_app_id] ?? [
+            $combinedUsage[$session->steam_app_id] ??= [
                 'game' => $session->app,
                 'users' => [],
                 'playtime' => new CarbonInterval(0),
