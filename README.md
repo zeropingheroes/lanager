@@ -4,23 +4,14 @@ LANager
 |                                    Stable Branch |                                     Develop Branch |
 |-------------------------------------------------:|---------------------------------------------------:|
 |          [![Dusk][duskStableImg]][duskStableUrl] |          [![Dusk][duskDevelopImg]][duskDevelopUrl] |
-| [![StyleCI][styleciStableImg]][styleciStableUrl] | [![StyleCI][styleciDevelopImg]][styleciDevelopUrl] |
 
 [duskStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=stable
 
 [duskStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml
 
-[styleciStableImg]:https://github.styleci.io/repos/14088050/shield?branch=stable
-
-[styleciStableUrl]:https://github.styleci.io/repos/14088050?branch=stable
-
 [duskDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=develop
 
 [duskDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml
-
-[styleciDevelopImg]:https://github.styleci.io/repos/14088050/shield?branch=develop
-
-[styleciDevelopUrl]:https://github.styleci.io/repos/14088050?branch=develop
 
 LANager is a web application designed to make [LAN parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
