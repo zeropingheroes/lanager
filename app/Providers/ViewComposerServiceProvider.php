@@ -16,7 +16,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         View::composer(
             'layouts.partials.nav.primary',
-            function ($view) {
+            function ($view): void {
                 // Cached collection of top-level navigation links, and their children
                 $navigationLinks = Cache::rememberForever(
                     'navigationLinks',

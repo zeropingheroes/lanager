@@ -47,7 +47,7 @@ class PruneSteamUserHistory extends Command
 
         foreach ($periodsToDelete as $period) {
             $statesToDelete = $statesToDelete->orWhere(
-                function ($query) use ($period) {
+                function ($query) use ($period): void {
                     $query->where('updated_at', '>', $period['start']);
                     $query->where('updated_at', '<', $period['end']);
                 }

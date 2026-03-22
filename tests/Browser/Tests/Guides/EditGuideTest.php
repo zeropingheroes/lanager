@@ -12,7 +12,7 @@ class EditGuideTest extends DuskTestCase
 {
     public function test_editing_guide(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
@@ -51,7 +51,7 @@ class EditGuideTest extends DuskTestCase
             $browser->type('content', 'Be excellent to each other');
 
             // And submits the form
-            $browser->waitForReload(function (Browser $browser) {
+            $browser->waitForReload(function (Browser $browser): void {
                 $browser->press('@submit');
             });
 

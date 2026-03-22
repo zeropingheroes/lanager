@@ -11,7 +11,7 @@ class DeleteLanTest extends DuskTestCase
 {
     public function test_deleting_lan(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::factory()->count(1)->create()->first();
 

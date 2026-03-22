@@ -14,7 +14,7 @@ class DeleteLanGameVoteTest extends DuskTestCase
 {
     public function test_deleting_lan_game_vote(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',

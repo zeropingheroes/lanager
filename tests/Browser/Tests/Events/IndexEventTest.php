@@ -11,7 +11,7 @@ class IndexEventTest extends DuskTestCase
 {
     public function test_indexing_events(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             // And it is published
             $lan = Lan::create([

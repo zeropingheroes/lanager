@@ -33,7 +33,7 @@ abstract class DuskTestCase extends BaseTestCase
 
     protected function tearDown(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             $sourceFilename = sprintf('%s-source', class_basename($this));
             $browser->storeSource($sourceFilename);
         });

@@ -12,7 +12,7 @@ class DeleteUserTest extends DuskTestCase
 {
     public function test_deleting_user(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given a user exists
             $user = User::factory()
                 ->has(

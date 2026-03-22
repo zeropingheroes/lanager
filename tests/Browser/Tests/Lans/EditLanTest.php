@@ -12,7 +12,7 @@ class EditLanTest extends DuskTestCase
 {
     public function test_editing_lan(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::factory()->count(1)->create()->first();
 
@@ -39,7 +39,7 @@ class EditLanTest extends DuskTestCase
             $browser->type('name', 'My Great LAN');
 
             // And submits the form
-            $browser->waitForReload(function (Browser $browser) {
+            $browser->waitForReload(function (Browser $browser): void {
                 $browser->press('@submit');
             });
 

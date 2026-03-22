@@ -38,7 +38,7 @@ class GetGamesPlayedBetweenService
     {
         $sessions = SteamUserAppSession::where('start', '>', $this->start)
             ->where(
-                function ($query) {
+                function ($query): void {
                     $query->where('end', '<', $this->end)
                         ->orWhere('updated_at', '<', $this->end); // include games without an end time
                 }

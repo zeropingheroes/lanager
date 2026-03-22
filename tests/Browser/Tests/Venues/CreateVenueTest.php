@@ -11,7 +11,7 @@ class CreateVenueTest extends DuskTestCase
 {
     public function test_creating_venue(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
             $superAdmin = $this->createSuperAdmin();
 
@@ -33,7 +33,7 @@ class CreateVenueTest extends DuskTestCase
             $browser->type('street_address', '1 Example Road, Exampleton, Exampleland');
 
             // And submits the form
-            $browser->waitForReload(function (Browser $browser) {
+            $browser->waitForReload(function (Browser $browser): void {
                 $browser->press('@submit');
             });
 

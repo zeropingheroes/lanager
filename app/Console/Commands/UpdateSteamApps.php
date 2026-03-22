@@ -82,7 +82,7 @@ class UpdateSteamApps extends Command
         // Insert the chunks
         foreach ($chunkedApps as $chunk) {
             SteamApp::insert($chunk);
-            $importedCount = $importedCount + count($chunk);
+            $importedCount += count($chunk);
             $progress->advance();
         }
         $progress->finish();

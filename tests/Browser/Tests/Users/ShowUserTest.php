@@ -11,7 +11,7 @@ class ShowUserTest extends DuskTestCase
 {
     public function test_showing_user(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given a user exists
             $user = User::factory()
                 ->has(

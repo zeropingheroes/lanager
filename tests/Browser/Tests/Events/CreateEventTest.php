@@ -11,7 +11,7 @@ class CreateEventTest extends DuskTestCase
 {
     public function test_creating_event(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
             $superAdmin = $this->createSuperAdmin();
 
@@ -41,7 +41,7 @@ class CreateEventTest extends DuskTestCase
             $browser->type('end', '2025-06-01 21:00');
 
             // And submits the form
-            $browser->waitForReload(function (Browser $browser) {
+            $browser->waitForReload(function (Browser $browser): void {
                 $browser->press('@submit');
             });
 

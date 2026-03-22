@@ -9,7 +9,7 @@ class UploadImageTest extends DuskTestCase
 {
     public function test_uploading_image(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
             $superAdmin = $this->createSuperAdmin();
 
@@ -23,7 +23,7 @@ class UploadImageTest extends DuskTestCase
             $browser->attach('images[]', base_path('resources/images/bg.jpg'));
 
             // And clicks the "upload" button
-            $browser->waitForReload(function (Browser $browser) {
+            $browser->waitForReload(function (Browser $browser): void {
                 $browser->press('Upload');
             });
 

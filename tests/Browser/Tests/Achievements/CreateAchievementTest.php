@@ -10,7 +10,7 @@ class CreateAchievementTest extends DuskTestCase
 {
     public function test_creating_achievement(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a super admin
             $superAdmin = $this->createSuperAdmin();
 
@@ -30,7 +30,7 @@ class CreateAchievementTest extends DuskTestCase
                 ->type('description', 'Get a BSOD');
 
             // And submits the form
-            $browser->waitForReload(function (Browser $browser) {
+            $browser->waitForReload(function (Browser $browser): void {
                 $browser->press('@submit');
             });
 

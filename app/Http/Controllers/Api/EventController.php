@@ -16,13 +16,13 @@ class EventController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $events = Event::where('published', true)
-            ->whereHas('lan', function ($query) {
+            ->whereHas('lan', function ($query): void {
                 $query->where('published', true);
             });
 
         if ($request->filled('after')) {
             $events->where(
-                function ($query) use ($request) {
+                function ($query) use ($request): void {
                     $query->where('start', '>', $request->after)
                         ->orWhere('end', '>', $request->after);
                 }

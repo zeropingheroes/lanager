@@ -13,7 +13,7 @@ class CreateEventSignupTest extends DuskTestCase
 {
     public function test_creating_event_signup(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given a LAN exists
             // And the LAN started a few hours ago
             // And the LAN ends tomorrow

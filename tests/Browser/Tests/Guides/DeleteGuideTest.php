@@ -12,7 +12,7 @@ class DeleteGuideTest extends DuskTestCase
 {
     public function test_deleting_guide(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',

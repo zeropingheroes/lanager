@@ -12,7 +12,7 @@ class CreateSlideTest extends DuskTestCase
 {
     public function test_creating_slide(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
@@ -41,7 +41,7 @@ class CreateSlideTest extends DuskTestCase
                 ->type('duration', 10);
 
             // And submits the form
-            $browser->waitForReload(function (Browser $browser) {
+            $browser->waitForReload(function (Browser $browser): void {
                 $browser->press('@submit');
             });
 

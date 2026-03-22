@@ -13,7 +13,7 @@ class CreateLanGameVoteTest extends DuskTestCase
 {
     public function test_creating_lan_game_vote(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',

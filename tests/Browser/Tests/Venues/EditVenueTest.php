@@ -12,7 +12,7 @@ class EditVenueTest extends DuskTestCase
 {
     public function test_editing_venue(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a venue
             $venue = Venue::factory()->count(1)->create()->first();
 
@@ -39,7 +39,7 @@ class EditVenueTest extends DuskTestCase
             $browser->type('name', 'My LAN Venue');
 
             // And submits the form
-            $browser->waitForReload(function (Browser $browser) {
+            $browser->waitForReload(function (Browser $browser): void {
                 $browser->press('@submit');
             });
 

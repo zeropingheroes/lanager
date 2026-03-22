@@ -10,7 +10,7 @@ class IndexAchievementsTest extends DuskTestCase
 {
     public function test_indexing_achievements(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is an achievement
             $achievement = Achievement::create([
                 'name' => 'Left the house',

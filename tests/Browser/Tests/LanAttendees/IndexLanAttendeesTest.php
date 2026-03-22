@@ -12,7 +12,7 @@ class IndexLanAttendeesTest extends DuskTestCase
 {
     public function test_indexing_achievements(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::factory()->count(1)->create()->first();
 

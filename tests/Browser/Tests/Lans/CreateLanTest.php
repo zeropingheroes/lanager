@@ -11,7 +11,7 @@ class CreateLanTest extends DuskTestCase
 {
     public function test_creating_lan(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
             $superAdmin = $this->createSuperAdmin();
 
@@ -34,7 +34,7 @@ class CreateLanTest extends DuskTestCase
             $browser->type('end', '2022-09-25 18:00');
 
             // And submits the form
-            $browser->waitForReload(function (Browser $browser) {
+            $browser->waitForReload(function (Browser $browser): void {
                 $browser->press('@submit');
             });
 

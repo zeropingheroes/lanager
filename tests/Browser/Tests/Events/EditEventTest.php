@@ -12,7 +12,7 @@ class EditEventTest extends DuskTestCase
 {
     public function test_editing_event(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
             $superAdmin = $this->createSuperAdmin();
 
@@ -51,7 +51,7 @@ class EditEventTest extends DuskTestCase
             $browser->type('name', 'My Edited Event');
 
             // And submits the "edit event" form
-            $browser->waitForReload(function (Browser $browser) {
+            $browser->waitForReload(function (Browser $browser): void {
                 $browser->press('@submit');
             });
 

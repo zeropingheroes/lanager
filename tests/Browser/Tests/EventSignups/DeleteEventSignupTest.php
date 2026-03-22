@@ -14,7 +14,7 @@ class DeleteEventSignupTest extends DuskTestCase
 {
     public function test_deleting_event_signup(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given a LAN exists
             // And the LAN has an event
             $lan = Lan::factory()->state(function (array $attributes) {

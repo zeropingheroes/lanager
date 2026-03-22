@@ -10,7 +10,7 @@ class CreateNavigationLinkTest extends DuskTestCase
 {
     public function test_creating_navigation_link(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
             $superAdmin = $this->createSuperAdmin();
 
@@ -40,7 +40,7 @@ class CreateNavigationLinkTest extends DuskTestCase
                 ->type('position', '10');
 
             // And submits the form
-            $browser->waitForReload(function (Browser $browser) {
+            $browser->waitForReload(function (Browser $browser): void {
                 $browser->press('@submit');
             });
 

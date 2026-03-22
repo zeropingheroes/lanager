@@ -19,7 +19,7 @@ class StoreLanGameRequest extends Request
                 'required',
                 'max:255',
                 Rule::unique('lan_games')->where(
-                    function ($query) {
+                    function ($query): void {
                         $query->where('lan_id', $this->input['lan_id']);
                     }
                 )->ignore($this->input['id'] ?? ''),

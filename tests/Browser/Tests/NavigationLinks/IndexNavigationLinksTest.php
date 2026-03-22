@@ -10,7 +10,7 @@ class IndexNavigationLinksTest extends DuskTestCase
 {
     public function test_indexing_achievements(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
             $superAdmin = $this->createSuperAdmin();
 

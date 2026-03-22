@@ -36,14 +36,14 @@ class LanController extends Controller
         }
         if ($request->has('events')) {
             $lan->load([
-                'events' => function ($query) {
+                'events' => function ($query): void {
                     $query->where('published', true);
                 },
             ]);
         }
         if ($request->has('slides')) {
             $lan->load([
-                'slides' => function ($query) {
+                'slides' => function ($query): void {
                     $query->where('published', true);
                 },
             ]);

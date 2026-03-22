@@ -13,7 +13,7 @@ class EditLanGameTest extends DuskTestCase
 {
     public function test_editing_lan_game(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
