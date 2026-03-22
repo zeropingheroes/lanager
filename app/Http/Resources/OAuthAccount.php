@@ -17,9 +17,9 @@ class OAuthAccount extends JsonResource
             'provider_id' => $this->provider_id,
             'username' => $this->username,
             'avatar' => [
-                'small' => $this->avatarSmall(),
-                'medium' => $this->avatarMedium(),
-                'large' => $this->avatarLarge(),
+                'small' => str_replace('_medium.jpg', '.jpg', $this->avatar),
+                'medium' => $this->avatar,
+                'large' => str_replace('_medium.jpg', '_full.jpg', $this->avatar),
             ],
         ];
     }

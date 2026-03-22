@@ -32,40 +32,4 @@ class UserOAuthAccount extends Model
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
     }
-
-    /**
-     * Small avatar URL
-     */
-    public function avatarSmall(): string
-    {
-        if ($this->provider == 'steam') {
-            return str_replace('_medium.jpg', '.jpg', $this->avatar);
-        }
-
-        return '';
-    }
-
-    /**
-     * Medium avatar URL
-     */
-    public function avatarMedium(): string
-    {
-        if ($this->provider == 'steam') {
-            return $this->avatar;
-        }
-
-        return '';
-    }
-
-    /**
-     * Large avatar URL
-     */
-    public function avatarLarge(): string
-    {
-        if ($this->provider == 'steam') {
-            return str_replace('_medium.jpg', '_full.jpg', $this->avatar);
-        }
-
-        return '';
-    }
 }
