@@ -129,7 +129,6 @@ return [
     'lan' => 'LANka',
     'dates' => 'Data',
     'times' => 'Časy',
-    'duration' => 'Trvání',
     'x-hours' => ':x hodin',
     'attendees' => 'Účastníci',
     'attendee' => 'Účastník',
