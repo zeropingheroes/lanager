@@ -3,15 +3,15 @@ LANager
 
 |                                    Stable Branch |                                     Develop Branch |
 |-------------------------------------------------:|---------------------------------------------------:|
-|          [![Dusk][duskStableImg]][duskStableUrl] |          [![Dusk][duskDevelopImg]][duskDevelopUrl] |
+| [![Browser Tests][duskStableImg]][duskStableUrl] | [![Browser Tests][duskDevelopImg]][duskDevelopUrl] |
 
-[duskStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=stable
+[duskStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml/badge.svg?branch=stable
 
-[duskStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml
+[duskStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml
 
-[duskDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=develop
+[duskDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml/badge.svg?branch=develop
 
-[duskDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml
+[duskDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml
 
 LANager is a web application designed to make [LAN parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
