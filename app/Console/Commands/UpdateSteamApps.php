@@ -2,11 +2,11 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
-use Zeropingheroes\SteamApis\SteamWebApi\SteamWebApiConnector;
-use Zeropingheroes\SteamApis\SteamWebApi\Requests\IStoreService\GetAppListRequest;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\Models\SteamApp;
+use Zeropingheroes\SteamApis\SteamWebApi\Requests\IStoreService\GetAppListRequest;
+use Zeropingheroes\SteamApis\SteamWebApi\SteamWebApiConnector;
 
 class UpdateSteamApps extends Command
 {
@@ -32,11 +32,11 @@ class UpdateSteamApps extends Command
 
         $steamWebApi = app(SteamWebApiConnector::class);
 
-        $request = new GetAppListRequest();
+        $request = new GetAppListRequest;
         $appPaginator = $request->paginate($steamWebApi);
         $appPaginator->setPerPageLimit(50000);
 
-        if (!SteamApp::count()) {
+        if (! SteamApp::count()) {
             $this->import($appPaginator);
         } else {
             $this->update($appPaginator);
@@ -59,10 +59,10 @@ class UpdateSteamApps extends Command
 
         foreach ($appPaginator as $response) {
             $apps = array_map(function ($app) {
-                return array(
+                return [
                     'id' => $app['appid'],
                     'name' => $app['name'],
-                );
+                ];
             }, $response->json('response.apps'));
 
             $databaseApps = array_merge($apps, $databaseApps);
@@ -87,7 +87,7 @@ class UpdateSteamApps extends Command
         }
         $progress->finish();
         $message = trans('phrase.x-steam-apps-imported', ['x' => $importedCount]);
-        $this->info(PHP_EOL . $message);
+        $this->info(PHP_EOL.$message);
         Log::info($message);
     }
 
@@ -120,7 +120,7 @@ class UpdateSteamApps extends Command
         $progress->finish();
 
         $message = trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
-        $this->info(PHP_EOL . $message);
+        $this->info(PHP_EOL.$message);
         Log::info($message);
     }
 }

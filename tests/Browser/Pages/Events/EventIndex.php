@@ -8,14 +8,15 @@ use Laravel\Dusk\Page;
 class EventIndex extends Page
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function url(): string
     {
         return '/lans/*/events';
     }
+
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function assert(Browser $browser): void
     {
@@ -23,7 +24,7 @@ class EventIndex extends Page
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function elements(): array
     {

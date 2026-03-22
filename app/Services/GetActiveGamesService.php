@@ -17,16 +17,16 @@ class GetActiveGamesService
             ->get();
 
         if (empty($sessions)) {
-            return new Collection();
+            return new Collection;
         }
 
         // Collect and combine states for the same game
         $usage = [];
         foreach ($sessions as $session) {
             $usage[$session->steam_app_id] = $usage[$session->steam_app_id] ?? [
-                    'game' => null,
-                    'users' => []
-                ];
+                'game' => null,
+                'users' => [],
+            ];
             $usage[$session->steam_app_id]['game'] = $usage[$session->steam_app_id]['game'] ?? $session->app;
             $usage[$session->steam_app_id]['users'][] = $session->user;
         }

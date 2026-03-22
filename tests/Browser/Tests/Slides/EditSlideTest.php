@@ -11,7 +11,7 @@ use Zeropingheroes\Lanager\Models\Slide;
 
 class EditSlideTest extends DuskTestCase
 {
-    public function testEditingSlide(): void
+    public function test_editing_slide(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN
@@ -40,15 +40,15 @@ class EditSlideTest extends DuskTestCase
             $browser->visitRoute('lans.slides.index', ['lan' => $lan]);
 
             // And clicks the options dropdown in the same row as the slide's name
-            $browser->on(new SlideIndex());
-            $browser->clickAtXPath('//a[text()="' . $slide->name . '"]//..//..//button[@title="Options"]');
+            $browser->on(new SlideIndex);
+            $browser->clickAtXPath('//a[text()="'.$slide->name.'"]//..//..//button[@title="Options"]');
 
             // And clicks the "edit" link
             $browser->clickLink('Edit');
 
             // And fills the "edit slide" form
             $browser->waitForRoute('lans.slides.edit', ['lan' => $lan, 'slide' => $slide])
-                ->on(new SlideEdit())
+                ->on(new SlideEdit)
                 ->type('name', 'Code of conduct')
                 ->type('content', 'Be excellent to each other')
                 ->type('position', 1)

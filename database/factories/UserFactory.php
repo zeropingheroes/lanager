@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function definition(): array
     {

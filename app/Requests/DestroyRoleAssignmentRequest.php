@@ -8,7 +8,7 @@ use Zeropingheroes\Lanager\Models\RoleAssignment;
 class DestroyRoleAssignmentRequest extends Request
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function valid(): bool
     {

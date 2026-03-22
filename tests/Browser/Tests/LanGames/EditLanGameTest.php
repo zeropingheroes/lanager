@@ -11,7 +11,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class EditLanGameTest extends DuskTestCase
 {
-    public function testEditingLanGame(): void
+    public function test_editing_lan_game(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN
@@ -47,7 +47,7 @@ class EditLanGameTest extends DuskTestCase
 
             // And clicks the delete link next to the game they have submitted
             $browser->clickAtXPath(
-                '//label[contains(string(),"' . $lanGame->game_name . '")]//..//..//..//..//a[@title="Edit"]'
+                '//label[contains(string(),"'.$lanGame->game_name.'")]//..//..//..//..//a[@title="Edit"]'
             );
 
             // And waits for the LAN game edit page to load

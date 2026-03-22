@@ -8,7 +8,7 @@ use Ottaviano\Faker\Gravatar;
 class UserOAuthAccountFactory extends Factory
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function definition(): array
     {

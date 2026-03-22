@@ -9,7 +9,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class DeleteEventTest extends DuskTestCase
 {
-    public function testDeletingEvent(): void
+    public function test_deleting_event(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
@@ -37,7 +37,7 @@ class DeleteEventTest extends DuskTestCase
             $browser->visitRoute('lans.events.index', ['lan' => $lan]);
 
             // And clicks the "options" dropdown next to the event's name in the table
-            $browser->clickAtXPath('//a[text()="' . $event->name . '"]//..//..//button[@title="Options"]');
+            $browser->clickAtXPath('//a[text()="'.$event->name.'"]//..//..//button[@title="Options"]');
 
             // And clicks the "delete" link
             $browser->clickLink('Delete');
@@ -49,7 +49,7 @@ class DeleteEventTest extends DuskTestCase
             $browser->assertRouteIs('lans.events.index', ['lan' => $lan]);
 
             // And they should see a confirmation message that the event has been deleted
-            $browser->assertSee('Event "' . $event->name . '" deleted');
+            $browser->assertSee('Event "'.$event->name.'" deleted');
         });
     }
 }

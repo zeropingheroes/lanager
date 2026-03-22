@@ -6,7 +6,6 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /* @mixin Eloquent */
 class SteamApp extends Model
@@ -24,7 +23,7 @@ class SteamApp extends Model
      */
     public function url(): string
     {
-        return 'steam://store/' . $this->id;
+        return 'steam://store/'.$this->id;
     }
 
     /**

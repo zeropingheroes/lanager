@@ -9,7 +9,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class IndexGuideTest extends DuskTestCase
 {
-    public function testIndexingGuides(): void
+    public function test_indexing_guides(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

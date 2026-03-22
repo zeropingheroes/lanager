@@ -16,6 +16,7 @@ class LanPolicy extends BasePolicy
         if ($authUser && $authUser->hasRole('admin')) {
             return true;
         }
+
         // Non-admins can view published LANs
         return $lan->published;
     }

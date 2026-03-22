@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class CreateSlideTest extends DuskTestCase
 {
-    public function testCreatingSlide(): void
+    public function test_creating_slide(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN
@@ -30,11 +30,11 @@ class CreateSlideTest extends DuskTestCase
             $browser->visitRoute('lans.slides.index', ['lan' => $lan]);
 
             // And clicks the "create slide" link
-            $browser->on(new SlideIndex())->clickAtXPath('//a[@title="Create Slide"]');
+            $browser->on(new SlideIndex)->clickAtXPath('//a[@title="Create Slide"]');
 
             // And fills the "create slide" form
             $browser->waitForRoute('lans.slides.create', ['lan' => $lan])
-                ->on(new SlideCreate())
+                ->on(new SlideCreate)
                 ->type('name', 'Code of conduct')
                 ->type('content', 'Be excellent to each other')
                 ->type('position', 1)

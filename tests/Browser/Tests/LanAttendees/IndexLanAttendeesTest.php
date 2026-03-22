@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class IndexLanAttendeesTest extends DuskTestCase
 {
-    public function testIndexingAchievements(): void
+    public function test_indexing_achievements(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

@@ -8,7 +8,7 @@ use Tests\DuskTestCase;
 
 class CreateAchievementTest extends DuskTestCase
 {
-    public function testCreatingAchievement(): void
+    public function test_creating_achievement(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a super admin
@@ -25,7 +25,7 @@ class CreateAchievementTest extends DuskTestCase
 
             // And fills the "create achievement" form
             $browser->waitForRoute('achievements.create')
-                ->on(new AchievementCreate())
+                ->on(new AchievementCreate)
                 ->type('name', 'I\'m Blue')
                 ->type('description', 'Get a BSOD');
 

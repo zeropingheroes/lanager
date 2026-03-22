@@ -16,6 +16,7 @@ class SlideController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @throws AuthorizationException
      */
     public function index(Lan $lan): ViewContract
@@ -33,6 +34,7 @@ class SlideController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @throws AuthorizationException
      */
     public function create(Lan $lan): ViewContract
@@ -41,11 +43,12 @@ class SlideController extends Controller
 
         return View::make('pages.slides.create')
             ->with('lan', $lan)
-            ->with('slide', new Slide());
+            ->with('slide', new Slide);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan): RedirectResponse
@@ -79,6 +82,7 @@ class SlideController extends Controller
 
     /**
      * Display the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function show(Lan $lan, Slide $slide): ViewContract
@@ -97,6 +101,7 @@ class SlideController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function edit(Lan $lan, Slide $slide): ViewContract
@@ -115,6 +120,7 @@ class SlideController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan, Slide $slide): RedirectResponse
@@ -148,6 +154,7 @@ class SlideController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Slide $slide): RedirectResponse

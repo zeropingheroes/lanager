@@ -7,7 +7,7 @@ use Tests\DuskTestCase;
 
 class DeleteImageTest extends DuskTestCase
 {
-    public function testDeletingImage(): void
+    public function test_deleting_image(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"

@@ -20,7 +20,7 @@ class CurrentLanController extends Controller
             ?? Lan::future()->where('published', 1)->orderBy('start', 'asc')->first()
             ?? Lan::past()->where('published', 1)->orderBy('end', 'desc')->first();
 
-        if (!$this->lan) {
+        if (! $this->lan) {
             redirect()->route('lans.index')->send();
         }
     }

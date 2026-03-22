@@ -16,6 +16,7 @@ class LanGamePolicy extends BasePolicy
         if ($authUser && $authUser->hasRole('admin')) {
             return true;
         }
+
         // Non-admins can only view if the LAN has been published
         return $lanGame->lan->published;
     }

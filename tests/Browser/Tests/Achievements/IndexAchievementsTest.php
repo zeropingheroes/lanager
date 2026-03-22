@@ -8,7 +8,7 @@ use Zeropingheroes\Lanager\Models\Achievement;
 
 class IndexAchievementsTest extends DuskTestCase
 {
-    public function testIndexingAchievements(): void
+    public function test_indexing_achievements(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is an achievement

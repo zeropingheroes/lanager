@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class EditEventTest extends DuskTestCase
 {
-    public function testEditingEvent(): void
+    public function test_editing_event(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
@@ -38,7 +38,7 @@ class EditEventTest extends DuskTestCase
             $browser->visitRoute('lans.events.index', ['lan' => $lan]);
 
             // And clicks the "options" dropdown next to the event
-            $browser->clickAtXPath('//a[text()="' . $event->name . '"]//..//..//button[@title="Options"]');
+            $browser->clickAtXPath('//a[text()="'.$event->name.'"]//..//..//button[@title="Options"]');
 
             // And clicks the "edit" link
             $browser->clickLink('Edit');
@@ -47,7 +47,7 @@ class EditEventTest extends DuskTestCase
             $browser->waitForRoute('lans.events.edit', ['lan' => $lan, 'event' => $event->id]);
 
             // And updates the event's name
-            $browser->on(new EventEdit());
+            $browser->on(new EventEdit);
             $browser->type('name', 'My Edited Event');
 
             // And submits the "edit event" form

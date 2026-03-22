@@ -8,6 +8,7 @@ class RemoveLanDescription extends Migration
 {
     /**
      * Run the migrations.
+     *
      * @throws Exception
      */
     public function up(): void
@@ -19,7 +20,6 @@ class RemoveLanDescription extends Migration
 
     /**
      * Reverse the migrations.
-     *
      */
     public function down(): void
     {

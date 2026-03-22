@@ -4,12 +4,12 @@ namespace Tests\Browser\Tests\NavigationLinks;
 
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\NavigationLinks\NavigationLinkEdit;
-use Zeropingheroes\Lanager\Models\NavigationLink;
 use Tests\DuskTestCase;
+use Zeropingheroes\Lanager\Models\NavigationLink;
 
 class EditNavigationLinkTest extends DuskTestCase
 {
-    public function testEditingNavigationLink(): void
+    public function test_editing_navigation_link(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
@@ -30,7 +30,7 @@ class EditNavigationLinkTest extends DuskTestCase
 
             // And clicks the options dropdown in the same row as the navigation link's title
             $browser->clickAtXPath(
-                '//td[contains(string(), "' . $navigationLink->title . '")]//..//button[@title="Options"]'
+                '//td[contains(string(), "'.$navigationLink->title.'")]//..//button[@title="Options"]'
             );
 
             // And clicks the "edit" link
@@ -38,7 +38,7 @@ class EditNavigationLinkTest extends DuskTestCase
 
             // And on the edit form they change the navigation link's title
             $browser->waitForRoute('navigation-links.edit', ['navigation_link' => $navigationLink->id])
-                ->on(new NavigationLinkEdit())
+                ->on(new NavigationLinkEdit)
                 ->type('title', 'Rules')
                 ->type('url', '/lans/1/guides/123')
                 ->type('position', '65');

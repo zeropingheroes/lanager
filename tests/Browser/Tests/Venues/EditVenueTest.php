@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\Models\Venue;
 
 class EditVenueTest extends DuskTestCase
 {
-    public function testEditingVenue(): void
+    public function test_editing_venue(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a venue
@@ -23,10 +23,10 @@ class EditVenueTest extends DuskTestCase
             $browser->loginAs($superAdmin);
 
             // When the super admin visits the venue index page
-            $browser->visit(new VenueIndex());
+            $browser->visit(new VenueIndex);
 
             // And clicks the "options" dropdown next to the venue's name
-            $browser->clickAtXPath('//a[text()="' . $venue->name . '"]//..//..//button[@title="Options"]');
+            $browser->clickAtXPath('//a[text()="'.$venue->name.'"]//..//..//button[@title="Options"]');
 
             // And clicks the "edit" link
             $browser->clickLink('Edit');
@@ -35,7 +35,7 @@ class EditVenueTest extends DuskTestCase
             $browser->waitForRoute('venues.edit', ['venue' => $venue->id]);
 
             // And updates the field for the venue's name
-            $browser->on(new VenueEdit());
+            $browser->on(new VenueEdit);
             $browser->type('name', 'My LAN Venue');
 
             // And submits the form

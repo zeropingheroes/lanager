@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\Models\Achievement;
 
 class EditAchievementTest extends DuskTestCase
 {
-    public function testEditingAchievement(): void
+    public function test_editing_achievement(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
@@ -29,9 +29,9 @@ class EditAchievementTest extends DuskTestCase
             $browser->visitRoute('achievements.index');
 
             // And clicks the options dropdown in the same row as the achievement's name
-            $browser->on(new AchievementIndex());
+            $browser->on(new AchievementIndex);
             $browser->clickAtXPath(
-                '//a[contains(string(), "' . $achievement->name . '")]//..//..//button[@title="Options"]'
+                '//a[contains(string(), "'.$achievement->name.'")]//..//..//button[@title="Options"]'
             );
 
             // And clicks the "edit" link
@@ -39,7 +39,7 @@ class EditAchievementTest extends DuskTestCase
 
             // And fills the "edit achievement" form
             $browser->waitForRoute('achievements.edit', ['achievement' => $achievement])
-                ->on(new AchievementEdit())
+                ->on(new AchievementEdit)
                 ->type('name', 'Eager Beaver')
                 ->type('description', 'Be the first person to arrive at the LAN');
 

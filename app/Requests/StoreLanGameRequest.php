@@ -9,7 +9,7 @@ class StoreLanGameRequest extends Request
     use LaravelValidation;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function valid(): bool
     {
@@ -22,11 +22,11 @@ class StoreLanGameRequest extends Request
                     function ($query) {
                         $query->where('lan_id', $this->input['lan_id']);
                     }
-                )->ignore($this->input['id'] ?? '')
+                )->ignore($this->input['id'] ?? ''),
             ],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

@@ -43,6 +43,7 @@ class SlideController extends Controller
 
     /**
      * Display the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function show(Lan $lan, Slide $slide): SlideResource

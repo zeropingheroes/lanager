@@ -35,6 +35,7 @@ class LanController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @throws AuthorizationException
      */
     public function create(): ViewContract
@@ -44,11 +45,12 @@ class LanController extends Controller
         return View::make('pages.lans.create')
             ->with('venues', Venue::orderBy('name')->get())
             ->with('achievements', Achievement::orderBy('name')->get())
-            ->with('lan', new Lan());
+            ->with('lan', new Lan);
     }
 
     /**
      * Display the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function show(Lan $lan): RedirectResponse
@@ -60,6 +62,7 @@ class LanController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest): RedirectResponse
@@ -91,6 +94,7 @@ class LanController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function edit(Lan $lan): ViewContract
@@ -105,6 +109,7 @@ class LanController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan): RedirectResponse
@@ -137,6 +142,7 @@ class LanController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan): RedirectResponse

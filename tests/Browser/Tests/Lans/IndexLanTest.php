@@ -9,7 +9,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class IndexLanTest extends DuskTestCase
 {
-    public function testIndexingLan(): void
+    public function test_indexing_lan(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN
@@ -17,7 +17,7 @@ class IndexLanTest extends DuskTestCase
             $lan = Lan::factory()->state(['published' => true])->count(1)->create()->first();
 
             // When an unauthenticated user visits the LAN index page
-            $browser->visit(new LanIndex());
+            $browser->visit(new LanIndex);
 
             // Then they should see the LAN's name
             $browser->assertSee($lan->name);

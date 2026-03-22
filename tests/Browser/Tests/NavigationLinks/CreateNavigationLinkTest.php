@@ -8,7 +8,7 @@ use Tests\DuskTestCase;
 
 class CreateNavigationLinkTest extends DuskTestCase
 {
-    public function testCreatingNavigationLink(): void
+    public function test_creating_navigation_link(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
@@ -34,7 +34,7 @@ class CreateNavigationLinkTest extends DuskTestCase
 
             // And they fill the "create navigation link" form
             $browser->waitForRoute('navigation-links.create')
-                ->on(new NavigationLinkCreate())
+                ->on(new NavigationLinkCreate)
                 ->type('title', 'Code of Conduct')
                 ->type('url', '/lans/1/guides/1')
                 ->type('position', '10');

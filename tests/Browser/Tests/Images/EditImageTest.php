@@ -2,13 +2,12 @@
 
 namespace Tests\Browser\Tests\Images;
 
-use Illuminate\Support\Facades\Storage;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class EditImageTest extends DuskTestCase
 {
-    public function testEditingImage(): void
+    public function test_editing_image(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"

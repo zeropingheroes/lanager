@@ -8,14 +8,15 @@ use Laravel\Dusk\Page;
 class NavigationLinkCreate extends Page
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function url(): string
     {
         return '/navigation-links/create';
     }
+
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function assert(Browser $browser): void
     {
@@ -23,7 +24,7 @@ class NavigationLinkCreate extends Page
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function elements(): array
     {

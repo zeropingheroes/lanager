@@ -8,7 +8,7 @@ use Laravel\Dusk\Page;
 class AchievementEdit extends Page
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function url(): string
     {
@@ -16,7 +16,7 @@ class AchievementEdit extends Page
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function assert(Browser $browser): void
     {
@@ -24,7 +24,7 @@ class AchievementEdit extends Page
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function elements(): array
     {

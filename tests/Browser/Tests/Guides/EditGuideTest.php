@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class EditGuideTest extends DuskTestCase
 {
-    public function testEditingGuide(): void
+    public function test_editing_guide(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN
@@ -46,7 +46,7 @@ class EditGuideTest extends DuskTestCase
             $browser->waitForRoute('lans.guides.edit', ['lan' => $lan, 'guide' => $guide]);
 
             // And fills the "edit guide" form
-            $browser->on(new GuideEdit());
+            $browser->on(new GuideEdit);
             $browser->type('title', 'Code of conduct');
             $browser->type('content', 'Be excellent to each other');
 

@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class DeleteGuideTest extends DuskTestCase
 {
-    public function testDeletingGuide(): void
+    public function test_deleting_guide(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN
@@ -37,7 +37,7 @@ class DeleteGuideTest extends DuskTestCase
             $browser->visitRoute('lans.guides.show', ['lan' => $lan, 'guide' => $guide]);
 
             // And clicks the options dropdown button
-            $browser->on(new GuideShow())->clickAtXPath('//button[@title="Options"]');
+            $browser->on(new GuideShow)->clickAtXPath('//button[@title="Options"]');
 
             // And clicks the "delete" link
             $browser->clickLink('Delete');
@@ -49,7 +49,7 @@ class DeleteGuideTest extends DuskTestCase
             $browser->waitForRoute('lans.guides.index', ['lan' => $lan]);
 
             // Then they should see a deletion confirmation alert
-            $browser->assertSee('Guide "' . $guide->title . '" deleted');
+            $browser->assertSee('Guide "'.$guide->title.'" deleted');
         });
     }
 }

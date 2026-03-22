@@ -2,11 +2,11 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Contracts\View\View as ViewContract;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Role;
@@ -19,6 +19,7 @@ class RoleAssignmentController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @throws AuthorizationException
      */
     public function index(): ViewContract
@@ -37,6 +38,7 @@ class RoleAssignmentController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest): RedirectResponse
@@ -70,6 +72,7 @@ class RoleAssignmentController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(RoleAssignment $roleAssignment): RedirectResponse

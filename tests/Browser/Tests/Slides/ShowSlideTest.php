@@ -4,12 +4,12 @@ namespace Tests\Browser\Tests\Slides;
 
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
-use Zeropingheroes\Lanager\Models\Slide;
 use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\Slide;
 
 class ShowSlideTest extends DuskTestCase
 {
-    public function testShowingSlide(): void
+    public function test_showing_slide(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

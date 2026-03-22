@@ -8,14 +8,15 @@ use Laravel\Dusk\Page;
 class SlideIndex extends Page
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function url(): string
     {
         return '/lans/*/slides';
     }
+
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function assert(Browser $browser): void
     {
@@ -23,7 +24,7 @@ class SlideIndex extends Page
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function elements(): array
     {

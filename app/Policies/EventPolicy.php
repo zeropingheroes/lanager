@@ -16,6 +16,7 @@ class EventPolicy extends BasePolicy
         if ($authUser && $authUser->hasRole('admin')) {
             return true;
         }
+
         // Non-admins can only view an event if the event and its parent LAN are both published
         return $event->published && $event->lan->published;
     }

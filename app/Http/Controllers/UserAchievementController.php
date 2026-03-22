@@ -17,6 +17,7 @@ class UserAchievementController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @throws AuthorizationException
      */
     public function index(Lan $lan): ViewContract
@@ -40,6 +41,7 @@ class UserAchievementController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan): RedirectResponse
@@ -72,6 +74,7 @@ class UserAchievementController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan, UserAchievement $userAchievement): RedirectResponse

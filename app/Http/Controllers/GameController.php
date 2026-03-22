@@ -15,7 +15,7 @@ class GameController extends Controller
      */
     public function inProgress(): ViewContract
     {
-        $games = (new GetActiveGamesService())->get();
+        $games = (new GetActiveGamesService)->get();
 
         return View::make('pages.games.in-progress')
             ->with('games', $games);
@@ -26,7 +26,7 @@ class GameController extends Controller
      */
     public function recent(): ViewContract
     {
-        $games = (new GetGamesPlayedRecentlyService())->get();
+        $games = (new GetGamesPlayedRecentlyService)->get();
 
         return View::make('pages.games.recent')
             ->with('games', $games);
@@ -37,7 +37,7 @@ class GameController extends Controller
      */
     public function owned(): ViewContract
     {
-        $games = (new GetGamesOwnedService())->get();
+        $games = (new GetGamesOwnedService)->get();
 
         return View::make('pages.games.owned')
             ->with('games', $games);

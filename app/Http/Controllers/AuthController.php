@@ -2,17 +2,17 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Contracts\View\View as ViewContract;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use InvalidArgumentException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
+use InvalidArgumentException;
 use Laravel\Socialite\Facades\Socialite;
 use Throwable;
-use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
@@ -42,6 +42,7 @@ class AuthController extends Controller
 
     /**
      * Obtain the user information from the external authentication provider.
+     *
      * @throws Throwable
      */
     public function handleProviderCallback($OAuthProvider): RedirectResponse
@@ -54,7 +55,7 @@ class AuthController extends Controller
 
             // Check if the user wasn't updated, or if there are errors
             if (
-                !array_key_exists($OAuthUser->id, $service->getUpdated())
+                ! array_key_exists($OAuthUser->id, $service->getUpdated())
                 || $service->errors()->isNotEmpty()
             ) {
                 Log::error($service->errors()->first());

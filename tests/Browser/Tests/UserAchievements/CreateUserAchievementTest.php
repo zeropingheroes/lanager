@@ -11,7 +11,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class CreateUserAchievementTest extends DuskTestCase
 {
-    public function testCreatingUserAchievement(): void
+    public function test_creating_user_achievement(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

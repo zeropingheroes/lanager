@@ -9,7 +9,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class IndexEventTest extends DuskTestCase
 {
-    public function testIndexingEvents(): void
+    public function test_indexing_events(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

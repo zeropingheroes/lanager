@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class CreateLanGameTest extends DuskTestCase
 {
-    public function testCreatingLanGame(): void
+    public function test_creating_lan_game(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

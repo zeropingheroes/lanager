@@ -35,6 +35,7 @@ class EventController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @throws AuthorizationException
      */
     public function create(Lan $lan): ViewContract
@@ -43,11 +44,12 @@ class EventController extends Controller
 
         return View::make('pages.events.create')
             ->with('lan', $lan)
-            ->with('event', new Event());
+            ->with('event', new Event);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan): RedirectResponse
@@ -80,6 +82,7 @@ class EventController extends Controller
 
     /**
      * Display the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function show(Lan $lan, Event $event): ViewContract
@@ -98,6 +101,7 @@ class EventController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function edit(Lan $lan, Event $event): ViewContract
@@ -116,6 +120,7 @@ class EventController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan, Event $event): RedirectResponse
@@ -149,6 +154,7 @@ class EventController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Event $event): RedirectResponse

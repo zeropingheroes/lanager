@@ -7,7 +7,7 @@ use Laravel\Dusk\Browser;
 class HomePage extends Page
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function url(): string
     {
@@ -15,7 +15,7 @@ class HomePage extends Page
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function assert(Browser $browser): void
     {
@@ -23,7 +23,7 @@ class HomePage extends Page
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function elements(): array
     {

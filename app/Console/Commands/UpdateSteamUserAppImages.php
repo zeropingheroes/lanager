@@ -2,14 +2,14 @@
 
 namespace Zeropingheroes\Lanager\Console\Commands;
 
-use Saloon\Exceptions\Request\Statuses\NotFoundException;
-use Saloon\RateLimitPlugin\Exceptions\RateLimitReachedException;
-use Zeropingheroes\SteamApis\SteamStoreApi\SteamStoreApiConnector;
 use Illuminate\Console\Command;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Saloon\Exceptions\Request\Statuses\NotFoundException;
+use Saloon\RateLimitPlugin\Exceptions\RateLimitReachedException;
 use Zeropingheroes\Lanager\Models\SteamApp;
-use Illuminate\Http\Client\Response;
+use Zeropingheroes\SteamApis\SteamStoreApi\SteamStoreApiConnector;
 
 class UpdateSteamUserAppImages extends Command
 {
@@ -19,7 +19,7 @@ class UpdateSteamUserAppImages extends Command
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-user-app-images
-        {--limit=} : ' . trans('phrase.limit-number-of-apps-to-update');
+        {--limit=} : '.trans('phrase.limit-number-of-apps-to-update');
         $this->description = trans('phrase.update-app-images-for-apps-played-by-users');
 
         parent::__construct();
@@ -37,14 +37,14 @@ class UpdateSteamUserAppImages extends Command
 
         // TODO: Improve prioritisation of apps with no logo URLs
         $apps = $apps->sortBy([
-                                  ['updated_at', 'asc'], // NULL first, then oldest updated_at to newest
-                                  ['id', 'asc'], // Oldest apps first
-                              ]);
+            ['updated_at', 'asc'], // NULL first, then oldest updated_at to newest
+            ['id', 'asc'], // Oldest apps first
+        ]);
 
         $steamCdnBaseUrl = 'https://cdn.akamai.steamstatic.com/steam/apps/';
 
         $successfulAppCount = 0;
-        $failedApps = new Collection();
+        $failedApps = new Collection;
         $processedAppCount = 0;
 
         $limit = $this->option('limit');
@@ -72,6 +72,7 @@ class UpdateSteamUserAppImages extends Command
                     );
                     $app->touch();
                     $successfulAppCount++;
+
                     continue;
                 }
             }
@@ -79,9 +80,9 @@ class UpdateSteamUserAppImages extends Command
                 trans('phrase.app-x-name-no-logo-urls-checking-default', ['id' => $app->id, 'name' => $app->name])
             );
 
-            $defaultSmallLogoUrl = $steamCdnBaseUrl . $app->id . '/capsule_184x69.jpg';
-            $defaultMediumLogoUrl = $steamCdnBaseUrl . $app->id . '/header_292x136.jpg';
-            $defaultLargeLogoUrl = $steamCdnBaseUrl . $app->id . '/header.jpg';
+            $defaultSmallLogoUrl = $steamCdnBaseUrl.$app->id.'/capsule_184x69.jpg';
+            $defaultMediumLogoUrl = $steamCdnBaseUrl.$app->id.'/header_292x136.jpg';
+            $defaultLargeLogoUrl = $steamCdnBaseUrl.$app->id.'/header.jpg';
 
             if ($this->requestLogoUrl($defaultSmallLogoUrl)->status() == 200) {
                 $app->logo_small = $defaultSmallLogoUrl;
@@ -119,6 +120,7 @@ class UpdateSteamUserAppImages extends Command
                     );
                     $app->touch();
                     $failedApps = $failedApps->push($app);
+
                     continue;
                 }
             }
@@ -132,12 +134,14 @@ class UpdateSteamUserAppImages extends Command
             if ($failedApps->count() > 0) {
                 $this->warn(trans('phrase.failed-to-update-logo-urls-for-x-apps', ['x' => $failedApps->count()]));
                 foreach ($failedApps as $failedApp) {
-                    $this->warn('• App ' . $failedApp->id . ': ' . $failedApp->name);
+                    $this->warn('• App '.$failedApp->id.': '.$failedApp->name);
                 }
             }
+
             return 0;
         } else {
             $this->warn(trans('phrase.failed-to-update-logo-urls-for-x-apps', ['x' => $processedAppCount]));
+
             return 1;
         }
     }
@@ -168,7 +172,7 @@ class UpdateSteamUserAppImages extends Command
             } catch (NotFoundException $e) {
                 return [];
             } catch (RateLimitReachedException $e) {
-                $seconds = (int)$e->getLimit()->getRemainingSeconds();
+                $seconds = (int) $e->getLimit()->getRemainingSeconds();
 
                 // If the limiter returns 0/negative, still back off a bit to avoid a tight loop.
                 if ($seconds < 1) {
@@ -188,6 +192,7 @@ class UpdateSteamUserAppImages extends Command
                 sleep($seconds);
             }
         }
+
         return [];
     }
 }

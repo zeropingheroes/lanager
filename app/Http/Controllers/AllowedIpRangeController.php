@@ -26,6 +26,7 @@ class AllowedIpRangeController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @throws AuthorizationException
      */
     public function create(): ViewContract
@@ -33,11 +34,12 @@ class AllowedIpRangeController extends Controller
         $this->authorize('create', AllowedIpRange::class);
 
         return View::make('pages.allowed-ip-ranges.create')
-            ->with('allowedIpRange', new AllowedIpRange());
+            ->with('allowedIpRange', new AllowedIpRange);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest): RedirectResponse
@@ -65,6 +67,7 @@ class AllowedIpRangeController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function edit(AllowedIpRange $allowedIpRange): ViewContract
@@ -77,6 +80,7 @@ class AllowedIpRangeController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function update(Request $httpRequest, AllowedIpRange $allowedIpRange): RedirectResponse
@@ -105,6 +109,7 @@ class AllowedIpRangeController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(AllowedIpRange $allowedIpRange): RedirectResponse

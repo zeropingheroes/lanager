@@ -9,7 +9,7 @@ use Tests\DuskTestCase;
 
 class CreateVenueTest extends DuskTestCase
 {
-    public function testCreatingVenue(): void
+    public function test_creating_venue(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
@@ -19,7 +19,7 @@ class CreateVenueTest extends DuskTestCase
             $browser->loginAs($superAdmin);
 
             // When the super admin navigates to the venue index page
-            $browser->visit(new VenueIndex());
+            $browser->visit(new VenueIndex);
 
             // And clicks the "create" link
             $browser->click('@create');
@@ -28,7 +28,7 @@ class CreateVenueTest extends DuskTestCase
             $browser->waitForRoute('venues.create');
 
             // And fills the "create venue" form
-            $browser->on(new VenueCreate());
+            $browser->on(new VenueCreate);
             $browser->type('name', 'My LAN Venue');
             $browser->type('street_address', '1 Example Road, Exampleton, Exampleland');
 

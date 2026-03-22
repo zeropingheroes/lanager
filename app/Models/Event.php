@@ -34,7 +34,7 @@ class Event extends Model
     /**
      * LAN the event is a part of
      */
-    public function lan(): belongsTo
+    public function lan(): BelongsTo
     {
         return $this->belongsTo('Zeropingheroes\Lanager\Models\Lan');
     }
@@ -42,7 +42,7 @@ class Event extends Model
     /**
      * Event's signups
      */
-    public function signups(): hasMany
+    public function signups(): HasMany
     {
         return $this->hasMany('Zeropingheroes\Lanager\Models\EventSignup');
     }

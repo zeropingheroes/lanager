@@ -9,7 +9,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class CreateGuideTest extends DuskTestCase
 {
-    public function testCreatingGuide(): void
+    public function test_creating_guide(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN
@@ -35,7 +35,7 @@ class CreateGuideTest extends DuskTestCase
             $browser->waitForRoute('lans.guides.create', ['lan' => $lan]);
 
             // And fills the "create guide" form
-            $browser->on(new GuideCreate());
+            $browser->on(new GuideCreate);
             $browser->type('title', 'Code of conduct');
             $browser->type('content', 'Be excellent to each other');
 

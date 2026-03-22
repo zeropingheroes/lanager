@@ -9,7 +9,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class CreateEventTest extends DuskTestCase
 {
-    public function testCreatingEvent(): void
+    public function test_creating_event(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
@@ -35,7 +35,7 @@ class CreateEventTest extends DuskTestCase
             $browser->waitForRoute('lans.events.create', ['lan' => $lan]);
 
             // And fills the "create event" form
-            $browser->on(new EventCreate());
+            $browser->on(new EventCreate);
             $browser->type('name', 'My LAN Event');
             $browser->type('start', '2025-06-01 19:00');
             $browser->type('end', '2025-06-01 21:00');

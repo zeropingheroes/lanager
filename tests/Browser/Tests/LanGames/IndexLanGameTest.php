@@ -11,7 +11,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class IndexLanGameTest extends DuskTestCase
 {
-    public function testIndexingLanGame(): void
+    public function test_indexing_lan_game(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN

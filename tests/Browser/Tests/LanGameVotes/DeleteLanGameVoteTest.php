@@ -12,7 +12,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteLanGameVoteTest extends DuskTestCase
 {
-    public function testDeletingLanGameVote(): void
+    public function test_deleting_lan_game_vote(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN
@@ -53,13 +53,13 @@ class DeleteLanGameVoteTest extends DuskTestCase
             $browser->visitRoute('lans.lan-games.index', ['lan' => $lan]);
 
             // And clicks the text of the game the super admin submitted
-            $browser->clickAtXPath('//label[contains(string(),"' . $lanGame->game_name . '")]');
+            $browser->clickAtXPath('//label[contains(string(),"'.$lanGame->game_name.'")]');
 
             // And waits for the checkbox to load
-            $browser->waitFor('#lan_game_' . $lanGame->id . '_checkbox');
+            $browser->waitFor('#lan_game_'.$lanGame->id.'_checkbox');
 
             // Then they should see the checkbox next to the game they voted for is not checked
-            $browser->assertNotChecked('#lan_game_' . $lanGame->id . '_checkbox');
+            $browser->assertNotChecked('#lan_game_'.$lanGame->id.'_checkbox');
         });
     }
 }

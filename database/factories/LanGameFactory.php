@@ -9,11 +9,12 @@ use Zeropingheroes\Lanager\Models\SteamApp;
 class LanGameFactory extends Factory
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function definition(): array
     {
         $lan = Lan::all()->random();
+
         return [
             'lan_id' => $lan->id,
             'game_name' => SteamApp::inRandomOrder()->first()->name,

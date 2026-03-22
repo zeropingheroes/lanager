@@ -7,7 +7,7 @@ use Tests\DuskTestCase;
 
 class UploadImageTest extends DuskTestCase
 {
-    public function testUploadingImage(): void
+    public function test_uploading_image(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"

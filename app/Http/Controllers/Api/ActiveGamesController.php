@@ -15,7 +15,7 @@ class ActiveGamesController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $activeGames = (new GetActiveGamesService())->get();
+        $activeGames = (new GetActiveGamesService)->get();
 
         if ($request->filled('limit')) {
             $activeGames = $activeGames->take($request->limit);

@@ -16,8 +16,8 @@ use Zeropingheroes\Lanager\Observers\UserObserver;
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
-    use Notifiable;
     use HasFactory;
+    use Notifiable;
 
     protected $fillable = [
         'username',

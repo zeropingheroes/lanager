@@ -16,6 +16,7 @@ class SlidePolicy extends BasePolicy
         if ($authUser && $authUser->hasRole('admin')) {
             return true;
         }
+
         // Non-admins can only view a slide if the slide and its parent LAN are both published
         return $slide->published && $slide->lan->published;
     }

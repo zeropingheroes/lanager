@@ -18,7 +18,7 @@ class UpdateSteamUsers extends Command
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-users
-                            {--all : ' . trans('phrase.update-all-users') . '}';
+                            {--all : '.trans('phrase.update-all-users').'}';
         $this->description = trans('phrase.update-existing-users-profiles-from-steam');
 
         parent::__construct();
@@ -35,7 +35,7 @@ class UpdateSteamUsers extends Command
             ->first();
 
         // If there is a current LAN, and the "update all users" option is not set
-        if ($lan && !$this->option('all')) {
+        if ($lan && ! $this->option('all')) {
             // Get the attendees for the LAN
             $attendees = $lan->users()->get()->pluck('id');
 
@@ -57,7 +57,7 @@ class UpdateSteamUsers extends Command
             ->pluck('provider_id')
             ->toArray();
 
-        if (!$steamIds) {
+        if (! $steamIds) {
             $message = trans('phrase.no-steam-users-to-update');
             Log::info($message);
             $this->info($message);

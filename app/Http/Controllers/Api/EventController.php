@@ -43,7 +43,7 @@ class EventController extends Controller
      */
     public function show(Event $event): EventResource
     {
-        if (!$event->published || !$event->lan->published) {
+        if (! $event->published || ! $event->lan->published) {
             abort(404);
         }
 

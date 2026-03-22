@@ -11,7 +11,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class CreateLanGameVoteTest extends DuskTestCase
 {
-    public function testCreatingLanGameVote(): void
+    public function test_creating_lan_game_vote(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN
@@ -46,13 +46,13 @@ class CreateLanGameVoteTest extends DuskTestCase
             $browser->visitRoute('lans.lan-games.index', ['lan' => $lan]);
 
             // And clicks the text of the game the super admin submitted
-            $browser->clickAtXPath('//label[contains(string(),"' . $lanGame->game_name . '")]');
+            $browser->clickAtXPath('//label[contains(string(),"'.$lanGame->game_name.'")]');
 
             // And waits for the checkbox to load
-            $browser->waitFor('#lan_game_' . $lanGame->id . '_checkbox');
+            $browser->waitFor('#lan_game_'.$lanGame->id.'_checkbox');
 
             // Then they should see the checkbox next to the game they voted for is checked
-            $browser->assertChecked('#lan_game_' . $lanGame->id . '_checkbox');
+            $browser->assertChecked('#lan_game_'.$lanGame->id.'_checkbox');
         });
     }
 }

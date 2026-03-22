@@ -16,7 +16,7 @@ class UpdateSteamUserApps extends Command
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-user-apps
-                            {--all : ' . trans('phrase.update-all-users') . '}';
+                            {--all : '.trans('phrase.update-all-users').'}';
         $this->description = trans('phrase.update-existing-user-app-ownership');
 
         parent::__construct();
@@ -33,7 +33,7 @@ class UpdateSteamUserApps extends Command
             ->first();
 
         // If there is a current LAN, and the "update all users" option is not set
-        if ($lan && !$this->option('all')) {
+        if ($lan && ! $this->option('all')) {
             // Get the attendees for the LAN
             $users = $lan->users()->get();
         } else {

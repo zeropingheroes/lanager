@@ -12,7 +12,7 @@ class StoreEventSignupRequest extends Request
     use LaravelValidation;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function valid(): bool
     {
@@ -26,11 +26,11 @@ class StoreEventSignupRequest extends Request
                     function ($query) {
                         return $query->where('event_id', $this->input['event_id']);
                     }
-                )
+                ),
             ],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
@@ -43,7 +43,7 @@ class StoreEventSignupRequest extends Request
             return $this->setValid(false);
         }
 
-        if (Auth::user()->id != $user->id && !Auth::user()->hasRole('super-admin')) {
+        if (Auth::user()->id != $user->id && ! Auth::user()->hasRole('super-admin')) {
             $this->addError(trans('phrase.you-can-only-sign-yourself-up-to-event'));
 
             return $this->setValid(false);

@@ -10,7 +10,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteRoleAssignmentTest extends DuskTestCase
 {
-    public function testDeletingRoleAssignment(): void
+    public function test_deleting_role_assignment(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
@@ -36,7 +36,7 @@ class DeleteRoleAssignmentTest extends DuskTestCase
 
             // And clicks the "Delete" button next to the role assignment
             $browser->clickAtXPath(
-                '//a[contains(string(), "' . $user->username . '")]//..//..//button[@title="Delete"]'
+                '//a[contains(string(), "'.$user->username.'")]//..//..//button[@title="Delete"]'
             );
 
             // And accepts the confirmation dialog
@@ -46,7 +46,7 @@ class DeleteRoleAssignmentTest extends DuskTestCase
             $browser->waitForRoute('role-assignments.index');
 
             // And they should see a confirmation message that the role assignment has been revoked
-            $browser->assertSee($user->username . ' is no longer assigned the role ' . $role->display_name);
+            $browser->assertSee($user->username.' is no longer assigned the role '.$role->display_name);
         });
     }
 }

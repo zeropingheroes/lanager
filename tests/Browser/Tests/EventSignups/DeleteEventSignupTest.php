@@ -12,7 +12,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteEventSignupTest extends DuskTestCase
 {
-    public function testDeletingEventSignup(): void
+    public function test_deleting_event_signup(): void
     {
         $this->browse(function (Browser $browser) {
             // Given a LAN exists

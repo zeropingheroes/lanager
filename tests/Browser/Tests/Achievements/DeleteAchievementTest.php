@@ -8,7 +8,7 @@ use Zeropingheroes\Lanager\Models\Achievement;
 
 class DeleteAchievementTest extends DuskTestCase
 {
-    public function testDeletingAchievement(): void
+    public function test_deleting_achievement(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
@@ -28,7 +28,7 @@ class DeleteAchievementTest extends DuskTestCase
 
             // And clicks the options dropdown in the same row as the achievement's name
             $browser->clickAtXPath(
-                '//a[contains(string(), "' . $achievement->name . '")]//..//..//button[@title="Options"]'
+                '//a[contains(string(), "'.$achievement->name.'")]//..//..//button[@title="Options"]'
             );
 
             // And clicks the "delete" link
@@ -41,7 +41,7 @@ class DeleteAchievementTest extends DuskTestCase
             $browser->waitForRoute('achievements.index');
 
             // Then they should see a confirmation message that the achievement was deleted
-            $browser->assertSee('Achievement "' . $achievement->name . '" deleted');
+            $browser->assertSee('Achievement "'.$achievement->name.'" deleted');
         });
     }
 }

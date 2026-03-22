@@ -8,7 +8,6 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
-use Mockery\Exception\InvalidCountException;
 use Zeropingheroes\Lanager\Models\Role;
 use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
@@ -44,6 +43,7 @@ abstract class DuskTestCase extends BaseTestCase
 
     /**
      * Prepare for Dusk test execution.
+     *
      * @beforeClass
      */
     public static function prepare(): void
@@ -58,14 +58,14 @@ abstract class DuskTestCase extends BaseTestCase
      */
     protected function driver(): RemoteWebDriver
     {
-        $options = (new ChromeOptions())->addArguments(
+        $options = (new ChromeOptions)->addArguments(
             collect([
                 $this->shouldStartMaximized() ? '--start-maximized' : '--window-size=1920,1080',
             ])->unless($this->hasHeadlessDisabled(), function ($items) {
                 return $items->merge([
                     '--disable-gpu',
                     '--headless',
-                    '--remote-debugging-port=9222'
+                    '--remote-debugging-port=9222',
                 ]);
             })->all()
         );

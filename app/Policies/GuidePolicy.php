@@ -16,6 +16,7 @@ class GuidePolicy extends BasePolicy
         if ($authUser && $authUser->hasRole('admin')) {
             return true;
         }
+
         // Non-admins can only view a guide if the
         // guide and its parent LAN are both published
         return $guide->published && $guide->lan->published;

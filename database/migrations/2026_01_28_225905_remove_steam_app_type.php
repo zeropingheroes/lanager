@@ -8,6 +8,7 @@ class RemoveSteamAppType extends Migration
 {
     /**
      * Run the migrations.
+     *
      * @throws Exception
      */
     public function up(): void
@@ -19,7 +20,6 @@ class RemoveSteamAppType extends Migration
 
     /**
      * Reverse the migrations.
-     *
      */
     public function down(): void
     {

@@ -2,13 +2,13 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
-use Zeropingheroes\SteamApis\SteamWebApi\SteamWebApiConnector;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\MessageBag;
 use Throwable;
 use Zeropingheroes\Lanager\Models\SteamApp;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
+use Zeropingheroes\SteamApis\SteamWebApi\SteamWebApiConnector;
 
 class UpdateSteamUserAppsService
 {
@@ -34,6 +34,7 @@ class UpdateSteamUserAppsService
 
     /**
      * Construct the class
+     *
      * @throws Exception
      */
     public function __construct(Collection $users)
@@ -43,9 +44,8 @@ class UpdateSteamUserAppsService
         }
 
         $this->users = $users;
-        $this->errors = new MessageBag();
+        $this->errors = new MessageBag;
     }
-
 
     /**
      * Get the errors
@@ -55,7 +55,6 @@ class UpdateSteamUserAppsService
         return $this->errors;
     }
 
-
     /**
      * Get the users who were updated
      */
@@ -63,7 +62,6 @@ class UpdateSteamUserAppsService
     {
         return $this->updated;
     }
-
 
     /**
      * Get the users who were not updated
@@ -75,6 +73,7 @@ class UpdateSteamUserAppsService
 
     /**
      * Update Steam users apps.
+     *
      * @throws Throwable
      */
     public function update(): void
@@ -88,8 +87,8 @@ class UpdateSteamUserAppsService
         foreach ($steamAccounts as $steamAccount) {
             try {
                 $ownedGames = $steamWebApi->GetOwnedGames(
-                    steamid:                   $steamAccount->provider_id,
-                    include_appinfo:           true,
+                    steamid: $steamAccount->provider_id,
+                    include_appinfo: true,
                     include_played_free_games: true
                 );
 
@@ -108,7 +107,7 @@ class UpdateSteamUserAppsService
                     // which does not return apps that Valve have delisted from Steam.
                     // However, Valve's IPlayerService/GetOwnedGames API does return delisted apps
                     // owned by users, so when we encounter them, add them to the database.
-                    if (!SteamApp::find($ownedGame->appid)) {
+                    if (! SteamApp::find($ownedGame->appid)) {
                         SteamApp::create(['id' => $ownedGame->appid, 'name' => $ownedGame->name]);
                     }
                     $steamAccount->user->steamApps()
@@ -125,7 +124,7 @@ class UpdateSteamUserAppsService
                 );
 
                 foreach ($recentlyPlayedGames as $recentlyPlayedGame) {
-                    if (!SteamApp::find($recentlyPlayedGame->appid)) {
+                    if (! SteamApp::find($recentlyPlayedGame->appid)) {
                         SteamApp::create(
                             [
                                 'id' => $recentlyPlayedGame->appid,

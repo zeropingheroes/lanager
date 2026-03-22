@@ -29,7 +29,6 @@ use Zeropingheroes\Lanager\Models\Lan;
 /**
  * Current LAN.
  */
-
 Route::get('/', [CurrentLanController::class, 'show'])
     ->name('home');
 Route::get('/guides', [CurrentLanController::class, 'guides'])

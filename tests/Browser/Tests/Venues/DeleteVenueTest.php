@@ -9,7 +9,7 @@ use Zeropingheroes\Lanager\Models\Venue;
 
 class DeleteVenueTest extends DuskTestCase
 {
-    public function testDeletingVenue(): void
+    public function test_deleting_venue(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a venue
@@ -22,10 +22,10 @@ class DeleteVenueTest extends DuskTestCase
             $browser->loginAs($superAdmin);
 
             // When the super admin visits the venue index page
-            $browser->visit(new VenueIndex());
+            $browser->visit(new VenueIndex);
 
             // And clicks the "options" dropdown next to the venue's name
-            $browser->clickAtXPath('//a[text()="' . $venue->name . '"]//..//..//button[@title="Options"]');
+            $browser->clickAtXPath('//a[text()="'.$venue->name.'"]//..//..//button[@title="Options"]');
 
             // And clicks the "delete" link
             $browser->clickLink('Delete');
@@ -37,7 +37,7 @@ class DeleteVenueTest extends DuskTestCase
             $browser->assertRouteIs('venues.index');
 
             // And they should see a confirmation message that the venue was deleted
-            $browser->assertSee('Venue "' . $venue->name . '" deleted');
+            $browser->assertSee('Venue "'.$venue->name.'" deleted');
         });
     }
 }

@@ -12,7 +12,7 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteUserAchievementTest extends DuskTestCase
 {
-    public function testDeletingUserAchievement(): void
+    public function test_deleting_user_achievement(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a LAN
@@ -53,7 +53,7 @@ class DeleteUserAchievementTest extends DuskTestCase
 
             // And clicks the "options" dropdown next to the user's name
             $browser->clickAtXPath(
-                '//a[contains(string(), "' . $user->username . '")]//..//..//button[@title="Options"]'
+                '//a[contains(string(), "'.$user->username.'")]//..//..//button[@title="Options"]'
             );
 
             // And clicks the "delete" link
@@ -67,7 +67,7 @@ class DeleteUserAchievementTest extends DuskTestCase
 
             // And they should see a confirmation message that the achievement has been revoked
             $browser->assertSee(
-                'You have revoked the achievement "' . $achievement->name . '" from ' . $user->username
+                'You have revoked the achievement "'.$achievement->name.'" from '.$user->username
             );
         });
     }

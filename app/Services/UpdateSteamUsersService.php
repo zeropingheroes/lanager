@@ -2,8 +2,6 @@
 
 namespace Zeropingheroes\Lanager\Services;
 
-use Zeropingheroes\SteamApis\SteamWebApi\SteamWebApiConnector;
-use Zeropingheroes\SteamApis\SteamWebApi\Enums\CommunityVisibilityState;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Collection;
@@ -13,6 +11,8 @@ use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\SteamUserAppSession;
 use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
+use Zeropingheroes\SteamApis\SteamWebApi\Enums\CommunityVisibilityState;
+use Zeropingheroes\SteamApis\SteamWebApi\SteamWebApiConnector;
 
 class UpdateSteamUsersService
 {
@@ -43,6 +43,7 @@ class UpdateSteamUsersService
 
     /**
      * Construct the class
+     *
      * @throws Exception
      */
     public function __construct(array|int $steamIds)
@@ -63,9 +64,8 @@ class UpdateSteamUsersService
         );
 
         $this->steamIds = $steamIds;
-        $this->errors = new MessageBag();
+        $this->errors = new MessageBag;
     }
-
 
     /**
      * Get the users who were updated.
@@ -75,7 +75,6 @@ class UpdateSteamUsersService
         return $this->updated;
     }
 
-
     /**
      * Get the users who were not updated.
      */
@@ -83,7 +82,6 @@ class UpdateSteamUsersService
     {
         return $this->failed;
     }
-
 
     /**
      * Get the errors
@@ -95,6 +93,7 @@ class UpdateSteamUsersService
 
     /**
      * Update the Steam users in the database.
+     *
      * @throws Throwable
      */
     public function update(): void
@@ -135,6 +134,7 @@ class UpdateSteamUsersService
 
     /**
      * Update a single Steam user.
+     *
      * @throws Throwable
      */
     protected function updateUser($steamUser): bool
@@ -143,7 +143,7 @@ class UpdateSteamUsersService
         $userOAuthAccount = UserOAuthAccount::where('provider_id', $steamUser->steamid)->first();
 
         // If this Steam account is not already in the database
-        if (!$userOAuthAccount) {
+        if (! $userOAuthAccount) {
             // Create a new LANager user account
             $user = User::create(['username' => $steamUser->personaname]);
         } else {
@@ -175,12 +175,12 @@ class UpdateSteamUsersService
         );
 
         // Do not record gameplay info, unless a LAN is in progress
-        if (!isset($this->currentLanAttendees)) {
+        if (! isset($this->currentLanAttendees)) {
             return true;
         }
 
         // Do not record gameplay info if the user is not at the LAN in progress
-        if (!$this->currentLanAttendees->contains('id', $user->id)) {
+        if (! $this->currentLanAttendees->contains('id', $user->id)) {
             return true;
         }
 
@@ -196,7 +196,7 @@ class UpdateSteamUsersService
             );
 
             // If no existing ongoing session was found
-            if (!$session->exists) {
+            if (! $session->exists) {
                 // Create one starting now
                 $session->start = Carbon::now();
 

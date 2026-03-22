@@ -17,7 +17,7 @@ return [
     'steam' => [
         'client_id' => null,
         'client_secret' => env('STEAM_API_KEY'),
-        'redirect' => rtrim(env('APP_URL'), '/') . '/auth/steam/callback',
+        'redirect' => rtrim(env('APP_URL'), '/').'/auth/steam/callback',
         'allowed_hosts' => [parse_url(env('APP_URL'), PHP_URL_HOST)],
         'api_key' => env('STEAM_API_KEY'),
         'rate_limit_store_path' => storage_path('app/steam-api'),

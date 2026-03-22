@@ -24,7 +24,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = null;
 
-
     /**
      * Define your route model bindings, pattern filters, etc.
      */

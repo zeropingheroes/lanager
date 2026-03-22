@@ -27,7 +27,7 @@ class LanController extends Controller
      */
     public function show(Lan $lan, Request $request): LanResource
     {
-        if (!$lan->published) {
+        if (! $lan->published) {
             abort(404);
         }
 
@@ -38,14 +38,14 @@ class LanController extends Controller
             $lan->load([
                 'events' => function ($query) {
                     $query->where('published', true);
-                }
+                },
             ]);
         }
         if ($request->has('slides')) {
             $lan->load([
                 'slides' => function ($query) {
                     $query->where('published', true);
-                }
+                },
             ]);
         }
 

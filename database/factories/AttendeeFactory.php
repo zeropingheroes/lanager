@@ -9,7 +9,7 @@ use Zeropingheroes\Lanager\Models\User;
 class AttendeeFactory extends Factory
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function definition(): array
     {

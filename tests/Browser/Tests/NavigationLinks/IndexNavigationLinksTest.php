@@ -8,7 +8,7 @@ use Zeropingheroes\Lanager\Models\NavigationLink;
 
 class IndexNavigationLinksTest extends DuskTestCase
 {
-    public function testIndexingAchievements(): void
+    public function test_indexing_achievements(): void
     {
         $this->browse(function (Browser $browser) {
             // Given there is a user with the role "super admin"
