@@ -22,7 +22,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * When present, controller route declarations will automatically be prefixed with this namespace.
      */
-    protected $namespace = null;
+    protected $namespace;
 
     /**
      * Define your route model bindings, pattern filters, etc.
