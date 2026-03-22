@@ -47,7 +47,7 @@ class UpdateSteamUserAppImages extends Command
         $failedApps = new Collection;
         $processedAppCount = 0;
 
-        $limit = $this->option('limit');
+        $limit = (int) $this->option('limit');
         if ($limit) {
             $apps = $apps->take($limit);
         }
