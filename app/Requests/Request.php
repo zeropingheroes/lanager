@@ -44,7 +44,11 @@ abstract class Request implements RequestContract
         // If validation has already been run
         // return the result of the validation
         if ($this->valid != null) {
-            return ! $this->valid;
+            if ($this->valid) {
+                return false;
+            }
+
+            return true;
         }
 
         // Otherwise run validation and return the result (inverse)
