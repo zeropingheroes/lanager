@@ -25,14 +25,16 @@ class StoreNavigationLinkRequest extends Request
         }
 
         if (! empty($this->input['parent_id'])) {
-            if ($this->input['id'] ?? $this->input['parent_id'] === 0) {
-                $this->addError(trans('phrase.a-navigation-link-cannot-be-its-own-parent'));
+            if (NavigationLink::findOrFail($this->input['parent_id'])->parent_id != null) {
+                $this->addError(trans('phrase.navigation-links-can-only-be-nested-one-level-deep'));
 
                 return $this->setValid(false);
             }
+        }
 
-            if (NavigationLink::findOrFail($this->input['parent_id'])->parent_id != null) {
-                $this->addError(trans('phrase.navigation-links-can-only-be-nested-one-level-deep'));
+        if (! empty($this->input['parent_id']) && ! empty($this->input['id'])) {
+            if ($this->input['parent_id'] == $this->input['id']) {
+                $this->addError(trans('phrase.a-navigation-link-cannot-be-its-own-parent'));
 
                 return $this->setValid(false);
             }
