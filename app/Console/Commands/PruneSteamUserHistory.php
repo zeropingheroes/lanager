@@ -43,7 +43,7 @@ class PruneSteamUserHistory extends Command
         }
         $periodsToDelete[] = ['start' => $previous, 'end' => CarbonImmutable::endOfTime()];
 
-        $statesToDelete = SteamUserAppSession::make();
+        $statesToDelete = new SteamUserAppSession;
 
         foreach ($periodsToDelete as $period) {
             $statesToDelete = $statesToDelete->orWhere(
