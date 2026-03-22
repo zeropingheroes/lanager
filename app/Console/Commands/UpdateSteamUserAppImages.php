@@ -172,7 +172,7 @@ class UpdateSteamUserAppImages extends Command
             } catch (NotFoundException) {
                 return [];
             } catch (RateLimitReachedException $e) {
-                $seconds = (int) $e->getLimit()->getRemainingSeconds();
+                $seconds = $e->getLimit()->getRemainingSeconds();
 
                 // If the limiter returns 0/negative, still back off a bit to avoid a tight loop.
                 if ($seconds < 1) {
