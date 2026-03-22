@@ -169,7 +169,7 @@ class UpdateSteamUserAppImages extends Command
                     'medium' => $appDetails->capsule_image,
                     'large' => $appDetails->header_image,
                 ];
-            } catch (NotFoundException $e) {
+            } catch (NotFoundException) {
                 return [];
             } catch (RateLimitReachedException $e) {
                 $seconds = (int) $e->getLimit()->getRemainingSeconds();
