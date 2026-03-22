@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Zeropingheroes\Lanager\Models\AllowedIpRange;
 use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Models\UserAchievement;
 
 class AwardLanAchievementToAttendee
@@ -26,6 +27,10 @@ class AwardLanAchievementToAttendee
      */
     public function handle(Login $login): void
     {
+        if (! $login->user instanceof User) {
+            return;
+        }
+
         $lanHappeningNow = Lan::happeningNow()->first();
 
         if (! $lanHappeningNow) {

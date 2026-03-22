@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Listeners;
 
 use Illuminate\Auth\Events\Login;
+use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Services\UpdateSteamUserAppsService;
 
 class UpdateOutdatedUserAppsAfterSuccessfulAuth
@@ -12,6 +13,9 @@ class UpdateOutdatedUserAppsAfterSuccessfulAuth
      */
     public function handle(Login $login): void
     {
+        if (! $login->user instanceof User) {
+            return;
+        }
         $steamMetadata = $login->user->SteamMetadata;
 
         if (! $steamMetadata) {
