@@ -32,10 +32,6 @@ class GetGamesPlayedRecentlyService
             ->orderBy('playtime_two_weeks', 'desc')
             ->get();
 
-        if (empty($steamUserApps)) {
-            return [];
-        }
-
         // Collect and combine games
         $usage = [];
         foreach ($steamUserApps as $app) {

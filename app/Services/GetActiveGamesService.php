@@ -16,10 +16,6 @@ class GetActiveGamesService
             ->with('user', 'app', 'user.accounts', 'user.steamMetadata')
             ->get();
 
-        if (empty($sessions)) {
-            return new Collection;
-        }
-
         // Collect and combine states for the same game
         $usage = [];
         foreach ($sessions as $session) {

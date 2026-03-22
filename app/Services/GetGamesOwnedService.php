@@ -32,10 +32,6 @@ class GetGamesOwnedService
             ->orderBy('playtime_forever', 'desc')
             ->get();
 
-        if (empty($steamUserApps)) {
-            return [];
-        }
-
         // Collect and combine games
         $usage = [];
         foreach ($steamUserApps as $app) {
