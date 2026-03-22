@@ -40,7 +40,7 @@ class AwardLanAchievementToAttendee
             }
         }
 
-        if ($isAtLan && $lanHappeningNow && $lanHappeningNow->attendanceAchievement) {
+        if ($isAtLan && $lanHappeningNow->attendanceAchievement) {
             UserAchievement::firstOrCreate(
                 [
                     'user_id' => $login->user->id,
