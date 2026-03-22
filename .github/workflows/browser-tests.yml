@@ -1,4 +1,4 @@
-name: Laravel Dusk
+name: Browser Tests
 
 on:
     push:
@@ -11,7 +11,7 @@ on:
 
 jobs:
     dusk:
-        name: Test with Laravel Dusk
+        name: Run Laravel Dusk
         runs-on: ubuntu-latest
         env:
             APP_NAME: LANager

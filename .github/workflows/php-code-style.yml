@@ -1,9 +1,10 @@
-name: Fix Code Style using Laravel Pint
+name: PHP Code Style
 
 on: [push]
 
 jobs:
-    lint:
+    laravel-pint:
+        name: Run Laravel Pint
         runs-on: ubuntu-latest
         strategy:
             fail-fast: true

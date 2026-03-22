@@ -10,7 +10,7 @@ on:
 
 jobs:
     build-and-push-docker-image:
-        name: Build Docker image and push to Docker hub
+        name: Build and push
         runs-on: ubuntu-latest
         steps:
             -   name: Set up Docker Buildx
