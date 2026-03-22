@@ -83,7 +83,7 @@ class ImageController extends Controller
 
             $fileName = str_replace($extension, '', $fileNameWithExtension);
 
-            $newFileName = Str::slug($fileName).'.'.strtolower($extension);
+            $newFileName = Str::slug($fileName).'.'.strtolower((string) $extension);
 
             $image->storeAs(self::DIRECTORY, $newFileName);
         }

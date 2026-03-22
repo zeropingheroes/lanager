@@ -69,7 +69,7 @@ class AchievementController extends Controller
 
         if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
-            $newFileName = $achievement->id.'.'.strtolower($extension);
+            $newFileName = $achievement->id.'.'.strtolower((string) $extension);
             $httpRequest->image->storeAs(self::DIRECTORY, $newFileName);
             $achievement->update(['image_filename' => $newFileName]);
         }
@@ -130,7 +130,7 @@ class AchievementController extends Controller
 
         if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
-            $newFileName = $achievement->id.'.'.strtolower($extension);
+            $newFileName = $achievement->id.'.'.strtolower((string) $extension);
             $httpRequest->image->storeAs(self::DIRECTORY, $newFileName);
             $input['image_filename'] = $newFileName;
         }

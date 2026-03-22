@@ -57,7 +57,7 @@ class UpdateSteamUsersService
 
         // Remove excess white space and convert strings to integers
         $steamIds = array_map(
-            fn ($steamId) => intval(trim($steamId)),
+            fn ($steamId) => intval(trim((string) $steamId)),
             $steamIds
         );
 
