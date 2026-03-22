@@ -74,7 +74,7 @@ class GetGamesPlayedBetweenService
 
         // Sort games by user count, and then by playtime
         array_multisort(
-            array_map('count', $users),
+            array_map(count(...), $users),
             SORT_NUMERIC,
             SORT_DESC,
             array_map(
