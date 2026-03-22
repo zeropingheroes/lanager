@@ -68,6 +68,9 @@ class GetGamesPlayedBetweenService
             $combinedUsage[$session->steam_app_id]['playtime']->add($session->start->diffAsCarbonInterval($end));
         }
 
+        $users = [];
+        $playtime = [];
+
         // Obtain a list of columns
         foreach ($combinedUsage as $key => $row) {
             $users[$key] = $row['users'];
