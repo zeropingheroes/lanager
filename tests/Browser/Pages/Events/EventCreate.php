@@ -18,6 +18,7 @@ class EventCreate extends Page
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public function assert(Browser $browser): void
     {
         $browser->assertPathIs($this->url());
@@ -26,6 +27,7 @@ class EventCreate extends Page
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public function elements(): array
     {
         return [

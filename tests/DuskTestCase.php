@@ -56,6 +56,7 @@ abstract class DuskTestCase extends BaseTestCase
     /**
      * Create the RemoteWebDriver instance.
      */
+    #[\Override]
     protected function driver(): RemoteWebDriver
     {
         $options = (new ChromeOptions)->addArguments(
@@ -80,6 +81,7 @@ abstract class DuskTestCase extends BaseTestCase
     /**
      * Determine whether the Dusk command has disabled headless mode.
      */
+    #[\Override]
     protected function hasHeadlessDisabled(): bool
     {
         return isset($_SERVER['DUSK_HEADLESS_DISABLED']) ||
@@ -89,6 +91,7 @@ abstract class DuskTestCase extends BaseTestCase
     /**
      * Determine if the browser window should start maximized.
      */
+    #[\Override]
     protected function shouldStartMaximized(): bool
     {
         return isset($_SERVER['DUSK_START_MAXIMIZED']) ||

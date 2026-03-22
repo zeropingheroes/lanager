@@ -13,6 +13,7 @@ class StoreRoleAssignmentRequest extends Request
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $this->validationRules = [

@@ -9,6 +9,7 @@ abstract class Page extends BasePage
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public static function siteElements(): array
     {
         return [

@@ -11,6 +11,7 @@ class UpdateImageRequest extends Request
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         if (! Storage::exists($this->input['original_file_path'])) {

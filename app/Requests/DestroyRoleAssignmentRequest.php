@@ -10,6 +10,7 @@ class DestroyRoleAssignmentRequest extends Request
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $roleAssignment = RoleAssignment::find($this->input['id']);

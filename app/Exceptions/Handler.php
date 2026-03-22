@@ -25,6 +25,7 @@ class Handler extends ExceptionHandler
     /**
      * Register the exception handling callbacks for the application.
      */
+    #[\Override]
     public function register(): void
     {
         $this->reportable(function (Throwable $e): void {
@@ -35,6 +36,7 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      */
+    #[\Override]
     public function render($request, Throwable $e): Response
     {
         if ($e instanceof NotFoundHttpException || $e instanceof ModelNotFoundException) {

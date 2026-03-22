@@ -17,6 +17,7 @@ class HomePage extends Page
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public function assert(Browser $browser): void
     {
         //
@@ -25,6 +26,7 @@ class HomePage extends Page
     /**
      * {@inheritDoc}
      */
+    #[\Override]
     public function elements(): array
     {
         return [
