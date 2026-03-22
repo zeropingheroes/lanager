@@ -37,23 +37,22 @@ class UpdateSteamUsers extends Command
         // If there is a current LAN, and the "update all users" option is not set
         if ($lan && ! $this->option('all')) {
             // Get the attendees for the LAN
-            $attendees = $lan->users()->get()->pluck('id');
+            $attendees = $lan->users()->pluck('users.id');
 
             // Also get any users who have not been updated in the last day
-            $staleUsers = SteamUserMetadata::whereNotIn('user_id', $attendees)
+            $staleUsers = SteamUserMetadata::select('user_id')
+                ->whereNotIn('user_id', $attendees)
                 ->where('profile_updated_at', '<=', now()->subDay())
-                ->get()
-                ->pluck('user_id');
+                ->get();
 
             $users = $attendees->merge($staleUsers);
         } else {
             // Otherwise, get all users
-            $users = User::all()->pluck('id');
+            $users = User::pluck('id');
         }
 
         // Get the Steam IDs belonging to the users who are to be updated
         $steamIds = UserOAuthAccount::whereIn('user_id', $users)
-            ->get()
             ->pluck('provider_id')
             ->toArray();
 
