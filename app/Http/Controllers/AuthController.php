@@ -14,6 +14,7 @@ use InvalidArgumentException;
 use Laravel\Socialite\Facades\Socialite;
 use Throwable;
 use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 
@@ -65,9 +66,8 @@ class AuthController extends Controller
             }
 
             // Get the newly updated user
-            $user = UserOAuthAccount::where('provider_id', $OAuthUser->id)
-                ->firstOrFail()
-                ->user;
+            $userOAuthAccount = UserOAuthAccount::where('provider_id', $OAuthUser->id)->firstOrFail();
+            $user = User::findOrFail($userOAuthAccount->user_id);
 
             // Log them in
             Auth::login($user, true);
