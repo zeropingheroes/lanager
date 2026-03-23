@@ -48,7 +48,7 @@ class UpdateSteamUserAppImages extends Command
         $processedAppCount = 0;
 
         $limit = (int) $this->option('limit');
-        if ($limit) {
+        if ($limit !== 0) {
             $apps = $apps->take($limit);
         }
 
@@ -100,7 +100,7 @@ class UpdateSteamUserAppImages extends Command
                     )
                 );
                 $logoUrls = $this->getAppLogoUrlsFromApi($app->id);
-                if ($logoUrls) {
+                if ($logoUrls !== []) {
                     $this->info(
                         trans(
                             'phrase.app-x-name-got-logo-urls-from-api-saving',
