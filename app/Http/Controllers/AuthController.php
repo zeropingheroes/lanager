@@ -51,7 +51,7 @@ class AuthController extends Controller
         if ($OAuthProvider == 'steam') {
             $OAuthUser = Socialite::with('steam')->user();
 
-            $service = new UpdateSteamUsersService($OAuthUser->id);
+            $service = new UpdateSteamUsersService([$OAuthUser->id]);
             $service->update();
 
             // Check if the user wasn't updated, or if there are errors

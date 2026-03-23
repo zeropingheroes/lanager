@@ -46,14 +46,11 @@ class UpdateSteamUsersService
      *
      * @throws Exception
      */
-    public function __construct(array|int $steamIds)
+    public function __construct(array $steamIds)
     {
-        if (empty($steamIds)) {
+        if ($steamIds === []) {
             throw new Exception(trans('phrase.one-or-more-steam-ids-must-be-provided'));
         }
-
-        // Ensure we have an array, even if only one ID is given
-        $steamIds = (array) $steamIds;
 
         // Remove excess white space and convert strings to integers
         $steamIds = array_map(
