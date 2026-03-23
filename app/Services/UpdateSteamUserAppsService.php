@@ -92,7 +92,7 @@ class UpdateSteamUserAppsService
                     include_played_free_games: true
                 );
 
-                $appsVisible = (count($ownedGames) != 0);
+                $appsVisible = (count($ownedGames) !== 0);
 
                 $steamAccount->user->steamMetadata()->updateOrCreate(
                     [],

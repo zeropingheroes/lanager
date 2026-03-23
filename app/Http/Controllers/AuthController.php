@@ -33,7 +33,7 @@ class AuthController extends Controller
      */
     public function redirectToProvider(string $OAuthProvider): RedirectResponse
     {
-        if ($OAuthProvider == 'steam') {
+        if ($OAuthProvider === 'steam') {
             return Socialite::with('steam')->redirect();
         }
         $message = trans('phrase.provider-not-supported', ['provider' => $OAuthProvider]);
