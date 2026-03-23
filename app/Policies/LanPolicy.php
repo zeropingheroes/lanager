@@ -13,7 +13,7 @@ class LanPolicy extends BasePolicy
     public function view(?User $authUser, Lan $lan): bool
     {
         // Admins can view any LAN
-        if ($authUser && $authUser->hasRole('admin')) {
+        if ($authUser instanceof User && $authUser->hasRole('admin')) {
             return true;
         }
 

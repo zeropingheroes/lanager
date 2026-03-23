@@ -15,7 +15,7 @@ class BasePolicy
     public function before(?User $authUser)
     {
         // Allow users with the super admin role to perform any action
-        if ($authUser && $authUser->hasRole('super-admin')) {
+        if ($authUser instanceof User && $authUser->hasRole('super-admin')) {
             return true;
         }
     }

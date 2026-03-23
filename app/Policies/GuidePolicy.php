@@ -13,7 +13,7 @@ class GuidePolicy extends BasePolicy
     public function view(?User $authUser, Guide $guide): bool
     {
         // admins can view any guide
-        if ($authUser && $authUser->hasRole('admin')) {
+        if ($authUser instanceof User && $authUser->hasRole('admin')) {
             return true;
         }
 

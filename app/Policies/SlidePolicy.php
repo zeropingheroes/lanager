@@ -13,7 +13,7 @@ class SlidePolicy extends BasePolicy
     public function view(?User $authUser, Slide $slide): bool
     {
         // Admins can view any slide
-        if ($authUser && $authUser->hasRole('admin')) {
+        if ($authUser instanceof User && $authUser->hasRole('admin')) {
             return true;
         }
 

@@ -13,7 +13,7 @@ class LanGamePolicy extends BasePolicy
     public function view(?User $authUser, LanGame $lanGame): mixed
     {
         // Admins can view any
-        if ($authUser && $authUser->hasRole('admin')) {
+        if ($authUser instanceof User && $authUser->hasRole('admin')) {
             return true;
         }
 
