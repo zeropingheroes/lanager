@@ -4,7 +4,11 @@ namespace Zeropingheroes\Lanager\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Zeropingheroes\Lanager\Models\Event as EventModel;
 
+/**
+ * @mixin EventModel
+ */
 class Event extends JsonResource
 {
     /**

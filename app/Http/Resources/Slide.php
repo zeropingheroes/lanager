@@ -4,7 +4,11 @@ namespace Zeropingheroes\Lanager\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Zeropingheroes\Lanager\Models\Slide as SlideModel;
 
+/**
+ * @mixin SlideModel
+ */
 class Slide extends JsonResource
 {
     /**
