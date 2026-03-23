@@ -67,10 +67,10 @@ class EventController extends Controller
             'published' => $httpRequest->has('published'),
         ];
 
-        $request = new StoreEventRequest($input);
+        $storeEventRequest = new StoreEventRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeEventRequest->invalid()) {
+            Session::flash('error', $storeEventRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -138,10 +138,10 @@ class EventController extends Controller
             'published' => $httpRequest->has('published'),
         ];
 
-        $request = new StoreEventRequest($input);
+        $storeEventRequest = new StoreEventRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeEventRequest->invalid()) {
+            Session::flash('error', $storeEventRequest->errors());
 
             return redirect()->back()->withInput();
         }

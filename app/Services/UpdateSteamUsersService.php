@@ -96,9 +96,9 @@ class UpdateSteamUsersService
     {
         $this->endStaleAppSessions();
 
-        $steamWebApi = app(SteamWebApiConnector::class);
+        $steamWebApiConnector = app(SteamWebApiConnector::class);
 
-        $steamUsers = $steamWebApi->GetPlayerSummaries($this->steamIds);
+        $steamUsers = $steamWebApiConnector->GetPlayerSummaries($this->steamIds);
 
         // Get the LAN happening now, or the most recently ended LAN
         $lan = Lan::presentAndPast()

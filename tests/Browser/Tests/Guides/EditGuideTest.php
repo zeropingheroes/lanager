@@ -28,10 +28,10 @@ class EditGuideTest extends DuskTestCase
             ]);
 
             // And there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the show guide page
             $browser->visitRoute('lans.guides.show', ['lan' => $lan, 'guide' => $guide]);

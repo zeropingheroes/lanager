@@ -68,19 +68,19 @@ class UpdateSteamUsers extends Command
             trans('phrase.updating-profiles-and-online-status-for-x-users-from-steam', ['x' => count($steamIds)])
         );
 
-        $service = new UpdateSteamUsersService($steamIds);
-        $service->update();
+        $updateSteamUsersService = new UpdateSteamUsersService($steamIds);
+        $updateSteamUsersService->update();
 
         $message = trans(
             'phrase.successfully-updated-profiles-and-online-status-for-x-of-y-users',
-            ['x' => count($service->getUpdated()), 'y' => count($steamIds)]
+            ['x' => count($updateSteamUsersService->getUpdated()), 'y' => count($steamIds)]
         );
-        Log::info($message, $service->getUpdated());
+        Log::info($message, $updateSteamUsersService->getUpdated());
         $this->info($message);
 
-        if ($service->errors()->isNotEmpty()) {
+        if ($updateSteamUsersService->errors()->isNotEmpty()) {
             $this->error(trans('phrase.the-following-errors-were-encountered'));
-            foreach ($service->errors()->getMessages() as $error) {
+            foreach ($updateSteamUsersService->errors()->getMessages() as $error) {
                 Log::error($error[0]);
                 $this->error($error[0]);
             }

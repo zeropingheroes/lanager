@@ -47,10 +47,10 @@ class RoleAssignmentController extends Controller
 
         $input = $httpRequest->only(['user_id', 'role_id']);
 
-        $request = new StoreRoleAssignmentRequest($input);
+        $storeRoleAssignmentRequest = new StoreRoleAssignmentRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeRoleAssignmentRequest->invalid()) {
+            Session::flash('error', $storeRoleAssignmentRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -79,10 +79,10 @@ class RoleAssignmentController extends Controller
     {
         $this->authorize('delete', $roleAssignment);
 
-        $request = new DestroyRoleAssignmentRequest(['id' => $roleAssignment->id]);
+        $destroyRoleAssignmentRequest = new DestroyRoleAssignmentRequest(['id' => $roleAssignment->id]);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($destroyRoleAssignmentRequest->invalid()) {
+            Session::flash('error', $destroyRoleAssignmentRequest->errors());
 
             return redirect()->back()->withInput();
         }

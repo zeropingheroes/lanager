@@ -51,10 +51,10 @@ class VenueController extends Controller
             'street_address' => $httpRequest->input('street_address'),
         ];
 
-        $request = new StoreVenueRequest($input);
+        $storeVenueRequest = new StoreVenueRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeVenueRequest->invalid()) {
+            Session::flash('error', $storeVenueRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -106,10 +106,10 @@ class VenueController extends Controller
             'id' => $venue->id,
         ];
 
-        $request = new StoreVenueRequest($input);
+        $storeVenueRequest = new StoreVenueRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeVenueRequest->invalid()) {
+            Session::flash('error', $storeVenueRequest->errors());
 
             return redirect()->back()->withInput();
         }

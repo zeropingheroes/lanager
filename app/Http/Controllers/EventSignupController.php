@@ -33,10 +33,10 @@ class EventSignupController extends Controller
             'user_id' => $httpRequest->input('user_id') ?? Auth::user()->id,
         ];
 
-        $request = new StoreEventSignupRequest($input);
+        $storeEventSignupRequest = new StoreEventSignupRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeEventSignupRequest->invalid()) {
+            Session::flash('error', $storeEventSignupRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -52,16 +52,16 @@ class EventSignupController extends Controller
      *
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan, Event $event, EventSignup $signup): RedirectResponse
+    public function destroy(Lan $lan, Event $event, EventSignup $eventSignup): RedirectResponse
     {
-        $this->authorize('delete', $signup);
+        $this->authorize('delete', $eventSignup);
 
         // If the event is accessed via the wrong LAN ID, show 404
-        if ($event->lan_id != $lan->id || $signup->event_id != $event->id) {
+        if ($event->lan_id != $lan->id || $eventSignup->event_id != $event->id) {
             abort(404);
         }
 
-        EventSignup::destroy($signup->id);
+        EventSignup::destroy($eventSignup->id);
 
         return redirect()
             ->route('lans.events.show', ['lan' => $event->lan, 'event' => $event]);

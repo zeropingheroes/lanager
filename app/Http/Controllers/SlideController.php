@@ -66,10 +66,10 @@ class SlideController extends Controller
             'published' => $httpRequest->has('published'),
         ];
 
-        $request = new StoreSlideRequest($input);
+        $storeSlideRequest = new StoreSlideRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeSlideRequest->invalid()) {
+            Session::flash('error', $storeSlideRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -138,10 +138,10 @@ class SlideController extends Controller
             'published' => $httpRequest->has('published'),
         ];
 
-        $request = new StoreSlideRequest($input);
+        $storeSlideRequest = new StoreSlideRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeSlideRequest->invalid()) {
+            Session::flash('error', $storeSlideRequest->errors());
 
             return redirect()->back()->withInput();
         }

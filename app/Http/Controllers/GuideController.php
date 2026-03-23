@@ -55,10 +55,10 @@ class GuideController extends Controller
             'published' => $httpRequest->has('published'),
         ];
 
-        $request = new StoreGuideRequest($input);
+        $storeGuideRequest = new StoreGuideRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeGuideRequest->invalid()) {
+            Session::flash('error', $storeGuideRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -140,10 +140,10 @@ class GuideController extends Controller
             'published' => $httpRequest->has('published'),
         ];
 
-        $request = new StoreGuideRequest($input);
+        $storeGuideRequest = new StoreGuideRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeGuideRequest->invalid()) {
+            Session::flash('error', $storeGuideRequest->errors());
 
             return redirect()->back()->withInput();
         }

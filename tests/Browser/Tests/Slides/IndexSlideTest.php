@@ -33,10 +33,10 @@ class IndexSlideTest extends DuskTestCase
             ]);
 
             // And there is a user with the super admin role
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin user visits the slide index page
             $browser->visitRoute('lans.slides.index', ['lan' => $lan]);

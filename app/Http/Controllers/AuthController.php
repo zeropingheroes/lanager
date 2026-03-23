@@ -52,16 +52,16 @@ class AuthController extends Controller
         if ($OAuthProvider == 'steam') {
             $OAuthUser = Socialite::with('steam')->user();
 
-            $service = new UpdateSteamUsersService([$OAuthUser->id]);
-            $service->update();
+            $updateSteamUsersService = new UpdateSteamUsersService([$OAuthUser->id]);
+            $updateSteamUsersService->update();
 
             // Check if the user wasn't updated, or if there are errors
             if (
-                ! array_key_exists($OAuthUser->id, $service->getUpdated())
-                || $service->errors()->isNotEmpty()
+                ! array_key_exists($OAuthUser->id, $updateSteamUsersService->getUpdated())
+                || $updateSteamUsersService->errors()->isNotEmpty()
             ) {
-                Log::error($service->errors()->first());
-                Session::flash('error', $service->errors()->first());
+                Log::error($updateSteamUsersService->errors()->first());
+                Session::flash('error', $updateSteamUsersService->errors()->first());
 
                 return redirect()->route('login');
             }

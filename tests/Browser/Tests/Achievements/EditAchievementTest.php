@@ -14,7 +14,7 @@ class EditAchievementTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And there is an achievement
             $achievement = Achievement::create([
@@ -23,7 +23,7 @@ class EditAchievementTest extends DuskTestCase
             ]);
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the achievement index page
             $browser->visitRoute('achievements.index');

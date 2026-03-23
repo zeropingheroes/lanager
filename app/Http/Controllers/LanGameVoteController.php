@@ -28,10 +28,10 @@ class LanGameVoteController extends Controller
             'user_id' => Auth::user()->id,
         ];
 
-        $request = new StoreLanGameVoteRequest($input);
+        $storeLanGameVoteRequest = new StoreLanGameVoteRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeLanGameVoteRequest->invalid()) {
+            Session::flash('error', $storeLanGameVoteRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -46,11 +46,11 @@ class LanGameVoteController extends Controller
      *
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan, LanGame $lanGame, LanGameVote $vote): RedirectResponse
+    public function destroy(Lan $lan, LanGame $lanGame, LanGameVote $lanGameVote): RedirectResponse
     {
-        $this->authorize('delete', $vote);
+        $this->authorize('delete', $lanGameVote);
 
-        LanGameVote::destroy($vote->id);
+        LanGameVote::destroy($lanGameVote->id);
 
         return redirect()->back();
     }

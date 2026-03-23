@@ -51,10 +51,10 @@ class AllowedIpRangeController extends Controller
             'description' => $httpRequest->input('description'),
         ];
 
-        $request = new StoreAllowedIpRangeRequest($input);
+        $storeAllowedIpRangeRequest = new StoreAllowedIpRangeRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeAllowedIpRangeRequest->invalid()) {
+            Session::flash('error', $storeAllowedIpRangeRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -93,10 +93,10 @@ class AllowedIpRangeController extends Controller
             'id' => $allowedIpRange->id,
         ];
 
-        $request = new StoreAllowedIpRangeRequest($input);
+        $storeAllowedIpRangeRequest = new StoreAllowedIpRangeRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeAllowedIpRangeRequest->invalid()) {
+            Session::flash('error', $storeAllowedIpRangeRequest->errors());
 
             return redirect()->back()->withInput();
         }

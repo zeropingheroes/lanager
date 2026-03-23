@@ -63,10 +63,10 @@ class NavigationLinkController extends Controller
             'parent_id' => $httpRequest->input('parent_id'),
         ];
 
-        $request = new StoreNavigationLinkRequest($input);
+        $storeNavigationLinkRequest = new StoreNavigationLinkRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeNavigationLinkRequest->invalid()) {
+            Session::flash('error', $storeNavigationLinkRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -111,10 +111,10 @@ class NavigationLinkController extends Controller
             'id' => $navigationLink->id,
         ];
 
-        $request = new StoreNavigationLinkRequest($input);
+        $storeNavigationLinkRequest = new StoreNavigationLinkRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeNavigationLinkRequest->invalid()) {
+            Session::flash('error', $storeNavigationLinkRequest->errors());
 
             return redirect()->back()->withInput();
         }

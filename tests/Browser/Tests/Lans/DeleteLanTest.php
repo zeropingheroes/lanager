@@ -16,10 +16,10 @@ class DeleteLanTest extends DuskTestCase
             $lan = Lan::factory()->count(1)->create()->first();
 
             // And there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin visits the LAN index page
             $browser->visit(new LanIndex);

@@ -13,10 +13,10 @@ class EditNavigationLinkTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // And there is a navigation link
             $navigationLink = NavigationLink::create([

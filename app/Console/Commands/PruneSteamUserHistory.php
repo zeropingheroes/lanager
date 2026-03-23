@@ -46,11 +46,11 @@ class PruneSteamUserHistory extends Command
 
         $statesToDelete = new SteamUserAppSession;
 
-        foreach ($periodsToDelete as $period) {
+        foreach ($periodsToDelete as $periodToDelete) {
             $statesToDelete = $statesToDelete->orWhere(
-                function ($query) use ($period): void {
-                    $query->where('updated_at', '>', $period['start']);
-                    $query->where('updated_at', '<', $period['end']);
+                function ($query) use ($periodToDelete): void {
+                    $query->where('updated_at', '>', $periodToDelete['start']);
+                    $query->where('updated_at', '<', $periodToDelete['end']);
                 }
             );
         }

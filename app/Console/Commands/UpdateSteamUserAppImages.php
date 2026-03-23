@@ -154,7 +154,7 @@ class UpdateSteamUserAppImages extends Command
 
     private function getAppLogoUrlsFromApi(int $appId): array
     {
-        $steamStoreApi = app(SteamStoreApiConnector::class);
+        $steamStoreApiConnector = app(SteamStoreApiConnector::class);
 
         $maxAttempts = 3;
         $attempt = 0;
@@ -163,7 +163,7 @@ class UpdateSteamUserAppImages extends Command
             $attempt++;
 
             try {
-                $appDetails = $steamStoreApi->appDetails($appId);
+                $appDetails = $steamStoreApiConnector->appDetails($appId);
 
                 return [
                     'small' => $appDetails->capsule_imagev5,

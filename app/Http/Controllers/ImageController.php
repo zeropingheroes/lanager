@@ -68,10 +68,10 @@ class ImageController extends Controller
             'images' => $httpRequest->images,
         ];
 
-        $request = new StoreImageRequest($input);
+        $storeImageRequest = new StoreImageRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeImageRequest->invalid()) {
+            Session::flash('error', $storeImageRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -138,10 +138,10 @@ class ImageController extends Controller
             'new_filename_without_extension' => $newFilenameWithoutExtension,
         ];
 
-        $request = new UpdateImageRequest($input);
+        $updateImageRequest = new UpdateImageRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($updateImageRequest->invalid()) {
+            Session::flash('error', $updateImageRequest->errors());
 
             return redirect()->back()->withInput();
         }

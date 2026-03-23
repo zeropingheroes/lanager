@@ -51,10 +51,10 @@ class UserAchievementController extends Controller
         $input = $httpRequest->only(['user_id', 'achievement_id']);
         $input['lan_id'] = $lan->id;
 
-        $request = new StoreUserAchievementRequest($input);
+        $storeUserAchievementRequest = new StoreUserAchievementRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeUserAchievementRequest->invalid()) {
+            Session::flash('error', $storeUserAchievementRequest->errors());
 
             return redirect()->back()->withInput();
         }

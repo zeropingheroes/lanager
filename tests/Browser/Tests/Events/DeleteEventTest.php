@@ -13,7 +13,7 @@ class DeleteEventTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And there is a LAN
             $lan = Lan::create([
@@ -31,7 +31,7 @@ class DeleteEventTest extends DuskTestCase
             ]);
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the events index page
             $browser->visitRoute('lans.events.index', ['lan' => $lan]);

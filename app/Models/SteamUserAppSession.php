@@ -45,8 +45,8 @@ class SteamUserAppSession extends Model
     /**
      * Active sessions (have not yet ended)
      */
-    public function scopeActive(Builder $query): Builder
+    public function scopeActive(Builder $builder): Builder
     {
-        return $query->whereNull('end');
+        return $builder->whereNull('end');
     }
 }

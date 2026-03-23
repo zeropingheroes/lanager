@@ -59,7 +59,7 @@ abstract class DuskTestCase extends BaseTestCase
     #[\Override]
     protected function driver(): RemoteWebDriver
     {
-        $options = (new ChromeOptions)->addArguments(
+        $chromeOptions = (new ChromeOptions)->addArguments(
             collect([
                 $this->shouldStartMaximized() ? '--start-maximized' : '--window-size=1920,1080',
             ])->unless($this->hasHeadlessDisabled(), fn ($items) => $items->merge([
@@ -73,7 +73,7 @@ abstract class DuskTestCase extends BaseTestCase
             env('DUSK_DRIVER_URL'),
             DesiredCapabilities::chrome()->setCapability(
                 ChromeOptions::CAPABILITY,
-                $options
+                $chromeOptions
             )
         );
     }

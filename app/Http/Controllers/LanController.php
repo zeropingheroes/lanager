@@ -78,10 +78,10 @@ class LanController extends Controller
             'published' => $httpRequest->has('published'),
         ];
 
-        $request = new StoreLanRequest($input);
+        $storeLanRequest = new StoreLanRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeLanRequest->invalid()) {
+            Session::flash('error', $storeLanRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -126,10 +126,10 @@ class LanController extends Controller
             'id' => $lan->id,
         ];
 
-        $request = new StoreLanRequest($input);
+        $storeLanRequest = new StoreLanRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeLanRequest->invalid()) {
+            Session::flash('error', $storeLanRequest->errors());
 
             return redirect()->back()->withInput();
         }

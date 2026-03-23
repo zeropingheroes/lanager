@@ -57,10 +57,10 @@ class AchievementController extends Controller
             'image' => $httpRequest->image,
         ];
 
-        $request = new StoreAchievementRequest($input);
+        $storeAchievementRequest = new StoreAchievementRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeAchievementRequest->invalid()) {
+            Session::flash('error', $storeAchievementRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -120,10 +120,10 @@ class AchievementController extends Controller
             'id' => $achievement->id,
         ];
 
-        $request = new StoreAchievementRequest($input);
+        $storeAchievementRequest = new StoreAchievementRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeAchievementRequest->invalid()) {
+            Session::flash('error', $storeAchievementRequest->errors());
 
             return redirect()->back()->withInput();
         }

@@ -33,34 +33,34 @@ class Lan extends Model
     /**
      * LANs happening now
      */
-    public function scopeHappeningNow(Builder $query): Builder
+    public function scopeHappeningNow(Builder $builder): Builder
     {
-        return $query->where('start', '<', now())
+        return $builder->where('start', '<', now())
             ->where('end', '>', now());
     }
 
     /**
      * LANs that have ended
      */
-    public function scopePast(Builder $query): Builder
+    public function scopePast(Builder $builder): Builder
     {
-        return $query->where('end', '<', now());
+        return $builder->where('end', '<', now());
     }
 
     /**
      * LANs that have not yet started
      */
-    public function scopeFuture(Builder $query): Builder
+    public function scopeFuture(Builder $builder): Builder
     {
-        return $query->where('start', '>', now());
+        return $builder->where('start', '>', now());
     }
 
     /**
      * LANs that have ended or have not started
      */
-    public function scopePresentAndPast(Builder $query): Builder
+    public function scopePresentAndPast(Builder $builder): Builder
     {
-        return $query->where('start', '<', now());
+        return $builder->where('start', '<', now());
     }
 
     /**

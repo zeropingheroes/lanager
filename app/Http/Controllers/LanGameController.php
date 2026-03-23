@@ -47,10 +47,10 @@ class LanGameController extends Controller
             'created_by' => Auth::user()->id,
         ];
 
-        $request = new StoreLanGameRequest($input);
+        $storeLanGameRequest = new StoreLanGameRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeLanGameRequest->invalid()) {
+            Session::flash('error', $storeLanGameRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -88,10 +88,10 @@ class LanGameController extends Controller
             'id' => $lanGame->id,
         ];
 
-        $request = new StoreLanGameRequest($input);
+        $storeLanGameRequest = new StoreLanGameRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeLanGameRequest->invalid()) {
+            Session::flash('error', $storeLanGameRequest->errors());
 
             return redirect()->back()->withInput();
         }

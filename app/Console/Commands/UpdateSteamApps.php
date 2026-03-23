@@ -30,10 +30,10 @@ class UpdateSteamApps extends Command
     {
         $this->info(trans('phrase.requesting-list-of-all-apps-from-steam-api'));
 
-        $steamWebApi = app(SteamWebApiConnector::class);
+        $steamWebApiConnector = app(SteamWebApiConnector::class);
 
-        $request = new GetAppListRequest;
-        $appPaginator = $request->paginate($steamWebApi);
+        $getAppListRequest = new GetAppListRequest;
+        $appPaginator = $getAppListRequest->paginate($steamWebApiConnector);
         $appPaginator->setPerPageLimit(50000);
 
         if (! SteamApp::count()) {
@@ -73,19 +73,19 @@ class UpdateSteamApps extends Command
         // Chunk the apps into blocks of 500
         $chunkedApps = array_chunk($databaseApps, 500);
 
-        $progress = $this->output->createProgressBar(count($chunkedApps));
-        $progress->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
+        $progressBar = $this->output->createProgressBar(count($chunkedApps));
+        $progressBar->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
 
         $importedCount = 0;
 
         // Insert the chunks
-        foreach ($chunkedApps as $chunk) {
-            SteamApp::insert($chunk);
-            $importedCount += count($chunk);
-            $progress->advance();
+        foreach ($chunkedApps as $chunkedApp) {
+            SteamApp::insert($chunkedApp);
+            $importedCount += count($chunkedApp);
+            $progressBar->advance();
         }
 
-        $progress->finish();
+        $progressBar->finish();
         $message = trans('phrase.x-steam-apps-imported', ['x' => $importedCount]);
         $this->info(PHP_EOL.$message);
         Log::info($message);
@@ -103,8 +103,8 @@ class UpdateSteamApps extends Command
         Log::info($message);
 
         // Initialise counter and progress bar
-        $progress = $this->output->createProgressBar($apps->count());
-        $progress->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
+        $progressBar = $this->output->createProgressBar($apps->count());
+        $progressBar->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
 
         $updatedCount = 0;
 
@@ -117,10 +117,10 @@ class UpdateSteamApps extends Command
                 $updatedCount++;
             }
 
-            $progress->advance();
+            $progressBar->advance();
         }
 
-        $progress->finish();
+        $progressBar->finish();
 
         $message = trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
         $this->info(PHP_EOL.$message);

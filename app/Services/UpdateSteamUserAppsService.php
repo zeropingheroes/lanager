@@ -81,12 +81,12 @@ class UpdateSteamUserAppsService
         $steamAccounts = UserOAuthAccount::where('provider', 'steam')
             ->whereIn('user_id', $this->users->pluck('id'))->get();
 
-        $steamWebApi = app(SteamWebApiConnector::class);
+        $steamWebApiConnector = app(SteamWebApiConnector::class);
 
         // Update games for each user in turn
         foreach ($steamAccounts as $steamAccount) {
             try {
-                $ownedGames = $steamWebApi->GetOwnedGames(
+                $ownedGames = $steamWebApiConnector->GetOwnedGames(
                     steamid: $steamAccount->provider_id,
                     include_appinfo: true,
                     include_played_free_games: true
@@ -120,7 +120,7 @@ class UpdateSteamUserAppsService
                         );
                 }
 
-                $recentlyPlayedGames = $steamWebApi->GetRecentlyPlayedGames(
+                $recentlyPlayedGames = $steamWebApiConnector->GetRecentlyPlayedGames(
                     steamid: $steamAccount->provider_id,
                 );
 
