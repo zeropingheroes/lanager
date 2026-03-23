@@ -40,7 +40,7 @@ class ImageController extends Controller
 
         // Only show image files
         $images = $files->filter(
-            fn ($value) => in_array(strtolower(File::extension($value)), self::PERMITTED_EXTENSIONS)
+            fn ($value) => in_array(strtolower(File::extension($value)), self::PERMITTED_EXTENSIONS, true)
         );
 
         // Add fields to collection
