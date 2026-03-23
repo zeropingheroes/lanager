@@ -75,6 +75,7 @@ class UpdateSteamApps extends Command
 
         $progress = $this->output->createProgressBar(count($chunkedApps));
         $progress->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
+
         $importedCount = 0;
 
         // Insert the chunks
@@ -104,6 +105,7 @@ class UpdateSteamApps extends Command
         // Initialise counter and progress bar
         $progress = $this->output->createProgressBar($apps->count());
         $progress->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
+
         $updatedCount = 0;
 
         foreach ($apps as $app) {

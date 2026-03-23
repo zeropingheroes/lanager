@@ -59,6 +59,7 @@ class UpdateSteamUsersService
         );
 
         $this->steamIds = $steamIds;
+
         $this->errors = new MessageBag;
     }
 
