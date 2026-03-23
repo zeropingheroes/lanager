@@ -34,6 +34,7 @@ class LanController extends Controller
         if ($request->has('users')) {
             $lan->load('users');
         }
+
         if ($request->has('events')) {
             $lan->load([
                 'events' => function ($query): void {
@@ -41,6 +42,7 @@ class LanController extends Controller
                 },
             ]);
         }
+
         if ($request->has('slides')) {
             $lan->load([
                 'slides' => function ($query): void {

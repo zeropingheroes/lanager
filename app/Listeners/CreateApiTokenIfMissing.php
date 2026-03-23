@@ -16,6 +16,7 @@ class CreateApiTokenIfMissing
         if (! $login->user instanceof User) {
             return;
         }
+
         $user = $login->user;
         if (! $user->api_token) {
             $user->api_token = Str::random(60);

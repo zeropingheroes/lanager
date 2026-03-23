@@ -83,6 +83,7 @@ class UpdateSteamApps extends Command
             $importedCount += count($chunk);
             $progress->advance();
         }
+
         $progress->finish();
         $message = trans('phrase.x-steam-apps-imported', ['x' => $importedCount]);
         $this->info(PHP_EOL.$message);
@@ -113,8 +114,10 @@ class UpdateSteamApps extends Command
             if ($databaseApp->wasChanged()) {
                 $updatedCount++;
             }
+
             $progress->advance();
         }
+
         $progress->finish();
 
         $message = trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]);

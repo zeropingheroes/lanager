@@ -38,6 +38,7 @@ class LanGamePolicy extends BasePolicy
         if ($authUser->hasRole('admin')) {
             return true;
         }
+
         // Non-admins can't update if game already voted for by others
         if ($lanGame->votes()->whereNotIn('user_id', [$authUser->id])->count() > 0) {
             return false;

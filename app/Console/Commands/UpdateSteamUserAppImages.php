@@ -76,6 +76,7 @@ class UpdateSteamUserAppImages extends Command
                     continue;
                 }
             }
+
             $this->info(
                 trans('phrase.app-x-name-no-logo-urls-checking-default', ['id' => $app->id, 'name' => $app->name])
             );
@@ -178,6 +179,7 @@ class UpdateSteamUserAppImages extends Command
                 if ($seconds < 1) {
                     $seconds = 1;
                 }
+
                 if ($attempt >= $maxAttempts) {
                     $this->warn(trans('phrase.rate-limit-exceeded-max-retries-reached'));
                     break;

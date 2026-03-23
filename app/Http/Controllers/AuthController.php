@@ -36,6 +36,7 @@ class AuthController extends Controller
         if ($OAuthProvider === 'steam') {
             return Socialite::with('steam')->redirect();
         }
+
         $message = trans('phrase.provider-not-supported', ['provider' => $OAuthProvider]);
         Log::error($message);
         throw new InvalidArgumentException($message);

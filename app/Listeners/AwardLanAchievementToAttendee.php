@@ -31,6 +31,7 @@ class AwardLanAchievementToAttendee
         if (! $lanHappeningNow) {
             return;
         }
+
         $isAtLan = false;
 
         foreach (AllowedIpRange::pluck('ip_range') as $ipRange) {

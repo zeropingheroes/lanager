@@ -110,6 +110,7 @@ class UpdateSteamUserAppsService
                     if (! SteamApp::find($ownedGame->appid)) {
                         SteamApp::create(['id' => $ownedGame->appid, 'name' => $ownedGame->name]);
                     }
+
                     $steamAccount->user->steamApps()
                         ->updateOrCreate(
                             ['steam_app_id' => $ownedGame->appid],
@@ -132,6 +133,7 @@ class UpdateSteamUserAppsService
                             ]
                         );
                     }
+
                     $steamAccount->user->steamApps()
                         ->updateOrCreate(
                             ['steam_app_id' => $recentlyPlayedGame->appid],

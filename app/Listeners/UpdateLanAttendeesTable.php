@@ -17,6 +17,7 @@ class UpdateLanAttendeesTable
         if (! $login->user instanceof User) {
             return;
         }
+
         $lanHappeningNow = Lan::where('start', '<', now())
             ->where('end', '>', now())->first();
 
