@@ -27,7 +27,7 @@ return [
     // Account Authentication
     'profile-update-required' => 'Please update your profile to continue',
     'please-sign-in' => 'Please sign in through Steam',
-    'no-steam-account' => 'Don\'t have a Steam account? No problem!',
+    'no-steam-account' => "Don't have a Steam account? No problem!",
     'create-steam-account' => 'Create a Steam account for free',
     'provider-not-supported' => 'Unsupported authentication provider ":provider"',
     'user-successfully-logged-in' => 'User :username successfully logged in',
@@ -40,7 +40,7 @@ return [
     'cannot-change-own-role-assignments' => 'You cannot change your own role assignments',
     'cannot-assign-role-to-super-admin' => 'Super Admins cannot be assigned additional roles',
     'assigned' => 'assigned',
-    'admin-vs-superadmin' => 'Admins are able to do everything a super admin can do, with the exception of changing other users\' roles',
+    'admin-vs-superadmin' => "Admins are able to do everything a super admin can do, with the exception of changing other users' roles",
 
     // Achievements
     'achievement-successfully-awarded' => 'You have awarded :user the achievement ":achievement"',
@@ -67,7 +67,7 @@ return [
 
     // Users
     'your-steam-game-details-are-private' => 'Your Steam game details are currently private',
-    'please-consider-public-visibility' => 'This means the games you\'re playing won\'t appear in LANager with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
+    'please-consider-public-visibility' => "This means the games you're playing won't appear in LANager with everyone else. Please consider making your game details public, even if it's just for the event. Thanks!",
     'edit-steam-profile' => 'Edit Steam Profile',
     'avatar-for-username' => 'Avatar for :username',
     'hours-played-total' => 'hours total',
@@ -75,7 +75,7 @@ return [
     'sign-in-to-see-the-games-you-have-in-common-with-username' => 'Sign in to see the games you have in common with :username',
     'you-have-no-games-in-common-with-username' => 'You have no games in common with :username',
     'username-does-not-own-any-games' => ':username does not own any games',
-    'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or have in common with you',
+    'usernames-game-details-are-private' => ":username's game details are private, so we can't show you the games they own or have in common with you",
     'viewing-user-from-another-lan' => 'This user is not attending the current LAN',
     'username-has-not-played-any-games-this-lan' => ':username has not played any games this LAN',
     'played-for-x' => 'Played for :x',
@@ -109,7 +109,7 @@ return [
 
     // Events
     'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',
-    'event-times-must-be-within-lan-times' => 'Events must start and finish within the LAN\'s start and end time',
+    'event-times-must-be-within-lan-times' => "Events must start and finish within the LAN's start and end time",
     'event-is-not-open-for-signups' => 'This event is not open for signups',
     'you-can-only-sign-yourself-up-to-event' => 'You can only sign yourself up to an event',
     'timespan-to' => 'to',
@@ -180,14 +180,14 @@ return [
     'successfully-updated-x-of-y-users' => 'Successfully updated :x of :y users',
 
     // lanager:update-steam-users
-    'update-existing-users-profiles-from-steam' => 'Update existing LANager users\' profiles with the latest information from their Steam profile',
+    'update-existing-users-profiles-from-steam' => "Update existing LANager users' profiles with the latest information from their Steam profile",
     'update-all-users' => 'Update all users, not just those at the current LAN',
     'no-steam-users-to-update' => 'No Steam users to update',
     'updating-profiles-and-online-status-for-x-users-from-steam' => 'Updating profiles and online status for :x users from Steam',
     'successfully-updated-profiles-and-online-status-for-x-of-y-users' => 'Successfully updated profiles and online status for :x of :y users',
 
     // lanager:update-steam-user-apps
-    'update-existing-user-app-ownership' => 'Update existing LANager users\' app ownership data with the latest information from their Steam profile',
+    'update-existing-user-app-ownership' => "Update existing LANager users' app ownership data with the latest information from their Steam profile",
     'requesting-app-ownership-data-for-x-users-from-steam' => 'Updating app ownership data for :x users from Steam',
     'successfully-updated-app-ownership-data-for-x-of-y-users' => 'Successfully updated app ownership data for :x of :y users',
 
@@ -221,7 +221,7 @@ return [
     'fixing-timestamp-columns' => 'Fixing timestamp columns',
     'creating-new-tables' => 'Creating new tables',
     'spoofing-initial-migration' => 'Spoofing initial migration',
-    'confirm-get-app-ownership-data' => 'Would you like to get each user\'s app ownership data? (~1 minute per 50 users)',
+    'confirm-get-app-ownership-data' => "Would you like to get each user's app ownership data? (~1 minute per 50 users)",
     'successfully-upgraded-database' => 'Successfully upgraded database from v0.5.x to v1.0.x',
 
     // make:feature

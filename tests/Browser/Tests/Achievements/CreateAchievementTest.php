@@ -26,7 +26,7 @@ class CreateAchievementTest extends DuskTestCase
             // And fills the "create achievement" form
             $browser->waitForRoute('achievements.create')
                 ->on(new AchievementCreate)
-                ->type('name', 'I\'m Blue')
+                ->type('name', "I'm Blue")
                 ->type('description', 'Get a BSOD');
 
             // And submits the form
@@ -38,7 +38,7 @@ class CreateAchievementTest extends DuskTestCase
             $browser->assertRouteIs('achievements.show', ['achievement' => '*']);
 
             // And sees the achievement name
-            $browser->assertSee('I\'m Blue');
+            $browser->assertSee("I'm Blue");
 
             // And sees the achievement description
             $browser->assertSee('Get a BSOD');

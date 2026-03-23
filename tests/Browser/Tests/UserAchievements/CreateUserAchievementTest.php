@@ -19,7 +19,7 @@ class CreateUserAchievementTest extends DuskTestCase
 
             // And there is an achievement
             $achievement = Achievement::create([
-                'name' => 'I\'m Blue',
+                'name' => "I'm Blue",
                 'description' => 'Get a BSOD',
             ]);
 
