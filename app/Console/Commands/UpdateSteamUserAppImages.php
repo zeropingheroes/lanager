@@ -140,11 +140,10 @@ class UpdateSteamUserAppImages extends Command
             }
 
             return 0;
-        } else {
-            $this->warn(trans('phrase.failed-to-update-logo-urls-for-x-apps', ['x' => $processedAppCount]));
-
-            return 1;
         }
+        $this->warn(trans('phrase.failed-to-update-logo-urls-for-x-apps', ['x' => $processedAppCount]));
+
+        return 1;
     }
 
     private function requestLogoUrl(string $url): Response

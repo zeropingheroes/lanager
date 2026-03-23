@@ -197,17 +197,16 @@ class UpdateSteamUsersService
                 $session->start = Carbon::now();
 
                 return $session->saveOrFail();
-            } else {
-                // If an existing ongoing session was found
-                // Update its updated_at timestamp field
-                return $session->touch();
             }
-        } else {
-            // If the user is not running an app/game, add an end time to any sessions without one
-            $user->steamAppSessions()
-                ->whereNull('end')
-                ->update(['end' => Carbon::now()]);
+
+            // If an existing ongoing session was found
+            // Update its updated_at timestamp field
+            return $session->touch();
         }
+        // If the user is not running an app/game, add an end time to any sessions without one
+        $user->steamAppSessions()
+            ->whereNull('end')
+            ->update(['end' => Carbon::now()]);
 
         return true;
     }

@@ -64,8 +64,8 @@ class ImportSteamUsers extends Command
             }
 
             return 1;
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 }
