@@ -4,12 +4,12 @@ namespace Zeropingheroes\Lanager\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Zeropingheroes\Lanager\Models\User as UserModel;
+use Zeropingheroes\Lanager\Models\SteamApp;
 
 /**
- * @mixin UserModel
+ * @mixin SteamApp
  */
-class User extends JsonResource
+class GameResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +18,13 @@ class User extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'name' => $this->name,
             'id' => $this->id,
-            'username' => $this->username,
-            'oauth_accounts' => OAuthAccount::collection($this->whenLoaded('accounts')),
+            'logo' => [
+                'small' => $this->logo_small,
+                'medium' => $this->logo_medium,
+                'large' => $this->logo_large,
+            ],
         ];
     }
 }

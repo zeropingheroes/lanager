@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
-use Zeropingheroes\Lanager\Http\Resources\ActiveGame;
+use Zeropingheroes\Lanager\Http\Resources\ActiveGameResource;
 use Zeropingheroes\Lanager\Services\GetActiveGamesService;
 
 class ActiveGamesController extends Controller
@@ -21,6 +21,6 @@ class ActiveGamesController extends Controller
             $activeGames = $activeGames->take($request->limit);
         }
 
-        return ActiveGame::collection($activeGames);
+        return ActiveGameResource::collection($activeGames);
     }
 }

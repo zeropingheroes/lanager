@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
-use Zeropingheroes\Lanager\Http\Resources\Event as EventResource;
+use Zeropingheroes\Lanager\Http\Resources\EventResource;
 use Zeropingheroes\Lanager\Models\Event;
 
 class EventController extends Controller

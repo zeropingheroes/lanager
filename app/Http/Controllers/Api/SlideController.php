@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
-use Zeropingheroes\Lanager\Http\Resources\Slide as SlideResource;
+use Zeropingheroes\Lanager\Http\Resources\SlideResource;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\Slide;
 

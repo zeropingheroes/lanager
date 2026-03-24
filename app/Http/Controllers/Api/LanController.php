@@ -5,7 +5,7 @@ namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
-use Zeropingheroes\Lanager\Http\Resources\Lan as LanResource;
+use Zeropingheroes\Lanager\Http\Resources\LanResource;
 use Zeropingheroes\Lanager\Models\Lan;
 
 class LanController extends Controller

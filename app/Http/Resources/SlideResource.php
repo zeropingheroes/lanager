@@ -4,12 +4,12 @@ namespace Zeropingheroes\Lanager\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Zeropingheroes\Lanager\Models\Slide as SlideModel;
+use Zeropingheroes\Lanager\Models\Slide;
 
 /**
- * @mixin SlideModel
+ * @mixin Slide
  */
-class Slide extends JsonResource
+class SlideResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,7 +23,7 @@ class Slide extends JsonResource
             'content' => $this->content,
             'position' => $this->position,
             'duration' => $this->duration,
-            'lan' => new Lan($this->whenLoaded('lan')),
+            'lan' => new LanResource($this->whenLoaded('lan')),
             'links' => [
                 'self' => route('api.lans.slides.show', ['lan' => $this->lan_id, 'slide' => $this->id]),
                 'self_gui' => route('lans.slides.show', ['lan' => $this->lan_id, 'slide' => $this->id]),

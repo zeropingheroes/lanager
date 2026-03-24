@@ -4,12 +4,12 @@ namespace Zeropingheroes\Lanager\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Zeropingheroes\Lanager\Models\UserOAuthAccount as UserOAuthAccountModel;
+use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 /**
- * @mixin UserOAuthAccountModel
+ * @mixin UserOAuthAccount
  */
-class OAuthAccount extends JsonResource
+class OAuthAccountResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

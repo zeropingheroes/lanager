@@ -4,12 +4,12 @@ namespace Zeropingheroes\Lanager\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Zeropingheroes\Lanager\Models\Event as EventModel;
+use Zeropingheroes\Lanager\Models\Lan;
 
 /**
- * @mixin EventModel
+ * @mixin Lan
  */
-class Event extends JsonResource
+class LanResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,14 +20,11 @@ class Event extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'description' => $this->description,
             'start' => $this->start->toIso8601String(),
             'end' => $this->end->toIso8601String(),
-            'lan' => new Lan($this->whenLoaded('lan')),
-            'links' => [
-                'self' => route('api.events.show', $this->id),
-                'self_gui' => route('lans.events.show', ['lan' => $this->lan_id, 'event' => $this->id]),
-            ],
+            'users' => UserResource::collection($this->whenLoaded('users')),
+            'events' => EventResource::collection($this->whenLoaded('events')),
+            'slides' => SlideResource::collection($this->whenLoaded('slides')),
         ];
     }
 }
