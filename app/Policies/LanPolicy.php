@@ -18,7 +18,7 @@ class LanPolicy extends BasePolicy
         }
 
         // Non-admins can view published LANs
-        return $lan->published;
+        return (bool) $lan->published;
     }
 
     /**
