@@ -194,7 +194,7 @@ class UpdateSteamUsersService
             // If no existing ongoing session was found
             if (! $session->exists) {
                 // Create one starting now
-                $session->start = Carbon::now();
+                $session['start'] = Carbon::now();
 
                 return $session->saveOrFail();
             }
