@@ -69,18 +69,18 @@ class Slide extends Model
     /**
      * Slides visible now
      */
-    public function scopeVisibleNow(Builder $query): Builder
+    public function scopeVisibleNow(Builder $builder): Builder
     {
-        return $query->where(function (Builder $query) {
-            $query->where(function (Builder $query) {
-                $query->whereNull('start')
+        return $builder->where(function (Builder $builder): void {
+            $builder->where(function (Builder $builder): void {
+                $builder->whereNull('start')
                     ->whereNull('end');
-            })->orWhere(function (Builder $query) {
-                $query->where(function (Builder $query) {
-                    $query->whereNull('start')
+            })->orWhere(function (Builder $builder): void {
+                $builder->where(function (Builder $builder): void {
+                    $builder->whereNull('start')
                         ->orWhere('start', '<=', now());
-                })->where(function (Builder $query) {
-                    $query->whereNull('end')
+                })->where(function (Builder $builder): void {
+                    $builder->whereNull('end')
                         ->orWhere('end', '>=', now());
                 });
             });
