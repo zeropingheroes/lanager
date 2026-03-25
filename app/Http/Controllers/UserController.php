@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\SteamUserMetadata;
 use Zeropingheroes\Lanager\Models\User;
 
 class UserController extends Controller
@@ -29,9 +30,11 @@ class UserController extends Controller
             ->orderBy('start', 'desc')
             ->first();
 
+        $steamUserMetadata = SteamUserMetadata::where('user_id', $user->id)->first();
+
         // If the user's apps are visible, and they're attending the current LAN (or there isn't a current LAN)
         if (
-            ($user->steamMetadata && $user->steamMetadata->apps_visible == 1)
+            ($steamUserMetadata && $steamUserMetadata->apps_visible == 1)
             && (! $lan || $lansAttended->contains('id', $lan->id))
         ) {
             // Get games in common so long as the logged in user is not viewing their own profile
