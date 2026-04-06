@@ -52,16 +52,16 @@ class EventSignupController extends Controller
      *
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan, Event $event, EventSignup $eventSignup): RedirectResponse
+    public function destroy(Lan $lan, Event $event, EventSignup $signup): RedirectResponse
     {
-        $this->authorize('delete', $eventSignup);
+        $this->authorize('delete', $signup);
 
         // If the event is accessed via the wrong LAN ID, show 404
-        if ($event->lan_id != $lan->id || $eventSignup->event_id != $event->id) {
+        if ($event->lan_id != $lan->id || $signup->event_id != $event->id) {
             abort(404);
         }
 
-        EventSignup::destroy($eventSignup->id);
+        EventSignup::destroy($signup->id);
 
         return redirect()
             ->route('lans.events.show', ['lan' => $event->lan, 'event' => $event]);
