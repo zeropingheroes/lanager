@@ -92,7 +92,7 @@ more enjoyable for attendees and organisers alike.
    ./initialise-database.sh
     ```
 
-LANager should now be accessible at http://localhost, or at the URL you specified in `APP_URL`, providing you've
+LANager should now be accessible at http://localhost:8000, or at the URL you specified in `APP_URL`, providing you've
 created a corresponding DNS `A` record for the Docker host's IP address, and allowed ports `80` and `443` through
 the Docker host's firewall.
 
