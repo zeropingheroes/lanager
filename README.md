@@ -83,7 +83,7 @@ more enjoyable for attendees and organisers alike.
 6. Bring up the application:
 
     ```bash
-    docker-compose up --detach --wait
+    docker compose up --detach --wait
     ```
 
 7. Initialise the database:
@@ -228,7 +228,7 @@ Run `./backup-restore.sh <file>` to restore a backup.
 2. Stop the running containers
 
     ```bash
-    docker-compose down
+    docker compose down
     ```
 
 3. Check out the development branch of `lanager-docker-compose`
@@ -295,7 +295,7 @@ Run `./backup-restore.sh <file>` to restore a backup.
 13. Start the containers
 
      ```bash
-     docker-compose up --detach
+     docker compose up --detach
      ```
 
 14. After a minute or so, visit `http://localhost:8080`
@@ -306,16 +306,16 @@ will be seen by the running containers.
 
 ### Start and stop the development environment
 
-To stop the development environment run `docker-compose stop`.
+To stop the development environment run `docker compose stop`.
 
-When you're ready to start developing again run `docker-compose start`.
+When you're ready to start developing again run `docker compose start`.
 
 ### Destroy the development environment
 
 To destroy the development environment and all volumes that store lanager data, run:
 
 ```bash
-docker-compose down --volumes
+docker compose down --volumes
 ```
 
 Follow the setup steps above to get a fresh development environment.
