@@ -68,6 +68,9 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
 # Switch to non-root user
 USER ${APP_USER}
 
+HEALTHCHECK --start-period=10s --start-interval=1s --interval=30s --timeout=10s --retries=3 \
+        CMD curl --insecure --silent --location --show-error --fail http://localhost:8000/up || exit 1
+
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
 CMD ["php", "artisan", "octane:frankenphp"]
 
