@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7ef425c1959c5bc2f220d9953eaef55",
+    "content-hash": "8ad8a776c16cf21a8f6329171d31efe2",
     "packages": [
         {
             "name": "brick/math",
@@ -9258,59 +9258,6 @@
                 }
             ],
             "time": "2026-02-17T17:33:08+00:00"
-        },
-        {
-            "name": "ottaviano/faker-gravatar",
-            "version": "0.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ottaviano/faker-gravatar.git",
-                "reference": "cafe3ac9351b223259cf89df87762e23bc7b5402"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ottaviano/faker-gravatar/zipball/cafe3ac9351b223259cf89df87762e23bc7b5402",
-                "reference": "cafe3ac9351b223259cf89df87762e23bc7b5402",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1|^8.0"
-            },
-            "require-dev": {
-                "ext-curl": "*",
-                "fakerphp/faker": "^1.20",
-                "phpunit/phpunit": "^9.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Ottaviano\\Faker\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dimitri Gritsajuk",
-                    "email": "gritsajuk.dimitri@gmail.com"
-                }
-            ],
-            "description": "Faker Gravatar image provider",
-            "keywords": [
-                "avatar",
-                "data",
-                "faker",
-                "fixtures",
-                "gravatar",
-                "image"
-            ],
-            "support": {
-                "issues": "https://github.com/ottaviano/faker-gravatar/issues",
-                "source": "https://github.com/ottaviano/faker-gravatar/tree/0.3.0"
-            },
-            "time": "2025-01-02T17:48:09+00:00"
         },
         {
             "name": "pestphp/pest",
