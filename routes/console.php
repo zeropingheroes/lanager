@@ -41,4 +41,4 @@ Schedule::command(UpdateSteamApps::class)
 // The Steam Store API limits requests to 200 every 5 minutes
 // This command gracefully handles the rate limit
 Schedule::command(UpdateSteamUserAppImages::class)
-    ->hourly();
+    ->daily();
