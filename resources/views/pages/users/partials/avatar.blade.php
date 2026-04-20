@@ -15,7 +15,7 @@
             $avatar = Vite::asset('resources/images/default-avatar.png');
         }
 
-$activeSession = $user->steamAppSessions->first();
+$activeSession = $user->steamAppSessions()->active()->first();
 
 if($activeSession) {
     $statusName = 'in-game';

@@ -15,7 +15,7 @@
                 @include('pages.users.partials.online-status-badge', ['user' => $user])
             </td>
             <td>
-                @php($activeSession = $user->steamAppSessions->first())
+                @php($activeSession = $user->steamAppSessions()->active()->first())
                 @if($activeSession)
                     @include('pages.steam-apps.partials.store-link', ['app' => $activeSession->app])
                 @endif

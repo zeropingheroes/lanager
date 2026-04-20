@@ -1,4 +1,4 @@
-@php($activeSession = $user->steamAppSessions->first())
+@php($activeSession = $user->steamAppSessions()->active()->first())
 
 @if($activeSession && $activeSession->app->exists)
     <span class="badge text-bg-success">@lang('phrase.status-in-game')</span>
