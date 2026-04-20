@@ -12,28 +12,24 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteEventSignupTest extends DuskTestCase
 {
-    public function testDeletingEventSignup(): void
+    public function test_deleting_event_signup(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given a LAN exists
             // And the LAN has an event
-            $lan = Lan::factory()->state(function (array $attributes) {
-                return [
-                    'published' => true,
-                ];
-            })
+            $lan = Lan::factory()->state(fn (array $attributes) => [
+                'published' => true,
+            ])
                 ->has(
                     Event::factory()
-                        ->state(function (array $attributes, Lan $lan) {
-                            return [
-                                'lan_id' => $lan->id,
-                                'start' => $lan->start->addHour(),
-                                'end' => $lan->start->addHours(2),
-                                'signups_open' => $lan->start,
-                                'signups_close' => $lan->start->addHour(),
-                                'published' => true,
-                            ];
-                        })
+                        ->state(fn (array $attributes, Lan $lan) => [
+                            'lan_id' => $lan->id,
+                            'start' => $lan->start->addHour(),
+                            'end' => $lan->start->addHours(2),
+                            'signups_open' => $lan->start,
+                            'signups_close' => $lan->start->addHour(),
+                            'published' => true,
+                        ])
                 )->count(1)->create()->first();
 
             // And a superadmin exists

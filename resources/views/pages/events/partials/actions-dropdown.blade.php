@@ -8,10 +8,10 @@
         <a href="{{ route('lans.events.edit', ['lan' => $event->lan, 'event' => $event->id]) }}" class="dropdown-item">@lang('title.edit')</a>
     @endcan
     @can('delete', $event)
-        <form action="{{ route('lans.events.destroy', ['lan' => $event->lan, 'event' => $event->id]) }}" method="POST" class="confirm-deletion">
+        <form action="{{ route('lans.events.destroy', ['lan' => $event->lan, 'event' => $event->id]) }}" method="POST">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
-            <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
+            <a class="dropdown-item" href="#" onclick="submitDeletionForm(event);">@lang('title.delete')</a>
         </form>
     @endcan
 @endcomponent

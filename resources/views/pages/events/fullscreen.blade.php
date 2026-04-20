@@ -5,14 +5,15 @@
 @endsection
 
 @section('content')
-    <script>
-        window.addEventListener('load', function() {
-            const app = new Vue({
-                el: '#app'
-            });
-        });
-    </script>
-    <div id="app" class="tv">
-        <events></events>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg">
+                <h1 class="text-center">@lang('title.events')</h1>
+            </div>
+        </div>
+        @vite(['resources/js/pages/events.js'])
+        <div id="app">
+            <events/>
+        </div>
     </div>
 @endsection

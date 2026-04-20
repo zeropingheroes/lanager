@@ -12,7 +12,8 @@
       <p class="mb-3">@lang('phrase.please-sign-in')</p>
 
       <a href="{{ url('/auth/steam') }}">
-        <img src="{{ asset('img/sits_small.png') }}" alt="@lang('title.sits')" class="img-fluid mx-auto">
+          <img src="{{ Vite::asset('resources/images/sits_small.png') }}" alt="@lang('title.sits')"
+               class="img-fluid mx-auto">
       </a>
 
       <p class="mt-4">

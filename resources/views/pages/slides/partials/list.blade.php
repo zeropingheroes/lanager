@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped align-middle">
     <thead>
     <tr>
         <th>@lang('title.name')</th>

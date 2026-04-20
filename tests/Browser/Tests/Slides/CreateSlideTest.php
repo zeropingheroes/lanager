@@ -10,9 +10,9 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class CreateSlideTest extends DuskTestCase
 {
-    public function testCreatingSlide(): void
+    public function test_creating_slide(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
@@ -21,27 +21,29 @@ class CreateSlideTest extends DuskTestCase
             ]);
 
             // And there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the slide index page
             $browser->visitRoute('lans.slides.index', ['lan' => $lan]);
 
             // And clicks the "create slide" link
-            $browser->on(new SlideIndex())->clickAtXPath('//a[@title="Create Slide"]');
+            $browser->on(new SlideIndex)->clickAtXPath('//a[@title="Create Slide"]');
 
             // And fills the "create slide" form
             $browser->waitForRoute('lans.slides.create', ['lan' => $lan])
-                ->on(new SlideCreate())
+                ->on(new SlideCreate)
                 ->type('name', 'Code of conduct')
                 ->type('content', 'Be excellent to each other')
                 ->type('position', 1)
                 ->type('duration', 10);
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then the super admin should be redirected to the "show slide" page
             $browser->assertRouteIs('lans.slides.index', ['lan' => $lan]);

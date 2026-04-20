@@ -1,4 +1,4 @@
-FROM composer:2.7 AS composer2
+FROM composer:2.9 AS composer2
 
 # Copy in project code
 COPY . /app
@@ -10,35 +10,78 @@ RUN composer install \
   --no-progress \
   --no-scripts
 
-FROM trafex/php-nginx:3.6.0 AS base
+FROM node:22-alpine AS node22
 
-USER root
+WORKDIR /app
+
+# Copy in package manifest
+COPY package.json package-lock.json /app/
+
+# Install
+RUN npm clean-install && npm cache clean --force
+
+# Copy in project code
+COPY . /app/
+
+# Build
+RUN npm run build
+
+FROM dunglas/frankenphp:1-php8.4-alpine AS base
 
 # Install PHP extensions
-RUN apk --no-cache add php83-zip=8.3.10-r0 \
-                       php83-pdo=8.3.10-r0 \
-                       php83-pdo_mysql=8.3.10-r0 \
-                       php83-simplexml=8.3.10-r0 \
-                       php83-bcmath=8.3.10-r0
+RUN install-php-extensions \
+    pcntl \
+    zip \
+    pdo_mysql \
+    simplexml \
+    bcmath \
+    gmp
 
 # Copy in app code and Composer packages from composer2 build stage
-COPY --chown=nginx --from=composer2 /app /var/www/lanager
+COPY --from=composer2 /app /app
 
-RUN chmod -R 777 /var/www/lanager/storage /var/www/lanager/bootstrap/cache && \
-    ln -s /var/www/lanager/storage/app/public /var/www/lanager/public/storage
+# Copy in built assets from node22 build stage
+COPY --from=node22 /app/public/build /app/public/build/
 
-WORKDIR /var/www/lanager
+# Copy entry point
+COPY docker/entrypoint.sh /app/docker/entrypoint.sh
 
-# Change to non-privileged user
-USER nobody
+# Set a username to use in the image
+ARG APP_USER=lanager
+ARG APP_UID=1000
+ARG APP_GID=1000
+
+# Use PHP configuration for production
+# Remove default FrankenPHP capabilities
+# Create non-root image user and group
+# Give the user write access to caddy and Laravel bootstrap directories
+# Ensure the entrypoint script is present and executable
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    && setcap -r /usr/local/bin/frankenphp \
+    && addgroup -g "${APP_GID}" "${APP_USER}" \
+    && adduser -D -u "${APP_UID}" -G "${APP_USER}" "${APP_USER}" \
+    && chown -R "${APP_USER}":"${APP_USER}" /config/caddy /data/caddy /app/bootstrap/cache \
+    && chmod -R ug+rwX /app/bootstrap/cache \
+    && ln -sfn /app/storage/app/public /app/public/storage \
+    && chmod +x /app/docker/entrypoint.sh
+
+# Switch to non-root user
+USER ${APP_USER}
+
+HEALTHCHECK --start-period=10s --start-interval=1s --interval=30s --timeout=10s --retries=3 \
+        CMD curl --insecure --silent --location --show-error --fail http://localhost:8000/up || exit 1
+
+ENTRYPOINT ["/app/docker/entrypoint.sh"]
+CMD ["php", "artisan", "octane:frankenphp"]
 
 FROM base AS dev
 
-# Temporary switch to root
+# Switch to root user
 USER root
 
-# Install xdebug
-RUN apk --no-cache add php83-pecl-xdebug=3.3.2-r0
+# Install xdebug & switch to development PHP configuration
+RUN install-php-extensions xdebug \
+    && mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
-# Switch back to non-root user
-USER nobody
+# Switch to non-root user
+USER ${APP_USER}

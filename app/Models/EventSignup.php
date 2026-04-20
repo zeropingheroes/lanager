@@ -3,10 +3,31 @@
 namespace Zeropingheroes\Lanager\Models;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
-/* @mixin Eloquent */
+/**
+ * @property int $id
+ * @property int $event_id
+ * @property int $user_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Event $event
+ * @property-read User $user
+ *
+ * @method static Builder<static>|EventSignup newModelQuery()
+ * @method static Builder<static>|EventSignup newQuery()
+ * @method static Builder<static>|EventSignup query()
+ * @method static Builder<static>|EventSignup whereCreatedAt($value)
+ * @method static Builder<static>|EventSignup whereEventId($value)
+ * @method static Builder<static>|EventSignup whereId($value)
+ * @method static Builder<static>|EventSignup whereUpdatedAt($value)
+ * @method static Builder<static>|EventSignup whereUserId($value)
+ *
+ * @mixin Eloquent
+ */
 class EventSignup extends Model
 {
     protected $fillable = [
@@ -19,7 +40,7 @@ class EventSignup extends Model
      */
     public function event(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\Event');
+        return $this->belongsTo(Event::class);
     }
 
     /**
@@ -27,6 +48,6 @@ class EventSignup extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\User');
+        return $this->belongsTo(User::class);
     }
 }

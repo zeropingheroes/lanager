@@ -10,9 +10,9 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class EditGuideTest extends DuskTestCase
 {
-    public function testEditingGuide(): void
+    public function test_editing_guide(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
@@ -28,10 +28,10 @@ class EditGuideTest extends DuskTestCase
             ]);
 
             // And there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the show guide page
             $browser->visitRoute('lans.guides.show', ['lan' => $lan, 'guide' => $guide]);
@@ -46,12 +46,14 @@ class EditGuideTest extends DuskTestCase
             $browser->waitForRoute('lans.guides.edit', ['lan' => $lan, 'guide' => $guide]);
 
             // And fills the "edit guide" form
-            $browser->on(new GuideEdit());
+            $browser->on(new GuideEdit);
             $browser->type('title', 'Code of conduct');
             $browser->type('content', 'Be excellent to each other');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then the super admin is redirected to the "show guide" page
             $browser->assertRouteIs('lans.guides.show', ['lan' => $lan, 'guide' => '*']);

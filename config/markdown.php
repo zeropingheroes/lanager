@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+use League\CommonMark\Extension\Autolink\AutolinkExtension;
+use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
+use League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension;
+use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
+use League\CommonMark\Extension\Strikethrough\StrikethroughExtension;
+use League\CommonMark\Extension\Table\Table;
+use League\CommonMark\Extension\Table\TableExtension;
 
 /*
  * This file is part of Laravel Markdown.
@@ -45,13 +53,13 @@ return [
     */
 
     'extensions' => [
-        League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension::class,
-        League\CommonMark\Extension\Table\TableExtension::class,
-        League\CommonMark\Extension\Autolink\AutolinkExtension::class,
-        League\CommonMark\Extension\ExternalLink\ExternalLinkExtension::class,
-        League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension::class,
-        League\CommonMark\Extension\Strikethrough\StrikethroughExtension::class,
-        League\CommonMark\Extension\Table\TableExtension::class,
+        CommonMarkCoreExtension::class,
+        TableExtension::class,
+        AutolinkExtension::class,
+        ExternalLinkExtension::class,
+        DefaultAttributesExtension::class,
+        StrikethroughExtension::class,
+        TableExtension::class,
     ],
 
     /*
@@ -101,7 +109,7 @@ return [
     ],
 
     'external_link' => [
-        'internal_hosts' => parse_url(env('APP_URL', ''), PHP_URL_HOST),
+        'internal_hosts' => parse_url((string) env('APP_URL', ''), PHP_URL_HOST),
         'open_in_new_window' => true,
         'html_class' => 'external',
         'nofollow' => '',
@@ -110,10 +118,10 @@ return [
     ],
 
     'default_attributes' => [
-        League\CommonMark\Extension\CommonMark\Node\Inline\Image::class => [
+        Image::class => [
             'class' => 'img-fluid',
         ],
-        League\CommonMark\Extension\Table\Table::class => [
+        Table::class => [
             'class' => 'table table-striped table-responsive',
         ],
     ],

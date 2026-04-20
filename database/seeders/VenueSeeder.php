@@ -19,9 +19,9 @@ class VenueSeeder extends Seeder
 
         Venue::create(
             [
-            'name' => __('seeder.example-venue'),
-            'street_address' => 'Elmiavägen 15, 554 54 Jönköping, Sweden',
-            'description' => __('seeder.example-venue-description'),
+                'name' => __('seeder.example-venue'),
+                'street_address' => 'Elmiavägen 15, 554 54 Jönköping, Sweden',
+                'description' => __('seeder.example-venue-description'),
             ]
         );
     }

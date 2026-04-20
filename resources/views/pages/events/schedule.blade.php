@@ -9,14 +9,10 @@
 @endsection
 
 @section('content')
-    <script>
-        window.onload = function () {
-            const app = new Vue({
-                el: '#app'
-            });
-        }
-    </script>
+    @vite(['resources/js/pages/schedule.js'])
     <div id="app">
-        <event-schedule></event-schedule>
+        <div id="schedule">
+            <event-schedule></event-schedule>
+        </div>
     </div>
 @endsection

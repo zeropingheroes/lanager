@@ -1,0 +1,139 @@
+@import "variables";
+@import 'bootstrap/scss/bootstrap';
+@import "@fortawesome/fontawesome-free/css/all.css";
+@import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.css";
+
+body {
+    background-image: url('../images/bg.jpg');
+}
+
+body > main > .container {
+    margin-top: 70px; /* stop navbar covering content */
+    margin-bottom: 25px;
+}
+
+nav a#admin-menu {
+    margin-top: 5px; /* vertically center in navbar */
+}
+
+/**
+ * Profile Avatars
+ */
+img.avatar {
+    border: 1px solid;
+}
+
+img.avatar-small {
+    border: 1px solid;
+    width: 32px;
+    height: 32px;
+}
+
+img.avatar-medium {
+    border-width: 2px;
+    width: 64px;
+    height: 64px;
+}
+
+img.avatar-large {
+    border-width: 3px;
+    width: 184px;
+    height: 184px;
+}
+
+img.avatar-in-game {
+    border-color: #19A601;
+}
+
+img.avatar-online,
+img.avatar-away,
+img.avatar-snooze,
+img.looking-to-play,
+img.looking-to-trade {
+    border-color: #01ABFE;
+}
+
+img.avatar-offline,
+img.avatar-unknown {
+    border-color: #333;
+}
+
+/**
+ * user.show
+ */
+div.profile-header div.profile-avatar {
+    height: 190px;
+    float: left;
+    margin-right: 10px;
+}
+
+div.profile-header h1 {
+    margin: 0px;
+    line-height: 190px;
+}
+
+/**
+ * games.index
+ */
+table.games td.game {
+    width: 184px;
+}
+
+table.games td.user-count {
+    font-size: 200%;
+    font-weight: bold;
+    padding: 0px 30px;
+}
+
+table.games td.users a {
+    text-decoration: none;
+}
+
+a.game-logo-not-found {
+    width: 184px;
+    height: 69px;
+    background-image: url('../images/default-steam-app-logo-small.svg');
+    font-size: 20px;
+    font-weight: bold;
+    color: #ccc;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+div.markdown-slide {
+    font-size: $font-size-base * 3;
+}
+
+div.markdown-slide h1 {
+    font-size: $h1-font-size * 3;
+}
+
+div.markdown-slide h2 {
+    font-size: $h2-font-size * 3;
+}
+
+div.markdown-slide h3 {
+    font-size: $h3-font-size * 3;
+}
+
+div.markdown-slide h4 {
+    font-size: $h4-font-size * 3;
+}
+
+div.markdown-slide h5 {
+    font-size: $h5-font-size * 3;
+}
+
+div.markdown-slide h6 {
+    font-size: $h6-font-size * 3;
+}
+
+/**
+ * lans.lan-games
+ */
+tr.lan-game-row {
+    height: 50px;
+}

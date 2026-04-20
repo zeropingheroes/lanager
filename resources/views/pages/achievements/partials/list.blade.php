@@ -12,7 +12,7 @@
                     </a>
                 </td>
                 @canany(['edit', 'delete'], $achievement)
-                <td class="text-right pr-0">
+                    <td class="text-end pe-0">
                     @component('components.actions-dropdown')
                         @include('components.actions-dropdown.edit', ['item' => $achievement])
                         @include('components.actions-dropdown.delete', ['item' => $achievement])

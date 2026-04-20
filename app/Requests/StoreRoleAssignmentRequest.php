@@ -11,8 +11,9 @@ class StoreRoleAssignmentRequest extends Request
     use LaravelValidation;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $this->validationRules = [
@@ -20,7 +21,7 @@ class StoreRoleAssignmentRequest extends Request
             'role_id' => ['required', 'exists:roles,id'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

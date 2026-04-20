@@ -10,8 +10,9 @@ class StoreLanRequest extends Request
     use LaravelValidation;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $this->validationRules = [
@@ -27,7 +28,7 @@ class StoreLanRequest extends Request
             'published' => ['nullable', 'boolean'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

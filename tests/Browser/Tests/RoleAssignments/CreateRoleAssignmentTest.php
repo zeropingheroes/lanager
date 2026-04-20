@@ -9,9 +9,9 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class CreateRoleAssignmentTest extends DuskTestCase
 {
-    public function testCreatingRoleAssignment(): void
+    public function test_creating_role_assignment(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
             $superAdmin = $this->createSuperAdmin();
 

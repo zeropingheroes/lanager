@@ -9,8 +9,9 @@ class StoreVenueRequest extends Request
     use LaravelValidation;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $this->validationRules = [
@@ -22,7 +23,7 @@ class StoreVenueRequest extends Request
             'street_address' => ['required', 'max:255'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

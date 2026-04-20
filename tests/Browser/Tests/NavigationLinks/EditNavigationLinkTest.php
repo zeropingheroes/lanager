@@ -4,19 +4,19 @@ namespace Tests\Browser\Tests\NavigationLinks;
 
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\NavigationLinks\NavigationLinkEdit;
-use Zeropingheroes\Lanager\Models\NavigationLink;
 use Tests\DuskTestCase;
+use Zeropingheroes\Lanager\Models\NavigationLink;
 
 class EditNavigationLinkTest extends DuskTestCase
 {
-    public function testEditingNavigationLink(): void
+    public function test_editing_navigation_link(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // And there is a navigation link
             $navigationLink = NavigationLink::create([
@@ -30,7 +30,7 @@ class EditNavigationLinkTest extends DuskTestCase
 
             // And clicks the options dropdown in the same row as the navigation link's title
             $browser->clickAtXPath(
-                '//td[contains(string(), "' . $navigationLink->title . '")]//..//button[@title="Options"]'
+                '//td[contains(string(), "'.$navigationLink->title.'")]//..//button[@title="Options"]'
             );
 
             // And clicks the "edit" link
@@ -38,13 +38,15 @@ class EditNavigationLinkTest extends DuskTestCase
 
             // And on the edit form they change the navigation link's title
             $browser->waitForRoute('navigation-links.edit', ['navigation_link' => $navigationLink->id])
-                ->on(new NavigationLinkEdit())
+                ->on(new NavigationLinkEdit)
                 ->type('title', 'Rules')
                 ->type('url', '/lans/1/guides/123')
                 ->type('position', '65');
 
-            // And they submit the form
-            $browser->press('@submit');
+            // And submits the form
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then the super admin is redirected to the "navigation links index" page
             $browser->assertRouteIs('navigation-links.index');

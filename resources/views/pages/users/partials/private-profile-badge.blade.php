@@ -1,5 +1,5 @@
 @if(! $user->steamMetadata->apps_visible)
-    <span class="badge badge-danger">Private</span>
+    <span class="badge text-bg-danger">@lang('title.unavailable')</span>
 @else
-    <span class="badge badge-success">Public</span>
+    <span class="badge text-bg-success">@lang('title.available')</span>
 @endif

@@ -8,14 +8,14 @@ use Tests\DuskTestCase;
 
 class CreateNavigationLinkTest extends DuskTestCase
 {
-    public function testCreatingNavigationLink(): void
+    public function test_creating_navigation_link(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin visits the home page
             $browser->visit('/');
@@ -34,13 +34,15 @@ class CreateNavigationLinkTest extends DuskTestCase
 
             // And they fill the "create navigation link" form
             $browser->waitForRoute('navigation-links.create')
-                ->on(new NavigationLinkCreate())
+                ->on(new NavigationLinkCreate)
                 ->type('title', 'Code of Conduct')
                 ->type('url', '/lans/1/guides/1')
                 ->type('position', '10');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then they are redirected to the "navigation links index" page
             $browser->assertRouteIs('navigation-links.index');

@@ -7,8 +7,9 @@ class StoreSlideRequest extends Request
     use LaravelValidation;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $this->validationRules = [
@@ -22,7 +23,7 @@ class StoreSlideRequest extends Request
             'published' => ['boolean'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

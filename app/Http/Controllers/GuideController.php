@@ -7,8 +7,8 @@ use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Zeropingheroes\Lanager\Models\Guide;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Requests\StoreGuideRequest;
@@ -36,11 +36,12 @@ class GuideController extends Controller
     {
         return View::make('pages.guides.create')
             ->with('lan', $lan)
-            ->with('guide', new Guide());
+            ->with('guide', new Guide);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan): RedirectResponse
@@ -54,10 +55,10 @@ class GuideController extends Controller
             'published' => $httpRequest->has('published'),
         ];
 
-        $request = new StoreGuideRequest($input);
+        $storeGuideRequest = new StoreGuideRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeGuideRequest->invalid()) {
+            Session::flash('error', $storeGuideRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -70,6 +71,7 @@ class GuideController extends Controller
 
     /**
      * Display the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function show(Lan $lan, Guide $guide, string $slug = ''): ViewContract|RedirectResponse
@@ -84,7 +86,7 @@ class GuideController extends Controller
         // If the guide is accessed without the URL slug
         // or an incorrect slug
         // redirect to the guide with the right slug
-        if (!$slug || $slug != Str::slug($guide->title)) {
+        if (! $slug || $slug != Str::slug($guide->title)) {
             return redirect()->route(
                 'lans.guides.show',
                 ['lan' => $guide->lan_id, 'guide' => $guide, 'slug' => Str::slug($guide->title)]
@@ -98,6 +100,7 @@ class GuideController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function edit(Lan $lan, Guide $guide): ViewContract
@@ -118,6 +121,7 @@ class GuideController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan, Guide $guide): RedirectResponse
@@ -136,10 +140,10 @@ class GuideController extends Controller
             'published' => $httpRequest->has('published'),
         ];
 
-        $request = new StoreGuideRequest($input);
+        $storeGuideRequest = new StoreGuideRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeGuideRequest->invalid()) {
+            Session::flash('error', $storeGuideRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -152,6 +156,7 @@ class GuideController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Guide $guide): RedirectResponse

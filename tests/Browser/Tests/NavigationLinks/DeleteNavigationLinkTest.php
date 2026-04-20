@@ -3,19 +3,19 @@
 namespace Tests\Browser\Tests\NavigationLinks;
 
 use Laravel\Dusk\Browser;
-use Zeropingheroes\Lanager\Models\NavigationLink;
 use Tests\DuskTestCase;
+use Zeropingheroes\Lanager\Models\NavigationLink;
 
 class DeleteNavigationLinkTest extends DuskTestCase
 {
-    public function testDeletingNavigationLink(): void
+    public function test_deleting_navigation_link(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // And there is a navigation link
             $navigationLink = NavigationLink::create([
@@ -29,7 +29,7 @@ class DeleteNavigationLinkTest extends DuskTestCase
 
             // And clicks the options dropdown in the same row as the navigation link's title
             $browser->clickAtXPath(
-                '//td[contains(string(), "' . $navigationLink->title . '")]//..//button[@title="Options"]'
+                '//td[contains(string(), "'.$navigationLink->title.'")]//..//button[@title="Options"]'
             );
 
             // And clicks the "edit" link
@@ -42,7 +42,7 @@ class DeleteNavigationLinkTest extends DuskTestCase
             $browser->waitForRoute('navigation-links.index');
 
             // And they should see a confirmation message that the navigation link has been deleted
-            $browser->assertSee('Navigation Link "' . $navigationLink->title . '" deleted');
+            $browser->assertSee('Navigation Link "'.$navigationLink->title.'" deleted');
         });
     }
 }

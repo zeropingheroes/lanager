@@ -8,27 +8,27 @@ use Zeropingheroes\Lanager\Models\Achievement;
 
 class DeleteAchievementTest extends DuskTestCase
 {
-    public function testDeletingAchievement(): void
+    public function test_deleting_achievement(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And there is an achievement
             $achievement = Achievement::create([
-                'name' => 'I\'m Blue',
+                'name' => "I'm Blue",
                 'description' => 'Get a BSOD',
             ]);
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the achievement index
             $browser->visitRoute('achievements.index');
 
             // And clicks the options dropdown in the same row as the achievement's name
             $browser->clickAtXPath(
-                '//a[contains(string(), "' . $achievement->name . '")]//..//..//button[@title="Options"]'
+                '//a[contains(string(), "'.$achievement->name.'")]//..//..//button[@title="Options"]'
             );
 
             // And clicks the "delete" link
@@ -41,7 +41,7 @@ class DeleteAchievementTest extends DuskTestCase
             $browser->waitForRoute('achievements.index');
 
             // Then they should see a confirmation message that the achievement was deleted
-            $browser->assertSee('Achievement "' . $achievement->name . '" deleted');
+            $browser->assertSee('Achievement "'.$achievement->name.'" deleted');
         });
     }
 }

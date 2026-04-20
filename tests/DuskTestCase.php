@@ -5,8 +5,7 @@ namespace Tests;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
 use Zeropingheroes\Lanager\Models\Role;
@@ -15,43 +14,36 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 abstract class DuskTestCase extends BaseTestCase
 {
+    use DatabaseTruncation;
+
+    protected array $exceptTables = ['steam_apps'];
+
+    protected bool $seed = true;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         restore_error_handler();
 
-        $this->initializeDb();
-
         Browser::$storeScreenshotsAt = storage_path('logs/dusk/screenshots');
         Browser::$storeConsoleLogAt = storage_path('logs/dusk/console');
         Browser::$storeSourceAt = storage_path('logs/dusk/source');
     }
 
-    /**
-     * @return void
-     */
-    protected function initializeDb(): void
+    protected function tearDown(): void
     {
-        $tables = Schema::getTableListing();
+        $this->browse(function (Browser $browser): void {
+            $sourceFilename = sprintf('%s-source', class_basename($this));
+            $browser->storeSource($sourceFilename);
+        });
 
-        $keep = [
-            'steam_apps',
-        ];
-
-        $tables = array_diff($tables, $keep);
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        foreach ($tables as $table) {
-            DB::table($table)->truncate();
-        }
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        $this->artisan('db:seed');
+        parent::tearDown();
     }
 
     /**
      * Prepare for Dusk test execution.
+     *
      * @beforeClass
      */
     public static function prepare(): void
@@ -64,25 +56,24 @@ abstract class DuskTestCase extends BaseTestCase
     /**
      * Create the RemoteWebDriver instance.
      */
+    #[\Override]
     protected function driver(): RemoteWebDriver
     {
-        $options = (new ChromeOptions())->addArguments(
+        $chromeOptions = (new ChromeOptions)->addArguments(
             collect([
                 $this->shouldStartMaximized() ? '--start-maximized' : '--window-size=1920,1080',
-            ])->unless($this->hasHeadlessDisabled(), function ($items) {
-                return $items->merge([
-                    '--disable-gpu',
-                    '--headless',
-                    '--remote-debugging-port=9222'
-                ]);
-            })->all()
+            ])->unless($this->hasHeadlessDisabled(), fn ($items) => $items->merge([
+                '--disable-gpu',
+                '--headless',
+                '--remote-debugging-port=9222',
+            ]))->all()
         );
 
         return RemoteWebDriver::create(
             env('DUSK_DRIVER_URL'),
             DesiredCapabilities::chrome()->setCapability(
                 ChromeOptions::CAPABILITY,
-                $options
+                $chromeOptions
             )
         );
     }
@@ -90,6 +81,7 @@ abstract class DuskTestCase extends BaseTestCase
     /**
      * Determine whether the Dusk command has disabled headless mode.
      */
+    #[\Override]
     protected function hasHeadlessDisabled(): bool
     {
         return isset($_SERVER['DUSK_HEADLESS_DISABLED']) ||
@@ -99,6 +91,7 @@ abstract class DuskTestCase extends BaseTestCase
     /**
      * Determine if the browser window should start maximized.
      */
+    #[\Override]
     protected function shouldStartMaximized(): bool
     {
         return isset($_SERVER['DUSK_START_MAXIMIZED']) ||

@@ -10,23 +10,23 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class EditLanTest extends DuskTestCase
 {
-    public function testEditingLan(): void
+    public function test_editing_lan(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::factory()->count(1)->create()->first();
 
             // And there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the LAN index page
-            $browser->visit(new LanIndex());
+            $browser->visit(new LanIndex);
 
             // And clicks the "options" dropdown next to the LAN's name
-            $browser->clickAtXPath('//a[text()="' . $lan->name . '"]//..//..//button[@title="Options"]');
+            $browser->clickAtXPath('//a[text()="'.$lan->name.'"]//..//..//button[@title="Options"]');
 
             // And clicks the "edit" link
             $browser->clickLink('Edit');
@@ -35,11 +35,13 @@ class EditLanTest extends DuskTestCase
             $browser->waitForRoute('lans.edit', ['lan' => $lan->id]);
 
             // And updates the field for the LAN's name
-            $browser->on(new LanEdit());
+            $browser->on(new LanEdit);
             $browser->type('name', 'My Great LAN');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then they should be redirected to the LAN's event list page
             $browser->assertRouteIs('lans.events.index', ['lan' => $lan->id]);

@@ -34,7 +34,8 @@
                         <form action="{{ route( 'images.destroy', $image['filename']) }}" method="POST">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
-                            <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
+                            <a class="dropdown-item" href="#"
+                               onclick="submitDeletionForm(event);">@lang('title.delete')</a>
                         </form>
                     @endcomponent
                 </td>
@@ -42,33 +43,13 @@
         @endforeach
         </tbody>
     </table>
-    <script>
-        window.addEventListener('load', function() {
-            // Show selected files in file input label
-            $("input[type=file]").change(function () {
-                var files = $(this).prop("files");
-                var fieldVal = $.map(files, function(val) { return ' ' + val.name; });
-                if (fieldVal != undefined || fieldVal != "") {
-                    $(this).next(".custom-file-label").text(fieldVal);
-                }
-            });
-        })
-    </script>
 
     <form method="POST" action="{{ route('images.store') }}" accept-charset="UTF-8" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <div class="row">
-            <div class="col">
-                <div class="input-group">
-                    <div class="custom-file mr-2">
-                        <input type="file" class="custom-file-input" id="images" name="images[]" multiple>
-                        <label class="custom-file-label" for="images">@lang('phrase.select-files')</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">@lang('title.upload')</button>
-                </div>
-            </div>
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" id="images" name="images[]" multiple>
+            <button type="submit" class="btn btn-primary">@lang('title.upload')</button>
         </div>
-
     </form>
 
 @endsection

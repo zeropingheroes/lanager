@@ -8,14 +8,14 @@ use Tests\DuskTestCase;
 
 class CreateAchievementTest extends DuskTestCase
 {
-    public function testCreatingAchievement(): void
+    public function test_creating_achievement(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a super admin
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin user visits the achievement index page
             $browser->visitRoute('achievements.index');
@@ -25,18 +25,20 @@ class CreateAchievementTest extends DuskTestCase
 
             // And fills the "create achievement" form
             $browser->waitForRoute('achievements.create')
-                ->on(new AchievementCreate())
-                ->type('name', 'I\'m Blue')
+                ->on(new AchievementCreate)
+                ->type('name', "I'm Blue")
                 ->type('description', 'Get a BSOD');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then the super admin is redirected to the "show achievement" page
             $browser->assertRouteIs('achievements.show', ['achievement' => '*']);
 
             // And sees the achievement name
-            $browser->assertSee('I\'m Blue');
+            $browser->assertSee("I'm Blue");
 
             // And sees the achievement description
             $browser->assertSee('Get a BSOD');

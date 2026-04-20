@@ -4,8 +4,9 @@ namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Syntax\SteamApi\Facades\SteamApi;
 use Zeropingheroes\Lanager\Models\SteamApp;
+use Zeropingheroes\SteamApis\SteamWebApi\Requests\IStoreService\GetAppListRequest;
+use Zeropingheroes\SteamApis\SteamWebApi\SteamWebApiConnector;
 
 class UpdateSteamApps extends Command
 {
@@ -28,12 +29,17 @@ class UpdateSteamApps extends Command
     public function handle(): int
     {
         $this->info(trans('phrase.requesting-list-of-all-apps-from-steam-api'));
-        $apps = SteamApi::app()->GetAppList();
 
-        if (!SteamApp::count()) {
-            $this->import($apps);
+        $steamWebApiConnector = app(SteamWebApiConnector::class);
+
+        $getAppListRequest = new GetAppListRequest;
+        $appPaginator = $getAppListRequest->paginate($steamWebApiConnector);
+        $appPaginator->setPerPageLimit(50000);
+
+        if (! SteamApp::count()) {
+            $this->import($appPaginator);
         } else {
-            $this->update($apps);
+            $this->update($appPaginator);
         }
 
         return 0;
@@ -42,53 +48,64 @@ class UpdateSteamApps extends Command
     /**
      * Import the apps
      */
-    private function import($apps): void
+    private function import($appPaginator): void
     {
         // Temporarily increase memory limit
         ini_set('memory_limit', '256M');
 
         $this->info(trans('phrase.database-empty-batch-import'));
 
-        // Create an array ready for batch inserting
-        foreach ($apps as $key => $app) {
-            $apps[$key] = ['id' => $app->appid, 'name' => $app->name];
+        $databaseApps = [];
+
+        foreach ($appPaginator as $response) {
+            $apps = array_map(fn ($app) => [
+                'id' => $app['appid'],
+                'name' => $app['name'],
+            ], $response->json('response.apps'));
+
+            $databaseApps = array_merge($apps, $databaseApps);
         }
 
-        $message = trans('phrase.importing-x-steam-apps', ['x' => count($apps)]);
+        $message = trans('phrase.importing-x-steam-apps', ['x' => count($databaseApps)]);
         $this->info($message);
         Log::info($message);
 
         // Chunk the apps into blocks of 500
-        $chunkedApps = array_chunk($apps, 500);
+        $chunkedApps = array_chunk($databaseApps, 500);
 
-        $progress = $this->output->createProgressBar(count($chunkedApps));
-        $progress->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
+        $progressBar = $this->output->createProgressBar(count($chunkedApps));
+        $progressBar->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
+
         $importedCount = 0;
 
         // Insert the chunks
-        foreach ($chunkedApps as $chunk) {
-            SteamApp::insert($chunk);
-            $importedCount = $importedCount + count($chunk);
-            $progress->advance();
+        foreach ($chunkedApps as $chunkedApp) {
+            SteamApp::insert($chunkedApp);
+            $importedCount += count($chunkedApp);
+            $progressBar->advance();
         }
-        $progress->finish();
+
+        $progressBar->finish();
         $message = trans('phrase.x-steam-apps-imported', ['x' => $importedCount]);
-        $this->info(PHP_EOL . $message);
+        $this->info(PHP_EOL.$message);
         Log::info($message);
     }
 
     /**
      * Execute the console command.
      */
-    private function update($apps): void
+    private function update($appPaginator): void
     {
-        $message = trans('phrase.updating-x-steam-apps', ['x' => SteamApp::count()]);
+        $apps = $appPaginator->collect();
+
+        $message = trans('phrase.updating-x-steam-apps', ['x' => $apps->count()]);
         $this->info($message);
         Log::info($message);
 
         // Initialise counter and progress bar
-        $progress = $this->output->createProgressBar(count($apps));
-        $progress->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
+        $progressBar = $this->output->createProgressBar($apps->count());
+        $progressBar->setFormat('%current%/%max% %bar% %percent%% - %estimated%');
+
         $updatedCount = 0;
 
         foreach ($apps as $app) {
@@ -99,12 +116,14 @@ class UpdateSteamApps extends Command
             if ($databaseApp->wasChanged()) {
                 $updatedCount++;
             }
-            $progress->advance();
+
+            $progressBar->advance();
         }
-        $progress->finish();
+
+        $progressBar->finish();
 
         $message = trans('phrase.x-steam-apps-updated', ['x' => $updatedCount]);
-        $this->info(PHP_EOL . $message);
+        $this->info(PHP_EOL.$message);
         Log::info($message);
     }
 }

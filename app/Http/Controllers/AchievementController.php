@@ -31,6 +31,7 @@ class AchievementController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @throws AuthorizationException
      */
     public function create(): ViewContract
@@ -38,11 +39,12 @@ class AchievementController extends Controller
         $this->authorize('create', Achievement::class);
 
         return View::make('pages.achievements.create')
-            ->with('achievement', new Achievement());
+            ->with('achievement', new Achievement);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest): RedirectResponse
@@ -55,10 +57,10 @@ class AchievementController extends Controller
             'image' => $httpRequest->image,
         ];
 
-        $request = new StoreAchievementRequest($input);
+        $storeAchievementRequest = new StoreAchievementRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeAchievementRequest->invalid()) {
+            Session::flash('error', $storeAchievementRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -67,7 +69,7 @@ class AchievementController extends Controller
 
         if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
-            $newFileName = $achievement->id . '.' . strtolower($extension);
+            $newFileName = $achievement->id.'.'.strtolower((string) $extension);
             $httpRequest->image->storeAs(self::DIRECTORY, $newFileName);
             $achievement->update(['image_filename' => $newFileName]);
         }
@@ -78,6 +80,7 @@ class AchievementController extends Controller
 
     /**
      * Display the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function show(Achievement $achievement): ViewContract
@@ -90,6 +93,7 @@ class AchievementController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function edit(Achievement $achievement): ViewContract
@@ -102,6 +106,7 @@ class AchievementController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Achievement $achievement): RedirectResponse
@@ -115,17 +120,17 @@ class AchievementController extends Controller
             'id' => $achievement->id,
         ];
 
-        $request = new StoreAchievementRequest($input);
+        $storeAchievementRequest = new StoreAchievementRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeAchievementRequest->invalid()) {
+            Session::flash('error', $storeAchievementRequest->errors());
 
             return redirect()->back()->withInput();
         }
 
         if ($httpRequest->image) {
             $extension = $httpRequest->image->getClientOriginalExtension();
-            $newFileName = $achievement->id . '.' . strtolower($extension);
+            $newFileName = $achievement->id.'.'.strtolower((string) $extension);
             $httpRequest->image->storeAs(self::DIRECTORY, $newFileName);
             $input['image_filename'] = $newFileName;
         }
@@ -138,6 +143,7 @@ class AchievementController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(Achievement $achievement): RedirectResponse

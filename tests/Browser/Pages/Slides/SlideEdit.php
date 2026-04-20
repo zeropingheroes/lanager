@@ -8,23 +8,26 @@ use Laravel\Dusk\Page;
 class SlideEdit extends Page
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function url(): string
     {
         return '/lans/*/slides/*/edit';
     }
+
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function assert(Browser $browser): void
     {
         $browser->assertPathIs($this->url());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function elements(): array
     {
         return [

@@ -10,9 +10,9 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class IndexRoleAssignmentsTest extends DuskTestCase
 {
-    public function testIndexingRoleAssignments(): void
+    public function test_indexing_role_assignments(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
             $superAdmin = $this->createSuperAdmin();
 

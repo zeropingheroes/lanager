@@ -16,7 +16,7 @@ class UpdateSteamUserApps extends Command
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-user-apps
-                            {--all : ' . trans('phrase.update-all-users') . '}';
+                            {--all : '.trans('phrase.update-all-users').'}';
         $this->description = trans('phrase.update-existing-user-app-ownership');
 
         parent::__construct();
@@ -33,7 +33,7 @@ class UpdateSteamUserApps extends Command
             ->first();
 
         // If there is a current LAN, and the "update all users" option is not set
-        if ($lan && !$this->option('all')) {
+        if ($lan && ! $this->option('all')) {
             // Get the attendees for the LAN
             $users = $lan->users()->get();
         } else {
@@ -51,19 +51,19 @@ class UpdateSteamUserApps extends Command
 
         $this->info(trans('phrase.requesting-app-ownership-data-for-x-users-from-steam', ['x' => $users->count()]));
 
-        $service = new UpdateSteamUserAppsService($users);
-        $service->update();
+        $updateSteamUserAppsService = new UpdateSteamUserAppsService($users);
+        $updateSteamUserAppsService->update();
 
         $message = trans(
             'phrase.successfully-updated-app-ownership-data-for-x-of-y-users',
-            ['x' => count($service->getUpdated()), 'y' => $users->count()]
+            ['x' => count($updateSteamUserAppsService->getUpdated()), 'y' => $users->count()]
         );
-        Log::info($message, $service->getUpdated());
+        Log::info($message, $updateSteamUserAppsService->getUpdated());
         $this->info($message);
 
-        if ($service->errors()->isNotEmpty()) {
+        if ($updateSteamUserAppsService->errors()->isNotEmpty()) {
             $this->error(trans('phrase.the-following-errors-were-encountered'));
-            foreach ($service->errors()->getMessages() as $error) {
+            foreach ($updateSteamUserAppsService->errors()->getMessages() as $error) {
                 Log::error($error[0]);
                 $this->error($error[0]);
             }

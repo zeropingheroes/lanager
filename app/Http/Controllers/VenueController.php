@@ -26,6 +26,7 @@ class VenueController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @throws AuthorizationException
      */
     public function create(): ViewContract
@@ -33,11 +34,12 @@ class VenueController extends Controller
         $this->authorize('create', Venue::class);
 
         return View::make('pages.venues.create')
-            ->with('venue', new Venue());
+            ->with('venue', new Venue);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest): RedirectResponse
@@ -49,10 +51,10 @@ class VenueController extends Controller
             'street_address' => $httpRequest->input('street_address'),
         ];
 
-        $request = new StoreVenueRequest($input);
+        $storeVenueRequest = new StoreVenueRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeVenueRequest->invalid()) {
+            Session::flash('error', $storeVenueRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -65,6 +67,7 @@ class VenueController extends Controller
 
     /**
      * Display the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function show(Venue $venue): ViewContract
@@ -77,6 +80,7 @@ class VenueController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function edit(Venue $venue): ViewContract
@@ -89,6 +93,7 @@ class VenueController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Venue $venue): RedirectResponse
@@ -101,10 +106,10 @@ class VenueController extends Controller
             'id' => $venue->id,
         ];
 
-        $request = new StoreVenueRequest($input);
+        $storeVenueRequest = new StoreVenueRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeVenueRequest->invalid()) {
+            Session::flash('error', $storeVenueRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -116,6 +121,7 @@ class VenueController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(Venue $venue): RedirectResponse

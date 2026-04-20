@@ -7,8 +7,9 @@ use Laravel\Dusk\Page as BasePage;
 abstract class Page extends BasePage
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public static function siteElements(): array
     {
         return [

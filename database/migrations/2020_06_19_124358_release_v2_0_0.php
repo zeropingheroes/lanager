@@ -9,6 +9,7 @@ class ReleaseV200 extends Migration
 {
     /**
      * Run the migrations.
+     *
      * @throws Exception
      */
     public function up(): void
@@ -519,7 +520,6 @@ class ReleaseV200 extends Migration
 
     /**
      * Reverse the migrations.
-     *
      */
     public function down(): void
     {

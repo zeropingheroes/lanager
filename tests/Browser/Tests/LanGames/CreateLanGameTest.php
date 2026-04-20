@@ -10,9 +10,9 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class CreateLanGameTest extends DuskTestCase
 {
-    public function testCreatingLanGame(): void
+    public function test_creating_lan_game(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
@@ -42,6 +42,9 @@ class CreateLanGameTest extends DuskTestCase
 
             // And clicks submit
             $browser->press('Submit');
+
+            // And refreshes the page
+            $browser->refresh();
 
             // Then they should see the name of the game in the list
             $browser->assertSeeIn('table', 'PUBG');

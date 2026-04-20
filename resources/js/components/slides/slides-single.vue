@@ -1,35 +1,41 @@
+<script setup>
+import {ref, onMounted, onUnmounted} from 'vue';
+import axios from 'axios';
+import Slide from './slide.vue'
+
+const props = defineProps(['id', 'lan_id']);
+
+const slide = ref({content: ''});
+
+const update = async () => {
+    try {
+        console.log('Getting slide');
+        const response = await axios.get(`lans/${props.lan_id}/slides/${props.id}`);
+        console.log('Displaying single slide');
+        slide.value = response.data.data;
+    } catch (error) {
+        console.log('Error getting slide:', error.response);
+    }
+};
+
+onMounted(() => {
+    update();
+});
+
+</script>
+
 <template>
-    <slide v-bind:content="slide.content"></slide>
+    <div class="container-1920x1080">
+        <slide :content="slide.content"></slide>
+    </div>
 </template>
 
-<script>
-    export default {
-        data() {
-            return {
-                slide: {
-                    content: '',
-                },
-            };
-        },
-        props: ['id', 'lan_id'],
-        created() {
-            var self = this;
-            self.update();
-            setInterval(function () {
-                self.update()
-            }, 30000);
-        },
-        methods: {
-            update() {
-                console.log('Getting slide')
-                axios.get('lans/' + this.lan_id + '/slides/' + this.id)
-                    .then((response) => {
-                        console.log('Displaying single slide');
-                        this.$data.slide = response.data.data;
-                    }, (error) => {
-                        console.log('Error getting slide: ' + error.response)
-                    })
-            }
-        }
-    }
-</script>
+<style>
+div.container-1920x1080 {
+    /* set container initial and maximum sizes */
+    max-width: 1920px;
+    width: 1920px;
+    max-height: 1080px;
+    height: 1080px;
+}
+</style>

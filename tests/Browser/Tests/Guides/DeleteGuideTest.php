@@ -10,9 +10,9 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class DeleteGuideTest extends DuskTestCase
 {
-    public function testDeletingGuide(): void
+    public function test_deleting_guide(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
@@ -28,16 +28,16 @@ class DeleteGuideTest extends DuskTestCase
             ]);
 
             // And there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the show guide page
             $browser->visitRoute('lans.guides.show', ['lan' => $lan, 'guide' => $guide]);
 
             // And clicks the options dropdown button
-            $browser->on(new GuideShow())->clickAtXPath('//button[@title="Options"]');
+            $browser->on(new GuideShow)->clickAtXPath('//button[@title="Options"]');
 
             // And clicks the "delete" link
             $browser->clickLink('Delete');
@@ -49,7 +49,7 @@ class DeleteGuideTest extends DuskTestCase
             $browser->waitForRoute('lans.guides.index', ['lan' => $lan]);
 
             // Then they should see a deletion confirmation alert
-            $browser->assertSee('Guide "' . $guide->title . '" deleted');
+            $browser->assertSee('Guide "'.$guide->title.'" deleted');
         });
     }
 }

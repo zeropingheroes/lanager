@@ -1,11 +1,19 @@
-<div class="form-group">
-    <label for="name">@lang('title.name')</label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="@lang('title.name')"
-           value="{{ old('name', $venue->name) }}">
+@include('components.form.inputs.name', ['value' => $venue->name])
+
+<div class="row mb-3">
+    <label for="street_address"
+           class="col-sm-2 col-form-label"
+    >
+        @lang('title.street-address')
+    </label>
+    <div class="col-sm-10">
+        <input type="text"
+               class="form-control"
+               id="street_address"
+               name="street_address"
+               placeholder="@lang('title.street-address')"
+               value="{{ old('street_address', $venue->street_address) }}"
+        >
+    </div>
 </div>
-<div class="form-group">
-    <label for="street_address">@lang('title.street-address')</label>
-    <input type="text" class="form-control" id="street_address" name="street_address" placeholder="@lang('title.street-address')"
-           value="{{ old('street_address', $venue->street_address) }}">
-</div>
-<button type="submit" class="btn btn-primary">@lang('title.submit')</button>
+@include('components.form.inputs.submit')

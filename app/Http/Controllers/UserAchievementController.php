@@ -17,6 +17,7 @@ class UserAchievementController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @throws AuthorizationException
      */
     public function index(Lan $lan): ViewContract
@@ -40,6 +41,7 @@ class UserAchievementController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest, Lan $lan): RedirectResponse
@@ -49,10 +51,10 @@ class UserAchievementController extends Controller
         $input = $httpRequest->only(['user_id', 'achievement_id']);
         $input['lan_id'] = $lan->id;
 
-        $request = new StoreUserAchievementRequest($input);
+        $storeUserAchievementRequest = new StoreUserAchievementRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeUserAchievementRequest->invalid()) {
+            Session::flash('error', $storeUserAchievementRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -72,6 +74,7 @@ class UserAchievementController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan, UserAchievement $userAchievement): RedirectResponse

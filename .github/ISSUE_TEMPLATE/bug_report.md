@@ -13,6 +13,9 @@ assignees: ''
 <!-- Run `docker images zeropingheroes/lanager` and paste the output -->
 <!-- You must be using the LANager Docker image to receive support. -->
 
+**Docker logs**
+<!-- Run `docker logs lanager` and paste the output -->
+
 **Bug description**
 <!-- Describe the issue you are experiencing -->
 

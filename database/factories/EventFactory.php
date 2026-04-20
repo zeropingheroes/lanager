@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class EventFactory extends Factory
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function definition(): array
     {

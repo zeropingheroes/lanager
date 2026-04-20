@@ -5,7 +5,7 @@
         </h1>
     </div>
     @canany(['update', 'delete'], $lan)
-        <div class="col text-right">
+        <div class="col text-end">
             @include('pages.lans.partials.actions-dropdown', ['lan' => $lan])
         </div>
     @endcanany

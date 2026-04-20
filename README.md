@@ -3,24 +3,15 @@ LANager
 
 |                                    Stable Branch |                                     Develop Branch |
 |-------------------------------------------------:|---------------------------------------------------:|
-|          [![Dusk][duskStableImg]][duskStableUrl] |          [![Dusk][duskDevelopImg]][duskDevelopUrl] |
-| [![StyleCI][styleciStableImg]][styleciStableUrl] | [![StyleCI][styleciDevelopImg]][styleciDevelopUrl] |
+| [![Browser Tests][duskStableImg]][duskStableUrl] | [![Browser Tests][duskDevelopImg]][duskDevelopUrl] |
 
-[duskStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=stable
+[duskStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml/badge.svg?branch=stable
 
-[duskStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml
+[duskStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml
 
-[styleciStableImg]:https://github.styleci.io/repos/14088050/shield?branch=stable
+[duskDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml/badge.svg?branch=develop
 
-[styleciStableUrl]:https://github.styleci.io/repos/14088050?branch=stable
-
-[duskDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml/badge.svg?branch=develop
-
-[duskDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/run-dusk.yml
-
-[styleciDevelopImg]:https://github.styleci.io/repos/14088050/shield?branch=develop
-
-[styleciDevelopUrl]:https://github.styleci.io/repos/14088050?branch=develop
+[duskDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml
 
 LANager is a web application designed to make [LAN parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
@@ -46,7 +37,6 @@ more enjoyable for attendees and organisers alike.
 ## Requirements
 
 * Internet access
-* [Docker Engine](https://docs.docker.com/engine/install/#server)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Setup
@@ -64,64 +54,81 @@ more enjoyable for attendees and organisers alike.
     cp .env.example .env
     ```
 
-3. Open the environment configuration file in a text editor:
+3. Generate and copy a new application key:
+
+    ```bash
+    docker run --rm --entrypoint php -w /app zeropingheroes/lanager:develop artisan key:generate --show
+    ```
+
+4. Open the environment configuration file in a text editor:
 
     ```bash
     nano .env
     ```
 
-4. Set the following configuration items:
-    1. Set `APP_KEY` to `base64:` followed by
-       a [randomly generated 32 character base64 string](https://www.google.com/search?q=random+base64)
-    2. Set `APP_URL` to the URL you will access LANager through, without a trailing slash,
-       e.g. `https://example.com`
-    3. Set `APP_TIMEZONE` to your
-       location's [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
-    4. Set `STEAM_API_KEY` to your [Steam API Key](http://steamcommunity.com/dev/apikey)
-   5. Set `DB_PASSWORD` to a [randomly generated password](https://www.google.com/search?q=password+generator) without special characters
-   6. Set `DB_ROOT_PASSWORD` to a different randomly generated password
-   7. If you will run LANager behind a reverse proxy, set `TRUSTED_PROXIES` to the IP ranges used by Docker, typically `172.16.0.0/12,192.168.0.0/16`
+5. Set the following configuration items:
 
-5. Bring up the application:
+    | Environment variable | Set to                                                                                     |
+    |----------------------|--------------------------------------------------------------------------------------------|
+    | `APP_KEY`            | The application key you generated above                                                    |
+    | `APP_URL`            | The URL you will access LANager through, without a trailing slash                          |
+    | `APP_TIMEZONE`       | Your location's [timezone](https://wikipedia.org/wiki/List_of_tz_database_time_zones#List) |
+    | `STEAM_API_KEY`      | Your [Steam API Key](http://steamcommunity.com/dev/apikey)                                 |
+    | `DB_PASSWORD`        | A randomly generated password                                                              |
+    | `DB_ROOT_PASSWORD`   | A different randomly generated password                                                    |
 
-    ```bash
-    docker-compose up --detach
-    ```
+    If you will LANager behind a reverse proxy, set `TRUSTED_PROXIES` to the IP ranges used by Docker, typically:
+    `172.16.0.0/12,192.168.0.0/16`
 
-6. Check the application's status:
+6. Bring up the application:
 
     ```bash
-    docker ps --filter name=lanager
+    docker compose up --detach --wait
     ```
 
-7. When the container status shows `Up x minutes (healthy)`, initialise the database:
+7. Initialise the database:
 
     ```bash
    ./initialise-database.sh
     ```
 
-LANager should now be accessible at http://localhost, or at the URL you specified in `APP_URL`, providing you've
+LANager should now be accessible at http://localhost:8000, or at the URL you specified in `APP_URL`, providing you've
 created a corresponding DNS `A` record for the Docker host's IP address, and allowed ports `80` and `443` through
 the Docker host's firewall.
 
-## Troubleshooting
+## Update
 
-- Run `docker-compose down --rmi local --volumes` to delete the database data and LANager container image, and then
-  retry the setup steps above
-- Edit your `.env` file and enable debugging:
+1. Enter the `lanager-docker-compose` repository:
+
     ```bash
-    APP_ENV=staging
-    APP_DEBUG=true
-    ```
-  **Important:** Remove these lines after troubleshooting to avoid leaking sensitive data
+    cd lanager-docker-compose
+   ```
 
-If you get stuck, [create an issue](https://github.com/zeropingheroes/lanager/issues) with the details of what
-you're experiencing:
+2. Back up your data:
 
-- The commands you've run
-- The output of `docker-compose up`
-- The output of `docker logs lanager`
-- Any errors displayed in your browser
+    ```bash
+    ./backup.sh
+   ```
+
+3. Get the latest version of the Docker compose files and scripts:
+
+    ```bash
+    git pull
+   ```
+
+4. Run the update script:
+
+    ```bash
+    ./update.sh
+    ````
+
+### Update from 1.3.1 to 2.x
+
+1. Follow the steps from the **Update** section above
+2. Run `./fix-permissions.sh` to fix permissions on the `storage` directory
+3. Run `docker exec -it lanager php artisan lanager:update-steam-apps`
+4. Run `docker exec -it lanager php artisan lanager:update-steam-user-apps`
+5. Run `docker exec -it lanager php artisan lanager:update-steam-user-app-images`
 
 ## Getting started
 
@@ -159,7 +166,7 @@ Once you have a LAN page for your LAN party, you can create Events and Guides to
   them know where the nearest shops and restaurants are, to provide a code of conduct for your event, and to communicate
   any other information you think your guests might need.
 
-From the LAN page, click the **+** button next to the **Events** and **Guides** headings to go to their creation forms.
+From the LAN page, select the **+** button next to the **Events** and **Guides** headings to go to their creation forms.
 
 #### Using links
 
@@ -175,10 +182,10 @@ links continue to work.
 
 You can upload images to LAN pages, Events and Guides. To do this, follow these steps:
 
-1. Below the "description" text box, select "upload images".
+1. Below the **Description** text box, select **Upload images**.
 2. Upload the image you want to use.
 3. Next to the image, select ⚙ > **Copy Markdown**
-4. Paste the markdown into the guide, event or LAN's **description** field, in the location you want it to appear in the
+4. Paste the Markdown into the guide, event or LAN's **description** field, in the location you want it to appear in the
    text.
 
 ### Display slides
@@ -192,7 +199,7 @@ Load the slideshow on a big TV or projector so that attendees can see the info e
 
 ### Create and award Achievements
 
-Click ⚙ > **Achievements** and then click the **+** button to create achievements that you can award to users.
+Select ⚙ > **Achievements** and then select the **+** button to create achievements that you can award to users.
 
 To award an Achievement to an attendee, go to the navigation bar and select **Achievements**. This opens the list of
 Achievements you have awarded to attendees of the current LAN. At the bottom of the page, choose the Achievement and the
@@ -200,7 +207,7 @@ attendee to award it to, then select **Award**.
 
 ### Customise the navigation bar
 
-Click ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager or
+Select ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager or
 to third-party sites, organise the links into drop-down menus, and choose the order that the links appear in the navbar
 or dropdown.
 
@@ -221,7 +228,7 @@ Run `./backup-restore.sh <file>` to restore a backup.
 2. Stop the running containers
 
     ```bash
-    docker-compose down
+    docker compose down
     ```
 
 3. Check out the development branch of `lanager-docker-compose`
@@ -258,50 +265,60 @@ Run `./backup-restore.sh <file>` to restore a backup.
     export PATH_TO_LANAGER=/path/to/lanager
     ```
 
-9. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into
-   `docker-compose.override.yml`:
+9. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into the override
+   compose file:
 
     ```bash
-    envsubst < docker-compose.override.yml.example > docker-compose.override.yml
+    envsubst < compose.override.yaml.example > compose.override.yaml
     ```
 
-10. Start the containers
+10. Set the correct permissions for the `storage` and `bootstrap/cache` directories:
+
+    ```bash
+    chmod -R 777 "$PATH_TO_LANAGER/storage" "$PATH_TO_LANAGER/bootstrap/cache"
+    ```
+
+11. Create a symbolic link from the app storage directory into the public directory:
+
+    ```bash
+    ln -s "$PATH_TO_LANAGER/storage/app/public" "$PATH_TO_LANAGER/public/storage"
+    ```
+
+12. Use `nodejs` to build the static assets:
+
+    ```bash
+    docker run -it --rm --name npm-build -v "$PWD":/usr/src/app -w /usr/src/app node:22 npm clean-install
+    docker run -it --rm --name npm-build -v "$PWD":/usr/src/app -w /usr/src/app node:22 npm cache clean --force
+    docker run -it --rm --name npm-build -v "$PWD":/usr/src/app -w /usr/src/app node:22 npm run build
+    ```
+
+13. Start the containers
 
      ```bash
-     docker-compose up --detach
+     docker compose up --detach
      ```
 
-11. After a minute or so, visit `http://localhost`
+14. After a minute or so, visit `http://localhost:8080`
 
 The container will run the code from your host computer, rather than the static copy of the code in the container's
-image, so any changes you make to the files in the project directory (except for the `storage/` directory)
+image. Any changes you make to the files in the project directory (except for the `storage/` directory)
 will be seen by the running containers.
 
 ### Start and stop the development environment
 
-To stop the development environment run `docker-compose stop`.
+To stop the development environment run `docker compose stop`.
 
-When you're ready to start developing again run `docker-compose start`.
+When you're ready to start developing again run `docker compose start`.
 
 ### Destroy the development environment
 
 To destroy the development environment and all volumes that store lanager data, run:
 
 ```bash
-docker-compose down --volumes
+docker compose down --volumes
 ```
 
 Follow the setup steps above to get a fresh development environment.
-
-### Enable pre-commit hooks
-
-To automatically check for and fix problems with your code before you commit:
-
-1. Install [pre-commit](https://pre-commit.com/)
-2. Install [PHP Codesniffer & Code beautifier](https://github.com/squizlabs/PHP_CodeSniffer)
-3. From the `lanager/` directory, run `pre-commit install`
-
-To check your code, run `pre-commit run --all-files` or attempt to run `git commit`
 
 ### Recompiling JavaScript & CSS assets
 

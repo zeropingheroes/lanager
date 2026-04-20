@@ -9,9 +9,9 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class IndexGuideTest extends DuskTestCase
 {
-    public function testIndexingGuides(): void
+    public function test_indexing_guides(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             // And the LAN is published
             $lan = Lan::create([

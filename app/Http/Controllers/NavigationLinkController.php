@@ -15,6 +15,7 @@ class NavigationLinkController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @throws AuthorizationException
      */
     public function index(): ViewContract
@@ -31,6 +32,7 @@ class NavigationLinkController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
      * @throws AuthorizationException
      */
     public function create(): ViewContract
@@ -42,11 +44,12 @@ class NavigationLinkController extends Controller
 
         return View::make('pages.navigation-links.create')
             ->with('navigationLinks', $navigationLinks)
-            ->with('navigationLink', new NavigationLink());
+            ->with('navigationLink', new NavigationLink);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest): RedirectResponse
@@ -60,10 +63,10 @@ class NavigationLinkController extends Controller
             'parent_id' => $httpRequest->input('parent_id'),
         ];
 
-        $request = new StoreNavigationLinkRequest($input);
+        $storeNavigationLinkRequest = new StoreNavigationLinkRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeNavigationLinkRequest->invalid()) {
+            Session::flash('error', $storeNavigationLinkRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -75,6 +78,7 @@ class NavigationLinkController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function edit(NavigationLink $navigationLink): ViewContract
@@ -92,6 +96,7 @@ class NavigationLinkController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function update(Request $httpRequest, NavigationLink $navigationLink): RedirectResponse
@@ -106,10 +111,10 @@ class NavigationLinkController extends Controller
             'id' => $navigationLink->id,
         ];
 
-        $request = new StoreNavigationLinkRequest($input);
+        $storeNavigationLinkRequest = new StoreNavigationLinkRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeNavigationLinkRequest->invalid()) {
+            Session::flash('error', $storeNavigationLinkRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -122,6 +127,7 @@ class NavigationLinkController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(NavigationLink $navigationLink): RedirectResponse

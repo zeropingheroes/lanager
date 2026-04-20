@@ -19,11 +19,13 @@ class TestDataSeeder extends Seeder
      */
     public function run(): void
     {
+        Artisan::call('migrate:fresh');
+
         // Seed required data
         $this->call(DatabaseSeeder::class);
 
         // Import Steam apps
-        Artisan::call('lanager:import-steam-apps-csv');
+        Artisan::call('lanager:update-steam-apps');
 
         // Seed users
         User::factory()

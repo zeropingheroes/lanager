@@ -9,17 +9,17 @@ use Tests\DuskTestCase;
 
 class CreateVenueTest extends DuskTestCase
 {
-    public function testCreatingVenue(): void
+    public function test_creating_venue(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the venue index page
-            $browser->visit(new VenueIndex());
+            $browser->visit(new VenueIndex);
 
             // And clicks the "create" link
             $browser->click('@create');
@@ -28,12 +28,14 @@ class CreateVenueTest extends DuskTestCase
             $browser->waitForRoute('venues.create');
 
             // And fills the "create venue" form
-            $browser->on(new VenueCreate());
+            $browser->on(new VenueCreate);
             $browser->type('name', 'My LAN Venue');
             $browser->type('street_address', '1 Example Road, Exampleton, Exampleland');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then they should be redirected to the venue's page
             $browser->assertRouteIs('venues.show', '*');

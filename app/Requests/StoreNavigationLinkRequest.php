@@ -9,8 +9,9 @@ class StoreNavigationLinkRequest extends Request
     use LaravelValidation;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $this->validationRules = [
@@ -20,19 +21,21 @@ class StoreNavigationLinkRequest extends Request
             'parent_id' => ['nullable', 'exists:navigation_links,id'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 
-        if (!empty($this->input['parent_id'])) {
-            if ($this->input['id'] ?? 0 === $this->input['parent_id']) {
-                $this->addError(trans('phrase.a-navigation-link-cannot-be-its-own-parent'));
+        if (! empty($this->input['parent_id'])) {
+            if (NavigationLink::findOrFail($this->input['parent_id'])->parent_id != null) {
+                $this->addError(trans('phrase.navigation-links-can-only-be-nested-one-level-deep'));
 
                 return $this->setValid(false);
             }
+        }
 
-            if (NavigationLink::findOrFail($this->input['parent_id'])->parent_id != null) {
-                $this->addError(trans('phrase.navigation-links-can-only-be-nested-one-level-deep'));
+        if (! empty($this->input['parent_id']) && ! empty($this->input['id'])) {
+            if ($this->input['parent_id'] == $this->input['id']) {
+                $this->addError(trans('phrase.a-navigation-link-cannot-be-its-own-parent'));
 
                 return $this->setValid(false);
             }

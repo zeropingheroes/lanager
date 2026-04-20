@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <table class="table table-striped">
+    <table class="table table-striped align-middle">
         <tbody>
         @foreach($userAchievements as $userAchievement)
             @can('view', $userAchievement)
@@ -33,11 +33,11 @@
                             @component('components.actions-dropdown')
                                 <form
                                     action="{{ route('lans.user-achievements.destroy', ['lan' => $userAchievement->lan, 'user_achievement' => $userAchievement]) }}"
-                                    method="POST" class="confirm-deletion">
+                                    method="POST">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <a class="dropdown-item" href="#"
-                                       onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
+                                       onclick="submitDeletionForm(event);">@lang('title.delete')</a>
                                 </form>
                             @endcomponent
                         @endcan
@@ -52,8 +52,8 @@
         <h5>@lang('title.award-an-achievement')</h5>
         @include('components.form.create', ['route' => route('lans.user-achievements.store', $lan)])
         <div class="form-inline">
-            <div class="form-group">
-                <label for="user_id" class="mr-sm-2">@lang('title.user')</label>
+            <div class="form-group mb-3">
+                <label for="user_id" class="me-sm-2">@lang('title.user')</label>
                 @include('components.form.select', [
                     'name' => 'user_id',
                     'items' => $users,
@@ -61,8 +61,8 @@
                     'classes' => 'custom-select custom-control-inline form-control'
                 ])
             </div>
-            <div class="form-group">
-                <label for="achievement_id" class="mr-sm-2">@lang('title.achievement')</label>
+            <div class="form-group mb-3">
+                <label for="achievement_id" class="me-sm-2">@lang('title.achievement')</label>
                 @include('components.form.select', [
                     'name' => 'achievement_id',
                     'items' => $achievements,
@@ -70,7 +70,7 @@
                     'classes' => 'custom-select custom-control-inline form-control'
                 ])
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <button type="submit" class="btn btn-primary">@lang('title.award')</button>
             </div>
         </div>

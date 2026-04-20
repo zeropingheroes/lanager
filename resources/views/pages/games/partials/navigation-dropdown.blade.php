@@ -14,9 +14,10 @@
         @endswitch
         </h1>
     </div>
-    <div class="col col-md-2 text-right">
+    <div class="col col-md-2 text-end">
         <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="gamesDisplayDropdown" data-toggle="dropdown"
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="gamesDisplayDropdown"
+               data-bs-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                 @lang('title.'.$active)
             </a>

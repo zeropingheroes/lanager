@@ -9,8 +9,9 @@ class StoreLanGameRequest extends Request
     use LaravelValidation;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $this->validationRules = [
@@ -19,14 +20,14 @@ class StoreLanGameRequest extends Request
                 'required',
                 'max:255',
                 Rule::unique('lan_games')->where(
-                    function ($query) {
+                    function ($query): void {
                         $query->where('lan_id', $this->input['lan_id']);
                     }
-                )->ignore($this->input['id'] ?? '')
+                )->ignore($this->input['id'] ?? ''),
             ],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

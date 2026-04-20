@@ -2,18 +2,19 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Contracts\View\View as ViewContract;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use InvalidArgumentException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
+use InvalidArgumentException;
 use Laravel\Socialite\Facades\Socialite;
 use Throwable;
-use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 use Zeropingheroes\Lanager\Services\UpdateSteamUsersService;
 
@@ -32,9 +33,10 @@ class AuthController extends Controller
      */
     public function redirectToProvider(string $OAuthProvider): RedirectResponse
     {
-        if ($OAuthProvider == 'steam') {
+        if ($OAuthProvider === 'steam') {
             return Socialite::with('steam')->redirect();
         }
+
         $message = trans('phrase.provider-not-supported', ['provider' => $OAuthProvider]);
         Log::error($message);
         throw new InvalidArgumentException($message);
@@ -42,6 +44,7 @@ class AuthController extends Controller
 
     /**
      * Obtain the user information from the external authentication provider.
+     *
      * @throws Throwable
      */
     public function handleProviderCallback($OAuthProvider): RedirectResponse
@@ -49,24 +52,23 @@ class AuthController extends Controller
         if ($OAuthProvider == 'steam') {
             $OAuthUser = Socialite::with('steam')->user();
 
-            $service = new UpdateSteamUsersService($OAuthUser->id);
-            $service->update();
+            $updateSteamUsersService = new UpdateSteamUsersService([$OAuthUser->id]);
+            $updateSteamUsersService->update();
 
             // Check if the user wasn't updated, or if there are errors
             if (
-                !array_key_exists($OAuthUser->id, $service->getUpdated())
-                || $service->errors()->isNotEmpty()
+                ! array_key_exists($OAuthUser->id, $updateSteamUsersService->getUpdated())
+                || $updateSteamUsersService->errors()->isNotEmpty()
             ) {
-                Log::error($service->errors()->first());
-                Session::flash('error', $service->errors()->first());
+                Log::error($updateSteamUsersService->errors()->first());
+                Session::flash('error', $updateSteamUsersService->errors()->first());
 
                 return redirect()->route('login');
             }
 
             // Get the newly updated user
-            $user = UserOAuthAccount::where('provider_id', $OAuthUser->id)
-                ->firstOrFail()
-                ->user;
+            $userOAuthAccount = UserOAuthAccount::where('provider_id', $OAuthUser->id)->firstOrFail();
+            $user = User::findOrFail($userOAuthAccount->user_id);
 
             // Log them in
             Auth::login($user, true);

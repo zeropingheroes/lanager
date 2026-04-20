@@ -4,14 +4,14 @@ namespace Tests\Browser\Tests\Slides;
 
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
-use Zeropingheroes\Lanager\Models\Slide;
 use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\Slide;
 
 class IndexSlideTest extends DuskTestCase
 {
-    public function testIndexingSlides(): void
+    public function test_indexing_slides(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             // And the LAN is published
             $lan = Lan::create([
@@ -33,10 +33,10 @@ class IndexSlideTest extends DuskTestCase
             ]);
 
             // And there is a user with the super admin role
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin user visits the slide index page
             $browser->visitRoute('lans.slides.index', ['lan' => $lan]);

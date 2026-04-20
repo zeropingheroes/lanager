@@ -2,11 +2,11 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Contracts\View\View as ViewContract;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Lan;
@@ -34,6 +34,7 @@ class LanGameController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Lan $lan, Request $httpRequest): RedirectResponse
@@ -46,10 +47,10 @@ class LanGameController extends Controller
             'created_by' => Auth::user()->id,
         ];
 
-        $request = new StoreLanGameRequest($input);
+        $storeLanGameRequest = new StoreLanGameRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeLanGameRequest->invalid()) {
+            Session::flash('error', $storeLanGameRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -61,6 +62,7 @@ class LanGameController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function edit(Lan $lan, LanGame $lanGame): ViewContract
@@ -73,6 +75,7 @@ class LanGameController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function update(Request $httpRequest, Lan $lan, LanGame $lanGame): RedirectResponse
@@ -85,10 +88,10 @@ class LanGameController extends Controller
             'id' => $lanGame->id,
         ];
 
-        $request = new StoreLanGameRequest($input);
+        $storeLanGameRequest = new StoreLanGameRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeLanGameRequest->invalid()) {
+            Session::flash('error', $storeLanGameRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -100,6 +103,7 @@ class LanGameController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan, LanGame $lanGame): RedirectResponse

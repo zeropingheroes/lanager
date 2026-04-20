@@ -3,10 +3,10 @@
         <a href="{{ route('allowed-ip-ranges.edit', $allowedIpRange) }}" class="dropdown-item">@lang('title.edit')</a>
     @endcan
     @can('delete', $allowedIpRange)
-        <form action="{{ route('allowed-ip-ranges.destroy', $allowedIpRange) }}" method="POST" class="confirm-deletion">
+        <form action="{{ route('allowed-ip-ranges.destroy', $allowedIpRange) }}" method="POST">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
-            <a class="dropdown-item" href="#" onclick="$(this).closest('form').submit();">@lang('title.delete')</a>
+            <a class="dropdown-item" href="#" onclick="submitDeletionForm(event);">@lang('title.delete')</a>
         </form>
     @endcan
 @endcomponent

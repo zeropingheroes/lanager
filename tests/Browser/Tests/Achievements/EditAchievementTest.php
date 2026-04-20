@@ -10,28 +10,28 @@ use Zeropingheroes\Lanager\Models\Achievement;
 
 class EditAchievementTest extends DuskTestCase
 {
-    public function testEditingAchievement(): void
+    public function test_editing_achievement(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And there is an achievement
             $achievement = Achievement::create([
-                'name' => 'I\'m Blue',
+                'name' => "I'm Blue",
                 'description' => 'Get a BSOD',
             ]);
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the achievement index page
             $browser->visitRoute('achievements.index');
 
             // And clicks the options dropdown in the same row as the achievement's name
-            $browser->on(new AchievementIndex());
+            $browser->on(new AchievementIndex);
             $browser->clickAtXPath(
-                '//a[contains(string(), "' . $achievement->name . '")]//..//..//button[@title="Options"]'
+                '//a[contains(string(), "'.$achievement->name.'")]//..//..//button[@title="Options"]'
             );
 
             // And clicks the "edit" link
@@ -39,12 +39,14 @@ class EditAchievementTest extends DuskTestCase
 
             // And fills the "edit achievement" form
             $browser->waitForRoute('achievements.edit', ['achievement' => $achievement])
-                ->on(new AchievementEdit())
+                ->on(new AchievementEdit)
                 ->type('name', 'Eager Beaver')
                 ->type('description', 'Be the first person to arrive at the LAN');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then the super admin is redirected to the "show achievement" page
             $browser->assertRouteIs('achievements.show', ['achievement' => $achievement]);

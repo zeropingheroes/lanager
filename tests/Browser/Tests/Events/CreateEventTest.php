@@ -9,11 +9,11 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class CreateEventTest extends DuskTestCase
 {
-    public function testCreatingEvent(): void
+    public function test_creating_event(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And there is a LAN
             $lan = Lan::create([
@@ -23,7 +23,7 @@ class CreateEventTest extends DuskTestCase
             ]);
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the events index page
             $browser->visitRoute('lans.events.index', ['lan' => $lan]);
@@ -35,13 +35,15 @@ class CreateEventTest extends DuskTestCase
             $browser->waitForRoute('lans.events.create', ['lan' => $lan]);
 
             // And fills the "create event" form
-            $browser->on(new EventCreate());
+            $browser->on(new EventCreate);
             $browser->type('name', 'My LAN Event');
             $browser->type('start', '2025-06-01 19:00');
             $browser->type('end', '2025-06-01 21:00');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then they should be on the event show page
             $browser->assertRouteIs('lans.events.show', ['lan' => $lan, 'event' => '*']);

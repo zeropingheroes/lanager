@@ -8,9 +8,9 @@ use Zeropingheroes\Lanager\Models\Achievement;
 
 class IndexAchievementsTest extends DuskTestCase
 {
-    public function testIndexingAchievements(): void
+    public function test_indexing_achievements(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is an achievement
             $achievement = Achievement::create([
                 'name' => 'Left the house',
@@ -18,10 +18,10 @@ class IndexAchievementsTest extends DuskTestCase
             ]);
 
             // And there is a user with the super admin role
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin user visits the achievement index page
             $browser->visitRoute('achievements.index');

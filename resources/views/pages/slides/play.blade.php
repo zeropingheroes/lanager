@@ -5,14 +5,8 @@
 @endsection
 
 @section('content')
-    <script>
-        window.addEventListener('load', function() {
-            const app = new Vue({
-                el: '#app'
-            });
-        });
-    </script>
-    <div id="app" class="container-1920x1080 tv">
+    @vite(['resources/js/pages/slides.js'])
+    <div id="app">
         <slides v-bind:lan_id="{{ $lan->id }}"></slides>
         <fullscreen-button></fullscreen-button>
     </div>

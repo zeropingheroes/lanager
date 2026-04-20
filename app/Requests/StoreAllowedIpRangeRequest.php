@@ -9,8 +9,9 @@ class StoreAllowedIpRangeRequest extends Request
     use LaravelValidation;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $this->validationRules = [
@@ -23,7 +24,7 @@ class StoreAllowedIpRangeRequest extends Request
             'description' => ['nullable', 'max:255'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

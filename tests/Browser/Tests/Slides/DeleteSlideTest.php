@@ -5,14 +5,14 @@ namespace Tests\Browser\Tests\Slides;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\Slides\SlideIndex;
 use Tests\DuskTestCase;
-use Zeropingheroes\Lanager\Models\Slide;
 use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\Slide;
 
 class DeleteSlideTest extends DuskTestCase
 {
-    public function testDeletingSlide(): void
+    public function test_deleting_slide(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
@@ -30,17 +30,17 @@ class DeleteSlideTest extends DuskTestCase
             ]);
 
             // And there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the slide index page
             $browser->visitRoute('lans.slides.index', ['lan' => $lan, 'slide' => $slide]);
 
             // And clicks the options dropdown in the same row as the slide's name
-            $browser->on(new SlideIndex());
-            $browser->clickAtXPath('//a[text()="' . $slide->name . '"]//..//..//button[@title="Options"]');
+            $browser->on(new SlideIndex);
+            $browser->clickAtXPath('//a[text()="'.$slide->name.'"]//..//..//button[@title="Options"]');
 
             // And clicks the "delete" link
             $browser->clickLink('Delete');
@@ -52,7 +52,7 @@ class DeleteSlideTest extends DuskTestCase
             $browser->assertRouteIs('lans.slides.index', ['lan' => $lan]);
 
             // And should see a confirmation message that the slide was deleted
-            $browser->assertSee('Slide "' . $slide->name . '" deleted');
+            $browser->assertSee('Slide "'.$slide->name.'" deleted');
         });
     }
 }

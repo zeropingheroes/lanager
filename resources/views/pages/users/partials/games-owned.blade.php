@@ -1,7 +1,7 @@
 @if ($gamesOwned->isEmpty())
     @lang('phrase.username-does-not-own-any-games', ['username' => $user->username])
 @else
-    <table class="table games-owned">
+    <table class="table table-striped align-middle">
         @foreach($gamesOwned as $userGame)
             <tr>
                 <td class="game">
@@ -9,7 +9,7 @@
                     [
                         'name' => $userGame->app->name,
                         'url' => $userGame->app->url(),
-                        'logo' => $userGame->app->logo(),
+                        'logo' => $userGame->app->logo_small,
                     ])
                 </td>
                 <td class="playtime-forever">

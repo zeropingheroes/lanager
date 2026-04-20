@@ -69,6 +69,8 @@ return [
     'linked-accounts' => 'Linked Accounts',
     'delete-account' => 'Delete Account',
     'lans-attended' => 'LANs Attended',
+    'available' => 'Available',
+    'unavailable' => 'Unavailable',
 
     // Roles
     'roles' => 'Roles',
@@ -116,7 +118,7 @@ return [
     'owned' => 'Owned',
     'games-library' => 'Games Library',
     'games-in-common' => 'Games In Common',
-    'games-history' => 'Games History',
+    'games-history' => 'Gameplay History',
     'popular-games' => 'Popular Games',
 
     // Navigation Links

@@ -15,10 +15,10 @@
                     @include('pages.events.partials.status', ['event' => $event])
                 </td>
                 <td>
-                    @include('pages.events.partials.start-and-end', ['event' => $event])
+                    @include('pages.events.partials.terse-timespan', ['start' => $event->start, 'end' => $event->end])
                 </td>
                 @canany(['update', 'delete'], $event)
-                    <td class="text-right pr-0">
+                    <td class="text-end pe-0">
                         @include('pages.events.partials.actions-dropdown', ['event' => $event])
                     </td>
                 @endcanany

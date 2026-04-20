@@ -9,8 +9,9 @@ class StoreAchievementRequest extends Request
     use LaravelValidation;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $this->validationRules = [
@@ -28,7 +29,7 @@ class StoreAchievementRequest extends Request
             'image.max' => trans('phrase.submitted-file-exceeded-max-file-size-of-x', ['x' => '5MB']),
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

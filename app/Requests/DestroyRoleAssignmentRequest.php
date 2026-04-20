@@ -8,8 +8,9 @@ use Zeropingheroes\Lanager\Models\RoleAssignment;
 class DestroyRoleAssignmentRequest extends Request
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $roleAssignment = RoleAssignment::find($this->input['id']);

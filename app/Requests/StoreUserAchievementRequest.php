@@ -7,8 +7,9 @@ class StoreUserAchievementRequest extends Request
     use LaravelValidation;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    #[\Override]
     public function valid(): bool
     {
         $this->validationRules = [
@@ -17,7 +18,7 @@ class StoreUserAchievementRequest extends Request
             'lan_id' => ['required', 'exists:lans,id'],
         ];
 
-        if (!$this->laravelValidationPasses()) {
+        if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
         }
 

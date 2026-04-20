@@ -18,7 +18,7 @@ class UpdateSteamUsers extends Command
     public function __construct()
     {
         $this->signature = 'lanager:update-steam-users
-                            {--all : ' . trans('phrase.update-all-users') . '}';
+                            {--all : '.trans('phrase.update-all-users').'}';
         $this->description = trans('phrase.update-existing-users-profiles-from-steam');
 
         parent::__construct();
@@ -35,29 +35,28 @@ class UpdateSteamUsers extends Command
             ->first();
 
         // If there is a current LAN, and the "update all users" option is not set
-        if ($lan && !$this->option('all')) {
+        if ($lan && ! $this->option('all')) {
             // Get the attendees for the LAN
-            $attendees = $lan->users()->get()->pluck('id');
+            $attendees = $lan->users()->pluck('users.id');
 
             // Also get any users who have not been updated in the last day
-            $staleUsers = SteamUserMetadata::whereNotIn('user_id', $attendees)
+            $staleUsers = SteamUserMetadata::select('user_id')
+                ->whereNotIn('user_id', $attendees)
                 ->where('profile_updated_at', '<=', now()->subDay())
-                ->get()
-                ->pluck('user_id');
+                ->get();
 
             $users = $attendees->merge($staleUsers);
         } else {
             // Otherwise, get all users
-            $users = User::all()->pluck('id');
+            $users = User::pluck('id');
         }
 
         // Get the Steam IDs belonging to the users who are to be updated
         $steamIds = UserOAuthAccount::whereIn('user_id', $users)
-            ->get()
             ->pluck('provider_id')
             ->toArray();
 
-        if (!$steamIds) {
+        if (! $steamIds) {
             $message = trans('phrase.no-steam-users-to-update');
             Log::info($message);
             $this->info($message);
@@ -69,19 +68,19 @@ class UpdateSteamUsers extends Command
             trans('phrase.updating-profiles-and-online-status-for-x-users-from-steam', ['x' => count($steamIds)])
         );
 
-        $service = new UpdateSteamUsersService($steamIds);
-        $service->update();
+        $updateSteamUsersService = new UpdateSteamUsersService($steamIds);
+        $updateSteamUsersService->update();
 
         $message = trans(
             'phrase.successfully-updated-profiles-and-online-status-for-x-of-y-users',
-            ['x' => count($service->getUpdated()), 'y' => count($steamIds)]
+            ['x' => count($updateSteamUsersService->getUpdated()), 'y' => count($steamIds)]
         );
-        Log::info($message, $service->getUpdated());
+        Log::info($message, $updateSteamUsersService->getUpdated());
         $this->info($message);
 
-        if ($service->errors()->isNotEmpty()) {
+        if ($updateSteamUsersService->errors()->isNotEmpty()) {
             $this->error(trans('phrase.the-following-errors-were-encountered'));
-            foreach ($service->errors()->getMessages() as $error) {
+            foreach ($updateSteamUsersService->errors()->getMessages() as $error) {
                 Log::error($error[0]);
                 $this->error($error[0]);
             }

@@ -11,15 +11,15 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class CreateUserAchievementTest extends DuskTestCase
 {
-    public function testCreatingUserAchievement(): void
+    public function test_creating_user_achievement(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::factory()->count(1)->create()->first();
 
             // And there is an achievement
             $achievement = Achievement::create([
-                'name' => 'I\'m Blue',
+                'name' => "I'm Blue",
                 'description' => 'Get a BSOD',
             ]);
 

@@ -2,16 +2,64 @@
 
 namespace Zeropingheroes\Lanager\Models;
 
+use Database\Factories\LanFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 
-/* @mixin Eloquent */
+/**
+ * @property int $id
+ * @property int|null $venue_id
+ * @property int|null $achievement_id
+ * @property string $name
+ * @property Carbon $start
+ * @property Carbon $end
+ * @property int $published
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Achievement|null $attendanceAchievement
+ * @property-read Collection<int, Event> $events
+ * @property-read int|null $events_count
+ * @property-read Collection<int, LanGame> $games
+ * @property-read int|null $games_count
+ * @property-read Collection<int, Guide> $guides
+ * @property-read int|null $guides_count
+ * @property-read Collection<int, Slide> $slides
+ * @property-read int|null $slides_count
+ * @property-read Collection<int, UserAchievement> $userAchievements
+ * @property-read int|null $user_achievements_count
+ * @property-read Attendee|null $attendance
+ * @property-read Collection<int, User> $users
+ * @property-read int|null $users_count
+ * @property-read Venue|null $venue
+ *
+ * @method static LanFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Lan future()
+ * @method static Builder<static>|Lan happeningNow()
+ * @method static Builder<static>|Lan newModelQuery()
+ * @method static Builder<static>|Lan newQuery()
+ * @method static Builder<static>|Lan past()
+ * @method static Builder<static>|Lan presentAndPast()
+ * @method static Builder<static>|Lan query()
+ * @method static Builder<static>|Lan whereAchievementId($value)
+ * @method static Builder<static>|Lan whereCreatedAt($value)
+ * @method static Builder<static>|Lan whereEnd($value)
+ * @method static Builder<static>|Lan whereId($value)
+ * @method static Builder<static>|Lan whereName($value)
+ * @method static Builder<static>|Lan wherePublished($value)
+ * @method static Builder<static>|Lan whereStart($value)
+ * @method static Builder<static>|Lan whereUpdatedAt($value)
+ * @method static Builder<static>|Lan whereVenueId($value)
+ *
+ * @mixin Eloquent
+ */
 class Lan extends Model
 {
     use HasFactory;
@@ -33,34 +81,34 @@ class Lan extends Model
     /**
      * LANs happening now
      */
-    public function scopeHappeningNow(Builder $query): Builder
+    public function scopeHappeningNow(Builder $builder): Builder
     {
-        return $query->where('start', '<', now())
+        return $builder->where('start', '<', now())
             ->where('end', '>', now());
     }
 
     /**
      * LANs that have ended
      */
-    public function scopePast(Builder $query): Builder
+    public function scopePast(Builder $builder): Builder
     {
-        return $query->where('end', '<', now());
+        return $builder->where('end', '<', now());
     }
 
     /**
      * LANs that have not yet started
      */
-    public function scopeFuture(Builder $query): Builder
+    public function scopeFuture(Builder $builder): Builder
     {
-        return $query->where('start', '>', now());
+        return $builder->where('start', '>', now());
     }
 
     /**
      * LANs that have ended or have not started
      */
-    public function scopePresentAndPast(Builder $query): Builder
+    public function scopePresentAndPast(Builder $builder): Builder
     {
-        return $query->where('start', '<', now());
+        return $builder->where('start', '<', now());
     }
 
     /**
@@ -68,7 +116,7 @@ class Lan extends Model
      */
     public function events(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\Event');
+        return $this->hasMany(Event::class);
     }
 
     /**
@@ -76,7 +124,7 @@ class Lan extends Model
      */
     public function guides(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\Guide');
+        return $this->hasMany(Guide::class);
     }
 
     /**
@@ -84,8 +132,8 @@ class Lan extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany('Zeropingheroes\Lanager\Models\User', 'lan_attendees')
-            ->using('Zeropingheroes\Lanager\Models\Attendee')
+        return $this->belongsToMany(User::class, 'lan_attendees')
+            ->using(Attendee::class)
             ->as('attendance')
             ->withTimestamps();
     }
@@ -95,7 +143,7 @@ class Lan extends Model
      */
     public function userAchievements(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\UserAchievement');
+        return $this->hasMany(UserAchievement::class);
     }
 
     /**
@@ -103,7 +151,7 @@ class Lan extends Model
      */
     public function venue(): BelongsTo
     {
-        return $this->belongsTo('Zeropingheroes\Lanager\Models\Venue');
+        return $this->belongsTo(Venue::class);
     }
 
     /**
@@ -111,7 +159,7 @@ class Lan extends Model
      */
     public function attendanceAchievement(): HasOne
     {
-        return $this->hasOne('Zeropingheroes\Lanager\Models\Achievement', 'id', 'achievement_id');
+        return $this->hasOne(Achievement::class, 'id', 'achievement_id');
     }
 
     /**
@@ -119,7 +167,7 @@ class Lan extends Model
      */
     public function slides(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\Slide');
+        return $this->hasMany(Slide::class);
     }
 
     /**
@@ -127,6 +175,6 @@ class Lan extends Model
      */
     public function games(): HasMany
     {
-        return $this->hasMany('Zeropingheroes\Lanager\Models\LanGame');
+        return $this->hasMany(LanGame::class);
     }
 }

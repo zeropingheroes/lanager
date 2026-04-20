@@ -1,5 +1,5 @@
 LANager - LAN party management web application
-Copyright © 2021 Zero Ping Heroes Ltd
+Copyright © 2026 Zero Ping Heroes
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
@@ -12,7 +12,7 @@ GNU Affero General Public License for more details.
 
 However, if you have executed an End User Software License and Services
 Agreement or an OEM Software License and Support Services Agreement, or
-another commercial license agreement with Zero Ping Heroes Ltd or one of its
+another commercial license agreement with Zero Ping Heroes or one of its
 affiliates (each, a "Commercial Agreement"), the terms of the license in
 such Commercial Agreement will supersede the AGPL and you may use the
 software solely pursuant to the terms of the relevant Commercial

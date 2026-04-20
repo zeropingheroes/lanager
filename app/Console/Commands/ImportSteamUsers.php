@@ -36,7 +36,7 @@ class ImportSteamUsers extends Command
             $steamIds = explode("\n", trim($steamIds));
         }
 
-        if (!$steamIds) {
+        if (! $steamIds) {
             $message = trans('phrase.no-steam-users-to-import');
             Log::error($message);
             $this->error($message);
@@ -46,26 +46,26 @@ class ImportSteamUsers extends Command
 
         $this->info(trans('phrase.importing-x-users-from-steam', ['x' => count($steamIds)]));
 
-        $service = new UpdateSteamUsersService($steamIds);
-        $service->update();
+        $updateSteamUsersService = new UpdateSteamUsersService($steamIds);
+        $updateSteamUsersService->update();
 
         $message = trans(
             'phrase.successfully-updated-x-of-y-users',
-            ['x' => count($service->getUpdated()), 'y' => count($steamIds)]
+            ['x' => count($updateSteamUsersService->getUpdated()), 'y' => count($steamIds)]
         );
         Log::info($message);
         $this->info($message);
 
-        if ($service->errors()->isNotEmpty()) {
+        if ($updateSteamUsersService->errors()->isNotEmpty()) {
             $this->error(trans('phrase.the-following-errors-were-encountered'));
-            foreach ($service->errors()->getMessages() as $error) {
+            foreach ($updateSteamUsersService->errors()->getMessages() as $error) {
                 Log::error($error[0]);
                 $this->error($error[0]);
             }
 
             return 1;
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 }

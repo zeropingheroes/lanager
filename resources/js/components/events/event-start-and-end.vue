@@ -1,36 +1,31 @@
+<script setup>
+import { computed } from 'vue';
+import moment from 'moment';
+
+// Define props
+const props = defineProps(['start', 'end']);
+
+// Computed property for start and end time formatting
+const startAndEnd = computed(() => {
+    const start = moment(props.start);
+    const end = moment(props.end);
+
+    // Determine start format
+    const startFormat = start.minute() === 0 ? 'ddd ha' : 'ddd h:mma';
+
+    // Determine end format
+    let endFormat = end.minute() === 0 ? 'ha' : 'h:mma';
+
+    // Adjust end format if start and end are on different days
+    if (start.day() !== end.day()) {
+        endFormat = 'ddd ' + endFormat;
+    }
+
+    // Return formatted start and end times
+    return `${start.format(startFormat)} - ${end.format(endFormat)}`;
+});
+</script>
+
 <template>
     <span>{{ startAndEnd }}</span>
 </template>
-
-<script>
-    export default {
-        props: ['start', 'end'],
-        computed: {
-            startAndEnd() {
-                var start = moment(this.start);
-                var end = moment(this.end);
-
-                // if start falls on the hour, don't display minutes
-                if (start.minute() === 0) {
-                    var startFormat = 'ddd ha'; // e.g. Tue 6pm
-                } else {
-                    var startFormat = 'ddd h:mma'; // e.g. Tue 6:30pm
-                }
-
-                // if end falls on the hour, don't display minutes
-                if (end.minute() === 0) {
-                    var endFormat = 'ha'; // e.g. 6pm
-                } else {
-                    var endFormat = 'h:mma'; // e.g. 6:30pm
-                }
-
-                // if event doesn't start and end on the same day, display the end day
-                if (start.day() != end.day()) {
-                    var endFormat = 'ddd ' + endFormat;
-                }
-
-                return start.format(startFormat) + ' - ' + end.format(endFormat);
-            }
-        }
-    }
-</script>

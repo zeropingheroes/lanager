@@ -3,7 +3,7 @@
 // Home
 Breadcrumbs::for(
     'home',
-    function ($trail) {
+    function ($trail): void {
         $trail->push(config('app.name'), route('home'));
     }
 );
@@ -11,7 +11,7 @@ Breadcrumbs::for(
 // Home > Role Assignments
 Breadcrumbs::for(
     'role-assignments.index',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('home');
         $trail->push(__('title.role-assignments'), route('role-assignments.index'));
     }
@@ -20,7 +20,7 @@ Breadcrumbs::for(
 // Home > Navigation Links
 Breadcrumbs::for(
     'navigation-links.index',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('home');
         $trail->push(__('title.navigation-links'), route('navigation-links.index'));
     }
@@ -29,7 +29,7 @@ Breadcrumbs::for(
 // Home > Navigation Links > Create
 Breadcrumbs::for(
     'navigation-links.create',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('navigation-links.index');
         $trail->push(__('title.create'), route('navigation-links.create'));
     }
@@ -38,7 +38,7 @@ Breadcrumbs::for(
 // Home > Navigation Links > Edit
 Breadcrumbs::for(
     'navigation-links.edit',
-    function ($trail, $navigationLink) {
+    function ($trail, $navigationLink): void {
         $trail->parent('navigation-links.index');
         $trail->push(__('title.edit'), route('navigation-links.edit', $navigationLink));
     }
@@ -47,7 +47,7 @@ Breadcrumbs::for(
 // Home > Images
 Breadcrumbs::for(
     'images.index',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('home');
         $trail->push(__('title.images'), route('images.index'));
     }
@@ -56,7 +56,7 @@ Breadcrumbs::for(
 // Home > Images > Edit
 Breadcrumbs::for(
     'images.edit',
-    function ($trail, $image) {
+    function ($trail, $image): void {
         $trail->parent('images.index');
         $trail->push(__('title.edit'), route('images.edit', $image));
     }
@@ -65,7 +65,7 @@ Breadcrumbs::for(
 // Home > Games
 Breadcrumbs::for(
     'games.index',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('home');
         $trail->push(__('title.games'), route('games.in-progress'));
     }
@@ -74,7 +74,7 @@ Breadcrumbs::for(
 // Home > Games > Live
 Breadcrumbs::for(
     'games.in-progress',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('games.index');
         $trail->push(__('title.games-in-progress'), route('games.in-progress'));
     }
@@ -83,7 +83,7 @@ Breadcrumbs::for(
 // Home > Games > Recent
 Breadcrumbs::for(
     'games.recent',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('games.index');
         $trail->push(__('title.recently-played-games'), route('games.recent'));
     }
@@ -92,7 +92,7 @@ Breadcrumbs::for(
 // Home > Games > Owned
 Breadcrumbs::for(
     'games.owned',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('games.index');
         $trail->push(__('title.games-owned'), route('games.owned'));
     }
@@ -101,7 +101,7 @@ Breadcrumbs::for(
 // Home > Achievements
 Breadcrumbs::for(
     'achievements.index',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('home');
         $trail->push(__('title.achievements'), route('achievements.index'));
     }
@@ -110,7 +110,7 @@ Breadcrumbs::for(
 // Home > Achievements > [Achievement]
 Breadcrumbs::for(
     'achievements.show',
-    function ($trail, $achievement) {
+    function ($trail, $achievement): void {
         $trail->parent('achievements.index');
         $trail->push($achievement->name, route('achievements.show', $achievement));
     }
@@ -119,7 +119,7 @@ Breadcrumbs::for(
 // Home > Achievements > [Achievement] > Edit
 Breadcrumbs::for(
     'achievements.edit',
-    function ($trail, $achievement) {
+    function ($trail, $achievement): void {
         $trail->parent('achievements.index');
         $trail->push($achievement->name, route('achievements.edit', $achievement));
     }
@@ -128,7 +128,7 @@ Breadcrumbs::for(
 // Home > Achievements > Create
 Breadcrumbs::for(
     'achievements.create',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('achievements.index');
         $trail->push(__('title.create'), route('achievements.create'));
     }
@@ -137,7 +137,7 @@ Breadcrumbs::for(
 // Home > LANs
 Breadcrumbs::for(
     'lans.index',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('home');
         $trail->push(__('title.lans'), route('lans.index'));
     }
@@ -146,7 +146,7 @@ Breadcrumbs::for(
 // Home > LANs > Create
 Breadcrumbs::for(
     'lans.create',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('lans.index');
         $trail->push(__('title.create'), route('lans.create'));
     }
@@ -155,7 +155,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN]
 Breadcrumbs::for(
     'lans.show',
-    function ($trail, $lan) {
+    function ($trail, $lan): void {
         $trail->parent('lans.index');
         $trail->push($lan->name, route('lans.show', $lan));
     }
@@ -164,7 +164,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Edit
 Breadcrumbs::for(
     'lans.edit',
-    function ($trail, $lan) {
+    function ($trail, $lan): void {
         $trail->parent('lans.show', $lan);
         $trail->push(__('title.edit'), route('lans.edit', $lan));
     }
@@ -173,7 +173,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Guides
 Breadcrumbs::for(
     'lans.guides.index',
-    function ($trail, $lan) {
+    function ($trail, $lan): void {
         $trail->parent('lans.show', $lan);
         $trail->push(__('title.guides'), route('lans.guides.index', $lan));
     }
@@ -182,7 +182,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Guides > Create
 Breadcrumbs::for(
     'lans.guides.create',
-    function ($trail, $lan) {
+    function ($trail, $lan): void {
         $trail->parent('lans.guides.index', $lan);
         $trail->push(__('title.create'), route('lans.guides.create', $lan));
     }
@@ -191,7 +191,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Guides > [Guide]
 Breadcrumbs::for(
     'lans.guides.show',
-    function ($trail, $lan, $guide) {
+    function ($trail, $lan, $guide): void {
         $trail->parent('lans.guides.index', $lan);
         $trail->push($guide->title, route('lans.guides.show', ['lan' => $lan, 'guide' => $guide]));
     }
@@ -200,7 +200,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Guides > [Guide] > Edit
 Breadcrumbs::for(
     'lans.guides.edit',
-    function ($trail, $lan, $guide) {
+    function ($trail, $lan, $guide): void {
         $trail->parent('lans.guides.show', $lan, $guide);
         $trail->push(__('title.edit'), route('lans.guides.edit', ['lan' => $lan, 'guide' => $guide]));
     }
@@ -209,7 +209,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Events
 Breadcrumbs::for(
     'lans.events.index',
-    function ($trail, $lan) {
+    function ($trail, $lan): void {
         $trail->parent('lans.show', $lan);
         $trail->push(__('title.events'), route('lans.events.index', $lan));
     }
@@ -218,7 +218,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Events > Create
 Breadcrumbs::for(
     'lans.events.create',
-    function ($trail, $lan) {
+    function ($trail, $lan): void {
         $trail->parent('lans.events.index', $lan);
         $trail->push(__('title.create'), route('lans.events.create', $lan));
     }
@@ -227,7 +227,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Events > [Event]
 Breadcrumbs::for(
     'lans.events.show',
-    function ($trail, $lan, $event) {
+    function ($trail, $lan, $event): void {
         $trail->parent('lans.events.index', $lan);
         $trail->push($event->name, route('lans.events.show', ['lan' => $lan, 'event' => $event]));
     }
@@ -236,7 +236,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Events > [Event] > Edit
 Breadcrumbs::for(
     'lans.events.edit',
-    function ($trail, $lan, $event) {
+    function ($trail, $lan, $event): void {
         $trail->parent('lans.events.show', $lan, $event);
         $trail->push(__('title.edit'), route('lans.events.edit', ['lan' => $lan, 'event' => $event]));
     }
@@ -245,7 +245,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Attendees
 Breadcrumbs::for(
     'lans.attendees.index',
-    function ($trail, $lan) {
+    function ($trail, $lan): void {
         $trail->parent('lans.show', $lan);
         $trail->push(__('title.attendees'), route('lans.attendees.index', $lan));
     }
@@ -254,7 +254,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > User Achievements
 Breadcrumbs::for(
     'lans.user-achievements.index',
-    function ($trail, $lan) {
+    function ($trail, $lan): void {
         $trail->parent('lans.show', $lan);
         $trail->push(__('title.achievements'), route('lans.user-achievements.index', $lan));
     }
@@ -263,7 +263,7 @@ Breadcrumbs::for(
 // Home > Venue
 Breadcrumbs::for(
     'venues.index',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('home');
         $trail->push(__('title.venues'), route('venues.index'));
     }
@@ -272,7 +272,7 @@ Breadcrumbs::for(
 // Home > Venue > [Venue]
 Breadcrumbs::for(
     'venues.show',
-    function ($trail, $venue) {
+    function ($trail, $venue): void {
         $trail->parent('venues.index');
         $trail->push($venue->name, route('venues.show', $venue));
     }
@@ -281,7 +281,7 @@ Breadcrumbs::for(
 // Home > Venue > [Venue] > Edit
 Breadcrumbs::for(
     'venues.edit',
-    function ($trail, $venue) {
+    function ($trail, $venue): void {
         $trail->parent('venues.index');
         $trail->push($venue->name, route('venues.edit', $venue));
     }
@@ -290,7 +290,7 @@ Breadcrumbs::for(
 // Home > Venue > Create
 Breadcrumbs::for(
     'venues.create',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('venues.index');
         $trail->push(__('title.create'), route('venues.create'));
     }
@@ -299,7 +299,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Slides
 Breadcrumbs::for(
     'lans.slides.index',
-    function ($trail, $lan) {
+    function ($trail, $lan): void {
         $trail->parent('lans.show', $lan);
         $trail->push(__('title.slides'), route('lans.slides.index', $lan));
     }
@@ -308,7 +308,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Slides > Create
 Breadcrumbs::for(
     'lans.slides.create',
-    function ($trail, $lan) {
+    function ($trail, $lan): void {
         $trail->parent('lans.slides.index', $lan);
         $trail->push(__('title.create'), route('lans.slides.create', $lan));
     }
@@ -317,7 +317,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Slides > [Slide]
 Breadcrumbs::for(
     'lans.slides.show',
-    function ($trail, $lan, $slide) {
+    function ($trail, $lan, $slide): void {
         $trail->parent('lans.slides.index', $lan);
         $trail->push($slide->name, route('lans.slides.show', ['lan' => $lan, 'slide' => $slide]));
     }
@@ -326,7 +326,7 @@ Breadcrumbs::for(
 // Home > LANs > [LAN] > Slides > [Slide] > Edit
 Breadcrumbs::for(
     'lans.slides.edit',
-    function ($trail, $lan, $slide) {
+    function ($trail, $lan, $slide): void {
         $trail->parent('lans.slides.index', $lan);
         $trail->push($slide->name, route('lans.slides.edit', ['lan' => $lan, 'slide' => $slide]));
     }
@@ -335,7 +335,7 @@ Breadcrumbs::for(
 // Home > AllowedIpRange
 Breadcrumbs::for(
     'allowed-ip-ranges.index',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('home');
         $trail->push(__('title.allowed-ip-ranges'), route('allowed-ip-ranges.index'));
     }
@@ -344,7 +344,7 @@ Breadcrumbs::for(
 // Home > AllowedIpRange > [AllowedIpRange] > Edit
 Breadcrumbs::for(
     'allowed-ip-ranges.edit',
-    function ($trail, $allowedIpRange) {
+    function ($trail, $allowedIpRange): void {
         $trail->parent('allowed-ip-ranges.index');
         $trail->push($allowedIpRange->ip_range, route('allowed-ip-ranges.edit', $allowedIpRange));
     }
@@ -353,7 +353,7 @@ Breadcrumbs::for(
 // Home > AllowedIpRange > Create
 Breadcrumbs::for(
     'allowed-ip-ranges.create',
-    function ($trail) {
+    function ($trail): void {
         $trail->parent('allowed-ip-ranges.index');
         $trail->push(__('title.create'), route('allowed-ip-ranges.create'));
     }

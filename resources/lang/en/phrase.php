@@ -27,7 +27,7 @@ return [
     // Account Authentication
     'profile-update-required' => 'Please update your profile to continue',
     'please-sign-in' => 'Please sign in through Steam',
-    'no-steam-account' => 'Don\'t have a Steam account? No problem!',
+    'no-steam-account' => "Don't have a Steam account? No problem!",
     'create-steam-account' => 'Create a Steam account for free',
     'provider-not-supported' => 'Unsupported authentication provider ":provider"',
     'user-successfully-logged-in' => 'User :username successfully logged in',
@@ -40,7 +40,7 @@ return [
     'cannot-change-own-role-assignments' => 'You cannot change your own role assignments',
     'cannot-assign-role-to-super-admin' => 'Super Admins cannot be assigned additional roles',
     'assigned' => 'assigned',
-    'admin-vs-superadmin' => 'Admins are able to do everything a super admin can do, with the exception of changing other users\' roles',
+    'admin-vs-superadmin' => "Admins are able to do everything a super admin can do, with the exception of changing other users' roles",
 
     // Achievements
     'achievement-successfully-awarded' => 'You have awarded :user the achievement ":achievement"',
@@ -54,10 +54,12 @@ return [
     'item-unpublished' => 'This :item is unpublished and only visible to administrators',
     'oh-no' => 'Oh no!',
     'item-name-deleted' => ':Item ":name" deleted',
+    'are-you-sure' => 'Are you sure?',
     'are-you-sure-delete' => 'Are you sure you want to delete this?',
     'item-created-successfully' => ':Item created successfully',
     'item-not-found' => ':item not found',
     'item-already-exists' => ':item already exists!',
+    'fullscreen' => 'Fullscreen',
 
     /**
      * Resources.
@@ -65,7 +67,7 @@ return [
 
     // Users
     'your-steam-game-details-are-private' => 'Your Steam game details are currently private',
-    'please-consider-public-visibility' => 'This means the games you\'re playing won\'t appear in LANager with everyone else. Please consider making your game details public, even if it\'s just for the event. Thanks!',
+    'please-consider-public-visibility' => "This means the games you're playing won't appear in LANager with everyone else. Please consider making your game details public, even if it's just for the event. Thanks!",
     'edit-steam-profile' => 'Edit Steam Profile',
     'avatar-for-username' => 'Avatar for :username',
     'hours-played-total' => 'hours total',
@@ -73,7 +75,7 @@ return [
     'sign-in-to-see-the-games-you-have-in-common-with-username' => 'Sign in to see the games you have in common with :username',
     'you-have-no-games-in-common-with-username' => 'You have no games in common with :username',
     'username-does-not-own-any-games' => ':username does not own any games',
-    'usernames-game-details-are-private' => ':username\'s game details are private, so we can\'t show you the games they own or have in common with you',
+    'usernames-game-details-are-private' => ":username's game details are private, so we can't show you the games they own or have in common with you",
     'viewing-user-from-another-lan' => 'This user is not attending the current LAN',
     'username-has-not-played-any-games-this-lan' => ':username has not played any games this LAN',
     'played-for-x' => 'Played for :x',
@@ -93,7 +95,7 @@ return [
 
     // Guides
     'markdown-formatting-help-link' => 'Markdown formatting help',
-    'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Example',
+    'markdown-formatting-help-link-url' => 'https://en.wikipedia.org/wiki/Markdown#Examples',
     'markdown-help' => 'Tip: use relative links, e.g. [Install Guide](/guides/3), to easily link to other pages',
     'viewing-guide-from-past-lan' => 'This guide is from a LAN that has ended, so information might be irrelevant and/or incorrect',
 
@@ -107,15 +109,21 @@ return [
 
     // Events
     'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',
-    'event-times-must-be-within-lan-times' => 'Events must start and finish within the LAN\'s start and end time',
+    'event-times-must-be-within-lan-times' => "Events must start and finish within the LAN's start and end time",
     'event-is-not-open-for-signups' => 'This event is not open for signups',
     'you-can-only-sign-yourself-up-to-event' => 'You can only sign yourself up to an event',
     'timespan-to' => 'to',
     'upcoming' => 'Upcoming',
+    'next' => 'Next',
     'happening-now' => 'Happening now',
+    'now' => 'Now',
+    'started' => 'Started',
     'ended' => 'Ended',
+    'ended-x-ago' => 'Ended :x ago',
     'starting' => 'Starting',
+    'starting-in-x' => 'Starting in :x',
     'ending' => 'Ending',
+    'ending-in-x' => 'Ending in :x',
     'unknown' => 'Unknown',
     'signups' => 'Signups',
     'not-yet-open' => 'Not yet open',
@@ -123,6 +131,11 @@ return [
     'closed' => 'Closed',
     'opening' => 'Opening',
     'closing' => 'Closing',
+    'today' => 'Today',
+    'month' => 'Month',
+    'week' => 'Week',
+    'day' => 'Day',
+    'list' => 'List',
 
     // Images
     'select-files' => 'Select files',
@@ -149,26 +162,6 @@ return [
     'requesting-list-of-all-apps-from-steam-api' => 'Requesting list of all apps from Steam API',
     'importing-x-steam-apps' => 'Importing :x Steam apps',
 
-    // lanager:update-steam-apps-metadata
-    'update-steam-apps-metadata' => 'Update Steam apps in the database with the latest metadata from Steam',
-    'update-all-apps' => 'Update all apps, not just apps missing metadata',
-    'steam-app-metadata-up-to-date' => 'Steam app metadata already up-to-date',
-    'requesting-metadata-for-x-apps-from-steam-api' => 'Requesting metadata for :x apps from Steam API',
-    'this-will-take-approximately-time-to-complete' => 'This will take approximately :time to complete, due to Steam API rate limiting',
-    'requests-made-in-last-five-minutes' => 'Requests made in last 5 minutes: :x',
-    'error-updating-metadata-for-steam-app-id-message' => 'Error updating metadata for Steam app with ID :id - :message',
-    'x-steam-apps-not-updated-re-run-command' => ':x Steam apps could not be updated - please re-run the command',
-
-    // lanager:import-steam-apps-csv
-    'import-steam-apps-csv' => 'Import from steam_apps.csv',
-    'csv-not-found-aborting' => 'steam_apps.csv not found - aborting',
-
-    // lanager:export-steam-apps-csv
-    'export-steam-apps-csv' => 'Export to steam_apps.csv',
-    'overwrite-existing-csv' => 'Overwrite existing steam_apps.csv?',
-    'exporting-x-steam-apps-to-csv' => 'Exporting :x Steam apps to CSV file',
-    'x-steam-apps-exported' => ':x Steam apps exported',
-
     // Used by:
     // lanager:update-steam-apps
     // lanager:import-steam-apps-csv
@@ -187,16 +180,31 @@ return [
     'successfully-updated-x-of-y-users' => 'Successfully updated :x of :y users',
 
     // lanager:update-steam-users
-    'update-existing-users-profiles-from-steam' => 'Update existing LANager users\' profiles with the latest information from their Steam profile',
+    'update-existing-users-profiles-from-steam' => "Update existing LANager users' profiles with the latest information from their Steam profile",
     'update-all-users' => 'Update all users, not just those at the current LAN',
     'no-steam-users-to-update' => 'No Steam users to update',
     'updating-profiles-and-online-status-for-x-users-from-steam' => 'Updating profiles and online status for :x users from Steam',
     'successfully-updated-profiles-and-online-status-for-x-of-y-users' => 'Successfully updated profiles and online status for :x of :y users',
 
     // lanager:update-steam-user-apps
-    'update-existing-user-app-ownership' => 'Update existing LANager users\' app ownership data with the latest information from their Steam profile',
+    'update-existing-user-app-ownership' => "Update existing LANager users' app ownership data with the latest information from their Steam profile",
     'requesting-app-ownership-data-for-x-users-from-steam' => 'Updating app ownership data for :x users from Steam',
     'successfully-updated-app-ownership-data-for-x-of-y-users' => 'Successfully updated app ownership data for :x of :y users',
+
+    // lanager:update-steam-user-app-images
+    'limit-number-of-apps-to-update' => 'Limit the number of apps to update',
+    'update-app-images-for-apps-played-by-users' => 'Update app logo image URLs for apps played by users',
+    'updating-x-apps' => 'Updating :x apps',
+    'app-x-name-logo-urls-accessible-skipping' => 'App :id (:name): logo URLs from database are accessible. Skipping.',
+    'app-x-name-no-logo-urls-checking-default' => 'App :id (:name): No logo URLs set. Checking default URL...',
+    'app-x-name-default-logo-accessible-saving' => 'App :id (:name): Default logo URL accessible. Saving...',
+    'app-x-name-default-logo-not-accessible-querying-api' => 'App :id (:name): Default logo URL not accessible. Querying API...',
+    'app-x-name-got-logo-urls-from-api-saving' => 'App :id (:name): Got logo URLs from API. Saving...',
+    'app-x-name-failed-to-get-logo-urls-from-api-skipping' => 'App :id (:name): Failed to get logo URLs from API. Skipping.',
+    'successfully-updated-logo-urls-for-x-apps' => 'Successfully updated logo image URLs for :x apps.',
+    'failed-to-update-logo-urls-for-x-apps' => 'Failed to update logo image URLs for :x apps:',
+    'rate-limit-exceeded-waiting-x-seconds' => 'Rate limit exceeded. Waiting :seconds seconds before retrying (attempt :attempt of :maxAttempts)...',
+    'rate-limit-exceeded-max-retries-reached' => 'Rate limit exceeded and max retry attempts reached.',
 
     // lanager:prune-steam-user-history
     'delete-steam-user-history-outside-lans' => 'Delete historical Steam user status and gameplay data that did not occur during any of the LANs in the database',
@@ -213,7 +221,7 @@ return [
     'fixing-timestamp-columns' => 'Fixing timestamp columns',
     'creating-new-tables' => 'Creating new tables',
     'spoofing-initial-migration' => 'Spoofing initial migration',
-    'confirm-get-app-ownership-data' => 'Would you like to get each user\'s app ownership data? (~1 minute per 50 users)',
+    'confirm-get-app-ownership-data' => "Would you like to get each user's app ownership data? (~1 minute per 50 users)",
     'successfully-upgraded-database' => 'Successfully upgraded database from v0.5.x to v1.0.x',
 
     // make:feature

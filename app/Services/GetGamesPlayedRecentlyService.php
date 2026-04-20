@@ -9,9 +9,9 @@ use Zeropingheroes\Lanager\Models\User;
 class GetGamesPlayedRecentlyService
 {
     /**
-     * Get the top 10 games that users have played in the last 2 weeks.
+     * Get the top games that users have played in the last 2 weeks.
      */
-    public function get(): array
+    public function get(int $count = 10): array
     {
         // Get the LAN happening now, or the most recently ended LAN
         $lan = Lan::presentAndPast()
@@ -29,41 +29,26 @@ class GetGamesPlayedRecentlyService
         $steamUserApps = SteamUserApp::with('user', 'app', 'user.steamMetadata', 'user.accounts')
             ->where('playtime_two_weeks', '>', 0)
             ->whereIn('user_id', $users->pluck('id'))
+            ->orderBy('playtime_two_weeks', 'desc')
             ->get();
-
-        if (empty($steamUserApps)) {
-            return [];
-        }
 
         // Collect and combine games
         $usage = [];
-        foreach ($steamUserApps as $app) {
-            $usage[$app->steam_app_id] = $usage[$app->steam_app_id] ?? [
-                    'game' => null,
-                    'users' => [],
-                ];
-            $usage[$app->steam_app_id]['game'] = $usage[$app->steam_app_id]['game'] ?? $app->app;
-            $usage[$app->steam_app_id]['users'][] = $app->user;
+        foreach ($steamUserApps as $steamUserApp) {
+            $usage[$steamUserApp->steam_app_id] ??= [
+                'game' => null,
+                'users' => [],
+            ];
+            $usage[$steamUserApp->steam_app_id]['game'] ??= $steamUserApp->app;
+            $usage[$steamUserApp->steam_app_id]['users'][] = $steamUserApp->user;
         }
 
         // Sort games array by user count, in descending order
         usort(
             $usage,
-            function ($a, $b) {
-                return count($b['users']) - count($a['users']);
-            }
+            fn ($a, $b) => count($b['users']) - count($a['users'])
         );
 
-        // Remove any recently played games that have only been played by one user
-        $usage = array_filter(
-            $usage,
-            function ($game) {
-                return count($game['users']) > 1;
-            }
-        );
-
-        $usage = array_slice($usage, 0, 10);
-
-        return $usage;
+        return array_slice($usage, 0, $count);
     }
 }

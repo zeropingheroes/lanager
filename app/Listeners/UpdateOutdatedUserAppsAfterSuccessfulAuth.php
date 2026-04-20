@@ -3,7 +3,8 @@
 namespace Zeropingheroes\Lanager\Listeners;
 
 use Illuminate\Auth\Events\Login;
-use Illuminate\Support\Collection;
+use Zeropingheroes\Lanager\Models\SteamUserMetadata;
+use Zeropingheroes\Lanager\Models\User;
 use Zeropingheroes\Lanager\Services\UpdateSteamUserAppsService;
 
 class UpdateOutdatedUserAppsAfterSuccessfulAuth
@@ -13,18 +14,22 @@ class UpdateOutdatedUserAppsAfterSuccessfulAuth
      */
     public function handle(Login $login): void
     {
-        $steamMetadata = $login->user->SteamMetadata;
+        if (! $login->user instanceof User) {
+            return;
+        }
 
-        if (!$steamMetadata) {
+        $SteamUserMetadata = SteamUserMetadata::where('user_id', $login->user->id)->first();
+
+        if (! $SteamUserMetadata) {
             return;
         }
 
         // If the user's apps have never been updated
         // or have not been updated in the last hour
-        if ($steamMetadata->apps_updated_at == null || $steamMetadata->apps_updated_at < now()->subHour()) {
+        if ($SteamUserMetadata->apps_updated_at == null || $SteamUserMetadata->apps_updated_at < now()->subHour()) {
             // Update their apps
-            $service = new UpdateSteamUserAppsService(collect([$login->user]));
-            $service->update();
+            $updateSteamUserAppsService = new UpdateSteamUserAppsService(collect([$login->user]));
+            $updateSteamUserAppsService->update();
         }
     }
 }

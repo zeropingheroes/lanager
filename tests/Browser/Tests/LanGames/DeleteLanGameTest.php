@@ -11,9 +11,9 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteLanGameTest extends DuskTestCase
 {
-    public function testDeletingLanGame(): void
+    public function test_deleting_lan_game(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',
@@ -47,7 +47,7 @@ class DeleteLanGameTest extends DuskTestCase
 
             // And clicks the delete link next to the game they have submitted
             $browser->clickAtXPath(
-                '//label[contains(string(),"' . $lanGame->game_name . '")]//..//..//..//..//a[@title="Delete"]'
+                '//label[contains(string(),"'.$lanGame->game_name.'")]//..//..//..//..//a[@title="Delete"]'
             );
 
             // And accepts the confirmation dialogue

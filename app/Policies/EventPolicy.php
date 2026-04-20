@@ -13,9 +13,10 @@ class EventPolicy extends BasePolicy
     public function view(?User $authUser, Event $event): bool
     {
         // Admins can view any event
-        if ($authUser && $authUser->hasRole('admin')) {
+        if ($authUser instanceof User && $authUser->hasRole('admin')) {
             return true;
         }
+
         // Non-admins can only view an event if the event and its parent LAN are both published
         return $event->published && $event->lan->published;
     }

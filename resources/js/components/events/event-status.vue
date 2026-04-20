@@ -1,35 +1,36 @@
+<script setup>
+import { computed } from 'vue';
+import {trans} from 'laravel-vue-i18n';
+
+const props = defineProps(['status']);
+
+const statusName = computed(() => {
+    switch (props.status) {
+        case 'past':
+            return trans('phrase.ended');
+        case 'present':
+            return trans('phrase.now');
+        case 'future':
+            return trans('phrase.next');
+        default:
+            return trans('phrase.unknown');
+    }
+});
+
+const className = computed(() => {
+    switch (props.status) {
+        case 'past':
+            return 'badge text-bg-danger';
+        case 'present':
+            return 'badge text-bg-primary';
+        case 'future':
+            return 'badge text-bg-info';
+        default:
+            return 'badge text-bg-secondary';
+    }
+});
+</script>
+
 <template>
     <span :class="className">{{ statusName }}</span>
 </template>
-
-<script>
-    export default {
-        props: ['status'],
-        computed: {
-            statusName() {
-                switch(this.status) {
-                    case 'past':
-                        return 'Ended'
-                    case 'present':
-                        return 'Now'
-                    case 'future':
-                        return 'Next'
-                    default:
-                        return 'Unknown'
-                }
-            },
-            className() {
-                switch(this.status) {
-                    case 'past':
-                        return 'badge badge-danger'
-                    case 'present':
-                        return 'badge badge-primary'
-                    case 'future':
-                        return 'badge badge-info'
-                    default:
-                        return 'badge badge-secondary'
-                }
-            }
-        }
-    }
-</script>

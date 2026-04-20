@@ -4,19 +4,19 @@
 
     if ($start->isFuture() && $end->isFuture()) {
         $status = __('phrase.upcoming');
-        $class = 'future';
+        $class = 'info';
     } elseif ($start->isPast() && $end->isFuture()) {
         $status = __('phrase.happening-now');
-        $class = 'present';
+        $class = 'success';
     } elseif ($start->isPast() && $end->isPast()) {
         $status = __('phrase.ended');
-        $class = 'past';
+        $class = 'danger';
     } else {
         $status = __('phrase.unknown');
         $class = 'secondary';
     }
 @endphp
 
-<span class="badge badge-{{ $class }}" title="@include('pages.events.partials.status-relative', ['event' => $event])">
+<span class="badge text-bg-{{ $class }}" title="@include('pages.events.partials.status-relative', ['event' => $event])">
     {{ $status }}
 </span>

@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <table class="table recent-games">
+    <table class="table align-middle games">
         @foreach($games as $game)
             <tr>
                 <td class="game">
@@ -18,13 +18,13 @@
                         [
                             'name' => $game['game']->name,
                             'url' => $game['game']->url(),
-                            'logo' => $game['game']->logo(),
+                            'logo' => $game['game']->logo_small,
                         ])
                 </td>
                 <td class="user-count">
                     @lang('phrase.x-played-recently', ['x' => count($game['users'])])
                 </td>
-                <td>
+                <td class="users">
                     @foreach($game['users'] as $user)
                         <a href="{{ route('users.show', $user->id) }}">
                             @include('pages.users.partials.avatar', ['user' => $user])

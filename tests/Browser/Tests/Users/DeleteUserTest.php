@@ -10,9 +10,9 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class DeleteUserTest extends DuskTestCase
 {
-    public function testDeletingUser(): void
+    public function test_deleting_user(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given a user exists
             $user = User::factory()
                 ->has(
@@ -37,7 +37,7 @@ class DeleteUserTest extends DuskTestCase
             $browser->acceptDialog();
 
             // Then they should see a confirmation message that the slide was deleted
-            $browser->on(new LanAttendeeIndex())->assertSee('User "' . $user->username . '" deleted');
+            $browser->on(new LanAttendeeIndex)->assertSee('User "'.$user->username.'" deleted');
         });
     }
 }

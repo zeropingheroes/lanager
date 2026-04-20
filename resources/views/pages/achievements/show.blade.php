@@ -15,7 +15,7 @@
             </h1>
         </div>
         @canany(['edit', 'delete'], $achievement)
-            <div class="col text-right">
+            <div class="col text-end">
                 @component('components.actions-dropdown')
                     @include('components.actions-dropdown.edit', ['item' => $achievement])
                     @include('components.actions-dropdown.delete', ['item' => $achievement])

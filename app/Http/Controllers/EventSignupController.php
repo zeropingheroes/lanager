@@ -2,10 +2,10 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\EventSignup;
@@ -16,6 +16,7 @@ class EventSignupController extends Controller
 {
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Lan $lan, Event $event, Request $httpRequest): RedirectResponse
@@ -32,10 +33,10 @@ class EventSignupController extends Controller
             'user_id' => $httpRequest->input('user_id') ?? Auth::user()->id,
         ];
 
-        $request = new StoreEventSignupRequest($input);
+        $storeEventSignupRequest = new StoreEventSignupRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeEventSignupRequest->invalid()) {
+            Session::flash('error', $storeEventSignupRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -48,6 +49,7 @@ class EventSignupController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(Lan $lan, Event $event, EventSignup $signup): RedirectResponse

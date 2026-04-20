@@ -32,9 +32,18 @@
                     </td>
                     <td>
                         @can('delete', $roleAssignment)
-                            @component('components.actions-dropdown')
-                                @include('components.actions-dropdown.delete', ['item' => $roleAssignment])
-                            @endcomponent
+                            <form action="{{ route( 'role-assignments.destroy', $roleAssignment->id) }}"
+                                  method="POST"
+                                  class="d-inline">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <button type="submit"
+                                        class="btn btn-sm btn-danger"
+                                        onclick="submitDeletionForm(event)"
+                                        title="@lang('title.delete')">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </form>
                         @endcan
                     </td>
                 </tr>
@@ -48,29 +57,28 @@
 
     @can('create', Zeropingheroes\Lanager\Models\RoleAssignment::class)
         <h5>@lang('title.assign-a-role')</h5>
-        @include('components.form.create', ['route' => route('role-assignments.store')])
-        <div class="form-inline">
-            <div class="form-group">
-                <label for="user_id" class="mr-sm-2">@lang('title.user')</label>
-                @include('components.form.select', [
-                    'name' => 'user_id',
-                    'items' => $users,
-                    'labelField' => 'username',
-                    'classes' => 'custom-select custom-control-inline form-control'
-                ])
-            </div>
-            <div class="form-group">
-                <label for="role_id" class="mr-sm-2">@lang('title.role')</label>
-                @include('components.form.select', [
-                    'name' => 'role_id',
-                    'items' => $roles,
-                    'labelField' => 'display_name',
-                    'classes' => 'custom-select custom-control-inline form-control'
-                ])
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">@lang('title.assign-role')</button>
-            </div>
-        @include('components.form.close')
+
+        <form method="POST"
+              action="{{ route('role-assignments.store') }}"
+              accept-charset="UTF-8"
+              class="d-flex flex-row align-items-center flex-wrap">
+            {{ csrf_field() }}
+            <label for="user_id" class="my-1 me-2">@lang('title.user')</label>
+            @include('components.form.select', [
+                'name' => 'user_id',
+                'items' => $users,
+                'labelField' => 'username',
+                'classes' => 'form-select my-1 me-2 w-auto'
+            ])
+            <label for="role_id" class="my-1 me-2">@lang('title.role')</label>
+            @include('components.form.select', [
+                'name' => 'role_id',
+                'items' => $roles,
+                'labelField' => 'display_name',
+                'classes' => 'form-select my-1 me-2 w-auto'
+            ])
+
+            <button type="submit" class="btn btn-primary my-1">@lang('title.assign-role')</button>
+        </form>
     @endcan
 @endsection

@@ -11,9 +11,9 @@ use Zeropingheroes\Lanager\Models\UserOAuthAccount;
 
 class IndexLanGameTest extends DuskTestCase
 {
-    public function testIndexingLanGame(): void
+    public function test_indexing_lan_game(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a LAN
             $lan = Lan::create([
                 'name' => 'My Great LAN',

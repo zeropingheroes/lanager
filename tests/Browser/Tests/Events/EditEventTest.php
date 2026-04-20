@@ -10,11 +10,11 @@ use Zeropingheroes\Lanager\Models\Lan;
 
 class EditEventTest extends DuskTestCase
 {
-    public function testEditingEvent(): void
+    public function test_editing_event(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And there is a LAN
             $lan = Lan::create([
@@ -32,13 +32,13 @@ class EditEventTest extends DuskTestCase
             ]);
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the events index page
             $browser->visitRoute('lans.events.index', ['lan' => $lan]);
 
             // And clicks the "options" dropdown next to the event
-            $browser->clickAtXPath('//a[text()="' . $event->name . '"]//..//..//button[@title="Options"]');
+            $browser->clickAtXPath('//a[text()="'.$event->name.'"]//..//..//button[@title="Options"]');
 
             // And clicks the "edit" link
             $browser->clickLink('Edit');
@@ -47,11 +47,13 @@ class EditEventTest extends DuskTestCase
             $browser->waitForRoute('lans.events.edit', ['lan' => $lan, 'event' => $event->id]);
 
             // And updates the event's name
-            $browser->on(new EventEdit());
+            $browser->on(new EventEdit);
             $browser->type('name', 'My Edited Event');
 
             // And submits the "edit event" form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then they should be redirected to the event's page
             $browser->assertRouteIs('lans.events.show', ['lan' => $lan, 'event' => $event->id]);

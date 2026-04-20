@@ -18,7 +18,7 @@ use Zeropingheroes\Lanager\Http\Controllers\Api\UserController;
 |
 */
 Route::name('api.')->group(
-    function () {
+    function (): void {
         Route::resource('users', UserController::class, ['only' => ['index', 'show']]);
         Route::resource('lans', LanController::class, ['only' => ['index', 'show']]);
         Route::resource('lans.slides', SlideController::class, ['only' => ['index', 'show']]);

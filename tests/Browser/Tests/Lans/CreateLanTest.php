@@ -9,17 +9,17 @@ use Tests\DuskTestCase;
 
 class CreateLanTest extends DuskTestCase
 {
-    public function testCreatingLan(): void
+    public function test_creating_lan(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin navigates to the LAN index page
-            $browser->visit(new LanIndex());
+            $browser->visit(new LanIndex);
 
             // And clicks the "create" button
             $browser->click('@create');
@@ -28,13 +28,15 @@ class CreateLanTest extends DuskTestCase
             $browser->waitForRoute('lans.create');
 
             // And fills the "create LAN" form
-            $browser->on(new LanCreate());
+            $browser->on(new LanCreate);
             $browser->type('name', 'My Great LAN');
             $browser->type('start', '2022-09-23 18:00');
             $browser->type('end', '2022-09-25 18:00');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then they should be redirected to the LAN's event index page
             $browser->assertRouteIs('lans.events.index', '*');

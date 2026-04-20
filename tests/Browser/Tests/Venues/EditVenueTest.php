@@ -10,23 +10,23 @@ use Zeropingheroes\Lanager\Models\Venue;
 
 class EditVenueTest extends DuskTestCase
 {
-    public function testEditingVenue(): void
+    public function test_editing_venue(): void
     {
-        $this->browse(function (Browser $browser) {
+        $this->browse(function (Browser $browser): void {
             // Given there is a venue
             $venue = Venue::factory()->count(1)->create()->first();
 
             // And there is a user with the role "super admin"
-            $superAdmin = $this->createSuperAdmin();
+            $user = $this->createSuperAdmin();
 
             // And the super admin user is logged in
-            $browser->loginAs($superAdmin);
+            $browser->loginAs($user);
 
             // When the super admin visits the venue index page
-            $browser->visit(new VenueIndex());
+            $browser->visit(new VenueIndex);
 
             // And clicks the "options" dropdown next to the venue's name
-            $browser->clickAtXPath('//a[text()="' . $venue->name . '"]//..//..//button[@title="Options"]');
+            $browser->clickAtXPath('//a[text()="'.$venue->name.'"]//..//..//button[@title="Options"]');
 
             // And clicks the "edit" link
             $browser->clickLink('Edit');
@@ -35,11 +35,13 @@ class EditVenueTest extends DuskTestCase
             $browser->waitForRoute('venues.edit', ['venue' => $venue->id]);
 
             // And updates the field for the venue's name
-            $browser->on(new VenueEdit());
+            $browser->on(new VenueEdit);
             $browser->type('name', 'My LAN Venue');
 
             // And submits the form
-            $browser->press('@submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
 
             // Then they should be redirected to the venue's page
             $browser->assertRouteIs('venues.show', ['venue' => $venue->id]);

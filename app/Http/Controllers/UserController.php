@@ -2,14 +2,15 @@
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use Illuminate\Contracts\View\View as ViewContract;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Lan;
+use Zeropingheroes\Lanager\Models\SteamUserMetadata;
 use Zeropingheroes\Lanager\Models\User;
 
 class UserController extends Controller
@@ -20,19 +21,21 @@ class UserController extends Controller
     public function show(User $user): ViewContract
     {
         $lansAttended = $user->lans;
-        $gamesOwned = new Collection();
-        $gamesInCommon = new Collection();
-        $gameSessions = new Collection();
+        $gamesOwned = new Collection;
+        $gamesInCommon = new Collection;
+        $gameSessions = new Collection;
 
         // Get the LAN happening now, or the most recently ended LAN
         $lan = Lan::presentAndPast()
             ->orderBy('start', 'desc')
             ->first();
 
+        $steamUserMetadata = SteamUserMetadata::where('user_id', $user->id)->first();
+
         // If the user's apps are visible, and they're attending the current LAN (or there isn't a current LAN)
         if (
-            ($user->steamMetadata && $user->steamMetadata->apps_visible == 1)
-            && (!$lan || $lansAttended->contains('id', $lan->id))
+            ($steamUserMetadata && $steamUserMetadata->apps_visible == 1)
+            && (! $lan || $lansAttended->contains('id', $lan->id))
         ) {
             // Get games in common so long as the logged in user is not viewing their own profile
             if (Auth::check() && $user->id != Auth::user()->id) {
@@ -77,6 +80,7 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(User $user): RedirectResponse

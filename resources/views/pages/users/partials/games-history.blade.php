@@ -1,7 +1,7 @@
 @if ($gameSessions->isEmpty())
     @lang('phrase.username-has-not-played-any-games-this-lan', ['username' => $user->username])
 @else
-    <table class="table games-history">
+    <table class="table table-striped align-middle">
         @foreach($gameSessions as $gameSession)
             <tr>
                 <td class="game">
@@ -9,7 +9,7 @@
                     [
                         'name' => $gameSession->app->name,
                         'url' => $gameSession->app->url(),
-                        'logo' => $gameSession->app->logo(),
+                        'logo' => $gameSession->app->logo_small,
                     ])
                 </td>
                 <td class="duration">
@@ -24,9 +24,7 @@
                     @endif
                 </td>
                 <td class="time">
-                    @if($gameSession->end)
-                        {{ $gameSession->end->format('D g:ia') }}
-                    @endif
+                    {{ $gameSession->start->format('D jS M g:ia') }}
                 </td>
             </tr>
         @endforeach

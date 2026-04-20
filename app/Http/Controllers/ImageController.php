@@ -9,8 +9,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Zeropingheroes\Lanager\Requests\StoreImageRequest;
 use Zeropingheroes\Lanager\Requests\UpdateImageRequest;
 
@@ -28,6 +28,7 @@ class ImageController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @throws AuthorizationException
      */
     public function index(): ViewContract
@@ -39,19 +40,15 @@ class ImageController extends Controller
 
         // Only show image files
         $images = $files->filter(
-            function ($value) {
-                return in_array(strtolower(File::extension($value)), self::PERMITTED_EXTENSIONS);
-            }
+            fn ($value) => in_array(strtolower(File::extension($value)), self::PERMITTED_EXTENSIONS, true)
         );
 
         // Add fields to collection
         $images = $images->map(
-            function ($item) {
-                return [
-                    'url' => Storage::url($item),
-                    'filename' => File::basename($item),
-                ];
-            }
+            fn ($item) => [
+                'url' => Storage::url($item),
+                'filename' => File::basename($item),
+            ]
         );
 
         return View::make('pages.images.index')
@@ -60,6 +57,7 @@ class ImageController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(Request $httpRequest): RedirectResponse
@@ -70,10 +68,10 @@ class ImageController extends Controller
             'images' => $httpRequest->images,
         ];
 
-        $request = new StoreImageRequest($input);
+        $storeImageRequest = new StoreImageRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($storeImageRequest->invalid()) {
+            Session::flash('error', $storeImageRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -85,7 +83,7 @@ class ImageController extends Controller
 
             $fileName = str_replace($extension, '', $fileNameWithExtension);
 
-            $newFileName = Str::slug($fileName) . '.' . strtolower($extension);
+            $newFileName = Str::slug($fileName).'.'.strtolower((string) $extension);
 
             $image->storeAs(self::DIRECTORY, $newFileName);
         }
@@ -97,14 +95,15 @@ class ImageController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @throws AuthorizationException
      */
     public function edit(string $filename): ViewContract
     {
         $this->authorize('images.update');
 
-        $filePath = self::DIRECTORY . '/' . $filename;
-        if (!Storage::exists($filePath)) {
+        $filePath = self::DIRECTORY.'/'.$filename;
+        if (! Storage::exists($filePath)) {
             abort(404);
         }
 
@@ -121,16 +120,17 @@ class ImageController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function update(Request $httpRequest, string $filename): RedirectResponse
     {
         $this->authorize('images.update');
 
-        $originalFilePath = self::DIRECTORY . '/' . $filename;
+        $originalFilePath = self::DIRECTORY.'/'.$filename;
         $originalFileExtension = File::extension($originalFilePath);
-        $newFilenameWithoutExtension = Str::before($httpRequest->input('filename'), '.' . $originalFileExtension);
-        $newFilePath = self::DIRECTORY . '/' . $newFilenameWithoutExtension . '.' . $originalFileExtension;
+        $newFilenameWithoutExtension = Str::before($httpRequest->input('filename'), '.'.$originalFileExtension);
+        $newFilePath = self::DIRECTORY.'/'.$newFilenameWithoutExtension.'.'.$originalFileExtension;
 
         $input = [
             'original_file_path' => $originalFilePath,
@@ -138,10 +138,10 @@ class ImageController extends Controller
             'new_filename_without_extension' => $newFilenameWithoutExtension,
         ];
 
-        $request = new UpdateImageRequest($input);
+        $updateImageRequest = new UpdateImageRequest($input);
 
-        if ($request->invalid()) {
-            Session::flash('error', $request->errors());
+        if ($updateImageRequest->invalid()) {
+            Session::flash('error', $updateImageRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -154,14 +154,15 @@ class ImageController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws AuthorizationException
      */
     public function destroy(string $filename): RedirectResponse
     {
         $this->authorize('images.delete');
 
-        $file = self::DIRECTORY . '/' . $filename;
-        if (!Storage::exists($file)) {
+        $file = self::DIRECTORY.'/'.$filename;
+        if (! Storage::exists($file)) {
             abort(404);
         }
 

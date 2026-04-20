@@ -3,6 +3,7 @@
 namespace Zeropingheroes\Lanager\Console\Commands;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Zeropingheroes\Lanager\Models\Lan;
@@ -40,15 +41,16 @@ class PruneSteamUserHistory extends Command
             $periodsToDelete[] = ['start' => $previous, 'end' => $lan->start];
             $previous = $lan->end;
         }
-        $periodsToDelete[] = ['start' => $previous, 'end' => Carbon::maxValue()];
 
-        $statesToDelete = SteamUserAppSession::make();
+        $periodsToDelete[] = ['start' => $previous, 'end' => CarbonImmutable::endOfTime()];
 
-        foreach ($periodsToDelete as $period) {
+        $statesToDelete = new SteamUserAppSession;
+
+        foreach ($periodsToDelete as $periodToDelete) {
             $statesToDelete = $statesToDelete->orWhere(
-                function ($query) use ($period) {
-                    $query->where('updated_at', '>', $period['start']);
-                    $query->where('updated_at', '<', $period['end']);
+                function ($query) use ($periodToDelete): void {
+                    $query->where('updated_at', '>', $periodToDelete['start']);
+                    $query->where('updated_at', '<', $periodToDelete['end']);
                 }
             );
         }

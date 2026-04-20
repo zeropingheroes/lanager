@@ -1,7 +1,7 @@
 @if($value)
-    <span class="oi oi-check" title="Yes" aria-hidden="true"></span>
+    <i class="fa-solid fa-check"></i>
 @else
     @if(isset($showCross))
-    <span class="oi oi-x" title="No" aria-hidden="true"></span>
+        <i class="fa-solid fa-xmark"></i>
     @endif
 @endif
