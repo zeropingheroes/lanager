@@ -57,7 +57,7 @@ more enjoyable for attendees and organisers alike.
 3. Generate and copy a new application key:
 
     ```bash
-    docker run --rm --entrypoint php -w /app zeropingheroes/lanager:develop artisan key:generate --show
+    docker run --rm --entrypoint php -w /app zeropingheroes/lanager artisan key:generate --show
     ```
 
 4. Open the environment configuration file in a text editor:

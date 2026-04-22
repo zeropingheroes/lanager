@@ -27,7 +27,7 @@ class DeleteImageTest extends DuskTestCase
                 $browser->press('Upload');
             });
 
-            // And clicks the "options" dropdown next to the user's name
+            // And clicks the "options" dropdown next to the image's name
             $browser->clickAtXPath(
                 '//a[contains(string(), "bg.jpg")]//..//..//button[@title="Options"]'
             );
