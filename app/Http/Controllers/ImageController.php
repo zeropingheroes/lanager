@@ -24,7 +24,7 @@ class ImageController extends Controller
     /**
      * Uploaded image storage location.
      */
-    public const string DIRECTORY = 'public/images';
+    public const string DIRECTORY = 'images';
 
     /**
      * Display a listing of the resource.
@@ -36,7 +36,7 @@ class ImageController extends Controller
         $this->authorize('images.view');
 
         // Get all files in image path
-        $files = collect(Storage::files(self::DIRECTORY));
+        $files = collect(Storage::disk('public')->files(self::DIRECTORY));
 
         // Only show image files
         $images = $files->filter(
@@ -85,7 +85,7 @@ class ImageController extends Controller
 
             $newFileName = Str::slug($fileName).'.'.strtolower((string) $extension);
 
-            $image->storeAs(self::DIRECTORY, $newFileName);
+            $image->storeAs(self::DIRECTORY, $newFileName, 'public');
         }
 
         Session::flash('success', trans('phrase.images-successfully-uploaded'));
@@ -103,7 +103,7 @@ class ImageController extends Controller
         $this->authorize('images.update');
 
         $filePath = self::DIRECTORY.'/'.$filename;
-        if (! Storage::exists($filePath)) {
+        if (! Storage::disk('public')->exists($filePath)) {
             abort(404);
         }
 
@@ -132,6 +132,11 @@ class ImageController extends Controller
         $newFilenameWithoutExtension = Str::before($httpRequest->input('filename'), '.'.$originalFileExtension);
         $newFilePath = self::DIRECTORY.'/'.$newFilenameWithoutExtension.'.'.$originalFileExtension;
 
+        //        $originalFilePath = Storage::disk('public')->path(self::DIRECTORY.'/'.$filename);
+        //        $originalFileExtension = File::extension($originalFilePath);
+        //        $newFilenameWithoutExtension = Str::before($httpRequest->input('filename'), '.'.$originalFileExtension);
+        //        $newFilePath = self::DIRECTORY.'/'.$newFilenameWithoutExtension.'.'.$originalFileExtension;
+
         $input = [
             'original_file_path' => $originalFilePath,
             'new_file_path' => $newFilePath,
@@ -146,7 +151,7 @@ class ImageController extends Controller
             return redirect()->back()->withInput();
         }
 
-        Storage::move($originalFilePath, $newFilePath);
+        Storage::disk('public')->move($originalFilePath, $newFilePath);
 
         return redirect()
             ->route('images.index');
@@ -162,11 +167,11 @@ class ImageController extends Controller
         $this->authorize('images.delete');
 
         $file = self::DIRECTORY.'/'.$filename;
-        if (! Storage::exists($file)) {
+        if (! Storage::disk('public')->exists($file)) {
             abort(404);
         }
 
-        Storage::delete($file);
+        Storage::disk('public')->delete($file);
 
         Session::flash(
             'success',

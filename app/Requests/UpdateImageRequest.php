@@ -14,7 +14,7 @@ class UpdateImageRequest extends Request
     #[\Override]
     public function valid(): bool
     {
-        if (! Storage::exists($this->input['original_file_path'])) {
+        if (! Storage::disk('public')->exists($this->input['original_file_path'])) {
             abort(404);
         }
 
@@ -26,7 +26,7 @@ class UpdateImageRequest extends Request
             return $this->setValid(false);
         }
 
-        if (Storage::exists($this->input['new_file_path'])) {
+        if (Storage::disk('public')->exists($this->input['new_file_path'])) {
             $this->addError(trans('phrase.image-already-exists'));
 
             return $this->setValid(false);
