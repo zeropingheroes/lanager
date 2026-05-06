@@ -22,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $start
  * @property Carbon $end
  * @property int $published
+ * @property string|null $discord_webhook_url
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Achievement|null $attendanceAchievement
@@ -71,6 +72,7 @@ class Lan extends Model
         'start',
         'end',
         'published',
+        'discord_webhook_url',
     ];
 
     protected $casts = [

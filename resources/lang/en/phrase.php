@@ -106,6 +106,14 @@ return [
     // LANs
     'lans-cannot-overlap' => 'LANs cannot overlap',
     'lan-achievement-help' => 'The achievement to award to attendees when they sign in at the LAN',
+    'discord-webhook-url-help' => 'The Discord channel webhook URL to post event start notifications to',
+
+    // Discord event notifications
+    'discord-notify-help' => 'Post a message to the Discord channel when this event starts',
+    'discord-message-help' => 'The message to post to Discord when this event starts',
+    'discord-notification-sent' => 'Discord notification sent for ":name"',
+    'discord-notification-failed' => 'Failed to send Discord notification for ":name": HTTP :status',
+    'discord-notification-no-webhook' => 'No Discord webhook URL is configured for this LAN',
 
     // Events
     'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',

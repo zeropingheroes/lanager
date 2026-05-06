@@ -18,6 +18,9 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string|null $description
  * @property int $published
+ * @property bool $discord_notify
+ * @property string|null $discord_message
+ * @property Carbon|null $discord_notified_at
  * @property Carbon $start
  * @property Carbon $end
  * @property Carbon|null $signups_open
@@ -55,6 +58,9 @@ class Event extends Model
         'name',
         'description',
         'published',
+        'discord_notify',
+        'discord_message',
+        'discord_notified_at',
         'start',
         'end',
         'signups_open',
@@ -62,6 +68,8 @@ class Event extends Model
     ];
 
     protected $casts = [
+        'discord_notify' => 'boolean',
+        'discord_notified_at' => 'datetime',
         'start' => 'datetime',
         'end' => 'datetime',
         'signups_open' => 'datetime',

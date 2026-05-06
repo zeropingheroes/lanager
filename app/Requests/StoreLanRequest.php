@@ -26,6 +26,7 @@ class StoreLanRequest extends Request
             'venue_id' => ['nullable', 'numeric', 'exists:venues,id'],
             'achievement_id' => ['nullable', 'numeric', 'exists:achievements,id'],
             'published' => ['nullable', 'boolean'],
+            'discord_webhook_url' => ['nullable', 'url', 'starts_with:https://discord.com/api/webhooks/'],
         ];
 
         if (! $this->laravelValidationPasses()) {

@@ -101,6 +101,14 @@ return [
 
     // LANs
     'lans-cannot-overlap' => 'LANky se nemohou časově překrývat',
+    'discord-webhook-url-help' => 'The Discord channel webhook URL to post event start notifications to',
+
+    // Discord event notifications
+    'discord-notify-help' => 'Post a message to the Discord channel when this event starts',
+    'discord-message-help' => 'The message to post to Discord when this event starts',
+    'discord-notification-sent' => 'Discord notification sent for ":name"',
+    'discord-notification-failed' => 'Failed to send Discord notification for ":name": HTTP :status',
+    'discord-notification-no-webhook' => 'No Discord webhook URL is configured for this LAN',
 
     // Events
     'you-must-create-a-lan-before-creating-events' => 'Před tvorbou události musíte nejprve vytvořit LANku',

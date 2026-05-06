@@ -35,6 +35,10 @@ return [
     'status' => 'Stav',
     'type' => 'Typ',
     'description' => 'Popis',
+    'discord-webhook-url' => 'Discord Webhook URL',
+    'discord-notify' => 'Notify Discord',
+    'discord-message' => 'Discord Message',
+    'send-to-discord' => 'Send to Discord',
     'copy-markdown-link' => 'Kopírovat Markdown odkaz',
     'fullscreen' => 'Fullscreen',
 

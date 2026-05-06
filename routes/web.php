@@ -99,6 +99,8 @@ Route::get('lans/{lan}/guides/{guide}/{slug?}', [GuideController::class, 'show']
  * Events.
  */
 Route::resource('lans.events', EventController::class);
+Route::post('/lans/{lan}/events/{event}/notify-discord', [EventController::class, 'notifyDiscord'])
+    ->name('lans.events.notify-discord');
 Route::resource('lans.events.signups', EventSignupController::class, ['only' => ['store', 'destroy']]);
 Route::get(
     '/events/fullscreen',

@@ -98,4 +98,20 @@ document.addEventListener("DOMContentLoaded", function () {
             },
         });
     });
+
+    const discordNotifyCheckbox = document.getElementById('discord_notify');
+    const discordMessageRow = document.getElementById('discord_message_row');
+    const discordMessageTextarea = document.getElementById('discord_message');
+    const descriptionTextarea = document.getElementById('description');
+
+    discordNotifyCheckbox.addEventListener('change', () => {
+        if (discordNotifyCheckbox.checked) {
+            if (!discordMessageTextarea.value.trim() && descriptionTextarea) {
+                discordMessageTextarea.value = descriptionTextarea.value;
+            }
+            discordMessageRow.style.display = '';
+        } else {
+            discordMessageRow.style.display = 'none';
+        }
+    });
 });

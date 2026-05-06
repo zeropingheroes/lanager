@@ -36,6 +36,8 @@ class StoreEventRequest extends Request
             ],
             'lan_id' => ['required', 'numeric', 'exists:lans,id'],
             'published' => ['boolean'],
+            'discord_notify' => ['boolean'],
+            'discord_message' => ['nullable', 'max:2000'],
         ];
 
         if (! $this->laravelValidationPasses()) {

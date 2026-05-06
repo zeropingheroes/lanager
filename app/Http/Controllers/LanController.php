@@ -76,6 +76,7 @@ class LanController extends Controller
             'venue_id' => $httpRequest->input('venue_id'),
             'achievement_id' => $httpRequest->input('achievement_id'),
             'published' => $httpRequest->has('published'),
+            'discord_webhook_url' => $httpRequest->input('discord_webhook_url') ?: null,
         ];
 
         $storeLanRequest = new StoreLanRequest($input);
@@ -123,6 +124,7 @@ class LanController extends Controller
             'venue_id' => $httpRequest->input('venue_id'),
             'achievement_id' => $httpRequest->input('achievement_id'),
             'published' => $httpRequest->has('published'),
+            'discord_webhook_url' => $httpRequest->input('discord_webhook_url') ?: null,
             'id' => $lan->id,
         ];
 

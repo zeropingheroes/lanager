@@ -6,6 +6,8 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Event;
@@ -56,6 +58,9 @@ class EventController extends Controller
     {
         $this->authorize('create', Event::class);
 
+        $discordNotify = $httpRequest->has('discord_notify');
+        $discordMessage = $httpRequest->input('discord_message');
+
         $input = [
             'lan_id' => $httpRequest->input('lan_id') ?? $lan->id,
             'name' => $httpRequest->input('name'),
@@ -65,6 +70,10 @@ class EventController extends Controller
             'signups_open' => $httpRequest->input('signups_open'),
             'signups_close' => $httpRequest->input('signups_close'),
             'published' => $httpRequest->has('published'),
+            'discord_notify' => $discordNotify,
+            'discord_message' => $discordNotify && ! $discordMessage
+                ? $httpRequest->input('description')
+                : $discordMessage,
         ];
 
         $storeEventRequest = new StoreEventRequest($input);
@@ -127,6 +136,9 @@ class EventController extends Controller
     {
         $this->authorize('update', $event);
 
+        $discordNotify = $httpRequest->has('discord_notify');
+        $discordMessage = $httpRequest->input('discord_message');
+
         $input = [
             'lan_id' => $lan->id,
             'name' => $httpRequest->input('name'),
@@ -136,6 +148,10 @@ class EventController extends Controller
             'signups_open' => $httpRequest->input('signups_open'),
             'signups_close' => $httpRequest->input('signups_close'),
             'published' => $httpRequest->has('published'),
+            'discord_notify' => $discordNotify,
+            'discord_message' => $discordNotify && ! $discordMessage
+                ? $httpRequest->input('description')
+                : $discordMessage,
         ];
 
         $storeEventRequest = new StoreEventRequest($input);
@@ -150,6 +166,42 @@ class EventController extends Controller
 
         return redirect()
             ->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
+    }
+
+    /**
+     * Immediately send the Discord notification for the specified event, regardless of prior sends.
+     *
+     * @throws AuthorizationException
+     */
+    public function notifyDiscord(Lan $lan, Event $event): RedirectResponse
+    {
+        $this->authorize('update', $event);
+
+        if ($event->lan_id != $lan->id) {
+            abort(404);
+        }
+
+        $webhookUrl = $event->lan->discord_webhook_url;
+
+        if (! $webhookUrl) {
+            Session::flash('error', trans('phrase.discord-notification-no-webhook'));
+
+            return redirect()->back();
+        }
+
+        $response = Http::asJson()->post($webhookUrl, ['content' => $event->discord_message]);
+
+        if ($response->successful()) {
+            Session::flash('success', trans('phrase.discord-notification-sent', ['name' => $event->name]));
+
+            Log::info("Manual Discord notification sent for event #{$event->id} \"{$event->name}\"");
+        } else {
+            Session::flash('error', trans('phrase.discord-notification-failed', ['name' => $event->name, 'status' => $response->status()]));
+
+            Log::error("Manual Discord notification failed for event #{$event->id} \"{$event->name}\": HTTP {$response->status()}", ['discord_response' => $response->json()]);
+        }
+
+        return redirect()->back();
     }
 
     /**

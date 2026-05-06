@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Schedule;
+use Zeropingheroes\Lanager\Console\Commands\SendDiscordEventNotifications;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamApps;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUserAppImages;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUserApps;
@@ -16,6 +17,9 @@ use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUsers;
 | simple approach to interacting with each command's IO methods.
 |
 */
+
+Schedule::command(SendDiscordEventNotifications::class)
+    ->everyMinute();
 
 // The Steam Web API limits requests to 100,000 per day
 // the below schedules will not exceed this limit for a LAN party of ~1,000 users.
