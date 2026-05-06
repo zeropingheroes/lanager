@@ -57,7 +57,7 @@ more enjoyable for attendees and organisers alike.
 3. Generate and copy a new application key:
 
     ```bash
-    docker run --rm --entrypoint php -w /app zeropingheroes/lanager artisan key:generate --show
+    docker run --rm --entrypoint php -w /app zeropingheroes/lanager:stable artisan key:generate --show
     ```
 
 4. Open the environment configuration file in a text editor:
@@ -284,7 +284,7 @@ Run `./backup-restore.sh <file>` to restore a backup.
     ln -s "$PATH_TO_LANAGER/storage/app/public" "$PATH_TO_LANAGER/public/storage"
     ```
 
-12. Use `nodejs` to build the static assets:
+12. From the LANager application directory, use `nodejs` to build the static assets:
 
     ```bash
     docker run -it --rm --name npm-build -v "$PWD":/usr/src/app -w /usr/src/app node:22 npm clean-install
