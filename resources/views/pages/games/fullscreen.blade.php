@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg">
-                <h1 class="text-center">Games</h1>
+                <h1 class="text-center">@lang('title.games')</h1>
             </div>
         </div>
         @vite(['resources/js/pages/active-games.js'])
