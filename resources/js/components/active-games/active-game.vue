@@ -28,7 +28,7 @@ const userCount = computed(() => props.users.length);
 
 <style>
 td {
-    font-size: 200%;
+    font-size: 400%;
     font-weight: bold;
     padding-left: 30px;
     padding-right: 30px;

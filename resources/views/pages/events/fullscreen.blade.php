@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg">
-                <h1 class="text-center">@lang('title.events')</h1>
+                <h1 class="text-center" style="font-size: 600%">@lang('title.events')</h1>
             </div>
         </div>
         @vite(['resources/js/pages/events.js'])
