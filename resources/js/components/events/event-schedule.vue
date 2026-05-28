@@ -42,6 +42,7 @@ const baseCalendarOptions = reactive({
         }
     },
     events: '/api/events/',
+    timeZone: 'UTC',
 });
 
 // Create a computed property for buttonText
