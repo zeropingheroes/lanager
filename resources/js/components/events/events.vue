@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import moment from 'moment';
 import axios from 'axios';
-import event from './event.vue';
+import EventRow from './event-row.vue';
 
 const time = ref(moment().format("HH:mm"));
 const now = ref(moment());
@@ -20,26 +20,27 @@ const update = () => {
         });
 };
 
-let intervalId;
+let intervalId
+
 onMounted(() => {
-    update();
-    intervalId = setInterval(update, 60000);
-});
+    update()
+    intervalId = setInterval(update, 30000)
+})
 
 onUnmounted(() => {
-    if (intervalId) clearInterval(intervalId);
-});
+    clearInterval(intervalId)
+})
 </script>
 
 <template>
     <table class="table">
         <tbody>
-        <event
+        <EventRow
             v-for="event in events"
             :key="event.id"
             v-bind="event"
             :now="now"
-        />
+        ></EventRow>
         </tbody>
     </table>
 </template>
