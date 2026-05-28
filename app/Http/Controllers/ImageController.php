@@ -19,7 +19,7 @@ class ImageController extends Controller
     /**
      * Permitted extensions.
      */
-    public const array PERMITTED_EXTENSIONS = ['gif', 'jpg', 'jpeg', 'png', 'bmp'];
+    public const array PERMITTED_EXTENSIONS = ['gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp'];
 
     /**
      * Uploaded image storage location.
