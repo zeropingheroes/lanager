@@ -68,7 +68,7 @@ div.profile-header div.profile-avatar {
 }
 
 div.profile-header h1 {
-    margin: 0px;
+    margin: 0;
     line-height: 190px;
 }
 
@@ -82,10 +82,10 @@ table.games td.game {
 table.games td.user-count {
     font-size: 200%;
     font-weight: bold;
-    padding: 0px 30px;
+    padding: 0 30px;
 }
 
-table.games td.users a {
+a[href] {
     text-decoration: none;
 }
 
@@ -96,7 +96,6 @@ a.game-logo-not-found {
     font-size: 20px;
     font-weight: bold;
     color: #ccc;
-    text-decoration: none;
     display: flex;
     justify-content: center;
     text-align: center;
