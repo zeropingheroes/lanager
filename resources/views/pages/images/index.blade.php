@@ -10,6 +10,15 @@
 @endsection
 
 @section('content')
+
+    <form method="POST" action="{{ route('images.store') }}" accept-charset="UTF-8" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" id="images" name="images[]" multiple>
+            <button type="submit" class="btn btn-primary">@lang('title.upload')</button>
+        </div>
+    </form>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -44,12 +53,5 @@
         </tbody>
     </table>
 
-    <form method="POST" action="{{ route('images.store') }}" accept-charset="UTF-8" enctype="multipart/form-data">
-        {{ csrf_field() }}
-        <div class="input-group mb-3">
-            <input type="file" class="form-control" id="images" name="images[]" multiple>
-            <button type="submit" class="btn btn-primary">@lang('title.upload')</button>
-        </div>
-    </form>
 
 @endsection
