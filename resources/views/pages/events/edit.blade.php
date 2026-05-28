@@ -5,7 +5,7 @@
 @endsection
 
 @section('content-header')
-    <h1>@lang('title.edit-item', ['item' => __('title.event')])</h1>
+    <h1>@lang('title.edit-item', ['item' => __('title.event') . ': ' . $event->name ])</h1>
     {{ Breadcrumbs::render('lans.events.edit', $lan, $event) }}
 @endsection
 
