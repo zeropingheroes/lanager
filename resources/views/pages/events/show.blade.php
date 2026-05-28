@@ -25,7 +25,7 @@
             @include('pages.events.partials.actions-dropdown', ['event' => $event])
         </div>
     @endcanany
-    {!! GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( (string) $event->description) !!}
+    {!! GrahamCampbell\Markdown\Facades\Markdown::convert( (string) $event->description) !!}
     @if($event->signups_open && $event->signups_close)
         <hr>
         <div class="row align-items-center">

@@ -32,5 +32,5 @@
 @endsection
 
 @section('content')
-    {!! GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( (string) $guide->content) !!}
+    {!! GrahamCampbell\Markdown\Facades\Markdown::convert( (string) $guide->content) !!}
 @endsection

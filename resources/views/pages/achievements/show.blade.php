@@ -29,7 +29,7 @@
 
 @section('content')
     @if($achievement->description)
-        {!! GrahamCampbell\Markdown\Facades\Markdown::convertToHtml( (string) $achievement->description) !!}
+        {!! GrahamCampbell\Markdown\Facades\Markdown::convert( (string) $achievement->description) !!}
     @endif
 
 @endsection
