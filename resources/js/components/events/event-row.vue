@@ -52,7 +52,7 @@ const status = computed(() => {
 
 <style>
 td {
-    font-size: 400%;
+    font-size: 300%;
 }
 
 td.event-name {
