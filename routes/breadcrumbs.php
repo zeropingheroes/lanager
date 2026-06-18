@@ -332,6 +332,24 @@ Breadcrumbs::for(
     }
 );
 
+// Home > LANs > [LAN] > Discord Channel Webhooks
+Breadcrumbs::for(
+    'lans.discord-channel-webhooks.index',
+    function ($trail, $lan): void {
+        $trail->parent('lans.show', $lan);
+        $trail->push(__('title.discord-channel-webhooks'), route('lans.discord-channel-webhooks.index', $lan));
+    }
+);
+
+// Home > LANs > [LAN] > Discord Channel Webhooks > [Webhook] > Compose
+Breadcrumbs::for(
+    'lans.discord-channel-webhooks.messages.create',
+    function ($trail, $lan, $webhook): void {
+        $trail->parent('lans.discord-channel-webhooks.index', $lan);
+        $trail->push(__('title.compose'), route('lans.discord-channel-webhooks.messages.create', ['lan' => $lan, 'discord_channel_webhook' => $webhook]));
+    }
+);
+
 // Home > AllowedIpRange
 Breadcrumbs::for(
     'allowed-ip-ranges.index',

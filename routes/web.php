@@ -10,6 +10,8 @@ use Zeropingheroes\Lanager\Http\Controllers\AllowedIpRangeController;
 use Zeropingheroes\Lanager\Http\Controllers\AttendeeController;
 use Zeropingheroes\Lanager\Http\Controllers\AuthController;
 use Zeropingheroes\Lanager\Http\Controllers\CurrentLanController;
+use Zeropingheroes\Lanager\Http\Controllers\DiscordChannelWebhookController;
+use Zeropingheroes\Lanager\Http\Controllers\DiscordChannelWebhookMessageController;
 use Zeropingheroes\Lanager\Http\Controllers\EventController;
 use Zeropingheroes\Lanager\Http\Controllers\EventSignupController;
 use Zeropingheroes\Lanager\Http\Controllers\GameController;
@@ -94,6 +96,12 @@ Route::resource('lans', LanController::class);
 Route::resource('lans.guides', GuideController::class, ['except' => 'show']);
 Route::get('lans/{lan}/guides/{guide}/{slug?}', [GuideController::class, 'show'])
     ->name('lans.guides.show');
+
+/**
+ * Discord Channel Webhooks.
+ */
+Route::resource('lans.discord-channel-webhooks', DiscordChannelWebhookController::class, ['only' => ['index', 'store', 'destroy']]);
+Route::resource('lans.discord-channel-webhooks.messages', DiscordChannelWebhookMessageController::class, ['only' => ['create', 'store']]);
 
 /**
  * Events.

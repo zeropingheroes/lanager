@@ -45,4 +45,12 @@
             </a>
         </li>
     @endcan
+    @can('index', \Zeropingheroes\Lanager\Models\DiscordChannelWebhook::class)
+        <li class="nav-item">
+            <a class="nav-link {{ str_starts_with(Request::route()->getName(), 'lans.discord-channel-webhooks') ? 'active' : '' }}"
+               href="{{ route('lans.discord-channel-webhooks.index', $lan) }}">
+                @lang('title.channels') <span class="badge text-bg-primary">{{ $lan->discordChannelWebhooks->count() }}</span>
+            </a>
+        </li>
+    @endcan
 </ul>

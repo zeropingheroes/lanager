@@ -241,4 +241,17 @@ return [
     // LAN Game votes
     'you-have-already-voted-for-this-game' => 'You have already voted for this game',
     'log-in-to-submit-and-vote-on-games' => 'Log in to submit and vote on games you want to play at :lan',
+
+    // Discord Channel Webhooks
+    'discord-test-message' => 'If you can see this, the Discord webhook for :lan :purpose channel is configured correctly.',
+    'discord-message-content-help' => 'Max 2000 characters, <a href=":url" target="_blank">Discord-flavoured Markdown</a> supported.',
+    'discord-markdown-help-link-url' => 'https://support.discord.com/hc/en-us/articles/210298617',
+    'discord-message-mentions-help' => 'Custom emoji: <:name:id>. Role mention: <@&role_id>. To get the raw text for either, prefix with \ in a Discord message: e.g. \:emoji: or \@role',
+    'discord-message-placeholder' => 'Hi <@&1234567890123456789>! Counter-Strike 2 starts in 15 minutes. <:glhf:9876543212345678987>',
+    'discord-message-sent-successfully' => 'Message sent to :purpose Discord channel successfully',
+    'failed-to-send-discord-message' => 'Failed to send message to Discord. Check the webhook URL and try again.',
+    'discord-channel-webhook-already-configured' => 'This LAN already has both webhook types configured.',
+    'no-live-webhook-configured' => 'No live Discord webhook is configured for this LAN.',
+    'no-test-webhook-configured' => 'No test Discord webhook is configured for this LAN.',
+    'no-discord-channel-webhooks-yet' => 'No Discord channel webhooks have been configured for this LAN.',
 ];

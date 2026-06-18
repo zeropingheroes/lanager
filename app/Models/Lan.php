@@ -177,4 +177,12 @@ class Lan extends Model
     {
         return $this->hasMany(LanGame::class);
     }
+
+    /**
+     * Discord channel webhooks configured for this LAN
+     */
+    public function discordChannelWebhooks(): HasMany
+    {
+        return $this->hasMany(DiscordChannelWebhook::class);
+    }
 }

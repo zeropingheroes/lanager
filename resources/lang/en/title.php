@@ -171,4 +171,20 @@ return [
     'allowed-ip-ranges' => 'Allowed IP Ranges',
     'allowed-ip-range' => 'Allowed IP Range',
     'ip-range' => 'IP Range',
+
+    // Discord Channel Webhooks
+    'channels' => 'Channels',
+    'discord-channel-webhooks' => 'Discord Channel Webhooks',
+    'discord-channel-webhook' => 'Discord Channel Webhook',
+    'discord-notification' => 'Discord Notification',
+    'purpose' => 'Purpose',
+    'webhook-url' => 'Webhook URL',
+    'live' => 'Live',
+    'test' => 'Test',
+    'test-post' => 'Test Post',
+    'compose' => 'Compose',
+    'send-message-to-discord' => 'Send message to Discord',
+    'channel' => 'Channel',
+    'send' => 'Send',
+    'send-to-discord' => 'Send to Discord',
 ];
