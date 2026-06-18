@@ -39,7 +39,7 @@
                                 {{ csrf_field() }}
                                 <button type="submit"
                                         class="btn btn-sm btn-danger"
-                                        onclick="submitDeletionForm(event)"
+                                        onclick="confirmFormSubmit(event)"
                                         title="@lang('title.delete')">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>

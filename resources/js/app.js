@@ -10,7 +10,7 @@ clipboard.on('error', function (e) {
     console.error('Trigger:', e.trigger);
 });
 
-window.submitDeletionForm = function (event) {
+window.confirmFormSubmit = function (event) {
     event.preventDefault();
 
     const form = event.target.closest('form');

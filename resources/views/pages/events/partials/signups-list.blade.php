@@ -19,7 +19,7 @@
                         <button type="submit"
                                 class="btn btn-danger btn-sm"
                                 title="@lang('title.delete')"
-                                onclick="submitDeletionForm(event)">
+                                onclick="confirmFormSubmit(event)">
                             Delete
                         </button>
                     </form>

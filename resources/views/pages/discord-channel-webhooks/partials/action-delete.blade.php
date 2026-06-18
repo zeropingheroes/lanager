@@ -12,7 +12,7 @@
 >
     @csrf
     @method('DELETE')
-    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="submitDeletionForm(event)">
+    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="confirmFormSubmit(event)">
         <i class="fa-solid fa-trash"></i> @lang('title.delete')
     </button>
 </form>

@@ -5,6 +5,6 @@
     <form action="{{ route( $route . '.destroy', $item->id) }}" method="POST" class="d-inline">
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
-        <button type="submit" class="btn btn-danger" onclick="submitDeletionForm(event)">@lang('title.delete')</button>
+        <button type="submit" class="btn btn-danger" onclick="confirmFormSubmit(event)">@lang('title.delete')</button>
     </form>
 @endcan

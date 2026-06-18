@@ -6,7 +6,7 @@
         <form action="{{ route('lans.slides.destroy', ['lan' => $slide->lan, 'slide' => $slide]) }}" method="POST">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
-            <a class="dropdown-item" href="#" onclick="submitDeletionForm(event);">@lang('title.delete')</a>
+            <a class="dropdown-item" href="#" onclick="confirmFormSubmit(event);">@lang('title.delete')</a>
         </form>
     @endcan
 @endcomponent

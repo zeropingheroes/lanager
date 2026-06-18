@@ -101,7 +101,7 @@
                                     class="d-inline ml-1">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
-                                    <a href="#" onclick="submitDeletionForm(event);" title="Delete"><i
+                                    <a href="#" onclick="confirmFormSubmit(event);" title="Delete"><i
                                             class="fa-solid fa-trash-can"></i></a>
                                 </form>
                             @endcan

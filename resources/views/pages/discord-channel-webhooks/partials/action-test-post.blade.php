@@ -21,7 +21,7 @@
                ]
            )"
     >
-    <button type="submit" class="btn btn-sm btn-outline-warning" onclick="submitDeletionForm(event)">
+    <button type="submit" class="btn btn-sm btn-outline-warning" onclick="confirmFormSubmit(event)">
         <i class="fa-solid fa-vial"></i> @lang('title.test-post')
     </button>
 </form>
