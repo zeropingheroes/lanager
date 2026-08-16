@@ -1,0 +1,254 @@
+<?php
+
+namespace Tests\Unit;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Tests\TestCase;
+use Zeropingheroes\Lanager\Models\DiscordChannelWebhook;
+use Zeropingheroes\Lanager\Models\Event;
+use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessage;
+use Zeropingheroes\Lanager\Models\Lan;
+
+class SendDiscordEventNotificationMessagesTest extends TestCase
+{
+    use RefreshDatabase;
+
+    protected bool $seed = true;
+
+    private const string COMMAND = 'lanager:send-discord-event-notification-messages';
+
+    private const string LIVE_WEBHOOK_URL = 'https://discord.com/api/webhooks/123456789012345678/abcdefghijklmnopqrstuvwxyz_ABCDEF-token';
+
+    private Lan $lan;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Carbon::setTestNow('2026-06-22 12:00:00');
+
+        $this->lan = Lan::factory()->create([
+            'start' => '2026-06-22 00:00:00',
+            'end' => '2026-06-23 00:00:00',
+        ]);
+
+        Log::spy();
+    }
+
+    protected function tearDown(): void
+    {
+        Carbon::setTestNow();
+
+        parent::tearDown();
+    }
+
+    private function createDueEvent(array $eventOverrides = [], array $notificationOverrides = []): Event
+    {
+        $event = Event::factory()->create(array_merge([
+            'lan_id' => $this->lan->id,
+            'start' => now()->subSeconds(30),
+            'end' => now()->addHour(),
+            'published' => true,
+        ], $eventOverrides));
+
+        EventDiscordNotificationMessage::factory()->create(array_merge([
+            'event_id' => $event->id,
+        ], $notificationOverrides));
+
+        return $event->fresh();
+    }
+
+    public function test_due_event_is_sent_and_automatically_sent_at_is_set(): void
+    {
+        Http::fake([self::LIVE_WEBHOOK_URL => Http::response(null, 204)]);
+        DiscordChannelWebhook::factory()->live()->create([
+            'lan_id' => $this->lan->id,
+            'webhook_url' => self::LIVE_WEBHOOK_URL,
+        ]);
+
+        $event = $this->createDueEvent();
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        Http::assertSent(fn ($request) => $request->url() === self::LIVE_WEBHOOK_URL);
+        $this->assertNotNull($event->discordNotificationMessage->fresh()->automatically_sent_at);
+        $this->assertTrue(now()->diffInSeconds($event->discordNotificationMessage->fresh()->automatically_sent_at) < 5);
+
+        Log::shouldHaveReceived('info')->withArgs(
+            fn ($message, $context = []) => $message === trans('phrase.discord-event-notification-message-sent')
+                && $context['event_id'] === $event->id
+                && $context['result'] === 'success'
+        )->once();
+    }
+
+    public function test_event_with_automatic_false_is_skipped(): void
+    {
+        Http::fake();
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
+
+        $this->createDueEvent(notificationOverrides: ['automatic' => false]);
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        Http::assertNothingSent();
+    }
+
+    public function test_event_with_no_notification_record_is_skipped(): void
+    {
+        Http::fake();
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
+
+        Event::factory()->create([
+            'lan_id' => $this->lan->id,
+            'start' => now()->subSeconds(30),
+            'end' => now()->addHour(),
+            'published' => true,
+        ]);
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        Http::assertNothingSent();
+    }
+
+    public function test_unpublished_event_is_skipped(): void
+    {
+        Http::fake();
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
+
+        $this->createDueEvent(['published' => false]);
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        Http::assertNothingSent();
+    }
+
+    public function test_event_is_skipped_when_lan_has_no_live_webhook(): void
+    {
+        Http::fake();
+
+        $this->createDueEvent();
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        Http::assertNothingSent();
+    }
+
+    public function test_event_outside_time_window_is_skipped(): void
+    {
+        Http::fake();
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
+
+        $this->createDueEvent(['start' => now()->subMinutes(5), 'end' => now()->addHour()]);
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        Http::assertNothingSent();
+    }
+
+    public function test_already_sent_event_is_not_resent(): void
+    {
+        Http::fake();
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
+
+        $event = $this->createDueEvent();
+        $event->discordNotificationMessage->update(['automatically_sent_at' => $event->start->copy()->addSeconds(1)]);
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        Http::assertNothingSent();
+    }
+
+    public function test_rescheduling_to_a_later_time_makes_event_eligible_again(): void
+    {
+        Http::fake([self::LIVE_WEBHOOK_URL => Http::response(null, 204)]);
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
+
+        $event = $this->createDueEvent();
+        $originalStart = $event->start;
+
+        // The notification was already sent for the event's original start time, making it
+        // ineligible (automatically_sent_at >= start)...
+        $event->discordNotificationMessage->update(['automatically_sent_at' => $originalStart->copy()->addSecond()]);
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+        Http::assertNothingSent();
+
+        // ...but the event has since been rescheduled to a time later than that automatically_sent_at,
+        // making automatically_sent_at < start true again.
+        $event->update(['start' => now()->subSeconds(10)]);
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        Http::assertSent(fn ($request) => $request->url() === self::LIVE_WEBHOOK_URL);
+    }
+
+    public function test_failed_dispatch_leaves_automatically_sent_at_unchanged_and_logs_error(): void
+    {
+        Http::fake([self::LIVE_WEBHOOK_URL => Http::response(['message' => 'Unknown Webhook'], 404)]);
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
+
+        $event = $this->createDueEvent();
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        $this->assertNull($event->discordNotificationMessage->fresh()->automatically_sent_at);
+
+        Log::shouldHaveReceived('error')->withArgs(
+            fn ($message, $context) => $message === trans('phrase.failed-to-send-discord-event-notification-message')
+                && $context['event_id'] === $event->id
+                && $context['http_status'] === 404
+        )->once();
+    }
+
+    public function test_one_events_exception_does_not_halt_the_run(): void
+    {
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
+
+        $failingEvent = $this->createDueEvent();
+        $succeedingEvent = $this->createDueEvent();
+
+        Http::fake(function ($request) use ($failingEvent) {
+            if ($request->url() === self::LIVE_WEBHOOK_URL && str_contains((string) $request->body(), $failingEvent->discordNotificationMessage->message)) {
+                throw new \RuntimeException('Unexpected connection-level failure');
+            }
+
+            return Http::response(null, 204);
+        });
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        $this->assertNull($failingEvent->discordNotificationMessage->fresh()->automatically_sent_at);
+        $this->assertNotNull($succeedingEvent->discordNotificationMessage->fresh()->automatically_sent_at);
+
+        Log::shouldHaveReceived('error')->withArgs(
+            fn ($message, $context) => $message === trans('phrase.unexpected-error-sending-discord-event-notification-message')
+                && $context['event_id'] === $failingEvent->id
+        )->once();
+    }
+
+    public function test_run_summary_is_logged(): void
+    {
+        Http::fake([self::LIVE_WEBHOOK_URL => Http::response(null, 204)]);
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
+
+        $this->createDueEvent();
+
+        // This event passes the eligibility query (it doesn't filter on automatically_sent_at) but
+        // is skipped by the command's own belt-and-braces re-check, incrementing events_skipped.
+        $alreadySentEvent = $this->createDueEvent();
+        $alreadySentEvent->discordNotificationMessage->update(['automatically_sent_at' => $alreadySentEvent->start->copy()->addSeconds(1)]);
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        Log::shouldHaveReceived('info')->withArgs(
+            fn ($message) => $message === trans('phrase.discord-event-notification-messages-run-completed', [
+                'processed' => 1,
+                'skipped' => 1,
+                'failed' => 0,
+            ])
+        )->once();
+    }
+}

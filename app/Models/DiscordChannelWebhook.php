@@ -27,7 +27,7 @@ class DiscordChannelWebhook extends Model
     protected $table = 'discord_channel_webhooks';
 
     /**
-     * No updated_at column — webhook URLs are immutable after creation.
+     * No updated_at column. Webhook URLs are immutable after creation.
      */
     public const UPDATED_AT = null;
 

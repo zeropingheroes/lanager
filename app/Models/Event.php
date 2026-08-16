@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -27,6 +28,7 @@ use Illuminate\Support\Carbon;
  * @property-read Lan $lan
  * @property-read Collection<int, EventSignup> $signups
  * @property-read int|null $signups_count
+ * @property-read EventDiscordNotificationMessage|null $discordNotificationMessage
  *
  * @method static EventFactory factory($count = null, $state = [])
  * @method static Builder<static>|Event newModelQuery()
@@ -82,5 +84,13 @@ class Event extends Model
     public function signups(): HasMany
     {
         return $this->hasMany(EventSignup::class);
+    }
+
+    /**
+     * The event's Discord notification message, if configured.
+     */
+    public function discordNotificationMessage(): HasOne
+    {
+        return $this->hasOne(EventDiscordNotificationMessage::class);
     }
 }

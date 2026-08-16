@@ -13,6 +13,7 @@ use Zeropingheroes\Lanager\Http\Controllers\CurrentLanController;
 use Zeropingheroes\Lanager\Http\Controllers\DiscordChannelWebhookController;
 use Zeropingheroes\Lanager\Http\Controllers\DiscordChannelWebhookMessageController;
 use Zeropingheroes\Lanager\Http\Controllers\EventController;
+use Zeropingheroes\Lanager\Http\Controllers\EventDiscordNotificationMessageController;
 use Zeropingheroes\Lanager\Http\Controllers\EventSignupController;
 use Zeropingheroes\Lanager\Http\Controllers\GameController;
 use Zeropingheroes\Lanager\Http\Controllers\GuideController;
@@ -112,6 +113,18 @@ Route::get(
     '/events/fullscreen',
     fn () => view('pages.events.fullscreen')
 )->name('events.fullscreen');
+
+/**
+ * Event Discord Notification Messages.
+ */
+Route::singleton('lans.events.discord-notification-message', EventDiscordNotificationMessageController::class)
+    ->creatable()
+    ->destroyable()
+    ->except(['show']);
+Route::post('lans/{lan}/events/{event}/discord-notification-message/send', [EventDiscordNotificationMessageController::class, 'send'])
+    ->name('lans.events.discord-notification-message.send');
+Route::post('lans/{lan}/discord-notification-message/preview', [EventDiscordNotificationMessageController::class, 'preview'])
+    ->name('lans.discord-notification-message.preview');
 
 /**
  * LAN Games & LAN Game Votes.

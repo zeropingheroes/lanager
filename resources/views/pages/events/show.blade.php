@@ -21,9 +21,9 @@
         @endif
     @endcanany
     @canany(['update', 'delete'], $event)
-        <div class="float-end">
-            @include('pages.events.partials.actions-dropdown', ['event' => $event])
-        </div>
+    <div class="float-end">
+        @include('pages.events.partials.actions-dropdown', ['event' => $event, 'lan' => $lan])
+    </div>
     @endcanany
     {!! GrahamCampbell\Markdown\Facades\Markdown::convert( (string) $event->description) !!}
     @if($event->signups_open && $event->signups_close)
@@ -62,3 +62,4 @@
     @endif
 
 @endsection
+@vite('resources/js/pages/event-discord-notification-message.js')

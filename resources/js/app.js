@@ -15,10 +15,26 @@ window.confirmFormSubmit = function (event) {
 
     const form = event.target.closest('form');
     if (form) {
-        if (confirm(I18n.trans('phrase.are-you-sure'))) {
+        const message = form.dataset.confirmMessage || I18n.trans('phrase.are-you-sure');
+        if (confirm(message)) {
             form.submit();
         }
     } else {
         console.error('No form found');
     }
+};
+
+window.showPageAlert = function (type, message) {
+    const container = document.getElementById('page-alerts');
+    if (!container) {
+        return;
+    }
+
+    const alertElement = document.createElement('div');
+    alertElement.className = 'alert alert-' + type + ' fade show';
+    alertElement.setAttribute('role', 'alert');
+    alertElement.textContent = message;
+
+    container.appendChild(alertElement);
+    alertElement.scrollIntoView({behavior: 'smooth', block: 'center'});
 };

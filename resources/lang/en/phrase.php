@@ -57,6 +57,7 @@ return [
     'are-you-sure' => 'Are you sure?',
     'are-you-sure-delete' => 'Are you sure you want to delete this?',
     'item-created-successfully' => ':Item created successfully',
+    'item-updated-successfully' => ':Item updated successfully',
     'item-not-found' => ':item not found',
     'item-already-exists' => ':item already exists!',
     'fullscreen' => 'Fullscreen',
@@ -87,6 +88,7 @@ return [
     'status-unknown' => 'Status unknown',
 
     // Games
+    'view-game-in-steam-store' => 'View :game in Steam Store',
     'x-in-game' => ':x In Game',
     'x-played-recently' => ':x Played recently',
     'x-owners' => ':x Owners',
@@ -254,4 +256,18 @@ return [
     'no-live-webhook-configured' => 'No live Discord webhook is configured for this LAN.',
     'no-test-webhook-configured' => 'No test Discord webhook is configured for this LAN.',
     'no-discord-channel-webhooks-yet' => 'No Discord channel webhooks have been configured for this LAN.',
+
+    // Discord Event Notification Messages
+    'no-event-discord-notification-message-configured' => 'No Discord notification message has been set up for this event.',
+    'confirm-send-event-discord-notification-message-now' => 'Sending now will disable sending at the event\'s start time. Continue?',
+    'event-discord-notification-preview-sent' => 'Sent message to "test" Discord channel successfully.',
+    'event-discord-notification-preview-failed' => 'Failed to send preview message. Check the "test" channel webhook and try again.',
+    'event-discord-notification-message-placeholder' => '📢 Event Starting: Counter-Strike 2 📢 <:glhf:9876543212345678987> <@&1234567890123456789>',
+    'send-due-discord-event-notifications' => 'Send event Discord notification messages for events starting within the last minute',
+    'automatically-send-discord-message-at-event-start-time' => 'Automatically send the message at the event\'s start time',
+    'regardless-send-discord-message-any-time' => 'Regardless of this setting, you can send the message manually anytime from the event\'s page.',
+    'discord-event-notification-message-sent' => 'Event Discord notification message sent',
+    'failed-to-send-discord-event-notification-message' => 'Failed to send event Discord notification message',
+    'unexpected-error-sending-discord-event-notification-message' => 'Unexpected error sending event Discord notification message',
+    'discord-event-notification-messages-run-completed' => 'Sent :processed, skipped :skipped, failed :failed event Discord notification messages',
 ];

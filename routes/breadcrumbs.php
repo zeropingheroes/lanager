@@ -242,6 +242,24 @@ Breadcrumbs::for(
     }
 );
 
+// Home > LANs > [LAN] > Events > [Event] > Create Discord Notification Message
+Breadcrumbs::for(
+    'lans.events.discord-notification-message.create',
+    function ($trail, $lan, $event): void {
+        $trail->parent('lans.events.show', $lan, $event);
+        $trail->push(__('title.create-discord-notification-message'), route('lans.events.discord-notification-message.create', ['lan' => $lan, 'event' => $event]));
+    }
+);
+
+// Home > LANs > [LAN] > Events > [Event] > Edit Discord Notification Message
+Breadcrumbs::for(
+    'lans.events.discord-notification-message.edit',
+    function ($trail, $lan, $event): void {
+        $trail->parent('lans.events.show', $lan, $event);
+        $trail->push(__('title.edit-discord-notification-message'), route('lans.events.discord-notification-message.edit', ['lan' => $lan, 'event' => $event]));
+    }
+);
+
 // Home > LANs > [LAN] > Attendees
 Breadcrumbs::for(
     'lans.attendees.index',
