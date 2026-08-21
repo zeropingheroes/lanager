@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Zeropingheroes\Lanager\Exceptions\DiscordWebhookException;
 use Zeropingheroes\Lanager\Services\DiscordWebhookService;
@@ -51,5 +52,89 @@ class DiscordWebhookServiceTest extends TestCase
             $this->assertSame(404, $discordWebhookException->httpStatus);
             $this->assertIsString($discordWebhookException->errorBody);
         }
+    }
+
+    public function test_sends_multipart_when_image_paths_provided(): void
+    {
+        Http::fake([self::WEBHOOK_URL => Http::response(null, 200)]);
+        Storage::fake('public');
+        Storage::disk('public')->put('images/test.png', 'fake-png-data');
+
+        (new DiscordWebhookService)->send(self::WEBHOOK_URL, self::CONTENT, ['images/test.png']);
+
+        Http::assertSent(function ($request): bool {
+            $contentType = $request->header('Content-Type')[0] ?? '';
+
+            return str_contains($contentType, 'multipart/form-data');
+        });
+    }
+
+    public function test_multipart_payload_json_contains_correct_content_and_flags(): void
+    {
+        Http::fake([self::WEBHOOK_URL => Http::response(null, 200)]);
+        Storage::fake('public');
+        Storage::disk('public')->put('images/test.png', 'fake-png-data');
+
+        (new DiscordWebhookService)->send(self::WEBHOOK_URL, self::CONTENT, ['images/test.png']);
+
+        Http::assertSent(function ($request): bool {
+            $body = $request->body();
+            $expectedJson = json_encode(['content' => self::CONTENT, 'flags' => 4]);
+
+            return str_contains($body, $expectedJson !== false ? $expectedJson : '');
+        });
+    }
+
+    public function test_multipart_includes_file_parts_in_order(): void
+    {
+        Http::fake([self::WEBHOOK_URL => Http::response(null, 200)]);
+        Storage::fake('public');
+        Storage::disk('public')->put('images/alpha.png', 'alpha-data');
+        Storage::disk('public')->put('images/beta.png', 'beta-data');
+
+        (new DiscordWebhookService)->send(self::WEBHOOK_URL, self::CONTENT, [
+            'images/alpha.png',
+            'images/beta.png',
+        ]);
+
+        Http::assertSent(function ($request): bool {
+            $body = $request->body();
+
+            $alphaPos = strpos($body, 'alpha.png');
+            $betaPos = strpos($body, 'beta.png');
+
+            return $alphaPos !== false && $betaPos !== false && $alphaPos < $betaPos;
+        });
+    }
+
+    public function test_missing_image_files_are_silently_skipped(): void
+    {
+        Http::fake([self::WEBHOOK_URL => Http::response(null, 200)]);
+        Storage::fake('public');
+        Storage::disk('public')->put('images/exists.png', 'real-data');
+
+        (new DiscordWebhookService)->send(self::WEBHOOK_URL, self::CONTENT, [
+            'images/missing.png',
+            'images/exists.png',
+        ]);
+
+        Http::assertSent(function ($request): bool {
+            $body = $request->body();
+
+            return ! str_contains($body, 'missing.png') && str_contains($body, 'exists.png');
+        });
+    }
+
+    public function test_text_only_send_unchanged_when_no_image_paths_provided(): void
+    {
+        Http::fake([self::WEBHOOK_URL => Http::response(null, 204)]);
+
+        (new DiscordWebhookService)->send(self::WEBHOOK_URL, self::CONTENT, []);
+
+        Http::assertSent(function ($request): bool {
+            $contentType = $request->header('Content-Type')[0] ?? '';
+
+            return str_contains($contentType, 'application/json');
+        });
     }
 }

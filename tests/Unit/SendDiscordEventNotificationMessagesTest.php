@@ -6,10 +6,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Zeropingheroes\Lanager\Models\DiscordChannelWebhook;
 use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessage;
+use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessageImage;
 use Zeropingheroes\Lanager\Models\Lan;
 
 class SendDiscordEventNotificationMessagesTest extends TestCase
@@ -227,6 +229,47 @@ class SendDiscordEventNotificationMessagesTest extends TestCase
             fn ($message, $context) => $message === trans('phrase.unexpected-error-sending-discord-event-notification-message')
                 && $context['event_id'] === $failingEvent->id
         )->once();
+    }
+
+    public function test_command_passes_image_paths_to_service_as_multipart(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('images/first.png', 'png-data');
+        Storage::disk('public')->put('images/second.png', 'png-data-2');
+
+        Http::fake([self::LIVE_WEBHOOK_URL => Http::response(null, 200)]);
+        DiscordChannelWebhook::factory()->live()->create([
+            'lan_id' => $this->lan->id,
+            'webhook_url' => self::LIVE_WEBHOOK_URL,
+        ]);
+
+        $event = $this->createDueEvent();
+        EventDiscordNotificationMessageImage::create([
+            'event_discord_notification_message_id' => $event->discordNotificationMessage->id,
+            'image_path' => 'images/first.png',
+            'sort_order' => 0,
+        ]);
+        EventDiscordNotificationMessageImage::create([
+            'event_discord_notification_message_id' => $event->discordNotificationMessage->id,
+            'image_path' => 'images/second.png',
+            'sort_order' => 1,
+        ]);
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        Http::assertSent(function ($request): bool {
+            $contentType = $request->header('Content-Type')[0] ?? '';
+            $body = $request->body();
+
+            $firstPos = strpos($body, 'first.png');
+            $secondPos = strpos($body, 'second.png');
+
+            return $request->url() === self::LIVE_WEBHOOK_URL
+                && str_contains($contentType, 'multipart/form-data')
+                && $firstPos !== false
+                && $secondPos !== false
+                && $firstPos < $secondPos;
+        });
     }
 
     public function test_run_summary_is_logged(): void

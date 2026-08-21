@@ -8,16 +8,19 @@ use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use Throwable;
 use Zeropingheroes\Lanager\Exceptions\DiscordWebhookException;
 use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessage;
+use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessageImage;
 use Zeropingheroes\Lanager\Models\Lan;
-use Zeropingheroes\Lanager\Requests\PreviewEventDiscordNotificationMessageRequest;
 use Zeropingheroes\Lanager\Requests\StoreEventDiscordNotificationMessageRequest;
 use Zeropingheroes\Lanager\Services\DiscordWebhookService;
+use Zeropingheroes\Lanager\Services\LocalImageService;
 
 class EventDiscordNotificationMessageController extends Controller
 {
@@ -36,15 +39,20 @@ class EventDiscordNotificationMessageController extends Controller
 
         $lan->loadMissing('discordChannelWebhooks');
 
-        return View::make('pages.events.discord-notification-message.create')
+        return View::make('pages.event-discord-notification-messages.create')
             ->with('lan', $lan)
-            ->with('event', $event);
+            ->with('event', $event)
+            ->with('availableImages', (new LocalImageService)->all(extensions: DiscordWebhookService::PERMITTED_IMAGE_EXTENSIONS))
+            ->with('selectedImages', [])
+            ->with('maxImages', DiscordWebhookService::MAX_IMAGES)
+            ->with('maxFileBytes', DiscordWebhookService::MAX_FILE_BYTES)
+            ->with('maxTotalBytes', DiscordWebhookService::MAX_TOTAL_BYTES);
     }
 
     /**
      * Store a newly created notification message for the event.
      *
-     * @throws AuthorizationException
+     * @throws AuthorizationException|Throwable
      */
     public function store(Request $httpRequest, Lan $lan, Event $event): RedirectResponse
     {
@@ -56,6 +64,7 @@ class EventDiscordNotificationMessageController extends Controller
 
         $input = [
             'message' => $httpRequest->input('message'),
+            'image_paths' => $httpRequest->input('image_paths') ?? [],
         ];
 
         $storeRequest = new StoreEventDiscordNotificationMessageRequest($input);
@@ -66,11 +75,21 @@ class EventDiscordNotificationMessageController extends Controller
             return redirect()->back()->withInput();
         }
 
-        EventDiscordNotificationMessage::create([
-            'event_id' => $event->id,
-            'message' => $input['message'],
-            'automatic' => $httpRequest->has('automatic'),
-        ]);
+        DB::transaction(function () use ($event, $httpRequest, $input): void {
+            $notification = EventDiscordNotificationMessage::create([
+                'event_id' => $event->id,
+                'message' => $input['message'],
+                'automatic' => $httpRequest->has('automatic'),
+            ]);
+
+            foreach ($input['image_paths'] as $index => $imagePath) {
+                EventDiscordNotificationMessageImage::create([
+                    'event_discord_notification_message_id' => $notification->id,
+                    'image_path' => $imagePath,
+                    'sort_order' => $index,
+                ]);
+            }
+        });
 
         Session::flash('success', trans('phrase.item-created-successfully', ['item' => trans('title.event-discord-notification-message')]));
 
@@ -90,18 +109,29 @@ class EventDiscordNotificationMessageController extends Controller
             abort(404);
         }
 
-        $event->loadMissing('discordNotificationMessage');
+        $event->loadMissing('discordNotificationMessage.images');
         $lan->loadMissing('discordChannelWebhooks');
 
-        return View::make('pages.events.discord-notification-message.edit')
+        $availableImages = (new LocalImageService)->all(extensions: DiscordWebhookService::PERMITTED_IMAGE_EXTENSIONS);
+
+        $selectedImages = $event->discordNotificationMessage !== null
+            ? (new LocalImageService)->fromPaths($event->discordNotificationMessage->images->pluck('image_path')->all())
+            : [];
+
+        return View::make('pages.event-discord-notification-messages.edit')
             ->with('lan', $lan)
-            ->with('event', $event);
+            ->with('event', $event)
+            ->with('availableImages', $availableImages)
+            ->with('selectedImages', $selectedImages)
+            ->with('maxImages', DiscordWebhookService::MAX_IMAGES)
+            ->with('maxFileBytes', DiscordWebhookService::MAX_FILE_BYTES)
+            ->with('maxTotalBytes', DiscordWebhookService::MAX_TOTAL_BYTES);
     }
 
     /**
      * Update the notification message for the event.
      *
-     * @throws AuthorizationException
+     * @throws AuthorizationException|Throwable
      */
     public function update(Request $httpRequest, Lan $lan, Event $event): RedirectResponse
     {
@@ -113,6 +143,7 @@ class EventDiscordNotificationMessageController extends Controller
 
         $input = [
             'message' => $httpRequest->input('message'),
+            'image_paths' => $httpRequest->input('image_paths') ?? [],
         ];
 
         $storeRequest = new StoreEventDiscordNotificationMessageRequest($input);
@@ -125,10 +156,22 @@ class EventDiscordNotificationMessageController extends Controller
 
         $event->loadMissing('discordNotificationMessage');
 
-        $event->discordNotificationMessage->update([
-            'message' => $input['message'],
-            'automatic' => $httpRequest->has('automatic'),
-        ]);
+        DB::transaction(function () use ($event, $httpRequest, $input): void {
+            $event->discordNotificationMessage->update([
+                'message' => $input['message'],
+                'automatic' => $httpRequest->has('automatic'),
+            ]);
+
+            $event->discordNotificationMessage->images()->delete();
+
+            foreach ($input['image_paths'] as $index => $imagePath) {
+                EventDiscordNotificationMessageImage::create([
+                    'event_discord_notification_message_id' => $event->discordNotificationMessage->id,
+                    'image_path' => $imagePath,
+                    'sort_order' => $index,
+                ]);
+            }
+        });
 
         Session::flash('success', trans('phrase.item-updated-successfully', ['item' => trans('title.event-discord-notification-message')]));
 
@@ -170,6 +213,8 @@ class EventDiscordNotificationMessageController extends Controller
             abort(404);
         }
 
+        $event->loadMissing('discordNotificationMessage.images');
+
         $notification = $event->discordNotificationMessage;
 
         if ($notification === null) {
@@ -188,8 +233,10 @@ class EventDiscordNotificationMessageController extends Controller
             return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
         }
 
+        $imagePaths = $notification->images->pluck('image_path')->all();
+
         try {
-            (new DiscordWebhookService)->send($liveWebhook->webhook_url, $notification->message);
+            (new DiscordWebhookService)->send($liveWebhook->webhook_url, $notification->message, $imagePaths);
         } catch (DiscordWebhookException|ConnectionException $exception) {
             Log::error('Manual event Discord notification failed', [
                 'event_id' => $event->id,
@@ -221,10 +268,7 @@ class EventDiscordNotificationMessageController extends Controller
     }
 
     /**
-     * Send ad-hoc content to the LAN's test webhook, for previewing formatting before saving.
-     *
-     * Touches no EventDiscordNotificationMessage record. Returns a JSON response (no redirect,
-     * no flash message) so the calling JavaScript can render an inline success/error message.
+     * Preview message content from the "create" and "edit forms in Discord.
      *
      * @throws AuthorizationException
      */
@@ -233,10 +277,10 @@ class EventDiscordNotificationMessageController extends Controller
         $this->authorize('preview', EventDiscordNotificationMessage::class);
 
         $input = [
-            'content' => $httpRequest->input('content'),
+            'message' => $httpRequest->input('message'),
         ];
 
-        $previewRequest = new PreviewEventDiscordNotificationMessageRequest($input);
+        $previewRequest = new StoreEventDiscordNotificationMessageRequest($input);
 
         if ($previewRequest->invalid()) {
             return response()->json(['errors' => $previewRequest->errors()], 422);
@@ -251,7 +295,11 @@ class EventDiscordNotificationMessageController extends Controller
         }
 
         try {
-            (new DiscordWebhookService)->send($testWebhook->webhook_url, $input['content']);
+            (new DiscordWebhookService)->send(
+                $testWebhook->webhook_url,
+                $input['message'],
+                (array) ($httpRequest->input('image_paths') ?? [])
+            );
         } catch (DiscordWebhookException|ConnectionException $exception) {
             Log::error('Event Discord notification preview failed', [
                 'lan_id' => $lan->id,

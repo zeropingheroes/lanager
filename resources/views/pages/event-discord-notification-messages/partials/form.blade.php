@@ -3,7 +3,7 @@
 @endphp
 
 <div class="row mb-3">
-    <label for="message" class="col-sm-2 col-form-label">@lang('title.event-discord-notification-message')</label>
+    <label for="message" class="col-sm-2 col-form-label">@lang('title.message')</label>
     <div class="col-sm-10">
         <textarea id="message"
                   name="message"
@@ -20,6 +20,11 @@
         </div>
     </div>
 </div>
+
+@include('pages.event-discord-notification-messages.partials.image-selector', [
+    'availableImages' => $availableImages,
+    'selectedImages' => $selectedImages
+])
 
 <div class="row mb-3">
     <label class="col-sm-2 col-form-label pt-0">@lang('title.send-automatically')</label>

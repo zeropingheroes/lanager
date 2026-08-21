@@ -5,10 +5,12 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Zeropingheroes\Lanager\Models\DiscordChannelWebhook;
 use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessage;
+use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessageImage;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\Role;
 use Zeropingheroes\Lanager\Models\User;
@@ -148,7 +150,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
 
         $testResponse = $this->actingAs($this->adminUser)
             ->postJson(route('lans.discord-notification-message.preview', ['lan' => $this->lan]), [
-                'content' => 'Preview this please',
+                'message' => 'Preview this please',
             ]);
 
         $testResponse->assertOk();
@@ -164,7 +166,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
 
         $testResponse = $this->actingAs($this->adminUser)
             ->postJson(route('lans.discord-notification-message.preview', ['lan' => $this->lan]), [
-                'content' => 'Preview this please',
+                'message' => 'Preview this please',
             ]);
 
         $testResponse->assertStatus(502);
@@ -190,7 +192,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
 
         $testResponse = $this->actingAs($this->adminUser)
             ->postJson(route('lans.discord-notification-message.preview', ['lan' => $this->lan]), [
-                'content' => str_repeat('a', 2001),
+                'message' => str_repeat('a', 2001),
             ]);
 
         $testResponse->assertStatus(422);
@@ -203,7 +205,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
 
         $testResponse = $this->actingAs($this->adminUser)
             ->postJson(route('lans.discord-notification-message.preview', ['lan' => $this->lan]), [
-                'content' => 'Preview this please',
+                'message' => 'Preview this please',
             ]);
 
         $testResponse->assertStatus(422);
@@ -217,10 +219,68 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
 
         $testResponse = $this->actingAs($this->regularUser)
             ->postJson(route('lans.discord-notification-message.preview', ['lan' => $this->lan]), [
-                'content' => 'Preview this please',
+                'message' => 'Preview this please',
             ]);
 
         $testResponse->assertStatus(403);
         Http::assertNothingSent();
+    }
+
+    // --- image paths ---
+
+    public function test_send_passes_image_paths_to_service_as_multipart(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('images/event.png', 'fake-png-data');
+
+        Http::fake([self::LIVE_WEBHOOK_URL => Http::response(null, 200)]);
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
+
+        $notification = EventDiscordNotificationMessage::factory()->create([
+            'event_id' => $this->event->id,
+            'message' => 'Event with image!',
+        ]);
+        EventDiscordNotificationMessageImage::create([
+            'event_discord_notification_message_id' => $notification->id,
+            'image_path' => 'images/event.png',
+            'sort_order' => 0,
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->post(route('lans.events.discord-notification-message.send', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertRedirect();
+        $testResponse->assertSessionHas('success');
+        Http::assertSent(function ($request): bool {
+            $contentType = $request->header('Content-Type')[0] ?? '';
+
+            return $request->url() === self::LIVE_WEBHOOK_URL
+                && str_contains($contentType, 'multipart/form-data')
+                && str_contains($request->body(), 'event.png');
+        });
+    }
+
+    public function test_preview_passes_image_paths_to_service_as_multipart(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('images/preview.png', 'fake-png-data');
+
+        Http::fake([self::TEST_WEBHOOK_URL => Http::response(null, 200)]);
+        DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->postJson(route('lans.discord-notification-message.preview', ['lan' => $this->lan]), [
+                'message' => 'Preview with image',
+                'image_paths' => ['images/preview.png'],
+            ]);
+
+        $testResponse->assertOk();
+        Http::assertSent(function ($request): bool {
+            $contentType = $request->header('Content-Type')[0] ?? '';
+
+            return $request->url() === self::TEST_WEBHOOK_URL
+                && str_contains($contentType, 'multipart/form-data')
+                && str_contains($request->body(), 'preview.png');
+        });
     }
 }

@@ -37,7 +37,7 @@ class SendDiscordEventNotificationMessages extends Command
             ->whereHas('lan.discordChannelWebhooks', function ($query): void {
                 $query->where('purpose', 'live');
             })
-            ->with(['discordNotificationMessage', 'lan.discordChannelWebhooks'])
+            ->with(['discordNotificationMessage.images', 'lan.discordChannelWebhooks'])
             ->get();
 
         $eventsProcessed = 0;
@@ -70,8 +70,10 @@ class SendDiscordEventNotificationMessages extends Command
                     continue;
                 }
 
+                $imagePaths = $notification->images->pluck('image_path')->all();
+
                 try {
-                    (new DiscordWebhookService)->send($liveWebhook->webhook_url, $notification->message);
+                    (new DiscordWebhookService)->send($liveWebhook->webhook_url, $notification->message, $imagePaths);
                 } catch (DiscordWebhookException|ConnectionException $exception) {
                     $message = trans('phrase.failed-to-send-discord-event-notification-message');
                     $this->error($message);

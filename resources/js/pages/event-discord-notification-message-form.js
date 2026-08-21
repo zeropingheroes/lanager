@@ -1,4 +1,21 @@
-document.addEventListener("DOMContentLoaded", function () {
+import {createApp} from 'vue';
+import DiscordNotificationMessageImageSelector from '../components/event-discord-notification-messages/image-selector.vue';
+import {i18nVue} from 'laravel-vue-i18n';
+
+const selectorApp = document.getElementById('discord-image-selector-app');
+if (selectorApp) {
+    const app = createApp({});
+    app.use(i18nVue, {
+        resolve: async lang => {
+            const langs = import.meta.glob('../../lang/*.json');
+            return await langs[`../../lang/php_${lang}.json`]();
+        }
+    });
+    app.component('DiscordNotificationMessageImageSelector', DiscordNotificationMessageImageSelector);
+    app.mount(selectorApp);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
     const previewButton = document.getElementById('discord-notification-preview-button');
     if (!previewButton) {
         return;
@@ -12,6 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
         previewResult.textContent = '';
         previewResult.classList.remove('text-success', 'text-danger');
 
+        const imagePathInputs = document.querySelectorAll('#discord-image-selector-app input[name="image_paths[]"]');
+        const imagePaths = Array.from(imagePathInputs).map(function (input) { return input.value; });
+
         fetch(previewButton.dataset.previewUrl, {
             method: 'POST',
             headers: {
@@ -19,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 'Accept': 'application/json',
                 'X-CSRF-TOKEN': csrfToken,
             },
-            body: JSON.stringify({content: messageInput.value}),
+            body: JSON.stringify({message: messageInput.value, image_paths: imagePaths}),
         })
             .then(function (response) {
                 return response.json().then(function (data) {

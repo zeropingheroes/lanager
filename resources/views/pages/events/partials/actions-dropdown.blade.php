@@ -33,6 +33,7 @@
                href="#"
                data-preview-url="{{ route('lans.discord-notification-message.preview', ['lan' => $lan]) }}"
                data-content="{{ $event->discordNotificationMessage->message }}"
+               data-image-paths="{{ json_encode($event->discordNotificationMessage->images->pluck('image_path')->all()) }}"
                onclick="previewEventDiscordNotificationMessage(event);"
                @if(! $testWebhookConfigured) title="@lang('phrase.no-test-webhook-configured')" @endif
             >

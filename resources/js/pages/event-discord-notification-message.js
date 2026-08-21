@@ -13,7 +13,10 @@ window.previewEventDiscordNotificationMessage = function (event) {
             'Accept': 'application/json',
             'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
         },
-        body: JSON.stringify({content: link.dataset.content}),
+        body: JSON.stringify({
+            message: link.dataset.content,
+            image_paths: link.dataset.imagePaths ? JSON.parse(link.dataset.imagePaths) : [],
+        }),
     })
         .then(function (response) {
             return response.json().then(function (data) {

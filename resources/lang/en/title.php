@@ -143,6 +143,7 @@ return [
 
     // Images
     'images' => 'Images',
+    'image-attachments' => 'Image attachments',
     'image' => 'Image',
     'upload-images' => 'Upload Images',
     'upload' => 'Upload',

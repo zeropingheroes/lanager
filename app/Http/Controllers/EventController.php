@@ -94,7 +94,7 @@ class EventController extends Controller
             abort(404);
         }
 
-        $event->loadMissing('discordNotificationMessage');
+        $event->loadMissing('discordNotificationMessage.images');
         $lan->loadMissing('discordChannelWebhooks');
 
         return View::make('pages.events.show')

@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessage;
+use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessageImage;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\Role;
 use Zeropingheroes\Lanager\Models\User;
@@ -245,5 +247,187 @@ class EventDiscordNotificationMessageControllerCrudTest extends TestCase
 
         $testResponse->assertStatus(403);
         $this->assertDatabaseCount('event_discord_notification_messages', 1);
+    }
+
+    // --- image_paths validation ---
+
+    public function test_store_rejects_more_than_10_image_paths(): void
+    {
+        Storage::fake('public');
+        $paths = [];
+        for ($i = 0; $i < 11; $i++) {
+            $path = "images/img{$i}.png";
+            Storage::disk('public')->put($path, 'data');
+            $paths[] = $path;
+        }
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->post(route('lans.events.discord-notification-message.store', ['lan' => $this->lan, 'event' => $this->event]), [
+                'message' => 'Test message',
+                'image_paths' => $paths,
+            ]);
+
+        $testResponse->assertRedirect();
+        $testResponse->assertSessionHas('error');
+        $this->assertDatabaseCount('event_discord_notification_messages', 0);
+    }
+
+    public function test_store_rejects_image_path_outside_library_directory(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('other/hack.png', 'data');
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->post(route('lans.events.discord-notification-message.store', ['lan' => $this->lan, 'event' => $this->event]), [
+                'message' => 'Test message',
+                'image_paths' => ['other/hack.png'],
+            ]);
+
+        $testResponse->assertRedirect();
+        $testResponse->assertSessionHas('error');
+        $this->assertDatabaseCount('event_discord_notification_messages', 0);
+    }
+
+    public function test_store_rejects_single_image_exceeding_10mb(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('images/big.png', str_repeat('x', 11 * 1024 * 1024));
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->post(route('lans.events.discord-notification-message.store', ['lan' => $this->lan, 'event' => $this->event]), [
+                'message' => 'Test message',
+                'image_paths' => ['images/big.png'],
+            ]);
+
+        $testResponse->assertRedirect();
+        $testResponse->assertSessionHas('error');
+        $this->assertDatabaseCount('event_discord_notification_messages', 0);
+    }
+
+    public function test_store_rejects_total_image_size_exceeding_25mb(): void
+    {
+        Storage::fake('public');
+        // Two files of 14 MB each = 28 MB total
+        Storage::disk('public')->put('images/big1.png', str_repeat('x', 14 * 1024 * 1024));
+        Storage::disk('public')->put('images/big2.png', str_repeat('x', 14 * 1024 * 1024));
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->post(route('lans.events.discord-notification-message.store', ['lan' => $this->lan, 'event' => $this->event]), [
+                'message' => 'Test message',
+                'image_paths' => ['images/big1.png', 'images/big2.png'],
+            ]);
+
+        $testResponse->assertRedirect();
+        $testResponse->assertSessionHas('error');
+        $this->assertDatabaseCount('event_discord_notification_messages', 0);
+    }
+
+    public function test_store_accepts_valid_image_paths_and_creates_image_records(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('images/first.png', 'png-data');
+        Storage::disk('public')->put('images/second.jpg', 'jpg-data');
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->post(route('lans.events.discord-notification-message.store', ['lan' => $this->lan, 'event' => $this->event]), [
+                'message' => 'Test message',
+                'image_paths' => ['images/first.png', 'images/second.jpg'],
+            ]);
+
+        $testResponse->assertRedirect(route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event]));
+        $testResponse->assertSessionHas('success');
+
+        $notification = EventDiscordNotificationMessage::where('event_id', $this->event->id)->firstOrFail();
+        $this->assertDatabaseHas('event_discord_notification_message_images', [
+            'event_discord_notification_message_id' => $notification->id,
+            'image_path' => 'images/first.png',
+            'sort_order' => 0,
+        ]);
+        $this->assertDatabaseHas('event_discord_notification_message_images', [
+            'event_discord_notification_message_id' => $notification->id,
+            'image_path' => 'images/second.jpg',
+            'sort_order' => 1,
+        ]);
+    }
+
+    public function test_update_replaces_image_records_atomically(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('images/new.png', 'png-data');
+
+        $notification = EventDiscordNotificationMessage::factory()->create(['event_id' => $this->event->id]);
+        EventDiscordNotificationMessageImage::create([
+            'event_discord_notification_message_id' => $notification->id,
+            'image_path' => 'images/old.png',
+            'sort_order' => 0,
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->put(route('lans.events.discord-notification-message.update', ['lan' => $this->lan, 'event' => $this->event]), [
+                'message' => 'Updated message',
+                'image_paths' => ['images/new.png'],
+            ]);
+
+        $testResponse->assertRedirect(route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event]));
+        $this->assertDatabaseMissing('event_discord_notification_message_images', [
+            'event_discord_notification_message_id' => $notification->id,
+            'image_path' => 'images/old.png',
+        ]);
+        $this->assertDatabaseHas('event_discord_notification_message_images', [
+            'event_discord_notification_message_id' => $notification->id,
+            'image_path' => 'images/new.png',
+            'sort_order' => 0,
+        ]);
+    }
+
+    public function test_store_with_no_image_paths_creates_no_image_records(): void
+    {
+        $this->actingAs($this->adminUser)
+            ->post(route('lans.events.discord-notification-message.store', ['lan' => $this->lan, 'event' => $this->event]), [
+                'message' => 'Test message',
+            ]);
+
+        $this->assertDatabaseCount('event_discord_notification_message_images', 0);
+    }
+
+    // --- create/edit view prop data ---
+
+    public function test_create_view_passes_enriched_available_images_filtered_to_discord_extensions(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('images/photo.png', 'png-data');
+        Storage::disk('public')->put('images/anim.gif', 'gif-data');
+        Storage::disk('public')->put('images/unsupported.bmp', 'bmp-data');
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->get(route('lans.events.discord-notification-message.create', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertOk();
+        $testResponse->assertSee('"filename":"photo.png"', false);
+        $testResponse->assertSee('"filename":"anim.gif"', false);
+        $testResponse->assertDontSee('"filename":"unsupported.bmp"', false);
+        $testResponse->assertSee('"size":', false);
+        $testResponse->assertSee('"url":', false);
+    }
+
+    public function test_edit_view_passes_enriched_selected_and_available_images(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('images/selected.png', 'png-data');
+        Storage::disk('public')->put('images/available.jpg', 'jpg-data');
+
+        $notification = EventDiscordNotificationMessage::factory()->create(['event_id' => $this->event->id]);
+        EventDiscordNotificationMessageImage::create([
+            'event_discord_notification_message_id' => $notification->id,
+            'image_path' => 'images/selected.png',
+            'sort_order' => 0,
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->get(route('lans.events.discord-notification-message.edit', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertOk();
+        $testResponse->assertSee('"filename":"selected.png"', false);
+        $testResponse->assertSee('"filename":"available.jpg"', false);
     }
 }
