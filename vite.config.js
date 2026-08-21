@@ -9,6 +9,8 @@ export default defineConfig({
             input: [
                 'resources/js/app.js',
                 'resources/js/pages/active-games.js',
+                'resources/js/pages/event-discord-notification-message-form.js',
+                'resources/js/pages/event-discord-notification-message.js',
                 'resources/js/pages/event-form.js',
                 'resources/js/pages/events.js',
                 'resources/js/pages/lan-form.js',

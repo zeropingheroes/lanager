@@ -69,9 +69,21 @@ class DiscordChannelWebhookControllerTest extends TestCase
             ->get(route('lans.discord-channel-webhooks.index', $this->lan));
 
         $testResponse->assertStatus(200);
-        $testResponse->assertSee(trans('title.test-post'));
+        $testResponse->assertSee(trans('title.send-test-message'));
         $testResponse->assertSee(trans('title.compose'));
         $testResponse->assertSee(trans('title.delete'));
+    }
+
+    public function test_index_shows_obfuscated_webhook_url(): void
+    {
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::VALID_WEBHOOK_URL]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->get(route('lans.discord-channel-webhooks.index', $this->lan));
+
+        $testResponse->assertStatus(200);
+        $testResponse->assertSee(substr(self::VALID_WEBHOOK_URL, 0, 40).'...', false);
+        $testResponse->assertDontSee(self::VALID_WEBHOOK_URL, false);
     }
 
     public function test_index_disables_creation_form_when_both_purposes_are_configured(): void

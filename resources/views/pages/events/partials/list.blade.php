@@ -19,7 +19,7 @@
                 </td>
                 @canany(['update', 'delete'], $event)
                     <td class="text-end pe-0">
-                        @include('pages.events.partials.actions-dropdown', ['event' => $event])
+                        @include('pages.events.partials.actions-dropdown', ['event' => $event, 'lan' => $lan])
                     </td>
                 @endcanany
             </tr>

@@ -22,6 +22,6 @@
            )"
     >
     <button type="submit" class="btn btn-sm btn-outline-warning" onclick="confirmFormSubmit(event)">
-        <i class="fa-solid fa-vial"></i> @lang('title.test-post')
+        <i class="fa-solid fa-vial"></i> @lang('title.send-test-message')
     </button>
 </form>

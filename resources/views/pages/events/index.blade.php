@@ -14,3 +14,4 @@
         <a href="{{ route( 'lans.events.create', $lan) }}" class="btn btn-primary">@lang('title.create')</a>
     @endcan
 @endsection
+@vite('resources/js/pages/event-discord-notification-message.js')

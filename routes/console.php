@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Schedule;
+use Zeropingheroes\Lanager\Console\Commands\SendDiscordEventNotificationMessages;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamApps;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUserAppImages;
 use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUserApps;
@@ -42,3 +43,7 @@ Schedule::command(UpdateSteamApps::class)
 // This command gracefully handles the rate limit
 Schedule::command(UpdateSteamUserAppImages::class)
     ->daily();
+
+// Sends Discord notifications for events whose start time falls within the last minute
+Schedule::command(SendDiscordEventNotificationMessages::class)
+    ->everyMinute();

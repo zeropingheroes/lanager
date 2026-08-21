@@ -22,6 +22,6 @@ window.ClipboardJS = ClipboardJS;
 window.I18n = new I18n({
     resolve: async lang => {
         const langs = import.meta.glob('../lang/*.json');
-        return await langs[`../lang/${lang}.json`]();
+        return await langs[`../lang/php_${lang}.json`]();
     }
 });

@@ -19,6 +19,8 @@ return [
 
     // Multi-purpose
     'title' => 'Title',
+    'logo' => 'Logo',
+    'send' => 'Send',
     'submit' => 'Submit',
     'content' => 'Content',
     'published' => 'Published',
@@ -141,6 +143,7 @@ return [
 
     // Images
     'images' => 'Images',
+    'image-attachments' => 'Image attachments',
     'image' => 'Image',
     'upload-images' => 'Upload Images',
     'upload' => 'Upload',
@@ -172,19 +175,25 @@ return [
     'allowed-ip-range' => 'Allowed IP Range',
     'ip-range' => 'IP Range',
 
-    // Discord Channel Webhooks
+    // Discord Channel Webhooks & Event Notification Messages
+    'send-test-message' => 'Send Test Message',
     'channels' => 'Channels',
     'discord-channel-webhooks' => 'Discord Channel Webhooks',
     'discord-channel-webhook' => 'Discord Channel Webhook',
-    'discord-notification' => 'Discord Notification',
     'purpose' => 'Purpose',
     'webhook-url' => 'Webhook URL',
     'live' => 'Live',
     'test' => 'Test',
-    'test-post' => 'Test Post',
     'compose' => 'Compose',
-    'send-message-to-discord' => 'Send message to Discord',
+    'send-message-to-discord' => 'Send Message to Discord',
     'channel' => 'Channel',
-    'send' => 'Send',
-    'send-to-discord' => 'Send to Discord',
+    'send-now' => 'Send Now',
+    'send-automatically' => 'Send Automatically',
+    'preview-in-test-channel' => 'Preview in Test Channel',
+    'preview' => 'Preview',
+    'discord' => 'Discord',
+    'create-discord-notification-message' => 'Create Discord Notification Message',
+    'edit-discord-notification-message' => 'Edit Discord Notification Message',
+    'event-discord-notification-message' => 'Event Discord Notification Message',
+    'notification-message' => 'Notification Message',
 ];

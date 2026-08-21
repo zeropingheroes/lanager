@@ -27,6 +27,8 @@ use Illuminate\Support\Carbon;
  * @property-read Achievement|null $attendanceAchievement
  * @property-read Collection<int, Event> $events
  * @property-read int|null $events_count
+ * @property-read Collection<int, DiscordChannelWebhook> $discordChannelWebhooks
+ * @property-read int|null $discord_channel_webhooks_count
  * @property-read Collection<int, LanGame> $games
  * @property-read int|null $games_count
  * @property-read Collection<int, Guide> $guides

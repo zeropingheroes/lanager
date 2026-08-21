@@ -40,7 +40,7 @@
                         </td>
                         <td>
                             @include('pages.discord-channel-webhooks.partials.action-compose')
-                            @include('pages.discord-channel-webhooks.partials.action-test-post')
+                            @include('pages.discord-channel-webhooks.partials.action-send-test-message')
                             @include('pages.discord-channel-webhooks.partials.action-delete')
                         </td>
                     </tr>
