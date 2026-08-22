@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser\Pages\Events;
+namespace Tests\Browser\Pages\EventDiscordNotificationMessages;
 
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Page;
