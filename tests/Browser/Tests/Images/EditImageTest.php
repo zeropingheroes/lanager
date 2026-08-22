@@ -2,6 +2,7 @@
 
 namespace Tests\Browser\Tests\Images;
 
+use Illuminate\Support\Facades\Storage;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -9,6 +10,11 @@ class EditImageTest extends DuskTestCase
 {
     public function test_editing_image(): void
     {
+        // Clean up filesystem artifacts from any previous test runs so the rename validation
+        // does not fail because the target filename already exists
+        Storage::disk('public')->delete('images/newfilename.jpg');
+        Storage::disk('public')->delete('images/bg.jpg');
+
         $this->browse(function (Browser $browser): void {
             // Given there is a user with the role "super admin"
             $user = $this->createSuperAdmin();
