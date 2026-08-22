@@ -54,8 +54,9 @@ class EventDiscordNotificationMessageTest extends DuskTestCase
             // Given there is a user with the role "super admin"
             $user = $this->createSuperAdmin();
 
-            // And there is a LAN with no live webhook
+            // And there is a LAN with a test webhook but no live webhook
             $lan = Lan::create(['name' => 'My Great LAN', 'start' => '2025-06-01 18:00', 'end' => '2025-06-03 18:00']);
+            DiscordChannelWebhook::factory()->test()->for($lan)->create();
 
             // And there is an event with a notification message
             $event = Event::create(['lan_id' => $lan->id, 'name' => 'My LAN Event', 'start' => '2025-06-01 19:00', 'end' => '2025-06-01 20:00']);
@@ -100,7 +101,8 @@ class EventDiscordNotificationMessageTest extends DuskTestCase
             $browser->on(new EventDiscordNotificationMessageCreate);
 
             // Then the preview button is disabled
-            $browser->assertPresent('#discord-notification-preview-button:disabled');
+            $browser->assertPresent('#discord-notification-preview-button');
+            $browser->assertScript('return document.getElementById("discord-notification-preview-button").disabled', true);
 
             // And the tooltip explains no test webhook is configured
             $browser->assertAttribute(
@@ -130,7 +132,8 @@ class EventDiscordNotificationMessageTest extends DuskTestCase
             $browser->on(new EventDiscordNotificationMessageEdit);
 
             // Then the preview button is disabled
-            $browser->assertPresent('#discord-notification-preview-button:disabled');
+            $browser->assertPresent('#discord-notification-preview-button');
+            $browser->assertScript('return document.getElementById("discord-notification-preview-button").disabled', true);
 
             // And the tooltip explains no test webhook is configured
             $browser->assertAttribute(
@@ -144,17 +147,22 @@ class EventDiscordNotificationMessageTest extends DuskTestCase
     public function test_discord_section_not_shown_to_non_admin(): void
     {
         $this->browse(function (Browser $browser): void {
+            // Create a super admin first — UserObserver assigns super-admin to the first user created
+            // after DB truncation, so the non-admin must be created second
+            $this->createSuperAdmin();
+
             // Given there is a non-admin user
             $user = User::factory()
                 ->has(UserOAuthAccount::factory()->count(1), 'accounts')
                 ->create();
 
-            // And there is a LAN with a published event and notification message
-            $lan = Lan::create(['name' => 'My Great LAN', 'start' => '2025-06-01 18:00', 'end' => '2025-06-03 18:00']);
+            // And there is a published LAN with a published event and notification message
+            $lan = Lan::create(['name' => 'My Great LAN', 'start' => '2025-06-01 18:00', 'end' => '2025-06-03 18:00', 'published' => true]);
             $event = Event::create(['lan_id' => $lan->id, 'name' => 'My LAN Event', 'start' => '2025-06-01 19:00', 'end' => '2025-06-01 20:00', 'published' => true]);
             EventDiscordNotificationMessage::factory()->for($event)->create();
 
-            // And the non-admin user is logged in
+            // And the non-admin user is logged in (log out first to clear any previous super-admin session)
+            $browser->logout();
             $browser->loginAs($user);
 
             // When the non-admin navigates to the event show page
@@ -190,6 +198,9 @@ class EventDiscordNotificationMessageTest extends DuskTestCase
 
             // And opens the options dropdown
             $browser->click('button[title="Options"]');
+
+            // Wait for Bootstrap dropdown animation to complete
+            $browser->pause(300);
 
             // And clicks the "Send Now" item in the Discord section
             $browser->clickLink('Send Now');
@@ -227,6 +238,14 @@ class EventDiscordNotificationMessageTest extends DuskTestCase
 
             // And types a notification message
             $browser->type('message', 'Test notification message');
+
+            // Wait for the Vue image selector to finish mounting
+            $browser->waitFor('.selection-panel');
+
+            // Scroll the preview button to the centre of the viewport — the image library can push it
+            // near the bottom where fixed page elements may intercept the click
+            $browser->script("document.getElementById('discord-notification-preview-button').scrollIntoView({behavior: 'instant', block: 'center'})");
+            $browser->pause(200);
 
             // And clicks the preview button
             $browser->click('#discord-notification-preview-button');
@@ -266,6 +285,14 @@ class EventDiscordNotificationMessageTest extends DuskTestCase
             // And modifies the notification message
             $browser->clear('message');
             $browser->type('message', 'Modified message for preview');
+
+            // Wait for the Vue image selector to finish mounting
+            $browser->waitFor('.selection-panel');
+
+            // Scroll the preview button to the centre of the viewport — the image library can push it
+            // near the bottom where fixed page elements may intercept the click
+            $browser->script("document.getElementById('discord-notification-preview-button').scrollIntoView({behavior: 'instant', block: 'center'})");
+            $browser->pause(200);
 
             // And clicks the preview button
             $browser->click('#discord-notification-preview-button');
