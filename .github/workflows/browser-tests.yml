@@ -2,7 +2,6 @@ name: Browser Tests
 
 on:
     push:
-        branches: [ develop, stable ]
         paths:
             - '**.php'
             - '**.json'
