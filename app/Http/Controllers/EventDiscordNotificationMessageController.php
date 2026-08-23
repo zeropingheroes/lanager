@@ -235,8 +235,14 @@ class EventDiscordNotificationMessageController extends Controller
 
         $imagePaths = $notification->images->pluck('image_path')->all();
 
+        $discordWebhookService = new DiscordWebhookService;
+
         try {
-            (new DiscordWebhookService)->send($liveWebhook->webhook_url, $notification->message, $imagePaths);
+            $discordWebhookService->send(
+                $liveWebhook->webhook_url,
+                $discordWebhookService->resolvePlaceholders($notification->message, $event->placeholders()),
+                $imagePaths
+            );
         } catch (DiscordWebhookException|ConnectionException $exception) {
             Log::error('Manual event Discord notification failed', [
                 'event_id' => $event->id,
@@ -272,9 +278,13 @@ class EventDiscordNotificationMessageController extends Controller
      *
      * @throws AuthorizationException
      */
-    public function preview(Request $httpRequest, Lan $lan): JsonResponse
+    public function preview(Request $httpRequest, Lan $lan, Event $event): JsonResponse
     {
         $this->authorize('preview', EventDiscordNotificationMessage::class);
+
+        if ($event->lan_id !== $lan->id) {
+            abort(404);
+        }
 
         $input = [
             'message' => $httpRequest->input('message'),
@@ -294,10 +304,12 @@ class EventDiscordNotificationMessageController extends Controller
             return response()->json(['errors' => [trans('phrase.no-test-webhook-configured')]], 422);
         }
 
+        $discordWebhookService = new DiscordWebhookService;
+
         try {
-            (new DiscordWebhookService)->send(
+            $discordWebhookService->send(
                 $testWebhook->webhook_url,
-                $input['message'],
+                $discordWebhookService->resolvePlaceholders($input['message'], $event->placeholders()),
                 (array) ($httpRequest->input('image_paths') ?? [])
             );
         } catch (DiscordWebhookException|ConnectionException $exception) {

@@ -137,4 +137,31 @@ class DiscordWebhookServiceTest extends TestCase
             return str_contains($contentType, 'application/json');
         });
     }
+
+    public function test_resolve_placeholders_replaces_known_placeholders(): void
+    {
+        $result = (new DiscordWebhookService)->resolvePlaceholders(
+            'New event: {{event.name}} ({{event.url}})',
+            ['{{event.name}}' => 'Summer LAN 2026', '{{event.url}}' => 'https://example.com/events/1']
+        );
+
+        $this->assertSame('New event: Summer LAN 2026 (https://example.com/events/1)', $result);
+    }
+
+    public function test_resolve_placeholders_leaves_unrecognized_placeholder_literal(): void
+    {
+        $result = (new DiscordWebhookService)->resolvePlaceholders(
+            'New event: {{event.nmae}}',
+            ['{{event.name}}' => 'Summer LAN 2026']
+        );
+
+        $this->assertSame('New event: {{event.nmae}}', $result);
+    }
+
+    public function test_resolve_placeholders_leaves_message_unchanged_when_no_placeholders_present(): void
+    {
+        $result = (new DiscordWebhookService)->resolvePlaceholders(self::CONTENT, ['{{event.name}}' => 'Summer LAN 2026']);
+
+        $this->assertSame(self::CONTENT, $result);
+    }
 }

@@ -18,6 +18,9 @@
         <div class="form-text text-muted">
             @lang('phrase.discord-message-mentions-help')
         </div>
+        <div class="form-text text-muted">
+            {!! trans('phrase.event-discord-notification-message-variables-help') !!}
+        </div>
     </div>
 </div>
 
@@ -54,7 +57,7 @@
             <button type="button"
                     id="discord-notification-preview-button"
                     class="btn btn-sm btn-outline-warning"
-                    data-preview-url="{{ route('lans.discord-notification-message.preview', ['lan' => $lan]) }}"
+                    data-preview-url="{{ route('lans.events.discord-notification-message.preview', ['lan' => $lan, 'event' => $event]) }}"
                     @disabled(! $testWebhookConfigured)
                     @if(! $testWebhookConfigured) title="@lang('phrase.no-test-webhook-configured')" @endif
             >

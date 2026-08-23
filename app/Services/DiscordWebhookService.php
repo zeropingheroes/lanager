@@ -21,6 +21,18 @@ class DiscordWebhookService
     public const array PERMITTED_IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
 
     /**
+     * Replace `{{...}}` placeholders in $message with the values in $variables.
+     *
+     * Placeholders not present in $variables are left unchanged.
+     *
+     * @param  array<string, string>  $variables  Map of `{{placeholder}}` => replacement value
+     */
+    public function resolvePlaceholders(string $message, array $variables): string
+    {
+        return strtr($message, $variables);
+    }
+
+    /**
      * Send a message to a Discord webhook.
      *
      * When $imagePaths is non-empty the request is sent as multipart form data with a

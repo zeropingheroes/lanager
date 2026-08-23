@@ -31,7 +31,7 @@
             @endphp
             <a class="dropdown-item {{ $testWebhookConfigured ? '' : 'disabled' }}"
                href="#"
-               data-preview-url="{{ route('lans.discord-notification-message.preview', ['lan' => $lan]) }}"
+               data-preview-url="{{ route('lans.events.discord-notification-message.preview', ['lan' => $lan, 'event' => $event]) }}"
                data-content="{{ $event->discordNotificationMessage->message }}"
                data-image-paths="{{ json_encode($event->discordNotificationMessage->images->pluck('image_path')->all()) }}"
                onclick="previewEventDiscordNotificationMessage(event);"

@@ -86,6 +86,29 @@ class SendDiscordEventNotificationMessagesTest extends TestCase
         )->once();
     }
 
+    public function test_substitutes_placeholders_and_leaves_stored_message_raw(): void
+    {
+        Http::fake([self::LIVE_WEBHOOK_URL => Http::response(null, 204)]);
+        DiscordChannelWebhook::factory()->live()->create([
+            'lan_id' => $this->lan->id,
+            'webhook_url' => self::LIVE_WEBHOOK_URL,
+        ]);
+
+        $event = $this->createDueEvent(notificationOverrides: [
+            'message' => 'New event: {{event.name}} - {{event.url}}',
+        ]);
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        $expectedContent = sprintf(
+            'New event: %s - %s',
+            $event->name,
+            route('lans.events.show', ['lan' => $this->lan, 'event' => $event])
+        );
+        Http::assertSent(fn ($request) => $request->url() === self::LIVE_WEBHOOK_URL && $request->data()['content'] === $expectedContent);
+        $this->assertSame('New event: {{event.name}} - {{event.url}}', $event->discordNotificationMessage->fresh()->message);
+    }
+
     public function test_event_with_automatic_false_is_skipped(): void
     {
         Http::fake();

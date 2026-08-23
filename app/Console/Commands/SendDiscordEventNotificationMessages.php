@@ -72,8 +72,14 @@ class SendDiscordEventNotificationMessages extends Command
 
                 $imagePaths = $notification->images->pluck('image_path')->all();
 
+                $discordWebhookService = new DiscordWebhookService;
+
                 try {
-                    (new DiscordWebhookService)->send($liveWebhook->webhook_url, $notification->message, $imagePaths);
+                    $discordWebhookService->send(
+                        $liveWebhook->webhook_url,
+                        $discordWebhookService->resolvePlaceholders($notification->message, $event->placeholders()),
+                        $imagePaths
+                    );
                 } catch (DiscordWebhookException|ConnectionException $exception) {
                     $message = trans('phrase.failed-to-send-discord-event-notification-message');
                     $this->error($message);

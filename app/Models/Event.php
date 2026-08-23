@@ -93,4 +93,17 @@ class Event extends Model
     {
         return $this->hasOne(EventDiscordNotificationMessage::class);
     }
+
+    /**
+     * Array of `{{placeholder}}` => value
+     *
+     * @return array<string, string>
+     */
+    public function placeholders(): array
+    {
+        return [
+            '{{event.name}}' => $this->name,
+            '{{event.url}}' => route('lans.events.show', ['lan' => $this->lan, 'event' => $this], absolute: true),
+        ];
+    }
 }

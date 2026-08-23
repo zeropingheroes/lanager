@@ -430,4 +430,26 @@ class EventDiscordNotificationMessageControllerCrudTest extends TestCase
         $testResponse->assertSee('"filename":"selected.png"', false);
         $testResponse->assertSee('"filename":"available.jpg"', false);
     }
+
+    public function test_create_view_shows_placeholder_variables_help_text(): void
+    {
+        $testResponse = $this->actingAs($this->adminUser)
+            ->get(route('lans.events.discord-notification-message.create', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertOk();
+        $testResponse->assertSee('{{event.name}}', false);
+        $testResponse->assertSee('{{event.url}}', false);
+    }
+
+    public function test_edit_view_shows_placeholder_variables_help_text(): void
+    {
+        EventDiscordNotificationMessage::factory()->create(['event_id' => $this->event->id]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->get(route('lans.events.discord-notification-message.edit', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertOk();
+        $testResponse->assertSee('{{event.name}}', false);
+        $testResponse->assertSee('{{event.url}}', false);
+    }
 }
