@@ -96,11 +96,27 @@ jobs:
             -   name: Start Chrome Driver
                 run: ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
 
+            -   name: Wait for Chrome Driver
+                run: |
+                    for i in {1..30}; do
+                        curl -sf http://localhost:9515/status && exit 0
+                        sleep 1
+                    done
+                    echo "Chrome Driver did not become ready in time" && exit 1
+
             -   name: Create empty .env file
                 run: touch .env
 
             -   name: Start built-in webserver
                 run: php artisan serve > /dev/null 2>&1 &
+
+            -   name: Wait for webserver
+                run: |
+                    for i in {1..30}; do
+                        curl -sf ${{ env.APP_URL }} && exit 0
+                        sleep 1
+                    done
+                    echo "Webserver did not become ready in time" && exit 1
 
             -   name: Run Laravel Dusk tests
                 run: php artisan dusk
