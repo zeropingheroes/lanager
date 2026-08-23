@@ -13,6 +13,10 @@ on:
             - '**.css'
     workflow_dispatch:
 
+concurrency:
+    group: browser-tests-${{ github.ref }}
+    cancel-in-progress: true
+
 jobs:
     dusk:
         name: Run Laravel Dusk
