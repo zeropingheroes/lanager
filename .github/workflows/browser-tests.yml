@@ -144,6 +144,7 @@ jobs:
 
             -   name: Upload Laravel Log
                 uses: actions/upload-artifact@v4
+                if: failure()
                 with:
                     name: laravel-log
                     path: storage/logs/laravel.log
