@@ -30,6 +30,8 @@ class EventDiscordNotificationMessageCreate extends Page
     #[\Override]
     public function elements(): array
     {
-        return [];
+        return [
+            '@submit' => 'button[type=submit]',
+        ];
     }
 }
