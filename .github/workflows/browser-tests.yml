@@ -24,6 +24,7 @@ jobs:
     dusk:
         name: Run Laravel Dusk
         runs-on: ubuntu-latest
+        timeout-minutes: 15
         env:
             APP_NAME: LANager
             APP_KEY: ${{ secrets.APP_KEY }}
