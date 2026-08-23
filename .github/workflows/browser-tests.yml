@@ -13,6 +13,9 @@ on:
             - '**.css'
     workflow_dispatch:
 
+permissions:
+    contents: read
+
 concurrency:
     group: browser-tests-${{ github.ref }}
     cancel-in-progress: true
