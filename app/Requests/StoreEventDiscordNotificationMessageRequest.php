@@ -17,7 +17,7 @@ class StoreEventDiscordNotificationMessageRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'message' => ['required', 'string', 'max:2000'],
+            'message' => ['nullable', 'string', 'max:2000'],
             'image_paths' => [
                 'nullable',
                 'array',

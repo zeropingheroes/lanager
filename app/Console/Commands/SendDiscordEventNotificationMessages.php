@@ -77,7 +77,7 @@ class SendDiscordEventNotificationMessages extends Command
                 try {
                     $discordWebhookService->send(
                         $liveWebhook->webhook_url,
-                        $discordWebhookService->resolvePlaceholders($notification->message, $event->placeholders()),
+                        $discordWebhookService->resolvePlaceholders($notification->content(), $event->placeholders()),
                         $imagePaths
                     );
                 } catch (DiscordWebhookException|ConnectionException $exception) {

@@ -81,16 +81,19 @@ class EventDiscordNotificationMessageControllerCrudTest extends TestCase
         ]);
     }
 
-    public function test_store_rejects_empty_message(): void
+    public function test_store_accepts_empty_message_and_stores_null(): void
     {
         $testResponse = $this->actingAs($this->adminUser)
             ->post(route('lans.events.discord-notification-message.store', ['lan' => $this->lan, 'event' => $this->event]), [
                 'message' => '',
             ]);
 
-        $testResponse->assertRedirect();
-        $testResponse->assertSessionHas('error');
-        $this->assertDatabaseCount('event_discord_notification_messages', 0);
+        $testResponse->assertRedirect(route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event]));
+        $testResponse->assertSessionHas('success');
+        $this->assertDatabaseHas('event_discord_notification_messages', [
+            'event_id' => $this->event->id,
+            'message' => null,
+        ]);
     }
 
     public function test_store_rejects_message_exceeding_2000_characters(): void
@@ -168,6 +171,23 @@ class EventDiscordNotificationMessageControllerCrudTest extends TestCase
         $this->assertSame('Updated message', $notification->fresh()->message);
         $this->assertFalse($notification->fresh()->automatic);
         $this->assertDatabaseCount('event_discord_notification_messages', 1);
+    }
+
+    public function test_update_accepts_empty_message_and_stores_null(): void
+    {
+        $notification = EventDiscordNotificationMessage::factory()->create([
+            'event_id' => $this->event->id,
+            'message' => 'Old message',
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->put(route('lans.events.discord-notification-message.update', ['lan' => $this->lan, 'event' => $this->event]), [
+                'message' => '',
+            ]);
+
+        $testResponse->assertRedirect(route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event]));
+        $testResponse->assertSessionHas('success');
+        $this->assertNull($notification->fresh()->message);
     }
 
     public function test_update_rejects_message_exceeding_2000_characters(): void
@@ -451,5 +471,17 @@ class EventDiscordNotificationMessageControllerCrudTest extends TestCase
         $testResponse->assertOk();
         $testResponse->assertSee('{{event.name}}', false);
         $testResponse->assertSee('{{event.url}}', false);
+    }
+
+    public function test_create_view_message_field_placeholder_is_the_default_message(): void
+    {
+        $testResponse = $this->actingAs($this->adminUser)
+            ->get(route('lans.events.discord-notification-message.create', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertOk();
+        $testResponse->assertSee(
+            'placeholder="'.e(trans('phrase.default-event-discord-notification-message')).'"',
+            false
+        );
     }
 }

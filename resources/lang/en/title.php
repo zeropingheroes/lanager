@@ -195,5 +195,6 @@ return [
     'create-discord-notification-message' => 'Create Discord Notification Message',
     'edit-discord-notification-message' => 'Edit Discord Notification Message',
     'event-discord-notification-message' => 'Event Discord Notification Message',
+    'create-default-discord-notification-message' => 'Create default Discord notification message',
     'notification-message' => 'Notification Message',
 ];

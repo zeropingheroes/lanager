@@ -39,4 +39,31 @@
 </div>
 
 @include('components.form.inputs.published', ['value' => $event->published])
+
+@can('update', \Zeropingheroes\Lanager\Models\EventDiscordNotificationMessage::class)
+    @unless($event->exists)
+        <div class="row mb-3">
+            <label for="create_default_discord_notification_message"
+                   class="col-sm-2 col-form-label pt-0"
+            >
+                @lang('title.create-default-discord-notification-message')
+            </label>
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input type="checkbox"
+                           class="form-check-input"
+                           id="create_default_discord_notification_message"
+                           name="create_default_discord_notification_message"
+                           value="1"
+                           {{ old('create_default_discord_notification_message', true) ? 'checked' : null }}
+                    >
+                </div>
+                <div class="form-text text-muted">
+                    @lang('phrase.create-default-discord-notification-message-help')
+                </div>
+            </div>
+        </div>
+    @endunless
+@endcan
+
 @include('components.form.inputs.submit')

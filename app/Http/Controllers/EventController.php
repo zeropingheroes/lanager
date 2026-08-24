@@ -6,9 +6,11 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Zeropingheroes\Lanager\Models\Event;
+use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessage;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Requests\StoreEventRequest;
 
@@ -75,7 +77,21 @@ class EventController extends Controller
             return redirect()->back()->withInput();
         }
 
-        $event = Event::create($input);
+        $event = DB::transaction(function () use ($httpRequest, $input): Event {
+            $event = Event::create($input);
+
+            if (
+                $httpRequest->has('create_default_discord_notification_message')
+                && $httpRequest->user()->can('update', EventDiscordNotificationMessage::class)
+            ) {
+                EventDiscordNotificationMessage::create([
+                    'event_id' => $event->id,
+                    'message' => null,
+                ]);
+            }
+
+            return $event;
+        });
 
         return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
     }

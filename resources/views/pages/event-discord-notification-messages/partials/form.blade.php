@@ -10,7 +10,7 @@
                   class="form-control font-monospace"
                   rows="8"
                   maxlength="2000"
-                  placeholder="@lang('phrase.event-discord-notification-message-placeholder')"
+                  placeholder="@lang('phrase.default-event-discord-notification-message')"
         >{{ old('message', $notificationMessage ?? '') }}</textarea>
         <div class="form-text text-muted">
             {!! trans('phrase.discord-message-content-help', ['url' => trans('phrase.discord-markdown-help-link-url')]) !!}

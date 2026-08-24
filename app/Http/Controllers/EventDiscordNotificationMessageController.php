@@ -63,7 +63,7 @@ class EventDiscordNotificationMessageController extends Controller
         }
 
         $input = [
-            'message' => $httpRequest->input('message'),
+            'message' => $httpRequest->filled('message') ? $httpRequest->input('message') : null,
             'image_paths' => $httpRequest->input('image_paths') ?? [],
         ];
 
@@ -142,7 +142,7 @@ class EventDiscordNotificationMessageController extends Controller
         }
 
         $input = [
-            'message' => $httpRequest->input('message'),
+            'message' => $httpRequest->filled('message') ? $httpRequest->input('message') : null,
             'image_paths' => $httpRequest->input('image_paths') ?? [],
         ];
 
@@ -240,7 +240,7 @@ class EventDiscordNotificationMessageController extends Controller
         try {
             $discordWebhookService->send(
                 $liveWebhook->webhook_url,
-                $discordWebhookService->resolvePlaceholders($notification->message, $event->placeholders()),
+                $discordWebhookService->resolvePlaceholders($notification->content(), $event->placeholders()),
                 $imagePaths
             );
         } catch (DiscordWebhookException|ConnectionException $exception) {
@@ -287,7 +287,7 @@ class EventDiscordNotificationMessageController extends Controller
         }
 
         $input = [
-            'message' => $httpRequest->input('message'),
+            'message' => $httpRequest->filled('message') ? $httpRequest->input('message') : null,
         ];
 
         $previewRequest = new StoreEventDiscordNotificationMessageRequest($input);
@@ -306,10 +306,12 @@ class EventDiscordNotificationMessageController extends Controller
 
         $discordWebhookService = new DiscordWebhookService;
 
+        $message = $input['message'] ?? trans('phrase.default-event-discord-notification-message');
+
         try {
             $discordWebhookService->send(
                 $testWebhook->webhook_url,
-                $discordWebhookService->resolvePlaceholders($input['message'], $event->placeholders()),
+                $discordWebhookService->resolvePlaceholders($message, $event->placeholders()),
                 (array) ($httpRequest->input('image_paths') ?? [])
             );
         } catch (DiscordWebhookException|ConnectionException $exception) {

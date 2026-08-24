@@ -14,7 +14,7 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property int $event_id
- * @property string $message
+ * @property string|null $message
  * @property bool $automatic
  * @property Carbon|null $automatically_sent_at
  * @property Carbon|null $created_at
@@ -48,6 +48,14 @@ class EventDiscordNotificationMessage extends Model
         'automatic' => 'boolean',
         'automatically_sent_at' => 'datetime',
     ];
+
+    /**
+     * The message text to send, falling back to the default message when none is set.
+     */
+    public function content(): string
+    {
+        return $this->message ?? trans('phrase.default-event-discord-notification-message');
+    }
 
     /**
      * The event this notification message belongs to.
