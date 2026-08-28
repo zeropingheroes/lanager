@@ -1,14 +1,10 @@
 @vite('resources/js/pages/event-form.js')
-@include('components.form.inputs.name', ['value' => $event->name])
+@include('components.form.inputs.name', ['value' => $event->name, 'required' => true])
 @include('components.form.inputs.description', ['value' => $event->description])
-@include('components.form.inputs.start-end', ['start' => $event->start, 'end' => $event->end])
+@include('components.form.inputs.start-end', ['start' => $event->start, 'end' => $event->end, 'required' => true])
 
 <div class="row mb-3">
-    <label for="signups_open"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.signups-open')
-    </label>
+    @include('components.form.label', ['for' => 'signups_open', 'text' => __('title.signups-open')])
     <div class="col-sm-4">
         <input type="text"
                class="form-control datetimepicker-input"
@@ -20,11 +16,7 @@
                data-target="#signups_open"
         >
     </div>
-    <label for="signups_close"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.signups-close')
-    </label>
+    @include('components.form.label', ['for' => 'signups_close', 'text' => __('title.signups-close')])
     <div class="col-sm-4">
         <input type="text"
                class="form-control datetimepicker-input"
@@ -43,11 +35,11 @@
 @can('update', \Zeropingheroes\Lanager\Models\EventDiscordNotificationMessage::class)
     @unless($event->exists)
         <div class="row mb-3">
-            <label for="create_default_discord_notification_message"
-                   class="col-sm-2 col-form-label pt-0"
-            >
-                @lang('title.create-default-discord-notification-message')
-            </label>
+            @include('components.form.label', [
+                'for' => 'create_default_discord_notification_message',
+                'text' => __('title.create-default-discord-notification-message'),
+                'class' => 'col-sm-2 col-form-label pt-0',
+            ])
             <div class="col-sm-10">
                 <div class="form-check">
                     <input type="checkbox"
@@ -66,4 +58,5 @@
     @endunless
 @endcan
 
+@include('components.form.required-legend')
 @include('components.form.inputs.submit')

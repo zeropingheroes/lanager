@@ -1,13 +1,9 @@
 @vite('resources/js/pages/slide-form.js')
-@include('components.form.inputs.name', ['value' => $slide->name])
+@include('components.form.inputs.name', ['value' => $slide->name, 'required' => true])
 
 
 <div class="row mb-3">
-    <label for="content"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.content')
-    </label>
+    @include('components.form.label', ['for' => 'content', 'text' => __('title.content'), 'required' => true])
     <div class="col-sm-10">
         <textarea class="form-control"
                   id="content"
@@ -36,11 +32,7 @@
 </div>
 
 <div class="row mb-3">
-    <label for="position"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.position')
-    </label>
+    @include('components.form.label', ['for' => 'position', 'text' => __('title.position'), 'required' => true])
     <div class="col-sm-10">
         <input type="text"
                class="form-control"
@@ -52,11 +44,7 @@
     </div>
 </div>
 <div class="row mb-3">
-    <label for="duration"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.duration')
-    </label>
+    @include('components.form.label', ['for' => 'duration', 'text' => __('title.duration'), 'required' => true])
     <div class="col-sm-10">
         <input type="text"
                class="form-control"
@@ -68,11 +56,7 @@
     </div>
 </div>
 <div class="row mb-3">
-    <label for="start"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.start')
-    </label>
+    @include('components.form.label', ['for' => 'start', 'text' => __('title.start')])
     <div class="col-sm-4">
         <input type="text"
                class="form-control
@@ -85,11 +69,7 @@
                data-target="#start"
         >
     </div>
-    <label for="end"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.end')
-    </label>
+    @include('components.form.label', ['for' => 'end', 'text' => __('title.end')])
     <div class="col-sm-4">
         <input type="text"
                class="form-control
@@ -114,4 +94,5 @@
 </div>
 
 @include('components.form.inputs.published', ['value' => $slide->published])
+@include('components.form.required-legend')
 @include('components.form.inputs.submit')

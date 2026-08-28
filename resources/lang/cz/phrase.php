@@ -25,6 +25,7 @@ return [
     'is-copyright' => 'je ©',
     'and-licensed-under' => 'distribuován s licencí',
     'powered-by-steam' => 'Poháněno Steamem',
+    'required-field' => 'Povinné pole',
 
     // Account Authentication
     'profile-update-required' => 'Prosím aktualizujte svůj profil, abyste mohl pokračovat',

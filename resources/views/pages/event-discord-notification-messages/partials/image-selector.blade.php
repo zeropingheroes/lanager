@@ -1,5 +1,5 @@
 <div class="row mb-3">
-    <label class="col-sm-2 col-form-label pt-0">@lang('title.image-attachments')</label>
+    @include('components.form.label', ['text' => __('title.image-attachments'), 'class' => 'col-sm-2 col-form-label pt-0'])
     <div class="col-sm-10">
         <div id="discord-image-selector-app">
             <discord-notification-message-image-selector

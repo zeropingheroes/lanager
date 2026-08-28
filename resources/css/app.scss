@@ -17,6 +17,14 @@ nav a#admin-menu {
 }
 
 /**
+ * Required form fields
+ */
+.required::after {
+    content: " *";
+    color: var(--bs-danger);
+}
+
+/**
  * Profile Avatars
  */
 img.avatar {

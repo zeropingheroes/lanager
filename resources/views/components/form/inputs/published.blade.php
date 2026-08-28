@@ -1,9 +1,6 @@
+@php $required = $required ?? false; @endphp
 <div class="row mb-3">
-    <label for="published"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.published')
-    </label>
+    @include('components.form.label', ['for' => 'published', 'text' => __('title.published'), 'required' => $required])
     <div class="col-sm-10">
         <div class="form-check">
             <input type="checkbox"

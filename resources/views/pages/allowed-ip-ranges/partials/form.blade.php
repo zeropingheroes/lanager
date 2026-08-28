@@ -1,9 +1,5 @@
 <div class="row mb-3">
-    <label for="ip_range"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.ip-range')
-    </label>
+    @include('components.form.label', ['for' => 'ip_range', 'text' => __('title.ip-range'), 'required' => true])
     <div class="col-sm-10">
         <input type="text"
                class="form-control"
@@ -16,12 +12,7 @@
 </div>
 
 <div class="row mb-3">
-    <label
-        for="description"
-        class="col-sm-2 col-form-label"
-    >
-        @lang('title.description')
-    </label>
+    @include('components.form.label', ['for' => 'description', 'text' => __('title.description')])
     <div class="col-sm-10">
         <input
             type="text"
@@ -33,4 +24,5 @@
         >
     </div>
 </div>
+@include('components.form.required-legend')
 @include('components.form.inputs.submit')

@@ -1,9 +1,6 @@
+@php $required = $required ?? false; @endphp
 <div class="row mb-3">
-    <label for="start"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.start')
-    </label>
+    @include('components.form.label', ['for' => 'start', 'text' => __('title.start'), 'required' => $required])
     <div class="col-sm-4">
         <input type="text"
                class="form-control datetimepicker-input"
@@ -15,11 +12,7 @@
                data-target="#start"
         >
     </div>
-    <label for="end"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.end')
-    </label>
+    @include('components.form.label', ['for' => 'end', 'text' => __('title.end'), 'required' => $required])
     <div class="col-sm-4">
         <input type="text"
                class="form-control datetimepicker-input"

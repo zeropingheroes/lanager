@@ -1,12 +1,8 @@
 @vite('resources/js/pages/lan-form.js')
-@include('components.form.inputs.name', ['value' => $lan->name])
-@include('components.form.inputs.start-end', ['start' => $lan->start, 'end' => $lan->end])
+@include('components.form.inputs.name', ['value' => $lan->name, 'required' => true])
+@include('components.form.inputs.start-end', ['start' => $lan->start, 'end' => $lan->end, 'required' => true])
 <div class="row mb-3">
-    <label for="venue_id"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.venue')
-    </label>
+    @include('components.form.label', ['for' => 'venue_id', 'text' => __('title.venue')])
     <div class="col-sm-10">
         @include('components.form.select', [
             'name' => 'venue_id',
@@ -18,11 +14,7 @@
     </div>
 </div>
 <div class="row mb-3">
-    <label for="achievement_id"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.lan-achievement')
-    </label>
+    @include('components.form.label', ['for' => 'achievement_id', 'text' => __('title.lan-achievement')])
     <div class="col-sm-10">
         @include('components.form.select',[
             'name' => 'achievement_id',
@@ -40,11 +32,7 @@
 </div>
 @include('components.form.inputs.published', ['value' => $lan->published])
 <div class="row mb-3">
-    <label for="default_event_discord_notification_message"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.default-event-discord-notification-message')
-    </label>
+    @include('components.form.label', ['for' => 'default_event_discord_notification_message', 'text' => __('title.default-event-discord-notification-message')])
     <div class="col-sm-10">
         <textarea id="default_event_discord_notification_message"
                   name="default_event_discord_notification_message"
@@ -70,4 +58,5 @@
         </div>
     </div>
 </div>
+@include('components.form.required-legend')
 @include('components.form.inputs.submit')

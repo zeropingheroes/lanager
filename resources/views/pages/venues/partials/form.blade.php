@@ -1,11 +1,7 @@
-@include('components.form.inputs.name', ['value' => $venue->name])
+@include('components.form.inputs.name', ['value' => $venue->name, 'required' => true])
 
 <div class="row mb-3">
-    <label for="street_address"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.street-address')
-    </label>
+    @include('components.form.label', ['for' => 'street_address', 'text' => __('title.street-address'), 'required' => true])
     <div class="col-sm-10">
         <input type="text"
                class="form-control"
@@ -16,4 +12,5 @@
         >
     </div>
 </div>
+@include('components.form.required-legend')
 @include('components.form.inputs.submit')

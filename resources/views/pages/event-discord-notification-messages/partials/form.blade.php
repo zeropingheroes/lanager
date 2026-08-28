@@ -4,7 +4,7 @@
 @endphp
 
 <div class="row mb-3">
-    <label for="message" class="col-sm-2 col-form-label">@lang('title.message')</label>
+    @include('components.form.label', ['for' => 'message', 'text' => __('title.message')])
     <div class="col-sm-10">
         <textarea id="message"
                   name="message"
@@ -34,7 +34,7 @@
 ])
 
 <div class="row mb-3">
-    <label class="col-sm-2 col-form-label pt-0">@lang('title.send-automatically')</label>
+    @include('components.form.label', ['text' => __('title.send-automatically'), 'class' => 'col-sm-2 col-form-label pt-0'])
     <div class="col-sm-10">
         <div class="form-check">
             <input type="checkbox"
@@ -56,7 +56,7 @@
 
 @can('preview', \Zeropingheroes\Lanager\Models\EventDiscordNotificationMessage::class)
     <div class="row mb-3">
-        <label class="col-sm-2 col-form-label pt-0">@lang('title.preview')</label>
+        @include('components.form.label', ['text' => __('title.preview'), 'class' => 'col-sm-2 col-form-label pt-0'])
         <div class="col-sm-10">
             <button type="button"
                     id="discord-notification-preview-button"

@@ -29,7 +29,7 @@
     )
 
     <div class="row mb-3">
-        <label class="col-sm-2 col-form-label">@lang('title.channel')</label>
+        @include('components.form.label', ['text' => __('title.channel')])
         <div class="col-sm-10 d-flex align-items-center">
             <span class="badge fs-6 bg-{{ $webhook->purpose === 'live' ? 'danger' : 'info' }}">
                 {{ trans('title.' . $webhook->purpose) }}
@@ -38,7 +38,7 @@
     </div>
 
     <div class="row mb-3">
-        <label for="message" class="col-sm-2 col-form-label">@lang('title.message')</label>
+        @include('components.form.label', ['for' => 'message', 'text' => __('title.message'), 'required' => true])
         <div class="col-sm-10">
             <textarea id="message"
                       name="message"
@@ -55,6 +55,7 @@
             </div>
         </div>
     </div>
+    @include('components.form.required-legend')
     <div class="row mb-3">
         <div class="offset-sm-2 d-grid col-sm-10 gap-2">
             <button type="submit" id="discord-channel-webhook-message-submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> @lang('title.send')</button>

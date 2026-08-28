@@ -12,11 +12,7 @@
 @section('content')
     @include('components.form.edit', ['route' => route('images.update', $image['filename'])])
     <div class="row mb-3">
-        <label for="filename"
-               class="col-sm-2 col-form-label"
-        >
-            @lang('title.filename')
-        </label>
+        @include('components.form.label', ['for' => 'filename', 'text' => __('title.filename'), 'required' => true])
         <div class="col-sm-10">
             <input name="filename"
                    type="text"
@@ -27,6 +23,7 @@
             >
         </div>
     </div>
+    @include('components.form.required-legend')
     @include('components.form.inputs.submit')
     @include('components.form.close')
 @endsection

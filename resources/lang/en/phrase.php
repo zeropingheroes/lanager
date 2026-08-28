@@ -25,6 +25,7 @@ return [
     'is-copyright' => 'is ©',
     'and-licensed-under' => 'and licensed under',
     'powered-by-steam' => 'Powered by Steam',
+    'required-field' => 'Required field',
 
     // Account Authentication
     'profile-update-required' => 'Please update your profile to continue',

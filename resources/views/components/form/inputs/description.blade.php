@@ -1,9 +1,6 @@
+@php $required = $required ?? false; @endphp
 <div class="row mb-3">
-    <label for="description"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.description')
-    </label>
+    @include('components.form.label', ['for' => 'description', 'text' => __('title.description'), 'required' => $required])
     <div class="col-sm-10">
         <textarea class="form-control"
                   id="description"

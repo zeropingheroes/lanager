@@ -1,9 +1,5 @@
 <div class="row mb-3">
-    <label for="title"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.title')
-    </label>
+    @include('components.form.label', ['for' => 'title', 'text' => __('title.title'), 'required' => true])
     <div class="col-sm-10">
         <input type="text"
                class="form-control"
@@ -16,11 +12,7 @@
 </div>
 
 <div class="row mb-3">
-    <label for="content"
-           class="col-sm-2 col-form-label"
-    >
-        @lang('title.content')
-    </label>
+    @include('components.form.label', ['for' => 'content', 'text' => __('title.content'), 'required' => true])
     <div class="col-sm-10">
         <textarea class="form-control"
                   id="content"
@@ -47,4 +39,5 @@
     </div>
 </div>
 @include('components.form.inputs.published', ['value' => $guide->published])
+@include('components.form.required-legend')
 @include('components.form.inputs.submit')
