@@ -57,7 +57,7 @@
                     $vote = $lanGame->votes->where('user_id',Auth::user()->id)->first();
                     if($vote != null) {
                         $voted = true;
-                        $route = route('lans.lan-games.votes.destroy', ['lan' => $lanGame->lan, 'lan_game' => $lanGame, 'vote' => $vote]);
+                        $route = route('lans.lan-games.votes.destroy', ['lan' => $lanGame->lan, 'lan_game' => $lanGame, 'lanGameVote' => $vote]);
                     } else {
                         $voted = false;
                         $route = route('lans.lan-games.votes.store', ['lan' => $lanGame->lan, 'lan_game' => $lanGame]);

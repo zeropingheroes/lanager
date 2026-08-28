@@ -110,7 +110,8 @@ Route::resource('lans.discord-channel-webhooks.messages', DiscordChannelWebhookM
  * Events.
  */
 Route::resource('lans.events', EventController::class);
-Route::resource('lans.events.signups', EventSignupController::class, ['only' => ['store', 'destroy']]);
+Route::resource('lans.events.signups', EventSignupController::class, ['only' => ['store', 'destroy']])
+    ->parameters(['signups' => 'eventSignup']);
 Route::get(
     '/events/fullscreen',
     fn () => view('pages.events.fullscreen')
@@ -128,7 +129,8 @@ Route::singleton('lans.events.discord-notification-message', EventDiscordNotific
  * LAN Games & LAN Game Votes.
  */
 Route::resource('lans.lan-games', LanGameController::class, ['except' => ['create']]);
-Route::resource('lans.lan-games.votes', LanGameVoteController::class, ['only' => ['store', 'destroy']]);
+Route::resource('lans.lan-games.votes', LanGameVoteController::class, ['only' => ['store', 'destroy']])
+    ->parameters(['votes' => 'lanGameVote']);
 
 /**
  * Users & Attendees.

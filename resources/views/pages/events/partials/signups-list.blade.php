@@ -12,7 +12,7 @@
                     <form action="{{ route('lans.events.signups.destroy',
                     ['lan' => $signup->event->lan,
                     'event' => $signup->event,
-                    'signup' => $signup]) }}"
+                    'eventSignup' => $signup]) }}"
                           method="POST">
                         {{ method_field('DELETE') }}
                         {{ csrf_field() }}
