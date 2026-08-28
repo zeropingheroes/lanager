@@ -15,7 +15,9 @@ class NavigationLinkObserver
     public function saving(NavigationLink $navigationLink): void
     {
         // Remove the site URL from links so that all on-site links are relative links
-        $navigationLink->url = str_replace(config('app.url'), '', $navigationLink->url);
+        if ($navigationLink->url !== null) {
+            $navigationLink->url = str_replace(config('app.url'), '', $navigationLink->url);
+        }
     }
 
     /**
