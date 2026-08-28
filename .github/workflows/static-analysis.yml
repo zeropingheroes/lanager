@@ -1,0 +1,43 @@
+name: Static Analysis
+
+on:
+    push:
+        paths:
+            - '**.php'
+            - '**.json'
+            - '**.lock'
+            - 'phpstan.neon'
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: static-analysis-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    phpstan:
+        name: Run PHPStan
+        runs-on: ubuntu-latest
+        timeout-minutes: 15
+        strategy:
+            fail-fast: true
+            matrix:
+                php: [8.4]
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v7
+
+            -   name: Set up PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    coverage: none
+
+            -   name: Install Composer dependencies
+                run: composer install --optimize-autoloader --no-interaction --no-progress --no-scripts
+
+            -   name: Run PHPStan
+                run: vendor/bin/phpstan analyse --no-progress

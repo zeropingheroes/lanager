@@ -1,0 +1,74 @@
+name: Feature Tests
+
+on:
+    push:
+        paths:
+            - '**.php'
+            - '**.json'
+            - '**.lock'
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: feature-tests-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    feature:
+        name: Run Feature Tests
+        runs-on: ubuntu-latest
+        timeout-minutes: 15
+        env:
+            APP_NAME: LANager
+            APP_KEY: ${{ secrets.APP_KEY }}
+            APP_URL: http://localhost:8000
+            APP_ENV: testing
+            APP_TIMEZONE: UTC
+            APP_LOCALE: en
+            APP_DEBUG: true
+            STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+            DB_CONNECTION: mysql
+            DB_HOST: localhost
+            DB_PORT: 3306
+            DB_DATABASE: lanager
+            DB_USERNAME: root
+            DB_PASSWORD: root
+            CACHE_STORE: array
+            SESSION_DRIVER: array
+            QUEUE_CONNECTION: sync
+            MAIL_MAILER: array
+            LOG_CHANNEL: file
+
+        steps:
+            -   name: Start MySQL
+                run: sudo /etc/init.d/mysql start
+
+            -   name: Create database
+                env:
+                    MYSQL_PWD: ${{ env.DB_PASSWORD }}
+                run: mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }}
+
+            -   name: Checkout code
+                uses: actions/checkout@v7
+
+            -   name: Set up PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.4'
+                    extensions: xmlwriter, zip, pdo, pdo_mysql, tokenizer, simplexml, bcmath, fileinfo
+                    ini-values: error_reporting=22527
+                    coverage: none
+
+            -   name: Install Composer dependencies
+                run: composer install --optimize-autoloader --no-interaction --no-progress --no-scripts
+
+            -   name: Create empty .env file
+                run: touch .env
+
+            -   name: Run database migrations
+                run: php artisan migrate
+
+            -   name: Run Feature tests
+                run: php artisan test --testsuite=Feature
