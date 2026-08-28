@@ -1,17 +1,14 @@
 LANager
 =======
 
-|                                    Stable Branch |                                     Develop Branch |
-|-------------------------------------------------:|---------------------------------------------------:|
-| [![Browser Tests][duskStableImg]][duskStableUrl] | [![Browser Tests][duskDevelopImg]][duskDevelopUrl] |
-
-[duskStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml/badge.svg?branch=stable
-
-[duskStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml
-
-[duskDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml/badge.svg?branch=develop
-
-[duskDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml
+|                                          Stable Branch |                                              Develop Branch |
+|-------------------------------------------------------:|------------------------------------------------------------:|
+|       [![Browser Tests][duskStableImg]][duskStableUrl] |          [![Browser Tests][duskDevelopImg]][duskDevelopUrl] |
+| [![Feature Tests][featureStableImg]][featureStableUrl] |    [![Feature Tests][featureDevelopImg]][featureDevelopUrl] |
+|          [![Unit Tests][unitStableImg]][unitStableUrl] |             [![Unit Tests][unitDevelopImg]][unitDevelopUrl] |
+| [![Static Analysis][staticStableImg]][staticStableUrl] |    [![Static Analysis][staticDevelopImg]][staticDevelopUrl] |
+|      [![PHP Code Style][pintStableImg]][pintStableUrl] |         [![PHP Code Style][pintDevelopImg]][pintDevelopUrl] |
+|    [![Docker Image][dockerStableImg]][dockerStableUrl] | [![Docker Image (Dev)][dockerDevelopImg]][dockerDevelopUrl] |
 
 LANager is a web application designed to make [LAN parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
@@ -317,3 +314,51 @@ cd lanager-docker-compose
 ## Contributing
 
 For information on how to set up LANager for development and contribute, read [CONTRIBUTING.md](CONTRIBUTING.md).
+
+[duskStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml/badge.svg?branch=stable
+
+[duskStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml
+
+[duskDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml/badge.svg?branch=develop
+
+[duskDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/browser-tests.yml
+
+[featureStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/feature-tests.yml/badge.svg?branch=stable
+
+[featureStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/feature-tests.yml
+
+[featureDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/feature-tests.yml/badge.svg?branch=develop
+
+[featureDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/feature-tests.yml
+
+[unitStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/unit-tests.yml/badge.svg?branch=stable
+
+[unitStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/unit-tests.yml
+
+[unitDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/unit-tests.yml/badge.svg?branch=develop
+
+[unitDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/unit-tests.yml
+
+[staticStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/static-analysis.yml/badge.svg?branch=stable
+
+[staticStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/static-analysis.yml
+
+[staticDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/static-analysis.yml/badge.svg?branch=develop
+
+[staticDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/static-analysis.yml
+
+[pintStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/php-code-style.yml/badge.svg?branch=stable
+
+[pintStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/php-code-style.yml
+
+[pintDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/php-code-style.yml/badge.svg?branch=develop
+
+[pintDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/php-code-style.yml
+
+[dockerStableImg]:https://github.com/zeropingheroes/lanager/actions/workflows/docker-image.yml/badge.svg
+
+[dockerStableUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/docker-image.yml
+
+[dockerDevelopImg]:https://github.com/zeropingheroes/lanager/actions/workflows/docker-image-dev.yml/badge.svg?branch=develop
+
+[dockerDevelopUrl]:https://github.com/zeropingheroes/lanager/actions/workflows/docker-image-dev.yml
