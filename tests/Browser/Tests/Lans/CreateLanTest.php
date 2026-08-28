@@ -31,6 +31,10 @@ class CreateLanTest extends DuskTestCase
 
             // And fills the "create LAN" form
             $browser->on(new LanCreate);
+
+            // And the submit button shows an icon
+            $browser->assertPresent('button[type=submit] i.fa-check');
+
             $browser->type('name', 'My Great LAN');
             $browser->type('start', '2022-09-23 18:00');
             $browser->type('end', '2022-09-25 18:00');

@@ -54,7 +54,7 @@
             @can('create', [Zeropingheroes\Lanager\Models\EventSignup::class, $event])
                 @if(Auth::user()->eventSignups()->where('event_id', $event->id)->get()->isEmpty())
                     @include('components.form.create', ['route' => route('lans.events.signups.store', ['lan' => $event->lan, 'event' => $event])])
-                        <button type="submit" class="btn btn-primary">@lang('title.sign-up')</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> @lang('title.sign-up')</button>
                     @include('components.form.close')
                 @endif
             @endcan

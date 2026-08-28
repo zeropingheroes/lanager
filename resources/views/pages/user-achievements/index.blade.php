@@ -37,7 +37,7 @@
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <a class="dropdown-item" href="#"
-                                       onclick="confirmFormSubmit(event);">@lang('title.delete')</a>
+                                       onclick="confirmFormSubmit(event);"><i class="fa-solid fa-trash"></i> @lang('title.delete')</a>
                                 </form>
                             @endcomponent
                         @endcan
@@ -71,7 +71,7 @@
                 ])
             </div>
             <div class="form-group mb-3">
-                <button type="submit" class="btn btn-primary">@lang('title.award')</button>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-award"></i> @lang('title.award')</button>
             </div>
         </div>
         @include('components.form.close')

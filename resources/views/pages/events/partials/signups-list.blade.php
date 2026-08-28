@@ -20,7 +20,7 @@
                                 class="btn btn-danger btn-sm"
                                 title="@lang('title.delete')"
                                 onclick="confirmFormSubmit(event)">
-                            Delete
+                            <i class="fa-solid fa-trash"></i> Delete
                         </button>
                     </form>
                 @endcan

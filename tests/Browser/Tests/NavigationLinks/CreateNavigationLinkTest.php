@@ -31,6 +31,9 @@ class CreateNavigationLinkTest extends DuskTestCase
             // And they wait for the navigation links index page to load
             $browser->waitForRoute('navigation-links.index');
 
+            // And the "create" button shows an icon
+            $browser->assertPresent('.btn i.fa-plus');
+
             // And they click the "create" button
             $browser->clickLink('Create');
 
@@ -40,6 +43,9 @@ class CreateNavigationLinkTest extends DuskTestCase
                 ->type('title', 'Code of Conduct')
                 ->type('url', '/lans/1/guides/1')
                 ->type('position', '10');
+
+            // And the submit button shows an icon
+            $browser->assertPresent('button[type=submit] i.fa-check');
 
             // And submits the form
             $browser->waitForReload(function (Browser $browser): void {

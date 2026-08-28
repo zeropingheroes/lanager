@@ -39,6 +39,9 @@ class IndexRoleAssignmentsTest extends DuskTestCase
             // And they click the admin menu
             $browser->click('#admin-menu');
 
+            // And the admin dropdown's menu items show icons
+            $browser->assertPresent('.dropdown-menu i.fa-user-shield');
+
             // And they click the "role assignments" menu item
             $browser->clickLink('Role Assignments');
 
@@ -47,6 +50,11 @@ class IndexRoleAssignmentsTest extends DuskTestCase
 
             // Then they should see the user's username in the table
             $browser->assertSeeIn('table', $user->username);
+
+            // And the user account dropdown's menu items show icons
+            $browser->click('#user-menu');
+            $browser->assertPresent('.dropdown-menu i.fa-user');
+            $browser->assertPresent('.dropdown-menu i.fa-right-from-bracket');
         });
     }
 }

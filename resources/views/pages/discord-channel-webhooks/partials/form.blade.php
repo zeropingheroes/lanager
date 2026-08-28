@@ -34,7 +34,7 @@
 
     <div class="col-auto">
         <button type="submit" class="btn btn-primary" {{ $bothConfigured ? 'disabled' : '' }}>
-            @lang('title.submit')
+            <i class="fa-solid fa-check"></i> @lang('title.submit')
         </button>
     </div>
 </div>

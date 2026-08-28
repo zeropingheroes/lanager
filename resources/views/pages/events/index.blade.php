@@ -11,7 +11,7 @@
 @section('content')
     @include('pages.events.partials.list', ['events' => $events])
     @can('create', Zeropingheroes\Lanager\Models\Event::class)
-        <a href="{{ route( 'lans.events.create', $lan) }}" class="btn btn-primary">@lang('title.create')</a>
+        <a href="{{ route( 'lans.events.create', $lan) }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> @lang('title.create')</a>
     @endcan
 @endsection
 @vite('resources/js/pages/event-discord-notification-message.js')

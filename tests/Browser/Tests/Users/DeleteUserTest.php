@@ -32,6 +32,9 @@ class DeleteUserTest extends DuskTestCase
             // When the super admin visits the user's profile page
             $browser->visitRoute('users.show', ['user' => $user]);
 
+            // And the "delete" button shows an icon
+            $browser->assertPresent('button i.fa-trash');
+
             // And clicks the "delete" button
             $browser->press('Delete');
 

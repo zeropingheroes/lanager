@@ -29,6 +29,9 @@ class DeleteLanTest extends DuskTestCase
             // And clicks the "options" dropdown next to the LAN's name
             $browser->clickAtXPath('//a[text()="'.$lan->name.'"]//..//..//button[@title="Options"]');
 
+            // And the dropdown's "delete" item shows an icon
+            $browser->assertPresent('.dropdown-menu i.fa-trash');
+
             // And clicks the "delete" link
             $browser->clickLink('Delete');
 

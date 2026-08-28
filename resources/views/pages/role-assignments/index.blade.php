@@ -78,7 +78,7 @@
                 'classes' => 'form-select my-1 me-2 w-auto'
             ])
 
-            <button type="submit" class="btn btn-primary my-1">@lang('title.assign-role')</button>
+            <button type="submit" class="btn btn-primary my-1"><i class="fa-solid fa-user-shield"></i> @lang('title.assign-role')</button>
         </form>
     @endcan
 @endsection

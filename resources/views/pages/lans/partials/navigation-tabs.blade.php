@@ -12,9 +12,9 @@
                 class="badge text-bg-primary">{{ $lan->events()->where('published', '=', '1')->count() }}</span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ route('lans.events.index', $lan) }}">@lang('title.list')</a>
+            <a class="dropdown-item" href="{{ route('lans.events.index', $lan) }}"><i class="fa-solid fa-list"></i> @lang('title.list')</a>
             <a class="dropdown-item"
-               href="{{ route('lans.events.index', ['lan' => $lan, 'schedule']) }}">@lang('title.schedule')</a>
+               href="{{ route('lans.events.index', ['lan' => $lan, 'schedule']) }}"><i class="fa-solid fa-calendar-days"></i> @lang('title.schedule')</a>
         </div>
     </li>
     <li class="nav-item">

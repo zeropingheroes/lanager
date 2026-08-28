@@ -30,6 +30,9 @@ class EditLanTest extends DuskTestCase
             // And clicks the "options" dropdown next to the LAN's name
             $browser->clickAtXPath('//a[text()="'.$lan->name.'"]//..//..//button[@title="Options"]');
 
+            // And the dropdown's "edit" item shows an icon
+            $browser->assertPresent('.dropdown-menu i.fa-pen-to-square');
+
             // And clicks the "edit" link
             $browser->clickLink('Edit');
 

@@ -57,7 +57,7 @@
     </div>
     <div class="row mb-3">
         <div class="offset-sm-2 d-grid col-sm-10 gap-2">
-            <button type="submit" id="discord-channel-webhook-message-submit" class="btn btn-primary">@lang('title.send')</button>
+            <button type="submit" id="discord-channel-webhook-message-submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> @lang('title.send')</button>
         </div>
     </div>
     @include('components.form.close')

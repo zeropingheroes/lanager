@@ -26,7 +26,7 @@
             </div>
             <div class="col-auto">
                 <button class="btn btn-primary" type="submit">
-                    @lang('title.submit')
+                    <i class="fa-solid fa-check"></i> @lang('title.submit')
                 </button>
             </div>
         </div>
