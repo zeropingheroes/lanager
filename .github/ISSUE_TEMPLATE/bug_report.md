@@ -9,7 +9,7 @@ assignees: ''
 
 <!-- DO NOT THROW THIS AWAY! FILL IT OUT SO WE CAN HELP :) -->
 
-**Docker image information**
+**Docker image**
 <!-- Run `docker images zeropingheroes/lanager` and paste the output -->
 <!-- You must be using the LANager Docker image to receive support. -->
 

@@ -16,27 +16,39 @@ LANager
 LANager is a web application designed to make [LAN parties](https://en.wikipedia.org/wiki/Lan_party)
 more enjoyable for attendees and organisers alike.
 
+## Contents
+
+* [Features](#features)
+* [Requirements](#requirements)
+* [Setup](#setup)
+* [Getting started](#getting-started)
+* [Backup](#backup)
+* [Update](#update)
+* [Contributing](#contributing)
+
 ## Features
 
 ### Encourage socialising & participation
 
-* **Games being played** - by your LAN's attendees, updated every minute from Steam
-* **Events timetable** - so your attendees know what's on at the LAN
-* **Achievements** - created by you and awarded to attendees
-* **Attendee profiles** - with a link to their Steam profile, and their gameplay history at the LAN
-* **Games in common** - when viewing another attendee's profile
-* **Games recently played** - showing the top games most recently played by attendees at the LAN
+* **Games being played** by your LAN's attendees, updated every minute from Steam
+* **Events timetable** showing your attendees what's on at your LAN
+* **Achievements** created by you and awarded to attendees
+* **Attendee profiles** with a link to their Steam profile, and their gameplay history at the LAN
+* **Games in common** when viewing another attendee's profile
+* **Games recently played** showing the top games most recently played by attendees at the LAN
+* **Event Discord notifications** sent automatically when an event starts
 
 ### Broadcast useful information
 
-* **Slides** - showing games attendees are currently playing, and current and upcoming events, for TVs or
-  projectors around your venue
-* **Guides** - written by you, to help attendees learn about things like venue facilities, rules, or gameplay guides
-* **Links** - to other websites, such as your organisation's website, or a game statistics page
+* **Slides** showing games attendees are currently playing, and current and upcoming events, for TVs or projectors
+  around your venue
+* **Guides** written by you to help attendees learn about things like venue facilities, rules, or gameplay guides
+* **Links** to other websites, such as your organisation's website, or a game statistics page
 
 ## Requirements
 
-* Internet access
+* [Internet access](https://www.youtube.com/watch?v=BPkSeXGJTPw)
+* [Git](https://git-scm.com/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Setup
@@ -57,7 +69,7 @@ more enjoyable for attendees and organisers alike.
 3. Generate and copy a new application key:
 
     ```bash
-    docker run --rm --entrypoint php -w /app zeropingheroes/lanager artisan key:generate --show
+    docker run --rm --entrypoint php -w /app zeropingheroes/lanager:stable artisan key:generate --show
     ```
 
 4. Open the environment configuration file in a text editor:
@@ -68,17 +80,14 @@ more enjoyable for attendees and organisers alike.
 
 5. Set the following configuration items:
 
-    | Environment variable | Set to                                                                                     |
-    |----------------------|--------------------------------------------------------------------------------------------|
-    | `APP_KEY`            | The application key you generated above                                                    |
-    | `APP_URL`            | The URL you will access LANager through, without a trailing slash                          |
-    | `APP_TIMEZONE`       | Your location's [timezone](https://wikipedia.org/wiki/List_of_tz_database_time_zones#List) |
-    | `STEAM_API_KEY`      | Your [Steam API Key](http://steamcommunity.com/dev/apikey)                                 |
-    | `DB_PASSWORD`        | A randomly generated password                                                              |
-    | `DB_ROOT_PASSWORD`   | A different randomly generated password                                                    |
-
-    If you will LANager behind a reverse proxy, set `TRUSTED_PROXIES` to the IP ranges used by Docker, typically:
-    `172.16.0.0/12,192.168.0.0/16`
+    | Variable           | Set to                                                                                                     |
+    |--------------------|------------------------------------------------------------------------------------------------------------|
+    | `APP_URL`          | The URL you will access LANager through, without a trailing slash                                          |
+    | `APP_TIMEZONE`     | Your location's [timezone](https://wikipedia.org/wiki/List_of_tz_database_time_zones#List)                 |
+    | `STEAM_API_KEY`    | Your [Steam API Key](http://steamcommunity.com/dev/apikey)                                                 |
+    | `DB_PASSWORD`      | A randomly generated password                                                                              |
+    | `DB_ROOT_PASSWORD` | A different randomly generated password                                                                    |
+    | `TRUSTED_PROXIES`  | (If running behind a reverse proxy) the IP ranges used by Docker, typically `172.16.0.0/12,192.168.0.0/16` |
 
 6. Bring up the application:
 
@@ -89,154 +98,147 @@ more enjoyable for attendees and organisers alike.
 7. Initialise the database:
 
     ```bash
-   ./initialise-database.sh
+    ./initialise-database.sh
     ```
 
-LANager should now be accessible at http://localhost:8000, or at the URL you specified in `APP_URL`, providing you've
-created a corresponding DNS `A` record for the Docker host's IP address, and allowed ports `80` and `443` through
-the Docker host's firewall.
-
-## Update
-
-1. Enter the `lanager-docker-compose` repository:
-
-    ```bash
-    cd lanager-docker-compose
-   ```
-
-2. Back up your data:
-
-    ```bash
-    ./backup.sh
-   ```
-
-3. Get the latest version of the Docker compose files and scripts:
-
-    ```bash
-    git pull
-   ```
-
-4. Run the update script:
-
-    ```bash
-    ./update.sh
-    ````
-
-### Update from 1.3.1 to 2.x
-
-1. Follow the steps from the **Update** section above
-2. Run `./fix-permissions.sh` to fix permissions on the `storage` directory
-3. Run `docker exec -it lanager php artisan lanager:update-steam-apps`
-4. Run `docker exec -it lanager php artisan lanager:update-steam-user-apps`
-5. Run `docker exec -it lanager php artisan lanager:update-steam-user-app-images`
+LANager should now be accessible at the `APP_URL` you specified.
 
 ## Getting started
-
-To set up the LANager for your next LAN party, you need to create a LAN page, then add Events (such as scheduled games
-or lunch breaks) and Guides (such as game rules) to that LAN page.
 
 ### Become a Super Admin
 
 The LANager assigns the "Super Admin" role to the first account that logs into it, so make sure you log in as soon as
-you have completed installation.
+you have completed installation. Super Admins can perform any action on the site, including assigning roles to other
+users.
 
-Super Admins can perform any action on the site, including assigning roles to other users.
+### Assign roles to other users
 
-### Create your LAN page
+Attendees must sign in to LANager before you can assign them a role.
 
-The first thing you need to do is to create a LAN page in the LANager. This process is the same whether your LAN party
-is one day or multiple days. You need to do this before you can create an event schedule, publish any guides or award
-achievements.
+1. In the top-right, select ⚙ > **Role Assignments**
+2. Select the **user** and the **role** (**Admin** or **Super Admin**) to assign
+3. Select **Assign Role**
 
-Log into the LANager, and go to ⚙ > **LANs**, then select the **+** button to go to the LAN page creation form. Enter
-your LAN's details, and add a description with [Markdown formatting](https://en.wikipedia.org/wiki/Markdown#Example)
-if you want to.
+Admins can do everything a super admin can do, except assigning or revoking roles.
 
-The LANager automatically adds anyone who logs into the LANager during the LAN party to the LAN's list of attendees.
-For each attendee it displays the current LAN page, which contains the LAN's timetabled events, guides and attendees
-list.
+### Create a venue
 
-### Create Events & Guides
+Creating a venue is optional but allows you to set a street address and associate LANs with the venue.
 
-Once you have a LAN page for your LAN party, you can create Events and Guides to help attendees enjoy your party.
+1. In the top-right, select ⚙ > **Venues**
+2. Select the **+** button
+3. Enter the venue's **name** and **street address**
+4. Select **Submit**
 
-* **Events** are a useful way to timetable game tournaments, highlight big game sessions, schedule breaks and mealtimes,
-  and let people know when it's time to go home
-* **Guides** are a useful way to provide people with the rules and download links to the games you're playing, to let
-  them know where the nearest shops and restaurants are, to provide a code of conduct for your event, and to communicate
-  any other information you think your guests might need.
+### Create a LAN
 
-From the LAN page, select the **+** button next to the **Events** and **Guides** headings to go to their creation forms.
+In the LANager, all events, guides, slides, and other items are associated with a LAN. Before you create any other items,
+you must create a LAN:
 
-#### Using links
+1. In the top-right, select ⚙ > **LANs**
+2. Select the **+** button
+3. Enter your LAN's name, start and end date and time
+4. Optionally:
+   1. Set the LAN's **venue**
+   2. Customise the default **message** sent to Discord when an event starts
+5. Enable the **Published** checkbox
+6. Select **Submit**
 
-You can use markdown-formatted links in LANs, guides and events. For example, you can write a single guide, and insert
-a link to it on several event pages:
+Your LAN is now visible to everyone. The LANager automatically adds anyone who logs in during the LAN to the LAN's 
+list of attendees and redirects them to the LAN's page, which shows the timetable, guides, and attendee list.
 
-    If you need any help, please contact one of our [tournament staff](/lans/4/guides/3)
+### Create an event
 
-Where possible, it's good practice to use relative links as demonstrated above, so that if you change your domain, the
-links continue to work.
+Events are a useful way to timetable game tournaments, highlight big game sessions, schedule breaks and mealtimes,
+and let people know when it's time to go home.
 
-#### Using images
+1. Go to the LAN's page
+2. Select the **Events** tab
+3. Select **Create**
+4. Enter the event's **name**, **description**, and **start** and **end** date and time
+5. Enable the **Published** checkbox
+6. Select **Submit**
 
-You can upload images to LAN pages, Events and Guides. To do this, follow these steps:
+Your event is now visible to everyone on the LAN's timetable. Create as many events as you need to help organise your
+LAN.
 
-1. Below the **Description** text box, select **Upload images**.
-2. Upload the image you want to use.
-3. Next to the image, select ⚙ > **Copy Markdown**
-4. Paste the Markdown into the guide, event or LAN's **description** field, in the location you want it to appear in the
-   text.
+### Create a guide
 
-### Display slides
+Use guides to provide your attendees with useful information that will help them enjoy the LAN. For example,
+game download links, gameplay guides, food and drink options, to provide a code of conduct for your event.
 
-The slides feature allows you to display a looping slideshow of live data and useful info for your attendees, such as
-which event is starting next, which games people are playing, and how to log into the LANager.
+1. Go to the LAN's page
+2. Select the **Guides** tab
+3. Select **Create**
+4. Enter the guide's **title**
+5. Write the guide's **content**, using Markdown formatting and uploading images
+6. Enable the **Published** checkbox
+7. Select **Submit**
 
-To display the slideshow, log in as an admin, and navigate to ⚙ > **LANs** > *(your LAN)* > **Slides**.
+### Create slides
 
-Load the slideshow on a big TV or projector so that attendees can see the info easily.
+If you have a big TV or projector, use slides to show your attendees a looping slideshow of live data and useful
+info, such as which event is starting next, which games people are playing, and how to log into the LANager.
 
-### Create and award Achievements
+1. Go to the LAN's page
+2. Select the **Slides** tab
+3. Select the **+** button
+4. Enter the slide's **name**
+5. Write the slide's **content**, using Markdown formatting and uploading images
+6. Set the slide's **position** in the slideshow to determine when it will be shown
+7. Set the slide's **duration** in seconds
+8. To only show the slide at a particular time, set the slide's **start** and **end** dates and times
+9. Enable the **Published** checkbox
+10. Select **Submit**
 
-Select ⚙ > **Achievements** and then select the **+** button to create achievements that you can award to users.
+Your slide will now be visible to everyone on the LAN's slideshow, available at the URL (no login required):
 
-To award an Achievement to an attendee, go to the navigation bar and select **Achievements**. This opens the list of
-Achievements you have awarded to attendees of the current LAN. At the bottom of the page, choose the Achievement and the
-attendee to award it to, then select **Award**.
+`/lans/{id}/slides/play`
 
-### Customise the navigation bar
+### Create an achievement
 
-Select ⚙ > **Navigation** to customise the links shown on the navigation bar. You can link to pages on the LANager or
-to third-party sites, organise the links into drop-down menus, and choose the order that the links appear in the navbar
-or dropdown.
+Use achievements to reward attendees for accomplishments at your LAN, such as winning a tournament or completing
+a challenge.
+
+1. In the top-right, select ⚙ > **Achievements**
+2. Select the **+** button
+3. Enter the achievement's **name** and **description**
+4. Optionally upload an **image** for the achievement
+5. Select **Submit**
+
+### Award an achievement
+
+1. Go to the LAN's page
+2. Select the **Achievements** tab
+3. At the bottom of the page, choose the achievement and the attendee to award it to
+4. Select **Award**
 
 ### Configure Discord channels
 
-The LANager can send messages to Discord channels, for example to notify attendees when an event is starting. To do
+The LANager can send messages to Discord channels, for example, to notify attendees when an event is starting. To do
 this, you first need to create a webhook for the channel in Discord, then add it to your LAN in the LANager.
 
 You can configure up to two webhooks per LAN:
 
 * **Live** - used to send messages to attendees, such as event notifications
-* **Test** - used to preview messages formatting, images and links before sending to attendees
+* **Test** - used to preview messages formatting, images, and links before sending to attendees
 
 Create a channel webhook in Discord:
 
-1. Open **Server Settings** for your Discord server.
-2. Select **Integrations** → **Webhooks** → **New Webhook**.
-3. For **Name**, enter **LANager**.
-4. For **Channel**, select the channel you want the webhook to post messages to.
+1. Open **Server Settings** for your Discord server
+2. Select **Integrations** → **Webhooks** → **New Webhook**
+3. For **Name**, enter **LANager**
+4. For **Channel**, select the channel you want the webhook to post messages to
 5. Set the webhook's icon to the [LANager favicon](public/apple-touch-icon-152x152-precomposed.png)
-6. Select **Copy Webhook URL**.
+6. Select **Copy Webhook URL**
 
 Add the webhook to your LAN in the LANager:
 
-1. Go to your LAN's page.
-2. Select the **Channels** tab.
-3. Choose whether the webhook is for the **Live** or **Test** channel.
-3. Paste the webhook URL you copied from Discord.
-4. Select **Submit**.
+1. Go to your LAN's page
+2. Select the **Channels** tab
+3. Choose whether the webhook is for the **Live** or **Test** channel
+4. Paste the webhook URL you copied from Discord
+5. Select **Submit**
 
 Repeat these steps for both webhook purposes: `live` and `test`.
 
@@ -245,159 +247,73 @@ Repeat these steps for both webhook purposes: `live` and `test`.
 Once you have configured Discord channel webhooks for your LAN, you can set an event to automatically send a
 message to Discord at the event's start time.
 
-1. Go to the event's page.
-2. Select ⚙ → **Discord** → **Create Notification Message**.
+1. Go to the event's page
+2. Select ⚙ → **Discord** → **Create Notification Message**
 3. Enter the message you want to send, or leave it blank to use the LAN's default message if one is set. You can use
    the `{{event.name}}` and `{{event.url}}` placeholders, which are replaced with the event's details when the
-   message is sent.
-4. Optionally, attach images to the message.
-5. Make sure **Automatically send the message at the event's start time** is checked.
-6. If you have configured a Test channel webhook, select **Preview in Test Channel** to check how the message will
-   look before saving.
-7. Select **Submit**.
+   message is sent
+4. Optionally, upload and attach images to the message
+5. Make sure **Automatically send the message at the event's start time** is checked
+6. If you have configured a `test` channel webhook, select **Preview in Test Channel** to send the message to the
+   test channel and check how the message will look before saving
+7. Select **Submit** to save
 
 The LANager checks for events starting every minute and sends their notification message to the `live` Discord channel
 automatically. You can also send a message manually at any time, or edit or delete it, from the event's page under
 ⚙ > **Discord**.
 
+### Customise the navigation bar
+
+Customise the links your attendees see in the navigation bar, linking to pages on the LANager or to third-party
+sites, optionally organised into drop-down menus.
+
+1. In the top-right, select ⚙ > **Navigation**
+2. Add, edit, reorder, or remove links
+3. Optionally set a link's **parent** to create a drop-down menu
+3. Select **Submit** to save changes
+
 ## Backup
 
-Run `./backup.sh` to back up LANager's configuration, database data and uploaded images.
+Back up LANager's configuration, database data, and uploaded images:
+
+```bash
+cd lanager-docker-compose
+./backup.sh
+```
 
 ### Restore a backup
 
-Run `./backup-restore.sh <file>` to restore a backup.
+```bash
+cd lanager-docker-compose
+./backup-restore.sh <file>
+```
 
-## Development
+## Update
 
-### Development environment setup
-
-1. Follow the steps from the *Setup* section above
-
-2. Stop the running containers
-
-    ```bash
-    docker compose down
-    ```
-
-3. Check out the development branch of `lanager-docker-compose`
+1. Enter the `lanager-docker-compose` repository:
 
     ```bash
     cd lanager-docker-compose
-    git checkout develop
     ```
 
-4. Edit `lanager-docker-compose/.env` and add the following lines:
+2. Back up your data:
 
     ```bash
-    APP_ENV=local
-    APP_DEBUG=true
+    ./backup.sh
     ```
 
-5. In a directory outside of `lanager-docker-compose`, clone the `lanager` repository:
+3. Get the latest version of the Docker compose files and scripts:
 
     ```bash
-    git clone --branch develop https://github.com/zeropingheroes/lanager
-     ```
-
-6. Install [`composer`](https://getcomposer.org/download/) on your host computer
-
-7. From the `lanager` directory, install composer dependencies:
-
-    ```bash
-    composer install --no-scripts
+    git pull
     ```
 
-8. Set an environment variable with the path to where you cloned the `lanager` repository (without a trailing slash)
+4. Run the update script:
 
     ```bash
-    export PATH_TO_LANAGER=/path/to/lanager
+    ./update.sh
     ```
 
-9. From the `lanager-docker-compose` directory, run `envsubst` to substitute in the path to lanager into the override
-   compose file:
+## Contributing
 
-    ```bash
-    envsubst < compose.override.yaml.example > compose.override.yaml
-    ```
-
-10. Set the correct permissions for the `storage` and `bootstrap/cache` directories:
-
-    ```bash
-    chmod -R 777 "$PATH_TO_LANAGER/storage" "$PATH_TO_LANAGER/bootstrap/cache"
-    ```
-
-11. Create a symbolic link from the app storage directory into the public directory:
-
-    ```bash
-    ln -s "$PATH_TO_LANAGER/storage/app/public" "$PATH_TO_LANAGER/public/storage"
-    ```
-
-12. Use `nodejs` to build the static assets:
-
-    ```bash
-    docker run -it --rm --name npm-build -v "$PWD":/usr/src/app -w /usr/src/app node:22 npm clean-install
-    docker run -it --rm --name npm-build -v "$PWD":/usr/src/app -w /usr/src/app node:22 npm cache clean --force
-    docker run -it --rm --name npm-build -v "$PWD":/usr/src/app -w /usr/src/app node:22 npm run build
-    ```
-
-13. Start the containers
-
-     ```bash
-     docker compose up --detach
-     ```
-
-14. After a minute or so, visit `http://localhost:8080`
-
-The container will run the code from your host computer, rather than the static copy of the code in the container's
-image. Any changes you make to the files in the project directory (except for the `storage/` directory)
-will be seen by the running containers.
-
-### Start and stop the development environment
-
-To stop the development environment run `docker compose stop`.
-
-When you're ready to start developing again run `docker compose start`.
-
-### Destroy the development environment
-
-To destroy the development environment and all volumes that store lanager data, run:
-
-```bash
-docker compose down --volumes
-```
-
-Follow the setup steps above to get a fresh development environment.
-
-### Recompiling JavaScript & CSS assets
-
-To recompile JavaScript & CSS assets, from the `lanager` directory, run:
-
-1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm install`
-2. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run dev`
-
-To recompile whenever changes to files are detected, run:
-
-1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run watch-poll`
-
-To recompile minified versions suitable for committing, run:
-
-1. `docker run -it --rm -v "$PWD":/var/www/html -w /var/www/html node:14-alpine npm run prod`
-
-### Running tests
-
-Before submitting pull requests, please run the functional test suite to check your changes don't break existing
-functionality.
-
-Run `docker exec -it lanager php artisan dusk` to run LANager's browser test suite.
-
-## Feedback & Contributions
-
-* Found a bug? Got a great feature idea? Post it to
-  the [issue tracker](https://github.com/zeropingheroes/lanager/issues)!
-* Want to contribute?
-    * [Fork the project](https://github.com/zeropingheroes/lanager/fork) and add the features you want to see.
-    * Work on new features / bug fixes in the [issue tracker](https://github.com/zeropingheroes/lanager/issues).
-    * If you're really hardcore, request commit access.
-
-Enjoy using the LANager!
+For information on how to set up LANager for development and contribute, read [CONTRIBUTING.md](CONTRIBUTING.md).

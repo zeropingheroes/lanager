@@ -13,7 +13,7 @@ assignees: ''
 <!-- Describe the feature you would like, in detail -->
 
 **Motivation**
-<!-- Describe why you want this feature, and who it will benefit -->
+<!-- Describe why you want this feature and who it will benefit -->
 
 **Screenshots**
 <!-- Add screenshots or mock-ups to help us understand the feature -->
