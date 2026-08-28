@@ -50,11 +50,14 @@ class EventDiscordNotificationMessage extends Model
     ];
 
     /**
-     * The message text to send, falling back to the default message when none is set.
+     * The message text to send, falling back to the LAN's default message, then the system
+     * default message, when none is set.
      */
     public function content(): string
     {
-        return $this->message ?? trans('phrase.default-event-discord-notification-message');
+        return $this->message
+            ?? $this->event->lan->default_event_discord_notification_message
+            ?? trans('phrase.default-event-discord-notification-message');
     }
 
     /**

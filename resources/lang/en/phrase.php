@@ -265,6 +265,8 @@ return [
     'event-discord-notification-message-variables-help' => 'Variables: <code>{{event.name}}</code>, <code>{{event.url}}</code>. Replaced with the event\'s details when the message is sent.',
     'default-event-discord-notification-message' => "# 📢 Event Starting: {{event.name}} 📢\n## ➡️️ [Event information]({{event.url}}) ⬅️",
     'create-default-discord-notification-message-help' => 'Create a default message to automatically send to Discord at the event\'s start time. You can customise or delete the message at any time from the event\'s page.',
+    'default-event-discord-notification-message-help' => 'Sent for any of this LAN\'s events that have no custom message of their own. Leave blank to use the default message shown as the placeholder above instead.',
+    'event-discord-notification-message-lan-default-help' => 'Leave blank to use the LAN\'s default message (shown above), if one is set. <a href=":url">Edit the LAN\'s default message</a>.',
     'send-due-discord-event-notifications' => 'Send event Discord notification messages for events starting within the last minute',
     'automatically-send-discord-message-at-event-start-time' => 'Automatically send the message at the event\'s start time',
     'regardless-send-discord-message-any-time' => 'Regardless of this setting, you can send the message manually anytime from the event\'s page.',

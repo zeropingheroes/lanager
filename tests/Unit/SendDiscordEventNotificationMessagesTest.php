@@ -129,6 +129,27 @@ class SendDiscordEventNotificationMessagesTest extends TestCase
         Http::assertSent(fn ($request) => $request->url() === self::LIVE_WEBHOOK_URL && $request->data()['content'] === $expectedContent);
     }
 
+    public function test_due_event_with_blank_message_uses_lan_default_message_when_lan_has_one(): void
+    {
+        Http::fake([self::LIVE_WEBHOOK_URL => Http::response(null, 204)]);
+        DiscordChannelWebhook::factory()->live()->create([
+            'lan_id' => $this->lan->id,
+            'webhook_url' => self::LIVE_WEBHOOK_URL,
+        ]);
+        $this->lan->update(['default_event_discord_notification_message' => 'LAN default: {{event.name}} - {{event.url}}']);
+
+        $event = $this->createDueEvent(notificationOverrides: ['message' => null]);
+
+        $this->artisan(self::COMMAND)->assertExitCode(0);
+
+        $expectedContent = sprintf(
+            'LAN default: %s - %s',
+            $event->name,
+            route('lans.events.show', ['lan' => $this->lan, 'event' => $event])
+        );
+        Http::assertSent(fn ($request) => $request->url() === self::LIVE_WEBHOOK_URL && $request->data()['content'] === $expectedContent);
+    }
+
     public function test_event_with_automatic_false_is_skipped(): void
     {
         Http::fake();

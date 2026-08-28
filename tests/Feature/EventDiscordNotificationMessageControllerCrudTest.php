@@ -96,6 +96,36 @@ class EventDiscordNotificationMessageControllerCrudTest extends TestCase
         ]);
     }
 
+    public function test_store_discards_message_matching_the_system_default_and_stores_null(): void
+    {
+        $testResponse = $this->actingAs($this->adminUser)
+            ->post(route('lans.events.discord-notification-message.store', ['lan' => $this->lan, 'event' => $this->event]), [
+                'message' => trans('phrase.default-event-discord-notification-message'),
+            ]);
+
+        $testResponse->assertRedirect(route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event]));
+        $this->assertDatabaseHas('event_discord_notification_messages', [
+            'event_id' => $this->event->id,
+            'message' => null,
+        ]);
+    }
+
+    public function test_store_discards_message_matching_the_lan_default_and_stores_null(): void
+    {
+        $this->lan->update(['default_event_discord_notification_message' => 'LAN default message']);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->post(route('lans.events.discord-notification-message.store', ['lan' => $this->lan, 'event' => $this->event]), [
+                'message' => 'LAN default message',
+            ]);
+
+        $testResponse->assertRedirect(route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event]));
+        $this->assertDatabaseHas('event_discord_notification_messages', [
+            'event_id' => $this->event->id,
+            'message' => null,
+        ]);
+    }
+
     public function test_store_rejects_message_exceeding_2000_characters(): void
     {
         $testResponse = $this->actingAs($this->adminUser)
@@ -187,6 +217,22 @@ class EventDiscordNotificationMessageControllerCrudTest extends TestCase
 
         $testResponse->assertRedirect(route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event]));
         $testResponse->assertSessionHas('success');
+        $this->assertNull($notification->fresh()->message);
+    }
+
+    public function test_update_discards_message_matching_the_default_and_stores_null(): void
+    {
+        $notification = EventDiscordNotificationMessage::factory()->create([
+            'event_id' => $this->event->id,
+            'message' => 'Old message',
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->put(route('lans.events.discord-notification-message.update', ['lan' => $this->lan, 'event' => $this->event]), [
+                'message' => trans('phrase.default-event-discord-notification-message'),
+            ]);
+
+        $testResponse->assertRedirect(route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event]));
         $this->assertNull($notification->fresh()->message);
     }
 
@@ -483,5 +529,72 @@ class EventDiscordNotificationMessageControllerCrudTest extends TestCase
             'placeholder="'.e(trans('phrase.default-event-discord-notification-message')).'"',
             false
         );
+    }
+
+    public function test_create_view_message_field_placeholder_is_the_lan_default_message_when_set(): void
+    {
+        $this->lan->update(['default_event_discord_notification_message' => 'LAN default message']);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->get(route('lans.events.discord-notification-message.create', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertOk();
+        $testResponse->assertSee('placeholder="LAN default message"', false);
+    }
+
+    public function test_create_view_prefills_message_field_with_system_default_when_lan_has_no_value(): void
+    {
+        $testResponse = $this->actingAs($this->adminUser)
+            ->get(route('lans.events.discord-notification-message.create', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertOk();
+        $this->assertSame(
+            2,
+            substr_count($testResponse->getContent(), trans('phrase.default-event-discord-notification-message')),
+            'Expected the default message to appear as both the placeholder and the pre-filled textarea value.'
+        );
+    }
+
+    public function test_create_view_prefills_message_field_with_lan_default_when_lan_has_one(): void
+    {
+        $this->lan->update(['default_event_discord_notification_message' => 'LAN default message']);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->get(route('lans.events.discord-notification-message.create', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertOk();
+        $this->assertSame(
+            2,
+            substr_count($testResponse->getContent(), 'LAN default message'),
+            'Expected the LAN default message to appear as both the placeholder and the pre-filled textarea value.'
+        );
+    }
+
+    public function test_edit_view_prefills_message_field_with_default_when_no_existing_message(): void
+    {
+        EventDiscordNotificationMessage::factory()->create([
+            'event_id' => $this->event->id,
+            'message' => null,
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->get(route('lans.events.discord-notification-message.edit', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertOk();
+        $this->assertSame(
+            2,
+            substr_count($testResponse->getContent(), trans('phrase.default-event-discord-notification-message')),
+            'Expected the default message to appear as both the placeholder and the pre-filled textarea value.'
+        );
+    }
+
+    public function test_create_view_shows_help_text_linking_to_lan_edit_page(): void
+    {
+        $testResponse = $this->actingAs($this->adminUser)
+            ->get(route('lans.events.discord-notification-message.create', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertOk();
+        $testResponse->assertSee('href="'.route('lans.edit', ['lan' => $this->lan]).'"', false);
+        $testResponse->assertSee('Edit the LAN\'s default message', false);
     }
 }

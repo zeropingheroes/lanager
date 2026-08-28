@@ -48,10 +48,7 @@
                       placeholder="@lang('phrase.discord-message-placeholder')"
             >{{ old('content') }}</textarea>
             <div class="form-text text-muted">
-                {!! trans(
-                  'phrase.discord-message-content-help',
-                  ['url' => trans('phrase.discord-markdown-help-link-url')]
-                ) !!}
+                @lang('phrase.discord-message-content-help', ['url' => trans('phrase.discord-markdown-help-link-url')])
             </div>
             <div class="form-text text-muted">
                 @lang('phrase.discord-message-mentions-help')

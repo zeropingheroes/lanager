@@ -76,6 +76,7 @@ class LanController extends Controller
             'venue_id' => $httpRequest->input('venue_id'),
             'achievement_id' => $httpRequest->input('achievement_id'),
             'published' => $httpRequest->has('published'),
+            'default_event_discord_notification_message' => $this->discardIfDefault($httpRequest->input('default_event_discord_notification_message')),
         ];
 
         $storeLanRequest = new StoreLanRequest($input);
@@ -123,6 +124,7 @@ class LanController extends Controller
             'venue_id' => $httpRequest->input('venue_id'),
             'achievement_id' => $httpRequest->input('achievement_id'),
             'published' => $httpRequest->has('published'),
+            'default_event_discord_notification_message' => $this->discardIfDefault($httpRequest->input('default_event_discord_notification_message')),
             'id' => $lan->id,
         ];
 
@@ -138,6 +140,19 @@ class LanController extends Controller
 
         return redirect()
             ->route('lans.show', $lan);
+    }
+
+    /**
+     * The submitted default Discord notification message, or null if it is blank or matches
+     * the system default message text.
+     */
+    private function discardIfDefault(?string $message): ?string
+    {
+        if (! $message) {
+            return null;
+        }
+
+        return $message === trans('phrase.default-event-discord-notification-message') ? null : $message;
     }
 
     /**

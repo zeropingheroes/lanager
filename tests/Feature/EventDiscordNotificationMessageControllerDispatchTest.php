@@ -148,6 +148,28 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         Http::assertSent(fn ($request) => $request->url() === self::LIVE_WEBHOOK_URL && $request->data()['content'] === $expectedContent);
     }
 
+    public function test_send_uses_lan_default_message_when_message_is_blank_and_lan_has_one(): void
+    {
+        Http::fake([self::LIVE_WEBHOOK_URL => Http::response(null, 204)]);
+        DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
+        $this->lan->update(['default_event_discord_notification_message' => 'LAN default: {{event.name}} - {{event.url}}']);
+        EventDiscordNotificationMessage::factory()->create([
+            'event_id' => $this->event->id,
+            'message' => null,
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->post(route('lans.events.discord-notification-message.send', ['lan' => $this->lan, 'event' => $this->event]));
+
+        $testResponse->assertRedirect();
+        $expectedContent = sprintf(
+            'LAN default: %s - %s',
+            $this->event->name,
+            route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event])
+        );
+        Http::assertSent(fn ($request) => $request->url() === self::LIVE_WEBHOOK_URL && $request->data()['content'] === $expectedContent);
+    }
+
     public function test_send_redirects_with_error_when_no_notification_message_configured(): void
     {
         Http::fake();
@@ -234,6 +256,24 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
             ['{{event.name}}', '{{event.url}}'],
             [$this->event->name, route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event])],
             trans('phrase.default-event-discord-notification-message')
+        );
+        Http::assertSent(fn ($request) => $request->url() === self::TEST_WEBHOOK_URL && $request->data()['content'] === $expectedContent);
+    }
+
+    public function test_preview_uses_lan_default_message_when_content_is_missing_and_lan_has_one(): void
+    {
+        Http::fake([self::TEST_WEBHOOK_URL => Http::response(null, 204)]);
+        DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
+        $this->lan->update(['default_event_discord_notification_message' => 'LAN default: {{event.name}} - {{event.url}}']);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->postJson(route('lans.events.discord-notification-message.preview', ['lan' => $this->lan, 'event' => $this->event]), []);
+
+        $testResponse->assertOk();
+        $expectedContent = sprintf(
+            'LAN default: %s - %s',
+            $this->event->name,
+            route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event])
         );
         Http::assertSent(fn ($request) => $request->url() === self::TEST_WEBHOOK_URL && $request->data()['content'] === $expectedContent);
     }

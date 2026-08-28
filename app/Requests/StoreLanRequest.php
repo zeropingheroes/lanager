@@ -26,6 +26,7 @@ class StoreLanRequest extends Request
             'venue_id' => ['nullable', 'numeric', 'exists:venues,id'],
             'achievement_id' => ['nullable', 'numeric', 'exists:achievements,id'],
             'published' => ['nullable', 'boolean'],
+            'default_event_discord_notification_message' => ['nullable', 'string', 'max:2000'],
         ];
 
         if (! $this->laravelValidationPasses()) {

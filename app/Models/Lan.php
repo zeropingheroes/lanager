@@ -22,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $start
  * @property Carbon $end
  * @property int $published
+ * @property string|null $default_event_discord_notification_message
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Achievement|null $attendanceAchievement
@@ -73,6 +74,7 @@ class Lan extends Model
         'start',
         'end',
         'published',
+        'default_event_discord_notification_message',
     ];
 
     protected $casts = [
