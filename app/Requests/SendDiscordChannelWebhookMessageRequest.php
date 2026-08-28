@@ -2,7 +2,7 @@
 
 namespace Zeropingheroes\Lanager\Requests;
 
-class StoreDiscordChannelWebhookMessageRequest extends Request
+class SendDiscordChannelWebhookMessageRequest extends Request
 {
     use LaravelValidation;
 
@@ -13,7 +13,7 @@ class StoreDiscordChannelWebhookMessageRequest extends Request
     public function valid(): bool
     {
         $this->validationRules = [
-            'content' => ['required', 'string', 'max:2000'],
+            'message' => ['required', 'string', 'max:2000'],
         ];
 
         if (! $this->laravelValidationPasses()) {

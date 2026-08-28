@@ -4,16 +4,12 @@ namespace Zeropingheroes\Lanager\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View as ViewContract;
-use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Throwable;
-use Zeropingheroes\Lanager\Exceptions\DiscordWebhookException;
 use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessage;
 use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessageImage;
@@ -214,146 +210,5 @@ class EventDiscordNotificationMessageController extends Controller
         Session::flash('success', trans('phrase.item-name-deleted', ['item' => trans('title.event-discord-notification-message'), 'name' => $event->name]));
 
         return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
-    }
-
-    /**
-     * Manually send an event's saved Discord notification message to the LAN's live webhook.
-     *
-     * @throws AuthorizationException
-     */
-    public function send(Request $httpRequest, Lan $lan, Event $event): RedirectResponse
-    {
-        $this->authorize('send', EventDiscordNotificationMessage::class);
-
-        if ($event->lan_id !== $lan->id) {
-            abort(404);
-        }
-
-        $event->loadMissing('discordNotificationMessage.images');
-
-        $notification = $event->discordNotificationMessage;
-
-        if ($notification === null) {
-            Session::flash('error', [trans('phrase.no-event-discord-notification-message-configured')]);
-
-            return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
-        }
-
-        $lan->loadMissing('discordChannelWebhooks');
-
-        $liveWebhook = $lan->discordChannelWebhooks->firstWhere('purpose', 'live');
-
-        if ($liveWebhook === null) {
-            Session::flash('error', [trans('phrase.no-live-webhook-configured')]);
-
-            return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
-        }
-
-        $imagePaths = $notification->images->pluck('image_path')->all();
-
-        $discordWebhookService = new DiscordWebhookService;
-
-        try {
-            $discordWebhookService->send(
-                $liveWebhook->webhook_url,
-                $discordWebhookService->resolvePlaceholders(
-                    $notification->content(),
-                    $event->placeholders()
-                ),
-                $imagePaths
-            );
-        } catch (DiscordWebhookException|ConnectionException $exception) {
-            Log::error('Manual event Discord notification failed', [
-                'event_id' => $event->id,
-                'lan_id' => $lan->id,
-                'user_id' => $httpRequest->user()?->id,
-                'purpose' => 'live',
-                'http_status' => $exception instanceof DiscordWebhookException ? $exception->httpStatus : null,
-                'error' => $exception instanceof DiscordWebhookException ? $exception->errorBody : $exception->getMessage(),
-            ]);
-
-            Session::flash('error', [trans('phrase.failed-to-send-discord-message')]);
-
-            return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
-        }
-
-        $notification->update(['automatic' => false]);
-
-        Log::info('Manual event Discord notification sent', [
-            'event_id' => $event->id,
-            'lan_id' => $lan->id,
-            'user_id' => $httpRequest->user()?->id,
-            'purpose' => 'live',
-            'result' => 'success',
-        ]);
-
-        Session::flash('success', trans('phrase.discord-message-sent-successfully', ['purpose' => trans('title.live')]));
-
-        return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
-    }
-
-    /**
-     * Preview message content from the "create" and "edit forms in Discord.
-     *
-     * @throws AuthorizationException
-     */
-    public function preview(Request $httpRequest, Lan $lan, Event $event): JsonResponse
-    {
-        $this->authorize('preview', EventDiscordNotificationMessage::class);
-
-        if ($event->lan_id !== $lan->id) {
-            abort(404);
-        }
-
-        $input = [
-            'message' => $httpRequest->filled('message') ? $httpRequest->input('message') : null,
-        ];
-
-        $previewRequest = new StoreEventDiscordNotificationMessageRequest($input);
-
-        if ($previewRequest->invalid()) {
-            return response()->json(['errors' => $previewRequest->errors()], 422);
-        }
-
-        $lan->loadMissing('discordChannelWebhooks');
-
-        $testWebhook = $lan->discordChannelWebhooks->firstWhere('purpose', 'test');
-
-        if ($testWebhook === null) {
-            return response()->json(['errors' => [trans('phrase.no-test-webhook-configured')]], 422);
-        }
-
-        $discordWebhookService = new DiscordWebhookService;
-
-        $message = $input['message']
-            ?? $lan->default_event_discord_notification_message
-            ?? trans('phrase.default-event-discord-notification-message');
-
-        try {
-            $discordWebhookService->send(
-                $testWebhook->webhook_url,
-                $discordWebhookService->resolvePlaceholders($message, $event->placeholders()),
-                (array) ($httpRequest->input('image_paths') ?? [])
-            );
-        } catch (DiscordWebhookException|ConnectionException $exception) {
-            Log::error('Event Discord notification preview failed', [
-                'lan_id' => $lan->id,
-                'user_id' => $httpRequest->user()?->id,
-                'purpose' => 'test',
-                'http_status' => $exception instanceof DiscordWebhookException ? $exception->httpStatus : null,
-                'error' => $exception instanceof DiscordWebhookException ? $exception->errorBody : $exception->getMessage(),
-            ]);
-
-            return response()->json(['errors' => [trans('phrase.event-discord-notification-preview-failed')]], 502);
-        }
-
-        Log::info('Event Discord notification preview sent', [
-            'lan_id' => $lan->id,
-            'user_id' => $httpRequest->user()?->id,
-            'purpose' => 'test',
-            'result' => 'success',
-        ]);
-
-        return response()->json(['message' => trans('phrase.event-discord-notification-preview-sent')]);
     }
 }

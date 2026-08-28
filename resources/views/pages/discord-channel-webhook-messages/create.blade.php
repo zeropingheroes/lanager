@@ -19,10 +19,10 @@
       [
         'route' =>
         route(
-          'lans.discord-channel-webhooks.messages.store',
+          'api.lans.discord-channel-webhooks.send',
             [
               'lan' => $lan,
-              'discord_channel_webhook' => $webhook
+              'discordChannelWebhook' => $webhook
             ]
         )
       ]
@@ -38,15 +38,15 @@
     </div>
 
     <div class="row mb-3">
-        <label for="content" class="col-sm-2 col-form-label">@lang('title.message')</label>
+        <label for="message" class="col-sm-2 col-form-label">@lang('title.message')</label>
         <div class="col-sm-10">
-            <textarea id="content"
-                      name="content"
+            <textarea id="message"
+                      name="message"
                       class="form-control font-monospace"
                       rows="8"
                       maxlength="2000"
                       placeholder="@lang('phrase.discord-message-placeholder')"
-            >{{ old('content') }}</textarea>
+            >{{ old('message') }}</textarea>
             <div class="form-text text-muted">
                 @lang('phrase.discord-message-content-help', ['url' => trans('phrase.discord-markdown-help-link-url')])
             </div>
@@ -57,8 +57,10 @@
     </div>
     <div class="row mb-3">
         <div class="offset-sm-2 d-grid col-sm-10 gap-2">
-            <button type="submit" class="btn btn-primary">@lang('title.send')</button>
+            <button type="submit" id="discord-channel-webhook-message-submit" class="btn btn-primary">@lang('title.send')</button>
         </div>
     </div>
     @include('components.form.close')
 @endsection
+
+@vite('resources/js/pages/discord-channel-webhook-message.js')

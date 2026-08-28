@@ -15,7 +15,7 @@ use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\Role;
 use Zeropingheroes\Lanager\Models\User;
 
-class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
+class EventDiscordNotificationMessageApiControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -56,7 +56,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
 
     // --- send() ---
 
-    public function test_send_posts_message_and_redirects_with_success_on_discord_success(): void
+    public function test_send_posts_message_and_returns_success_json(): void
     {
         Http::fake([self::LIVE_WEBHOOK_URL => Http::response(null, 204)]);
         DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
@@ -67,10 +67,10 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->post(route('lans.events.discord-notification-message.send', ['lan' => $this->lan, 'event' => $this->event]));
+            ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
-        $testResponse->assertRedirect(route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event]));
-        $testResponse->assertSessionHas('success');
+        $testResponse->assertOk();
+        $testResponse->assertJsonStructure(['message']);
         Http::assertSent(fn ($request) => $request->url() === self::LIVE_WEBHOOK_URL && $request->data()['content'] === 'It is starting now!');
         $this->assertFalse($notification->fresh()->automatic);
     }
@@ -85,9 +85,9 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->post(route('lans.events.discord-notification-message.send', ['lan' => $this->lan, 'event' => $this->event]));
+            ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
-        $testResponse->assertRedirect();
+        $testResponse->assertOk();
         $expectedContent = sprintf(
             'New event: %s - %s - {{event.nmae}}',
             $this->event->name,
@@ -97,7 +97,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         $this->assertSame('New event: {{event.name}} - {{event.url}} - {{event.nmae}}', $notification->fresh()->message);
     }
 
-    public function test_send_redirects_with_error_and_leaves_automatic_unchanged_when_discord_api_fails(): void
+    public function test_send_returns_error_json_and_leaves_automatic_unchanged_when_discord_api_fails(): void
     {
         Http::fake([self::LIVE_WEBHOOK_URL => Http::response(['message' => 'Unknown Webhook'], 404)]);
         DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
@@ -107,23 +107,23 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->post(route('lans.events.discord-notification-message.send', ['lan' => $this->lan, 'event' => $this->event]));
+            ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
-        $testResponse->assertRedirect();
-        $testResponse->assertSessionHas('error');
+        $testResponse->assertStatus(502);
+        $testResponse->assertJsonStructure(['errors']);
         $this->assertTrue($notification->fresh()->automatic);
     }
 
-    public function test_send_redirects_with_error_when_no_live_webhook_configured(): void
+    public function test_send_returns_error_json_when_no_live_webhook_configured(): void
     {
         Http::fake();
         EventDiscordNotificationMessage::factory()->create(['event_id' => $this->event->id]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->post(route('lans.events.discord-notification-message.send', ['lan' => $this->lan, 'event' => $this->event]));
+            ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
-        $testResponse->assertRedirect();
-        $testResponse->assertSessionHas('error');
+        $testResponse->assertStatus(422);
+        $testResponse->assertJsonStructure(['errors']);
         Http::assertNothingSent();
     }
 
@@ -137,9 +137,9 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->post(route('lans.events.discord-notification-message.send', ['lan' => $this->lan, 'event' => $this->event]));
+            ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
-        $testResponse->assertRedirect();
+        $testResponse->assertOk();
         $expectedContent = str_replace(
             ['{{event.name}}', '{{event.url}}'],
             [$this->event->name, route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event])],
@@ -159,9 +159,9 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->post(route('lans.events.discord-notification-message.send', ['lan' => $this->lan, 'event' => $this->event]));
+            ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
-        $testResponse->assertRedirect();
+        $testResponse->assertOk();
         $expectedContent = sprintf(
             'LAN default: %s - %s',
             $this->event->name,
@@ -170,28 +170,16 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         Http::assertSent(fn ($request) => $request->url() === self::LIVE_WEBHOOK_URL && $request->data()['content'] === $expectedContent);
     }
 
-    public function test_send_redirects_with_error_when_no_notification_message_configured(): void
+    public function test_send_returns_error_json_when_no_notification_message_configured(): void
     {
         Http::fake();
         DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->post(route('lans.events.discord-notification-message.send', ['lan' => $this->lan, 'event' => $this->event]));
+            ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
-        $testResponse->assertRedirect();
-        $testResponse->assertSessionHas('error');
-        Http::assertNothingSent();
-    }
-
-    public function test_send_returns_404_when_event_belongs_to_a_different_lan(): void
-    {
-        Http::fake();
-        $otherLan = Lan::factory()->create();
-
-        $testResponse = $this->actingAs($this->adminUser)
-            ->post(route('lans.events.discord-notification-message.send', ['lan' => $otherLan, 'event' => $this->event]));
-
-        $testResponse->assertStatus(404);
+        $testResponse->assertStatus(422);
+        $testResponse->assertJsonStructure(['errors']);
         Http::assertNothingSent();
     }
 
@@ -200,7 +188,17 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         Http::fake();
 
         $testResponse = $this->actingAs($this->regularUser)
-            ->post(route('lans.events.discord-notification-message.send', ['lan' => $this->lan, 'event' => $this->event]));
+            ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
+
+        $testResponse->assertStatus(403);
+        Http::assertNothingSent();
+    }
+
+    public function test_send_returns_403_for_guest(): void
+    {
+        Http::fake();
+
+        $testResponse = $this->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
         $testResponse->assertStatus(403);
         Http::assertNothingSent();
@@ -214,7 +212,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('lans.events.discord-notification-message.preview', ['lan' => $this->lan, 'event' => $this->event]), [
+            ->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), [
                 'message' => 'Preview this please',
             ]);
 
@@ -230,7 +228,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('lans.events.discord-notification-message.preview', ['lan' => $this->lan, 'event' => $this->event]), [
+            ->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), [
                 'message' => 'New event: {{event.name}} - {{event.url}} - {{event.nmae}}',
             ]);
 
@@ -249,7 +247,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('lans.events.discord-notification-message.preview', ['lan' => $this->lan, 'event' => $this->event]), []);
+            ->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), []);
 
         $testResponse->assertOk();
         $expectedContent = str_replace(
@@ -267,7 +265,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         $this->lan->update(['default_event_discord_notification_message' => 'LAN default: {{event.name}} - {{event.url}}']);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('lans.events.discord-notification-message.preview', ['lan' => $this->lan, 'event' => $this->event]), []);
+            ->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), []);
 
         $testResponse->assertOk();
         $expectedContent = sprintf(
@@ -278,28 +276,13 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         Http::assertSent(fn ($request) => $request->url() === self::TEST_WEBHOOK_URL && $request->data()['content'] === $expectedContent);
     }
 
-    public function test_preview_returns_404_when_event_belongs_to_a_different_lan(): void
-    {
-        Http::fake();
-        $otherLan = Lan::factory()->create();
-        DiscordChannelWebhook::factory()->test()->create(['lan_id' => $otherLan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
-
-        $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('lans.events.discord-notification-message.preview', ['lan' => $otherLan, 'event' => $this->event]), [
-                'message' => 'Preview this please',
-            ]);
-
-        $testResponse->assertStatus(404);
-        Http::assertNothingSent();
-    }
-
     public function test_preview_returns_error_json_when_discord_api_fails(): void
     {
         Http::fake([self::TEST_WEBHOOK_URL => Http::response(['message' => 'Unknown Webhook'], 404)]);
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('lans.events.discord-notification-message.preview', ['lan' => $this->lan, 'event' => $this->event]), [
+            ->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), [
                 'message' => 'Preview this please',
             ]);
 
@@ -313,7 +296,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('lans.events.discord-notification-message.preview', ['lan' => $this->lan, 'event' => $this->event]), [
+            ->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), [
                 'message' => str_repeat('a', 2001),
             ]);
 
@@ -326,7 +309,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         Http::fake();
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('lans.events.discord-notification-message.preview', ['lan' => $this->lan, 'event' => $this->event]), [
+            ->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), [
                 'message' => 'Preview this please',
             ]);
 
@@ -340,9 +323,22 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->regularUser)
-            ->postJson(route('lans.events.discord-notification-message.preview', ['lan' => $this->lan, 'event' => $this->event]), [
+            ->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), [
                 'message' => 'Preview this please',
             ]);
+
+        $testResponse->assertStatus(403);
+        Http::assertNothingSent();
+    }
+
+    public function test_preview_returns_403_for_guest(): void
+    {
+        Http::fake();
+        DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
+
+        $testResponse = $this->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), [
+            'message' => 'Preview this please',
+        ]);
 
         $testResponse->assertStatus(403);
         Http::assertNothingSent();
@@ -369,10 +365,10 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->post(route('lans.events.discord-notification-message.send', ['lan' => $this->lan, 'event' => $this->event]));
+            ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
-        $testResponse->assertRedirect();
-        $testResponse->assertSessionHas('success');
+        $testResponse->assertOk();
+        $testResponse->assertJsonStructure(['message']);
         Http::assertSent(function ($request): bool {
             $contentType = $request->header('Content-Type')[0] ?? '';
 
@@ -391,7 +387,7 @@ class EventDiscordNotificationMessageControllerDispatchTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('lans.events.discord-notification-message.preview', ['lan' => $this->lan, 'event' => $this->event]), [
+            ->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), [
                 'message' => 'Preview with image',
                 'image_paths' => ['images/preview.png'],
             ]);

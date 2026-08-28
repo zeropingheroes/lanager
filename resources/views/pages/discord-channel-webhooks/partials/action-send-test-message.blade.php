@@ -1,27 +1,22 @@
-<form method="POST"
-      action="{{
-        route(
-          'lans.discord-channel-webhooks.messages.store',
-          [
-            'lan' => $lan,
-            'discord_channel_webhook' => $webhook
-          ]
-        )
-    }}"
-      class="d-inline"
+<button type="button"
+        class="btn btn-sm btn-outline-warning"
+        data-send-url="{{
+            route(
+                'api.lans.discord-channel-webhooks.send',
+                [
+                    'lan' => $lan,
+                    'discordChannelWebhook' => $webhook
+                ]
+            )
+        }}"
+        data-message="@lang(
+            'phrase.discord-test-message',
+            [
+                'purpose' => trans('title.' . $webhook->purpose),
+                'lan' => $lan->name
+            ]
+        )"
+        onclick="sendDiscordChannelWebhookTestMessage(event)"
 >
-    @csrf
-    <input type="hidden"
-           name="content"
-           value="@lang(
-               'phrase.discord-test-message',
-               [
-                   'purpose' => trans('title.' . $webhook->purpose),
-                   'lan' => $lan->name
-               ]
-           )"
-    >
-    <button type="submit" class="btn btn-sm btn-outline-warning" onclick="confirmFormSubmit(event)">
-        <i class="fa-solid fa-vial"></i> @lang('title.send-test-message')
-    </button>
-</form>
+    <i class="fa-solid fa-vial"></i> @lang('title.send-test-message')
+</button>

@@ -51,3 +51,5 @@
         @include('pages.discord-channel-webhooks.partials.form')
     @endcan
 @endsection
+
+@vite('resources/js/pages/discord-channel-webhook-message.js')

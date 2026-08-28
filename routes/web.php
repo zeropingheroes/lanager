@@ -102,7 +102,7 @@ Route::get('lans/{lan}/guides/{guide}/{slug?}', [GuideController::class, 'show']
  * Discord Channel Webhooks.
  */
 Route::resource('lans.discord-channel-webhooks', DiscordChannelWebhookController::class, ['only' => ['index', 'store', 'destroy']]);
-Route::resource('lans.discord-channel-webhooks.messages', DiscordChannelWebhookMessageController::class, ['only' => ['create', 'store']]);
+Route::resource('lans.discord-channel-webhooks.messages', DiscordChannelWebhookMessageController::class, ['only' => ['create']]);
 
 /**
  * Events.
@@ -121,10 +121,6 @@ Route::singleton('lans.events.discord-notification-message', EventDiscordNotific
     ->creatable()
     ->destroyable()
     ->except(['show']);
-Route::post('lans/{lan}/events/{event}/discord-notification-message/send', [EventDiscordNotificationMessageController::class, 'send'])
-    ->name('lans.events.discord-notification-message.send');
-Route::post('lans/{lan}/events/{event}/discord-notification-message/preview', [EventDiscordNotificationMessageController::class, 'preview'])
-    ->name('lans.events.discord-notification-message.preview');
 
 /**
  * LAN Games & LAN Game Votes.
