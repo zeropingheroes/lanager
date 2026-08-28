@@ -64,6 +64,18 @@ jobs:
             -   name: Install Composer dependencies
                 run: composer install --optimize-autoloader --no-interaction --no-progress --no-scripts
 
+            -   name: Setup Node
+                uses: actions/setup-node@v7
+                with:
+                    node-version: '22'
+                    cache: 'npm'
+
+            -   name: Install Node dependencies
+                run: npm ci
+
+            -   name: Build project
+                run: npm run build
+
             -   name: Create empty .env file
                 run: touch .env
 
