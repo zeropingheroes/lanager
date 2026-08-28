@@ -56,7 +56,7 @@ jobs:
                 run: mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }}
 
             -   name: Checkout code
-                uses: actions/checkout@v4
+                uses: actions/checkout@v7
 
             -   name: Set up PHP
                 uses: shivammathur/setup-php@v2
@@ -69,7 +69,7 @@ jobs:
                 run: composer install --optimize-autoloader --no-interaction --no-progress --no-scripts
 
             -   name: Setup Node
-                uses: actions/setup-node@v6
+                uses: actions/setup-node@v7
                 with:
                     node-version: '22'
                     cache: 'npm'
@@ -122,27 +122,27 @@ jobs:
 
             -   name: Upload Browser Screenshots
                 if: failure()
-                uses: actions/upload-artifact@v4
+                uses: actions/upload-artifact@v7
                 with:
                     name: browser-screenshots
                     path: storage/logs/dusk/screenshots
 
             -   name: Upload Browser Console Logs
-                uses: actions/upload-artifact@v4
+                uses: actions/upload-artifact@v7
                 if: failure()
                 with:
                     name: console-logs
                     path: storage/logs/dusk/console
 
             -   name: Upload Page Source
-                uses: actions/upload-artifact@v4
+                uses: actions/upload-artifact@v7
                 if: failure()
                 with:
                     name: page-source
                     path: storage/logs/dusk/source
 
             -   name: Upload Laravel Log
-                uses: actions/upload-artifact@v4
+                uses: actions/upload-artifact@v7
                 if: failure()
                 with:
                     name: laravel-log
