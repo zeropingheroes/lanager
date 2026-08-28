@@ -212,7 +212,7 @@ docker exec -it lanager ./vendor/bin/pest
 ### Run Laravel Dusk browser test suite
 
 ```bash
-docker exec --env="APP_URL=http://lanager:8080" --env="APP_ENV=testing" --env="APP_DEBUG=false" -it lanager php artisan dusk
+docker exec --env="APP_URL=http://lanager:8000" --env="APP_ENV=testing" --env="APP_DEBUG=false" -it lanager php artisan dusk
 ```
 
 Dusk tests use a separate config (`phpunit.dusk.xml`) from Pest's Unit/Feature tests (`phpunit.xml`).
