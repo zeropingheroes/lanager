@@ -63,7 +63,7 @@ class EventDiscordNotificationMessageController extends Controller
         }
 
         $input = [
-            'message' => $httpRequest->filled('message') ? $httpRequest->input('message') : null,
+            'message' => $this->discardIfDefault($httpRequest->input('message'), $lan),
             'image_paths' => $httpRequest->input('image_paths') ?? [],
         ];
 
@@ -142,7 +142,7 @@ class EventDiscordNotificationMessageController extends Controller
         }
 
         $input = [
-            'message' => $httpRequest->filled('message') ? $httpRequest->input('message') : null,
+            'message' => $this->discardIfDefault($httpRequest->input('message'), $lan),
             'image_paths' => $httpRequest->input('image_paths') ?? [],
         ];
 
@@ -176,6 +176,22 @@ class EventDiscordNotificationMessageController extends Controller
         Session::flash('success', trans('phrase.item-updated-successfully', ['item' => trans('title.event-discord-notification-message')]));
 
         return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
+    }
+
+    /**
+     * The submitted message, or null if it is blank or matches the default message
+     * (the LAN's default message, if it has one, otherwise the system default message).
+     */
+    private function discardIfDefault(?string $message, Lan $lan): ?string
+    {
+        if (! $message) {
+            return null;
+        }
+
+        $default = $lan->default_event_discord_notification_message
+            ?? trans('phrase.default-event-discord-notification-message');
+
+        return $message === $default ? null : $message;
     }
 
     /**
@@ -240,7 +256,10 @@ class EventDiscordNotificationMessageController extends Controller
         try {
             $discordWebhookService->send(
                 $liveWebhook->webhook_url,
-                $discordWebhookService->resolvePlaceholders($notification->content(), $event->placeholders()),
+                $discordWebhookService->resolvePlaceholders(
+                    $notification->content(),
+                    $event->placeholders()
+                ),
                 $imagePaths
             );
         } catch (DiscordWebhookException|ConnectionException $exception) {
@@ -306,7 +325,9 @@ class EventDiscordNotificationMessageController extends Controller
 
         $discordWebhookService = new DiscordWebhookService;
 
-        $message = $input['message'] ?? trans('phrase.default-event-discord-notification-message');
+        $message = $input['message']
+            ?? $lan->default_event_discord_notification_message
+            ?? trans('phrase.default-event-discord-notification-message');
 
         try {
             $discordWebhookService->send(
