@@ -48,6 +48,7 @@
             @endif
             </tbody>
         </table>
+        <p>@lang('phrase.discord-channel-webhooks-enable-lanager-to-send-messages')</p>
         @include('pages.discord-channel-webhooks.partials.form')
     @endcan
 @endsection

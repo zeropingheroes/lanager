@@ -180,7 +180,7 @@ return [
     'channels' => 'Channels',
     'discord-channel-webhooks' => 'Discord Channel Webhooks',
     'discord-channel-webhook' => 'Discord Channel Webhook',
-    'purpose' => 'Purpose',
+    'purpose' => 'Discord Channel Purpose',
     'webhook-url' => 'Webhook URL',
     'live' => 'Live',
     'test' => 'Test',

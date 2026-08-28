@@ -211,6 +211,55 @@ Select ⚙ > **Navigation** to customise the links shown on the navigation bar. 
 to third-party sites, organise the links into drop-down menus, and choose the order that the links appear in the navbar
 or dropdown.
 
+### Configure Discord channels
+
+The LANager can send messages to Discord channels, for example to notify attendees when an event is starting. To do
+this, you first need to create a webhook for the channel in Discord, then add it to your LAN in the LANager.
+
+You can configure up to two webhooks per LAN:
+
+* **Live** - used to send messages to attendees, such as event notifications
+* **Test** - used to preview messages formatting, images and links before sending to attendees
+
+Create a channel webhook in Discord:
+
+1. Open **Server Settings** for your Discord server.
+2. Select **Integrations** → **Webhooks** → **New Webhook**.
+3. For **Name**, enter **LANager**.
+4. For **Channel**, select the channel you want the webhook to post messages to.
+5. Set the webhook's icon to the [LANager favicon](public/apple-touch-icon-152x152-precomposed.png)
+6. Select **Copy Webhook URL**.
+
+Add the webhook to your LAN in the LANager:
+
+1. Go to your LAN's page.
+2. Select the **Channels** tab.
+3. Choose whether the webhook is for the **Live** or **Test** channel.
+3. Paste the webhook URL you copied from Discord.
+4. Select **Submit**.
+
+Repeat these steps for both webhook purposes: `live` and `test`.
+
+### Send event notifications to Discord
+
+Once you have configured Discord channel webhooks for your LAN, you can set an event to automatically send a
+message to Discord at the event's start time.
+
+1. Go to the event's page.
+2. Select ⚙ → **Discord** → **Create Notification Message**.
+3. Enter the message you want to send, or leave it blank to use the LAN's default message if one is set. You can use
+   the `{{event.name}}` and `{{event.url}}` placeholders, which are replaced with the event's details when the
+   message is sent.
+4. Optionally, attach images to the message.
+5. Make sure **Automatically send the message at the event's start time** is checked.
+6. If you have configured a Test channel webhook, select **Preview in Test Channel** to check how the message will
+   look before saving.
+7. Select **Submit**.
+
+The LANager checks for events starting every minute and sends their notification message to the `live` Discord channel
+automatically. You can also send a message manually at any time, or edit or delete it, from the event's page under
+⚙ > **Discord**.
+
 ## Backup
 
 Run `./backup.sh` to back up LANager's configuration, database data and uploaded images.
