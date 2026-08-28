@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zeropingheroes\Lanager\Services;
 
 use Illuminate\Http\Client\ConnectionException;

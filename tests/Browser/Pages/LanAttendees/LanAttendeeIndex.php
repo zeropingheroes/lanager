@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Pages\LanAttendees;
 
 use Laravel\Dusk\Browser;

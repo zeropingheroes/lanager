@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zeropingheroes\Lanager\Observers;
 
 use Zeropingheroes\Lanager\Models\Role;

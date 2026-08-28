@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zeropingheroes\Lanager\Policies;
 
 use Zeropingheroes\Lanager\Models\RoleAssignment;

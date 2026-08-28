@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Tests\DiscordChannelWebhooks;
 
 use Laravel\Dusk\Browser;

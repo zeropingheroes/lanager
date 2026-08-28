@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Pages\Venues;
 
 use Laravel\Dusk\Browser;

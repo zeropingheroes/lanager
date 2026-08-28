@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Pages\Events;
 
 use Laravel\Dusk\Browser;

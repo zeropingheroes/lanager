@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zeropingheroes\Lanager\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Tests\Slides;
 
 use Laravel\Dusk\Browser;
@@ -37,8 +39,8 @@ class CreateSlideTest extends DuskTestCase
                 ->on(new SlideCreate)
                 ->type('name', 'Code of conduct')
                 ->type('content', 'Be excellent to each other')
-                ->type('position', 1)
-                ->type('duration', 10);
+                ->type('position', '1')
+                ->type('duration', '10');
 
             // And submits the form
             $browser->waitForReload(function (Browser $browser): void {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Browser\Tests\RoleAssignments;
 
 use Laravel\Dusk\Browser;
