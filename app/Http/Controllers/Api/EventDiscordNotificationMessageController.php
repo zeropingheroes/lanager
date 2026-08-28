@@ -95,10 +95,10 @@ class EventDiscordNotificationMessageController extends Controller
             'message' => $httpRequest->filled('message') ? $httpRequest->input('message') : null,
         ];
 
-        $previewRequest = new StoreEventDiscordNotificationMessageRequest($input);
+        $storeEventDiscordNotificationMessageRequest = new StoreEventDiscordNotificationMessageRequest($input);
 
-        if ($previewRequest->invalid()) {
-            return response()->json(['errors' => $previewRequest->errors()], 422);
+        if ($storeEventDiscordNotificationMessageRequest->invalid()) {
+            return response()->json(['errors' => $storeEventDiscordNotificationMessageRequest->errors()], 422);
         }
 
         $event->loadMissing('lan.discordChannelWebhooks');

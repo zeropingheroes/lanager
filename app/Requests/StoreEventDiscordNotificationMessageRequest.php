@@ -54,7 +54,7 @@ class StoreEventDiscordNotificationMessageRequest extends Request
                 return $this->setValid(false);
             }
 
-            $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+            $extension = strtolower(pathinfo((string) $path, PATHINFO_EXTENSION));
             if (! in_array($extension, DiscordWebhookService::PERMITTED_IMAGE_EXTENSIONS, true)) {
                 $this->addError(
                     trans(

@@ -48,11 +48,11 @@ class LanGameVoteController extends Controller
      *
      * @throws AuthorizationException
      */
-    public function destroy(Lan $lan, LanGame $lanGame, LanGameVote $vote): RedirectResponse
+    public function destroy(Lan $lan, LanGame $lanGame, LanGameVote $lanGameVote): RedirectResponse
     {
-        $this->authorize('delete', $vote);
+        $this->authorize('delete', $lanGameVote);
 
-        LanGameVote::destroy($vote->id);
+        LanGameVote::destroy($lanGameVote->id);
 
         return redirect()->back();
     }

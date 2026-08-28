@@ -279,7 +279,7 @@ class SendDiscordEventNotificationMessagesTest extends TestCase
         $succeedingEvent = $this->createDueEvent();
 
         Http::fake(function ($request) use ($failingEvent) {
-            if ($request->url() === self::LIVE_WEBHOOK_URL && str_contains((string) $request->body(), $failingEvent->discordNotificationMessage->message)) {
+            if ($request->url() === self::LIVE_WEBHOOK_URL && str_contains((string) $request->body(), (string) $failingEvent->discordNotificationMessage->message)) {
                 throw new \RuntimeException('Unexpected connection-level failure');
             }
 

@@ -39,7 +39,7 @@ class SendEventDiscordNotificationMessageNowTest extends DuskTestCase
 
             // And clicks "Send Now" and accepts the confirmation dialog
             $browser->clickLink('Send Now');
-            $browser->assertDialogOpened('Sending now will disable sending at the event\'s start time. Continue?');
+            $browser->assertDialogOpened("Sending now will disable sending at the event's start time. Continue?");
             $browser->acceptDialog();
 
             // Then an inline result message is shown in the page alerts area (success or error)

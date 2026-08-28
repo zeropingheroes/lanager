@@ -89,7 +89,11 @@ class DiscordWebhookService
                 continue;
             }
 
-            $request = $request->attach("files[{$index}]", $contents, basename($imagePath));
+            $request = $request->attach(
+                sprintf('files[%d]', $index),
+                $contents,
+                basename($imagePath)
+            );
             $index++;
         }
 

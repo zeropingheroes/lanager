@@ -43,7 +43,7 @@ class ConfirmEventDiscordNotificationMessageSendDialogTest extends DuskTestCase
             $browser->clickLink('Send Now');
 
             // Then a confirmation dialog is shown mentioning that automatic sending will be disabled
-            $browser->assertDialogOpened('Sending now will disable sending at the event\'s start time. Continue?');
+            $browser->assertDialogOpened("Sending now will disable sending at the event's start time. Continue?");
 
             // And dismissing the dialog does not submit the form
             $browser->dismissDialog();

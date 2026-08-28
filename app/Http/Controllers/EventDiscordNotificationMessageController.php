@@ -65,10 +65,10 @@ class EventDiscordNotificationMessageController extends Controller
             'image_paths' => $httpRequest->input('image_paths') ?? [],
         ];
 
-        $storeRequest = new StoreEventDiscordNotificationMessageRequest($input);
+        $storeEventDiscordNotificationMessageRequest = new StoreEventDiscordNotificationMessageRequest($input);
 
-        if ($storeRequest->invalid()) {
-            Session::flash('error', $storeRequest->errors());
+        if ($storeEventDiscordNotificationMessageRequest->invalid()) {
+            Session::flash('error', $storeEventDiscordNotificationMessageRequest->errors());
 
             return redirect()->back()->withInput();
         }
@@ -144,10 +144,10 @@ class EventDiscordNotificationMessageController extends Controller
             'image_paths' => $httpRequest->input('image_paths') ?? [],
         ];
 
-        $storeRequest = new StoreEventDiscordNotificationMessageRequest($input);
+        $storeEventDiscordNotificationMessageRequest = new StoreEventDiscordNotificationMessageRequest($input);
 
-        if ($storeRequest->invalid()) {
-            Session::flash('error', $storeRequest->errors());
+        if ($storeEventDiscordNotificationMessageRequest->invalid()) {
+            Session::flash('error', $storeEventDiscordNotificationMessageRequest->errors());
 
             return redirect()->back()->withInput();
         }

@@ -90,6 +90,7 @@ class EventDiscordNotificationMessageApiControllerTest extends TestCase
             ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
         $testResponse->assertOk();
+
         $expectedContent = sprintf(
             'New event: %s - %s - {{event.nmae}}',
             $this->event->name,
@@ -142,6 +143,7 @@ class EventDiscordNotificationMessageApiControllerTest extends TestCase
             ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
         $testResponse->assertOk();
+
         $expectedContent = str_replace(
             ['{{event.name}}', '{{event.url}}'],
             [$this->event->name, route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event])],
@@ -164,6 +166,7 @@ class EventDiscordNotificationMessageApiControllerTest extends TestCase
             ->postJson(route('api.events.discord-notification-message.send', ['event' => $this->event]));
 
         $testResponse->assertOk();
+
         $expectedContent = sprintf(
             'LAN default: %s - %s',
             $this->event->name,
@@ -235,6 +238,7 @@ class EventDiscordNotificationMessageApiControllerTest extends TestCase
             ]);
 
         $testResponse->assertOk();
+
         $expectedContent = sprintf(
             'New event: %s - %s - {{event.nmae}}',
             $this->event->name,
@@ -252,6 +256,7 @@ class EventDiscordNotificationMessageApiControllerTest extends TestCase
             ->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), []);
 
         $testResponse->assertOk();
+
         $expectedContent = str_replace(
             ['{{event.name}}', '{{event.url}}'],
             [$this->event->name, route('lans.events.show', ['lan' => $this->lan, 'event' => $this->event])],
@@ -270,6 +275,7 @@ class EventDiscordNotificationMessageApiControllerTest extends TestCase
             ->postJson(route('api.events.discord-notification-message.preview', ['event' => $this->event]), []);
 
         $testResponse->assertOk();
+
         $expectedContent = sprintf(
             'LAN default: %s - %s',
             $this->event->name,
@@ -376,7 +382,7 @@ class EventDiscordNotificationMessageApiControllerTest extends TestCase
 
             return $request->url() === self::LIVE_WEBHOOK_URL
                 && str_contains($contentType, 'multipart/form-data')
-                && str_contains($request->body(), 'event.png');
+                && str_contains((string) $request->body(), 'event.png');
         });
     }
 
@@ -400,7 +406,7 @@ class EventDiscordNotificationMessageApiControllerTest extends TestCase
 
             return $request->url() === self::TEST_WEBHOOK_URL
                 && str_contains($contentType, 'multipart/form-data')
-                && str_contains($request->body(), 'preview.png');
+                && str_contains((string) $request->body(), 'preview.png');
         });
     }
 }

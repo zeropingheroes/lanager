@@ -324,7 +324,7 @@ class EventDiscordNotificationMessageControllerCrudTest extends TestCase
         Storage::fake('public');
         $paths = [];
         for ($i = 0; $i < 11; $i++) {
-            $path = "images/img{$i}.png";
+            $path = sprintf('images/img%d.png', $i);
             Storage::disk('public')->put($path, 'data');
             $paths[] = $path;
         }
@@ -597,6 +597,6 @@ class EventDiscordNotificationMessageControllerCrudTest extends TestCase
 
         $testResponse->assertOk();
         $testResponse->assertSee('href="'.route('lans.edit', ['lan' => $this->lan]).'"', false);
-        $testResponse->assertSee('Edit the LAN\'s default message', false);
+        $testResponse->assertSee("Edit the LAN's default message", false);
     }
 }

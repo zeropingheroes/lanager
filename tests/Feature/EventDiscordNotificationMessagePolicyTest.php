@@ -18,13 +18,13 @@ class EventDiscordNotificationMessagePolicyTest extends TestCase
 
     protected bool $seed = true;
 
-    private EventDiscordNotificationMessagePolicy $policy;
+    private EventDiscordNotificationMessagePolicy $eventDiscordNotificationMessagePolicy;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->policy = new EventDiscordNotificationMessagePolicy;
+        $this->eventDiscordNotificationMessagePolicy = new EventDiscordNotificationMessagePolicy;
     }
 
     private function userWithRole(string $role): User
@@ -38,28 +38,28 @@ class EventDiscordNotificationMessagePolicyTest extends TestCase
 
     public function test_admin_can_update_send_and_preview(): void
     {
-        $admin = $this->userWithRole('admin');
+        $user = $this->userWithRole('admin');
 
-        $this->assertTrue($this->policy->update($admin));
-        $this->assertTrue($this->policy->send($admin));
-        $this->assertTrue($this->policy->preview($admin));
+        $this->assertTrue($this->eventDiscordNotificationMessagePolicy->update($user));
+        $this->assertTrue($this->eventDiscordNotificationMessagePolicy->send($user));
+        $this->assertTrue($this->eventDiscordNotificationMessagePolicy->preview($user));
     }
 
     public function test_super_admin_can_update_send_and_preview(): void
     {
-        $superAdmin = $this->userWithRole('super-admin');
+        $user = $this->userWithRole('super-admin');
 
-        $this->assertTrue(Gate::forUser($superAdmin)->allows('update', EventDiscordNotificationMessage::class));
-        $this->assertTrue(Gate::forUser($superAdmin)->allows('send', EventDiscordNotificationMessage::class));
-        $this->assertTrue(Gate::forUser($superAdmin)->allows('preview', EventDiscordNotificationMessage::class));
+        $this->assertTrue(Gate::forUser($user)->allows('update', EventDiscordNotificationMessage::class));
+        $this->assertTrue(Gate::forUser($user)->allows('send', EventDiscordNotificationMessage::class));
+        $this->assertTrue(Gate::forUser($user)->allows('preview', EventDiscordNotificationMessage::class));
     }
 
     public function test_regular_user_cannot_update_send_or_preview(): void
     {
         $regularUser = User::factory()->create();
 
-        $this->assertFalse($this->policy->update($regularUser));
-        $this->assertFalse($this->policy->send($regularUser));
-        $this->assertFalse($this->policy->preview($regularUser));
+        $this->assertFalse($this->eventDiscordNotificationMessagePolicy->update($regularUser));
+        $this->assertFalse($this->eventDiscordNotificationMessagePolicy->send($regularUser));
+        $this->assertFalse($this->eventDiscordNotificationMessagePolicy->preview($regularUser));
     }
 }
