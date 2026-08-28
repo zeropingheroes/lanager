@@ -19,7 +19,7 @@ class StoreNavigationLinkRequest extends Request
         $this->validationRules = [
             'title' => ['required', 'max:255'],
             'url' => ['nullable', 'max:2000'],
-            'position' => ['integer'],
+            'position' => ['required', 'integer'],
             'parent_id' => ['nullable', 'exists:navigation_links,id'],
         ];
 
