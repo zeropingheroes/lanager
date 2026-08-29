@@ -42,7 +42,12 @@
                             @endcanany
                         </td>
                         <td>
-                            {{ $lan->start->format('H:i D j M Y') }} &ndash; {{ $lan->end->format('H:i D j M Y') }}
+                            {{ $lan->start->format('M Y') }}
+                        </td>
+                        <td>
+                            @if($lan->venue)
+                                <a href="{{ route('venues.show', $lan->venue->id) }}">{{ $lan->venue->name }}</a>
+                            @endif
                         </td>
                         <td>
                             @lang('title.x-hours', ['x' => (int) $lan->start->diffInHours($lan->end)])

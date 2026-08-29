@@ -22,7 +22,8 @@ class LanController extends Controller
      */
     public function index(): ViewContract
     {
-        $lans = Lan::orderBy('start', 'desc')
+        $lans = Lan::with('venue')
+            ->orderBy('start', 'desc')
             ->get();
 
         // LAN happening now, or closest future LAN, or most recently ended past LAN
