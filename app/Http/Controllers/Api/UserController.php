@@ -29,9 +29,13 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user): UserResource
+    public function show(User $user, Request $request): UserResource
     {
         $user->load('accounts');
+
+        if ($request->has('lans')) {
+            $user->load('lans');
+        }
 
         return new UserResource($user);
     }

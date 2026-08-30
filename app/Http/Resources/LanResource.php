@@ -24,6 +24,11 @@ class LanResource extends JsonResource
             'name' => $this->name,
             'start' => $this->start->toIso8601String(),
             'end' => $this->end->toIso8601String(),
+            'published' => (bool) $this->published,
+            // `venue` is a nullable relation (unlike the other embeds below), so the closure form of
+            // whenLoaded() is used to distinguish "not requested" (key omitted) from "requested, but
+            // this LAN has none" (venue: null).
+            'venue' => $this->whenLoaded('venue', fn () => $this->venue ? new VenueResource($this->venue) : null),
             'users' => UserResource::collection($this->whenLoaded('users')),
             'events' => EventResource::collection($this->whenLoaded('events')),
             'slides' => SlideResource::collection($this->whenLoaded('slides')),

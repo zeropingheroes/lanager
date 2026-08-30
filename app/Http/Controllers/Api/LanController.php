@@ -53,6 +53,10 @@ class LanController extends Controller
             ]);
         }
 
+        if ($request->has('venue')) {
+            $lan->load('venue');
+        }
+
         return new LanResource($lan);
     }
 }

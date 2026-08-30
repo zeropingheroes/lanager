@@ -6,12 +6,12 @@ namespace Zeropingheroes\Lanager\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Zeropingheroes\Lanager\Models\User;
+use Zeropingheroes\Lanager\Models\Role;
 
 /**
- * @mixin User
+ * @mixin Role
  */
-class UserResource extends JsonResource
+class RoleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,10 +21,8 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'username' => $this->username,
-            'oauth_accounts' => OAuthAccountResource::collection($this->whenLoaded('accounts')),
-            'roles' => RoleResource::collection($this->roles),
-            'lans' => LanResource::collection($this->whenLoaded('lans')),
+            'name' => $this->name,
+            'display_name' => $this->display_name,
         ];
     }
 }

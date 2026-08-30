@@ -94,4 +94,55 @@ class EventApiControllerTest extends TestCase
 
         $testResponse->assertNotFound();
     }
+
+    public function test_show_includes_signups_open_and_close_when_set(): void
+    {
+        $lan = Lan::factory()->create(['published' => true]);
+        $signupsOpen = now()->addDay();
+        $signupsClose = now()->addDays(2);
+        $event = Event::factory()->create([
+            'lan_id' => $lan->id,
+            'published' => true,
+            'start' => now(),
+            'end' => now()->addHour(),
+            'signups_open' => $signupsOpen,
+            'signups_close' => $signupsClose,
+        ]);
+
+        $testResponse = $this->getJson(route('api.v1.lans.events.show', [$lan, $event]));
+
+        $testResponse->assertOk();
+        $testResponse->assertJsonPath('data.signups_open', $signupsOpen->toIso8601String());
+        $testResponse->assertJsonPath('data.signups_close', $signupsClose->toIso8601String());
+    }
+
+    public function test_show_includes_null_signups_when_unset(): void
+    {
+        $lan = Lan::factory()->create(['published' => true]);
+        $event = Event::factory()->create([
+            'lan_id' => $lan->id,
+            'published' => true,
+            'start' => now(),
+            'end' => now()->addHour(),
+            'signups_open' => null,
+            'signups_close' => null,
+        ]);
+
+        $testResponse = $this->getJson(route('api.v1.lans.events.show', [$lan, $event]));
+
+        $testResponse->assertOk();
+        $testResponse->assertJsonPath('data.signups_open', null);
+        $testResponse->assertJsonPath('data.signups_close', null);
+    }
+
+    public function test_show_includes_published_as_a_real_boolean(): void
+    {
+        $lan = Lan::factory()->create(['published' => true]);
+        $event = Event::factory()->create(['lan_id' => $lan->id, 'published' => true, 'start' => now(), 'end' => now()->addHour()]);
+
+        $testResponse = $this->getJson(route('api.v1.lans.events.show', [$lan, $event]));
+
+        $testResponse->assertOk();
+        $testResponse->assertJsonPath('data.published', true);
+    }
 }

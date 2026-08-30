@@ -25,6 +25,9 @@ class SlideResource extends JsonResource
             'content' => $this->content,
             'position' => $this->position,
             'duration' => $this->duration,
+            'start' => $this->start?->timezone(config('app.timezone'))->toIso8601String(),
+            'end' => $this->end?->timezone(config('app.timezone'))->toIso8601String(),
+            'published' => (bool) $this->published,
             'lan' => new LanResource($this->whenLoaded('lan')),
             'links' => [
                 'self' => route('api.v1.lans.slides.show', ['lan' => $this->lan_id, 'slide' => $this->id]),
