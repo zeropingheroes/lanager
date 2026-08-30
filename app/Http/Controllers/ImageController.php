@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Zeropingheroes\Lanager\Http\Controllers;
 
-use File;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
