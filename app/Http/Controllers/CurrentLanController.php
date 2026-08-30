@@ -52,6 +52,14 @@ class CurrentLanController extends Controller
     }
 
     /**
+     * Redirect to current LAN's fullscreen events display.
+     */
+    public function eventsFullscreen(Request $request): RedirectResponse
+    {
+        return redirect()->route('lans.events.fullscreen', $this->lan)->with($request->session()->all());
+    }
+
+    /**
      * Redirect to current LAN's events schedule.
      */
     public function schedule(Request $request): RedirectResponse

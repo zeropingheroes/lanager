@@ -119,13 +119,15 @@ Route::resource('lans.discord-channel-webhooks.messages', DiscordChannelWebhookM
 /**
  * Events.
  */
+Route::get('/events/fullscreen', [CurrentLanController::class, 'eventsFullscreen'])
+    ->name('events.fullscreen');
+Route::get(
+    'lans/{lan}/events/fullscreen',
+    fn (Lan $lan) => view('pages.events.fullscreen')->with('lan', $lan)
+)->name('lans.events.fullscreen');
 Route::resource('lans.events', EventController::class);
 Route::resource('lans.events.signups', EventSignupController::class, ['only' => ['store', 'destroy']])
     ->parameters(['signups' => 'eventSignup']);
-Route::get(
-    '/events/fullscreen',
-    fn () => view('pages.events.fullscreen')
-)->name('events.fullscreen');
 
 /**
  * Event Discord Notification Messages.

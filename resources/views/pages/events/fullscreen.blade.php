@@ -13,7 +13,7 @@
         </div>
         @vite(['resources/js/pages/events.js'])
         <div id="app">
-            <events/>
+            <events v-bind:lan_id="{{ $lan->id }}"/>
         </div>
     </div>
 @endsection

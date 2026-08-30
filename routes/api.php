@@ -29,7 +29,7 @@ Route::name('api.')->group(
                 Route::resource('users', UserController::class, ['only' => ['index', 'show']]);
                 Route::resource('lans', LanController::class, ['only' => ['index', 'show']]);
                 Route::resource('lans.slides', SlideController::class, ['only' => ['index', 'show']]);
-                Route::resource('events', EventController::class, ['only' => ['index', 'show']]);
+                Route::resource('lans.events', EventController::class, ['only' => ['index', 'show']]);
                 Route::resource('active-games', ActiveGamesController::class, ['only' => ['index']]);
 
                 Route::middleware('auth:sanctum')->group(

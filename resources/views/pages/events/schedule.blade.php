@@ -12,7 +12,7 @@
     @vite(['resources/js/pages/schedule.js'])
     <div id="app">
         <div id="schedule">
-            <event-schedule></event-schedule>
+            <event-schedule v-bind:lan_id="{{ $lan->id }}"></event-schedule>
         </div>
     </div>
 @endsection

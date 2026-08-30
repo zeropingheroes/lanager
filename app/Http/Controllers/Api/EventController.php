@@ -4,38 +4,27 @@ declare(strict_types=1);
 
 namespace Zeropingheroes\Lanager\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Zeropingheroes\Lanager\Http\Controllers\Controller;
 use Zeropingheroes\Lanager\Http\Resources\EventResource;
 use Zeropingheroes\Lanager\Models\Event;
+use Zeropingheroes\Lanager\Models\Lan;
 
 class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(Lan $lan): AnonymousResourceCollection
     {
-        $events = Event::where('published', true)
-            ->whereHas('lan', function ($query): void {
-                $query->where('published', true);
-            });
-
-        if ($request->filled('after')) {
-            $events->where(
-                function ($query) use ($request): void {
-                    $query->where('start', '>', $request->after)
-                        ->orWhere('end', '>', $request->after);
-                }
-            );
+        if (! $lan->published) {
+            abort(404);
         }
 
-        if ($request->filled('limit')) {
-            $events->limit($request->limit);
-        }
-
-        $events = $events->orderBy('start')->get();
+        $events = Event::where('lan_id', $lan->id)
+            ->where('published', true)
+            ->orderBy('start')
+            ->get();
 
         return EventResource::collection($events);
     }
@@ -43,8 +32,12 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event): EventResource
+    public function show(Lan $lan, Event $event): EventResource
     {
+        if ($event->lan_id !== $lan->id) {
+            abort(404);
+        }
+
         if (! $event->published || ! $event->lan->published) {
             abort(404);
         }

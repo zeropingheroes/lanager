@@ -5,6 +5,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import {trans, isLoaded} from 'laravel-vue-i18n';
 
+const props = defineProps(['lan_id']);
+
 const apiBaseUrl = document.head.querySelector('meta[name="api-base-url"]').content;
 
 const baseCalendarOptions = reactive({
@@ -43,7 +45,7 @@ const baseCalendarOptions = reactive({
             url: event.links.self_gui,
         }
     },
-    events: `${apiBaseUrl}/events/`,
+    events: `${apiBaseUrl}/lans/${props.lan_id}/events/`,
 });
 
 // Create a computed property for buttonText
