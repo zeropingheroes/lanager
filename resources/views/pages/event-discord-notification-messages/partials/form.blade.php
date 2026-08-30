@@ -61,7 +61,7 @@
             <button type="button"
                     id="discord-notification-preview-button"
                     class="btn btn-sm btn-outline-warning"
-                    data-preview-url="{{ route('api.events.discord-notification-message.preview', ['event' => $event]) }}"
+                    data-preview-url="{{ route('api.events.discord-notification-message.previews.store', ['event' => $event]) }}"
                     @disabled(! $testWebhookConfigured)
                     @if(! $testWebhookConfigured) title="@lang('phrase.no-test-webhook-configured')" @endif
             >

@@ -31,7 +31,7 @@
             @endphp
             <a class="dropdown-item {{ $testWebhookConfigured ? '' : 'disabled' }}"
                href="#"
-               data-preview-url="{{ route('api.events.discord-notification-message.preview', ['event' => $event]) }}"
+               data-preview-url="{{ route('api.events.discord-notification-message.previews.store', ['event' => $event]) }}"
                data-content="{{ $event->discordNotificationMessage->message }}"
                data-image-paths="{{ json_encode($event->discordNotificationMessage->images->pluck('image_path')->all()) }}"
                onclick="previewEventDiscordNotificationMessage(event);"
@@ -45,7 +45,7 @@
             @endphp
             <a class="dropdown-item {{ $liveWebhookConfigured ? '' : 'disabled' }}"
                href="#"
-               data-send-url="{{ route('api.events.discord-notification-message.send', ['event' => $event]) }}"
+               data-send-url="{{ route('api.events.discord-notification-message.deliveries.store', ['event' => $event]) }}"
                data-confirm-message="@lang('phrase.confirm-send-event-discord-notification-message-now')"
                onclick="sendEventDiscordNotificationMessageNow(event);"
                @if(! $liveWebhookConfigured) title="@lang('phrase.no-live-webhook-configured')" @endif

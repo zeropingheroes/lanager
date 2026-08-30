@@ -2,7 +2,7 @@
         class="btn btn-sm btn-warning"
         data-send-url="{{
             route(
-                'api.lans.discord-channel-webhooks.send',
+                'api.lans.discord-channel-webhooks.messages.store',
                 [
                     'lan' => $lan,
                     'discordChannelWebhook' => $webhook

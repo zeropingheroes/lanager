@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Zeropingheroes\Lanager\Http\Controllers\Api\ActiveGamesController;
 use Zeropingheroes\Lanager\Http\Controllers\Api\DiscordChannelWebhookMessageController;
 use Zeropingheroes\Lanager\Http\Controllers\Api\EventController;
-use Zeropingheroes\Lanager\Http\Controllers\Api\EventDiscordNotificationMessageController;
+use Zeropingheroes\Lanager\Http\Controllers\Api\EventDiscordNotificationMessageDeliveryController;
+use Zeropingheroes\Lanager\Http\Controllers\Api\EventDiscordNotificationMessagePreviewController;
 use Zeropingheroes\Lanager\Http\Controllers\Api\LanController;
 use Zeropingheroes\Lanager\Http\Controllers\Api\SlideController;
 use Zeropingheroes\Lanager\Http\Controllers\Api\UserController;
@@ -41,12 +42,12 @@ Route::name('api.')->group(
         */
         Route::middleware('web')->group(
             function (): void {
-                Route::post('events/{event}/discord-notification-message/send', [EventDiscordNotificationMessageController::class, 'send'])
-                    ->name('events.discord-notification-message.send');
-                Route::post('events/{event}/discord-notification-message/preview', [EventDiscordNotificationMessageController::class, 'preview'])
-                    ->name('events.discord-notification-message.preview');
-                Route::post('lans/{lan}/discord-channel-webhooks/{discordChannelWebhook}/send', [DiscordChannelWebhookMessageController::class, 'send'])
-                    ->name('lans.discord-channel-webhooks.send');
+                Route::post('events/{event}/discord-notification-message/deliveries', [EventDiscordNotificationMessageDeliveryController::class, 'store'])
+                    ->name('events.discord-notification-message.deliveries.store');
+                Route::post('events/{event}/discord-notification-message/previews', [EventDiscordNotificationMessagePreviewController::class, 'store'])
+                    ->name('events.discord-notification-message.previews.store');
+                Route::post('lans/{lan}/discord-channel-webhooks/{discordChannelWebhook}/messages', [DiscordChannelWebhookMessageController::class, 'store'])
+                    ->name('lans.discord-channel-webhooks.messages.store');
             }
         );
     }

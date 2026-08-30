@@ -22,7 +22,7 @@ class DiscordChannelWebhookMessageController extends Controller
      *
      * @throws AuthorizationException
      */
-    public function send(Request $httpRequest, Lan $lan, DiscordChannelWebhook $discordChannelWebhook): JsonResponse
+    public function store(Request $httpRequest, Lan $lan, DiscordChannelWebhook $discordChannelWebhook): JsonResponse
     {
         $this->authorize('discord-webhook-messages.store');
 
