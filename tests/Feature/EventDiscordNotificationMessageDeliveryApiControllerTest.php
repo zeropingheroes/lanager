@@ -67,7 +67,7 @@ class EventDiscordNotificationMessageDeliveryApiControllerTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
+            ->postJson(route('api.v1.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
 
         $testResponse->assertOk();
         $testResponse->assertJsonStructure(['message']);
@@ -85,7 +85,7 @@ class EventDiscordNotificationMessageDeliveryApiControllerTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
+            ->postJson(route('api.v1.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
 
         $testResponse->assertOk();
 
@@ -108,7 +108,7 @@ class EventDiscordNotificationMessageDeliveryApiControllerTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
+            ->postJson(route('api.v1.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
 
         $testResponse->assertStatus(502);
         $testResponse->assertJsonStructure(['errors']);
@@ -121,7 +121,7 @@ class EventDiscordNotificationMessageDeliveryApiControllerTest extends TestCase
         EventDiscordNotificationMessage::factory()->create(['event_id' => $this->event->id]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
+            ->postJson(route('api.v1.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
 
         $testResponse->assertStatus(422);
         $testResponse->assertJsonStructure(['errors']);
@@ -138,7 +138,7 @@ class EventDiscordNotificationMessageDeliveryApiControllerTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
+            ->postJson(route('api.v1.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
 
         $testResponse->assertOk();
 
@@ -161,7 +161,7 @@ class EventDiscordNotificationMessageDeliveryApiControllerTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
+            ->postJson(route('api.v1.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
 
         $testResponse->assertOk();
 
@@ -179,7 +179,7 @@ class EventDiscordNotificationMessageDeliveryApiControllerTest extends TestCase
         DiscordChannelWebhook::factory()->live()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::LIVE_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
+            ->postJson(route('api.v1.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
 
         $testResponse->assertStatus(422);
         $testResponse->assertJsonStructure(['errors']);
@@ -191,7 +191,7 @@ class EventDiscordNotificationMessageDeliveryApiControllerTest extends TestCase
         Http::fake();
 
         $testResponse = $this->actingAs($this->regularUser)
-            ->postJson(route('api.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
+            ->postJson(route('api.v1.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
 
         $testResponse->assertStatus(403);
         Http::assertNothingSent();
@@ -201,7 +201,7 @@ class EventDiscordNotificationMessageDeliveryApiControllerTest extends TestCase
     {
         Http::fake();
 
-        $testResponse = $this->postJson(route('api.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
+        $testResponse = $this->postJson(route('api.v1.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
 
         $testResponse->assertStatus(403);
         Http::assertNothingSent();
@@ -228,7 +228,7 @@ class EventDiscordNotificationMessageDeliveryApiControllerTest extends TestCase
         ]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
+            ->postJson(route('api.v1.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
 
         $testResponse->assertOk();
         $testResponse->assertJsonStructure(['message']);

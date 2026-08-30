@@ -54,7 +54,7 @@ class DiscordChannelWebhookMessageApiControllerTest extends TestCase
         Http::fake([self::WEBHOOK_URL => Http::response(null, 204)]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), [
+            ->postJson(route('api.v1.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), [
                 'message' => 'Hello from LANager!',
             ]);
 
@@ -69,7 +69,7 @@ class DiscordChannelWebhookMessageApiControllerTest extends TestCase
         Http::fake([self::WEBHOOK_URL => Http::response(['message' => 'Unknown Webhook'], 404)]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), [
+            ->postJson(route('api.v1.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), [
                 'message' => 'Hello from LANager!',
             ]);
 
@@ -82,7 +82,7 @@ class DiscordChannelWebhookMessageApiControllerTest extends TestCase
         Http::fake();
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), []);
+            ->postJson(route('api.v1.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), []);
 
         $testResponse->assertStatus(422);
         $testResponse->assertJsonStructure(['errors']);
@@ -94,7 +94,7 @@ class DiscordChannelWebhookMessageApiControllerTest extends TestCase
         Http::fake();
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), [
+            ->postJson(route('api.v1.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), [
                 'message' => str_repeat('a', 2001),
             ]);
 
@@ -109,7 +109,7 @@ class DiscordChannelWebhookMessageApiControllerTest extends TestCase
         $otherLan = Lan::factory()->create();
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.lans.discord-channel-webhooks.messages.store', [$otherLan, $this->discordChannelWebhook]), [
+            ->postJson(route('api.v1.lans.discord-channel-webhooks.messages.store', [$otherLan, $this->discordChannelWebhook]), [
                 'message' => 'Hello!',
             ]);
 
@@ -122,7 +122,7 @@ class DiscordChannelWebhookMessageApiControllerTest extends TestCase
         Http::fake();
 
         $testResponse = $this->actingAs($this->regularUser)
-            ->postJson(route('api.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), [
+            ->postJson(route('api.v1.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), [
                 'message' => 'Hello!',
             ]);
 
@@ -134,7 +134,7 @@ class DiscordChannelWebhookMessageApiControllerTest extends TestCase
     {
         Http::fake();
 
-        $testResponse = $this->postJson(route('api.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), [
+        $testResponse = $this->postJson(route('api.v1.lans.discord-channel-webhooks.messages.store', [$this->lan, $this->discordChannelWebhook]), [
             'message' => 'Hello!',
         ]);
 

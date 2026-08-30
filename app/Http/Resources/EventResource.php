@@ -28,7 +28,7 @@ class EventResource extends JsonResource
             'timezone' => config('app.timezone'),
             'lan' => new LanResource($this->whenLoaded('lan')),
             'links' => [
-                'self' => route('api.events.show', $this->id),
+                'self' => route('api.v1.events.show', $this->id),
                 'self_gui' => route('lans.events.show', ['lan' => $this->lan_id, 'event' => $this->id]),
             ],
         ];

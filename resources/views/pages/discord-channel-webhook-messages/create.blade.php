@@ -19,7 +19,7 @@
       [
         'route' =>
         route(
-          'api.lans.discord-channel-webhooks.messages.store',
+          'api.v1.lans.discord-channel-webhooks.messages.store',
             [
               'lan' => $lan,
               'discordChannelWebhook' => $webhook

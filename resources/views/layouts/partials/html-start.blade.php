@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="api-base-url" content="{{ url('/api') }}">
+    <meta name="api-base-url" content="{{ url('/api/v1') }}">
     @if(Auth::user())
         <meta name="api-user-id" content="{{ Auth::user()->id }}">
     @endif

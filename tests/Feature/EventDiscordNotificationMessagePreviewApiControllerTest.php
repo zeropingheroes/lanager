@@ -60,7 +60,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.previews.store', ['event' => $this->event]), [
+            ->postJson(route('api.v1.events.discord-notification-message.previews.store', ['event' => $this->event]), [
                 'message' => 'Preview this please',
             ]);
 
@@ -76,7 +76,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.previews.store', ['event' => $this->event]), [
+            ->postJson(route('api.v1.events.discord-notification-message.previews.store', ['event' => $this->event]), [
                 'message' => 'New event: {{event.name}} - {{event.url}} - {{event.nmae}}',
             ]);
 
@@ -96,7 +96,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.previews.store', ['event' => $this->event]), []);
+            ->postJson(route('api.v1.events.discord-notification-message.previews.store', ['event' => $this->event]), []);
 
         $testResponse->assertOk();
 
@@ -115,7 +115,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
         $this->lan->update(['default_event_discord_notification_message' => 'LAN default: {{event.name}} - {{event.url}}']);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.previews.store', ['event' => $this->event]), []);
+            ->postJson(route('api.v1.events.discord-notification-message.previews.store', ['event' => $this->event]), []);
 
         $testResponse->assertOk();
 
@@ -133,7 +133,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.previews.store', ['event' => $this->event]), [
+            ->postJson(route('api.v1.events.discord-notification-message.previews.store', ['event' => $this->event]), [
                 'message' => 'Preview this please',
             ]);
 
@@ -147,7 +147,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.previews.store', ['event' => $this->event]), [
+            ->postJson(route('api.v1.events.discord-notification-message.previews.store', ['event' => $this->event]), [
                 'message' => str_repeat('a', 2001),
             ]);
 
@@ -160,7 +160,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
         Http::fake();
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.previews.store', ['event' => $this->event]), [
+            ->postJson(route('api.v1.events.discord-notification-message.previews.store', ['event' => $this->event]), [
                 'message' => 'Preview this please',
             ]);
 
@@ -174,7 +174,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->regularUser)
-            ->postJson(route('api.events.discord-notification-message.previews.store', ['event' => $this->event]), [
+            ->postJson(route('api.v1.events.discord-notification-message.previews.store', ['event' => $this->event]), [
                 'message' => 'Preview this please',
             ]);
 
@@ -187,7 +187,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
         Http::fake();
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
-        $testResponse = $this->postJson(route('api.events.discord-notification-message.previews.store', ['event' => $this->event]), [
+        $testResponse = $this->postJson(route('api.v1.events.discord-notification-message.previews.store', ['event' => $this->event]), [
             'message' => 'Preview this please',
         ]);
 
@@ -206,7 +206,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
 
         $testResponse = $this->actingAs($this->adminUser)
-            ->postJson(route('api.events.discord-notification-message.previews.store', ['event' => $this->event]), [
+            ->postJson(route('api.v1.events.discord-notification-message.previews.store', ['event' => $this->event]), [
                 'message' => 'Preview with image',
                 'image_paths' => ['images/preview.png'],
             ]);
