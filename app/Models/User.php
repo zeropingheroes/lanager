@@ -18,13 +18,13 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Laravel\Sanctum\HasApiTokens;
 use Zeropingheroes\Lanager\Observers\UserObserver;
 
 #[ObservedBy([UserObserver::class])]
 /**
  * @property int $id
  * @property string $username
- * @property string|null $api_token
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -58,7 +58,6 @@ use Zeropingheroes\Lanager\Observers\UserObserver;
  * @method static Builder<static>|User newModelQuery()
  * @method static Builder<static>|User newQuery()
  * @method static Builder<static>|User query()
- * @method static Builder<static>|User whereApiToken($value)
  * @method static Builder<static>|User whereCreatedAt($value)
  * @method static Builder<static>|User whereId($value)
  * @method static Builder<static>|User whereRememberToken($value)
@@ -69,6 +68,7 @@ use Zeropingheroes\Lanager\Observers\UserObserver;
  */
 class User extends Authenticatable
 {
+    use HasApiTokens;
     use HasFactory;
     use Notifiable;
 

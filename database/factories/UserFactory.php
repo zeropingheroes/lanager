@@ -14,7 +14,6 @@ class UserFactory extends Factory
     {
         return [
             'username' => $this->faker->userName(),
-            'api_token' => $this->faker->md5(),
             'remember_token' => Str::random(10),
         ];
     }

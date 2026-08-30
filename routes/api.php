@@ -32,17 +32,7 @@ Route::name('api.')->group(
                 Route::resource('events', EventController::class, ['only' => ['index', 'show']]);
                 Route::resource('active-games', ActiveGamesController::class, ['only' => ['index']]);
 
-                /*
-                |----------------------------------------------------------------------
-                | Discord notification actions.
-                |
-                | Unlike the rest of this file, these routes are authenticated via the
-                | web session (not the stateless "api" group) and are state-changing:
-                | they require an authenticated, authorized user and enforce the same
-                | Policy checks as the rest of the app.
-                |----------------------------------------------------------------------
-                */
-                Route::middleware('web')->group(
+                Route::middleware('auth:sanctum')->group(
                     function (): void {
                         Route::post('events/{event}/discord-notification-message/deliveries', [EventDiscordNotificationMessageDeliveryController::class, 'store'])
                             ->name('events.discord-notification-message.deliveries.store');

@@ -182,7 +182,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
         Http::assertNothingSent();
     }
 
-    public function test_preview_returns_403_for_guest(): void
+    public function test_preview_returns_401_for_guest(): void
     {
         Http::fake();
         DiscordChannelWebhook::factory()->test()->create(['lan_id' => $this->lan->id, 'webhook_url' => self::TEST_WEBHOOK_URL]);
@@ -191,7 +191,7 @@ class EventDiscordNotificationMessagePreviewApiControllerTest extends TestCase
             'message' => 'Preview this please',
         ]);
 
-        $testResponse->assertStatus(403);
+        $testResponse->assertStatus(401);
         Http::assertNothingSent();
     }
 

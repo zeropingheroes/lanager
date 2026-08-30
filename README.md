@@ -269,6 +269,20 @@ sites, optionally organised into drop-down menus.
 3. Optionally set a link's **parent** to create a drop-down menu
 3. Select **Submit** to save changes
 
+### Create an API token
+
+LANager exposes a REST API under `/api`. Most of it is public and read-only, but a few actions (such as sending a
+Discord notification message) require you to authenticate. To let an external client (a bot, a script, or another
+app) perform these actions on your behalf, issue yourself a personal access token:
+
+1. In the top-right, select your avatar > **API Tokens**
+2. Enter a **name** for the token, so you can recognise it later
+3. Select **Create API Token**
+4. Copy the token value shown as it is only ever shown once
+
+Use the token by sending it as a `Bearer` token in the `Authorization` header of your API requests. You can revoke
+a token at any time from the same page.
+
 ## Backup
 
 Back up LANager's configuration, database data, and uploaded images:

@@ -197,13 +197,13 @@ class EventDiscordNotificationMessageDeliveryApiControllerTest extends TestCase
         Http::assertNothingSent();
     }
 
-    public function test_send_returns_403_for_guest(): void
+    public function test_send_returns_401_for_guest(): void
     {
         Http::fake();
 
         $testResponse = $this->postJson(route('api.v1.events.discord-notification-message.deliveries.store', ['event' => $this->event]));
 
-        $testResponse->assertStatus(403);
+        $testResponse->assertStatus(401);
         Http::assertNothingSent();
     }
 

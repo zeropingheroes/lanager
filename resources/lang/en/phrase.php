@@ -64,6 +64,10 @@ return [
     'item-not-found' => ':item not found',
     'item-already-exists' => ':item already exists!',
     'fullscreen' => 'Fullscreen',
+    'api-token-created' => 'API token created.',
+    'copy-api-token-now' => 'Copy this token now. You won’t be able to see it again!',
+    'no-api-tokens-yet' => 'You have not created any API tokens yet.',
+    'api-tokens-allow-external-access' => 'API tokens allow external clients to authenticate as you against the LANager API. A token has the same access as your account, so treat it like a password.',
 
     /**
      * Resources.

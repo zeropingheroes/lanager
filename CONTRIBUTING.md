@@ -89,10 +89,12 @@ AUTHORS.txt. If this is the case, include a modification with your pull request.
 
 * The JSON API under `/api/` (routes in `routes/api.php`, controllers in `app/Http/Controllers/Api/`) is mostly
   read-only and public, used by the Vue slides player and the active-games display.
-* A small `Route::middleware('web')` sub-group inside `api.php` carries the exception: authenticated,
-  state-changing Discord notification actions (sending an event's notification message, previewing it, sending an
-  ad-hoc channel webhook message) that require the same session-based auth and Policy checks as the rest of the
-  app, rather than being public.
+* All routes share a single `api` middleware group (`statefulApi()` enabled). The state-changing actions additionally 
+  carry `auth:sanctum`, which accepts either the browser's own session (first-party requests from the app's own origin)
+  or a Laravel Sanctum personal access token (external clients), authorized against the same Policies as the rest of the
+  app.
+* A logged-in user can issue and revoke their own personal access tokens from the "API Tokens" page, linked from
+  the account menu (`app/Http/Controllers/ApiTokenController.php`).
 
 ### Slides
 

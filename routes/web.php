@@ -9,6 +9,7 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Route;
 use Zeropingheroes\Lanager\Http\Controllers\AchievementController;
 use Zeropingheroes\Lanager\Http\Controllers\AllowedIpRangeController;
+use Zeropingheroes\Lanager\Http\Controllers\ApiTokenController;
 use Zeropingheroes\Lanager\Http\Controllers\AttendeeController;
 use Zeropingheroes\Lanager\Http\Controllers\AuthController;
 use Zeropingheroes\Lanager\Http\Controllers\CurrentLanController;
@@ -73,6 +74,15 @@ Route::post('logout', [AuthController::class, 'logout'])
  * Roles & Role Assignments.
  */
 Route::resource('role-assignments', RoleAssignmentController::class, ['except' => ['show', 'edit', 'update']]);
+
+/**
+ * API Tokens.
+ */
+Route::middleware(['auth'])->group(
+    function (): void {
+        Route::resource('api-tokens', ApiTokenController::class, ['only' => ['index', 'store', 'destroy']]);
+    }
+);
 
 /**
  * Games.

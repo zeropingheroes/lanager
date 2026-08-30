@@ -14,6 +14,11 @@
             ><i class="fa-solid fa-user"></i> @lang('title.profile')</a>
         </li>
         <li>
+            <a class="dropdown-item"
+               href="{{ route('api-tokens.index') }}"
+            ><i class="fa-solid fa-key"></i> @lang('title.api-tokens')</a>
+        </li>
+        <li>
             <a class="dropdown-item" href="#"
                onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();">

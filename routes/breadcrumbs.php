@@ -19,6 +19,15 @@ Breadcrumbs::for(
     }
 );
 
+// Home > API Tokens
+Breadcrumbs::for(
+    'api-tokens.index',
+    function ($trail): void {
+        $trail->parent('home');
+        $trail->push(__('title.api-tokens'), route('api-tokens.index'));
+    }
+);
+
 // Home > Navigation Links
 Breadcrumbs::for(
     'navigation-links.index',
