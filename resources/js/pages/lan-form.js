@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 clear: true,
             },
         },
+        stepping: 15,
+        useCurrent: false,
     });
     if (startInput.value) {
         start.dates.setValue(start.dates.parseInput(startInput.value));
@@ -33,6 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 clear: true,
             },
         },
+        stepping: 15,
+        useCurrent: false,
     });
     if (endInput.value) {
         end.dates.setValue(end.dates.parseInput(endInput.value));

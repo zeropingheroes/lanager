@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 clear: true,
             },
         },
+        stepping: 5,
+        useCurrent: false,
     });
     if (startInput.value) {
         start.dates.setValue(start.dates.parseInput(startInput.value));
@@ -33,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 clear: true,
             },
         },
+        stepping: 5,
         useCurrent: false,
     });
     if (endInput.value) {
@@ -51,8 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
             buttons: {
                 today: true,
                 clear: true,
-            },
+            }
         },
+        stepping: 5,
+        useCurrent: false,
     });
     if (signupsOpenInput.value) {
         signupsOpen.dates.setValue(signupsOpen.dates.parseInput(signupsOpenInput.value));
@@ -72,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 clear: true,
             },
         },
+        stepping: 5,
         useCurrent: false,
     });
     if (signupsCloseInput.value) {
