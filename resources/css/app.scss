@@ -12,6 +12,16 @@ body > main > .container {
     margin-bottom: 25px;
 }
 
+.local-environment-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1031; /* above .navbar.fixed-top's z-index of 1030 */
+    height: 16px;
+    line-height: 16px;
+}
+
 nav a#admin-menu {
     margin-top: 5px; /* vertically center in navbar */
 }

@@ -20,3 +20,4 @@
 
 </head>
 <body class="d-flex flex-column h-100">
+@include('layouts.partials.local-environment-banner')

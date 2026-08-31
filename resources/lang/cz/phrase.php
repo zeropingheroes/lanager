@@ -26,6 +26,7 @@ return [
     'and-licensed-under' => 'distribuován s licencí',
     'powered-by-steam' => 'Poháněno Steamem',
     'required-field' => 'Povinné pole',
+    'local-environment' => 'Lokální prostředí',
 
     // Account Authentication
     'profile-update-required' => 'Prosím aktualizujte svůj profil, abyste mohl pokračovat',
