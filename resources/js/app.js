@@ -1,4 +1,5 @@
 import './bootstrap';
+import './unsaved-changes-guard';
 
 import.meta.glob([
     '../images/**',
