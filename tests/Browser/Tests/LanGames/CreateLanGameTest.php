@@ -20,6 +20,7 @@ class CreateLanGameTest extends DuskTestCase
                 'name' => 'My Great LAN',
                 'start' => '2025-06-01 18:00',
                 'end' => '2025-06-03 18:00',
+                'published' => true,
             ]);
 
             // And a superadmin exists

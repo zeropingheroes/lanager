@@ -22,6 +22,8 @@ class GuideController extends Controller
      */
     public function index(Lan $lan): ViewContract
     {
+        $this->authorize('view', $lan);
+
         $guides = $lan->guides()
             ->orderBy('title', 'asc')
             ->get();

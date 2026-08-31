@@ -23,6 +23,8 @@ class EventController extends Controller
      */
     public function index(Request $request, Lan $lan): ViewContract
     {
+        $this->authorize('view', $lan);
+
         if ($request->has('schedule')) {
             return View::make('pages.events.schedule')
                 ->with('lan', $lan);

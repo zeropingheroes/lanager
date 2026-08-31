@@ -15,6 +15,8 @@ class AttendeeController extends Controller
      */
     public function index(Lan $lan): ViewContract
     {
+        $this->authorize('view', $lan);
+
         $users = $lan->users()->orderBy('username')->get();
 
         return View::make('pages.users.index')

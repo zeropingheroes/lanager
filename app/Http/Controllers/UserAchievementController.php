@@ -24,6 +24,8 @@ class UserAchievementController extends Controller
      */
     public function index(Lan $lan): ViewContract
     {
+        $this->authorize('view', $lan);
+
         $this->authorize('index', UserAchievement::class);
 
         $userAchievements = $lan->userAchievements()

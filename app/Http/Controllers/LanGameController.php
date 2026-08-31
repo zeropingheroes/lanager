@@ -23,6 +23,8 @@ class LanGameController extends Controller
      */
     public function index(Lan $lan): ViewContract
     {
+        $this->authorize('view', $lan);
+
         $lanGames = $lan->games()
             ->withCount('votes')
             ->orderBy('votes_count', 'desc')
