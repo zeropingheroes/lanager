@@ -48,9 +48,13 @@ class EventController extends Controller
     {
         $this->authorize('create', Event::class);
 
+        $event = new Event;
+        $event->start = $lan->start;
+        $event->end = $lan->start->addHours(2);
+
         return View::make('pages.events.create')
             ->with('lan', $lan)
-            ->with('event', new Event);
+            ->with('event', $event);
     }
 
     /**
