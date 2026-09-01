@@ -18,7 +18,12 @@ class IndexUserAchievementTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser): void {
             // Given there is a LAN
-            $lan = Lan::factory()->count(1)->create()->first();
+            $lan = Lan::create([
+                'name' => 'My Great LAN',
+                'start' => '2025-06-01 18:00',
+                'end' => '2025-06-03 18:00',
+                'published' => true,
+            ]);
 
             // And there is an achievement
             $achievement = Achievement::create([
