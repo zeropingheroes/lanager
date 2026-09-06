@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection HtmlUnknownTarget */
+
 declare(strict_types=1);
 
 return [
@@ -116,6 +118,11 @@ return [
     // LANs
     'lans-cannot-overlap' => 'LANs cannot overlap',
     'lan-achievement-help' => 'The achievement to award to attendees when they sign in at the LAN',
+    'successfully-cloned-lan' => 'Successfully cloned ":sourceLanName" and selected content',
+    'clone-lan-help' => 'Clone an existing LAN and its content, shifted to the new LAN\'s dates.',
+    'lan-clone-select-help' => 'Select which guides, events, slides and Discord channel webhooks to copy to the new LAN.',
+    'cloned-item-out-of-range' => 'Out of time range',
+    'some-items-outside-of-lan-time-range' => "Some items fall outside the new LAN's time range. Fix them after cloning.",
 
     // Events
     'you-must-create-a-lan-before-creating-events' => 'You must create a LAN before creating events',

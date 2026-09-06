@@ -42,10 +42,6 @@ class Guide extends Model
         'published',
     ];
 
-    protected $with = [
-        'lan',
-    ];
-
     /**
      * LAN the guide is a part of
      */

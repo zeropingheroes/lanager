@@ -10,10 +10,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use Throwable;
 use Zeropingheroes\Lanager\Models\Achievement;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Models\Venue;
 use Zeropingheroes\Lanager\Requests\StoreLanRequest;
+use Zeropingheroes\Lanager\Services\CloneLanService;
 
 class LanController extends Controller
 {
@@ -175,5 +177,79 @@ class LanController extends Controller
         );
 
         return redirect()->route('lans.index');
+    }
+
+    /**
+     * Show the form for cloning an existing LAN.
+     *
+     * @throws AuthorizationException
+     */
+    public function clone(Lan $lan): ViewContract
+    {
+        $this->authorize('create', Lan::class);
+
+        $lan->loadMissing([
+            'guides',
+            'events',
+            'slides',
+            'discordChannelWebhooks',
+        ]);
+
+        return View::make('pages.lans.clone')
+            ->with('venues', Venue::orderBy('name')->get())
+            ->with('achievements', Achievement::orderBy('name')->get())
+            ->with('sourceLan', $lan)
+            ->with('lan', new Lan)
+            ->with('guides', $lan->guides)
+            ->with('events', $lan->events)
+            ->with('slides', $lan->slides)
+            ->with('webhooks', $lan->discordChannelWebhooks);
+    }
+
+    /**
+     * Store a new LAN cloned from an existing one, along with the selected Guides, Events,
+     * Slides and Discord channel webhooks.
+     *
+     * @throws AuthorizationException|Throwable
+     */
+    public function storeClone(Request $httpRequest, Lan $lan): RedirectResponse
+    {
+        $this->authorize('create', Lan::class);
+
+        $input = [
+            'name' => $httpRequest->input('name'),
+            'start' => $httpRequest->input('start'),
+            'end' => $httpRequest->input('end'),
+            'venue_id' => $httpRequest->input('venue_id'),
+            'achievement_id' => $httpRequest->input('achievement_id'),
+            'published' => false,
+            'default_event_discord_notification_message' => $this->discardIfDefault($httpRequest->input('default_event_discord_notification_message')),
+        ];
+
+        $storeLanRequest = new StoreLanRequest($input);
+
+        if ($storeLanRequest->invalid()) {
+            Session::flash('error', $storeLanRequest->errors());
+
+            return redirect()->back()->withInput();
+        }
+
+        $newLan = (new CloneLanService)->clone(
+            sourceLanId: $lan->id,
+            name: $input['name'],
+            venueId: $httpRequest->filled('venue_id') ? (int) $httpRequest->input('venue_id') : null,
+            achievementId: $httpRequest->filled('achievement_id') ? (int) $httpRequest->input('achievement_id') : null,
+            start: $input['start'],
+            end: $input['end'],
+            defaultEventDiscordNotificationMessage: $input['default_event_discord_notification_message'],
+            guideIds: $httpRequest->input('guide_ids', []),
+            eventIds: $httpRequest->input('event_ids', []),
+            slideIds: $httpRequest->input('slide_ids', []),
+            webhookIds: $httpRequest->input('webhook_ids', []),
+        );
+
+        Session::flash('success', trans('phrase.successfully-cloned-lan', ['sourceLanName' => $lan->name]));
+
+        return redirect()->route('lans.events.index', $newLan);
     }
 }

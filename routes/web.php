@@ -102,6 +102,10 @@ Route::get(
  * LANs.
  */
 Route::resource('lans', LanController::class);
+Route::get('lans/{lan}/clone', [LanController::class, 'clone'])
+    ->name('lans.clone.create');
+Route::post('lans/{lan}/clone', [LanController::class, 'storeClone'])
+    ->name('lans.clone.store');
 
 /**
  * Guides.

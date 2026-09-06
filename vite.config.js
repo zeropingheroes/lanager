@@ -14,6 +14,7 @@ export default defineConfig({
                 'resources/js/pages/event-discord-notification-message.js',
                 'resources/js/pages/event-form.js',
                 'resources/js/pages/events.js',
+                'resources/js/pages/lan-clone-form.js',
                 'resources/js/pages/lan-form.js',
                 'resources/js/pages/schedule.js',
                 'resources/js/pages/slide-form.js',

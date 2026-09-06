@@ -3,6 +3,10 @@
         <a href="{{ route('lans.edit', $lan) }}"
            class="dropdown-item"><i class="fa-solid fa-pen-to-square"></i> @lang('title.edit')</a>
     @endcan
+    @can('create', \Zeropingheroes\Lanager\Models\Lan::class)
+        <a href="{{ route('lans.clone.create', $lan) }}"
+           class="dropdown-item"><i class="fa-solid fa-copy"></i> @lang('title.clone')</a>
+    @endcan
     @can('delete', $lan)
         <form action="{{ route('lans.destroy', $lan) }}" method="POST">
             {{ method_field('DELETE') }}
