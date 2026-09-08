@@ -6,7 +6,7 @@
         <th>@lang('title.duration')</th>
         <th>@lang('title.active')</th>
         <th>@lang('title.updated')</th>
-        <th>@lang('title.published')</th>
+        <th>@lang('title.visibility')</th>
         <th>@lang('title.actions')</th>
     </tr>
     </thead>
@@ -16,11 +16,6 @@
                 <tr>
                     <td>
                         <a href="{{ route('lans.slides.show', ['lan' => $lan, 'slide' => $slide]) }}">{{ $slide->name }}</a>
-                        @canany(['update', 'delete'], $slide)
-                        @if(!$slide->published)
-                            <small>&mdash; @lang('title.unpublished')</small>
-                        @endif
-                        @endcanany
                     </td>
                     <td>
                         {{ $slide->position }}
@@ -29,17 +24,21 @@
                         {{ \Carbon\CarbonInterval::seconds($slide->duration)->cascade()->forHumans() }}
                     </td>
                     <td>
-                        @isset($slide->start)
-                            @include('pages.slides.partials.start-and-end', ['slide' => $slide])
+                    @isset($slide->start)
+                        @include('pages.slides.partials.start-and-end', ['slide' => $slide])
                         @endisset
                     </td>
                     <td>
                         @include('components.time-relative', ['datetime' => $slide->updated_at])
                     </td>
                     <td>
-                        @include('components.tick-cross', ['value' => $slide->published])
+                        @if($slide->published)
+                            <span class="badge text-bg-success"><i class="fa-solid fa-globe"></i> @lang('title.published')</span>
+                        @else
+                            <span class="badge text-bg-secondary"><i class="fa-solid fa-file-pen"></i> @lang('title.draft')</span>
+                        @endif
                     </td>
-                    @canany(['update', 'delete'], $slide)
+                @canany(['update', 'delete'], $slide)
                         <td class="">
                             @include('pages.slides.partials.actions-dropdown', ['slide' => $slide])
                         </td>

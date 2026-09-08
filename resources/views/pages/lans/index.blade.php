@@ -35,11 +35,6 @@
                     <tr @if($currentLan && $lan->id == $currentLan->id) class="table-active" @endif>
                         <td>
                             <a href="{{ route('lans.show', $lan->id) }}">{{ $lan->name }}</a>
-                            @canany(['update', 'delete'], $lan)
-                                @if(!$lan->published)
-                                    <small>&ndash; @lang('title.unpublished')</small>
-                                @endif
-                            @endcanany
                         </td>
                         <td>
                             {{ $lan->start->format('M Y') }}
@@ -55,6 +50,15 @@
                         <td>
                             {{ $lan->users->count() }} <i class="fa-solid fa-user"></i>
                         </td>
+                        @canany(['update', 'delete'], $lan)
+                            <td>
+                                @if($lan->published)
+                                    <span class="badge text-bg-success"><i class="fa-solid fa-globe"></i> @lang('title.published')</span>
+                                @else
+                                    <span class="badge text-bg-secondary"><i class="fa-solid fa-file-pen"></i> @lang('title.draft')</span>
+                                @endif
+                            </td>
+                        @endcanany
                         @canany(['edit', 'delete'], $lan)
                             <td class="text-end pe-0">
                                 @component('components.actions-dropdown')
