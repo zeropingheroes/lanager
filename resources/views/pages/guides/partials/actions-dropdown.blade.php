@@ -8,6 +8,8 @@
         <a href="{{ route('lans.guides.edit', ['lan' => $guide->lan, 'guide' => $guide]) }}"
            class="dropdown-item"><i class="fa-solid fa-pen-to-square"></i> @lang('title.edit')</a>
     @endcan
+    @include('components.actions-dropdown.publish', ['item' => $guide, 'route' => route('lans.guides.publish', ['lan' => $guide->lan, 'guide' => $guide])])
+    @include('components.actions-dropdown.unpublish', ['item' => $guide, 'route' => route('lans.guides.unpublish', ['lan' => $guide->lan, 'guide' => $guide])])
     @can('delete', $guide)
         <form action="{{ route('lans.guides.destroy', ['lan' => $guide->lan, 'guide' => $guide]) }}" method="POST">
             {{ method_field('DELETE') }}

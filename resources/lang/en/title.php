@@ -28,6 +28,8 @@ return [
     'link' => 'Link',
     'published' => 'Published',
     'draft' => 'Draft',
+    'publish' => 'Publish',
+    'unpublish' => 'Unpublish',
     'visibility' => 'Visibility',
     'admin' => 'Admin',
     'start' => 'Start',

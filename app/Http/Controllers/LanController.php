@@ -148,6 +148,53 @@ class LanController extends Controller
     }
 
     /**
+     * Publish the specified resource
+     *
+     * @throws AuthorizationException
+     */
+    public function publish(Lan $lan): RedirectResponse
+    {
+        $this->authorize('update', $lan);
+
+        $input = [
+            'name' => $lan->name,
+            'start' => $lan->start->format('Y-m-d H:i'),
+            'end' => $lan->end->format('Y-m-d H:i'),
+            'venue_id' => $lan->venue_id,
+            'achievement_id' => $lan->achievement_id,
+            'published' => true,
+            'default_event_discord_notification_message' => $lan->default_event_discord_notification_message,
+            'id' => $lan->id,
+        ];
+
+        $storeLanRequest = new StoreLanRequest($input);
+
+        if ($storeLanRequest->invalid()) {
+            Session::flash('error', $storeLanRequest->errors());
+
+            return redirect()->back();
+        }
+
+        $lan->update($input);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Unpublish the specified resource.
+     *
+     * @throws AuthorizationException
+     */
+    public function unpublish(Lan $lan): RedirectResponse
+    {
+        $this->authorize('update', $lan);
+
+        $lan->update(['published' => false]);
+
+        return redirect()->back();
+    }
+
+    /**
      * The submitted default Discord notification message, or null if it is blank or matches
      * the system default message text.
      */

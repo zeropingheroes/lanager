@@ -106,6 +106,10 @@ Route::get('lans/{lan}/clone', [LanController::class, 'clone'])
     ->name('lans.clone.create');
 Route::post('lans/{lan}/clone', [LanController::class, 'storeClone'])
     ->name('lans.clone.store');
+Route::patch('lans/{lan}/publish', [LanController::class, 'publish'])
+    ->name('lans.publish');
+Route::patch('lans/{lan}/unpublish', [LanController::class, 'unpublish'])
+    ->name('lans.unpublish');
 
 /**
  * Guides.
@@ -113,6 +117,10 @@ Route::post('lans/{lan}/clone', [LanController::class, 'storeClone'])
 Route::resource('lans.guides', GuideController::class, ['except' => 'show']);
 Route::get('lans/{lan}/guides/{guide}/{slug?}', [GuideController::class, 'show'])
     ->name('lans.guides.show');
+Route::patch('lans/{lan}/guides/{guide}/publish', [GuideController::class, 'publish'])
+    ->name('lans.guides.publish');
+Route::patch('lans/{lan}/guides/{guide}/unpublish', [GuideController::class, 'unpublish'])
+    ->name('lans.guides.unpublish');
 
 /**
  * Discord Channel Webhooks.
@@ -130,6 +138,10 @@ Route::get(
     fn (Lan $lan) => view('pages.events.fullscreen')->with('lan', $lan)
 )->name('lans.events.fullscreen');
 Route::resource('lans.events', EventController::class);
+Route::patch('lans/{lan}/events/{event}/publish', [EventController::class, 'publish'])
+    ->name('lans.events.publish');
+Route::patch('lans/{lan}/events/{event}/unpublish', [EventController::class, 'unpublish'])
+    ->name('lans.events.unpublish');
 Route::resource('lans.events.signups', EventSignupController::class, ['only' => ['store', 'destroy']])
     ->parameters(['signups' => 'eventSignup']);
 
@@ -183,6 +195,10 @@ Route::get(
     fn (Lan $lan) => view('pages.slides.play', ['lan' => $lan])
 )->name('lans.slides.play');
 Route::resource('lans.slides', SlideController::class);
+Route::patch('lans/{lan}/slides/{slide}/publish', [SlideController::class, 'publish'])
+    ->name('lans.slides.publish');
+Route::patch('lans/{lan}/slides/{slide}/unpublish', [SlideController::class, 'unpublish'])
+    ->name('lans.slides.unpublish');
 
 /**
  * Allowed IP Ranges.

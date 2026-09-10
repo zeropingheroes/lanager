@@ -196,4 +196,72 @@ class LanControllerTest extends TestCase
             'Expected the default message to appear as both the placeholder and the pre-filled textarea value.'
         );
     }
+
+    // --- publish()/unpublish() ---
+
+    public function test_publish_sets_published_true_for_a_valid_draft_lan(): void
+    {
+        $lan = Lan::factory()->create([
+            'published' => false,
+            'start' => '2026-06-01 18:00:00',
+            'end' => '2026-06-03 18:00:00',
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)->patch(route('lans.publish', ['lan' => $lan]));
+
+        $testResponse->assertRedirect();
+        $this->assertDatabaseHas('lans', ['id' => $lan->id, 'published' => true]);
+    }
+
+    public function test_unpublish_sets_published_false_for_a_published_lan(): void
+    {
+        $lan = Lan::factory()->create(['published' => true]);
+
+        $testResponse = $this->actingAs($this->adminUser)->patch(route('lans.unpublish', ['lan' => $lan]));
+
+        $testResponse->assertRedirect();
+        $this->assertDatabaseHas('lans', ['id' => $lan->id, 'published' => false]);
+    }
+
+    public function test_publish_does_not_publish_a_lan_with_overlapping_dates_and_flashes_an_error(): void
+    {
+        Lan::factory()->create([
+            'start' => '2026-06-01 18:00:00',
+            'end' => '2026-06-03 18:00:00',
+        ]);
+
+        $overlappingLan = Lan::factory()->create([
+            'published' => false,
+            'start' => '2026-06-02 18:00:00',
+            'end' => '2026-06-04 18:00:00',
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)->patch(route('lans.publish', ['lan' => $overlappingLan]));
+
+        $testResponse->assertRedirect();
+        $testResponse->assertSessionHas('error');
+        $this->assertDatabaseHas('lans', ['id' => $overlappingLan->id, 'published' => false]);
+    }
+
+    public function test_publish_is_denied_for_an_unauthorized_user(): void
+    {
+        $lan = Lan::factory()->create(['published' => false]);
+        $unauthorizedUser = User::factory()->create();
+
+        $testResponse = $this->actingAs($unauthorizedUser)->patch(route('lans.publish', ['lan' => $lan]));
+
+        $testResponse->assertForbidden();
+        $this->assertDatabaseHas('lans', ['id' => $lan->id, 'published' => false]);
+    }
+
+    public function test_unpublish_is_denied_for_an_unauthorized_user(): void
+    {
+        $lan = Lan::factory()->create(['published' => true]);
+        $unauthorizedUser = User::factory()->create();
+
+        $testResponse = $this->actingAs($unauthorizedUser)->patch(route('lans.unpublish', ['lan' => $lan]));
+
+        $testResponse->assertForbidden();
+        $this->assertDatabaseHas('lans', ['id' => $lan->id, 'published' => true]);
+    }
 }

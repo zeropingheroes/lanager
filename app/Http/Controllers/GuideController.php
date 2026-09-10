@@ -159,6 +159,49 @@ class GuideController extends Controller
     }
 
     /**
+     * Publish the specified resource
+     *
+     * @throws AuthorizationException
+     */
+    public function publish(Lan $lan, Guide $guide): RedirectResponse
+    {
+        $this->authorize('update', $guide);
+
+        $input = [
+            'lan_id' => $lan->id,
+            'title' => $guide->title,
+            'content' => $guide->content,
+            'published' => true,
+        ];
+
+        $storeGuideRequest = new StoreGuideRequest($input);
+
+        if ($storeGuideRequest->invalid()) {
+            Session::flash('error', $storeGuideRequest->errors());
+
+            return redirect()->back();
+        }
+
+        $guide->update($input);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Unpublish the specified resource.
+     *
+     * @throws AuthorizationException
+     */
+    public function unpublish(Lan $lan, Guide $guide): RedirectResponse
+    {
+        $this->authorize('update', $guide);
+
+        $guide->update(['published' => false]);
+
+        return redirect()->back();
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @throws AuthorizationException

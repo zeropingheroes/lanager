@@ -25,6 +25,8 @@ return [
     'content' => 'Obsah',
     'published' => 'Zveřejněno',
     'draft' => 'Koncept',
+    'publish' => 'Zveřejnit',
+    'unpublish' => 'Zrušit zveřejnění',
     'visibility' => 'Viditelnost',
     'admin' => 'Admin',
     'start' => 'Začátek',

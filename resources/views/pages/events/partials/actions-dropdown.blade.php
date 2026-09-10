@@ -10,6 +10,8 @@
             <i class="fa-solid fa-pen-to-square"></i> @lang('title.edit-item', ['item' => __('title.event')])
         </a>
     @endcan
+    @include('components.actions-dropdown.publish', ['item' => $event, 'route' => route('lans.events.publish', ['lan' => $event->lan, 'event' => $event->id])])
+    @include('components.actions-dropdown.unpublish', ['item' => $event, 'route' => route('lans.events.unpublish', ['lan' => $event->lan, 'event' => $event->id])])
     @can('delete', $event)
         <form action="{{ route('lans.events.destroy', ['lan' => $event->lan, 'event' => $event->id]) }}" method="POST">
             {{ method_field('DELETE') }}

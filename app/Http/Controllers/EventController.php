@@ -180,6 +180,53 @@ class EventController extends Controller
     }
 
     /**
+     * Publish the specified resource
+     *
+     * @throws AuthorizationException
+     */
+    public function publish(Lan $lan, Event $event): RedirectResponse
+    {
+        $this->authorize('update', $event);
+
+        $input = [
+            'lan_id' => $lan->id,
+            'name' => $event->name,
+            'description' => $event->description,
+            'start' => $event->start->format('Y-m-d H:i'),
+            'end' => $event->end->format('Y-m-d H:i'),
+            'signups_open' => $event->signups_open?->format('Y-m-d H:i'),
+            'signups_close' => $event->signups_close?->format('Y-m-d H:i'),
+            'published' => true,
+        ];
+
+        $storeEventRequest = new StoreEventRequest($input);
+
+        if ($storeEventRequest->invalid()) {
+            Session::flash('error', $storeEventRequest->errors());
+
+            return redirect()->back();
+        }
+
+        $event->update($input);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Unpublish the specified resource.
+     *
+     * @throws AuthorizationException
+     */
+    public function unpublish(Lan $lan, Event $event): RedirectResponse
+    {
+        $this->authorize('update', $event);
+
+        $event->update(['published' => false]);
+
+        return redirect()->back();
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @throws AuthorizationException

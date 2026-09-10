@@ -119,4 +119,87 @@ class EventControllerTest extends TestCase
         $testResponse->assertOk();
         $testResponse->assertDontSee('name="create_default_discord_notification_message"', false);
     }
+
+    // --- publish()/unpublish() ---
+
+    public function test_publish_sets_published_true_for_a_valid_draft_event(): void
+    {
+        $event = Event::factory()->create([
+            'lan_id' => $this->lan->id,
+            'published' => false,
+            'start' => '2026-06-01 10:00:00',
+            'end' => '2026-06-01 12:00:00',
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->patch(route('lans.events.publish', ['lan' => $this->lan, 'event' => $event]));
+
+        $testResponse->assertRedirect();
+        $this->assertDatabaseHas('events', ['id' => $event->id, 'published' => true]);
+    }
+
+    public function test_unpublish_sets_published_false_for_a_published_event(): void
+    {
+        $event = Event::factory()->create([
+            'lan_id' => $this->lan->id,
+            'published' => true,
+            'start' => '2026-06-01 10:00:00',
+            'end' => '2026-06-01 12:00:00',
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->patch(route('lans.events.unpublish', ['lan' => $this->lan, 'event' => $event]));
+
+        $testResponse->assertRedirect();
+        $this->assertDatabaseHas('events', ['id' => $event->id, 'published' => false]);
+    }
+
+    public function test_publish_does_not_publish_an_event_with_times_outside_the_lan_and_flashes_an_error(): void
+    {
+        $event = Event::factory()->create([
+            'lan_id' => $this->lan->id,
+            'published' => false,
+            'start' => '2026-07-01 10:00:00',
+            'end' => '2026-07-01 12:00:00',
+        ]);
+
+        $testResponse = $this->actingAs($this->adminUser)
+            ->patch(route('lans.events.publish', ['lan' => $this->lan, 'event' => $event]));
+
+        $testResponse->assertRedirect();
+        $testResponse->assertSessionHas('error');
+        $this->assertDatabaseHas('events', ['id' => $event->id, 'published' => false]);
+    }
+
+    public function test_publish_returns_403_for_non_admin_and_does_not_publish(): void
+    {
+        $event = Event::factory()->create([
+            'lan_id' => $this->lan->id,
+            'published' => false,
+            'start' => '2026-06-01 10:00:00',
+            'end' => '2026-06-01 12:00:00',
+        ]);
+
+        $testResponse = $this->actingAs($this->regularUser)
+            ->patch(route('lans.events.publish', ['lan' => $this->lan, 'event' => $event]));
+
+        $testResponse->assertStatus(403);
+        $this->assertDatabaseHas('events', ['id' => $event->id, 'published' => false]);
+    }
+
+    public function test_unpublish_returns_403_for_non_admin_and_does_not_unpublish(): void
+    {
+        $event = Event::factory()->create([
+            'lan_id' => $this->lan->id,
+            'published' => true,
+            'start' => '2026-06-01 10:00:00',
+            'end' => '2026-06-01 12:00:00',
+        ]);
+
+        $testResponse = $this->actingAs($this->regularUser)
+            ->patch(route('lans.events.unpublish', ['lan' => $this->lan, 'event' => $event]));
+
+        $testResponse->assertStatus(403);
+        $this->assertDatabaseHas('events', ['id' => $event->id, 'published' => true]);
+    }
 }

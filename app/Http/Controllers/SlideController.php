@@ -155,6 +155,53 @@ class SlideController extends Controller
     }
 
     /**
+     * Publish the specified resource
+     *
+     * @throws AuthorizationException
+     */
+    public function publish(Lan $lan, Slide $slide): RedirectResponse
+    {
+        $this->authorize('update', $slide);
+
+        $input = [
+            'lan_id' => $lan->id,
+            'name' => $slide->name,
+            'content' => $slide->content,
+            'position' => $slide->position,
+            'duration' => $slide->duration,
+            'start' => $slide->start?->format('Y-m-d H:i'),
+            'end' => $slide->end?->format('Y-m-d H:i'),
+            'published' => true,
+        ];
+
+        $storeSlideRequest = new StoreSlideRequest($input);
+
+        if ($storeSlideRequest->invalid()) {
+            Session::flash('error', $storeSlideRequest->errors());
+
+            return redirect()->back();
+        }
+
+        $slide->update($input);
+
+        return redirect()->back();
+    }
+
+    /**
+     * Unpublish the specified resource.
+     *
+     * @throws AuthorizationException
+     */
+    public function unpublish(Lan $lan, Slide $slide): RedirectResponse
+    {
+        $this->authorize('update', $slide);
+
+        $slide->update(['published' => false]);
+
+        return redirect()->back();
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @throws AuthorizationException
