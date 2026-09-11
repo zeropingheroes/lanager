@@ -7,7 +7,14 @@
 @section('content-header')
     <div class="row align-items-center">
         <div class="col-md-auto">
-            <h1>{{ $guide->title }}</h1>
+            <h1>
+                {{ $guide->title }}
+                @canany(['update', 'delete'], $guide)
+                    @if(!$guide->published)
+                        <span class="badge text-bg-secondary fs-6 align-middle"><i class="fa-solid fa-file-pen"></i> @lang('title.draft')</span>
+                    @endif
+                @endcanany
+            </h1>
         </div>
         @canany(['update', 'delete'], $guide)
             <div class="col text-end">
@@ -21,11 +28,6 @@
 
 @section('content-alerts')
     @parent
-    @canany(['update', 'delete'], $guide)
-    @if(!$guide->published)
-        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.item-unpublished', ['item' => strtolower(__('title.guide'))])])
-    @endif
-    @endcanany
     @if($guide->lan->end->isPast())
         @include('components.alerts.alert-single', ['type' => 'danger', 'message' => __('phrase.viewing-guide-from-past-lan')])
     @endif

@@ -2,6 +2,11 @@
     <div class="col-md-auto">
         <h1 class="mb-0">
             {{ $lan->name }}
+            @canany(['update', 'delete'], $lan)
+                @if(!$lan->published)
+                    <span class="badge text-bg-secondary fs-6 align-middle"><i class="fa-solid fa-file-pen"></i> @lang('title.draft')</span>
+                @endif
+            @endcanany
         </h1>
     </div>
     @canany(['update', 'delete'], $lan)
@@ -18,9 +23,4 @@
         {{ $lan->start->format('H:i D j M Y') }} &ndash; {{ $lan->end->format('H:i D j M Y') }}
     </small>
 </h5>
-@canany(['update', 'delete'], $lan)
-    @if(!$lan->published)
-        @include('components.alerts.alert-single', ['type' => 'warning', 'message' => __('phrase.item-unpublished', ['item' => __('title.lan')])])
-    @endif
-@endcanany
 @include('pages.lans.partials.navigation-tabs', ['lan' => $lan])
