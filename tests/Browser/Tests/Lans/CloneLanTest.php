@@ -116,8 +116,8 @@ class CloneLanTest extends DuskTestCase
             $browser->assertSee('Overwatch');
             $browser->assertSee('Valorant');
 
-            // And the new LAN should be shown as unpublished
-            $browser->assertSee(trans('phrase.item-unpublished', ['item' => trans('title.lan')]));
+            // And the new LAN should be shown as a draft in its title
+            $browser->assertSeeIn('h1', trans('title.draft'));
 
             // And the new LAN's guides should only include the selected one
             $browser->visit('/lans/'.$newLan->id.'/guides');
