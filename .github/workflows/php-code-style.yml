@@ -1,6 +1,9 @@
 name: PHP Code Style
 
-on: [push]
+on:
+    push:
+        paths:
+            - '**.php'
 
 jobs:
     laravel-pint:
