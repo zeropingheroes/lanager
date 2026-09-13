@@ -65,6 +65,7 @@
                                     @include('components.actions-dropdown.edit', ['item' => $lan])
                                     @include('components.actions-dropdown.publish', ['item' => $lan, 'route' => route('lans.publish', $lan)])
                                     @include('components.actions-dropdown.unpublish', ['item' => $lan, 'route' => route('lans.unpublish', $lan)])
+                                    @include('components.actions-dropdown.clone', ['item' => $lan])
                                     @include('components.actions-dropdown.delete', ['item' => $lan])
                                 @endcomponent
                             </td>
