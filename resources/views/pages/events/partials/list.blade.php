@@ -9,6 +9,13 @@
                 <td>
                     @include('pages.events.partials.status', ['event' => $event])
                 </td>
+                @can('update', $lan)
+                    <td>
+                        @if($event->isOutOfLanTimeRange())
+                            <span class="badge text-bg-warning"><i class="fa-solid fa-triangle-exclamation"></i> @lang('phrase.out-of-time-range')</span>
+                        @endif
+                    </td>
+                @endcan
                 <td>
                     @include('pages.events.partials.terse-timespan', ['start' => $event->start, 'end' => $event->end])
                 </td>

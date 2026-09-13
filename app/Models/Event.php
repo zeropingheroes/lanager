@@ -108,4 +108,12 @@ class Event extends Model
             '{{event.url}}' => route('lans.events.show', ['lan' => $this->lan, 'event' => $this], absolute: true),
         ];
     }
+
+    /**
+     * Whether the event starts before, or ends after, its LAN's time range.
+     */
+    public function isOutOfLanTimeRange(): bool
+    {
+        return $this->start->lt($this->lan->start) || $this->end->gt($this->lan->end);
+    }
 }

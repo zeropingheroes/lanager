@@ -121,7 +121,6 @@ return [
     'successfully-cloned-lan' => 'Successfully cloned ":sourceLanName" and selected content',
     'clone-lan-help' => 'Clone an existing LAN and its content, shifted to the new LAN\'s dates.',
     'lan-clone-select-help' => 'Select which guides, events, slides and Discord channel webhooks to copy to the new LAN.',
-    'cloned-item-out-of-range' => 'Out of time range',
     'some-items-outside-of-lan-time-range' => "Some items fall outside the new LAN's time range. Fix them after cloning.",
 
     // Events
@@ -130,6 +129,7 @@ return [
     'event-is-not-open-for-signups' => 'This event is not open for signups',
     'you-can-only-sign-yourself-up-to-event' => 'You can only sign yourself up to an event',
     'timespan-to' => 'to',
+    'out-of-time-range' => 'Out of time range',
     'upcoming' => 'Upcoming',
     'next' => 'Next',
     'happening-now' => 'Happening now',

@@ -12,6 +12,6 @@ defineProps({
           :data-item-id="itemId"
     >
         <i class="fa-solid fa-triangle-exclamation"></i>
-        {{ $t('phrase.cloned-item-out-of-range') }}
+        {{ $t('phrase.out-of-time-range') }}
     </span>
 </template>
