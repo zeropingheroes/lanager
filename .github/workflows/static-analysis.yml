@@ -35,9 +35,10 @@ jobs:
                 with:
                     php-version: ${{ matrix.php }}
                     coverage: none
+                    ini-values: memory_limit=1G
 
             -   name: Install Composer dependencies
                 run: composer install --optimize-autoloader --no-interaction --no-progress --no-scripts
 
             -   name: Run PHPStan
-                run: vendor/bin/phpstan analyse --no-progress --memory-limit=1G
+                run: vendor/bin/phpstan analyse --no-progress
