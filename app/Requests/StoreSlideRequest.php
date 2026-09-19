@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Zeropingheroes\Lanager\Requests;
 
+use Carbon\Carbon;
+use Zeropingheroes\Lanager\Models\Lan;
+
 class StoreSlideRequest extends Request
 {
     use LaravelValidation;
@@ -27,6 +30,19 @@ class StoreSlideRequest extends Request
 
         if (! $this->laravelValidationPasses()) {
             return $this->setValid(false);
+        }
+
+        $lan = Lan::findOrFail($this->input['lan_id']);
+
+        foreach (['start', 'end'] as $field) {
+            if (
+                filled($this->input[$field] ?? null)
+                && ! Carbon::make($this->input[$field])->between($lan->start, $lan->end)
+            ) {
+                $this->addError(trans('phrase.slide-times-must-be-within-lan-times'));
+
+                return $this->setValid(false);
+            }
         }
 
         return $this->setValid(true);

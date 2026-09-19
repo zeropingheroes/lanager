@@ -224,12 +224,12 @@ class SlideCloneControllerTest extends TestCase
         $this->assertNull($newSlide->end);
     }
 
-    public function test_a_slide_outside_the_destination_lan_time_range_is_accepted(): void
+    public function test_a_slide_outside_the_destination_lan_time_range_is_rejected(): void
     {
         $lan = $this->sourceLan();
         $slide = $this->sourceSlide($lan);
 
-        $this->actingAs($this->adminUser)->post(
+        $testResponse = $this->actingAs($this->adminUser)->post(
             $this->cloneStoreRoute($slide),
             $this->validCloneInput($lan, [
                 'name' => 'Out Of Range Clone',
@@ -238,7 +238,36 @@ class SlideCloneControllerTest extends TestCase
             ])
         );
 
-        $this->assertDatabaseHas('slides', ['name' => 'Out Of Range Clone']);
+        $testResponse->assertSessionHas('error');
+        $this->assertDatabaseMissing('slides', ['name' => 'Out Of Range Clone']);
+    }
+
+    public function test_a_slide_is_checked_against_the_destination_lan_not_the_source_lan(): void
+    {
+        $lan = $this->sourceLan();
+        $destinationLan = $this->sourceLan([
+            'start' => Carbon::parse('2026-09-05 12:00'),
+            'end' => Carbon::parse('2026-09-07 12:00'),
+        ]);
+        $slide = $this->sourceSlide($lan);
+
+        // Inside the source LAN but outside the destination LAN
+        $this->actingAs($this->adminUser)->post(
+            $this->cloneStoreRoute($slide),
+            $this->validCloneInput($destinationLan, [
+                'name' => 'Source Range Clone',
+                'start' => '2026-06-05 19:00',
+                'end' => '2026-06-05 20:00',
+            ])
+        )->assertSessionHas('error');
+        $this->assertDatabaseMissing('slides', ['name' => 'Source Range Clone']);
+
+        // Inside the destination LAN
+        $this->actingAs($this->adminUser)->post(
+            $this->cloneStoreRoute($slide),
+            $this->validCloneInput($destinationLan, ['name' => 'Destination Range Clone'])
+        )->assertSessionMissing('error');
+        $this->assertDatabaseHas('slides', ['name' => 'Destination Range Clone', 'lan_id' => $destinationLan->id]);
     }
 
     public function test_source_slide_is_unchanged_after_cloning(): void

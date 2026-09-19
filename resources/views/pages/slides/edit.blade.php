@@ -10,6 +10,8 @@
 @endsection
 
 @section('content')
+    <script type="application/json" id="lan-data">@json(new \Zeropingheroes\Lanager\Http\Resources\LanResource($lan))</script>
+
     @include('components.form.edit', ['route' => route('lans.slides.update', ['lan' => $lan, 'slide' => $slide])])
     @include('pages.slides.partials.form')
     @include('components.form.close')
