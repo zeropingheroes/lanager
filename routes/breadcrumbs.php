@@ -226,6 +226,15 @@ Breadcrumbs::for(
     }
 );
 
+// Home > LANs > [LAN] > Guides > [Guide] > Clone
+Breadcrumbs::for(
+    'lans.guides.clone.create',
+    function ($trail, $lan, $guide): void {
+        $trail->parent('lans.guides.show', $lan, $guide);
+        $trail->push(__('title.clone'), route('lans.guides.clone.create', ['lan' => $lan, 'guide' => $guide]));
+    }
+);
+
 // Home > LANs > [LAN] > Events
 Breadcrumbs::for(
     'lans.events.index',

@@ -115,6 +115,11 @@ Route::patch('lans/{lan}/unpublish', [LanController::class, 'unpublish'])
  * Guides.
  */
 Route::resource('lans.guides', GuideController::class, ['except' => 'show']);
+// Clone routes must be registered before the show route, otherwise {slug} would match "clone"
+Route::get('lans/{lan}/guides/{guide}/clone', [GuideController::class, 'clone'])
+    ->name('lans.guides.clone.create');
+Route::post('lans/{lan}/guides/{guide}/clone', [GuideController::class, 'storeClone'])
+    ->name('lans.guides.clone.store');
 Route::get('lans/{lan}/guides/{guide}/{slug?}', [GuideController::class, 'show'])
     ->name('lans.guides.show');
 Route::patch('lans/{lan}/guides/{guide}/publish', [GuideController::class, 'publish'])

@@ -8,6 +8,10 @@
         <a href="{{ route('lans.guides.edit', ['lan' => $guide->lan, 'guide' => $guide]) }}"
            class="dropdown-item"><i class="fa-solid fa-pen-to-square"></i> @lang('title.edit')</a>
     @endcan
+    @can('create', \Zeropingheroes\Lanager\Models\Guide::class)
+        <a href="{{ route('lans.guides.clone.create', ['lan' => $guide->lan, 'guide' => $guide]) }}"
+           class="dropdown-item"><i class="fa-solid fa-copy"></i> @lang('title.clone')</a>
+    @endcan
     @include('components.actions-dropdown.publish', ['item' => $guide, 'route' => route('lans.guides.publish', ['lan' => $guide->lan, 'guide' => $guide])])
     @include('components.actions-dropdown.unpublish', ['item' => $guide, 'route' => route('lans.guides.unpublish', ['lan' => $guide->lan, 'guide' => $guide])])
     @can('delete', $guide)

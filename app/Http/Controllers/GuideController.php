@@ -74,6 +74,63 @@ class GuideController extends Controller
     }
 
     /**
+     * Show the form for cloning the specified resource.
+     *
+     * @throws AuthorizationException
+     */
+    public function clone(Lan $lan, Guide $guide): ViewContract
+    {
+        $this->authorize('create', Guide::class);
+
+        // If the guide is accessed via the wrong LAN ID, show 404
+        if ($guide->lan_id != $lan->id) {
+            abort(404);
+        }
+
+        return View::make('pages.guides.clone')
+            ->with('lan', $lan)
+            ->with('guide', $guide)
+            ->with('lans', Lan::orderBy('start')->get());
+    }
+
+    /**
+     * Store a new resource cloned from the specified resource.
+     *
+     * @throws AuthorizationException
+     */
+    public function storeClone(Request $httpRequest, Lan $lan, Guide $guide): RedirectResponse
+    {
+        $this->authorize('create', Guide::class);
+
+        // If the guide is accessed via the wrong LAN ID, show 404
+        if ($guide->lan_id != $lan->id) {
+            abort(404);
+        }
+
+        $input = [
+            'lan_id' => $httpRequest->input('lan_id'),
+            'title' => $httpRequest->input('title'),
+            'content' => $httpRequest->input('content'),
+            'published' => $httpRequest->has('published'),
+        ];
+
+        $storeGuideRequest = new StoreGuideRequest($input);
+
+        if ($storeGuideRequest->invalid()) {
+            Session::flash('error', $storeGuideRequest->errors());
+
+            return redirect()->back()->withInput();
+        }
+
+        $newGuide = Guide::create($input);
+
+        Session::flash('success',
+            trans('phrase.successfully-cloned-item', ['item' => trans('title.guide'), 'name' => $newGuide->title]));
+
+        return redirect()->route('lans.guides.show', ['lan' => $newGuide->lan_id, 'guide' => $newGuide]);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @throws AuthorizationException
