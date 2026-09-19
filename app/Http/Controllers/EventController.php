@@ -15,6 +15,7 @@ use Zeropingheroes\Lanager\Models\Event;
 use Zeropingheroes\Lanager\Models\EventDiscordNotificationMessage;
 use Zeropingheroes\Lanager\Models\Lan;
 use Zeropingheroes\Lanager\Requests\StoreEventRequest;
+use Zeropingheroes\Lanager\Services\CloneEventService;
 
 class EventController extends Controller
 {
@@ -102,6 +103,73 @@ class EventController extends Controller
         });
 
         return redirect()->route('lans.events.show', ['lan' => $lan, 'event' => $event]);
+    }
+
+    /**
+     * Show the form for cloning the specified resource.
+     *
+     * @throws AuthorizationException
+     */
+    public function clone(Lan $lan, Event $event): ViewContract
+    {
+        $this->authorize('create', Event::class);
+
+        // If the event is accessed via the wrong LAN ID, show 404
+        if ($event->lan_id != $lan->id) {
+            abort(404);
+        }
+
+        $event->loadMissing('discordNotificationMessage.images');
+
+        return View::make('pages.events.clone')
+            ->with('lan', $lan)
+            ->with('event', $event)
+            ->with('lans', Lan::orderBy('start')->get());
+    }
+
+    /**
+     * Store a new resource cloned from the specified resource.
+     *
+     * @throws AuthorizationException
+     */
+    public function storeClone(Request $httpRequest, Lan $lan, Event $event): RedirectResponse
+    {
+        $this->authorize('create', Event::class);
+
+        // If the event is accessed via the wrong LAN ID, show 404
+        if ($event->lan_id != $lan->id) {
+            abort(404);
+        }
+
+        $input = [
+            'lan_id' => $httpRequest->input('lan_id'),
+            'name' => $httpRequest->input('name'),
+            'description' => $httpRequest->input('description'),
+            'start' => $httpRequest->input('start'),
+            'end' => $httpRequest->input('end'),
+            'signups_open' => $httpRequest->input('signups_open'),
+            'signups_close' => $httpRequest->input('signups_close'),
+            'published' => $httpRequest->has('published'),
+        ];
+
+        $storeEventRequest = new StoreEventRequest($input);
+
+        if ($storeEventRequest->invalid()) {
+            Session::flash('error', $storeEventRequest->errors());
+
+            return redirect()->back()->withInput();
+        }
+
+        $newEvent = (new CloneEventService)->clone(
+            sourceEvent: $event,
+            overrides: $input,
+            discordNotificationMessageOption: $httpRequest->input('discord_notification_message_option'),
+        );
+
+        Session::flash('success',
+            trans('phrase.successfully-cloned-item', ['item' => trans('title.event'), 'name' => $event->name]));
+
+        return redirect()->route('lans.events.show', ['lan' => $newEvent->lan_id, 'event' => $newEvent]);
     }
 
     /**

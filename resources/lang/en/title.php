@@ -37,6 +37,7 @@ return [
     'item-name' => ':Item Name',
     'name' => 'Name',
     'unknown' => 'Unknown',
+    'none' => 'None',
     'actions' => 'Actions',
     'api' => 'API',
     'api-token' => 'API Token',
@@ -147,6 +148,7 @@ return [
     // LANs
     'lans' => 'LANs',
     'lan' => 'LAN',
+    'clone-to-lan' => 'Clone to LAN',
     'dates' => 'Dates',
     'times' => 'Times',
     'x-hours' => ':x hours',
@@ -208,7 +210,9 @@ return [
     'create-discord-notification-message' => 'Create Discord Notification Message',
     'edit-discord-notification-message' => 'Edit Discord Notification Message',
     'event-discord-notification-message' => 'Event Discord Notification Message',
+    'create-default-message' => 'Create default message',
     'create-default-discord-notification-message' => 'Create default Discord notification message',
+    'clone-existing-discord-notification-message' => 'Clone existing message',
     'default-event-discord-notification-message' => 'Default event Discord notification message',
     'notification-message' => 'Notification Message',
 ];

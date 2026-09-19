@@ -138,6 +138,10 @@ Route::get(
     fn (Lan $lan) => view('pages.events.fullscreen')->with('lan', $lan)
 )->name('lans.events.fullscreen');
 Route::resource('lans.events', EventController::class);
+Route::get('lans/{lan}/events/{event}/clone', [EventController::class, 'clone'])
+    ->name('lans.events.clone.create');
+Route::post('lans/{lan}/events/{event}/clone', [EventController::class, 'storeClone'])
+    ->name('lans.events.clone.store');
 Route::patch('lans/{lan}/events/{event}/publish', [EventController::class, 'publish'])
     ->name('lans.events.publish');
 Route::patch('lans/{lan}/events/{event}/unpublish', [EventController::class, 'unpublish'])

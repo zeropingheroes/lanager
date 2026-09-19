@@ -262,6 +262,15 @@ Breadcrumbs::for(
     }
 );
 
+// Home > LANs > [LAN] > Events > [Event] > Clone
+Breadcrumbs::for(
+    'lans.events.clone.create',
+    function ($trail, $lan, $event): void {
+        $trail->parent('lans.events.show', $lan, $event);
+        $trail->push(__('title.clone'), route('lans.events.clone.create', ['lan' => $lan, 'event' => $event]));
+    }
+);
+
 // Home > LANs > [LAN] > Events > [Event] > Create Discord Notification Message
 Breadcrumbs::for(
     'lans.events.discord-notification-message.create',

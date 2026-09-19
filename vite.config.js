@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/js/pages/discord-channel-webhook-message.js',
                 'resources/js/pages/event-discord-notification-message-form.js',
                 'resources/js/pages/event-discord-notification-message.js',
+                'resources/js/pages/event-clone-form.js',
                 'resources/js/pages/event-form.js',
                 'resources/js/pages/events.js',
                 'resources/js/pages/lan-clone-form.js',

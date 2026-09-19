@@ -14,7 +14,7 @@ class EventTest extends TestCase
     {
         $lan = new Lan(['start' => $lanStart, 'end' => $lanEnd]);
 
-        return (new Event(['start' => $eventStart, 'end' => $eventEnd]))->setRelation('lan', $lan);
+        return new Event(['start' => $eventStart, 'end' => $eventEnd])->setRelation('lan', $lan);
     }
 
     public function test_is_out_of_lan_time_range_returns_true_when_event_starts_before_the_lan_starts(): void
