@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const start = new TempusDominus(startInput, {
         localization: {
             format: 'yyyy-MM-dd HH:mm',
+            hourCycle: 'h23',
             dayViewHeaderFormat: {month: 'long', year: 'numeric'},
         },
         display: {
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const end = new TempusDominus(endInput, {
         localization: {
             format: 'yyyy-MM-dd HH:mm',
+            hourCycle: 'h23',
             dayViewHeaderFormat: {month: 'long', year: 'numeric'},
         },
         display: {
@@ -46,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const signupsOpen = new TempusDominus(signupsOpenInput, {
         localization: {
             format: 'yyyy-MM-dd HH:mm',
+            hourCycle: 'h23',
             dayViewHeaderFormat: {month: 'long', year: 'numeric'},
         },
         display: {
@@ -67,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const signupsClose = new TempusDominus(signupsCloseInput, {
         localization: {
             format: 'yyyy-MM-dd HH:mm',
+            hourCycle: 'h23',
             dayViewHeaderFormat: {month: 'long', year: 'numeric'},
         },
         display: {

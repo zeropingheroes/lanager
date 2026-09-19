@@ -16,7 +16,12 @@ class EditLanTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser): void {
             // Given there is a LAN
-            $lan = Lan::factory()->count(1)->create()->first();
+            // (with fixed dates and a non-midnight time: a random midnight-hour time is shown as "24:15"
+            // in the date picker in some browsers, which then fails the form's Y-m-d H:i validation)
+            $lan = Lan::factory()->create([
+                'start' => '2035-01-01 12:00:00',
+                'end' => '2035-01-03 12:00:00',
+            ]);
 
             // And there is a user with the role "super admin"
             $user = $this->createSuperAdmin();
@@ -53,6 +58,36 @@ class EditLanTest extends DuskTestCase
 
             // And they should see the LAN's new name
             $browser->assertSee('My Great LAN');
+        });
+    }
+
+    public function test_editing_lan_with_midnight_hour_times(): void
+    {
+        $this->browse(function (Browser $browser): void {
+            // Given there is a LAN that starts and ends in the midnight hour
+            $lan = Lan::factory()->create([
+                'start' => '2035-01-01 00:15:00',
+                'end' => '2035-01-03 00:15:00',
+            ]);
+
+            // And the super admin user is logged in
+            $browser->loginAs($this->createSuperAdmin());
+
+            // When they open the edit form, the times are shown as 00:15 (not 24:15)
+            $browser->visitRoute('lans.edit', ['lan' => $lan->id]);
+            $browser->on(new LanEdit);
+            $browser->assertInputValue('start', '2035-01-01 00:15');
+            $browser->assertInputValue('end', '2035-01-03 00:15');
+
+            // And they can save the LAN
+            $browser->type('name', 'Midnight LAN');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('@submit');
+            });
+
+            // Then they are redirected to the LAN's event list page
+            $browser->assertRouteIs('lans.events.index', ['lan' => $lan->id]);
+            $browser->assertSee('Midnight LAN');
         });
     }
 }
