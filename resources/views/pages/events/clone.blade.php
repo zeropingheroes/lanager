@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    @vite(['resources/js/pages/event-form.js', 'resources/js/pages/event-clone-form.js'])
+    @vite(['resources/js/pages/event-form.js', 'resources/js/pages/lan-item-clone-form.js'])
 
     @include('components.form.create', ['route' => route('lans.events.clone.store', ['lan' => $lan, 'event' => $event])])
 
@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <script type="application/json" id="clone-form-lans">{!! $lans->map(fn ($destinationLan) => [
+    <script type="application/json" id="lans-data">{!! $lans->map(fn ($destinationLan) => [
         'id' => $destinationLan->id,
         'start' => $destinationLan->start->toIso8601String(),
         'end' => $destinationLan->end->toIso8601String(),

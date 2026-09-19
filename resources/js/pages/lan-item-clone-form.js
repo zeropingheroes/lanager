@@ -2,7 +2,7 @@ import moment from 'moment';
 
 document.addEventListener('DOMContentLoaded', function () {
     const lanSelect = document.getElementById('lan_id');
-    const lansDataElement = document.getElementById('clone-form-lans');
+    const lansDataElement = document.getElementById('lans-data');
     const startInput = document.getElementById('start');
     const endInput = document.getElementById('end');
     const signupsOpenInput = document.getElementById('signups_open');
@@ -96,11 +96,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (previousLan && newLan) {
 
-            // Shift the event start date to the new LAN's start date, plus how many days into the LAN it was
-            // If the event allows signups, shift the signup start as well
-            // No need to shift the end times, as preserveDuration() handles that
-            shiftInputDate(startInput, previousLan.start, newLan.start);
+            // If there's a value for "start", shift it to the new LAN's start date
+            // preserveDuration() will update the "end"
+            if (parsePickerDateTime(startInput.value)) {
+                shiftInputDate(startInput, previousLan.start, newLan.start);
+            } else {
+                // If there's no start (slides), shift the end (if present).
+                shiftInputDate(endInput, previousLan.start, newLan.start);
+            }
             if (signupsOpenInput) {
+                // If there's a value for "signups open" move that too
+                // preserveDuration() will update the "end"
                 shiftInputDate(signupsOpenInput, previousLan.start, newLan.start);
             }
         }

@@ -388,6 +388,15 @@ Breadcrumbs::for(
     }
 );
 
+// Home > LANs > [LAN] > Slides > [Slide] > Clone
+Breadcrumbs::for(
+    'lans.slides.clone.create',
+    function ($trail, $lan, $slide): void {
+        $trail->parent('lans.slides.index', $lan);
+        $trail->push(__('title.clone'), route('lans.slides.clone.create', ['lan' => $lan, 'slide' => $slide]));
+    }
+);
+
 // Home > LANs > [LAN] > Discord Channel Webhooks
 Breadcrumbs::for(
     'lans.discord-channel-webhooks.index',

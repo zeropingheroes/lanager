@@ -83,6 +83,15 @@
         >
     </div>
 </div>
+@if($outOfRangeWarning ?? false)
+    <div class="row mb-3">
+        <div class="offset-sm-2 col-sm-10">
+            <span id="clone-form-out-of-range-warning" class="text-warning" hidden>
+                <i class="fa-solid fa-triangle-exclamation"></i> @lang('phrase.out-of-time-range')
+            </span>
+        </div>
+    </div>
+@endif
 <div class="row mb-3">
     <div class="col-sm-10 offset-sm-2">
         <small id="contentHelp"

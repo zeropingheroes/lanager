@@ -204,6 +204,10 @@ Route::get(
     fn (Lan $lan) => view('pages.slides.play', ['lan' => $lan])
 )->name('lans.slides.play');
 Route::resource('lans.slides', SlideController::class);
+Route::get('lans/{lan}/slides/{slide}/clone', [SlideController::class, 'clone'])
+    ->name('lans.slides.clone.create');
+Route::post('lans/{lan}/slides/{slide}/clone', [SlideController::class, 'storeClone'])
+    ->name('lans.slides.clone.store');
 Route::patch('lans/{lan}/slides/{slide}/publish', [SlideController::class, 'publish'])
     ->name('lans.slides.publish');
 Route::patch('lans/{lan}/slides/{slide}/unpublish', [SlideController::class, 'unpublish'])

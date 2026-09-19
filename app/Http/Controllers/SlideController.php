@@ -83,6 +83,67 @@ class SlideController extends Controller
     }
 
     /**
+     * Show the form for cloning the specified resource.
+     *
+     * @throws AuthorizationException
+     */
+    public function clone(Lan $lan, Slide $slide): ViewContract
+    {
+        $this->authorize('create', Slide::class);
+
+        // If the slide is accessed via the wrong LAN ID, show 404
+        if ($slide->lan_id != $lan->id) {
+            abort(404);
+        }
+
+        return View::make('pages.slides.clone')
+            ->with('lan', $lan)
+            ->with('slide', $slide)
+            ->with('lans', Lan::orderBy('start')->get());
+    }
+
+    /**
+     * Store a new resource cloned from the specified resource.
+     *
+     * @throws AuthorizationException
+     */
+    public function storeClone(Request $httpRequest, Lan $lan, Slide $slide): RedirectResponse
+    {
+        $this->authorize('create', Slide::class);
+
+        // If the slide is accessed via the wrong LAN ID, show 404
+        if ($slide->lan_id != $lan->id) {
+            abort(404);
+        }
+
+        $input = [
+            'lan_id' => $httpRequest->input('lan_id'),
+            'name' => $httpRequest->input('name'),
+            'content' => $httpRequest->input('content'),
+            'position' => $httpRequest->input('position'),
+            'duration' => $httpRequest->input('duration'),
+            'start' => $httpRequest->input('start'),
+            'end' => $httpRequest->input('end'),
+            'published' => $httpRequest->has('published'),
+        ];
+
+        $storeSlideRequest = new StoreSlideRequest($input);
+
+        if ($storeSlideRequest->invalid()) {
+            Session::flash('error', $storeSlideRequest->errors());
+
+            return redirect()->back()->withInput();
+        }
+
+        $newSlide = Slide::create($input);
+
+        Session::flash('success',
+            trans('phrase.successfully-cloned-item', ['item' => trans('title.slide'), 'name' => $newSlide->name]));
+
+        return redirect()->route('lans.slides.index', ['lan' => $newSlide->lan_id]);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @throws AuthorizationException

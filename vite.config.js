@@ -7,20 +7,20 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
+                'resources/css/app.scss',
                 'resources/js/app.js',
                 'resources/js/pages/active-games.js',
                 'resources/js/pages/discord-channel-webhook-message.js',
                 'resources/js/pages/event-discord-notification-message-form.js',
                 'resources/js/pages/event-discord-notification-message.js',
-                'resources/js/pages/event-clone-form.js',
                 'resources/js/pages/event-form.js',
                 'resources/js/pages/events.js',
                 'resources/js/pages/lan-clone-form.js',
                 'resources/js/pages/lan-form.js',
+                'resources/js/pages/lan-item-clone-form.js',
                 'resources/js/pages/schedule.js',
                 'resources/js/pages/slide-form.js',
                 'resources/js/pages/slides.js',
-                'resources/css/app.scss',
             ],
             refresh: true,
         }),
