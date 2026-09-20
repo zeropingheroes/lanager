@@ -39,6 +39,9 @@ class DeleteAchievementTest extends DuskTestCase
             // And confirms the deletion
             $browser->acceptDialog();
 
+            // And waits for the confirmation message, which only exists once the page has reloaded
+            $browser->waitForText('Achievement "'.$achievement->name.'" deleted');
+
             // And waits to be redirected to the achievement index page
             $browser->waitForRoute('achievements.index');
 

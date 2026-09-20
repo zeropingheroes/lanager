@@ -34,7 +34,7 @@ class SendTestDiscordChannelWebhookMessageTest extends DuskTestCase
             // Then an inline result message is shown in the page alerts area (success or error)
             $browser->waitFor('#page-alerts .alert', 10);
 
-            // And no page navigation occurs — still on the webhooks index page
+            // And no page navigation occurs - still on the webhooks index page
             $browser->assertRouteIs('lans.discord-channel-webhooks.index', ['lan' => $lan]);
         });
     }

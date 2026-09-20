@@ -35,10 +35,9 @@ class CreateEventDiscordNotificationMessageTest extends DuskTestCase
             // And types a notification message
             $browser->type('message', 'Join us for My LAN Event!');
 
-            // Scroll the submit button to the centre of the viewport — the debug toolbar can
+            // Scroll the submit button to the centre of the viewport - the debug toolbar can
             // intercept the click when the button is near the bottom of the page
-            $browser->script("document.querySelector('button[type=submit]').scrollIntoView({behavior: 'instant', block: 'center'})");
-            $browser->pause(200);
+            $this->scrollToCentreAndWaitUntilUnobstructed($browser, 'button[type=submit]');
 
             // And submits the form
             $browser->waitForReload(function (Browser $browser): void {

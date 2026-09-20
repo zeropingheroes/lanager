@@ -47,6 +47,9 @@ class DeleteEventTest extends DuskTestCase
             // And accept the deletion confirmation dialog
             $browser->acceptDialog();
 
+            // And waits for the confirmation message, which only exists once the page has reloaded
+            $browser->waitForText('Event "'.$event->name.'" deleted');
+
             // Then they should be redirected to the LAN's event index page
             $browser->assertRouteIs('lans.events.index', ['lan' => $lan]);
 

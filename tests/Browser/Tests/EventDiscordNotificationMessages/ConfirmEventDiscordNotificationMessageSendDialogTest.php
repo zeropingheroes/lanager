@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Browser\Tests\EventDiscordNotificationMessages;
 
 use Laravel\Dusk\Browser;
+use PHPUnit\Framework\Assert;
 use Tests\DuskTestCase;
 use Zeropingheroes\Lanager\Models\DiscordChannelWebhook;
 use Zeropingheroes\Lanager\Models\Event;
@@ -36,8 +37,16 @@ class ConfirmEventDiscordNotificationMessageSendDialogTest extends DuskTestCase
             // And opens the options dropdown
             $browser->click('button[title="Options"]');
 
-            // Wait for Bootstrap dropdown animation to complete
-            $browser->pause(300);
+            // And waits for the dropdown to open
+            $browser->waitForLink('Send Now');
+
+            // And the page counts any request the "Send Now" action makes
+            // ("Send Now" sends with fetch() and never navigates, so a route check cannot detect a send)
+            $browser->script(
+                'window.sendRequestCount = 0;'
+                .'const originalFetch = window.fetch;'
+                .'window.fetch = function (...args) { window.sendRequestCount++; return originalFetch.apply(this, args); };'
+            );
 
             // And clicks the "Send Now" item in the Discord section
             $browser->clickLink('Send Now');
@@ -45,11 +54,10 @@ class ConfirmEventDiscordNotificationMessageSendDialogTest extends DuskTestCase
             // Then a confirmation dialog is shown mentioning that automatic sending will be disabled
             $browser->assertDialogOpened("Sending now will disable sending at the event's start time. Continue?");
 
-            // And dismissing the dialog does not submit the form
+            // And dismissing the dialog does not send the message
+            // (The click handler makes its request synchronously after confirm() returns, so the count is final)
             $browser->dismissDialog();
-
-            // And the user remains on the event show page
-            $browser->assertRouteIs('lans.events.show', ['lan' => $lan, 'event' => $event]);
+            Assert::assertSame(0, $browser->script('return window.sendRequestCount;')[0]);
         });
     }
 }

@@ -38,6 +38,9 @@ class DeleteLanTest extends DuskTestCase
             // And accepts the confirmation dialog
             $browser->acceptDialog();
 
+            // And waits for the confirmation message, which only exists once the page has reloaded
+            $browser->waitForText('LAN "'.$lan->name.'" deleted');
+
             // Then they should be redirected to the LAN index page
             $browser->assertRouteIs('lans.index');
 

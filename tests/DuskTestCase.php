@@ -117,4 +117,40 @@ abstract class DuskTestCase extends BaseTestCase
 
         return $user;
     }
+
+    /**
+     * Wait until the form field with the given name holds the given value
+     *
+     * Use this when a script updates the field after an interaction, instead of pausing for a fixed time.
+     */
+    protected function waitForInputValue(Browser $browser, string $name, string $value): void
+    {
+        $browser->waitUntil(sprintf(
+            'document.getElementsByName(%s)[0]?.value === %s',
+            json_encode($name),
+            json_encode($value)
+        ));
+    }
+
+    /**
+     * Scroll the element to the centre of the viewport, then wait until nothing covers it
+     *
+     * Use this before clicking an element that fixed page elements can otherwise intercept.
+     */
+    protected function scrollToCentreAndWaitUntilUnobstructed(Browser $browser, string $selector): void
+    {
+        $selector = json_encode($selector);
+
+        $browser->script("document.querySelector({$selector}).scrollIntoView({behavior: 'instant', block: 'center'})");
+
+        $browser->waitUntil(
+            "(() => {
+                const element = document.querySelector({$selector});
+                const box = element.getBoundingClientRect();
+                const topmost = document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2);
+
+                return topmost !== null && element.contains(topmost);
+            })()"
+        );
+    }
 }

@@ -87,11 +87,12 @@ class CloneLanTest extends DuskTestCase
             // the local-environment debug toolbar docked to the viewport bottom can otherwise
             // intercept a native click on this row.)
             $toggleAllEvents = 'document.querySelector(\'[data-selection-table="events"] [data-action="toggle-all"]\').click();';
+            $eventOneCheckbox = json_encode('[data-selection-table="events"] input[data-item-id="'.$eventOne->id.'"]');
             $browser->script($toggleAllEvents);
-            $browser->pause(250);
+            $browser->waitUntil("document.querySelector({$eventOneCheckbox}).checked === false");
             $browser->assertNotChecked('[data-selection-table="events"] input[data-item-id="'.$eventOne->id.'"]');
             $browser->script($toggleAllEvents);
-            $browser->pause(250);
+            $browser->waitUntil("document.querySelector({$eventOneCheckbox}).checked === true");
             $browser->assertChecked('[data-selection-table="events"] input[data-item-id="'.$eventOne->id.'"]');
             $browser->assertChecked('[data-selection-table="events"] input[data-item-id="'.$eventTwo->id.'"]');
 
@@ -154,23 +155,24 @@ class CloneLanTest extends DuskTestCase
             $browser->type('name', 'Short LAN');
             $browser->type('start', '2026-07-01 12:00');
             // Blur Start (its picker fires its change event, which auto-fills End, on blur) and
-            // let that settle before overwriting End with the test's own value.
+            // wait for End to be filled with the source LAN's 48-hour duration before overwriting it
+            // with the test's own value.
             $browser->click('h1');
-            $browser->pause(250);
+            $this->waitForInputValue($browser, 'end', '2026-07-03 12:00');
             $browser->type('end', '2026-07-01 18:00');
             $browser->click('h1');
-            $browser->pause(250);
 
             // Then a warning is shown next to the event, and the form-level summary help text
+            $browser->waitFor($eventRowWarning);
             $browser->assertPresent($eventRowWarning);
             $browser->assertPresent('[data-past-lan-end-summary]');
 
             // When the new LAN is widened to comfortably cover the event's shifted time
             $browser->type('end', '2026-07-03 12:00');
             $browser->click('h1');
-            $browser->pause(250);
 
             // Then the warning and the summary help text are both gone
+            $browser->waitUntilMissing($eventRowWarning);
             $browser->assertNotPresent($eventRowWarning);
             $browser->assertNotPresent('[data-past-lan-end-summary]');
         });

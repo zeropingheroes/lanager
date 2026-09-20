@@ -102,7 +102,7 @@ class CloneSlideTest extends DuskTestCase
 
             // When the short LAN is selected as the destination
             $browser->select('lan_id', (string) $shortLan->id);
-            $browser->pause(250);
+            $this->waitForInputValue($browser, 'end', '2026-07-02 21:00');
 
             // Then the dates shift onto its schedule, preserving time of day
             $browser->assertInputValue('start', '2026-07-02 18:00');
@@ -113,7 +113,7 @@ class CloneSlideTest extends DuskTestCase
 
             // When the roomy LAN is selected instead
             $browser->select('lan_id', (string) $roomyLan->id);
-            $browser->pause(250);
+            $this->waitForInputValue($browser, 'end', '2026-08-02 21:00');
 
             // Then the dates shift again, preserving the 1-day offset and time of day
             $browser->assertInputValue('start', '2026-08-02 18:00');
@@ -149,7 +149,7 @@ class CloneSlideTest extends DuskTestCase
             // When the admin moves the start 2 hours later
             $browser->type('start', '2026-06-05 20:00');
             $browser->click('h1');
-            $browser->pause(250);
+            $this->waitForInputValue($browser, 'end', '2026-06-05 23:00');
 
             // Then the end moves by the same 2 hours
             $browser->assertInputValue('end', '2026-06-05 23:00');
@@ -181,8 +181,8 @@ class CloneSlideTest extends DuskTestCase
             $browser->visitRoute('lans.slides.clone.create', ['lan' => $sourceLan, 'slide' => $slide]);
 
             // When another LAN is selected
+            // (The page's change handler runs synchronously, and there is no value to wait for here)
             $browser->select('lan_id', (string) $otherLan->id);
-            $browser->pause(250);
 
             // Then start and end stay empty and no warning is shown
             $browser->assertInputValue('start', '');
@@ -218,7 +218,7 @@ class CloneSlideTest extends DuskTestCase
 
             // When another LAN is selected
             $browser->select('lan_id', (string) $otherLan->id);
-            $browser->pause(250);
+            $this->waitForInputValue($browser, 'end', '2026-08-02 21:00');
 
             // Then the end shifts onto the new LAN and the start stays empty
             $browser->assertInputValue('end', '2026-08-02 21:00');

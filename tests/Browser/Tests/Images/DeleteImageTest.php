@@ -40,6 +40,9 @@ class DeleteImageTest extends DuskTestCase
             // And accept the deletion confirmation dialog
             $browser->acceptDialog();
 
+            // And waits for the confirmation message, which only exists once the page has reloaded
+            $browser->waitForText('Image "bg.jpg" deleted');
+
             // Then the super admin should be redirected to the image index page
             $browser->assertRouteIs('images.index');
 

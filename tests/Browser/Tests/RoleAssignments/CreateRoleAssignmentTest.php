@@ -44,7 +44,9 @@ class CreateRoleAssignmentTest extends DuskTestCase
             $browser->select('role_id', 'admin');
 
             // And clicks the assign role button
-            $browser->press('Assign Role');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('Assign Role');
+            });
 
             // And waits for the role assignment index page to load
             $browser->waitForRoute('role-assignments.index');

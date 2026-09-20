@@ -44,7 +44,9 @@ class CreateLanGameTest extends DuskTestCase
             $browser->type('game_name', 'PUBG');
 
             // And clicks submit
-            $browser->press('Submit');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('Submit');
+            });
 
             // And refreshes the page
             $browser->refresh();

@@ -103,7 +103,7 @@ class CloneEventTest extends DuskTestCase
 
             // When the short LAN is selected as the destination
             $browser->select('lan_id', (string) $shortLan->id);
-            $browser->pause(250);
+            $this->waitForInputValue($browser, 'end', '2026-07-02 21:00');
 
             // Then the start/end dates shift onto its schedule (1 day after its start), preserving time of day
             $browser->assertInputValue('start', '2026-07-02 18:00');
@@ -114,7 +114,7 @@ class CloneEventTest extends DuskTestCase
 
             // When the roomy LAN is selected instead
             $browser->select('lan_id', (string) $roomyLan->id);
-            $browser->pause(250);
+            $this->waitForInputValue($browser, 'end', '2026-08-02 21:00');
 
             // Then the dates shift again, preserving the 1-day offset and time of day
             $browser->assertInputValue('start', '2026-08-02 18:00');
@@ -150,7 +150,7 @@ class CloneEventTest extends DuskTestCase
             // When the admin moves the start time 2 hours later
             $browser->type('start', '2026-06-05 20:00');
             $browser->click('h1');
-            $browser->pause(250);
+            $this->waitForInputValue($browser, 'end', '2026-06-05 23:00');
 
             // Then the end time shifts by the same 2 hours, preserving the 3-hour duration
             $browser->assertInputValue('end', '2026-06-05 23:00');
@@ -158,7 +158,7 @@ class CloneEventTest extends DuskTestCase
             // When the admin moves the signup-open time 1 hour earlier
             $browser->type('signups_open', '2026-06-05 15:00');
             $browser->click('h1');
-            $browser->pause(250);
+            $this->waitForInputValue($browser, 'signups_close', '2026-06-05 16:30');
 
             // Then the signup-close time shifts by the same hour, preserving the 90-minute window
             $browser->assertInputValue('signups_close', '2026-06-05 16:30');

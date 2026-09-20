@@ -64,6 +64,11 @@ class DeleteUserAchievementTest extends DuskTestCase
             // And accepts the confirmation dialog
             $browser->acceptDialog();
 
+            // And waits for the confirmation message, which only exists once the page has reloaded
+            $browser->waitForText(
+                'You have revoked the achievement "'.$achievement->name.'" from '.$user->username
+            );
+
             // And waits for the user achievement index page to load
             $browser->waitForRoute('lans.user-achievements.index', ['lan' => $lan]);
 

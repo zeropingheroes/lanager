@@ -17,7 +17,7 @@ class HideEventDiscordNotificationMessageSectionFromNonAdminTest extends DuskTes
     public function test_hiding_discord_section_from_non_admin(): void
     {
         $this->browse(function (Browser $browser): void {
-            // Create a super admin first — UserObserver assigns super-admin to the first user created
+            // Create a super admin first - UserObserver assigns super-admin to the first user created
             // after DB truncation, so the non-admin must be created second
             $this->createSuperAdmin();
 

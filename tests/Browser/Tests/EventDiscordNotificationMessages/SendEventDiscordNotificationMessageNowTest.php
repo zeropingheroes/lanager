@@ -35,7 +35,7 @@ class SendEventDiscordNotificationMessageNowTest extends DuskTestCase
 
             // And opens the options dropdown
             $browser->click('button[title="Options"]');
-            $browser->pause(300);
+            $browser->waitForLink('Send Now');
 
             // And clicks "Send Now" and accepts the confirmation dialog
             $browser->clickLink('Send Now');
@@ -45,7 +45,7 @@ class SendEventDiscordNotificationMessageNowTest extends DuskTestCase
             // Then an inline result message is shown in the page alerts area (success or error)
             $browser->waitFor('#page-alerts .alert', 10);
 
-            // And no page navigation occurs — still on the event show page
+            // And no page navigation occurs - still on the event show page
             $browser->assertRouteIs('lans.events.show', ['lan' => $lan, 'event' => $event]);
         });
     }

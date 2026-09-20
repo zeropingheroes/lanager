@@ -54,7 +54,9 @@ class SlideFormPickerLimitsTest extends DuskTestCase
             $this->assertDayDisabled($browser, 'June 04, 2025');
 
             // And the end picker only allows days within the LAN
-            $browser->click('#position')->click('#end')->waitFor(self::WIDGET);
+            // (Wait for the start picker to close first, so the assertions read the end picker's widget)
+            $browser->click('#position')->waitUntilMissing(self::WIDGET);
+            $browser->click('#end')->waitFor(self::WIDGET);
             $this->assertDayEnabled($browser, 'June 01, 2025');
             $this->assertDayEnabled($browser, 'June 03, 2025');
             $this->assertCannotGoBeforeLan($browser);

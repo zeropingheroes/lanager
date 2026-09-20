@@ -41,6 +41,9 @@ class DeleteUserTest extends DuskTestCase
             // And accepts the confirmation dialog
             $browser->acceptDialog();
 
+            // And waits for the confirmation message, which only exists once the next page has loaded
+            $browser->waitForText('User "'.$user->username.'" deleted');
+
             // Then they should see a confirmation message that the slide was deleted
             $browser->on(new LanAttendeeIndex)->assertSee('User "'.$user->username.'" deleted');
         });

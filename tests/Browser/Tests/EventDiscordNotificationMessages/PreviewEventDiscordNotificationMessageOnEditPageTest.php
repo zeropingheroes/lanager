@@ -42,10 +42,9 @@ class PreviewEventDiscordNotificationMessageOnEditPageTest extends DuskTestCase
             // Wait for the Vue image selector to finish mounting
             $browser->waitFor('.selection-panel');
 
-            // Scroll the preview button to the centre of the viewport — the image library can push it
+            // Scroll the preview button to the centre of the viewport - the image library can push it
             // near the bottom where fixed page elements may intercept the click
-            $browser->script("document.getElementById('discord-notification-preview-button').scrollIntoView({behavior: 'instant', block: 'center'})");
-            $browser->pause(200);
+            $this->scrollToCentreAndWaitUntilUnobstructed($browser, '#discord-notification-preview-button');
 
             // And clicks the preview button
             $browser->click('#discord-notification-preview-button');
@@ -53,7 +52,7 @@ class PreviewEventDiscordNotificationMessageOnEditPageTest extends DuskTestCase
             // Then an inline result message is shown next to the preview button (success or error)
             $browser->waitFor('#discord-notification-preview-result.text-success, #discord-notification-preview-result.text-danger');
 
-            // And no page navigation occurs — still on the edit page
+            // And no page navigation occurs - still on the edit page
             $browser->on(new EventDiscordNotificationMessageEdit);
 
             // And the stored notification message is unchanged

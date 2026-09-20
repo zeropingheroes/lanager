@@ -50,6 +50,9 @@ class DeleteSlideTest extends DuskTestCase
             // And confirms the deletion
             $browser->acceptDialog();
 
+            // And waits for the confirmation message, which only exists once the page has reloaded
+            $browser->waitForText('Slide "'.$slide->name.'" deleted');
+
             // Then the super admin should be taken to the slide index page
             $browser->assertRouteIs('lans.slides.index', ['lan' => $lan]);
 

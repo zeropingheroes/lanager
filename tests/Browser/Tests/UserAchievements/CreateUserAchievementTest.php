@@ -52,7 +52,9 @@ class CreateUserAchievementTest extends DuskTestCase
             $browser->select('achievement_id', $achievement->id);
 
             // And clicks the award achievement button
-            $browser->press('Award');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('Award');
+            });
 
             // And waits for the event's page to load
             $browser->waitForRoute('lans.user-achievements.index', ['lan' => $lan]);

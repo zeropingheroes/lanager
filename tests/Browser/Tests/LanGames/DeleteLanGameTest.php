@@ -56,6 +56,9 @@ class DeleteLanGameTest extends DuskTestCase
             // And accepts the confirmation dialogue
             $browser->acceptDialog();
 
+            // And waits for the confirmation message, which only exists once the page has reloaded
+            $browser->waitForText('Game "'.$lanGame->game_name.'" deleted');
+
             // And waits for the LAN games index page to load
             $browser->waitForRoute('lans.lan-games.index', ['lan' => $lan]);
 

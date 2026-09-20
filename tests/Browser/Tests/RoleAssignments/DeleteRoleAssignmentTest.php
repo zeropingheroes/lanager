@@ -44,6 +44,9 @@ class DeleteRoleAssignmentTest extends DuskTestCase
             // And accepts the confirmation dialog
             $browser->acceptDialog();
 
+            // And waits for the confirmation message, which only exists once the page has reloaded
+            $browser->waitForText($user->username.' is no longer assigned the role '.$role->display_name);
+
             // And waits for the role assignment index page to load
             $browser->waitForRoute('role-assignments.index');
 

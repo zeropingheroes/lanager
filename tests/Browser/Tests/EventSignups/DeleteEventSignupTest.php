@@ -64,6 +64,9 @@ class DeleteEventSignupTest extends DuskTestCase
             // And accepts the confirmation dialog
             $browser->acceptDialog();
 
+            // And waits for the user's name to disappear, which only happens once the page has reloaded
+            $browser->waitUntilMissingText($user->username);
+
             // And waits for the event page to load
             $browser->waitForRoute('lans.events.show', ['lan' => $lan, 'event' => $event]);
 

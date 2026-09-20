@@ -56,13 +56,20 @@ class DeleteLanGameVoteTest extends DuskTestCase
             $browser->visitRoute('lans.lan-games.index', ['lan' => $lan]);
 
             // And clicks the text of the game the super admin submitted
-            $browser->clickAtXPath('//label[contains(string(),"'.$lanGame->game_name.'")]');
-
-            // And waits for the checkbox to load
-            $browser->waitFor('#lan_game_'.$lanGame->id.'_checkbox');
+            // (The page unticks the checkbox itself before submitting, so wait for the reload
+            // to see what the server stored)
+            $browser->waitForReload(function (Browser $browser) use ($lanGame): void {
+                $browser->clickAtXPath('//label[contains(string(),"'.$lanGame->game_name.'")]');
+            });
 
             // Then they should see the checkbox next to the game they voted for is not checked
             $browser->assertNotChecked('#lan_game_'.$lanGame->id.'_checkbox');
+
+            // And the vote has been removed
+            $this->assertDatabaseMissing(LanGameVote::class, [
+                'lan_game_id' => $lanGame->id,
+                'user_id' => $user->id,
+            ]);
         });
     }
 }

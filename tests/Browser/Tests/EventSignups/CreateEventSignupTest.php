@@ -60,7 +60,9 @@ class CreateEventSignupTest extends DuskTestCase
             $browser->visitRoute('lans.events.show', ['lan' => $lan, 'event' => $event]);
 
             // And clicks the signup button
-            $browser->press('Sign up');
+            $browser->waitForReload(function (Browser $browser): void {
+                $browser->press('Sign up');
+            });
 
             // And waits for the event's page to load
             $browser->waitForRoute('lans.events.show', ['lan' => $lan, 'event' => $event]);

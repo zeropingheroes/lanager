@@ -35,6 +35,9 @@ class DeleteVenueTest extends DuskTestCase
             // And accepts the confirmation dialog
             $browser->acceptDialog();
 
+            // And waits for the confirmation message, which only exists once the page has reloaded
+            $browser->waitForText('Venue "'.$venue->name.'" deleted');
+
             // Then they should be redirected to the venue index page
             $browser->assertRouteIs('venues.index');
 

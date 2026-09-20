@@ -59,7 +59,10 @@ class ManageApiTokensTest extends DuskTestCase
             $browser->press('Delete');
             $browser->acceptDialog();
 
-            // Then the token is removed from the list
+            // Then a confirmation message is shown once the page has reloaded
+            $browser->waitForText('API Token "My Script" deleted');
+
+            // And the token is removed from the list
             $browser->assertDontSeeIn('table', 'My Script');
         });
     }
