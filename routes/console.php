@@ -20,6 +20,10 @@ use Zeropingheroes\Lanager\Console\Commands\UpdateSteamUsers;
 |
 */
 
+// Sends Discord notifications for events whose start time falls within the last minute
+Schedule::command(SendDiscordEventNotificationMessages::class)
+    ->everyMinute();
+
 // The Steam Web API limits requests to 100,000 per day
 // the below schedules will not exceed this limit for a LAN party of ~1,000 users.
 
@@ -45,7 +49,3 @@ Schedule::command(UpdateSteamApps::class)
 // This command gracefully handles the rate limit
 Schedule::command(UpdateSteamUserAppImages::class)
     ->daily();
-
-// Sends Discord notifications for events whose start time falls within the last minute
-Schedule::command(SendDiscordEventNotificationMessages::class)
-    ->everyMinute();
