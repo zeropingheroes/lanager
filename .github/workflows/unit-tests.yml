@@ -30,7 +30,7 @@ jobs:
             APP_DEBUG: true
             STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
             DB_CONNECTION: mysql
-            DB_HOST: localhost
+            DB_HOST: 127.0.0.1
             DB_PORT: 3306
             DB_DATABASE: lanager
             DB_USERNAME: root
@@ -41,15 +41,21 @@ jobs:
             MAIL_MAILER: array
             LOG_CHANNEL: file
 
-        steps:
-            -   name: Start MySQL
-                run: sudo /etc/init.d/mysql start
-
-            -   name: Create database
+        services:
+            mysql:
+                image: mysql:8.4
                 env:
-                    MYSQL_PWD: ${{ env.DB_PASSWORD }}
-                run: mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USERNAME }}
+                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_DATABASE: lanager
+                ports:
+                    - 3306:3306
+                options: >-
+                    --health-cmd="mysqladmin ping -h 127.0.0.1 -proot"
+                    --health-interval=10s
+                    --health-timeout=5s
+                    --health-retries=5
 
+        steps:
             -   name: Checkout code
                 uses: actions/checkout@v7
 
